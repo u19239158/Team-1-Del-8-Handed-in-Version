@@ -5,15 +5,15 @@ using System.Collections.Generic;
 
 namespace NKAP_API_2.EF
 {
-    public partial class User
+    public partial class Users
     {
-        public User()
+        public Users()
         {
             AuditTrails = new HashSet<AuditTrail>();
             PasswordHistories = new HashSet<PasswordHistory>();
         }
 
-        public int UserId { get; set; }
+        public int UsersId { get; set; }
         public int? UserRoleId { get; set; }
         public string UserUsername { get; set; }
         public string UserPassword { get; set; }

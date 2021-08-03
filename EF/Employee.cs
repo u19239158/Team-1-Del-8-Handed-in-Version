@@ -20,7 +20,7 @@ namespace NKAP_API_2.EF
         public string EmployeeAddressLine1 { get; set; }
         public string EmployeeAddressLine2 { get; set; }
         public DateTime EmployeeDob { get; set; }
-        public int EmployeeIdnumber { get; set; }
+        public string EmployeeIdnumber { get; set; }
 
         public virtual ICollection<EmployeeShift> EmployeeShifts { get; set; }
         public virtual ICollection<Sale> Sales { get; set; }

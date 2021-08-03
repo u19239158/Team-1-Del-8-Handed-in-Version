@@ -37,6 +37,14 @@ namespace NKAP_API_2.Controllers
             return Ok(OrderStatus);
         }
 
+        [Route("GetOrderStatusByDescription/{description}")] //route
+        [HttpGet]
+        //get Order Statuses by ID (Read)
+        public IActionResult get(string description)
+        {
+            var OrderStatus = _db.OrderStatuses.FirstOrDefault(od => od.OrderStatusDescription == description);
+            return Ok(OrderStatus);
+        }
 
         [Route("CreateOrderStatus")] //route
         [HttpPost]
@@ -45,7 +53,7 @@ namespace NKAP_API_2.Controllers
         public IActionResult CreateOrderStatus(OrderStatusModel model) //reference the model
         {
             OrderStatus order = new OrderStatus();
-            order.OrderStatusDescription = model.OrderStatus; //attributes in table
+            order.OrderStatusDescription = model.OrderStatusDescription; //attributes in table
             _db.OrderStatuses.Add(order);
             _db.SaveChanges();
 
@@ -57,20 +65,20 @@ namespace NKAP_API_2.Controllers
         //Update Order Status
         public IActionResult UpdateOrderStatus(OrderStatusModel model)
         {
-            var order = _db.OrderStatuses.Find(model.ID);
-            order.OrderStatusDescription = model.OrderStatus;
+            var order = _db.OrderStatuses.Find(model.OrderStatusID);
+            order.OrderStatusDescription = model.OrderStatusDescription;
             _db.OrderStatuses.Attach(order); //Attach Record
             _db.SaveChanges();
 
             return Ok(order);
         }
 
-        [Route("DeleteOrderStatus/{id}")] //route
+        [Route("DeleteOrderStatus/{orderstatusid}")] //route
         [HttpDelete]
         //Delete Order Status
-        public IActionResult DeleteOrderStatus(int id)
+        public IActionResult DeleteOrderStatus(int orderstatusid)
         {
-            var order = _db.OrderStatuses.Find(id);
+            var order = _db.OrderStatuses.Find(orderstatusid);
             _db.OrderStatuses.Remove(order); //Delete Record
             _db.SaveChanges();
 

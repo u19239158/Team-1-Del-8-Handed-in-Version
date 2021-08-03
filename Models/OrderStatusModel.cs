@@ -8,12 +8,12 @@ namespace NKAP_API_2.Models
 {
     public class OrderStatusModel
     {
-        [JsonProperty("id")]
-        public int ID
+        [JsonProperty("orderstatusid")]
+        public int OrderStatusID
         { get; set; }
 
-        [JsonProperty("orderstatus")]
-        public string OrderStatus
+        [JsonProperty("orderstatusdescription")]
+        public string OrderStatusDescription
         { get; set; }
     }
 }

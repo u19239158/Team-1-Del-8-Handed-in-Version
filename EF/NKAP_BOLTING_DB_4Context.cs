@@ -60,7 +60,7 @@ namespace NKAP_API_2.EF
         public virtual DbSet<SupplierType> SupplierTypes { get; set; }
         public virtual DbSet<Time> Times { get; set; }
         public virtual DbSet<Title> Titles { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<Vat> Vats { get; set; }
         public virtual DbSet<WrittenOffStock> WrittenOffStocks { get; set; }
@@ -170,11 +170,11 @@ namespace NKAP_API_2.EF
 
                 entity.Property(e => e.AuditTrailTime).HasColumnName("AuditTrail_Time");
 
-                entity.Property(e => e.UserId).HasColumnName("User_ID");
+                entity.Property(e => e.UsersId).HasColumnName("Users_ID");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.AuditTrails)
-                    .HasForeignKey(d => d.UserId)
+                    .HasForeignKey(d => d.UsersId)
                     .HasConstraintName("FK__AuditTrai__User___1A14E395");
             });
 
@@ -531,11 +531,11 @@ namespace NKAP_API_2.EF
                     .IsUnicode(false)
                     .HasColumnName("PasswordHistory_Text");
 
-                entity.Property(e => e.UserId).HasColumnName("User_ID");
+                entity.Property(e => e.UsersId).HasColumnName("Users_ID");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.PasswordHistories)
-                    .HasForeignKey(d => d.UserId)
+                    .HasForeignKey(d => d.UsersId)
                     .HasConstraintName("FK__PasswordH__User___1CF15040");
             });
 
@@ -1122,9 +1122,9 @@ namespace NKAP_API_2.EF
                     .HasColumnName("Title_Description");
             });
 
-            modelBuilder.Entity<User>(entity =>
+            modelBuilder.Entity<Users>(entity =>
             {
-                entity.Property(e => e.UserId).HasColumnName("User_ID");
+                entity.Property(e => e.UsersId).HasColumnName("Users_ID");
 
                 entity.Property(e => e.UserPassword)
                     .IsRequired()
