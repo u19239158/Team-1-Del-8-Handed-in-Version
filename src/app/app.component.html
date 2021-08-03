@@ -1,23 +1,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 <!-- Navbar -->
-<div class="w3-bar w3-blue w3-top w3-small">
+
+<div class="w3-bar w3-blue w3-top w3-large" style="height:46px">
   <img src="assets/images/transparentnkaplogo.png" class="topheaderlogo" alt="logo">
-  <h3 class="w3-wide w3-left topheadertext"><b>NKAP Bolting</b></h3>
+  <h3 class="w3-wide w3-left topheadertext"><i><b>NKAP Bolting</b></i></h3>
       <p class="w3-right">
-        <input type="text" formControlName="searchbox" class="form-control searchbox" placeholder="Search by">
-        <i class="fa fa-search w3-margin-right"></i>
-        <i class="fa fa-shopping-cart w3-margin-right"></i>
+        <!-- <i class="fa fa-shopping-cart w3-margin-right shoppingposition"></i> -->
       </p>
-</div>
+  </div>
 
   <!-- Sidebar -->
   <nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
@@ -33,9 +31,7 @@
       <a href="#SearchUserRole" style="text-decoration:none">Search User Role</a>
     </div>
 
-     <button class="menu-item">
-      <mat-icon class="w3-margin-right" width=20px height=20px> contacts</mat-icon> Employees
-      <i class="fa fa-caret-down"></i>
+    <button class="menu-item"><img src="assets/images/employee.png" class="w3-margin-right" width=20px height=20px>Suppliers
     </button>
     <div class="dropdown-container">
       <a href="#AddEmployee" style="text-decoration:none">Add Employee</a>
@@ -105,8 +101,6 @@
     <div class="dropdown-container">
       <a href="#GenerateReport" style="text-decoration:none">Generate Report</a>
     </div>
-
-
 
    <a href="#Logout" class="menu-item"><img src="assets/images/Logout.png" class="w3-margin-right" width=20px height=20px>Logout</a>
    <a href="#Help" class="menu-item"><img src="assets/images/Help.png" class="w3-margin-right" width=20px height=20px>Help</a>

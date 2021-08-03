@@ -17,7 +17,7 @@ body {
 
 /* Style the sidenav links and the dropdown button */
 .sidenav a, .menu-item {
-  padding: 5px 10px 5px 18px;
+  padding: 7px 9px 7px 17px;
   text-decoration: none;
   font-size: 13px;
   color: #818181;
@@ -73,7 +73,7 @@ body {
 {
   position: absolute;
   left: 45px;
-  top: 3px;
+  top: 11px;
   font-family: Roboto;
   font-weight: 300;
   font-size: 20px;
@@ -92,6 +92,13 @@ body {
   height:35px;
 }
 
+.shoppingposition
+{
+  position: absolute;
+  top: 11px;
+  right:10px;
+  }
+
 .rotateimg90 {
   -webkit-transform:rotate(90deg);
   -moz-transform: rotate(90deg);
@@ -106,7 +113,6 @@ body {
   box-shadow: 0px 1px 0px rgba(63, 63, 68, 0.05), 0px 1px 3px rgba(63, 63, 68, 0.15);
   border-radius: 4px;
 }
-
 .w3-sidebar {
   z-index: 3;
   width: 210px;
@@ -122,7 +128,7 @@ footer {
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: rgb(66, 108, 224);
+  background-color: rgb(58, 58, 240);
   color: white;
   text-align: center;
 }

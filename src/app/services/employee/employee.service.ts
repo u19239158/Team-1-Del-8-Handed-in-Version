@@ -1,21 +1,23 @@
 import { Injectable } from '@angular/core';
-import { last } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Employee } from 'src/app/interfaces';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
 
+  server = 'https://localhost:44308/api/';
+  httpOptions = {
+    headers: new HttpHeaders({
+      ContentType: 'application/json'
+    })
+  };
   KEY = 'employees';
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  /**
-   *
-   * @returns an array of type User
-   * This function reads all of the users from localStorage, if nothing is found it'll add an initial user to the
-   * localStorage key and recursively call itself again to read the users again.
-   */
   getAll(): Employee[] {
     const employees = JSON.parse(localStorage.getItem(this.KEY));
 
@@ -41,6 +43,10 @@ export class EmployeeService {
     return employees;
   }
 
+  // getEmployee():  Observable<Employees[]>  {
+  //   return this.http.get<Employees[]>(`${this.server}/Employee/GetEmployees`).pipe(map(res => res));
+  // }
+
   getEmployeeById(id: number): Employee {
     const employees: Employee[] = JSON.parse(localStorage.getItem(this.KEY));
     return employees.find(x => x.id === id);
@@ -59,7 +65,10 @@ export class EmployeeService {
     localStorage.setItem(this.KEY, JSON.stringify([...employees, newEmployee]));
   }
 
-  
+  // addEmployee(newEmployee: Employee) {
+  //   return this.http.post<Employee>(`${this.server}/Employee/Add`, employee, this.httpOptions);
+  // }
+
   updateEmployee(updated: Employee): void {
     const employees: Employee[] = JSON.parse(localStorage.getItem(this.KEY));
     const index = employees.findIndex(x => x.id == updated.id);
@@ -71,6 +80,9 @@ export class EmployeeService {
     }
   }
 
+  // updateEmployee(updated: Employee) {
+  //   return this.http.put<Employee>(`${this.server}/Employee/Update`, employee, this.httpOptions);
+  // }
   deleteEmployee(toDelete: Employee): void {
     const employees: Employee[] = JSON.parse(localStorage.getItem(this.KEY));
     const index = employees.findIndex(x => x.id == toDelete.id);
@@ -80,4 +92,8 @@ export class EmployeeService {
       localStorage.setItem(this.KEY, JSON.stringify([...employees]));
     }
   }
+
+  // deleteEmployee(toDelete: Employee) {
+  //   return this.http.delete<Employee>(`${this.server}/Employee/Add`, employee, this.httpOptions);
+  // }
 }
