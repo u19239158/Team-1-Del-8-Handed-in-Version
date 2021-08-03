@@ -1,0 +1,128 @@
+body {
+  font-family: "Lato", sans-serif;
+}
+
+/* Fixed sidenav, full height */
+.sidenav {
+  height: 100%;
+  width: 210px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .menu-item {
+  padding: 5px 10px 5px 18px;
+  text-decoration: none;
+  font-size: 13px;
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .menu-item:hover {
+  color: grey;
+}
+
+/* Main content */
+.main {
+  margin-left: 211.3px; /* Same as the width of the sidenav */
+  font-size: 15px; /* Increased text to enable scrolling */
+  padding: 46px 0px;
+}
+
+/* Add an active class to the active dropdown button */
+.active {
+  background-color: white;
+  color: black;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  background-color: white;
+  padding-left: 57px;
+  font-size: 11.5px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+  float: right;
+  padding-right: 8px;
+  line-height: 22px;
+}
+
+/* Some media queries for responsiveness */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 14px;}
+}
+
+.topheadertext
+{
+  position: absolute;
+  left: 45px;
+  top: 3px;
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 22px;
+  letter-spacing: -0.0555556px;
+  color: #FFFFFF;
+  }
+
+.topheaderlogo
+{
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  line-height: 10px;
+  width:35px;
+  height:35px;
+}
+
+.rotateimg90 {
+  -webkit-transform:rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.searchbox{
+  background: #FFFFFF;
+  border: 1px solid rgba(63, 63, 68, 0.005);
+  box-shadow: 0px 1px 0px rgba(63, 63, 68, 0.05), 0px 1px 3px rgba(63, 63, 68, 0.15);
+  border-radius: 4px;
+}
+
+.w3-sidebar {
+  z-index: 3;
+  width: 210px;
+  top: 46px;
+  bottom: 0;
+  height: inherit;
+  background: #FFFFFF;
+ filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(66, 108, 224);
+  color: white;
+  text-align: center;
+}
