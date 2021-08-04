@@ -31,5 +31,13 @@ namespace NKAP_API_2.Models
         [JsonProperty("supplierorderVat")]
         public decimal SupplierOrderVat
         { get; set; }
+
+        [JsonProperty("supplierorderstatusid")]
+        public int SupplierOrderStatusId
+        { get; set; }
+
+        [JsonProperty("supplierid")]
+        public int SupplierID
+        { get; set; }
     }
 }

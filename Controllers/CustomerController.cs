@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 using NKAP_API_2.EF;
 using NKAP_API_2.Models;
 
@@ -21,19 +23,90 @@ namespace NKAP_API_2.Controllers
         [Route("GetCustomer")] //route
         [HttpGet]
         //get Customer (Read)
-        public IActionResult get()
+        //public IActionResult get()
+        //{
+        //    var Customers = _db.Customers.ToList();
+            
+        //    var desc = _db.Titles.Select(td => td.TitleDescription.Where(td.TitleId = )
+        //    return Ok(Customers);
+        //}
+
+        public ActionResult get()
         {
-            var Customers = _db.Customers.ToList();
-            return Ok(Customers);
+            //var TtitlesDesc = _db.Titles.Select(zz => zz.TitleDescription).ToList();
+            //var Customers = _db.Customers.Include(zz => zz.Title).ToList();
+            //var Titles = _db.Titles.Include(xx => xx.Customers);
+            //dynamic toreturn = new List<dynamic>();
+           //// foreach (var customer in Customers)
+           // {
+           //     dynamic dynamicCust = new ExpandoObject();
+           //     dynamicCust.CustomerName = customer.CustomerName;
+           //     dynamicCust.CustomerSurname = customer.CustomerSurname;
+           //     dynamicCust.CustomerCellphoneNumber = customer.CustomerCellphoneNumber;
+           //     dynamicCust.CustomerEmailAddress = customer.CustomerEmailAddress;
+           //     dynamicCust.CustomerVatReg = customer.CustomerVatreg;
+           //     dynamicCust.BusinessName = customer.CustomerBusinessName;
+           //     dynamicCust.TitleID = customer.TitleId;
+
+           //     toreturn.Add(dynamicCust);
+
+           //     //var descr = from a in Titles
+           //     //            join c in Customers on a.TitleId equals c.TitleId
+           //     //            select a.TitleDescription;
+           // }
+
+            var Custitle = _db.Customers.Join(_db.Titles,
+                c => c.TitleId,
+                t => t.TitleId,
+                (c, t) => new
+                {
+                    TitleID = c.TitleId,
+                    TitleDesc = t.TitleDescription,
+                    CustomerName = c.CustomerName,
+                    CustomerSurname = c.CustomerSurname,
+                    CustomerCellphone = c.CustomerCellphoneNumber,
+                    CustomerEmailAddress = c.CustomerEmailAddress,
+                    CustomerVATReg= c.CustomerVatreg,
+                    CustomerBusinessName = c.CustomerBusinessName,
+                    
+                });
+
+
+            //var desc = _db.Titles.
+            //Join(_db.Customers, u => u.TitleId, uir => uir.TitleId,
+            //(u, uir) => new { u, uir }).;
+            ////var desc = _db.Titles.Find()
+            //var desc = _db.Titles.Select(td => td.TitleDescription.Where(td.TitleId == C=);
+
+            return Ok(Custitle);
         }
+
 
         [Route("GetCustomerByID/{customerid}")] //route
         [HttpGet]
         //get Customer by ID (Read)
         public IActionResult get(int customerid)
         {
-            var Customer = _db.Customers.Find(customerid);
-            return Ok(Customer);
+            //var Customer = _db.Customers.Find(customerid);
+
+            var Custitle = _db.Customers.Join(_db.Titles,
+              c => c.TitleId,
+              t => t.TitleId,
+              (c, t) => new
+              {
+                  TitleID = c.TitleId,
+                  TitleDesc = t.TitleDescription,
+                  CustomerID = c.CustomerId,
+                  CustomerName = c.CustomerName,
+                  CustomerSurname = c.CustomerSurname,
+                  CustomerCellphone = c.CustomerCellphoneNumber,
+                  CustomerEmailAddress = c.CustomerEmailAddress,
+                  CustomerVATReg = c.CustomerVatreg,
+                  CustomerBusinessName = c.CustomerBusinessName,
+
+              }).First(cn => cn.CustomerID == customerid);
+
+            return Ok(Custitle);
         }
 
         [Route("GetCustomerByName/{customername}")] //route
@@ -41,8 +114,26 @@ namespace NKAP_API_2.Controllers
         //get Customer by Name (Read)
         public IActionResult Get(string customername)
         {
-            var Customer = _db.Customers.FirstOrDefault(cn => cn.CustomerName == customername);
-            return Ok(Customer);
+           // var Customer = _db.Customers.FirstOrDefault(cn => cn.CustomerName == customername);
+           
+            var Custitle = _db.Customers.Join(_db.Titles,
+               c => c.TitleId,
+               t => t.TitleId,
+               (c, t) => new
+               {
+                   TitleID = c.TitleId,
+                   TitleDesc = t.TitleDescription,
+                   CustomerName = c.CustomerName,
+                   CustomerSurname = c.CustomerSurname,
+                   CustomerCellphone = c.CustomerCellphoneNumber,
+                   CustomerEmailAddress = c.CustomerEmailAddress,
+                   CustomerVATReg = c.CustomerVatreg,
+                   CustomerBusinessName = c.CustomerBusinessName,
+
+               }).Where(cn => cn.CustomerName == customername);
+            
+
+            return Ok(Custitle);
         }
 
         [Route("GetCustomerBySurname/{customersurname}")] //route
@@ -50,8 +141,28 @@ namespace NKAP_API_2.Controllers
         //get Customer by ID (Read)
         public IActionResult get(string customersurname)
         {
-            var Customer = _db.Customers.FirstOrDefault(cs => cs.CustomerSurname == customersurname);
-            return Ok(Customer);
+            //var Customer = _db.Customers.FirstOrDefault(cs => cs.CustomerSurname == customersurname);
+
+            var Custitle = _db.Customers.Join(_db.Titles,
+               c => c.TitleId,
+               t => t.TitleId,
+               (c, t) => new
+               {
+                   TitleID = c.TitleId,
+                   TitleDesc = t.TitleDescription,
+                   CustomerName = c.CustomerName,
+                   CustomerSurname = c.CustomerSurname,
+                   CustomerCellphone = c.CustomerCellphoneNumber,
+                   CustomerEmailAddress = c.CustomerEmailAddress,
+                   CustomerVATReg = c.CustomerVatreg,
+                   CustomerBusinessName = c.CustomerBusinessName,
+
+               }).Where(cn => cn.CustomerSurname == customersurname);
+
+
+            return Ok(Custitle);
+
+           
         }
 
         [Route("CreateCustomer")] //route
@@ -67,6 +178,7 @@ namespace NKAP_API_2.Controllers
             customer.CustomerEmailAddress = model.CustomerEmailAddress;
             customer.CustomerBusinessName = model.CustomerBusinessName;
             customer.CustomerVatreg = model.CustomerVatReg;
+            customer.TitleId = model.TitleID;
             _db.Customers.Add(customer);
             _db.SaveChanges();
 
@@ -85,6 +197,7 @@ namespace NKAP_API_2.Controllers
             customer.CustomerEmailAddress = model.CustomerEmailAddress;
             customer.CustomerBusinessName = model.CustomerBusinessName;
             customer.CustomerVatreg = model.CustomerVatReg;
+            customer.TitleId = model.TitleID;
             _db.Customers.Attach(customer); //Attach Record
             _db.SaveChanges();
 

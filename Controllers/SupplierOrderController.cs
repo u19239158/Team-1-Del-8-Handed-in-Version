@@ -24,8 +24,41 @@ namespace NKAP_API_2.Controllers
         //get Supplier Order (Read)
         public IActionResult get()
         {
-            var SupplierOrders = _db.SupplierOrders.ToList();
+            var SupplierOrders = _db.SupplierOrders.Join(_db.Suppliers, 
+                su => su.SupplierId,
+                so => so.SupplierId,
+            
+                (su, so) => new
+                {
+                    SupplierOrderID = su.SupplierOrderId,
+                    SupplierID = su.SupplierId,
+                    SupplierName = so.SupplierName,
+                    OrderDatePlaced = su.OrderDatePlaced, //attributes in table
+                    OrderDateReceived = su.OrderDateReceived,
+                    SupplierOrderTotal = su.SupplierOrderTotal,
+                    SupplierOrderSubTotal = su.SupplierOrderTotal,
+                    SupplierOrderVat = su.SupplierOrderVat,
+                    SupplierOrderStatusId = su.SupplierOrderStatusId
+
+                }).Join(_db.SupplierOrderStatuses,
+                sor => sor.SupplierOrderStatusId, sd => sd.SupplierOrderStatusId,
+                (sor,sd) => new
+                {
+                    SupplierOrderID = sor.SupplierOrderID,
+                    Order_Status = sd.SupplierOrderStatusDesc,
+                    SupplierName = sor.SupplierName,
+                    OrderStatusID = sor.SupplierOrderStatusId,
+                    SupplierID = sor.SupplierID,
+                    OrderDatePlaced = sor.OrderDatePlaced,
+                    OrderDateReceived = sor.OrderDateReceived,
+                    SupplierOrderTotal = sor.SupplierOrderTotal,
+                    SupplierOrderSubTotal = sor.SupplierOrderTotal,
+                    SupplierOrderVat = sor.SupplierOrderVat
+
+                });
+
             return Ok(SupplierOrders);
+
 
         }
 
@@ -34,7 +67,39 @@ namespace NKAP_API_2.Controllers
         //get SupplierOrder by ID (Read)
         public IActionResult get(int supplierorderid)
         {
-            var SupplierOrders = _db.SupplierOrders.Find(supplierorderid);
+            var SupplierOrders  = _db.SupplierOrders.Join(_db.Suppliers,
+                su => su.SupplierId,
+                so => so.SupplierId,
+
+                (su, so) => new
+                {
+                    SupplierOrderID = su.SupplierOrderId,
+                    SupplierID = su.SupplierId,
+                    SupplierName = so.SupplierName,
+                    OrderDatePlaced = su.OrderDatePlaced, //attributes in table
+                    OrderDateReceived = su.OrderDateReceived,
+                    SupplierOrderTotal = su.SupplierOrderTotal,
+                    SupplierOrderSubTotal = su.SupplierOrderTotal,
+                    SupplierOrderVat = su.SupplierOrderVat,
+                    SupplierOrderStatusId = su.SupplierOrderStatusId
+
+                }).Join(_db.SupplierOrderStatuses,
+                sor => sor.SupplierOrderStatusId, sd => sd.SupplierOrderStatusId,
+                (sor, sd) => new
+                {
+                    SupplierOrderID = sor.SupplierOrderID,
+                    Order_Status = sd.SupplierOrderStatusDesc,
+                    SupplierName = sor.SupplierName,
+                    OrderStatusID = sor.SupplierOrderStatusId,
+                    SupplierID = sor.SupplierID,
+                    OrderDatePlaced = sor.OrderDatePlaced,
+                    OrderDateReceived = sor.OrderDateReceived,
+                    SupplierOrderTotal = sor.SupplierOrderTotal,
+                    SupplierOrderSubTotal = sor.SupplierOrderTotal,
+                    SupplierOrderVat = sor.SupplierOrderVat
+
+                }).First(aa => aa.SupplierOrderID == supplierorderid);
+
             return Ok(SupplierOrders);
         }
 
@@ -43,7 +108,39 @@ namespace NKAP_API_2.Controllers
         //get SupplierOrder by Date Placed (Read)
         public IActionResult get(DateTime orderdateplaced)
         {
-            var SupplierOrders = _db.SupplierOrders.FirstOrDefault(so => so.OrderDatePlaced ==orderdateplaced);
+            var SupplierOrders = _db.SupplierOrders.Join(_db.Suppliers,
+                su => su.SupplierId,
+                so => so.SupplierId,
+
+                (su, so) => new
+                {
+                    SupplierOrderID = su.SupplierOrderId,
+                    SupplierID = su.SupplierId,
+                    SupplierName = so.SupplierName,
+                    OrderDatePlaced = su.OrderDatePlaced, //attributes in table
+                    OrderDateReceived = su.OrderDateReceived,
+                    SupplierOrderTotal = su.SupplierOrderTotal,
+                    SupplierOrderSubTotal = su.SupplierOrderTotal,
+                    SupplierOrderVat = su.SupplierOrderVat,
+                    SupplierOrderStatusId = su.SupplierOrderStatusId
+
+                }).Join(_db.SupplierOrderStatuses,
+                sor => sor.SupplierOrderStatusId, sd => sd.SupplierOrderStatusId,
+                (sor, sd) => new
+                {
+                    SupplierOrderID = sor.SupplierOrderID,
+                    Order_Status = sd.SupplierOrderStatusDesc,
+                    SupplierName = sor.SupplierName,
+                    OrderStatusID = sor.SupplierOrderStatusId,
+                    SupplierID = sor.SupplierID,
+                    OrderDatePlaced = sor.OrderDatePlaced,
+                    OrderDateReceived = sor.OrderDateReceived,
+                    SupplierOrderTotal = sor.SupplierOrderTotal,
+                    SupplierOrderSubTotal = sor.SupplierOrderTotal,
+                    SupplierOrderVat = sor.SupplierOrderVat
+
+                }).Where(aa => aa.OrderDatePlaced == orderdateplaced);
+
             return Ok(SupplierOrders);
         }
 
@@ -59,6 +156,8 @@ namespace NKAP_API_2.Controllers
             supOrder.SupplierOrderTotal = model.SupplierOrderTotal;
             supOrder.SupplierOrderSubTotal = model.SupplierOrderTotal;
             supOrder.SupplierOrderVat = model.SupplierOrderVat;
+            supOrder.SupplierOrderStatusId = model.SupplierOrderStatusId;
+            supOrder.SupplierId = model.SupplierID;
             _db.SupplierOrders.Add(supOrder);
             _db.SaveChanges();
 
