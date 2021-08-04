@@ -23,7 +23,19 @@ namespace NKAP_API_2.Controllers
         //get User (Read)
         public IActionResult get()
         {
-            var Users = _db.Users.ToList();
+            var Users = _db.Users.Join(_db.UserRoles,
+                            u => u.UserRoleId,
+                            ur => ur.UserRoleId,
+                            (u, ur) => new
+                            {
+                                usersId = u.UsersId,
+                                userUsername = u.UserUsername,
+                                userPassword = u.UserPassword,
+                                userRoleId = u.UserRoleId,
+                                userRole = ur.UserRoleName,
+                            });
+
+
             return Ok(Users);
 
         }
@@ -33,7 +45,19 @@ namespace NKAP_API_2.Controllers
         //get User by ID (Read)
         public IActionResult get(int userid)
         {
-            var Users = _db.Users.Find(userid);
+            var Users = _db.Users.Join(_db.UserRoles,
+                            u => u.UserRoleId,
+                            ur => ur.UserRoleId,
+                            (u, ur) => new
+                            {
+                                usersId = u.UsersId,
+                                userUsername = u.UserUsername,
+                                userPassword = u.UserPassword,
+                                userRoleId = u.UserRoleId,
+                                userRole = ur.UserRoleName,
+                            }).First(ui => ui.usersId == userid);
+
+
             return Ok(Users);
         }
 
@@ -46,6 +70,7 @@ namespace NKAP_API_2.Controllers
             Users user = new Users();
             user.UserUsername = model.UserUsername;
             user.UserPassword = model.UserPassword; //attributes in table
+            user.UserRoleId = model.UserRoleID;
             _db.Users.Add(user);
             _db.SaveChanges();
 
@@ -60,6 +85,7 @@ namespace NKAP_API_2.Controllers
             var user = _db.Users.Find(model.UsersID);
             user.UserUsername = model.UserUsername;
             user.UserPassword = model.UserPassword;
+            user.UserRoleId = model.UserRoleID;
             _db.Users.Attach(user); //Attach Record
             _db.SaveChanges();
 

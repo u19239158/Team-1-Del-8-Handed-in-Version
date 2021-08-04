@@ -13,7 +13,15 @@ namespace NKAP_API_2.Models
         { get; set; }
 
         [JsonProperty("SaleLinequantity")]
-        public string SaleLineQuantity
+        public int SaleLineQuantity
+        { get; set; }
+
+        [JsonProperty("productitemid")]
+        public int ProductItemID
+        { get; set; }
+
+        [JsonProperty("saleid")]
+        public int SaleID
         { get; set; }
     }
 }

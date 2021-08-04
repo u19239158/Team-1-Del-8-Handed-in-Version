@@ -36,5 +36,13 @@ namespace NKAP_API_2.Models
         public DateTime PaymentDate
         { get; set; }
 
+        [JsonProperty("orderstatusid")]
+        public int OrderStatusId
+        { get; set; }
+
+        [JsonProperty("paymenttypeid")]
+        public int PaymentTypeId
+        { get; set; }
+
     }
 }

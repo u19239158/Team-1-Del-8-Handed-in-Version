@@ -23,38 +23,229 @@ namespace NKAP_API_2.Controllers
         //get Sales (Read)
         public IActionResult get()
         {
-            var sale = _db.Sales.ToList();
-            return Ok(sale);
+            // var sale = _db.Sales.ToList();
+            var Sales = _db.Sales.Join(_db.OrderStatuses,
+                 su => su.OrderStatusId,
+                 so => so.OrderStatusId,
+
+                 (su, so) => new
+                 {
+                     SaleID = su.SaleId,
+                     SaleDescription = su.SaleOrderDescription,
+                     SaleDate = su.SaleOrderDate,
+                     SaleAssign = su.SaleOrderAssign,
+                     SaleReceiveType = su.SaleOrderRecieveType,
+                     SalePaymentDate = su.PaymentDate,
+                     SalePaymentAmount = su.PaymentAmount,
+                     OrderStatusID = so.OrderStatusId,
+                     OrderStatusDesc = so.OrderStatusDescription,
+                     PaymentTypeID = su.PaymentTypeId
+      
+                    //attributes in table
+                }).Join(_db.PaymentTypes,
+                 sor => sor.PaymentTypeID,
+                 sd => sd.PaymentTypeId,
+                 (sor, sd) => new
+                 {
+                     SaleID = sor.SaleID,
+                     SaleDescription = sor.SaleDescription,
+                     SaleDate = sor.SaleDate,
+                     SaleAssign = sor.SaleAssign,
+                     SaleReceiveType = sor.SaleReceiveType,
+                     SalePaymentDate = sor.SalePaymentDate,
+                     SalePaymentAmount = sor.SalePaymentAmount,
+                     OrderStatusID = sor.OrderStatusID,
+                     OrderStatusDesc = sor.OrderStatusDesc,
+                     PaymentTypeID = sor.PaymentTypeID,
+                     PaymentTypeDescription = sd.PaymentTypeDescription
+
+                 });
+
+            return Ok(Sales);
 
         }
 
-        [Route("GetOrderSales/{saleid}")] //route
+        [Route("GetSaleByID/{saleid}")] //route
         [HttpGet]
         //get Sales by ID (Read)
         public IActionResult get(int saleid)
         {
-            var sale = _db.Sales.Find(saleid);
-            return Ok(sale);
+            var Sale = _db.Sales.Join(_db.OrderStatuses,
+                su => su.OrderStatusId,
+                so => so.OrderStatusId,
+
+                (su, so) => new
+                {
+                    SaleID = su.SaleId,
+                    SaleDescription = su.SaleOrderDescription,
+                    SaleDate = su.SaleOrderDate,
+                    SaleAssign = su.SaleOrderAssign,
+                    SaleReceiveType = su.SaleOrderRecieveType,
+                    SalePaymentDate = su.PaymentDate,
+                    SalePaymentAmount = su.PaymentAmount,
+                    OrderStatusID = so.OrderStatusId,
+                    OrderStatusDesc = so.OrderStatusDescription,
+                    PaymentTypeID = su.PaymentTypeId
+
+                     //attributes in table
+                 }).Join(_db.PaymentTypes,
+                sor => sor.PaymentTypeID,
+                sd => sd.PaymentTypeId,
+                (sor, sd) => new
+                {
+                    SaleID = sor.SaleID,
+                    SaleDescription = sor.SaleDescription,
+                    SaleDate = sor.SaleDate,
+                    SaleAssign = sor.SaleAssign,
+                    SaleReceiveType = sor.SaleReceiveType,
+                    SalePaymentDate = sor.SalePaymentDate,
+                    SalePaymentAmount = sor.SalePaymentAmount,
+                    OrderStatusID = sor.OrderStatusID,
+                    OrderStatusDesc = sor.OrderStatusDesc,
+                    PaymentTypeID = sor.PaymentTypeID,
+                    PaymentTypeDescription = sd.PaymentTypeDescription
+
+                }).First(ss => ss.SaleID == saleid);
+
+            return Ok(Sale);
         }
 
-        [Route("GetOrderSales/{SaleOrderdate}")] //route
+        [Route("GetSalesByDate/{SaleOrderdate}")] //route
         [HttpGet]
         //get Sales by Date (Read)
         public IActionResult get(DateTime SaleOrderdate)
         {
-            var sale = _db.Sales.Find(SaleOrderdate);
-            return Ok(sale);
+            var Sale = _db.Sales.Join(_db.OrderStatuses,
+                 su => su.OrderStatusId,
+                 so => so.OrderStatusId,
+
+                 (su, so) => new
+                 {
+                     SaleID = su.SaleId,
+                     SaleDescription = su.SaleOrderDescription,
+                     SaleDate = su.SaleOrderDate,
+                     SaleAssign = su.SaleOrderAssign,
+                     SaleReceiveType = su.SaleOrderRecieveType,
+                     SalePaymentDate = su.PaymentDate,
+                     SalePaymentAmount = su.PaymentAmount,
+                     OrderStatusID = so.OrderStatusId,
+                     OrderStatusDesc = so.OrderStatusDescription,
+                     PaymentTypeID = su.PaymentTypeId
+
+                    //attributes in table
+                }).Join(_db.PaymentTypes,
+                 sor => sor.PaymentTypeID,
+                 sd => sd.PaymentTypeId,
+                 (sor, sd) => new
+                 {
+                     SaleID = sor.SaleID,
+                     SaleDescription = sor.SaleDescription,
+                     SaleDate = sor.SaleDate,
+                     SaleAssign = sor.SaleAssign,
+                     SaleReceiveType = sor.SaleReceiveType,
+                     SalePaymentDate = sor.SalePaymentDate,
+                     SalePaymentAmount = sor.SalePaymentAmount,
+                     OrderStatusID = sor.OrderStatusID,
+                     OrderStatusDesc = sor.OrderStatusDesc,
+                     PaymentTypeID = sor.PaymentTypeID,
+                     PaymentTypeDescription = sd.PaymentTypeDescription
+
+                 }).Where(ss => ss.SaleDate == SaleOrderdate);
+
+            return Ok(Sale);
+            
         }
 
-        [Route("GetOrderSales/{SaleOrderRecievetype}")] //route
+        [Route("GetSalesReceiveType/{SaleOrderRecievetype}")] //route
         [HttpGet]
         //get Sales by ReceiveType (Read)
         public IActionResult get(bool SaleOrderRecievetype)
         {
-            var sale = _db.Sales.Find(SaleOrderRecievetype);
-            return Ok(sale);
+            var Sale = _db.Sales.Join(_db.OrderStatuses,
+                 su => su.OrderStatusId,
+                 so => so.OrderStatusId,
+
+                 (su, so) => new
+                 {
+                     SaleID = su.SaleId,
+                     SaleDescription = su.SaleOrderDescription,
+                     SaleDate = su.SaleOrderDate,
+                     SaleAssign = su.SaleOrderAssign,
+                     SaleReceiveType = su.SaleOrderRecieveType,
+                     SalePaymentDate = su.PaymentDate,
+                     SalePaymentAmount = su.PaymentAmount,
+                     OrderStatusID = so.OrderStatusId,
+                     OrderStatusDesc = so.OrderStatusDescription,
+                     PaymentTypeID = su.PaymentTypeId
+
+                     //attributes in table
+                 }).Join(_db.PaymentTypes,
+                 sor => sor.PaymentTypeID,
+                 sd => sd.PaymentTypeId,
+                 (sor, sd) => new
+                 {
+                     SaleID = sor.SaleID,
+                     SaleDescription = sor.SaleDescription,
+                     SaleDate = sor.SaleDate,
+                     SaleAssign = sor.SaleAssign,
+                     SaleReceiveType = sor.SaleReceiveType,
+                     SalePaymentDate = sor.SalePaymentDate,
+                     SalePaymentAmount = sor.SalePaymentAmount,
+                     OrderStatusID = sor.OrderStatusID,
+                     OrderStatusDesc = sor.OrderStatusDesc,
+                     PaymentTypeID = sor.PaymentTypeID,
+                     PaymentTypeDescription = sd.PaymentTypeDescription
+
+                 }).Where(ss => ss.SaleReceiveType == SaleOrderRecievetype);
+
+            return Ok(Sale);
         }
 
+        [Route("GetSalesByOrderStatus/{orderstatusdescription}")] //route
+        [HttpGet]
+        //get Sales by Date (Read)
+        public IActionResult get(string orderstatusdescription)
+        {
+            var Sale = _db.Sales.Join(_db.OrderStatuses,
+                 su => su.OrderStatusId,
+                 so => so.OrderStatusId,
+
+                 (su, so) => new
+                 {
+                     SaleID = su.SaleId,
+                     SaleDescription = su.SaleOrderDescription,
+                     SaleDate = su.SaleOrderDate,
+                     SaleAssign = su.SaleOrderAssign,
+                     SaleReceiveType = su.SaleOrderRecieveType,
+                     SalePaymentDate = su.PaymentDate,
+                     SalePaymentAmount = su.PaymentAmount,
+                     OrderStatusID = so.OrderStatusId,
+                     OrderStatusDesc = so.OrderStatusDescription,
+                     PaymentTypeID = su.PaymentTypeId
+
+                     //attributes in table
+                 }).Join(_db.PaymentTypes,
+                 sor => sor.PaymentTypeID,
+                 sd => sd.PaymentTypeId,
+                 (sor, sd) => new
+                 {
+                     SaleID = sor.SaleID,
+                     SaleDescription = sor.SaleDescription,
+                     SaleDate = sor.SaleDate,
+                     SaleAssign = sor.SaleAssign,
+                     SaleReceiveType = sor.SaleReceiveType,
+                     SalePaymentDate = sor.SalePaymentDate,
+                     SalePaymentAmount = sor.SalePaymentAmount,
+                     OrderStatusID = sor.OrderStatusID,
+                     OrderStatusDesc = sor.OrderStatusDesc,
+                     PaymentTypeID = sor.PaymentTypeID,
+                     PaymentTypeDescription = sd.PaymentTypeDescription
+
+                 }).Where(ss => ss.OrderStatusDesc == orderstatusdescription);
+
+            return Ok(Sale);
+
+        }
 
         [Route("CreateSales")] //route
         [HttpPost]
@@ -69,6 +260,9 @@ namespace NKAP_API_2.Controllers
             sale.SaleOrderRecieveType = model.SaleOrderRecieveType;
             sale.PaymentAmount = model.PaymentAmount;
             sale.PaymentDate = model.PaymentDate;
+            sale.OrderStatusId = model.OrderStatusId;
+            sale.PaymentTypeId = model.PaymentTypeId;
+
             _db.Sales.Add(sale);
             _db.SaveChanges();
 

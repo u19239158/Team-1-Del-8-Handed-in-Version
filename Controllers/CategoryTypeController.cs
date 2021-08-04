@@ -24,8 +24,21 @@ namespace NKAP_API_2.Controllers
         //get Category Type (Read)
         public IActionResult get()
         {
-            var CategoryTypes = _db.CategoryTypes.ToList();
-            return Ok(CategoryTypes);
+            //var CategoryTypes = _db.CategoryTypes.ToList();
+
+             var Cattype = _db.CategoryTypes.Join(_db.ProductCategories,
+                 c => c.ProductCategoryId,
+                 t => t.ProductCategoryId,
+                 (c, t) => new
+                 {
+                     ProductCategoryID = c.ProductCategoryId,
+                     ProductCategoryDesc = t.ProductCategoryDescription,
+                     CategoryTypeId = c.CategoryTypeId,
+                     CategoryTypeDescription = c.CategoryTypeDescription
+
+                 });
+
+            return Ok(Cattype);
         }
 
         [Route("GetCategoryTypeByID/{categorytypeid}")] //route
@@ -33,8 +46,19 @@ namespace NKAP_API_2.Controllers
         //get CategoryType by ID (Read)
         public IActionResult get(int categorytypeid)
         {
-            var CategoryTypes = _db.CategoryTypes.Find(categorytypeid);
-            return Ok(CategoryTypes);
+            var Cattype = _db.CategoryTypes.Join(_db.ProductCategories,
+                c => c.ProductCategoryId,
+                t => t.ProductCategoryId,
+                (c, t) => new
+                {
+                    ProductCategoryID = c.ProductCategoryId,
+                    ProductCategoryDesc = t.ProductCategoryDescription,
+                    CategoryTypeId = c.CategoryTypeId,
+                    CategoryTypeDescription = c.CategoryTypeDescription
+
+                }).First( cc => cc.CategoryTypeId == categorytypeid) ;
+
+            return Ok(Cattype);
         }
 
         [Route("GetCategoryTypeByDescription/{categorytypedescription}")] //route
@@ -42,8 +66,19 @@ namespace NKAP_API_2.Controllers
         //get CategoryType by Description (Read)
         public IActionResult get(string categorytypedescription)
         {
-            var CategoryTypes = _db.CategoryTypes.FirstOrDefault(ct => ct.CategoryTypeDescription == categorytypedescription);
-            return Ok(CategoryTypes);
+            var Cattype = _db.CategoryTypes.Join(_db.ProductCategories,
+                c => c.ProductCategoryId,
+                t => t.ProductCategoryId,
+                (c, t) => new
+                {
+                    ProductCategoryID = c.ProductCategoryId,
+                    ProductCategoryDesc = t.ProductCategoryDescription,
+                    CategoryTypeId = c.CategoryTypeId,
+                    CategoryTypeDescription = c.CategoryTypeDescription
+
+                }).First(cc => cc.CategoryTypeDescription == categorytypedescription); 
+
+            return Ok(Cattype);
         }
 
         [Route("CreateCategoryType")] //route
@@ -54,6 +89,7 @@ namespace NKAP_API_2.Controllers
         {
             CategoryType catType = new CategoryType();
             catType.CategoryTypeDescription = model.CategoryTypeDescription; //attributes in table
+            catType.ProductCategoryId = model.ProductCategoryID;
             _db.CategoryTypes.Add(catType);
             _db.SaveChanges();
 
@@ -67,6 +103,7 @@ namespace NKAP_API_2.Controllers
         {
             var catType = _db.CategoryTypes.Find(model.CategoryTypeID);
             catType.CategoryTypeDescription = model.CategoryTypeDescription;
+            catType.ProductCategoryId = model.ProductCategoryID;
             _db.CategoryTypes.Attach(catType); //Attach Record
             _db.SaveChanges();
 

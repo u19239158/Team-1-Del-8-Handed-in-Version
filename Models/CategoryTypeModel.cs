@@ -15,5 +15,9 @@ namespace NKAP_API_2.Models
         [JsonProperty("categorytypedescription")]
         public string CategoryTypeDescription
         { get; set; }
+
+        [JsonProperty("productcategoryid")]
+        public int ProductCategoryID
+        { get; set; }
     }
 }
