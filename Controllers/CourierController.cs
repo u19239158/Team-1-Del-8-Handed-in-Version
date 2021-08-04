@@ -23,7 +23,21 @@ namespace NKAP_API_2.Controllers
         //get Courier (Read)
         public IActionResult get()
         {
-            var Couriers = _db.Couriers.ToList();
+
+            var Couriers = _db.Couriers.Join(_db.CourierTypes,
+                a => a.CourierTypeId,
+                t => t.CourierTypeId,
+                (a, t) => new
+                {
+                    CourierTypeID = a.CourierTypeId,
+                    CourierTypeDescription = t.CourierTypeDescription,
+                    CourierName = a.CourierName,
+                    CourierNumber = a.CourierNumber,
+                    CourierEmail = a.CourierEmail,
+                    CourierID = a.CourierId
+
+                });
+                    
             return Ok(Couriers);
         }
 
@@ -32,7 +46,21 @@ namespace NKAP_API_2.Controllers
         //get Courier by ID (Read)
         public IActionResult get(int courierid)
         {
-            var Couriers = _db.Couriers.Find(courierid);
+            //var Couriers = _db.Couriers.Find(courierid);
+            var Couriers = _db.Couriers.Join(_db.CourierTypes,
+              a => a.CourierTypeId,
+              t => t.CourierTypeId,
+              (a, t) => new
+              {
+                  CourierTypeID = a.CourierTypeId,
+                  CourierTypeDescription = t.CourierTypeDescription,
+                  CourierName = a.CourierName,
+                  CourierNumber = a.CourierNumber,
+                  CourierEmail = a.CourierEmail,
+                  CourierID = a.CourierId,
+
+              }).First(pd => pd.CourierID == courierid);
+            
             return Ok(Couriers);
         }
 
@@ -41,7 +69,20 @@ namespace NKAP_API_2.Controllers
         //get Courier by ID (Read)
         public IActionResult get(string couriername)
         {
-            var Couriers = _db.Couriers.FirstOrDefault(cn => cn.CourierName == couriername);
+            //var Couriers = _db.Couriers.FirstOrDefault(cn => cn.CourierName == couriername);
+            var Couriers = _db.Couriers.Join(_db.CourierTypes,
+             a => a.CourierTypeId,
+             t => t.CourierTypeId,
+             (a, t) => new
+             {
+                 CourierTypeID = a.CourierTypeId,
+                 CourierTypeDescription = t.CourierTypeDescription,
+                 CourierName = a.CourierName,
+                 CourierNumber = a.CourierNumber,
+                 CourierEmail = a.CourierEmail,
+                 CourierID = a.CourierId,
+
+             }).First(pd => pd.CourierName == couriername);
             return Ok(Couriers);
         }
 
@@ -55,6 +96,7 @@ namespace NKAP_API_2.Controllers
             courier.CourierName = model.CourierName; //attributes in table
             courier.CourierNumber = model.CourierNumber;
             courier.CourierEmail = model.CourierEmail;
+            courier.CourierTypeId = model.CourierTypeID;
             _db.Couriers.Add(courier);
             _db.SaveChanges();
 
@@ -70,6 +112,7 @@ namespace NKAP_API_2.Controllers
             courier.CourierName = model.CourierName; //attributes in table
             courier.CourierNumber = model.CourierNumber;
             courier.CourierEmail = model.CourierEmail;
+            courier.CourierTypeId = model.CourierTypeID;
             _db.Couriers.Attach(courier); //Attach Record
             _db.SaveChanges();
 

@@ -23,5 +23,9 @@ namespace NKAP_API_2.Models
         [JsonProperty("courieremail")]
         public string CourierEmail
         { get; set; }
+
+        [JsonProperty("couriertypeid")]
+        public int CourierTypeID
+        { get; set; }
     }
 }

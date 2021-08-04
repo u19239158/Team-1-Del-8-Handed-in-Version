@@ -23,8 +23,29 @@ namespace NKAP_API_2.Controllers
             //get Supplier (Read)
             public IActionResult get()
             {
-                var Suppliers = _db.Suppliers.ToList();
-                return Ok(Suppliers);
+                //var Suppliers = _db.Suppliers.ToList();
+            var Suppliers = _db.Suppliers.Join(_db.SupplierTypes,
+             c => c.SupplierTypeId,
+             t => t.SupplierTypeId,
+             (c, t) => new
+             {
+                 SupplierName = c.SupplierName,
+                 SupplierNumber = c.SupplierNumber,
+                 SupplierEmail = c.SupplierEmail,
+                 SupplierLocation = c.SupplierLocation,
+                 SupplierAddressLine1 = c.SupplierAddressLine1,
+                 SupplierAddressLine2 = c.SupplierAddressLine2,
+                 SupplierAddressLine3 = c.SupplierAddressLine3,
+                 SupplierCityTown = c.SupplierCityTown,
+                 SupplierPostalCode = c.SupplierPostalCode,
+                 SupplierBalance = c.SupplierBalance,
+                 SupplierTypeId = t.SupplierTypeId,
+                 SupplierTypeDesc = t.SupplierTypeDesc,
+
+             });
+
+
+            return Ok(Suppliers);
             }
 
         [Route("GetSupplierByID/{supplierid}")] //route
@@ -32,7 +53,28 @@ namespace NKAP_API_2.Controllers
         //get Supplier by ID (Read)
         public IActionResult get(int supplierid)
         {
-            var Suppliers = _db.Suppliers.Find(supplierid);
+            //var Suppliers = _db.Suppliers.Find(supplierid);
+            var Suppliers = _db.Suppliers.Join(_db.SupplierTypes,
+             c => c.SupplierTypeId,
+             t => t.SupplierTypeId,
+             (c, t) => new
+             {
+                 SupplierID = c.SupplierId,
+                 SupplierName = c.SupplierName,
+                 SupplierNumber = c.SupplierNumber,
+                 SupplierEmail = c.SupplierEmail,
+                 SupplierLocation = c.SupplierLocation,
+                 SupplierAddressLine1 = c.SupplierAddressLine1,
+                 SupplierAddressLine2 = c.SupplierAddressLine2,
+                 SupplierAddressLine3 = c.SupplierAddressLine3,
+                 SupplierCityTown = c.SupplierCityTown,
+                 SupplierPostalCode = c.SupplierPostalCode,
+                 SupplierBalance = c.SupplierBalance,
+                 SupplierTypeId = t.SupplierTypeId,
+                 SupplierTypeDesc = t.SupplierTypeDesc,
+
+
+             }).First(sc => sc.SupplierID == supplierid);
             return Ok(Suppliers);
         }
 
@@ -41,7 +83,28 @@ namespace NKAP_API_2.Controllers
         //get Supplier by Name (Read)
         public IActionResult get(string suppliername)
         {
-            var Suppliers = _db.Suppliers.FirstOrDefault(sn => sn.SupplierName == suppliername);
+            //var Suppliers = _db.Suppliers.FirstOrDefault(sn => sn.SupplierName == suppliername);
+            var Suppliers = _db.Suppliers.Join(_db.SupplierTypes,
+            c => c.SupplierTypeId,
+            t => t.SupplierTypeId,
+            (c, t) => new
+            {
+                SupplierID = c.SupplierId,
+                SupplierName = c.SupplierName,
+                SupplierNumber = c.SupplierNumber,
+                SupplierEmail = c.SupplierEmail,
+                SupplierLocation = c.SupplierLocation,
+                SupplierAddressLine1 = c.SupplierAddressLine1,
+                SupplierAddressLine2 = c.SupplierAddressLine2,
+                SupplierAddressLine3 = c.SupplierAddressLine3,
+                SupplierCityTown = c.SupplierCityTown,
+                SupplierPostalCode = c.SupplierPostalCode,
+                SupplierBalance = c.SupplierBalance,
+                SupplierTypeId = t.SupplierTypeId,
+                SupplierTypeDesc = t.SupplierTypeDesc,
+
+
+            }).First(sc => sc.SupplierName == suppliername);
             return Ok(Suppliers);
         }
 
@@ -62,6 +125,7 @@ namespace NKAP_API_2.Controllers
             supplier.SupplierCityTown = model.SupplierCityTown;
             supplier.SupplierPostalCode = model.SupplierPostalCode;
             supplier.SupplierBalance = model.SupplierBalance;
+            supplier.SupplierTypeId = model.SupplierTypeID;
             _db.Suppliers.Add(supplier);
             _db.SaveChanges();
 
@@ -84,6 +148,7 @@ namespace NKAP_API_2.Controllers
             supplier.SupplierCityTown = model.SupplierCityTown;
             supplier.SupplierPostalCode = model.SupplierPostalCode;
             supplier.SupplierBalance = model.SupplierBalance;
+            supplier.SupplierTypeId = model.SupplierTypeID;
             _db.Suppliers.Attach(supplier); //Attach Record
             _db.SaveChanges();
 

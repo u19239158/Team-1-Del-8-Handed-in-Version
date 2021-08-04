@@ -24,8 +24,31 @@ namespace NKAP_API_2.Controllers
         //get Supplier Invoice (Read)
         public IActionResult get()
         {
-            var SupplierInvoiceLines = _db.SupplierInvoiceLines.ToList();
-            return Ok(SupplierInvoiceLines);
+            //var SupplierInvoiceLines = _db.SupplierInvoiceLines.ToList();
+            var SupplierInvoiceLine = _db.SupplierInvoiceLines.Join(_db.ProductItems,
+                su => su.ProductItemId,
+                so => so.ProductItemId,
+
+                (su, so) => new
+                {
+                    ProductItemID = su.ProductItemId,
+                    SupplierItemName = su.SupplierItemName,
+                    QuantityRecieved = su.QuantityReceived,
+                    LineItemCost = su.LineItemCost,
+                    SupplierInvoiceId = su.SupplierInvoiceId
+                }).Join(_db.SupplierInvoices,
+                sor => sor.SupplierInvoiceId,
+                sd => sd.SupplierInvoiceId,
+                (sor, sd) => new
+                {
+                    ProductItemID = sor.ProductItemID,
+                    SupplierItemName = sor.SupplierItemName,
+                    QuantityRecieved = sor.QuantityRecieved,
+                    LineItemCost = sor.LineItemCost,
+                    SupplierInvoiceID = sor.SupplierInvoiceId,
+
+                });
+            return Ok(SupplierInvoiceLine);
 
         }
 
@@ -39,6 +62,8 @@ namespace NKAP_API_2.Controllers
             invoiceline.SupplierItemName = model.SupplierItemName;  //attributes in table
             invoiceline.LineItemCost = model.LineItemCost;
             invoiceline.QuantityReceived = model.QuantityRecieved;
+            invoiceline.ProductItemId = model.ProductItemId;
+            invoiceline.SupplierInvoiceId = model.SupplierInvoiceId;
             _db.SupplierInvoiceLines.Add(invoiceline);
             _db.SaveChanges();
 

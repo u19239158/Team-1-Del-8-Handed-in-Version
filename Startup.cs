@@ -31,6 +31,7 @@ namespace NKAP_API_2
             services.AddControllers();
             //services.AddDbContext<NKAP_BOLTING_DB_4Context>(options => options.UseSqlServer)
             services.AddDbContext<NKAP_BOLTING_DB_4Context>(options => options.UseSqlServer(Configuration.GetConnectionString("NKAP_DB")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +52,8 @@ namespace NKAP_API_2
             {
                 endpoints.MapControllers();
             });
+
+
         }
     }
 }

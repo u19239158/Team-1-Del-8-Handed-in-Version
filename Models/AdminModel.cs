@@ -33,6 +33,10 @@ namespace NKAP_API_2.Models
         public virtual Title Title
         { get; set; }
 
+        [JsonProperty("titleid")]
+        public int TitleID
+        { get; set; }
+
 
     }
 }

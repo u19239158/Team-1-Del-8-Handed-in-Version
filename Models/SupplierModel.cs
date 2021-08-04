@@ -52,6 +52,10 @@ namespace NKAP_API_2.Models
         public decimal SupplierBalance
         { get; set; }
 
+        [JsonProperty("suppliertypeid")]
+        public int SupplierTypeID
+        { get; set; }
+
 
     }
 }

@@ -23,7 +23,23 @@ namespace NKAP_API_2.Controllers
         //get Admin (Read)
         public IActionResult get()
         {
-            var Admins = _db.Admins.ToList();
+            //var Admins = _db.Admins.ToList();
+           
+            var Admins = _db.Admins.Join(_db.Titles,
+                a => a.TitleId,
+                t => t.TitleId,
+                (a, t) => new
+                {
+                    TitleID = a.TitleId,
+                    TitleDesc = t.TitleDescription,
+                    AdminId = a.AdminId,
+                    AdminName = a.AdminName,
+                    AdminSurname = a.AdminSurname,
+                    AdminCellphoneNumber = a.AdminCellphoneNumber,
+                    AdminEmailAddress = a.AdminEmailAddress,
+
+                });
+
             return Ok(Admins);
 
         }
@@ -33,7 +49,22 @@ namespace NKAP_API_2.Controllers
         //get Admin by ID (Read)
         public IActionResult get(int adminid)
         {
-            var Admins = _db.Admins.Find(adminid);
+            // var Admins = _db.Admins.Find(adminid);
+            var Admins = _db.Admins.Join(_db.Titles,
+                 a => a.TitleId,
+                 t => t.TitleId,
+                 (a, t) => new
+                 {
+                     TitleID = a.TitleId,
+                     TitleDesc = t.TitleDescription,
+                     AdminId = a.AdminId,
+                     AdminName = a.AdminName,
+                     AdminSurname = a.AdminSurname,
+                     AdminCellphoneNumber = a.AdminCellphoneNumber,
+                     AdminEmailAddress = a.AdminEmailAddress,
+
+                 }).First(an => an.AdminId == adminid);
+
             return Ok(Admins);
         }
 
@@ -42,7 +73,22 @@ namespace NKAP_API_2.Controllers
         //get Admin by Name (Read)
         public IActionResult get(string adminname)
         {
-            var Admins = _db.Admins.FirstOrDefault(ae => ae.AdminName == adminname);
+            //var Admins = _db.Admins.FirstOrDefault(ae => ae.AdminName == adminname);
+            var Admins = _db.Admins.Join(_db.Titles,
+               a => a.TitleId,
+               t => t.TitleId,
+               (a, t) => new
+               {
+                   TitleID = a.TitleId,
+                   TitleDesc = t.TitleDescription,
+                   AdminId = a.AdminId,
+                   AdminName = a.AdminName,
+                   AdminSurname = a.AdminSurname,
+                   AdminCellphoneNumber = a.AdminCellphoneNumber,
+                   AdminEmailAddress = a.AdminEmailAddress,
+
+               }).Where(an => an.AdminName == adminname);
+
             return Ok(Admins);
         }
 
@@ -51,8 +97,23 @@ namespace NKAP_API_2.Controllers
         //get admin by surname (read)
         public IActionResult Get(string adminsurname)
         {
-            var admins = _db.Admins.FirstOrDefault(ae => ae.AdminSurname == adminsurname);
-            return Ok(admins);
+            //var admins = _db.Admins.FirstOrDefault(ae => ae.AdminSurname == adminsurname);
+            var Admins = _db.Admins.Join(_db.Titles,
+                a => a.TitleId,
+                t => t.TitleId,
+                (a, t) => new
+                {
+                    TitleID = a.TitleId,
+                    TitleDesc = t.TitleDescription,
+                    AdminName = a.AdminName,
+                    AdminId = a.AdminId,
+                    AdminSurname = a.AdminSurname,
+                    AdminCellphoneNumber = a.AdminCellphoneNumber,
+                    AdminEmailAddress = a.AdminEmailAddress,
+
+                }).Where(an => an.AdminSurname == adminsurname);
+
+            return Ok(Admins);
         }
 
 
@@ -67,6 +128,7 @@ namespace NKAP_API_2.Controllers
             admin.AdminSurname = model.AdminSurName;
             admin.AdminEmailAddress = model.AdminEmailAddress;
             admin.AdminCellphoneNumber = Convert.ToInt32(model.AdminCellPhoneNumber);
+            admin.TitleId = model.TitleID;
             _db.Admins.Add(admin);
             _db.SaveChanges();
 
@@ -83,6 +145,7 @@ namespace NKAP_API_2.Controllers
             admin.AdminSurname = model.AdminSurName;
             admin.AdminEmailAddress = model.AdminEmailAddress;
             admin.AdminCellphoneNumber = Convert.ToInt32(model.AdminCellPhoneNumber);
+            admin.TitleId = model.TitleID;
             _db.Admins.Attach(admin); //Attach Record
             _db.SaveChanges();
 

@@ -24,8 +24,20 @@ namespace NKAP_API_2.Controllers
         //get Supplier Invoice (Read)
         public IActionResult get()
         {
-            var SupplierInvoices = _db.SupplierInvoices.ToList();
-            return Ok(SupplierInvoices);
+            //var SupplierInvoices = _db.SupplierInvoices.ToList();
+            var SupplierInvoice = _db.SupplierInvoices.Join(_db.Suppliers,
+               a => a.SupplierId,
+               t => t.SupplierId,
+               (a, t) => new
+               {
+                   SupplierID = a.SupplierId,
+                   SupplierName = t.SupplierName,
+                   SupplierInvoiceTotal = a.SupplierInvoiceTotal,
+                   SupplierInvoiceDate = a.SupplierInvoiceDate,
+                   SupplierInvoiceID = a.SupplierInvoiceId
+
+               });
+            return Ok(SupplierInvoice);
 
         }
 
@@ -34,8 +46,21 @@ namespace NKAP_API_2.Controllers
         //get SupplierInvoice by ID (Read)
         public IActionResult get(int supplierinvoiceid)
         {
-            var SupplierInvoices = _db.SupplierInvoices.Find(supplierinvoiceid);
-            return Ok(SupplierInvoices);
+            //var SupplierInvoices = _db.SupplierInvoices.Find(supplierinvoiceid);
+            var SupplierInvoice = _db.SupplierInvoices.Join(_db.Suppliers,
+              a => a.SupplierId,
+              t => t.SupplierId,
+              (a, t) => new
+              {
+                  SupplierID = a.SupplierId,
+                  SupplierName = t.SupplierName,
+                  SupplierInvoiceTotal = a.SupplierInvoiceTotal,
+                  SupplierInvoiceDate = a.SupplierInvoiceDate,
+                  SupplierInvoiceID = a.SupplierInvoiceId
+
+              }).First(sa => sa.SupplierInvoiceID == supplierinvoiceid);
+
+            return Ok(SupplierInvoice);
         }
 
         [Route("CreateSupplierInvoice")] //route
@@ -47,6 +72,7 @@ namespace NKAP_API_2.Controllers
             SupplierInvoice invoice = new SupplierInvoice();
             invoice.SupplierInvoiceDate = model.SupplierInvoiceDate; //attributes in table
             invoice.SupplierInvoiceTotal = model.SupplierInvoiceTotal;
+            invoice.SupplierId = model.SupplierId;
             _db.SupplierInvoices.Add(invoice);
             _db.SaveChanges();
 
