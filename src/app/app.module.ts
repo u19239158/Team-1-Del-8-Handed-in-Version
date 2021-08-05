@@ -24,6 +24,8 @@ import { SuppliersComponent } from './supplier/suppliers/suppliers.component';
 import { AddEditSupplierComponent } from './supplier/add-edit-supplier/add-edit-supplier.component';
 import { SpecialsComponent } from './special/specials/specials.component';
 import { AddEditSpecialComponent } from './special/add-edit-special/add-edit-special.component';
+import { UserRoleComponent } from './userRole/user-role/user-role.component';
+import { AddEditUserRoleComponent } from './userRole/add-edit-user-role/add-edit-user-role.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { AddEditSpecialComponent } from './special/add-edit-special/add-edit-spe
     AddEditSupplierComponent,
     SpecialsComponent,
     AddEditSpecialComponent,
+    UserRoleComponent,
+    AddEditUserRoleComponent,
   ],
   imports: [
     BrowserModule,

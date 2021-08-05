@@ -25,14 +25,10 @@ export interface Supplier {
   supplierPostalCode: string;
 }
 
-export interface User {
-  id: number;
-  name: string;
-}
-
 export interface UserRole {
   id: number;
-  userRole: 'Customer'|'Admin'|'Employee';
+  userRoleName: string;
+  userRoleDescription: string;
 }
 
 export interface Special {

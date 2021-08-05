@@ -1,0 +1,34 @@
+<h1 *ngIf="isAddMode">Add User Role</h1>
+<h1 *ngIf="!isAddMode">Edit User Role</h1>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="main">
+
+  <div class="mat-row">
+    <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-w">
+            <mat-label>User Role Name</mat-label>
+            <input type="text" matInput placeholder="User Role Name" formControlName="userRoleName">
+            <mat-hint>User Role Name</mat-hint>
+        </mat-form-field>
+    </div>
+
+    <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-w">
+            <mat-label>User Role Description</mat-label>
+            <input type="text" matInput placeholder="User Role Description" formControlName="userRoleDescription">
+            <mat-hint>User Role Description</mat-hint>
+        </mat-form-field>
+    </div>
+</div>
+
+  <div class="mat-row">
+    <div class="form-group" class="control-w">
+      <button mat-raised-button color ="primary" [disabled]="loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Save
+      </button>
+      <a (click)="Close()" mat-button>Cancel</a>
+  </div>
+  </div>
+</form>
+
