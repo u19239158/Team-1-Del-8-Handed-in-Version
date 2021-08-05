@@ -9,12 +9,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class EmployeeService {
 
-  server = 'https://localhost:44308/api/';
-  httpOptions = {
-    headers: new HttpHeaders({
-      ContentType: 'application/json'
-    })
-  };
+  // server = 'https://localhost:44308/api/';
+  // httpOptions = {
+  //   headers: new HttpHeaders({
+  //     ContentType: 'application/json'
+  //   })
+  // };
+
   KEY = 'employees';
   constructor(private http: HttpClient) { }
 

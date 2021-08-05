@@ -1,14 +1,10 @@
+import { AddEditSupplierComponent } from './supplier/add-edit-supplier/add-edit-supplier.component';
+import { SuppliersComponent } from './supplier/suppliers/suppliers.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AddEditEmployeesComponent } from './pages/add-edit-employees/add-edit-employees.component';
 import { EmployeesComponent } from './pages/employees/employees.component';
 
-/**
- * This array specifies your routes array. The paths are matched with certain components,
- * if the path matches a component, that component will be displayed on your browser as the current page.
- * Notice how add and edit call the same component, but edit takes in a parameter that will influence if
- * the AddEditUsersComponent will be in add mode or in update mode. See the component for more.
- */
 const routes: Routes = [
   {
     path: '',
@@ -21,7 +17,19 @@ const routes: Routes = [
   {
     path: 'edit/:id',
     component: AddEditEmployeesComponent
-  }
+  },
+  {
+    path: 'supplier',
+    component: SuppliersComponent
+  },
+  {
+    path: 'supplierAdd',
+    component: AddEditSupplierComponent
+  },
+  {
+    path: 'supplierEdit/:id',
+    component: AddEditSupplierComponent
+  },
 ];
 
 @NgModule({

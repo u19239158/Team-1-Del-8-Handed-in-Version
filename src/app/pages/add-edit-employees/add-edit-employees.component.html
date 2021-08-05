@@ -1,56 +1,6 @@
 <h1 *ngIf="isAddMode">Add Employee</h1>
 <h1 *ngIf="!isAddMode">Edit Employee</h1>
 
- <!-- Modal -->
- <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Employee Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-
-        <form [formGroup]="form">
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">First Name</label>
-                <input type="text" formControlName="firstName" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-            </div>
-
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Last Name</label>
-                <input type="text" formControlName="lastName" class="form-control" id="exampleInputPassword1">
-            </div>
-
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Email Address</label>
-                <input type="email" formControlName="email" class="form-control" id="exampleInputPassword1">
-            </div>
-
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Contact Number</label>
-                <input type="text" formControlName="contact" class="form-control" id="exampleInputPassword1">
-            </div>
-
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Salary</label>
-                <input type="text" formControlName="salary" class="form-control" id="exampleInputPassword1">
-            </div>
-        </form>
-
-      </div>
-
-      <div class="modal-footer">
-        <button mat-raised-button color ="primary" [disabled]="loading">
-          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-          Save
-      </button>
-      <a (click)="Close()" mat-button>Cancel</a>
-    </div>
-    </div>
-  </div>
-</div> -->
-
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="main">
     <div class="mat-row">
         <div class="mat-col-quarter">
@@ -104,6 +54,7 @@
           <input matInput [matDatepicker]="picker" placeholder="Choose a date">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
+          <mat-hint>Your date of birth</mat-hint>
         </mat-form-field>
       </div>
 

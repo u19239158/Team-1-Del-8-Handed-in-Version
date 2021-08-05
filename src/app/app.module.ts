@@ -19,6 +19,9 @@ import { GlobalConfirmComponent } from './modals/globals/global-confirm/global-c
 import { EmployeesComponent } from './pages/employees/employees.component';
 import { AddEditEmployeesComponent } from './pages/add-edit-employees/add-edit-employees.component';
 import { MatListModule } from '@angular/material/list';
+import { MatNativeDateModule } from '@angular/material/core';
+import { SuppliersComponent } from './supplier/suppliers/suppliers.component';
+import { AddEditSupplierComponent } from './supplier/add-edit-supplier/add-edit-supplier.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,8 @@ import { MatListModule } from '@angular/material/list';
     GlobalConfirmComponent,
     EmployeesComponent,
     AddEditEmployeesComponent,
+    SuppliersComponent,
+    AddEditSupplierComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +49,7 @@ import { MatListModule } from '@angular/material/list';
     LayoutModule,
     MatListModule,
     MatDialogModule,
+    MatNativeDateModule
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

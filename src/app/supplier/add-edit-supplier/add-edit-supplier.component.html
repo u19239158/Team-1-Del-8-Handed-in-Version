@@ -1,0 +1,94 @@
+<h1 *ngIf="isAddMode">Add Supplier</h1>
+<h1 *ngIf="!isAddMode">Edit Supplier</h1>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="main">
+  <div class="mat-row">
+    <div class="mat-col-quarter">
+      <mat-form-field appearance="outline" class="control-w">
+          <mat-label>Supplier Name</mat-label>
+          <input type="text" matInput placeholder="Supplier Name" formControlName="supplierName">
+          <mat-hint>Supplier name</mat-hint>
+      </mat-form-field>
+  </div>
+
+    <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-w">
+            <mat-label>Contact Number</mat-label>
+            <input type="text" matInput placeholder="Contact Number" formControlName="supplierContactNumber">
+            <mat-hint>Supplier contact number</mat-hint>
+        </mat-form-field>
+    </div>
+  </div>
+
+  <div class="mat-row">
+    <div class="mat-col-quarter">
+      <mat-form-field appearance="outline" class="control-w">
+          <mat-label>Supplier Email Address</mat-label>
+          <input type="text" matInput placeholder="Supplier Email Address" formControlName="supplierEmailAddress">
+          <mat-hint>Supplier email address</mat-hint>
+      </mat-form-field>
+  </div>
+
+    <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-w">
+            <mat-label>Contact Number</mat-label>
+            <input type="text" matInput placeholder="Contact Number" formControlName="supplierContactNumber">
+            <mat-hint>Supplier contact number</mat-hint>
+        </mat-form-field>
+    </div>
+  </div>
+
+  <div class="mat-row">
+    <div class="mat-col-quarter">
+      <mat-form-field appearance="outline" class="control-w">
+          <mat-label>Supplier AddressLine1</mat-label>
+          <input type="text" matInput placeholder="Supplier AddressLine1" formControlName="supplierAddressLine1">
+          <mat-hint>Supplier adress line 1</mat-hint>
+      </mat-form-field>
+  </div>
+
+    <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-w">
+            <mat-label>City/Town</mat-label>
+            <input type="text" matInput placeholder="City/Town" formControlName="supplierCityTown">
+            <mat-hint>Supplier city or town</mat-hint>
+        </mat-form-field>
+    </div>
+  </div>
+
+  <div class="mat-row">
+    <div class="mat-col-quarter">
+      <mat-form-field appearance="outline" class="control-w">
+          <mat-label>Supplier AddressLine2</mat-label>
+          <input type="text" matInput placeholder="Supplier AddressLine2" formControlName="supplierAddressLine2">
+          <mat-hint>Supplier adress line 2</mat-hint>
+      </mat-form-field>
+  </div>
+
+    <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-w">
+            <mat-label>Postal Code</mat-label>
+            <input type="text" matInput placeholder="Postal Code" formControlName="supplierPostalCode">
+            <mat-hint>Supplier postal code</mat-hint>
+        </mat-form-field>
+    </div>
+  </div>
+
+  <div class="mat-row">
+    <div class="mat-col-quarter">
+      <mat-form-field appearance="outline" class="control-w">
+          <mat-label>Supplier AddressLine3</mat-label>
+          <input type="text" matInput placeholder="Supplier AddressLine3" formControlName="supplierAddressLine3">
+          <mat-hint>Supplier adress line 3</mat-hint>
+      </mat-form-field>
+  </div>
+
+  <div class="form-group" class="control-w">
+    <button mat-raised-button color ="primary" [disabled]="loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        Save
+    </button>
+    <a (click)="Close()" mat-button>Cancel</a>
+</div>
+  </div>
+</form>

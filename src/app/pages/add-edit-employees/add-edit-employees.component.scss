@@ -10,12 +10,14 @@ h1 {
   margin-left: 200px; /* Same as the width of the sidenav */
   font-size: 20px; /* Increased text to enable scrolling */
   padding: 0px 10px;
+  align-items: center;
 }
 
 .mat-row {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin-left: auto;
 }
 
 .mat-col-quarter {
