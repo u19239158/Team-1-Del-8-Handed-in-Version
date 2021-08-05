@@ -22,6 +22,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SuppliersComponent } from './supplier/suppliers/suppliers.component';
 import { AddEditSupplierComponent } from './supplier/add-edit-supplier/add-edit-supplier.component';
+import { SpecialsComponent } from './special/specials/specials.component';
+import { AddEditSpecialComponent } from './special/add-edit-special/add-edit-special.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { AddEditSupplierComponent } from './supplier/add-edit-supplier/add-edit-
     AddEditEmployeesComponent,
     SuppliersComponent,
     AddEditSupplierComponent,
+    SpecialsComponent,
+    AddEditSpecialComponent,
   ],
   imports: [
     BrowserModule,

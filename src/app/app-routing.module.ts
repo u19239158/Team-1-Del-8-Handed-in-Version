@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AddEditEmployeesComponent } from './pages/add-edit-employees/add-edit-employees.component';
 import { EmployeesComponent } from './pages/employees/employees.component';
+import { SpecialsComponent } from './special/specials/specials.component';
+import { AddEditSpecialComponent } from './special/add-edit-special/add-edit-special.component';
 
 const routes: Routes = [
   {
@@ -29,6 +31,18 @@ const routes: Routes = [
   {
     path: 'supplierEdit/:id',
     component: AddEditSupplierComponent
+  },
+  {
+    path: 'special',
+    component: SpecialsComponent
+  },
+  {
+    path: 'specialAdd',
+    component: AddEditSpecialComponent
+  },
+  {
+    path: 'specialEdit/:id',
+    component: AddEditSpecialComponent
   },
 ];
 

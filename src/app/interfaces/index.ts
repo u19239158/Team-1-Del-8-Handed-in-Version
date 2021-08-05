@@ -37,4 +37,9 @@ export interface UserRole {
 
 export interface Special {
   id: number;
+  specialImage: string;
+  specialDescription: string;
+  specialPrice: string;
+  specialStartDate: string;
+  specialEndDate: string;
 }
