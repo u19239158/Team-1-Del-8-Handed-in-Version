@@ -32,22 +32,22 @@ export class AddEditSpecialComponent implements OnInit {
 
     const formOptions: AbstractControlOptions = { };
     this.form = this.formBuilder.group({
-      specialImage: ['', Validators.required],
-      specialDescription: ['', Validators.required],
-      specialPrice: ['', Validators.required],
-      specialStartDate: ['', Validators.required],
-      specialEndDate: ['', Validators.required],
+      specialImage: ['', [Validators.required]],
+      specialDescription: ['', [Validators.required]],
+      specialPrice: ['', [Validators.required]],
+      specialStartDate: ['', [Validators.required]],
+      specialEndDate: ['', [Validators.required]],
     }, formOptions);
 
     if (!this.isAddMode) {
       this.special = this.SpecialService.getSpecialById(this.id);
 
         this.form = this.formBuilder.group({
-          specialImage: [this.special.specialImage, Validators.required],
-          specialDescription: [this.special.specialDescription, Validators.required],
-          specialPrice: [this.special.specialPrice, Validators.required],
-          specialStartDate: [this.special.specialStartDate, Validators.required],
-          specialEndDate: [this.special.specialEndDate, Validators.required],
+          specialImage: [this.special.specialImage, [Validators.required]],
+          specialDescription: [this.special.specialDescription, [Validators.required]],
+          specialPrice: [this.special.specialPrice, [Validators.required]],
+          specialStartDate: [this.special.specialStartDate, [Validators.required]],
+          specialEndDate: [this.special.specialEndDate,[Validators.required]],
     }, formOptions);
     }
   }

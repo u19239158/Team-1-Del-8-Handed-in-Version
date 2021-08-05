@@ -31,28 +31,28 @@ export class AddEditSupplierComponent implements OnInit {
 
     const formOptions: AbstractControlOptions = { };
     this.form = this.formBuilder.group({
-        supplierName: ['', Validators.required],
-        supplierEmailAddress: ['', Validators.required],
-        supplierContactNumber: ['', Validators.required, Validators.maxLength(10)],
-        supplierAddressLine1: ['', Validators.required],
-        supplierAddressLine2: ['', Validators.required],
-        supplierAddressLine3: ['', Validators.required],
-        supplierCityTown: ['', Validators.required],
-        supplierPostalCode: ['', Validators.required, Validators.maxLength(4)]
+        supplierName: ['', [Validators.required]],
+        supplierEmailAddress: ['', [Validators.required, Validators.email]],
+        supplierContactNumber: ['', [Validators.required, Validators.maxLength(10)]],
+        supplierAddressLine1: ['', [Validators.required]],
+        supplierAddressLine2: ['', [Validators.required]],
+        supplierAddressLine3: ['', [Validators.required]],
+        supplierCityTown: ['', [Validators.required]],
+        supplierPostalCode: ['', [Validators.required, Validators.maxLength(4)]]
     }, formOptions);
 
   if (!this.isAddMode) {
     this.supplier = this.SupplierService.getSupplierById(this.id);
 
       this.form = this.formBuilder.group({
-        supplierName: [this.supplier.supplierName, Validators.required],
-        supplierEmailAddress: [this.supplier.supplierEmailAddress, Validators.required],
-        supplierContactNumber: [this.supplier.supplierContactNumber, Validators.required, Validators.maxLength(10)],
-        supplierAddressLine1: [this.supplier.supplierAddressLine1, Validators.required],
-        supplierAddressLine2: [this.supplier.supplierAddressLine2, Validators.required],
-        supplierAddressLine3: [this.supplier.supplierAddressLine3, Validators.required],
-        supplierCityTown: [this.supplier.supplierCityTown, Validators.required],
-        supplierPostalCode: [this.supplier.supplierPostalCode, Validators.required, Validators.maxLength(4)]
+        supplierName: [this.supplier.supplierName, [Validators.required]],
+        supplierEmailAddress: [this.supplier.supplierEmailAddress, [Validators.required, Validators.email]],
+        supplierContactNumber: [this.supplier.supplierContactNumber, [Validators.required, Validators.maxLength(10)]],
+        supplierAddressLine1: [this.supplier.supplierAddressLine1, [Validators.required]],
+        supplierAddressLine2: [this.supplier.supplierAddressLine2, [Validators.required]],
+        supplierAddressLine3: [this.supplier.supplierAddressLine3, [Validators.required]],
+        supplierCityTown: [this.supplier.supplierCityTown, [Validators.required]],
+        supplierPostalCode: [this.supplier.supplierPostalCode, [Validators.required, Validators.maxLength(4)]]
   },  formOptions);
 }
 }
@@ -74,7 +74,7 @@ onSubmit() {
 createSupplier() {
   const supplier: Supplier = this.form.value;
   this.SupplierService.addSupplier(supplier);
-  this.router.navigateByUrl('');
+  this.router.navigateByUrl('supplierAdd');
 }
 
 updateSupplier() {
@@ -82,13 +82,13 @@ updateSupplier() {
   supplier.id = this.supplier.id;
   this.SupplierService.updateSupplier(supplier);
   this.form.reset();
-  this.router.navigateByUrl('');
+  this.router.navigateByUrl('supplierEdit');
 }
 
 
 Close() {
   this.form.reset();
-  this.router.navigateByUrl('');
+  this.router.navigateByUrl('supplier');
 }
 
 }

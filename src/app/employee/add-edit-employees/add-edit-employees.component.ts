@@ -2,7 +2,6 @@
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from 'src/app/interfaces';
 
@@ -26,7 +25,6 @@ export class AddEditEmployeesComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private EmployeeService: EmployeeService,
-        // private dialogRef: MatDialogRef<AddEditEmployeesComponent>, @Inject(MAT_DIALOG_DATA) public data:any
     ) {}
 
   ngOnInit(): void {
@@ -84,7 +82,7 @@ export class AddEditEmployeesComponent implements OnInit {
   createEmployee() {
     const employee: Employee = this.form.value;
     this.EmployeeService.addEmployee(employee);
-    this.router.navigateByUrl('');
+    this.router.navigateByUrl('employeeAdd');
   }
 
   updateEmployee() {
@@ -92,7 +90,7 @@ export class AddEditEmployeesComponent implements OnInit {
     employee.id = this.employee.id;
     this.EmployeeService.updateEmployee(employee);
     this.form.reset();
-    this.router.navigateByUrl('');
+    this.router.navigateByUrl('employeeEdit');
   }
 
 

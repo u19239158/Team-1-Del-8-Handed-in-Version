@@ -5,8 +5,8 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MaterialModule} from './material/material/material.module';
-import {HttpClientModule} from '@angular/common/http';
+import { MaterialModule} from './material/material/material.module';
+import { HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
@@ -26,6 +26,8 @@ import { SpecialsComponent } from './special/specials/specials.component';
 import { AddEditSpecialComponent } from './special/add-edit-special/add-edit-special.component';
 import { UserRoleComponent } from './userRole/user-role/user-role.component';
 import { AddEditUserRoleComponent } from './userRole/add-edit-user-role/add-edit-user-role.component';
+import { MatToolbarModule } from  '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav'
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import { AddEditUserRoleComponent } from './userRole/add-edit-user-role/add-edit
     LayoutModule,
     MatListModule,
     MatDialogModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSidenavModule,
+    MatToolbarModule
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

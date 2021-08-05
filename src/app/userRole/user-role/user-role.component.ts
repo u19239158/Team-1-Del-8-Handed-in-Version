@@ -16,7 +16,7 @@ export class UserRoleComponent implements OnInit {
 
   userRoles: UserRole[] = [];
   dataSource = new MatTableDataSource<UserRole>();
-  displayedColumns: string[] = ['name', 'dsecription','actions'];
+  displayedColumns: string[] = ['name', 'description','actions'];
 
   constructor(private userRoleService: UserRoleService,
               private snack: MatSnackBar,

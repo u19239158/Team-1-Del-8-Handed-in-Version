@@ -1,7 +1,6 @@
 import { UserRoleService } from '../../services/user-role/user-role.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserRole } from 'src/app/interfaces';
 
@@ -32,16 +31,16 @@ export class AddEditUserRoleComponent implements OnInit {
 
     const formOptions: AbstractControlOptions = { };
     this.form = this.formBuilder.group({
-        userRoleName: ['', Validators.required],
-        userRoleDescription: ['', Validators.required],
+        userRoleName: ['', [Validators.required]],
+        userRoleDescription: ['', [Validators.required, Validators.maxLength(50)]],
     }, formOptions);
 
     if (!this.isAddMode) {
       this.userRole = this.UserRoleService.getUserRoleById(this.id);
 
         this.form = this.formBuilder.group({
-          userRoleName: [this.userRole.userRoleName, Validators.required],
-          userRoleDescription: [this.userRole.userRoleDescription, Validators.required],
+          userRoleName: [this.userRole.userRoleName, [Validators.required]],
+          userRoleDescription: [this.userRole.userRoleDescription, [Validators.required, Validators.maxLength(50)]],
     }, formOptions);
     }
   }
@@ -77,7 +76,7 @@ export class AddEditUserRoleComponent implements OnInit {
 
   Close() {
     this.form.reset();
-    this.router.navigateByUrl('');
+    this.router.navigateByUrl('userRole');
   }
 
 }
