@@ -9,15 +9,27 @@ namespace NKAP_API_2.Models
     public class EmployeeShiftModel
     {
         [JsonProperty("employeeshiftid")]
-        public int EmployeeShift_ID
+        public int EmployeeShiftId
         { get; set; }
 
         [JsonProperty("noofdeliveries")]
-        public string No_Of_Deliveries
+        public string NoOfDeliveries
         { get; set; }
 
         [JsonProperty("shiftfull")]
-        public bool Shift_Full
+        public bool ShiftFull
+        { get; set; }
+
+        [JsonProperty("employeeid")]
+        public int EmployeeId
+        { get; set; }
+
+        [JsonProperty("deliveryid")]
+        public int DeliveryId
+        { get; set; }
+
+        [JsonProperty("shiftid")]
+        public int ShiftId
         { get; set; }
     }
 }

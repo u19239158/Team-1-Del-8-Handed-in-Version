@@ -23,5 +23,15 @@ namespace NKAP_API_2.Models
         [JsonProperty("supplierorderlinecost")]
         public decimal SupplierOrderLineCost
         { get; set; }
+
+        [JsonProperty("productitemid")]
+        public int ProductItemId
+        { get; set; }
+
+
+        [JsonProperty("supplierorderid")]
+        public int SupplierOrderId
+        { get; set; }
+
     }
 }

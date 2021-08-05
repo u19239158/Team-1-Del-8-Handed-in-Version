@@ -26,5 +26,17 @@ namespace NKAP_API_2.Models
         [JsonProperty("deliverydistance")]
         public string Delivery_Distance
         { get; set; }
+
+        [JsonProperty("addressid")]
+        public int AddressId
+        { get; set; }
+
+        [JsonProperty("courierid")]
+        public int CourierId
+        { get; set; }
+
+        [JsonProperty("saleid")]
+        public int SaleId
+        { get; set; }
     }
 }

@@ -23,18 +23,62 @@ namespace NKAP_API_2.Controllers
         //get Supplier Payments (Read)
         public IActionResult get()
         {
-            var payments = _db.SupplierPayments.ToList();
-            return Ok(payments);
+            var SupPayments = _db.SupplierPayments.Join(_db.Suppliers,
+                 a => a.SupplierId,
+                 t => t.SupplierId,
+                 (a, t) => new
+                 {
+                     SupplierID = t.SupplierId,
+                     SupplierName = t.SupplierName,
+
+                     SupplierPaymentId = a.SupplierPaymentId,
+                     SupplierAmount = a.SupplierAmount
+
+                 });
+
+            return Ok(SupPayments);
 
         }
 
-        [Route("GetSupplierPayments/{supplieramountid}")] //route
+        [Route("GetSupplierPaymentByID/{supplierpaymentid}")] //route
         [HttpGet]
         //get Supplier Payments by ID (Read)
-        public IActionResult get(int supplieramountid)
+        public IActionResult get(int supplierpaymentid)
         {
-            var payments = _db.SupplierPayments.Find(supplieramountid);
-            return Ok(payments);
+            var SupPayment = _db.SupplierPayments.Join(_db.Suppliers,
+                 a => a.SupplierId,
+                 t => t.SupplierId,
+                 (a, t) => new
+                 {
+                     SupplierID = t.SupplierId,
+                     SupplierName = t.SupplierName,
+
+                     SupplierPaymentId = a.SupplierPaymentId,
+                     SupplierAmount = a.SupplierAmount
+
+                 }).First (ss => ss.SupplierPaymentId == supplierpaymentid);
+            return Ok(SupPayment);
+        }
+
+
+        [Route("GetSupplierPaymentBySupplierName/{suppliername}")] //route
+        [HttpGet]
+        //get Supplier Payments by ID (Read)
+        public IActionResult get(string suppliername)
+        {
+            var SupPayments = _db.SupplierPayments.Join(_db.Suppliers,
+                 a => a.SupplierId,
+                 t => t.SupplierId,
+                 (a, t) => new
+                 {
+                     SupplierID = t.SupplierId,
+                     SupplierName = t.SupplierName,
+
+                     SupplierPaymentId = a.SupplierPaymentId,
+                     SupplierAmount = a.SupplierAmount
+
+                 }).First(ss => ss.SupplierName == suppliername);
+            return Ok(SupPayments);
         }
 
 
@@ -46,6 +90,7 @@ namespace NKAP_API_2.Controllers
         {
             SupplierPayment payments = new SupplierPayment();
             payments.SupplierAmount = model.SupplierAmount; //attributes in table
+            payments.SupplierId = model.SupplierId;
             _db.SupplierPayments.Add(payments);
             _db.SaveChanges();
 
@@ -57,8 +102,9 @@ namespace NKAP_API_2.Controllers
         //Update Supplier Payment
         public IActionResult UpdateSupplierPayment(SupplierPaymentModel model)
         {
-            var payment = _db.SupplierPayments.Find(model.SupplierAmountID);
+            var payment = _db.SupplierPayments.Find(model.SupplierPaymentId);
             payment.SupplierAmount = model.SupplierAmount;
+            payment.SupplierId = model.SupplierId;
             _db.SupplierPayments.Attach(payment); //Attach Record
             _db.SaveChanges();
 

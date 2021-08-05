@@ -8,12 +8,17 @@ namespace NKAP_API_2.Models
 {
     public class SupplierPaymentModel
     {
-        [JsonProperty("supplieramountid")]
-        public int SupplierAmountID
+        [JsonProperty("supplierpaymentid")]
+        public int SupplierPaymentId
         { get; set; }
 
         [JsonProperty("Supplieramount")]
         public decimal SupplierAmount
         { get; set; }
+
+        [JsonProperty("supplierid")]
+        public int SupplierId
+        { get; set; }
     }
 }
+

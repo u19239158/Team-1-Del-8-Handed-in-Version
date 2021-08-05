@@ -24,7 +24,78 @@ namespace NKAP_API_2.Controllers
         //get Supplier OrderLine (Read)
         public IActionResult get()
         {
-            var SupplierOrderLines = _db.SupplierOrderLines.ToList();
+            var SupplierOrderLines = _db.SupplierOrderLines.Join(_db.SupplierOrders,
+                 su => su.SupplierOrderId,
+                 so => so.SupplierOrderId,
+
+                 (su, so) => new
+                 {
+                     SupplierOrderId = su.SupplierOrderId,
+                     SupplierOrderLineID = su.SupplierOrderLineId,
+                     SupplierProducts = su.SupplierProducts,
+                     SupplierQuantityOrdered = su.SupplierQuantityOrdered,
+                     SupplierOrderLineCost = su.SupplierOrderLineCost,
+              
+                     ProductItemID = su.ProductItemId
+
+                     //attributes in table
+                 }).Join(_db.ProductItems,
+                 sor => sor.ProductItemID,
+                 sd => sd.ProductItemId,
+                 (sor, sd) => new
+                 {
+                     SupplierOrderID = sor.SupplierOrderId,
+                     SupplierOrderLineID = sor.SupplierOrderLineID,
+                     SupplierProducts = sor.SupplierProducts,
+                     SupplierQuantityOrdered = sor.SupplierQuantityOrdered,
+                     SupplierOrderLineCost = sor.SupplierOrderLineCost,
+                     ProductItemID = sor.ProductItemID,
+
+
+                     ProductItemName = sd.ProductItemName
+
+                 });
+
+            return Ok(SupplierOrderLines);
+
+        }
+
+        [Route("GetSupplierOrderLineByOrderID/{supplierorderid}")] //route
+        [HttpGet]
+        //get Supplier OrderLine (Read)
+        public IActionResult get(int supplierorderid)
+        {
+            var SupplierOrderLines = _db.SupplierOrderLines.Join(_db.SupplierOrders,
+                 su => su.SupplierOrderId,
+                 so => so.SupplierOrderId,
+
+                 (su, so) => new
+                 {
+                     SupplierOrderId = su.SupplierOrderId,
+                     SupplierOrderLineID = su.SupplierOrderLineId,
+                     SupplierProducts = su.SupplierProducts,
+                     SupplierQuantityOrdered = su.SupplierQuantityOrdered,
+                     SupplierOrderLineCost = su.SupplierOrderLineCost,
+
+                     ProductItemID = su.ProductItemId
+
+                     //attributes in table
+                 }).Join(_db.ProductItems,
+                 sor => sor.ProductItemID,
+                 sd => sd.ProductItemId,
+                 (sor, sd) => new
+                 {
+                     SupplierOrderID = sor.SupplierOrderId,
+                     SupplierOrderLineID = sor.SupplierOrderLineID,
+                     SupplierProducts = sor.SupplierProducts,
+                     SupplierQuantityOrdered = sor.SupplierQuantityOrdered,
+                     SupplierOrderLineCost = sor.SupplierOrderLineCost,
+                     ProductItemID = sor.ProductItemID,
+
+                     ProductItemName = sd.ProductItemName
+
+                 }).Where(ss => ss.SupplierOrderID == supplierorderid);
+
             return Ok(SupplierOrderLines);
 
         }
@@ -39,6 +110,8 @@ namespace NKAP_API_2.Controllers
             orderline.SupplierProducts = model.SupplierProducts;
             orderline.SupplierQuantityOrdered = model.SupplierQuantityOrdered;
             orderline.SupplierOrderLineCost = model.SupplierOrderLineCost;  //attributes in table
+            orderline.SupplierOrderId = model.SupplierOrderId;
+            orderline.ProductItemId = model.ProductItemId;
             _db.SupplierOrderLines.Add(orderline);
             _db.SaveChanges();
 
