@@ -2,8 +2,8 @@ import { AddEditSupplierComponent } from './supplier/add-edit-supplier/add-edit-
 import { SuppliersComponent } from './supplier/suppliers/suppliers.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AddEditEmployeesComponent } from './pages/add-edit-employees/add-edit-employees.component';
-import { EmployeesComponent } from './pages/employees/employees.component';
+import { AddEditEmployeesComponent } from './employee/add-edit-employees/add-edit-employees.component';
+import { EmployeesComponent } from './employee/employees/employees.component';
 import { SpecialsComponent } from './special/specials/specials.component';
 import { AddEditSpecialComponent } from './special/add-edit-special/add-edit-special.component';
 import { UserRoleComponent } from './userRole/user-role/user-role.component';
