@@ -13,6 +13,6 @@ namespace NKAP_API_2.EF
         public DateTime AuditTrailDate { get; set; }
         public TimeSpan AuditTrailTime { get; set; }
 
-        public virtual Users User { get; set; }
+        public virtual User Users { get; set; }
     }
 }

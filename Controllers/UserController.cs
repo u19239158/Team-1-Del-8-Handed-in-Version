@@ -23,7 +23,7 @@ namespace NKAP_API_2.Controllers
         //get User (Read)
         public IActionResult get()
         {
-            var Users = _db.Users.Join(_db.UserRoles,
+            var Users = _db.User.Join(_db.UserRoles,
                             u => u.UserRoleId,
                             ur => ur.UserRoleId,
                             (u, ur) => new
@@ -45,7 +45,7 @@ namespace NKAP_API_2.Controllers
         //get User by ID (Read)
         public IActionResult get(int userid)
         {
-            var Users = _db.Users.Join(_db.UserRoles,
+            var Users = _db.User.Join(_db.UserRoles,
                             u => u.UserRoleId,
                             ur => ur.UserRoleId,
                             (u, ur) => new
@@ -67,14 +67,14 @@ namespace NKAP_API_2.Controllers
         //Create a Model for table
         public IActionResult CreateUser(UserModel model) //reference the model
         {
-            Users user = new Users();
-            user.UserUsername = model.UserUsername;
-            user.UserPassword = model.UserPassword; //attributes in table
-            user.UserRoleId = model.UserRoleID;
-            _db.Users.Add(user);
+            User users = new User();
+            users.UserUsername = model.UserUsername;
+            users.UserPassword = model.UserPassword; //attributes in table
+            users.UserRoleId = model.UserRoleID;
+            _db.User.Add(users);
             _db.SaveChanges();
 
-            return Ok(user);
+            return Ok(users);
         }
 
         [Route("UpdateUser")] //route
@@ -82,11 +82,11 @@ namespace NKAP_API_2.Controllers
         //Update Order Status
         public IActionResult UpdateUser(UserModel model)
         {
-            var user = _db.Users.Find(model.UsersID);
+            var user = _db.User.Find(model.UsersID);
             user.UserUsername = model.UserUsername;
             user.UserPassword = model.UserPassword;
             user.UserRoleId = model.UserRoleID;
-            _db.Users.Attach(user); //Attach Record
+            _db.User.Attach(user); //Attach Record
             _db.SaveChanges();
 
             return Ok(user);
@@ -97,8 +97,8 @@ namespace NKAP_API_2.Controllers
         //Delete Order Status
         public IActionResult DeleteUser(int userid)
         {
-            var user = _db.Users.Find(userid);
-            _db.Users.Remove(user); //Delete Record
+            var user = _db.User.Find(userid);
+            _db.User.Remove(user); //Delete Record
             _db.SaveChanges();
 
             return Ok(user);

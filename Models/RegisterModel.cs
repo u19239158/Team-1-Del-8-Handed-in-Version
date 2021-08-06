@@ -51,5 +51,25 @@ namespace NKAP_API_2.Models
         [JsonProperty("titleid")]
         public int TitleID
         { get; set; }
+
+        [JsonProperty("userroleid")]
+        public int UserRoleID
+        { get; set; }
+
+        [JsonProperty("audittrailid")]
+        public int AuditTrailId
+        { get; set; }
+
+        [JsonProperty("passwordhistoryid")]
+        public int PasswordHistoryId
+        { get; set; }
+
+        [JsonProperty("passwordhistorytext")]
+        public string PasswordHistoryText
+        { get; set; }
+
+        [JsonProperty("passwordhistorydate")]
+        public DateTime PasswordHistoryDate
+        { get; set; }
     }
 }

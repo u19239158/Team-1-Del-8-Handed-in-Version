@@ -12,6 +12,6 @@ namespace NKAP_API_2.EF
         public string PasswordHistoryText { get; set; }
         public DateTime PasswordHistoryDate { get; set; }
 
-        public virtual Users User { get; set; }
+        public virtual User Users { get; set; }
     }
 }

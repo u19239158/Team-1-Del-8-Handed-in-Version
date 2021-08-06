@@ -90,6 +90,8 @@ namespace NKAP_API_2.Controllers
             CategoryType catType = new CategoryType();
             catType.CategoryTypeDescription = model.CategoryTypeDescription; //attributes in table
             catType.ProductCategoryId = model.ProductCategoryID;
+            catType.ItemDescription = model.ItemDescription;
+            catType.CategoryTypeImage = model.CategoryTypeImage;
             _db.CategoryTypes.Add(catType);
             _db.SaveChanges();
 
@@ -104,6 +106,8 @@ namespace NKAP_API_2.Controllers
             var catType = _db.CategoryTypes.Find(model.CategoryTypeID);
             catType.CategoryTypeDescription = model.CategoryTypeDescription;
             catType.ProductCategoryId = model.ProductCategoryID;
+            catType.ItemDescription = model.ItemDescription;
+            catType.CategoryTypeImage = model.CategoryTypeImage;
             _db.CategoryTypes.Attach(catType); //Attach Record
             _db.SaveChanges();
 

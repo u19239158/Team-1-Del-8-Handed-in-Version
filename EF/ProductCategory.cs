@@ -14,6 +14,7 @@ namespace NKAP_API_2.EF
 
         public int ProductCategoryId { get; set; }
         public string ProductCategoryDescription { get; set; }
+        public string ProductCategoryImage { get; set; }
 
         public virtual ICollection<CategoryType> CategoryTypes { get; set; }
     }

@@ -31,6 +31,7 @@ namespace NKAP_API_2
             services.AddControllers();
             //services.AddDbContext<NKAP_BOLTING_DB_4Context>(options => options.UseSqlServer)
             services.AddDbContext<NKAP_BOLTING_DB_4Context>(options => options.UseSqlServer(Configuration.GetConnectionString("NKAP_DB")));
+           
 
         }
 

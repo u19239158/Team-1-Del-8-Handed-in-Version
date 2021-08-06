@@ -60,7 +60,7 @@ namespace NKAP_API_2.EF
         public virtual DbSet<SupplierType> SupplierTypes { get; set; }
         public virtual DbSet<Time> Times { get; set; }
         public virtual DbSet<Title> Titles { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<Vat> Vats { get; set; }
         public virtual DbSet<WrittenOffStock> WrittenOffStocks { get; set; }
@@ -90,13 +90,11 @@ namespace NKAP_API_2.EF
                     .HasColumnName("Address_Line1");
 
                 entity.Property(e => e.AddressLine2)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("Address_Line2");
 
                 entity.Property(e => e.AddressLine3)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("Address_Line3");
@@ -172,10 +170,10 @@ namespace NKAP_API_2.EF
 
                 entity.Property(e => e.UsersId).HasColumnName("Users_ID");
 
-                entity.HasOne(d => d.User)
+                entity.HasOne(d => d.Users)
                     .WithMany(p => p.AuditTrails)
                     .HasForeignKey(d => d.UsersId)
-                    .HasConstraintName("FK__AuditTrai__User___1A14E395");
+                    .HasConstraintName("FK__AuditTrai__Users__1A14E395");
             });
 
             modelBuilder.Entity<Cart>(entity =>
@@ -219,6 +217,15 @@ namespace NKAP_API_2.EF
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("CategoryType_Description");
+
+                entity.Property(e => e.CategoryTypeImage)
+                    .IsUnicode(false)
+                    .HasColumnName("CategoryType_Image");
+
+                entity.Property(e => e.ItemDescription)
+                    .HasMaxLength(150)
+                    .IsUnicode(false)
+                    .HasColumnName("Item_Description");
 
                 entity.Property(e => e.ProductCategoryId).HasColumnName("ProductCategory_ID");
 
@@ -296,7 +303,6 @@ namespace NKAP_API_2.EF
                 entity.Property(e => e.CustomerId).HasColumnName("Customer_ID");
 
                 entity.Property(e => e.CustomerBusinessName)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("Customer_BusinessName");
@@ -322,7 +328,6 @@ namespace NKAP_API_2.EF
                     .HasColumnName("Customer_Surname");
 
                 entity.Property(e => e.CustomerVatreg)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("Customer_VATReg");
@@ -429,7 +434,6 @@ namespace NKAP_API_2.EF
                     .HasColumnName("Employee_AddressLine1");
 
                 entity.Property(e => e.EmployeeAddressLine2)
-                    .IsRequired()
                     .HasMaxLength(150)
                     .IsUnicode(false)
                     .HasColumnName("Employee_AddressLine2");
@@ -440,7 +444,11 @@ namespace NKAP_API_2.EF
                     .HasColumnType("date")
                     .HasColumnName("Employee_DOB");
 
-                entity.Property(e => e.EmployeeIdnumber).HasColumnName("Employee_IDNumber");
+                entity.Property(e => e.EmployeeIdnumber)
+                    .IsRequired()
+                    .HasMaxLength(13)
+                    .IsUnicode(false)
+                    .HasColumnName("Employee_IDNumber");
 
                 entity.Property(e => e.EmployeeName)
                     .IsRequired()
@@ -533,10 +541,10 @@ namespace NKAP_API_2.EF
 
                 entity.Property(e => e.UsersId).HasColumnName("Users_ID");
 
-                entity.HasOne(d => d.User)
+                entity.HasOne(d => d.Users)
                     .WithMany(p => p.PasswordHistories)
                     .HasForeignKey(d => d.UsersId)
-                    .HasConstraintName("FK__PasswordH__User___1CF15040");
+                    .HasConstraintName("FK__PasswordH__Users__1CF15040");
             });
 
             modelBuilder.Entity<PaymentType>(entity =>
@@ -587,6 +595,10 @@ namespace NKAP_API_2.EF
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("ProductCategory_Description");
+
+                entity.Property(e => e.ProductCategoryImage)
+                    .IsUnicode(false)
+                    .HasColumnName("ProductCategory_Image");
             });
 
             modelBuilder.Entity<ProductItem>(entity =>
@@ -600,17 +612,6 @@ namespace NKAP_API_2.EF
                 entity.Property(e => e.ProductItemCost)
                     .HasColumnType("money")
                     .HasColumnName("ProductItem_Cost");
-
-                entity.Property(e => e.ProductItemDescription)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .HasColumnName("ProductItem_Description");
-
-                entity.Property(e => e.ProductItemImage)
-                    .IsRequired()
-                    .HasColumnType("image")
-                    .HasColumnName("ProductItem_Image");
 
                 entity.Property(e => e.ProductItemName)
                     .IsRequired()
@@ -886,7 +887,6 @@ namespace NKAP_API_2.EF
                     .HasColumnName("SupplierAddress_Line2");
 
                 entity.Property(e => e.SupplierAddressLine3)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("SupplierAddress_Line3");
@@ -1122,13 +1122,15 @@ namespace NKAP_API_2.EF
                     .HasColumnName("Title_Description");
             });
 
-            modelBuilder.Entity<Users>(entity =>
+            modelBuilder.Entity<User>(entity =>
             {
+                entity.HasKey(e => e.UsersId)
+                    .HasName("PK__Users__EB68290DBDBB39E9");
+
                 entity.Property(e => e.UsersId).HasColumnName("Users_ID");
 
                 entity.Property(e => e.UserPassword)
-                    .IsRequired()
-                    .HasMaxLength(50)
+                    .HasMaxLength(70)
                     .IsUnicode(false)
                     .HasColumnName("User_Password");
 
@@ -1154,7 +1156,7 @@ namespace NKAP_API_2.EF
 
                 entity.Property(e => e.UserRoleDescription)
                     .IsRequired()
-                    .HasMaxLength(15)
+                    .HasMaxLength(150)
                     .IsUnicode(false)
                     .HasColumnName("UserRole_Description");
 

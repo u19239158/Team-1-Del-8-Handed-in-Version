@@ -28,9 +28,9 @@ namespace NKAP_API_2.Controllers
         public IActionResult Login(UserModel model)
         {
             //using var db = new NKAP_BOLTING_DB_4Context();
-            string hashedPassword = this.ComputeSha256Hash(model.UserPassword);
-            var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
 
+            string hashedPassword = this.ComputeSha256Hash(model.UserPassword);
+            var user = _db.User.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
             if (user == null)
             {
                 return NotFound();
@@ -38,6 +38,16 @@ namespace NKAP_API_2.Controllers
 
             return Ok(model);
         }
+
+        ////var newAuditTrail = new AuditTrail
+        //      {
+                  
+        //          AuditTrailDate = DateTime.Today,
+        //          AuditTrailTime = DateTime.Now.TimeOfDay,
+        //          AuditTrailDescription = "Login"
+                  
+        //      });
+
 
         [HttpPost]
         [Route("Register")]
@@ -54,12 +64,21 @@ namespace NKAP_API_2.Controllers
             {
                 UserUsername = model.UserUsername,
                 UserPassword = ComputeSha256Hash(model.UserPassword),
-
+                UserRoleId = 2,
+                
             };
 
+            var newpasshist = new PasswordHistory
+            {
+                //PasswordHistoryId = model.PasswordHistoryId,
+                PasswordHistoryDate = Convert.ToDateTime(DateTime.Today),
+                PasswordHistoryText = ComputeSha256Hash(model.UserPassword)
+            };
+
+            
             var newCustomer = new Customer
             {
-                //TitleId = model.TitleID,
+                TitleId = model.TitleID,
                 CustomerName = model.CustomerName,
                 CustomerSurname = model.CustomerSurname,
                 CustomerCellphoneNumber = model.CustomerCellphoneNumber,
@@ -68,13 +87,15 @@ namespace NKAP_API_2.Controllers
                 CustomerVatreg = model.CustomerVatReg
             };
 
+
             try
             {
-                _db.Users.Add(newUser);
+               // _db.Users.Add(newUser);
                 _db.Customers.Add(newCustomer);
+                _db.PasswordHistories.Add(newpasshist);
                 _db.SaveChanges();
 
-                return Ok();
+                return Ok(newpasshist);
             }
             catch (Exception e)
             {
@@ -86,7 +107,7 @@ namespace NKAP_API_2.Controllers
         private bool UserExists(string userusername)
         {
            // using var _db = new NKAP_BOLTING_DB_4Context();
-            var user = _db.Users.Where(zz => zz.UserUsername == userusername).FirstOrDefault();
+            var user = _db.User.Where(zz => zz.UserUsername == userusername).FirstOrDefault();
 
             return user != null;
         }

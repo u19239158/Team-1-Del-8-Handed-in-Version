@@ -54,7 +54,8 @@ namespace NKAP_API_2.Controllers
         public IActionResult CreateProductCategory(ProductCategoryModel model) //reference the model
         {
             ProductCategory ProdCat = new ProductCategory();
-            ProdCat.ProductCategoryDescription = model.ProductCategoryDesc; //attributes in table
+            ProdCat.ProductCategoryDescription = model.ProductCategoryDesc;
+            ProdCat.ProductCategoryImage = model.ProductCategoryImage; //attributes in table
             _db.ProductCategories.Add(ProdCat);
             _db.SaveChanges();
 
@@ -68,6 +69,7 @@ namespace NKAP_API_2.Controllers
         {
             var ProdCat = _db.ProductCategories.Find(model.ProductCategoryID);
             ProdCat.ProductCategoryDescription = model.ProductCategoryDesc;
+            ProdCat.ProductCategoryImage = model.ProductCategoryImage;
             _db.ProductCategories.Attach(ProdCat); //Attach Record
             _db.SaveChanges();
 

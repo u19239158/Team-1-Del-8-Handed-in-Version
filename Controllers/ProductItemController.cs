@@ -23,9 +23,28 @@ namespace NKAP_API_2.Controllers
         //get Product Items (Read)
         public IActionResult get()
         {
-            var productItems = _db.ProductItems.ToList();
-            return Ok(productItems);
+            //var productItems = _db.ProductItems.ToList();
+            {
 
+                var productItems = _db.ProductItems.Join(_db.CategoryTypes,
+                    a => a.CategoryTypeId,
+                    t => t.CategoryTypeId,
+                    (a, t) => new
+                    {
+                        CategoryTypeId = a.CategoryTypeId,
+                        CategoryTypeName = t.CategoryTypeDescription,
+                        ProductItemId = a.ProductItemId,
+                        CategoryTypeDescription = t.ItemDescription,
+                        ProductItemName = a.ProductItemName,
+                        ProductItemCost = a.ProductItemCost,
+                        ProductItemQuantityOnHand = a.QuantityOnHand,
+
+
+                    });
+
+                return Ok(productItems);
+
+            }
         }
 
         [Route("GetPItemsByID/{productitemid}")] //route
@@ -33,8 +52,28 @@ namespace NKAP_API_2.Controllers
         //get Product Items by ID (Read)
         public IActionResult get(int productitemid)
         {
-            var productItem = _db.ProductItems.Find(productitemid);
-            return Ok(productItem);
+            //var productItem = _db.ProductItems.Find(productitemid);
+            {
+
+                var productItems = _db.ProductItems.Join(_db.CategoryTypes,
+                    a => a.CategoryTypeId,
+                    t => t.CategoryTypeId,
+                    (a, t) => new
+                    {
+                        CategoryTypeId = a.CategoryTypeId,
+                        CategoryTypeName = t.CategoryTypeDescription,
+                        ProductItemId = a.ProductItemId,
+                        CategoryTypeDescription = t.ItemDescription,
+                        ProductItemName = a.ProductItemName,
+                        ProductItemCost = a.ProductItemCost,
+                        ProductItemQuantityOnHand = a.QuantityOnHand,
+
+
+
+                    }).First(pp => pp.ProductItemId == productitemid);
+
+                return Ok(productItems);
+            }
         }
 
         [Route("GetPItemsByName/{ProductItemname}")] //route
@@ -42,8 +81,57 @@ namespace NKAP_API_2.Controllers
         //get Product Items by name (Read)
         public IActionResult get(string ProductItemname)
         {
-            var productItem = _db.ProductItems.FirstOrDefault(pn => pn.ProductItemName == ProductItemname);
-            return Ok(productItem);
+            //var productItem = _db.ProductItems.FirstOrDefault(pn => pn.ProductItemName == ProductItemname);
+            {
+
+                var productItems = _db.ProductItems.Join(_db.CategoryTypes,
+                    a => a.CategoryTypeId,
+                    t => t.CategoryTypeId,
+                    (a, t) => new
+                    {
+                        CategoryTypeId = a.CategoryTypeId,
+                        CategoryTypeName = t.CategoryTypeDescription,
+                        ProductItemId = a.ProductItemId,
+                        CategoryTypeDescription = t.ItemDescription,
+                        ProductItemName = a.ProductItemName,
+                        ProductItemCost = a.ProductItemCost,
+                        ProductItemQuantityOnHand = a.QuantityOnHand,
+
+
+
+                    }).Where(pp => pp.ProductItemName == ProductItemname);
+
+                return Ok(productItems);
+            }
+        }
+
+        [Route("GetPItemsByCatType/{CategoryTypeName}")] //route
+        [HttpGet]
+        //get Product Items by name (Read)
+        public IActionResult Get(string CategoryTypeName)
+        {
+            //var productItem = _db.ProductItems.FirstOrDefault(pn => pn.ProductItemName == ProductItemname);
+            {
+
+                var productItems = _db.ProductItems.Join(_db.CategoryTypes,
+                    a => a.CategoryTypeId,
+                    t => t.CategoryTypeId,
+                    (a, t) => new
+                    {
+                        CategoryTypeId = a.CategoryTypeId,
+                        CategoryTypeName = t.CategoryTypeDescription,
+                        ProductItemId = a.ProductItemId,
+                        CategoryTypeDescription = t.ItemDescription,
+                        ProductItemName = a.ProductItemName,
+                        ProductItemCost = a.ProductItemCost,
+                        ProductItemQuantityOnHand = a.QuantityOnHand,
+
+
+
+                    }).Where(pp => pp.CategoryTypeName == CategoryTypeName);
+
+                return Ok(productItems);
+            }
         }
 
         [Route("CreateProductItem")] //route
@@ -54,10 +142,7 @@ namespace NKAP_API_2.Controllers
         {
             ProductItem PItem = new ProductItem();
             PItem.ProductItemName = model.ProductItemName; //attributes in table
-            PItem.ProductItemDescription = model.ProductItemDescription;
             PItem.ProductItemCost = model.ProductItemCost;
-            byte[] byteArray = new byte[model.ProductItemImage];
-            PItem.ProductItemImage = byteArray;
             //PItem.ProductItemImage = model.ProductItemImage;
             PItem.QuantityOnHand = model.QuantityOnHand;
             _db.ProductItems.Add(PItem);
@@ -71,12 +156,9 @@ namespace NKAP_API_2.Controllers
         //Update Product Item
         public IActionResult UpdateProductItems(ProductItemModel model)
         {
-            var PItem = _db.ProductItems.Find(model.ProductItemID);
+            var PItem = _db.ProductItems.Find(model.ProductItemId);
             PItem.ProductItemName = model.ProductItemName;
-            PItem.ProductItemDescription = model.ProductItemDescription;
             PItem.ProductItemCost = model.ProductItemCost;
-            byte[] byteArray = new byte[model.ProductItemImage];
-            PItem.ProductItemImage = byteArray;
             //PItem.ProductItemImage = Convert.ToByte(model.ProductItemImage);
             PItem.QuantityOnHand = model.QuantityOnHand;
             _db.ProductItems.Attach(PItem); //Attach Record
