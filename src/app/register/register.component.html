@@ -1,0 +1,126 @@
+<div fxFlex fxLayout="column" fxLayoutGap="0px">
+  <div fxLayout="row wrap">
+    <div fxFlex="50" fxFlex.lt-md="100" fxLayout="column">
+
+      <div fxLayoutAlign="center">
+        <img style="margin-top:30px" src="assets/images/NKAP.jpg"/>
+      </div>
+    </div>
+
+    <div fxFlex="50" fxFlex.lt-md="100" fxLayout="column" class="mat-app-background">
+      <div fxLayout="column" fxLayoutAlign="center" style="margin-top:30px">
+        <div fxLayout="row" fxLayoutAlign="end">
+          <a routerLink="/home"> 
+            <h4><mat-icon>arrow_back</mat-icon>Go back</h4>      
+          </a>
+        </div>
+
+
+
+        <div fxLayout="row" fxLayoutAlign="center">
+          <h1>Register new Customer</h1>
+        </div>
+      </div>
+
+      <div fxLayout="column" fxLayoutAlign="center" style="margin-top:100px">
+        
+        <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+
+         <!-- mat select does not work
+        <div fxLayoutAlign="center">            
+            <mat-form-field style="width:50%" [floatLabel]="options.value.floatLabel" appearance="outline">
+              <mat-select required>
+              <mat-option> None </mat-option>
+              <mat-option value="option">Option</mat-option>
+              </mat-select>
+              <mat-label>Title</mat-label>
+            </mat-form-field>
+          </div> 
+         -->    
+
+          <div fxLayoutAlign="center">            
+            <mat-form-field style="width:50%" appearance="outline">
+              <mat-label>Name</mat-label>
+              <input formControlName="name" matInput>
+              <mat-error *ngIf="form.controls['name'].invalid">Please enter a valid name</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxLayoutAlign="center">            
+            <mat-form-field style="width:50%" appearance="outline">
+              <mat-label>Surname</mat-label>
+              <input formControlName="surname" matInput>
+              <mat-error *ngIf="form.controls['surname'].invalid">Please enter a valid surname</mat-error>
+            </mat-form-field>
+          </div>
+          
+          <div fxLayoutAlign="center">            
+            <mat-form-field style="width:50%" appearance="outline">
+              <mat-label>Cellphone Number</mat-label>
+              <input formControlName="cellnumber" matInput>
+              <mat-error *ngIf="form.controls['cellnumber'].invalid">Please enter a valid cellphone number</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxLayoutAlign="center">            
+            <mat-form-field style="width:50%" appearance="outline">
+              <mat-label>Email Address</mat-label>
+              <input formControlName="email" matInput>
+              <mat-error *ngIf="form.controls['email'].invalid">Please enter a valid email</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxLayoutAlign="center">            
+            <mat-form-field style="width:50%" appearance="outline">
+              <mat-label>VAT Registration number</mat-label>
+              <input formControlName="vat" matInput>
+              <mat-error *ngIf="form.controls['vat'].invalid">Please enter a valid VAT Registration number</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxLayoutAlign="center">            
+            <mat-form-field style="width:50%" appearance="outline">
+              <mat-label>Business Name</mat-label>
+              <input formControlName="businessname" matInput>
+              <mat-error *ngIf="form.controls['businessname'].invalid">Please enter a valid Business Name</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxLayoutAlign="center">            
+            <mat-form-field style="width:50%" appearance="outline">
+              <mat-label>Username</mat-label>
+              <input formControlName="username" matInput>
+              <mat-error *ngIf="form.controls['username'].invalid">Please enter a valid username</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxLayoutAlign="center" style="margin-top:10px">
+            <mat-form-field style="width:50%" appearance="outline">
+              <mat-label>Confirm password</mat-label>
+              <input type="confirmpassword" formControlName="password" matInput>
+              <mat-error *ngIf="form.controls['confirmpassword'].invalid">Invalid password</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxLayoutAlign="center" style="margin-top:10px">
+            <mat-form-field style="width:50%" appearance="outline">
+              <mat-label>Enter password</mat-label>
+              <input type="password" formControlName="password" matInput>
+              <mat-error *ngIf="form.controls['password'].invalid">Invalid password</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxLayoutAlign="center" style="margin-top:20px">
+            <button [disabled]="!form.valid || formSubmitted" type="submit" mat-raised-button color="primary">Next</button>
+          </div>
+
+          <div fxLayoutAlign="center" style="margin-top:20px">
+          <a [routerLink]="['/home']">
+          <button [disabled]="!form.valid || formSubmitted" mat-raised-button color="primary">Register</button>
+          </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div> 
+</div>

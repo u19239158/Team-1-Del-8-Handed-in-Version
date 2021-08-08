@@ -1,0 +1,72 @@
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover, a:active{
+    color: lightgray;
+}
+
+.navigation-items{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+mat-toolbar{
+    border-radius: 3px;
+}
+
+@media(max-width: 959px){
+    mat-toolbar{
+        border-radius: 0px;
+    }
+}
+
+
+.topheadertext
+{
+  position: absolute;
+  left: 120px;
+  top: 20px;
+  font-family:  "Gill Sans", sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 22px;
+  letter-spacing: -0.0555556px;
+  color: #FFFFFF;
+  }
+
+.topheaderlogo
+{
+  position: absolute;
+  left: 60px;
+  top: 5px;
+  line-height: 10px;
+  width:50px;
+  height:50px;
+}
+
+.rotateimg90 {
+  -webkit-transform:rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.form-control {
+  border-radius: 3px;
+  width: 80%;
+  margin-left: 20px;
+  padding-top: 3%;
+  padding-bottom: 3%;
+}
+
+.search-icon {
+  position: absolute;
+  z-index: 10;
+  right: 25%;
+  top: 15px;
+  color: white;
+}

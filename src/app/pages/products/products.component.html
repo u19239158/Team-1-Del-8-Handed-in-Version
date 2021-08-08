@@ -1,0 +1,46 @@
+
+<div class="container">
+    <div class="row"></div>
+    <div class="row">
+    
+        <ng-container *ngFor="let item of productList">
+            <div class="card col-md-3">
+                <center><img src="{{item.image}}" alt="" (click)=modal(item)></center>
+                <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{item.title}}</p>
+                <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{item.description}}</p>
+                <p class="subtitle"><strong>Price:</strong> ${{item.price}}</p>
+                <button class="button is-info is-rounded" (click)=addtocart(item)>Add to cart</button>
+            </div>
+        </ng-container>
+</div>
+</div>
+
+
+<!--MODAL -->
+<div id="productModal" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <ng-container *ngFor="let item of productList">
+        <header class="modal-card-head">
+        <p class="modal-card-title">Product Item</p>
+        <button class="delete" aria-label="close"></button>
+        </header>
+
+        <section class="modal-card-body">
+                <div class="card col-md-3">
+                    <center><img src="{{item.image}}" alt="" (click)=modal(item)></center>
+                    <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{item.title}}</p>
+                    <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{item.description}}</p>
+                    <p class="subtitle"><strong>Price:</strong> ${{item.price}}</p>
+                </div>
+        </section>
+
+        <footer class="modal-card-foot">
+            <button class="button is-info is-rounded" (click)=addtocart(item)>Add to cart</button>
+        </footer>
+    </ng-container>
+  </div>
+</div>
+
+
+
