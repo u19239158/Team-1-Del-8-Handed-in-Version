@@ -5,7 +5,6 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule} from './material/material/material.module';
 import { HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -14,6 +13,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
+
 import { GlobalErrorComponent } from './modals/globals/global-error/global-error.component';
 import { GlobalConfirmComponent } from './modals/globals/global-confirm/global-confirm.component';
 import { EmployeesComponent } from './employee/employees/employees.component';
@@ -26,8 +26,9 @@ import { SpecialsComponent } from './special/specials/specials.component';
 import { AddEditSpecialComponent } from './special/add-edit-special/add-edit-special.component';
 import { UserRoleComponent } from './userRole/user-role/user-role.component';
 import { AddEditUserRoleComponent } from './userRole/add-edit-user-role/add-edit-user-role.component';
-import { MatToolbarModule } from  '@angular/material/toolbar';
-import { MatSidenavModule } from '@angular/material/sidenav'
+import { MaterialModule } from './material/material/material.module';
+import { HeaderComponent } from './navigation/header/header.component';
+import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,8 @@ import { MatSidenavModule } from '@angular/material/sidenav'
     AddEditSpecialComponent,
     UserRoleComponent,
     AddEditUserRoleComponent,
+    HeaderComponent,
+    SidenavListComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +54,7 @@ import { MatSidenavModule } from '@angular/material/sidenav'
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    MaterialModule,
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
@@ -60,8 +64,6 @@ import { MatSidenavModule } from '@angular/material/sidenav'
     MatListModule,
     MatDialogModule,
     MatNativeDateModule,
-    MatSidenavModule,
-    MatToolbarModule
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

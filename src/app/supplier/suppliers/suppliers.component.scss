@@ -1,17 +1,18 @@
-.main {
-  margin-left: 200px; /* Same as the width of the sidenav */
-  font-size: 20px; /* Increased text to enable scrolling */
-  padding: 0px 10px;
-}
 h1 {
-    margin: 70px;
-    margin-left: 100px;
-    font-weight: 600;
-    font-size: 45px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 45px;
 }
+
 table {
-    margin-top: 20px;
-    width: 100%;
+border-collapse: collapse;
+width: 100%;
+}
+
+th, td {
+padding: 8px;
+text-align: left;
+border-bottom: 1px solid #ddd;
 }
 
 #addBtn {

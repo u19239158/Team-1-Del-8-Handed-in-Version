@@ -1,8 +1,16 @@
 import { SupplierService } from 'src/app/services/supplier/supplier.service.component';
 import { Component, Inject, OnInit } from '@angular/core';
-import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Supplier } from 'src/app/interfaces';
+import {ErrorStateMatcher} from '@angular/material/core';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-add-edit-supplier',
@@ -32,8 +40,9 @@ export class AddEditSupplierComponent implements OnInit {
     const formOptions: AbstractControlOptions = { };
     this.form = this.formBuilder.group({
         supplierName: ['', [Validators.required]],
+        supplierType: ['', [Validators.required]],
         supplierEmailAddress: ['', [Validators.required, Validators.email]],
-        supplierContactNumber: ['', [Validators.required, Validators.maxLength(10)]],
+        supplierContactNumber: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
         supplierAddressLine1: ['', [Validators.required]],
         supplierAddressLine2: ['', [Validators.required]],
         supplierAddressLine3: ['', [Validators.required]],
@@ -41,13 +50,15 @@ export class AddEditSupplierComponent implements OnInit {
         supplierPostalCode: ['', [Validators.required, Validators.maxLength(4)]]
     }, formOptions);
 
+
   if (!this.isAddMode) {
     this.supplier = this.SupplierService.getSupplierById(this.id);
 
       this.form = this.formBuilder.group({
         supplierName: [this.supplier.supplierName, [Validators.required]],
+        supplierType: [this.supplier.supplierType, [Validators.required]],
         supplierEmailAddress: [this.supplier.supplierEmailAddress, [Validators.required, Validators.email]],
-        supplierContactNumber: [this.supplier.supplierContactNumber, [Validators.required, Validators.maxLength(10)]],
+        supplierContactNumber: [this.supplier.supplierContactNumber, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
         supplierAddressLine1: [this.supplier.supplierAddressLine1, [Validators.required]],
         supplierAddressLine2: [this.supplier.supplierAddressLine2, [Validators.required]],
         supplierAddressLine3: [this.supplier.supplierAddressLine3, [Validators.required]],
@@ -91,6 +102,7 @@ Close() {
   this.router.navigateByUrl('supplier');
 }
 
+matcher = new MyErrorStateMatcher();
 }
 
 

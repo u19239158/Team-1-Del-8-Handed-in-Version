@@ -25,7 +25,7 @@
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>
                 <button mat-icon-button color="primary" aria-label="Example icon button with a home icon"
-                routerLink = "add"
+                routerLink = "/employeesAdd"
                 >
                     <mat-icon>add</mat-icon>
                   </button>
@@ -35,7 +35,7 @@
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu" xPosition="before">
-                <button mat-menu-item [routerLink]="['/edit', element.id]" >Update Employee</button>
+                <button mat-menu-item [routerLink]="['/employeesEdit', element.id]" >Update Employee</button>
                 <button mat-menu-item (click)="deleteEmployee(element)">Delete Employee</button>
                 </mat-menu>
             </td>

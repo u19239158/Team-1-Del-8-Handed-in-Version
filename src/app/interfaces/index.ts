@@ -16,6 +16,7 @@ export interface Employee {
 export interface Supplier {
   id: number;
   supplierName: string;
+  supplierType: 'Bolts'|'Hardware'|'Others';
   supplierEmailAddress: string;
   supplierContactNumber: string;
   supplierAddressLine1: string;

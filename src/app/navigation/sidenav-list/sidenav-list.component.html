@@ -1,0 +1,124 @@
+<mat-nav-list>
+  <!-- Home -->
+  <a mat-list-item routerLink="/" (click)="onSidenavClose()">
+      <!-- <mat-icon>home</mat-icon>  -->
+      <img src="assets/images/Homepage.png" class="w3-margin-right" width=20px height=20px>
+      <span class="nav-caption">Home</span>
+  </a>
+
+  <!-- Users -->
+  <mat-list-item [matMenuTriggerFor]="menu">
+      <!-- <mat-icon>shopping_cart</mat-icon> -->
+      <img src="assets/images/Users.png" class="w3-margin-right" width=20px height=20px>
+      <a matline>Users</a>
+  </mat-list-item>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="onSidenavClose()">Customer</button>
+    <button mat-menu-item routerLink="/userRole" (click)="onSidenavClose()">User Role</button>
+  </mat-menu>
+
+  <!-- Employees -->
+  <mat-list-item [matMenuTriggerFor]="menu">
+      <!-- <mat-icon>shopping_basket</mat-icon> -->
+      <img src="assets/images/employee.png" class="w3-margin-right" width=20px height=20px>
+      <a matline>Employees</a>
+  </mat-list-item>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/employees" (click)="onSidenavClose()">View Employees</button>
+    <button mat-menu-item routerLink="/employeesAdd" (click)="onSidenavClose()">Add Employees</button>
+  </mat-menu>
+
+  <!-- Suppliers -->
+  <mat-list-item [matMenuTriggerFor]="menu">
+    <!-- <mat-icon>shopping_cart</mat-icon> -->
+    <img src="assets/images/supplier.png" class="w3-margin-right" width=20px height=20px>
+    <a matline>Suppliers</a>
+</mat-list-item>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item routerLink="/supplier"(click)="onSidenavClose()">View Suppliers</button>
+  <button mat-menu-item routerLink="/supplierAdd" (click)="onSidenavClose()">Add Supplier</button>
+  <button mat-menu-item routerLink="/supplierAdd" (click)="onSidenavClose()">Place Supplier Order</button>
+  <button mat-menu-item routerLink="/supplierAdd" (click)="onSidenavClose()">Receive Supplier Order</button>
+  <button mat-menu-item routerLink="/supplierAdd" (click)="onSidenavClose()">Make Supplier Payment</button>
+</mat-menu>
+
+  <!-- Admin -->
+<mat-list-item [matMenuTriggerFor]="menu">
+  <!-- <mat-icon>shopping_cart</mat-icon> -->
+  <img src="assets/images/admin.png" class="w3-margin-right" width=20px height=20px>
+  <a matline>Admin</a>
+</mat-list-item>
+<mat-menu #menu="matMenu">
+<button mat-menu-item (click)="onSidenavClose()">Search Online Sales</button>
+<button mat-menu-item routerLink="/userRole" (click)="onSidenavClose()">Do Stock Take</button>
+<button mat-menu-item routerLink="/userRole" (click)="onSidenavClose()">Write Off Stock</button>
+<button mat-menu-item routerLink="/userRole" (click)="onSidenavClose()">Assign Delivery Order</button>
+</mat-menu>
+
+  <!-- Products -->
+<mat-list-item [matMenuTriggerFor]="menu">
+  <!-- <mat-icon>shopping_cart</mat-icon> -->
+  <img src="assets/images/product.png" class="w3-margin-right" width=20px height=20px>
+  <a matline>Products</a>
+</mat-list-item>
+<mat-menu #menu="matMenu">
+<button mat-menu-item routerLink="/productCategory" (click)="onSidenavClose()">Product Category</button>
+<button mat-menu-item routerLink="/categoryType" (click)="onSidenavClose()">Category Type</button>
+<button mat-menu-item routerLink="/item" (click)="onSidenavClose()">Item</button>
+</mat-menu>
+
+  <!-- Promotions -->
+<mat-list-item [matMenuTriggerFor]="menu">
+  <!-- <mat-icon>shopping_cart</mat-icon> -->
+  <img src="assets/images/promotion.png" class="w3-margin-right" width=20px height=20px>
+  <a matline>Promotions</a>
+</mat-list-item>
+<mat-menu #menu="matMenu">
+<button mat-menu-item routerLink="/special"(click)="onSidenavClose()">View Specials</button>
+<button mat-menu-item routerLink="/specialAdd" (click)="onSidenavClose()">Add Special</button>
+</mat-menu>
+
+  <!-- Delivery Shift -->
+<mat-list-item [matMenuTriggerFor]="menu">
+  <!-- <mat-icon>shopping_cart</mat-icon> -->
+  <img src="assets/images/deliveryshift.png" class="w3-margin-right" width=20px height=20px>
+  <a matline>Delivery Shift</a>
+</mat-list-item>
+<mat-menu #menu="matMenu">
+<button mat-menu-item routerLink="/deliveryShift" (click)="onSidenavClose()">View Delivery Shift</button>
+<button mat-menu-item routerLink="/deliveryShift" (click)="onSidenavClose()">Add Delivery Shift</button>
+</mat-menu>
+
+  <!-- Courier -->
+<mat-list-item [matMenuTriggerFor]="menu">
+  <!-- <mat-icon>shopping_cart</mat-icon> -->
+  <img src="assets/images/Courier.png" class="w3-margin-right" width=20px height=20px>
+  <a matline>Courier</a>
+</mat-list-item>
+<mat-menu #menu="matMenu">
+<button mat-menu-item routerLink="/courier" (click)="onSidenavClose()">View Couriers</button>
+<button mat-menu-item routerLink="/addCourier" (click)="onSidenavClose()">Add Couriers</button>
+</mat-menu>
+
+  <!-- Reports -->
+<mat-list-item [matMenuTriggerFor]="menu">
+  <!-- <mat-icon>shopping_cart</mat-icon> -->
+  <img src="assets/images/Report.png" class="w3-margin-right" width=20px height=20px>
+  <a matline>Reports</a>
+</mat-list-item>
+<mat-menu #menu="matMenu">
+<button mat-menu-item routerLink="/generateReport" (click)="onSidenavClose()">Generate Report</button>
+</mat-menu>
+
+  <a mat-list-item routerLink="/login" (click)="onSidenavClose()">
+      <!-- <mat-icon>help_outline</mat-icon>  -->
+      <img src="assets/images/Help.png" class="w3-margin-right" width=20px height=20px>
+      <span class="nav-caption">Help</span>
+  </a>
+
+    <a mat-list-item routerLink="/login" (click)="onSidenavClose()">
+      <!-- <mat-icon>exit_to_app</mat-icon>  -->
+      <img src="assets/images/Logout.png" class="w3-margin-right" width=20px height=20px>
+      <span class="nav-caption">Logout</span>
+  </a>
+</mat-nav-list>

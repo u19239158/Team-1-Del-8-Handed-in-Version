@@ -26,6 +26,7 @@ export class SupplierService {
       const initialSupplier: Supplier = {
         id: 1,
         supplierName: 'Hardware',
+        supplierType: 'Bolts',
         supplierEmailAddress: 'Hardware@outlook.com',
         supplierContactNumber: '0105060102',
         supplierAddressLine1: '3 Hardware Store',

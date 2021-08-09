@@ -82,7 +82,7 @@ export class AddEditEmployeesComponent implements OnInit {
   createEmployee() {
     const employee: Employee = this.form.value;
     this.EmployeeService.addEmployee(employee);
-    this.router.navigateByUrl('employeeAdd');
+    this.router.navigateByUrl('employeesAdd');
   }
 
   updateEmployee() {
@@ -90,13 +90,13 @@ export class AddEditEmployeesComponent implements OnInit {
     employee.id = this.employee.id;
     this.EmployeeService.updateEmployee(employee);
     this.form.reset();
-    this.router.navigateByUrl('employeeEdit');
+    this.router.navigateByUrl('employeesEdit');
   }
 
 
   Close() {
     this.form.reset();
-    this.router.navigateByUrl('');
+    this.router.navigateByUrl('employees');
   }
 
 }

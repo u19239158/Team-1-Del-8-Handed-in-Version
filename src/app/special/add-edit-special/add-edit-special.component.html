@@ -4,51 +4,60 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="main">
 
   <div class="mat-row">
+
+     <!-- Choose special image -->
     <div class="mat-col-quarter">
-        <mat-form-field appearance="outline" class="control-w">
-            <mat-label>Special Image</mat-label>
+        <mat-form-field appearance="outline" class="control-m">
+            <mat-label>Select Image</mat-label>
+              <input type="file" id="img" name="img" accept="image/*">
             <input type="text" matInput placeholder="Special Image" formControlName="specialImage">
-            <mat-hint>Special Image</mat-hint>
         </mat-form-field>
     </div>
+
+    <!-- Special Description -->
     <div class="mat-col-quarter">
-        <mat-form-field appearance="outline" class="control-w">
+        <mat-form-field appearance="outline" class="control-m">
             <mat-label>Description</mat-label>
             <input type="text" matInput placeholder="Description" formControlName="specialDescription">
-            <mat-hint>Special Description</mat-hint>
         </mat-form-field>
     </div>
 </div>
 
 <div class="mat-row">
+
+  <!-- Start Date -->
   <div class="mat-col-quarter">
-    <mat-form-field>
+    <mat-form-field class="control-m">
       <input matInput [matDatepicker]="picker" placeholder="Choose a date">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
-      <mat-hint>Special Start Date</mat-hint>
     </mat-form-field>
   </div>
+
+  <!-- End Date -->
   <div class="mat-col-quarter">
-    <mat-form-field>
+    <mat-form-field class="control-m">
       <input matInput [matDatepicker]="picker1" placeholder="Choose a date">
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
-      <mat-hint>Special End Date</mat-hint>
     </mat-form-field>
   </div>
 </div>
 
 <div class="mat-row">
+
+  <!-- Special Price -->
   <div class="mat-col-quarter">
-      <mat-form-field appearance="outline" class="control-w">
+      <mat-form-field appearance="outline" class="control-m">
           <mat-label>Price</mat-label>
-          <input type="text" matInput placeholder="Special Price" formControlName="specialPrice">
-          <mat-hint>Special Price</mat-hint>
+          <input type="number" placeholder="0" matInput placeholder="Special Price" formControlName="specialPrice">
+          <span matPrefix>R&nbsp;</span>
+          <span matSuffix>.00</span>
       </mat-form-field>
   </div>
 
-  <div class="form-group" class="control-w">
+  <!-- Save or cancel special -->
+  <div class="form-group" class="control-m">
     <button mat-raised-button color ="primary" [disabled]="loading">
         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
         Save

@@ -2,88 +2,95 @@
 <h1 *ngIf="!isAddMode">Edit Supplier</h1>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="main">
+
   <div class="mat-row">
+
+    <!-- Supplier Name -->
     <div class="mat-col-quarter">
-      <mat-form-field appearance="outline" class="control-w">
+      <mat-form-field appearance="outline" class="control-m">
           <mat-label>Supplier Name</mat-label>
           <input type="text" matInput placeholder="Supplier Name" formControlName="supplierName">
-          <mat-hint>Supplier name</mat-hint>
       </mat-form-field>
   </div>
 
-    <div class="mat-col-quarter">
-        <mat-form-field appearance="outline" class="control-w">
-            <mat-label>Contact Number</mat-label>
-            <input type="text" matInput placeholder="Contact Number" formControlName="supplierContactNumber">
-            <mat-hint>Supplier contact number</mat-hint>
-        </mat-form-field>
-    </div>
+  <!-- Supplier Type -->
+  <div class="mat-col-quarter">
+    <mat-form-field appearance="outline" class="control-m">
+        <mat-label>Supplier Type</mat-label>
+        <mat-select formControlName="title">
+          <mat-option value="Dr">Bolts</mat-option>
+          <mat-option value="Mr">Hardware</mat-option>
+          <mat-option value="Mrs">Other</mat-option>
+        </mat-select>
+      </mat-form-field>
   </div>
+</div>
 
-  <div class="mat-row">
+<div class="mat-row">
+    <!-- Supplier email address -->
     <div class="mat-col-quarter">
-      <mat-form-field appearance="outline" class="control-w">
+      <mat-form-field appearance="outline" class="control-m">
           <mat-label>Supplier Email Address</mat-label>
           <input type="text" matInput placeholder="Supplier Email Address" formControlName="supplierEmailAddress">
-          <mat-hint>Supplier email address</mat-hint>
       </mat-form-field>
   </div>
 
+  <!-- Supplier Contact Number -->
     <div class="mat-col-quarter">
-        <mat-form-field appearance="outline" class="control-w">
+        <mat-form-field appearance="outline" class="control-m">
             <mat-label>Contact Number</mat-label>
             <input type="text" matInput placeholder="Contact Number" formControlName="supplierContactNumber">
-            <mat-hint>Supplier contact number</mat-hint>
         </mat-form-field>
     </div>
   </div>
 
   <div class="mat-row">
+    <!-- Supplier Addressline 1 -->
     <div class="mat-col-quarter">
-      <mat-form-field appearance="outline" class="control-w">
+      <mat-form-field appearance="outline" class="control-m">
           <mat-label>Supplier AddressLine1</mat-label>
           <input type="text" matInput placeholder="Supplier AddressLine1" formControlName="supplierAddressLine1">
-          <mat-hint>Supplier adress line 1</mat-hint>
       </mat-form-field>
   </div>
 
+  <!-- Supplier city/town -->
     <div class="mat-col-quarter">
-        <mat-form-field appearance="outline" class="control-w">
+        <mat-form-field appearance="outline" class="control-m">
             <mat-label>City/Town</mat-label>
             <input type="text" matInput placeholder="City/Town" formControlName="supplierCityTown">
-            <mat-hint>Supplier city or town</mat-hint>
         </mat-form-field>
     </div>
   </div>
 
   <div class="mat-row">
+    <!-- Supplier Address Line 2 -->
     <div class="mat-col-quarter">
-      <mat-form-field appearance="outline" class="control-w">
+      <mat-form-field appearance="outline" class="control-m">
           <mat-label>Supplier AddressLine2</mat-label>
           <input type="text" matInput placeholder="Supplier AddressLine2" formControlName="supplierAddressLine2">
-          <mat-hint>Supplier adress line 2</mat-hint>
       </mat-form-field>
   </div>
 
+  <!-- Supplier postal code -->
     <div class="mat-col-quarter">
-        <mat-form-field appearance="outline" class="control-w">
+        <mat-form-field appearance="outline" class="control-m">
             <mat-label>Postal Code</mat-label>
             <input type="text" matInput placeholder="Postal Code" formControlName="supplierPostalCode">
-            <mat-hint>Supplier postal code</mat-hint>
         </mat-form-field>
     </div>
   </div>
 
   <div class="mat-row">
+    <!-- Supplier adressline 3 -->
     <div class="mat-col-quarter">
-      <mat-form-field appearance="outline" class="control-w">
+      <mat-form-field appearance="outline" class="control-m">
           <mat-label>Supplier AddressLine3</mat-label>
           <input type="text" matInput placeholder="Supplier AddressLine3" formControlName="supplierAddressLine3">
-          <mat-hint>Supplier adress line 3</mat-hint>
       </mat-form-field>
   </div>
 
-  <div class="form-group" class="control-w">
+  <!-- Supplier save and cancel button -->
+  <div class="form-group" class="control-m">
     <button mat-raised-button color ="primary" [disabled]="loading">
         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
         Save

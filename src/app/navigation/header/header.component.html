@@ -1,0 +1,29 @@
+<mat-toolbar fxLayout="row" color="primary">
+  <div fxHide.gt-lg>
+      <button mat-icon-button (click)="onToggleSidenav()">
+          <mat-icon>menu</mat-icon>
+      </button>
+  </div>
+  <div>
+      <a routerLink="/"> 
+        <img src="assets/images/transparentnkaplogo.png" class="topheaderlogo" alt="logo">     
+        <h2 class="w3-wide w3-left topheadertext">NKAP Bolting</h2>      
+      </a>
+  </div>
+  <div class="search">
+      <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+          <li>         
+              <div class="field has-addons" >
+                <div class="control" >
+                  <input class="input" type="text"  placeholder="search">
+                </div>
+                <div class="control">
+                  <a class="button is-info">
+          <span class="fas fa-search search-icon"></span>  
+                  </a>
+                </div>
+              </div>   
+          </li>
+      </ul>
+  </div>
+</mat-toolbar>
