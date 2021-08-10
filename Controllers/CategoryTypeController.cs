@@ -87,6 +87,29 @@ namespace NKAP_API_2.Controllers
             return Ok(Cattype);
         }
 
+        [Route("GetCategoryTypeByProdDesc/{productcategorydescription}")] //route
+        [HttpGet]
+        //get CategoryType by Description (Read)
+        public IActionResult Get(string productCategoryDescription)
+        {
+            var Cattype = _db.CategoryTypes.Join(_db.ProductCategories,
+                c => c.ProductCategoryId,
+                t => t.ProductCategoryId,
+                (c, t) => new
+                {
+                    ProductCategoryID = c.ProductCategoryId,
+                    ProductCategoryDesc = t.ProductCategoryDescription,
+                    CategoryTypeId = c.CategoryTypeId,
+                    CategoryTypeDescription = c.CategoryTypeDescription,
+                    CategoryTypeImage = c.CategoryTypeImage,
+                    Description = c.ItemDescription
+
+                }).Where(cc => cc.ProductCategoryDesc == productCategoryDescription);
+
+            return Ok(Cattype);
+
+        }
+
         [Route("CreateCategoryType")] //route
         [HttpPost]
         //Add CategoryType

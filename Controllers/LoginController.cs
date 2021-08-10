@@ -30,7 +30,7 @@ namespace NKAP_API_2.Controllers
             //using var db = new NKAP_BOLTING_DB_4Context();
 
             string hashedPassword = this.ComputeSha256Hash(model.UserPassword);
-            var user = _db.User.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
+            var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
             if (user == null)
             {
                 return NotFound();
@@ -60,7 +60,7 @@ namespace NKAP_API_2.Controllers
                 return Forbid();
             }
 
-            var newUser = new Users
+            var newUser = new User
             {
                 UserUsername = model.UserUsername,
                 UserPassword = ComputeSha256Hash(model.UserPassword),
@@ -68,12 +68,12 @@ namespace NKAP_API_2.Controllers
                 
             };
 
-            var newpasshist = new PasswordHistory
-            {
-                //PasswordHistoryId = model.PasswordHistoryId,
-                PasswordHistoryDate = Convert.ToDateTime(DateTime.Today),
-                PasswordHistoryText = ComputeSha256Hash(model.UserPassword)
-            };
+            //var newpasshist = new PasswordHistory
+            //{
+            //    //PasswordHistoryId = model.PasswordHistoryId,
+            //    PasswordHistoryDate = Convert.ToDateTime(DateTime.Today), //trying to save the date that the password was created
+            //    PasswordHistoryText = ComputeSha256Hash(model.UserPassword) //trying to save the hashed password
+            //};
 
             
             var newCustomer = new Customer
@@ -90,12 +90,12 @@ namespace NKAP_API_2.Controllers
 
             try
             {
-               // _db.Users.Add(newUser);
+                _db.Users.Add(newUser);
                 _db.Customers.Add(newCustomer);
-                _db.PasswordHistories.Add(newpasshist);
+               // _db.PasswordHistories.Add(newpasshist);
                 _db.SaveChanges();
 
-                return Ok(newpasshist);
+                return Ok(newCustomer);
             }
             catch (Exception e)
             {
@@ -107,7 +107,7 @@ namespace NKAP_API_2.Controllers
         private bool UserExists(string userusername)
         {
            // using var _db = new NKAP_BOLTING_DB_4Context();
-            var user = _db.User.Where(zz => zz.UserUsername == userusername).FirstOrDefault();
+            var user = _db.Users.Where(zz => zz.UserUsername == userusername).FirstOrDefault();
 
             return user != null;
         }

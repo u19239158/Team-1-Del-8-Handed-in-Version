@@ -60,7 +60,7 @@ namespace NKAP_API_2.EF
         public virtual DbSet<SupplierType> SupplierTypes { get; set; }
         public virtual DbSet<Time> Times { get; set; }
         public virtual DbSet<Title> Titles { get; set; }
-        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<Vat> Vats { get; set; }
         public virtual DbSet<WrittenOffStock> WrittenOffStocks { get; set; }
