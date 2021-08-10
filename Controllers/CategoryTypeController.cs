@@ -34,7 +34,9 @@ namespace NKAP_API_2.Controllers
                      ProductCategoryID = c.ProductCategoryId,
                      ProductCategoryDesc = t.ProductCategoryDescription,
                      CategoryTypeId = c.CategoryTypeId,
-                     CategoryTypeDescription = c.CategoryTypeDescription
+                     CategoryTypeDescription = c.CategoryTypeDescription,
+                     CategoryTypeImage =c.CategoryTypeImage,
+                     Description = c.ItemDescription
 
                  });
 
@@ -54,7 +56,9 @@ namespace NKAP_API_2.Controllers
                     ProductCategoryID = c.ProductCategoryId,
                     ProductCategoryDesc = t.ProductCategoryDescription,
                     CategoryTypeId = c.CategoryTypeId,
-                    CategoryTypeDescription = c.CategoryTypeDescription
+                    CategoryTypeDescription = c.CategoryTypeDescription,
+                    CategoryTypeImage = c.CategoryTypeImage,
+                    Description = c.ItemDescription
 
                 }).First( cc => cc.CategoryTypeId == categorytypeid) ;
 
@@ -74,7 +78,9 @@ namespace NKAP_API_2.Controllers
                     ProductCategoryID = c.ProductCategoryId,
                     ProductCategoryDesc = t.ProductCategoryDescription,
                     CategoryTypeId = c.CategoryTypeId,
-                    CategoryTypeDescription = c.CategoryTypeDescription
+                    CategoryTypeDescription = c.CategoryTypeDescription,
+                    CategoryTypeImage = c.CategoryTypeImage,
+                    Description = c.ItemDescription
 
                 }).First(cc => cc.CategoryTypeDescription == categorytypedescription); 
 

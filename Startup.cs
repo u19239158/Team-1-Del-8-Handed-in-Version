@@ -24,20 +24,24 @@ namespace NKAP_API_2
         }
 
         public IConfiguration Configuration { get; }
-
+      
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddControllers();
             //services.AddDbContext<NKAP_BOLTING_DB_4Context>(options => options.UseSqlServer)
             services.AddDbContext<NKAP_BOLTING_DB_4Context>(options => options.UseSqlServer(Configuration.GetConnectionString("NKAP_DB")));
-           
+            services.AddCors();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+            app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
