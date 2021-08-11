@@ -3,6 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserRole } from 'src/app/interfaces';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-edit-user-role',
@@ -11,12 +12,17 @@ import { UserRole } from 'src/app/interfaces';
 })
 export class AddEditUserRoleComponent implements OnInit {
 
+  dataSaved = false;
   form: FormGroup;
   id: number;
   isAddMode: boolean;
   loading = false;
   submitted = false;
   userRole: UserRole;
+  allUserRoles: Observable<UserRole[]>;
+  employeeIdUpdate = null;
+  massage = null;
+  userRoleId: string;
 
   constructor(
         private formBuilder: FormBuilder,
@@ -36,7 +42,7 @@ export class AddEditUserRoleComponent implements OnInit {
     }, formOptions);
 
     if (!this.isAddMode) {
-      this.userRole = this.UserRoleService.getUserRoleById(this.id);
+      // this.userRole = this.UserRoleService.getUserRoleById(this.userRoleId);
 
         this.form = this.formBuilder.group({
           userRoleName: [this.userRole.userRoleName, [Validators.required]],
@@ -51,31 +57,60 @@ export class AddEditUserRoleComponent implements OnInit {
       return;
     }
 
-    this.loading = true;
-    if (this.isAddMode) {
-        this.createUserRole();
+    // this.loading = true;
+    // if (this.isAddMode) {
+    //     this.createUserRole();
+    // } else {
+    //      this.updateUserRole();
+    // }
+  }
+  updateUserRole() {
+    throw new Error('Method not implemented.');
+  }
+
+  // createUserRole() {
+  //   const userRole: UserRole = this.form.value;
+  //   this.UserRoleService.addUserRole(userRole);
+  //   this.router.navigateByUrl('userRoleAdd');
+  // }
+
+  createUserRole(UserRole: UserRole) {
+    if (this.updateUserRole == null) {
+      this.UserRoleService.createUserRole(this.userRole).subscribe(
+        () => {
+          this.dataSaved = true;
+          this.massage = 'Record saved Successfully';
+          this.form.reset();
+        }
+      );
     } else {
-        this.updateUserRole();
+      this.userRole.userRoleId = this.employeeIdUpdate;
+      this.UserRoleService.updateUserRole(this.userRole).subscribe(() => {
+        this.dataSaved = true;
+        this.massage = 'Record Updated Successfully';
+        this.form.reset();
+      });
     }
   }
 
-  createUserRole() {
-    const userRole: UserRole = this.form.value;
-    this.UserRoleService.addUserRole(userRole);
-    this.router.navigateByUrl('userRoleAdd');
-  }
+  // updateUserRole() {
+  //   const userRole: UserRole = this.form.value;
+  //   userRole.id = this.userRole.id;
+  //   this.UserRoleService.updateUserRole(userRole);
+  //   this.form.reset();
+  //   this.router.navigateByUrl('userRoleEdit');
+  // }
 
-  updateUserRole() {
-    const userRole: UserRole = this.form.value;
-    userRole.id = this.userRole.id;
-    this.UserRoleService.updateUserRole(userRole);
-    this.form.reset();
-    this.router.navigateByUrl('userRoleEdit');
-  }
 
+  // Close() {
+  //   this.form.reset();
+  //   this.router.navigateByUrl('userRole');
+  // }
 
   Close() {
     this.form.reset();
+    this.massage = null;
+    this.dataSaved = false;
     this.router.navigateByUrl('userRole');
   }
 

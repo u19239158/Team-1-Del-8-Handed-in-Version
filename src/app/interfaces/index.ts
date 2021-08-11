@@ -32,6 +32,13 @@ export interface UserRole {
   userRoleDescription: string;
 }
 
+export class UserRole {
+  id: number;
+  userRoleName: string;
+  userRoleDescription: string;
+  userRoleId: any;
+}
+
 export interface Special {
   id: number;
   specialImage: string;

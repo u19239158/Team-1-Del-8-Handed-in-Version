@@ -9,7 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class EmployeeService {
 
-  // server = 'https://localhost:44308/api/';
+  // url = 'http://localhost:443939/api/Employee';
   // httpOptions = {
   //   headers: new HttpHeaders({
   //     ContentType: 'application/json'
@@ -45,7 +45,8 @@ export class EmployeeService {
   }
 
   // getEmployee():  Observable<Employees[]>  {
-  //   return this.http.get<Employees[]>(`${this.server}/Employee/GetEmployees`).pipe(map(res => res));
+  //   return this.http.get<Employees[]>(this.url + '/AllEmployeeDetails');
+  //(`${this.server}/Employee/GetEmployees`).pipe(map(res => res));
   // }
 
   getEmployeeById(id: number): Employee {
@@ -97,4 +98,31 @@ export class EmployeeService {
   // deleteEmployee(toDelete: Employee) {
   //   return this.http.delete<Employee>(`${this.server}/Employee/Add`, employee, this.httpOptions);
   // }
+
+  // getAllEmployee(): Observable<Employee[]> {
+  //   return this.http.get<Employee[]>(this.url + '/GetEmployee');
+  // }
+
+//   getEmployeeById(employeeId: string): Observable<Employee> {
+//     return this.http.get<Employee>(this.url + '/GetEmployeeDetailsById/' + employeeId);
+//   }
+
+//   createEmployee(employee: Employee): Observable<Employee> {
+//     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json'}) };
+//     return this.http.post<Employee>(this.url + '/CreateEmployee/',
+//     employee, httpOptions);
+//   }
+
+//   updateEmployee(employee: Employee): Observable<Employee> {
+//     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json'}) };
+//     return this.http.put<Employee>(this.url + '/UpdateEmployee/',
+//     employee, httpOptions);
+//   }
+
+//   deleteEmployeeById(employeeid: string): Observable<number> {
+//     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json'}) };
+//     return this.http.delete<number>(this.url + '/DeleteEmployee?id=' +Employee_Id,
+//  httpOptions);
+//   }
 }
+

@@ -44,7 +44,7 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     UserRoleComponent,
     AddEditUserRoleComponent,
     HeaderComponent,
-    SidenavListComponent
+    SidenavListComponent,
   ],
   imports: [
     BrowserModule,
