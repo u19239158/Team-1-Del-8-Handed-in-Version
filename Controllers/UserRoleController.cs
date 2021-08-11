@@ -63,9 +63,10 @@ namespace NKAP_API_2.Controllers
         }
 
         [Route("UpdateUserRole")] //route
-        [HttpPost]
+        [HttpPut]
         //Update UserRole
         public IActionResult UpdateUserRole(UserRoleModel model)
+        
         {
             var userrole = _db.UserRoles.Find(model.UserRoleID);
             userrole.UserRoleName = model.UserRoleName;
