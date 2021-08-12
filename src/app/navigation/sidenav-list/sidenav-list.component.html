@@ -1,4 +1,4 @@
-<mat-nav-list>
+    <mat-nav-list>
   <!-- Home -->
   <a mat-list-item routerLink="/" (click)="onSidenavClose()">
       <!-- <mat-icon>home</mat-icon>  -->
@@ -11,6 +11,7 @@
       <!-- <mat-icon>shopping_cart</mat-icon> -->
       <img src="assets/images/Users.png" class="w3-margin-right" width=20px height=20px>
       <a matline>Users</a>
+      <button mat-button [matMenuTriggerFor]="menu">Users</button>
   </mat-list-item>
   <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="onSidenavClose()">Customer</button>
@@ -20,9 +21,9 @@
   <!-- Employees -->
   <mat-list-item [matMenuTriggerFor]="menu">
       <!-- <mat-icon>shopping_basket</mat-icon> -->
-      <img src="assets/images/employee.png" class="w3-margin-right" width=20px height=20px>
+     <img src="assets/images/employee.png" class="w3-margin-right" width=20px height=20px>
       <a matline>Employees</a>
-  </mat-list-item>
+  </mat-list-item> -->
   <mat-menu #menu="matMenu">
     <button mat-menu-item routerLink="/employees" (click)="onSidenavClose()">View Employees</button>
     <button mat-menu-item routerLink="/employeesAdd" (click)="onSidenavClose()">Add Employees</button>
@@ -121,4 +122,5 @@
       <img src="assets/images/Logout.png" class="w3-margin-right" width=20px height=20px>
       <span class="nav-caption">Logout</span>
   </a>
-</mat-nav-list>
+  </mat-nav-list>
+

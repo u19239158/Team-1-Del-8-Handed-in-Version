@@ -1,3 +1,4 @@
+<div class="main" class="content mat-elevation-z8">
 <h1>Couriers</h1>
 
 <div class="mat-elevation-z8 table">
@@ -29,7 +30,7 @@
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>
                 <button mat-icon-button color="primary" aria-label="Example icon button with a home icon"
-                routerLink = "addCourier"
+                routerLink = "/addCourier"
                 >
                     <mat-icon>add</mat-icon>
                   </button>
@@ -48,4 +49,5 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+</div>
 </div>

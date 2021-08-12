@@ -26,6 +26,17 @@ import { SpecialsComponent } from './special/specials/specials.component';
 import { AddEditSpecialComponent } from './special/add-edit-special/add-edit-special.component';
 import { UserRoleComponent } from './userRole/user-role/user-role.component';
 import { AddEditUserRoleComponent } from './userRole/add-edit-user-role/add-edit-user-role.component';
+import { CouriersComponent } from './courier/couriers/couriers.component';
+import { AddEditCourierComponent } from './courier/add-edit-courier/add-edit-courier.component';
+import { DeliveryshiftsComponent } from './deliveryshift/deliveryshifts/deliveryshifts.component';
+import { AddEditDeliveryshiftsComponent } from './deliveryshift/add-edit-deliveryshift/add-edit-deliveryshift.component';
+import { CategorytypesComponent } from './categorytype/categorytypes/categorytypes.component';
+import { AddEditCategorytypesComponent } from './categorytype/add-edit-categorytypes/add-edit-categorytypes.component';
+import { ProductitemsComponent } from './productitem/productitems/productitems.component';
+import { AddEditProductitemsComponent } from './productitem/add-edit-productitems/add-edit-productitems.component';
+import { ProductcategorysComponent } from './productcategory/productcategorys/productcategorys.component';
+import { AddEditProductcategorysComponent } from './productcategory/add-edit-productcategorys/add-edit-productcategorys.component';
+
 import { MaterialModule } from './material/material/material.module';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
@@ -45,6 +56,16 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     AddEditUserRoleComponent,
     HeaderComponent,
     SidenavListComponent,
+    CouriersComponent,
+    AddEditCourierComponent,
+    DeliveryshiftsComponent,
+    AddEditDeliveryshiftsComponent,
+    CategorytypesComponent,
+    AddEditCategorytypesComponent,
+    ProductitemsComponent,
+    AddEditProductitemsComponent,
+    ProductcategorysComponent,
+    AddEditProductcategorysComponent,
   ],
   imports: [
     BrowserModule,

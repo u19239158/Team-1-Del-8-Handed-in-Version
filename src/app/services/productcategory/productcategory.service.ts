@@ -1,5 +1,7 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { last } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { last, map } from 'rxjs/operators';
 import { Productcategory } from 'src/app/interfaces';
 
 @Injectable({
@@ -7,60 +9,87 @@ import { Productcategory } from 'src/app/interfaces';
 })
 export class ProductcategoryService {
 
-  KEY = 'productcategorys';
-  constructor() { }
+  server = "https://localhost:44393/api/";
 
-  getAll(): Productcategory[] {
-    const productcategorys = JSON.parse(localStorage.getItem(this.KEY));
+  httpOptions = {
+    headers: new HttpHeaders({
+      ContentType: 'application/json'
+    })
+};
+  //KEY = 'productcategorys';
+  constructor(private http: HttpClient) { }
 
-    if(!productcategorys) {
-      const initialProductcategory: Productcategory = {
-        id: 1,
-        productCategoryName: 'Bolts',
-      };
-      this.addProductcategory(initialProductcategory);
-      this.getAll();
-    }
-
-    return productcategorys;
+  GetProductCategory():  Observable<Productcategory[]>  {
+    return this.http.get<Productcategory[]>(`${this.server}Productcategory/GetProductCategory`).pipe(map(res => res));
   }
 
-  getProductcategoryById(id: number): Productcategory {
-    const productcategorys: Productcategory[] = JSON.parse(localStorage.getItem(this.KEY));
-    return productcategorys.find(x => x.id === id);
+  getProductCategoryByID(ProductCategoryid):  Observable<Productcategory>  {
+    return this.http.get<Productcategory>(`${this.server}Productcategory/GetProductCategoryByID/${ProductCategoryid}`).pipe(map(res => res));
   }
 
-  addProductcategory(newProductcategory: Productcategory): void {
-    const productcategorys: Productcategory[] = JSON.parse(localStorage.getItem(this.KEY));
-
-    if (!productcategorys) {
-      localStorage.setItem(this.KEY, JSON.stringify([newProductcategory]));
-      return;
-    }
-
-    let lastId = Math.max(...productcategorys.map(x => x.id));
-    newProductcategory.id = lastId++;
-    localStorage.setItem(this.KEY, JSON.stringify([...productcategorys, newProductcategory]));
+  CreateProductCategory(Productcategory:Productcategory):  Observable<Productcategory[]>  {
+    return this.http.post<Productcategory[]>(`${this.server}Productcategory/CreateProductCategory`, Productcategory,this.httpOptions);
   }
 
-  updateProductcategory(updated: Productcategory): void {
-    const productcategorys: Productcategory[] = JSON.parse(localStorage.getItem(this.KEY));
-    const index = productcategorys.findIndex(x => x.id == updated.id);
-
-    if(index > -1) {
-      productcategorys.splice(index, 1);
-      productcategorys.push(updated);
-      localStorage.setItem(this.KEY, JSON.stringify([...productcategorys]));
-    }
+  UpdateProductCategory(Productcategory:Productcategory):  Observable<Productcategory[]>  {
+    return this.http.put<Productcategory[]>(`${this.server}Productcategory/UpdateProductCategory`, Productcategory,this.httpOptions);
   }
 
-  deleteProductcategory(toDelete: Productcategory): void {
-    const productcategorys: Productcategory[] = JSON.parse(localStorage.getItem(this.KEY));
-    const index = productcategorys.findIndex(x => x.id == toDelete.id);
-
-    if(index > -1) {
-      productcategorys.splice(index, 1);
-      localStorage.setItem(this.KEY, JSON.stringify([...productcategorys]));
-    }
+    DeleteProductCategory(productcategoryId):  Observable<Productcategory>  {
+    return this.http.delete<Productcategory>(`${this.server}Productcategory/DeleteUserRole/${productcategoryId}`).pipe(map(res => res));
   }
 }
+//   getAll(): Productcategory[] {
+//     const productcategorys = JSON.parse(localStorage.getItem(this.KEY));
+
+//     if(!productcategorys) {
+//       const initialProductcategory: Productcategory = {
+//         id: 1,
+//         productCategoryName: 'Bolts',
+//       };
+//       this.addProductcategory(initialProductcategory);
+//       this.getAll();
+//     }
+
+//     return productcategorys;
+//   }
+
+//   getProductcategoryById(id: number): Productcategory {
+//     const productcategorys: Productcategory[] = JSON.parse(localStorage.getItem(this.KEY));
+//     return productcategorys.find(x => x.id === id);
+//   }
+
+//   addProductcategory(newProductcategory: Productcategory): void {
+//     const productcategorys: Productcategory[] = JSON.parse(localStorage.getItem(this.KEY));
+
+//     if (!productcategorys) {
+//       localStorage.setItem(this.KEY, JSON.stringify([newProductcategory]));
+//       return;
+//     }
+
+//     let lastId = Math.max(...productcategorys.map(x => x.id));
+//     newProductcategory.id = lastId++;
+//     localStorage.setItem(this.KEY, JSON.stringify([...productcategorys, newProductcategory]));
+//   }
+
+//   updateProductcategory(updated: Productcategory): void {
+//     const productcategorys: Productcategory[] = JSON.parse(localStorage.getItem(this.KEY));
+//     const index = productcategorys.findIndex(x => x.id == updated.id);
+
+//     if(index > -1) {
+//       productcategorys.splice(index, 1);
+//       productcategorys.push(updated);
+//       localStorage.setItem(this.KEY, JSON.stringify([...productcategorys]));
+//     }
+//   }
+
+//   deleteProductcategory(toDelete: Productcategory): void {
+//     const productcategorys: Productcategory[] = JSON.parse(localStorage.getItem(this.KEY));
+//     const index = productcategorys.findIndex(x => x.id == toDelete.id);
+
+//     if(index > -1) {
+//       productcategorys.splice(index, 1);
+//       localStorage.setItem(this.KEY, JSON.stringify([...productcategorys]));
+//     }
+//   }
+//
