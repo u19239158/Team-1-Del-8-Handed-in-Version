@@ -71,7 +71,6 @@ export class AddEditUserRoleComponent implements OnInit {
     })
 
   }
-
   updateUserRole() {
     const userRole: UserRole = this.form.value;
     userRole.userRoleId = this.UserRole.userRoleId;

@@ -1,9 +1,10 @@
+import { Supplier } from './../../interfaces/index';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Supplier } from 'src/app/interfaces';
+import { Observable } from 'rxjs';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { SupplierService } from 'src/app/services/supplier/supplier.service.component';
 
@@ -13,7 +14,8 @@ import { SupplierService } from 'src/app/services/supplier/supplier.service.comp
   styleUrls: ['./suppliers.component.scss']
 })
 export class SuppliersComponent implements OnInit {
-  suppliers: Supplier[] = [];
+  //suppliers: Supplier[] = [];
+  suppliers: Observable<Supplier[]>
   dataSource = new MatTableDataSource<Supplier>();
   displayedColumns: string[] = ['name', 'contactNumber', 'email', 'actions'];
 
@@ -27,18 +29,23 @@ export class SuppliersComponent implements OnInit {
   }
 
   readSuppliers(): void {
-    this.dataSource = new MatTableDataSource<Supplier>(this.supplierService.getAll());
+    this.supplierService.GetSupplier().subscribe(res => {
+      console.log(res)
+      this.dataSource = new MatTableDataSource(res)
+    })
+    //this.dataSource = new MatTableDataSource<Supplier>(this.supplierService.getAll());
   }
 
-  deleteSupplier(inSupplier: Supplier) {
+  deleteSupplier(Supplier: Supplier) {
     const confirm = this.dialog.open(GlobalConfirmComponent, {
         disableClose: true,
     });
 
     confirm.afterClosed().subscribe(res => {
       if(res) {
-        this.supplierService.deleteSupplier(inSupplier);
-        this.readSuppliers();
+        this.supplierService.DeleteSupplier(Supplier).subscribe(res => {
+          this.readSuppliers();
+        });
       }
     });
   }
