@@ -1,0 +1,51 @@
+<h1 *ngIf="isAddMode">Add Courier</h1>
+<h1 *ngIf="!isAddMode">Edit Courier</h1>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="mat-row">
+
+        <div class="mat-col-quarter">
+            <mat-form-field appearance="outline" class="control-w">
+                <mat-label>Courier Name</mat-label>
+                <input type="text" matInput placeholder="Courier Name" formControlName="name">
+            </mat-form-field>
+        </div>
+
+        <div class="mat-col-quarter">
+            <mat-form-field appearance="outline" class="control-w">
+                <mat-label>Courier Type</mat-label>
+                <mat-select formControlName="type">
+                  <mat-option value="International">International</mat-option>
+                  <mat-option value="National">National</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+    </div>
+
+    <div class="mat-row">
+
+        <div class="mat-col-quarter">
+          <mat-form-field appearance="outline" class="control-w">
+              <mat-label>Courier Email Address</mat-label>
+              <input type="text" matInput placeholder="email" formControlName="email">
+          </mat-form-field>
+      </div>
+
+        <div class="mat-col-quarter">
+            <mat-form-field appearance="outline" class="control-w">
+                <mat-label>Courier Contact Number</mat-label>
+                <input type="text" matInput placeholder="contactNumber" formControlName="contactNumber">
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="form-group" class="control-w">
+      <button mat-raised-button color ="primary" [disabled]="loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Save
+      </button>
+      <a (click)="Close()" mat-button>Cancel</a>
+  </div>
+
+
+</form>

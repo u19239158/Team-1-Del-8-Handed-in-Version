@@ -1,0 +1,74 @@
+<h1 *ngIf="isAddMode">Add Product Item</h1>
+<h1 *ngIf="!isAddMode">Edit Product Item</h1>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <div class="mat-row">
+        <div class="mat-col-quarter">
+            <mat-form-field appearance="outline" class="control-w">
+                <mat-label>Product Item Name</mat-label>
+                <input type="text" matInput placeholder="Product Item Name" formControlName="name">
+                <mat-hint>Product Item Name</mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div class="mat-col-quarter">
+            <mat-form-field appearance="outline" class="control-w">
+                <mat-label>Category Type</mat-label>
+                <mat-select formControlName="categorytype">
+                  <mat-option value="Product Category 1">Product Category 1</mat-option>
+                  <mat-option value="Product Category 2">Product Category 2</mat-option>
+                  <mat-option value="Product Category 3">Product Category 3</mat-option>
+                  <mat-option value="Product Category 4">Product Category 4</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+  </div>
+
+    <div class="mat-row">
+        <div class="mat-col-quarter">
+            <mat-form-field appearance="outline" class="control-w">
+                <mat-label>Product Item Description</mat-label>
+                <input type="text" matInput placeholder="description" formControlName="description">
+                <mat-hint>Item Description</mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div class="mat-col-quarter">
+          <mat-form-field appearance="outline" class="control-w">
+              <mat-label>Item Cost</mat-label>
+              <input type="text" matInput placeholder="Cost" formControlName="cost">
+              <mat-hint>Item Cost</mat-hint>
+          </mat-form-field>
+      </div>
+    </div>
+
+    <div class="mat-row">
+        <div class="mat-col-quarter">
+            <mat-form-field appearance="outline" class="control-w">
+                <mat-label>Quantity</mat-label>
+                <input type="text" matInput placeholder="quantity" formControlName="quantity">
+                <mat-hint>Product Quantity</mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="mat-col-quarter">
+            <mat-form-field appearance="outline" class="control-w">
+                <mat-label>IMAGE</mat-label>
+                <input type="text" matInput placeholder="City/Town" formControlName="cityTown">
+                <mat-hint>Your city or town</mat-hint>
+            </mat-form-field>
+        </div>
+    </div>
+
+  <div class="mat-row">
+    <div class="form-group" class="control-w">
+      <button mat-raised-button color ="primary" [disabled]="loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Save
+      </button>
+      <a (click)="Close()" mat-button>Cancel</a>
+    </div>
+
+  </div>
+
+</form>
