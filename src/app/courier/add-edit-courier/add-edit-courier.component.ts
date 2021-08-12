@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { CourierService } from 'src/app/services/courier/courier.service';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -18,6 +19,7 @@ export class AddEditCourierComponent implements OnInit {
     loading = false;
     submitted = false;
     courier: Courier;
+    couriers: Observable<Courier[]>;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -39,14 +41,16 @@ export class AddEditCourierComponent implements OnInit {
         }, formOptions);
 
     if (!this.isAddMode) {
-      this.courier = this.CourierService.getCourierById(this.id);
-
+      this.CourierService.getCourierByID(this.id).subscribe(res => {
+        this.courier = res
+        console.log(res)
         this.form = this.formBuilder.group({
-        name: [this.courier.name, [Validators.required]],
-        type: [this.courier.type, [Validators.required]],
-        email: [this.courier.email, [Validators.required, Validators.email]],
-        contactNumber: [this.courier.contactNumber, [Validators.required, Validators.maxLength(10)]],
-        }, formOptions);
+          name: [this.courier.name, [Validators.required]],
+          type: [this.courier.type, [Validators.required]],
+          email: [this.courier.email, [Validators.required, Validators.email]],
+          contactNumber: [this.courier.contactNumber, [Validators.required, Validators.maxLength(10)]],
+          }, formOptions);
+      });
     }
   }
 
@@ -66,16 +70,21 @@ export class AddEditCourierComponent implements OnInit {
 
   createCourier() {
     const courier: Courier = this.form.value;
-    this.CourierService.addCourier(courier);
-    this.router.navigateByUrl('courier');
+    this.CourierService.CreateCourier(courier).subscribe(res => {
+      console.log(res)
+      this.loading = false;
+      this.router.navigateByUrl('courier');
+    });
   }
 
   updateCourier() {
     const courier: Courier = this.form.value;
     courier.id = this.courier.id;
-    this.CourierService.updateCourier(courier);
-    this.form.reset();
-    this.router.navigateByUrl('courier');
+    this.CourierService.UpdateCouriere(courier).subscribe(res => {
+      console.log(res)
+      this.form.reset();
+      this.router.navigateByUrl('courier');
+    });
   }
 
   Close() {

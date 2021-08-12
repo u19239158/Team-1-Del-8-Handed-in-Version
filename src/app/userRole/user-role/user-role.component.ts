@@ -43,7 +43,6 @@ deleteUserRole(UserRole: UserRole) {
            disableClose: true,
           });
 
-
   confirm.afterClosed().subscribe(res => {
     if (res){
       this.UserRoleService.DeleteUserRole(UserRole).subscribe(res =>{

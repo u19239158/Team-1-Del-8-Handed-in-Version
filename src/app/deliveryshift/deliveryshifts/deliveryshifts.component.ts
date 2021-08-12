@@ -43,10 +43,10 @@ export class DeliveryshiftsComponent implements OnInit {
 
     confirm.afterClosed().subscribe(res => {
       if(res) {
-        this.deliveryshiftService.DeleteDeliveryShift(Deliveryshift);
-        this.readDeliveryshifts();
+        this.deliveryshiftService.DeleteDeliveryShift(Deliveryshift).subscribe(res => {
+          this.readDeliveryshifts();
+        });
       }
     });
   }
-
 }
