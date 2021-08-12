@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,6 +16,7 @@ import { ProductcategoryService } from 'src/app/services/productcategory/product
 export class ProductcategorysComponent implements OnInit {
 
   productcategorys: Productcategory[] = [];
+  productcategory: Observable<Productcategory[]>
   dataSource = new MatTableDataSource<Productcategory>();
   displayedColumns: string[] = ['id', 'productCategoryName', 'actions'];
 
@@ -28,17 +30,20 @@ export class ProductcategorysComponent implements OnInit {
   }
 
    readProductcategorys(): void {
-    this.dataSource = new MatTableDataSource<Productcategory>(this.productcategoryService.getAll());
+     this.productcategoryService.GetProductCategory().subscribe(res => {
+       console.log(res)
+       this.dataSource = new MatTableDataSource(res)
+     })
   }
 
-  deleteProductcategory(inProductcategory: Productcategory) {
+  deleteProductcategory(Productcategory: Productcategory) {
     const confirm = this.dialog.open(GlobalConfirmComponent, {
         disableClose: true,
     });
 
     confirm.afterClosed().subscribe(res => {
       if(res) {
-        this.productcategoryService.deleteProductcategory(inProductcategory);
+        this.productcategoryService.DeleteProductCategory(Productcategory);
         this.readProductcategorys();
       }
     });

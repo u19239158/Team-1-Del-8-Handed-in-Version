@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { ProductcategoryService } from 'src/app/services/productcategory/productcategory.service';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -18,6 +19,7 @@ export class AddEditProductcategorysComponent implements OnInit {
     loading = false;
     submitted = false;
     productcategory: Productcategory;
+    productcategorys: Observable<Productcategory[]>
 
     constructor(
         private formBuilder: FormBuilder,
@@ -37,15 +39,16 @@ export class AddEditProductcategorysComponent implements OnInit {
        }, formOptions);
 
     if (!this.isAddMode) {
-      this.productcategory = this.ProductcategoryService.getProductcategoryById(this.id);
-
+      this.ProductcategoryService.getProductCategoryByID(this.id).subscribe(res => {
+        this.productcategory = res
+        console.log(res)
         this.form = this.formBuilder.group({
-        id: [this.productcategory.id, Validators.required],
-        productCategoryName: [this.productcategory.productCategoryName, [Validators.required, Validators.maxLength(50)]],
-        }, formOptions);
+          id: [this.productcategory.id, Validators.required],
+          productCategoryName: [this.productcategory.productCategoryName, [Validators.required, Validators.maxLength(50)]],
+          }, formOptions);
+      })
     }
   }
-
 
   onSubmit() {
 
@@ -63,16 +66,21 @@ export class AddEditProductcategorysComponent implements OnInit {
 
   createProductcategory() {
     const productcategory: Productcategory = this.form.value;
-    this.ProductcategoryService.addProductcategory(productcategory);
-    this.router.navigateByUrl('productCategory');
+    this.ProductcategoryService.CreateProductCategory(productcategory).subscribe(res => {
+      console.log(res)
+      this.loading = false
+      this.router.navigateByUrl('productCategory');
+    });
   }
 
   updateProductcategory() {
     const productcategory: Productcategory = this.form.value;
     productcategory.id = this.productcategory.id;
-    this.ProductcategoryService.updateProductcategory(productcategory);
-    this.form.reset();
-    this.router.navigateByUrl('productCategory');
+    this.ProductcategoryService.UpdateProductCategory(productcategory).subscribe(res => {
+      console.log(res)
+      this.form.reset();
+      this.router.navigateByUrl('productCategory');
+    });
   }
 
   Close() {
