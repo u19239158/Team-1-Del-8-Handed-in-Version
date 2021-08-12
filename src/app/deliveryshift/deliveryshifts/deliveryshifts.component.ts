@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,6 +16,7 @@ import { DeliveryshiftService } from 'src/app/services/deliveryshift/deliveryshi
 export class DeliveryshiftsComponent implements OnInit {
 
   deliveryshifts: Deliveryshift[] = [];
+  deliveryShift: Observable<Deliveryshift[]>;
   dataSource = new MatTableDataSource<Deliveryshift>();
   displayedColumns: string[] = ['startTime', 'endTime', 'date', 'assign', 'actions'];
 
@@ -28,17 +30,20 @@ export class DeliveryshiftsComponent implements OnInit {
   }
 
    readDeliveryshifts(): void {
-    this.dataSource = new MatTableDataSource<Deliveryshift>(this.deliveryshiftService.getAll());
-  }
+     this.deliveryshiftService.GetDeliveryShift().subscribe(res => {
+       console.log(res)
+       this.dataSource = new MatTableDataSource(res)
+     })
+   }
 
-  deleteDeliveryshift(inDeliveryshift: Deliveryshift) {
+  deleteDeliveryshift(Deliveryshift: Deliveryshift) {
     const confirm = this.dialog.open(GlobalConfirmComponent, {
         disableClose: true,
     });
 
     confirm.afterClosed().subscribe(res => {
       if(res) {
-        this.deliveryshiftService.deleteDeliveryshift(inDeliveryshift);
+        this.deliveryshiftService.DeleteDeliveryShift(Deliveryshift);
         this.readDeliveryshifts();
       }
     });

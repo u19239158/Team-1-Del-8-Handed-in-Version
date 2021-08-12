@@ -86,7 +86,4 @@ export class AddEditUserRoleComponent implements OnInit {
     this.form.reset();
     this.router.navigateByUrl('userRole');
   }
-
-
-
 }
