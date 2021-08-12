@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { SpecialService } from 'src/app/services/special/special.service';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -17,6 +18,7 @@ export class AddEditSpecialComponent implements OnInit {
     loading = false;
     submitted = false;
     special: Special;
+    specials: Observable<Special[]>;
 
   constructor(
         private formBuilder: FormBuilder,
@@ -39,8 +41,9 @@ export class AddEditSpecialComponent implements OnInit {
     }, formOptions);
 
     if (!this.isAddMode) {
-      this.special = this.SpecialService.getSpecialById(this.id);
-
+      this.SpecialService.getSpecialByID(this.id).subscribe(res => {
+        this.special = res
+        console.log(res)
         this.form = this.formBuilder.group({
           specialImage: [this.special.specialImage, [Validators.required]],
           specialDescription: [this.special.specialDescription, [Validators.required]],
@@ -48,6 +51,7 @@ export class AddEditSpecialComponent implements OnInit {
           specialStartDate: [this.special.specialStartDate, [Validators.required]],
           specialEndDate: [this.special.specialEndDate,[Validators.required]],
     }, formOptions);
+      });
     }
   }
 
@@ -67,16 +71,21 @@ export class AddEditSpecialComponent implements OnInit {
 
   createSpecial() {
     const special: Special = this.form.value;
-    this.SpecialService.addSpecial(special);
-    this.router.navigateByUrl('specialAdd');
+    this.SpecialService.CreateSpecial(special).subscribe(res => {
+      console.log(res)
+      this.loading = false
+      this.router.navigateByUrl('special');
+    });
   }
 
   updateSpecial() {
     const special: Special = this.form.value;
     special.id = this.special.id;
-    this.SpecialService.updateSpecial(special);
-    this.form.reset();
-    this.router.navigateByUrl('specialEdit');
+    this.SpecialService.UpdateSpecial(special).subscribe(res => {
+      console.log(res)
+      this.form.reset();
+    this.router.navigateByUrl('special');
+    });
   }
 
   Close() {

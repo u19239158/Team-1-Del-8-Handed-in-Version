@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,6 +15,7 @@ import { SpecialService } from 'src/app/services/special/special.service';
 })
 export class SpecialsComponent implements OnInit {
   specials: Special[] = [];
+  special: Observable<Special[]>
   dataSource = new MatTableDataSource<Special>();
   displayedColumns: string[] = ['image', 'description', 'price', 'startDate','endDate', 'actions'];
 
@@ -29,17 +31,21 @@ export class SpecialsComponent implements OnInit {
   }
 
   readSpecials(): void {
-    this.dataSource = new MatTableDataSource<Special>(this.specialService.getAll());
+    //this.dataSource = new MatTableDataSource<Special>(this.specialService.getAll());
+    this.specialService.GetSpecial().subscribe(res => {
+      console.log(res)
+      this.dataSource = new MatTableDataSource(res)
+    })
   }
 
-  deleteSpecial(inSpecial: Special) {
+  deleteSpecial(Special: Special) {
     const confirm = this.dialog.open(GlobalConfirmComponent, {
         disableClose: true,
     });
 
     confirm.afterClosed().subscribe(res => {
       if(res) {
-        this.specialService.deleteSpecial(inSpecial);
+        this.specialService.DeleteSpecial(Special);
         this.readSpecials();
       }
     });
