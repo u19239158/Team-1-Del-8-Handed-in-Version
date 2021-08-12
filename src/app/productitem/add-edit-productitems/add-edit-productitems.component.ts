@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { ProductitemService } from 'src/app/services/productitem/productitem.service';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -18,6 +19,7 @@ export class AddEditProductitemsComponent implements OnInit {
     loading = false;
     submitted = false;
     productitem: Productitem;
+    productitems: Observable<Productitem[]>
 
     constructor(
         private formBuilder: FormBuilder,
@@ -40,15 +42,17 @@ export class AddEditProductitemsComponent implements OnInit {
        }, formOptions);
 
     if (!this.isAddMode) {
-      this.productitem = this.ProductitemService.getProductitemById(this.id);
-
+      this.ProductitemService.getProductItemByID(this.id). subscribe(res => {
+        this.productitem = res
+        console.log(res)
         this.form = this.formBuilder.group({
-        id: [this.productitem.id, [Validators.required]],
-        name: [this.productitem.name, [Validators.required]],
-        description: [this.productitem.description, [Validators.required]],
-        cost: [this.productitem.cost, [Validators.required, Validators.maxLength(10)]],
-        quantity: [this.productitem.quantity, [Validators.required, Validators.maxLength(13)]],
-        }, formOptions);
+          id: [this.productitem.id, [Validators.required]],
+          name: [this.productitem.name, [Validators.required]],
+          description: [this.productitem.description, [Validators.required]],
+          cost: [this.productitem.cost, [Validators.required, Validators.maxLength(10)]],
+          quantity: [this.productitem.quantity, [Validators.required, Validators.maxLength(13)]],
+          }, formOptions);
+      })
     }
   }
 
@@ -68,16 +72,21 @@ export class AddEditProductitemsComponent implements OnInit {
 
   createProductitem() {
     const productitem: Productitem = this.form.value;
-    this.ProductitemService.addProductitem(productitem);
-    this.router.navigateByUrl('productItem');
+    this.ProductitemService.CreateProductItem(productitem).subscribe (res => {
+      console.log(res)
+      this.loading = false
+      this.router.navigateByUrl('productItem');
+    });
   }
 
   updateProductitem() {
     const productitem: Productitem = this.form.value;
     productitem.id = this.productitem.id;
-    this.ProductitemService.updateProductitem(productitem);
-    this.form.reset();
-    this.router.navigateByUrl('productItem');
+    this.ProductitemService.UpdateProductItem(productitem).subscribe(res => {
+      console.log(res)
+      this.form.reset();
+      this.router.navigateByUrl('productItem');
+    });
   }
 
   Close() {
