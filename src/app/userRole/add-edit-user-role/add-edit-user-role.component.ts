@@ -37,11 +37,14 @@ export class AddEditUserRoleComponent implements OnInit {
     }, formOptions);
 
     if (!this.isAddMode) {
-    this.UserRoleService.getUserRoleById(this.id)
+    this.UserRoleService.getUserRoleByID(this.id).subscribe(res => {
+      this.UserRole = res
+      console.log(res)
       this.form = this.formBuilder.group({
         userRoleName: [this.UserRole.userRoleName, [Validators.required]],
         userRoleDescription: [this.UserRole.userRoleDescription, [Validators.required, Validators.maxLength(50)]],
   }, formOptions);
+    })
     }
   }
 
@@ -61,16 +64,22 @@ export class AddEditUserRoleComponent implements OnInit {
 
   createUserRole() {
     const userRole: UserRole = this.form.value;
-    this.UserRoleService.addUserRole(userRole);
-    this.router.navigateByUrl('userRole');
+    this.UserRoleService.CreateUserRole(userRole).subscribe(res =>{
+      console.log(res)
+      this.loading = false
+      this.router.navigateByUrl('userRole');
+    })
+
   }
 
   updateUserRole() {
     const userRole: UserRole = this.form.value;
     userRole.userRoleId = this.UserRole.userRoleId;
-    this.UserRoleService.updateUserRole(userRole);
-    this.form.reset();
-    this.router.navigateByUrl('userRole');
+    this.UserRoleService.UpdateUserRole(userRole).subscribe(res =>{
+      console.log(res)
+      //this.form.reset();
+      this.router.navigateByUrl('userRole');
+    });
 
   }
 
@@ -78,4 +87,7 @@ export class AddEditUserRoleComponent implements OnInit {
     this.form.reset();
     this.router.navigateByUrl('userRole');
   }
+
+
+
 }
