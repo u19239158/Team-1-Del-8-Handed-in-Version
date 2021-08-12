@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { CategorytypeService } from 'src/app/services/categorytype/categorytype.service';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -18,6 +19,7 @@ export class AddEditCategorytypesComponent implements OnInit {
     loading = false;
     submitted = false;
     categorytype: Categorytype;
+    categorytypes: Observable<Categorytype[]>
 
     constructor(
         private formBuilder: FormBuilder,
@@ -37,12 +39,14 @@ export class AddEditCategorytypesComponent implements OnInit {
     }, formOptions);
 
     if (!this.isAddMode) {
-      this.categorytype = this.CategorytypeService.getCategorytypeById(this.id);
-
+      this.CategorytypeService.getCategoryTypeByID(this.id).subscribe(res => {
+        this.categorytype = res
+        console.log(res)
         this.form = this.formBuilder.group({
-        categoryType: [this.categorytype.categoryType, [Validators.required, Validators.maxLength(50)]],
-        productCategoryName: [this.categorytype.productCategoryName, [Validators.required, Validators.maxLength(50)]],
-        }, formOptions);
+          categoryType: [this.categorytype.categoryType, [Validators.required, Validators.maxLength(50)]],
+          productCategoryName: [this.categorytype.productCategoryName, [Validators.required, Validators.maxLength(50)]],
+          }, formOptions);
+      });
     }
   }
 
@@ -62,16 +66,21 @@ export class AddEditCategorytypesComponent implements OnInit {
 
   createCategorytype() {
     const categorytype: Categorytype = this.form.value;
-    this.CategorytypeService.addCategorytype(categorytype);
-    this.router.navigateByUrl('categoryType');
+    this.CategorytypeService.CreateCategoryType(categorytype).subscribe(res => {
+      console.log(res)
+      this.loading = false
+      this.router.navigateByUrl('categoryType');
+    });
   }
 
   updateCategorytype() {
     const categorytype: Categorytype = this.form.value;
     categorytype.id = this.categorytype.id;
-    this.CategorytypeService.updateCategorytype(categorytype);
-    this.form.reset();
-    this.router.navigateByUrl('categoryType');
+    this.CategorytypeService.UpdateCategoryType(categorytype).subscribe(res => {
+      console.log(res)
+      this.form.reset();
+      this.router.navigateByUrl('categoryType');
+    });
   }
 
   Close() {

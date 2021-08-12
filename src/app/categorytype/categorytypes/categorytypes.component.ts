@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,6 +16,7 @@ import { CategorytypeService } from 'src/app/services/categorytype/categorytype.
 export class CategorytypesComponent implements OnInit {
 
   categorytypes: Categorytype[] = [];
+  categorytype: Observable<Categorytype[]>;
   dataSource = new MatTableDataSource<Categorytype>();
   displayedColumns: string[] = ['id', 'productCategoryName', 'categoryType', 'actions'];
 
@@ -28,17 +30,21 @@ export class CategorytypesComponent implements OnInit {
   }
 
    readCategorytypes(): void {
-    this.dataSource = new MatTableDataSource<Categorytype>(this.categorytypeService.getAll());
+     this.categorytypeService.GetCategoryType().subscribe(res => {
+       console.log(res)
+       this.dataSource = new MatTableDataSource(res)
+     })
+    //this.dataSource = new MatTableDataSource<Categorytype>(this.categorytypeService.getAll());
   }
 
-  deleteCategorytype(inCategorytype: Categorytype) {
+  deleteCategorytype(Categorytype: Categorytype) {
     const confirm = this.dialog.open(GlobalConfirmComponent, {
         disableClose: true,
     });
 
     confirm.afterClosed().subscribe(res => {
       if(res) {
-        this.categorytypeService.deleteCategorytype(inCategorytype);
+        this.categorytypeService.DeleteCategoryType(Categorytype);
         this.readCategorytypes();
       }
     });
