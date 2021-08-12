@@ -15,7 +15,7 @@ import { SpecialService } from 'src/app/services/special/special.service';
 })
 export class SpecialsComponent implements OnInit {
   specials: Special[] = [];
-  special: Observable<Special[]>
+  special: Observable<Special[]>;
   dataSource = new MatTableDataSource<Special>();
   displayedColumns: string[] = ['image', 'description', 'price', 'startDate','endDate', 'actions'];
 

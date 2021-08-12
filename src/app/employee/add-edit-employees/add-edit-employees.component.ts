@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 // import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { Component, Inject, OnInit } from '@angular/core';
@@ -19,6 +20,7 @@ export class AddEditEmployeesComponent implements OnInit {
     loading = false;
     submitted = false;
     employee: Employee;
+    employees: Observable<Employee[]>;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -47,21 +49,23 @@ export class AddEditEmployeesComponent implements OnInit {
     }, formOptions);
 
     if (!this.isAddMode) {
-      this.employee = this.EmployeeService.getEmployeeById(this.id);
-
+      this.EmployeeService.getEmployeeByID(this.id).subscribe(res => {
+        this.employee = res
+        console.log(res)
         this.form = this.formBuilder.group({
-        title: [this.employee.title, Validators.required],
-        firstName: [this.employee.firstName, Validators.required],
-        lastName: [this.employee.lastName, Validators.required],
-        contactNumber: [this.employee.contactNumber, Validators.required, Validators.maxLength(10)],
-        idNumber: [this.employee.idNumber, Validators.required, Validators.maxLength(13)],
-        dateOfBirth: [this.employee.dateOfBirth, Validators.required],
-        addressLine1: [this.employee.addressLine1, Validators.required],
-        addressLine2: [this.employee.addressLine2, Validators.required],
-        addressLine3: [this.employee.addressLine3, Validators.required],
-        cityTown: [this.employee.cityTown, Validators.required],
-        postalCode: [this.employee.postalCode, Validators.required, Validators.maxLength(4)]
-    }, formOptions);
+          title: [this.employee.title, Validators.required],
+          firstName: [this.employee.firstName, Validators.required],
+          lastName: [this.employee.lastName, Validators.required],
+          contactNumber: [this.employee.contactNumber, Validators.required, Validators.maxLength(10)],
+          idNumber: [this.employee.idNumber, Validators.required, Validators.maxLength(13)],
+          dateOfBirth: [this.employee.dateOfBirth, Validators.required],
+          addressLine1: [this.employee.addressLine1, Validators.required],
+          addressLine2: [this.employee.addressLine2, Validators.required],
+          addressLine3: [this.employee.addressLine3, Validators.required],
+          cityTown: [this.employee.cityTown, Validators.required],
+          postalCode: [this.employee.postalCode, Validators.required, Validators.maxLength(4)]
+      }, formOptions);
+      })
     }
   }
 
@@ -81,16 +85,21 @@ export class AddEditEmployeesComponent implements OnInit {
 
   createEmployee() {
     const employee: Employee = this.form.value;
-    this.EmployeeService.addEmployee(employee);
-    this.router.navigateByUrl('employeesAdd');
+    this.EmployeeService.CreateEmployee(employee).subscribe(res => {
+      console.log(res)
+      this.loading = false
+      this.router.navigateByUrl('employees');
+    })
   }
 
   updateEmployee() {
     const employee: Employee = this.form.value;
     employee.id = this.employee.id;
-    this.EmployeeService.updateEmployee(employee);
-    this.form.reset();
-    this.router.navigateByUrl('employeesEdit');
+    this.EmployeeService.UpdateEmployee(employee).subscribe(res => {
+      console.log(res)
+      this.form.reset()
+    this.router.navigateByUrl('employees');
+    });
   }
 
 

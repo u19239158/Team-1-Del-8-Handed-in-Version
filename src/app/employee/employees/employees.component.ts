@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,28 +16,34 @@ import { EmployeeService } from 'src/app/services/employee/employee.service';
 export class EmployeesComponent implements OnInit {
 
   employees: Employee[] = [];
+  employee: Observable<Employee[]>;
   dataSource = new MatTableDataSource<Employee>();
   displayedColumns: string[] = ['name', 'contactNumber', 'dateOfBirth', 'actions'];
 
-  constructor(private employeeService: EmployeeService, private snack: MatSnackBar,
-              private router: Router, private dialog: MatDialog) {}
+  constructor(private employeeService: EmployeeService,
+              private snack: MatSnackBar,
+              private router: Router,
+              private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.readEmployees();
   }
 
    readEmployees(): void {
-    this.dataSource = new MatTableDataSource<Employee>(this.employeeService.getAll());
-  }
+     this.employeeService.GetEmployee().subscribe(res => {
+       console.log(res)
+       this.dataSource = new MatTableDataSource(res)
+     })
+    }
 
-  deleteEmployee(inEmployee: Employee) {
+  deleteEmployee(Employee: Employee) {
     const confirm = this.dialog.open(GlobalConfirmComponent, {
         disableClose: true,
     });
 
     confirm.afterClosed().subscribe(res => {
       if(res) {
-        this.employeeService.deleteEmployee(inEmployee);
+        this.employeeService.DeleteEmployee(Employee);
         this.readEmployees();
       }
     });

@@ -16,7 +16,7 @@ import { ProductitemService } from 'src/app/services/productitem/productitem.ser
 export class ProductitemsComponent implements OnInit {
 
   productitems: Productitem[] = [];
-  productitem: Observable<Productitem[]>
+  productitem: Observable<Productitem[]>;
   dataSource = new MatTableDataSource<Productitem>();
   displayedColumns: string[] = ['id','categorytype','name', 'description', 'cost','quantity', 'actions'];
 

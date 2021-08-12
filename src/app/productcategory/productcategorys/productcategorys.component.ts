@@ -16,7 +16,7 @@ import { ProductcategoryService } from 'src/app/services/productcategory/product
 export class ProductcategorysComponent implements OnInit {
 
   productcategorys: Productcategory[] = [];
-  productcategory: Observable<Productcategory[]>
+  productcategory: Observable<Productcategory[]>;
   dataSource = new MatTableDataSource<Productcategory>();
   displayedColumns: string[] = ['id', 'productCategoryName', 'actions'];
 

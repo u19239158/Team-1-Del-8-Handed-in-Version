@@ -15,7 +15,7 @@ import { SupplierService } from 'src/app/services/supplier/supplier.service.comp
 })
 export class SuppliersComponent implements OnInit {
   //suppliers: Supplier[] = [];
-  suppliers: Observable<Supplier[]>
+  suppliers: Observable<Supplier[]>;
   dataSource = new MatTableDataSource<Supplier>();
   displayedColumns: string[] = ['name', 'contactNumber', 'email', 'actions'];
 
