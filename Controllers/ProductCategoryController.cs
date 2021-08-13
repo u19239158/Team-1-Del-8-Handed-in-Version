@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +9,9 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NKAP_API_2.EF;
 using NKAP_API_2.Models;
+using System.Web;
+
+
 
 namespace NKAP_API_2.Controllers
 {
@@ -61,6 +65,9 @@ namespace NKAP_API_2.Controllers
 
             return Ok(ProdCat);
         }
+
+        
+
 
         [Route("UpdatePC")] //route
         [HttpPut]
