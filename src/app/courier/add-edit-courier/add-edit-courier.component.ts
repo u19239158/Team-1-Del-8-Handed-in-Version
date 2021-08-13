@@ -73,7 +73,7 @@ export class AddEditCourierComponent implements OnInit {
     this.CourierService.CreateCourier(courier).subscribe(res => {
       console.log(res)
       this.loading = false;
-      this.router.navigateByUrl('courier');
+      this.router.navigateByUrl('couriers');
     });
   }
 
@@ -83,12 +83,12 @@ export class AddEditCourierComponent implements OnInit {
     this.CourierService.UpdateCouriere(courier).subscribe(res => {
       console.log(res)
       this.form.reset();
-      this.router.navigateByUrl('courier');
+      this.router.navigateByUrl('couriers');
     });
   }
 
   Close() {
     this.form.reset();
-    this.router.navigateByUrl('courier');
+    this.router.navigateByUrl('couriers');
   }
 }

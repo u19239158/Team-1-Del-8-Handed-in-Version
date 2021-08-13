@@ -1,29 +1,29 @@
 export interface Employee {
+  employeeId: any;
+  employeeName: string;
+  employeeSurname: string;
+  employeeCellphoneNumber: number;
+  employeeIdnumber: number;
+  employeeDob: string;
+  //title: 'Dr'|'Mr'|'Mrs'|'Miss'|'Ms';
+  employeeAddressLine1: string;
+  employeeAddressLine2: string;
   id: number;
-  firstName: string;
-  lastName: string;
-  contactNumber: string;
-  idNumber: string;
-  dateOfBirth: string;
-  title: 'Dr'|'Mr'|'Mrs'|'Miss'|'Ms';
-  addressLine1: string;
-  addressLine2: string;
-  addressLine3: string;
-  cityTown: string;
-  postalCode: string;
 }
 
 export interface Supplier {
-  id: number;
+  supplierId: number;
   supplierName: string;
-  supplierType: 'Bolts'|'Hardware'|'Others';
-  supplierEmailAddress: string;
-  supplierContactNumber: string;
+  supplierTypeDesc: string;
+  supplierEmail: string;
+  supplierNumber: number;
   supplierAddressLine1: string;
   supplierAddressLine2: string;
   supplierAddressLine3: string;
   supplierCityTown: string;
-  supplierPostalCode: string;
+  supplierPostalCode: number;
+  supplierBalance : number;
+  supplierTypeId : number;
 }
 
 export interface UserRole {
@@ -64,12 +64,13 @@ export interface Deliveryshift {
 }
 
 export interface Productcategory {
-  id:number;
-  productCategoryName: string;
+  productCategoryId:number;
+  productCategoryDescription: string;
+  productCategoryImage: string;
 }
 
 export interface Categorytype {
-  id:number;
+  categoryTypeId:number;
   // image: ImageBitmap;
   categoryType: string;
   productCategoryName: |'Product Category 1'|'Product Category 2'|'Product Category 3'|'Product Category 4';

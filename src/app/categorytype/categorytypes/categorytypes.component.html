@@ -5,18 +5,18 @@
         <!-- ID Column -->
         <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-        <td mat-cell *matCellDef="let element">{{element.id}}</td>
+        <td mat-cell *matCellDef="let element">{{element.categoryTypeId}}</td>
         </ng-container>
 
         <!-- Product Category Column -->
         <ng-container matColumnDef="productCategoryName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Category Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.productCategoryName}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.productCategoryDesc}} </td>
         </ng-container>
 
         <ng-container matColumnDef="categoryType">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Category Type </th>
-            <td mat-cell *matCellDef="let element"> {{element.categoryType}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.categoryTypeDescription}} </td>
         </ng-container>
 
         <!-- Actions Column -->
@@ -33,8 +33,8 @@
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu" xPosition="before">
-                <button mat-menu-item [routerLink]="['/editCategoryType', element.id]" >Update Category Type</button>
-                <button mat-menu-item (click)="deleteCategorytype(element)">Delete Category Type</button>
+                <button mat-menu-item [routerLink]="['/editCategoryType', element.categoryTypeId]" >Update Category Type</button>
+                <button mat-menu-item (click)="deleteCategorytype(element.categoryTypeId)">Delete Category Type</button>
                 </mat-menu>
             </td>
         </ng-container>

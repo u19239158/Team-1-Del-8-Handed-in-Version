@@ -75,7 +75,7 @@ export class AddEditCategorytypesComponent implements OnInit {
 
   updateCategorytype() {
     const categorytype: Categorytype = this.form.value;
-    categorytype.id = this.categorytype.id;
+    categorytype.categoryTypeId = this.categorytype.categoryTypeId;
     this.CategorytypeService.UpdateCategoryType(categorytype).subscribe(res => {
       console.log(res)
       this.form.reset();

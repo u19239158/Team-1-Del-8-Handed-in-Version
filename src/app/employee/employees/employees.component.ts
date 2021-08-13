@@ -15,12 +15,13 @@ import { EmployeeService } from 'src/app/services/employee/employee.service';
 })
 export class EmployeesComponent implements OnInit {
 
-  employees: Employee[] = [];
+  //employees: Employee[] = [];
+  Employee:Employee;
   employee: Observable<Employee[]>;
   dataSource = new MatTableDataSource<Employee>();
   displayedColumns: string[] = ['name', 'contactNumber', 'dateOfBirth', 'actions'];
 
-  constructor(private employeeService: EmployeeService,
+  constructor(private EmployeeService: EmployeeService,
               private snack: MatSnackBar,
               private router: Router,
               private dialog: MatDialog) {}
@@ -30,7 +31,7 @@ export class EmployeesComponent implements OnInit {
   }
 
    readEmployees(): void {
-     this.employeeService.GetEmployee().subscribe(res => {
+     this.EmployeeService.GetEmployee().subscribe(res => {
        console.log(res)
        this.dataSource = new MatTableDataSource(res)
      })
@@ -43,8 +44,9 @@ export class EmployeesComponent implements OnInit {
 
     confirm.afterClosed().subscribe(res => {
       if(res) {
-        this.employeeService.DeleteEmployee(Employee);
-        this.readEmployees();
+        this.EmployeeService.DeleteEmployee(Employee).subscribe(res =>{
+          this.readEmployees();
+        })
       }
     });
   }

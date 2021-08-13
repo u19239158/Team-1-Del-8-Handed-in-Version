@@ -11,7 +11,7 @@
       <!-- <mat-icon>shopping_cart</mat-icon> -->
       <img src="assets/images/Users.png" class="w3-margin-right" width=20px height=20px>
       <a matline>Users</a>
-      <button mat-button [matMenuTriggerFor]="menu">Users</button>
+      <!-- <button mat-button [matMenuTriggerFor]="menu">Users</button> -->
   </mat-list-item>
   <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="onSidenavClose()">Customer</button>
@@ -19,23 +19,23 @@
   </mat-menu>
 
   <!-- Employees -->
-  <mat-list-item [matMenuTriggerFor]="menu">
+  <mat-list-item [matMenuTriggerFor]="menu1">
       <!-- <mat-icon>shopping_basket</mat-icon> -->
      <img src="assets/images/employee.png" class="w3-margin-right" width=20px height=20px>
       <a matline>Employees</a>
-  </mat-list-item> -->
-  <mat-menu #menu="matMenu">
+  </mat-list-item>
+  <mat-menu #menu1="matMenu">
     <button mat-menu-item routerLink="/employees" (click)="onSidenavClose()">View Employees</button>
     <button mat-menu-item routerLink="/employeesAdd" (click)="onSidenavClose()">Add Employees</button>
   </mat-menu>
 
   <!-- Suppliers -->
-  <mat-list-item [matMenuTriggerFor]="menu">
+  <mat-list-item [matMenuTriggerFor]="menu2">
     <!-- <mat-icon>shopping_cart</mat-icon> -->
     <img src="assets/images/supplier.png" class="w3-margin-right" width=20px height=20px>
     <a matline>Suppliers</a>
 </mat-list-item>
-<mat-menu #menu="matMenu">
+<mat-menu #menu2="matMenu">
   <button mat-menu-item routerLink="/supplier"(click)="onSidenavClose()">View Suppliers</button>
   <button mat-menu-item routerLink="/supplierAdd" (click)="onSidenavClose()">Add Supplier</button>
   <button mat-menu-item routerLink="/supplierAdd" (click)="onSidenavClose()">Place Supplier Order</button>
@@ -44,12 +44,12 @@
 </mat-menu>
 
   <!-- Admin -->
-<mat-list-item [matMenuTriggerFor]="menu">
+<mat-list-item [matMenuTriggerFor]="menu3">
   <!-- <mat-icon>shopping_cart</mat-icon> -->
   <img src="assets/images/admin.png" class="w3-margin-right" width=20px height=20px>
   <a matline>Admin</a>
 </mat-list-item>
-<mat-menu #menu="matMenu">
+<mat-menu #menu3="matMenu">
 <button mat-menu-item (click)="onSidenavClose()">Search Online Sales</button>
 <button mat-menu-item routerLink="/userRole" (click)="onSidenavClose()">Do Stock Take</button>
 <button mat-menu-item routerLink="/userRole" (click)="onSidenavClose()">Write Off Stock</button>
@@ -57,57 +57,57 @@
 </mat-menu>
 
   <!-- Products -->
-<mat-list-item [matMenuTriggerFor]="menu">
+<mat-list-item [matMenuTriggerFor]="menu4">
   <!-- <mat-icon>shopping_cart</mat-icon> -->
   <img src="assets/images/product.png" class="w3-margin-right" width=20px height=20px>
   <a matline>Products</a>
 </mat-list-item>
-<mat-menu #menu="matMenu">
+<mat-menu #menu4="matMenu">
 <button mat-menu-item routerLink="/productCategory" (click)="onSidenavClose()">Product Category</button>
 <button mat-menu-item routerLink="/categoryType" (click)="onSidenavClose()">Category Type</button>
 <button mat-menu-item routerLink="/item" (click)="onSidenavClose()">Item</button>
 </mat-menu>
 
   <!-- Promotions -->
-<mat-list-item [matMenuTriggerFor]="menu">
+<mat-list-item [matMenuTriggerFor]="menu5">
   <!-- <mat-icon>shopping_cart</mat-icon> -->
   <img src="assets/images/promotion.png" class="w3-margin-right" width=20px height=20px>
   <a matline>Promotions</a>
 </mat-list-item>
-<mat-menu #menu="matMenu">
+<mat-menu #menu5="matMenu">
 <button mat-menu-item routerLink="/special"(click)="onSidenavClose()">View Specials</button>
 <button mat-menu-item routerLink="/specialAdd" (click)="onSidenavClose()">Add Special</button>
 </mat-menu>
 
   <!-- Delivery Shift -->
-<mat-list-item [matMenuTriggerFor]="menu">
+<mat-list-item [matMenuTriggerFor]="menu6">
   <!-- <mat-icon>shopping_cart</mat-icon> -->
   <img src="assets/images/deliveryshift.png" class="w3-margin-right" width=20px height=20px>
   <a matline>Delivery Shift</a>
 </mat-list-item>
-<mat-menu #menu="matMenu">
+<mat-menu #menu6="matMenu">
 <button mat-menu-item routerLink="/deliveryShift" (click)="onSidenavClose()">View Delivery Shift</button>
 <button mat-menu-item routerLink="/deliveryShift" (click)="onSidenavClose()">Add Delivery Shift</button>
 </mat-menu>
 
   <!-- Courier -->
-<mat-list-item [matMenuTriggerFor]="menu">
+<mat-list-item [matMenuTriggerFor]="menu7">
   <!-- <mat-icon>shopping_cart</mat-icon> -->
   <img src="assets/images/Courier.png" class="w3-margin-right" width=20px height=20px>
   <a matline>Courier</a>
 </mat-list-item>
-<mat-menu #menu="matMenu">
-<button mat-menu-item routerLink="/courier" (click)="onSidenavClose()">View Couriers</button>
+<mat-menu #menu7="matMenu">
+<button mat-menu-item routerLink="/couriers" (click)="onSidenavClose()">View Couriers</button>
 <button mat-menu-item routerLink="/addCourier" (click)="onSidenavClose()">Add Couriers</button>
 </mat-menu>
 
   <!-- Reports -->
-<mat-list-item [matMenuTriggerFor]="menu">
+<mat-list-item [matMenuTriggerFor]="menu8">
   <!-- <mat-icon>shopping_cart</mat-icon> -->
   <img src="assets/images/Report.png" class="w3-margin-right" width=20px height=20px>
   <a matline>Reports</a>
 </mat-list-item>
-<mat-menu #menu="matMenu">
+<mat-menu #menu8="matMenu">
 <button mat-menu-item routerLink="/generateReport" (click)="onSidenavClose()">Generate Report</button>
 </mat-menu>
 

@@ -1,10 +1,10 @@
 <h1 *ngIf="isAddMode">Add Employee</h1>
 <h1 *ngIf="!isAddMode">Edit Employee</h1>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="main">
-    <div class="mat-row">
-      <!-- Employee Title -->
-        <div class="mat-col-quarter">
+ <form [formGroup]="form" (ngSubmit)="onSubmit()" class="main"> 
+    <!-- <div class="mat-row">
+      < Employee Title -->
+        <!-- <div class="mat-col-quarter">
             <mat-form-field appearance="outline" class="control-w">
                 <mat-label>Title</mat-label>
                 <mat-select formControlName="title">
@@ -15,13 +15,13 @@
                   <mat-option value="Ms">Ms</mat-option>
                 </mat-select>
               </mat-form-field>
-        </div>
+        </div> --> 
 
          <!-- Employee First Name -->
         <div class="mat-col-quarter">
             <mat-form-field appearance="outline" class="control-w">
                 <mat-label>First Name</mat-label>
-                <input type="text" matInput placeholder="First Name" formControlName="firstName">
+                <input type="text" matInput placeholder="First Name" formControlName="employeeName">
             </mat-form-field>
         </div>
 
@@ -29,17 +29,17 @@
         <div class="mat-col-quarter">
             <mat-form-field appearance="outline" class="control-w">
                 <mat-label>Last Name</mat-label>
-                <input type="text" matInput placeholder="Last Name" formControlName="lastName">
+                <input type="text" matInput placeholder="Last Name" formControlName="employeeSurname">
             </mat-form-field>
         </div>
-    </div>
+    
 
     <!-- Employee Contact Number -->
     <div class="mat-row">
         <div class="mat-col-quarter">
             <mat-form-field appearance="outline" class="control-w">
                 <mat-label>Contact Number</mat-label>
-                <input type="text" matInput placeholder="contactNumber" formControlName="contactNumber">
+                <input type="text" matInput placeholder="contactNumber" formControlName="employeeCellphoneNumber">
             </mat-form-field>
         </div>
 
@@ -47,14 +47,14 @@
         <div class="mat-col-quarter">
           <mat-form-field appearance="outline" class="control-w">
               <mat-label>ID Number</mat-label>
-              <input type="text" matInput placeholder="idNumber" formControlName="idNumber">
+              <input type="text" matInput placeholder="idNumber" formControlName="employeeIdnumber">
           </mat-form-field>
       </div>
 
       <!-- Employee Date of birth -->
       <div class="mat-col-quarter">
         <mat-form-field>
-          <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+          <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="employeeDob">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
@@ -68,7 +68,7 @@
         <div class="mat-col-quarter">
             <mat-form-field appearance="outline" class="control-w">
                 <mat-label>Address Line 1</mat-label>
-                <input type="text" matInput placeholder="addressLine1" formControlName="addressLine1">
+                <input type="text" matInput placeholder="addressLine1" formControlName="employeeAddressLine1">
             </mat-form-field>
         </div>
 
@@ -76,11 +76,11 @@
         <div class="mat-col-quarter">
           <mat-form-field appearance="outline" class="control-w">
               <mat-label>Address Line 2</mat-label>
-              <input type="text" matInput placeholder="addressLine2" formControlName="addressLine2">
+              <input type="text" matInput placeholder="addressLine2" formControlName="employeeAddressLine2">
           </mat-form-field>
       </div>
 
-      <!-- Employee Address Line 3 -->
+      <!-- Employee Address Line 3
     <div class="mat-col-quarter">
       <mat-form-field appearance="outline" class="control-w">
           <mat-label>Address Line 3</mat-label>
@@ -103,7 +103,7 @@
               <mat-label>Postal Code</mat-label>
               <input type="text" matInput placeholder="postalCode" formControlName="postalCode">
           </mat-form-field>
-      </div>
+      </div>  -->
 
       <!-- Employee save and cancel buttons -->
     <div class="form-group" class="control-w">
@@ -115,5 +115,5 @@
   </div>
   </div>
 
-</form>
+
 

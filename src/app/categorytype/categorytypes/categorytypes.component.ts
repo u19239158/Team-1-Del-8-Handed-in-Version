@@ -44,10 +44,13 @@ export class CategorytypesComponent implements OnInit {
 
     confirm.afterClosed().subscribe(res => {
       if(res) {
-        this.categorytypeService.DeleteCategoryType(Categorytype);
-        this.readCategorytypes();
+        this.categorytypeService.DeleteCategoryType(Categorytype).subscribe(res => {
+          this.readCategorytypes();
+        });
+        
       }
     });
   }
+
 
 }

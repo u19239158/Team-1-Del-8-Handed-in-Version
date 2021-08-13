@@ -1,4 +1,5 @@
-import { Supplier } from './../../interfaces/index';
+//import { Supplier } from './../../interfaces/index';
+import {Supplier} from 'src/app/interfaces';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,8 +15,8 @@ import { SupplierService } from 'src/app/services/supplier/supplier.service.comp
   styleUrls: ['./suppliers.component.scss']
 })
 export class SuppliersComponent implements OnInit {
-  //suppliers: Supplier[] = [];
-  suppliers: Observable<Supplier[]>;
+  Supplier: Supplier;
+  supplier: Observable<Supplier[]>;
   dataSource = new MatTableDataSource<Supplier>();
   displayedColumns: string[] = ['name', 'contactNumber', 'email', 'actions'];
 

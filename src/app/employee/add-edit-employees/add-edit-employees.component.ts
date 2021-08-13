@@ -35,17 +35,14 @@ export class AddEditEmployeesComponent implements OnInit {
 
     const formOptions: AbstractControlOptions = { };
     this.form = this.formBuilder.group({
-        title: ['', Validators.required],
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
-        contactNumber: ['', Validators.required, Validators.maxLength(10)],
-        idNumber: ['', Validators.required, Validators.maxLength(13)],
-        dateOfBirth: ['', Validators.required],
-        addressLine1: ['', Validators.required],
-        addressLine2: ['', Validators.required],
-        addressLine3: ['', Validators.required],
-        cityTown: ['', Validators.required],
-        postalCode: ['', Validators.required, Validators.maxLength(4)]
+        //title: ['', Validators.required],
+        employeeName: ['', [Validators.required]],
+        employeeSurname: ['', [Validators.required]],
+        employeeCellphoneNumber: ['', [Validators.required, Validators.maxLength(10)]],
+        employeeIdnumber: ['', [Validators.required, Validators.maxLength(13)]],
+        employeeDob: ['', [Validators.required]],
+        employeeAddressLine1: ['', [Validators.required]],
+        employeeAddressLine2: ['', [Validators.required]],
     }, formOptions);
 
     if (!this.isAddMode) {
@@ -53,17 +50,14 @@ export class AddEditEmployeesComponent implements OnInit {
         this.employee = res
         console.log(res)
         this.form = this.formBuilder.group({
-          title: [this.employee.title, Validators.required],
-          firstName: [this.employee.firstName, Validators.required],
-          lastName: [this.employee.lastName, Validators.required],
-          contactNumber: [this.employee.contactNumber, Validators.required, Validators.maxLength(10)],
-          idNumber: [this.employee.idNumber, Validators.required, Validators.maxLength(13)],
-          dateOfBirth: [this.employee.dateOfBirth, Validators.required],
-          addressLine1: [this.employee.addressLine1, Validators.required],
-          addressLine2: [this.employee.addressLine2, Validators.required],
-          addressLine3: [this.employee.addressLine3, Validators.required],
-          cityTown: [this.employee.cityTown, Validators.required],
-          postalCode: [this.employee.postalCode, Validators.required, Validators.maxLength(4)]
+         // title: [this.employee.title, Validators.required],
+          employeeName: [this.employee.employeeName, [Validators.required]],
+          employeeSurname: [this.employee.employeeSurname, [Validators.required]],
+          employeeCellphoneNumber: [this.employee.employeeCellphoneNumber, [Validators.required, Validators.maxLength(10)]],
+          employeeIdnumber: [this.employee.employeeIdnumber, [Validators.required, Validators.maxLength(13)]],
+          employeeDob: [this.employee.employeeDob, [Validators.required]],
+          employeeAddressLine1: [this.employee.employeeAddressLine1, [Validators.required]],
+          employeeAddressLine2: [this.employee.employeeAddressLine2, [Validators.required]],
       }, formOptions);
       })
     }
@@ -94,10 +88,10 @@ export class AddEditEmployeesComponent implements OnInit {
 
   updateEmployee() {
     const employee: Employee = this.form.value;
-    employee.id = this.employee.id;
+    employee.employeeId = this.employee.employeeId;
     this.EmployeeService.UpdateEmployee(employee).subscribe(res => {
       console.log(res)
-      this.form.reset()
+     // this.form.reset()
     this.router.navigateByUrl('employees');
     });
   }

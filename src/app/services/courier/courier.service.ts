@@ -35,7 +35,7 @@ UpdateCouriere(Courier:Courier):  Observable<Courier[]>  {
 }
 
   DeleteCourier(courierId):  Observable<Courier>  {
-  return this.http.delete<Courier>(`${this.server}Courier/DeletCourier/${courierId}`).pipe(map(res => res));
+  return this.http.delete<Courier>(`${this.server}Courier/DeleteCourier/${courierId}`).pipe(map(res => res));
 }
 }
 

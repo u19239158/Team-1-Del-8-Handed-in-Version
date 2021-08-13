@@ -35,13 +35,13 @@ export class AddEditSupplierComponent implements OnInit {
     this.form = this.formBuilder.group({
         supplierName: ['', [Validators.required]],
         supplierType: ['', [Validators.required]],
-        supplierEmailAddress: ['', [Validators.required, Validators.email]],
-        supplierContactNumber: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+        supplierEmail: ['', [Validators.required, Validators.email]],
+        supplierNumber: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
         supplierAddressLine1: ['', [Validators.required]],
         supplierAddressLine2: ['', [Validators.required]],
-        supplierAddressLine3: ['', [Validators.required]],
+        supplierAddressLine3: [''],
         supplierCityTown: ['', [Validators.required]],
-        supplierPostalCode: ['', [Validators.required, Validators.maxLength(4)]]
+        supplierPostalCode: ['', [Validators.required, Validators.maxLength(4)]],
     }, formOptions);
 
 
@@ -51,14 +51,14 @@ export class AddEditSupplierComponent implements OnInit {
       console.log(res)
       this.form = this.formBuilder.group({
         supplierName: [this.supplier.supplierName, [Validators.required]],
-        supplierType: [this.supplier.supplierType, [Validators.required]],
-        supplierEmailAddress: [this.supplier.supplierEmailAddress, [Validators.required, Validators.email]],
-        supplierContactNumber: [this.supplier.supplierContactNumber, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+        supplierType: [this.supplier.supplierTypeDesc],
+        supplierEmail: [this.supplier.supplierEmail, [Validators.required, Validators.email]],
+        supplierNumber: [this.supplier.supplierNumber, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
         supplierAddressLine1: [this.supplier.supplierAddressLine1, [Validators.required]],
         supplierAddressLine2: [this.supplier.supplierAddressLine2, [Validators.required]],
-        supplierAddressLine3: [this.supplier.supplierAddressLine3, [Validators.required]],
+        supplierAddressLine3: [this.supplier.supplierAddressLine3],
         supplierCityTown: [this.supplier.supplierCityTown, [Validators.required]],
-        supplierPostalCode: [this.supplier.supplierPostalCode, [Validators.required, Validators.maxLength(4)]]
+        supplierPostalCode: [this.supplier.supplierPostalCode, [Validators.required, Validators.maxLength(4)]],
   },  formOptions);
     });
 }
@@ -80,7 +80,7 @@ onSubmit() {
 
 createSupplier(){
   const supplier: Supplier = this.form.value;
-  this.SupplierService.CreateUserRole(supplier).subscribe(res => {
+  this.SupplierService.CreateSupplier(supplier).subscribe(res => {
     console.log(res)
     this.loading = false;
     this.router.navigateByUrl('supplier')
@@ -89,7 +89,7 @@ createSupplier(){
 
   updateSupplier() {
     const supplier: Supplier = this.form.value;
-    supplier.id = this.supplier.id;
+    supplier.supplierId = this.supplier.supplierId;
     this.SupplierService.UpdateSupplier(supplier).subscribe(res => {
       console.log(res)
       this.router.navigateByUrl('supplier');

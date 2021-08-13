@@ -43,8 +43,10 @@ export class ProductcategorysComponent implements OnInit {
 
     confirm.afterClosed().subscribe(res => {
       if(res) {
-        this.productcategoryService.DeleteProductCategory(Productcategory);
-        this.readProductcategorys();
+        this.productcategoryService.DeleteProductCategory(Productcategory).subscribe(res => {
+          this.readProductcategorys();
+        });
+        
       }
     });
   }

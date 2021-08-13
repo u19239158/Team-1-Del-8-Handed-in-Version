@@ -43,8 +43,9 @@ export class AddEditProductcategorysComponent implements OnInit {
         this.productcategory = res
         console.log(res)
         this.form = this.formBuilder.group({
-          id: [this.productcategory.id, Validators.required],
-          productCategoryName: [this.productcategory.productCategoryName, [Validators.required, Validators.maxLength(50)]],
+          id: [this.productcategory.productCategoryId, Validators.required],
+          productCategoryName: [this.productcategory.productCategoryDescription, [Validators.required, Validators.maxLength(50)]],
+          productCategoryImage: [this.productcategory.productCategoryImage, []]
           }, formOptions);
       })
     }
@@ -75,7 +76,7 @@ export class AddEditProductcategorysComponent implements OnInit {
 
   updateProductcategory() {
     const productcategory: Productcategory = this.form.value;
-    productcategory.id = this.productcategory.id;
+    productcategory.productCategoryId = this.productcategory.productCategoryId;
     this.ProductcategoryService.UpdateProductCategory(productcategory).subscribe(res => {
       console.log(res)
       this.form.reset();

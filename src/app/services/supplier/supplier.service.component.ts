@@ -24,11 +24,11 @@ export class SupplierService {
     return this.http.get<Supplier[]>(`${this.server}Supplier/GetSupplier`).pipe(map(res => res));
   }
 
-  getSupplierByID(Supplierid):  Observable<Supplier>  {
-    return this.http.get<Supplier>(`${this.server}Supplier/GetSupplierByID/${Supplierid}`).pipe(map(res => res));
+  getSupplierByID(supplierId):  Observable<Supplier>  {
+    return this.http.get<Supplier>(`${this.server}Supplier/GetSupplierByID/${supplierId}`).pipe(map(res => res));
   }
 
-  CreateUserRole(Supplier:Supplier):  Observable<Supplier[]>  {
+  CreateSupplier(Supplier:Supplier):  Observable<Supplier[]>  {
     return this.http.post<Supplier[]>(`${this.server}Supplier/CreateSupplier`, Supplier,this.httpOptions);
   }
 
@@ -36,8 +36,8 @@ export class SupplierService {
     return this.http.put<Supplier[]>(`${this.server}Supplier/UpdateSupplier`, Supplier,this.httpOptions);
   }
 
-    DeleteSupplier(SupplierId):  Observable<Supplier>  {
-    return this.http.delete<Supplier>(`${this.server}Supplier/DeleteSupplier/${SupplierId}`).pipe(map(res => res));
+  DeleteSupplier(supplierId):  Observable<Supplier>  {
+    return this.http.delete<Supplier>(`${this.server}Supplier/DeleteSupplier/${supplierId}`).pipe(map(res => res));
   }
 }
 

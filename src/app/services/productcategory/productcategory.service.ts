@@ -20,23 +20,23 @@ export class ProductcategoryService {
   constructor(private http: HttpClient) { }
 
   GetProductCategory():  Observable<Productcategory[]>  {
-    return this.http.get<Productcategory[]>(`${this.server}Productcategory/GetProductCategory`).pipe(map(res => res));
+    return this.http.get<Productcategory[]>(`${this.server}Productcategory/GetProdCat`).pipe(map(res => res));
   }
 
   getProductCategoryByID(ProductCategoryid):  Observable<Productcategory>  {
-    return this.http.get<Productcategory>(`${this.server}Productcategory/GetProductCategoryByID/${ProductCategoryid}`).pipe(map(res => res));
+    return this.http.get<Productcategory>(`${this.server}Productcategory/GetPCByID/${ProductCategoryid}`).pipe(map(res => res));
   }
 
   CreateProductCategory(Productcategory:Productcategory):  Observable<Productcategory[]>  {
-    return this.http.post<Productcategory[]>(`${this.server}Productcategory/CreateProductCategory`, Productcategory,this.httpOptions);
+    return this.http.post<Productcategory[]>(`${this.server}Productcategory/CreatePC`, Productcategory,this.httpOptions); 
   }
 
   UpdateProductCategory(Productcategory:Productcategory):  Observable<Productcategory[]>  {
-    return this.http.put<Productcategory[]>(`${this.server}Productcategory/UpdateProductCategory`, Productcategory,this.httpOptions);
+    return this.http.put<Productcategory[]>(`${this.server}Productcategory/UpdatePC`, Productcategory,this.httpOptions);
   }
 
-    DeleteProductCategory(productcategoryId):  Observable<Productcategory>  {
-    return this.http.delete<Productcategory>(`${this.server}Productcategory/DeleteUserRole/${productcategoryId}`).pipe(map(res => res));
+    DeleteProductCategory(productCategoryId):  Observable<Productcategory>  {
+    return this.http.delete<Productcategory>(`${this.server}Productcategory/DeletePC/${productCategoryId}`).pipe(map(res => res));
   }
 }
 //   getAll(): Productcategory[] {
