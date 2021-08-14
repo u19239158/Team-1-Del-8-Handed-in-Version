@@ -16,7 +16,7 @@ namespace NKAP_API_2.EF
         public int? TitleId { get; set; }
         public string CustomerName { get; set; }
         public string CustomerSurname { get; set; }
-        public int CustomerCellphoneNumber { get; set; }
+        public string CustomerCellphoneNumber { get; set; }
         public string CustomerEmailAddress { get; set; }
         public string CustomerBusinessName { get; set; }
         public string CustomerVatreg { get; set; }

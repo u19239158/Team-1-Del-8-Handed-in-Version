@@ -49,7 +49,6 @@ namespace NKAP_API_2.EF
         public virtual DbSet<Shift> Shifts { get; set; }
         public virtual DbSet<Special> Specials { get; set; }
         public virtual DbSet<StockTake> StockTakes { get; set; }
-        public virtual DbSet<Suburb> Suburbs { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<SupplierInvoice> SupplierInvoices { get; set; }
         public virtual DbSet<SupplierInvoiceLine> SupplierInvoiceLines { get; set; }
@@ -122,7 +121,11 @@ namespace NKAP_API_2.EF
 
                 entity.Property(e => e.AdminId).HasColumnName("Admin_ID");
 
-                entity.Property(e => e.AdminCellphoneNumber).HasColumnName("Admin_CellphoneNumber");
+                entity.Property(e => e.AdminCellphoneNumber)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("Admin_CellphoneNumber");
 
                 entity.Property(e => e.AdminEmailAddress)
                     .IsRequired()
@@ -273,7 +276,11 @@ namespace NKAP_API_2.EF
                     .IsUnicode(false)
                     .HasColumnName("Courier_Name");
 
-                entity.Property(e => e.CourierNumber).HasColumnName("Courier_Number");
+                entity.Property(e => e.CourierNumber)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("Courier_Number");
 
                 entity.Property(e => e.CourierTypeId).HasColumnName("CourierType_ID");
 
@@ -307,7 +314,11 @@ namespace NKAP_API_2.EF
                     .IsUnicode(false)
                     .HasColumnName("Customer_BusinessName");
 
-                entity.Property(e => e.CustomerCellphoneNumber).HasColumnName("Customer_CellphoneNumber");
+                entity.Property(e => e.CustomerCellphoneNumber)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("Customer_CellphoneNumber");
 
                 entity.Property(e => e.CustomerEmailAddress)
                     .IsRequired()
@@ -438,7 +449,11 @@ namespace NKAP_API_2.EF
                     .IsUnicode(false)
                     .HasColumnName("Employee_AddressLine2");
 
-                entity.Property(e => e.EmployeeCellphoneNumber).HasColumnName("Employee_CellphoneNumber");
+                entity.Property(e => e.EmployeeCellphoneNumber)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("Employee_CellphoneNumber");
 
                 entity.Property(e => e.EmployeeDob)
                     .HasColumnType("date")
@@ -848,26 +863,6 @@ namespace NKAP_API_2.EF
                     .HasColumnName("StockTake_Date");
             });
 
-            modelBuilder.Entity<Suburb>(entity =>
-            {
-                entity.ToTable("Suburb");
-
-                entity.Property(e => e.SuburbId).HasColumnName("Suburb_ID");
-
-                entity.Property(e => e.CityId).HasColumnName("City_ID");
-
-                entity.Property(e => e.SuburbDescription)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("Suburb_Description");
-
-                entity.HasOne(d => d.City)
-                    .WithMany(p => p.Suburbs)
-                    .HasForeignKey(d => d.CityId)
-                    .HasConstraintName("FK__Suburb__City_ID__276EDEB3");
-            });
-
             modelBuilder.Entity<Supplier>(entity =>
             {
                 entity.ToTable("Supplier");
@@ -907,19 +902,17 @@ namespace NKAP_API_2.EF
                     .IsUnicode(false)
                     .HasColumnName("Supplier_Email");
 
-                //entity.Property(e => e.SupplierLocation)
-                //    .IsRequired()
-                //    .HasMaxLength(150)
-                //    .IsUnicode(false)
-                //    .HasColumnName("Supplier_Location");
-
                 entity.Property(e => e.SupplierName)
                     .IsRequired()
                     .HasMaxLength(150)
                     .IsUnicode(false)
                     .HasColumnName("Supplier_Name");
 
-                entity.Property(e => e.SupplierNumber).HasColumnName("Supplier_Number");
+                entity.Property(e => e.SupplierNumber)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("Supplier_Number");
 
                 entity.Property(e => e.SupplierPostalCode).HasColumnName("Supplier_PostalCode");
 

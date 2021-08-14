@@ -15,7 +15,7 @@ namespace NKAP_API_2.EF
         public int CourierId { get; set; }
         public int? CourierTypeId { get; set; }
         public string CourierName { get; set; }
-        public int CourierNumber { get; set; }
+        public string CourierNumber { get; set; }
         public string CourierEmail { get; set; }
 
         public virtual CourierType CourierType { get; set; }

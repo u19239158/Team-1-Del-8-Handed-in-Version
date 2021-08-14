@@ -11,7 +11,7 @@ namespace NKAP_API_2.EF
         public int? TitleId { get; set; }
         public string AdminName { get; set; }
         public string AdminSurname { get; set; }
-        public int AdminCellphoneNumber { get; set; }
+        public string AdminCellphoneNumber { get; set; }
         public string AdminEmailAddress { get; set; }
 
         public virtual Title Title { get; set; }
