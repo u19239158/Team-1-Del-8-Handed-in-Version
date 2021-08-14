@@ -1,26 +1,30 @@
+<div class="content">
 <h1 *ngIf="isAddMode">Add Product Category</h1>
 <h1 *ngIf="!isAddMode">Edit Product Category</h1>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class = "main">
     <div class="mat-row">
 
         <div class="mat-col-quarter">
             <mat-form-field appearance="outline" class="control-w">
                 <mat-label>Product Category Name</mat-label>
-                <input type="text" matInput placeholder="Product Category Name" formControlName="productCategoryName">
+                <input type="text" matInput placeholder="Product Category Name" formControlName="productCategoryDescription">
                 <mat-hint>Product Category Name</mat-hint>
             </mat-form-field>
         </div>
-        </div>
+    </div>
   <div class="mat-row">
-    <div class="form-group" class="control-w">
+    <div class="form-group" class="control-m">
       <button mat-raised-button color ="primary" [disabled]="loading">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Save
       </button>
       <a (click)="Close()" mat-button>Cancel</a>
   </div>
-
+    </div>
+</form>
 </div>
 
-</form>
+
+
+

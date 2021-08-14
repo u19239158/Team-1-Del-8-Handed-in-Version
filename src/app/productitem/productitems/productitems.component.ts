@@ -44,8 +44,10 @@ export class ProductitemsComponent implements OnInit {
 
     confirm.afterClosed().subscribe(res => {
       if(res) {
-        this.productitemService.DeleteProductitem(Productitem);
-        this.readProductitems();
+        this.productitemService.DeleteProductitem(Productitem).subscribe( res =>{
+          this.readProductitems();
+        });
+        
       }
     });
   }

@@ -20,11 +20,11 @@ export class ProductitemService {
   constructor(private http: HttpClient) { }
 
   GetProductItem():  Observable<Productitem[]>  {
-    return this.http.get<Productitem[]>(`${this.server}Productitem/GetProductItem`).pipe(map(res => res));
+    return this.http.get<Productitem[]>(`${this.server}Productitem/GetProductItems`).pipe(map(res => res));
   }
 
   getProductItemByID(ProductItemid):  Observable<Productitem>  {
-    return this.http.get<Productitem>(`${this.server}Productitem/GetProductItemByID/${ProductItemid}`).pipe(map(res => res));
+    return this.http.get<Productitem>(`${this.server}Productitem/GetPItemsByID/${ProductItemid}`).pipe(map(res => res));
   }
 
   CreateProductItem(Productitem:Productitem):  Observable<Productitem[]>  {

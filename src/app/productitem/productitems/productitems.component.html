@@ -5,40 +5,40 @@
         <!-- ID Column -->
         <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-        <td mat-cell *matCellDef="let element">{{element.id}} </td>
+        <td mat-cell *matCellDef="let element">{{element.productItemId}} </td>
         </ng-container>
         <!-- Category Type Column -->
         <ng-container matColumnDef="categorytype">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Category Type </th>
-            <td mat-cell *matCellDef="let element"> {{element.categorytype}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.categoryTypeName}} </td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.productItemName}} </td>
         </ng-container>
 
         <ng-container matColumnDef="description">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
-            <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.categoryTypeDescription}} </td>
         </ng-container>
 
         <ng-container matColumnDef="cost">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Cost </th>
-            <td mat-cell *matCellDef="let element"> {{element.cost}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.productItemCost}} </td>
         </ng-container>
 
         <ng-container matColumnDef="quantity">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
-            <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.productItemQuantityOnHand}} </td>
         </ng-container>
 
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>
                 <button mat-icon-button color="primary" aria-label="Example icon button with a home icon"
-                routerLink = "addProductItem"
+                routerLink = "/addProductItem"
                 >
                     <mat-icon>add</mat-icon>
                   </button>
@@ -48,8 +48,8 @@
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu" xPosition="before">
-                <button mat-menu-item [routerLink]="['/editProductItem', element.id]" >Update Product Item</button>
-                <button mat-menu-item (click)="deleteProductitem(element)">Delete Product Item</button>
+                <button mat-menu-item [routerLink]="['/editProductItem', element.productItemId]" >Update Product Item</button>
+                <button mat-menu-item (click)="deleteProductitem(element.productItemId)">Delete Product Item</button>
                 </mat-menu>
             </td>
         </ng-container>

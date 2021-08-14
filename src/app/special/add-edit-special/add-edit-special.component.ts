@@ -80,7 +80,7 @@ export class AddEditSpecialComponent implements OnInit {
 
   updateSpecial() {
     const special: Special = this.form.value;
-    special.id = this.special.id;
+    special.specialId = this.special.specialId;
     this.SpecialService.UpdateSpecial(special).subscribe(res => {
       console.log(res)
       this.form.reset();

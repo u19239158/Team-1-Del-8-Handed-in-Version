@@ -1,3 +1,5 @@
+import { CurrencyPipe } from "@angular/common";
+
 export interface Employee {
   employeeId: any;
   employeeName: string;
@@ -12,7 +14,7 @@ export interface Employee {
 }
 
 export interface Supplier {
-  supplierId: number;
+  supplierID: number;
   supplierName: string;
   supplierTypeDesc: string;
   supplierEmail: string;
@@ -40,7 +42,7 @@ export class UserRole {
 }
 
 export interface Special {
-  id: number;
+  specialId: number;
   specialImage: string;
   specialDescription: string;
   specialPrice: string;
@@ -77,11 +79,11 @@ export interface Categorytype {
 }
 
 export interface Productitem {
-  id:number;
-  name: string;
-  description:string;
-  cost: number;
-  quantity: number;
+  productItemId:number;
+  productItemName: string;
+  productItemDescription:string;
+  productItemCost: number;
+  productItemQuantityOnHand: number;
   categorytype: 'Product Category 1'|'Product Category 2'|'Product Category 3'|'Product Category 4';
   }
 

@@ -51,6 +51,7 @@ export class AddEditEmployeesComponent implements OnInit {
         console.log(res)
         this.form = this.formBuilder.group({
          // title: [this.employee.title, Validators.required],
+         id: [this.employee.employeeId, Validators.required],
           employeeName: [this.employee.employeeName, [Validators.required]],
           employeeSurname: [this.employee.employeeSurname, [Validators.required]],
           employeeCellphoneNumber: [this.employee.employeeCellphoneNumber, [Validators.required, Validators.maxLength(10)]],

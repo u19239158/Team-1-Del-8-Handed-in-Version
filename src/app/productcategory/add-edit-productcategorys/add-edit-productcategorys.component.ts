@@ -10,7 +10,6 @@ import { Productcategory } from 'src/app/interfaces';
   templateUrl: './add-edit-productcategorys.component.html',
   styleUrls: ['./add-edit-productcategorys.component.scss']
 })
-
 export class AddEditProductcategorysComponent implements OnInit {
 
     form: FormGroup;
@@ -34,8 +33,8 @@ export class AddEditProductcategorysComponent implements OnInit {
 
     const formOptions: AbstractControlOptions = { };
     this.form = this.formBuilder.group({
-        id: ['', [Validators.required]],
-        productCategoryName: ['', [Validators.required, Validators.maxLength(50)]],
+        //id: ['', [Validators.required]],
+        productCategoryDescription: ['', [Validators.required, Validators.maxLength(50)]],
        }, formOptions);
 
     if (!this.isAddMode) {
@@ -44,7 +43,7 @@ export class AddEditProductcategorysComponent implements OnInit {
         console.log(res)
         this.form = this.formBuilder.group({
           id: [this.productcategory.productCategoryId, Validators.required],
-          productCategoryName: [this.productcategory.productCategoryDescription, [Validators.required, Validators.maxLength(50)]],
+          productCategoryDescription: [this.productcategory.productCategoryDescription, [Validators.required, Validators.maxLength(50)]],
           productCategoryImage: [this.productcategory.productCategoryImage, []]
           }, formOptions);
       })

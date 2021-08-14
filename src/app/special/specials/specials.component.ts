@@ -17,7 +17,7 @@ export class SpecialsComponent implements OnInit {
   specials: Special[] = [];
   special: Observable<Special[]>;
   dataSource = new MatTableDataSource<Special>();
-  displayedColumns: string[] = ['image', 'description', 'price', 'startDate','endDate', 'actions'];
+  displayedColumns: string[] = ['image', 'description',  'startDate','endDate', 'actions'];
 
   constructor(
     private specialService: SpecialService,
@@ -45,8 +45,10 @@ export class SpecialsComponent implements OnInit {
 
     confirm.afterClosed().subscribe(res => {
       if(res) {
-        this.specialService.DeleteSpecial(Special);
-        this.readSpecials();
+        this.specialService.DeleteSpecial(Special).subscribe (res => {
+          this.readSpecials();
+        }) ;
+        
       }
     });
   }

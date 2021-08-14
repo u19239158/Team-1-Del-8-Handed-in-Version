@@ -1,5 +1,5 @@
+import { Supplier } from 'src/app/interfaces';
 import { Observable } from 'rxjs';
-import { Supplier } from './../../interfaces/index';
 import { SupplierService } from 'src/app/services/supplier/supplier.service.component';
 import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
@@ -33,7 +33,7 @@ export class AddEditSupplierComponent implements OnInit {
 
     const formOptions: AbstractControlOptions = { };
     this.form = this.formBuilder.group({
-        supplierName: ['', [Validators.required]],
+      supplierName: ['', [Validators.required]],
         supplierType: ['', [Validators.required]],
         supplierEmail: ['', [Validators.required, Validators.email]],
         supplierNumber: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
@@ -50,6 +50,7 @@ export class AddEditSupplierComponent implements OnInit {
       this.supplier = res
       console.log(res)
       this.form = this.formBuilder.group({
+        id: [this.supplier.supplierID, Validators.required],
         supplierName: [this.supplier.supplierName, [Validators.required]],
         supplierType: [this.supplier.supplierTypeDesc],
         supplierEmail: [this.supplier.supplierEmail, [Validators.required, Validators.email]],
@@ -89,9 +90,10 @@ createSupplier(){
 
   updateSupplier() {
     const supplier: Supplier = this.form.value;
-    supplier.supplierId = this.supplier.supplierId;
+    supplier.supplierID = this.supplier.supplierID;
     this.SupplierService.UpdateSupplier(supplier).subscribe(res => {
       console.log(res)
+      this.loading = false
       this.router.navigateByUrl('supplier');
     });
   }

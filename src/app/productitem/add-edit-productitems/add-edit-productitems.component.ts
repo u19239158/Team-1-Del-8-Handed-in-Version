@@ -18,8 +18,8 @@ export class AddEditProductitemsComponent implements OnInit {
     isAddMode: boolean;
     loading = false;
     submitted = false;
-    productitem: Productitem;
-    productitems: Observable<Productitem[]>
+    Productitem: Productitem;
+    productitem: Observable<Productitem[]>
 
     constructor(
         private formBuilder: FormBuilder,
@@ -34,23 +34,23 @@ export class AddEditProductitemsComponent implements OnInit {
 
     const formOptions: AbstractControlOptions = { };
     this.form = this.formBuilder.group({
-        id: ['', [Validators.required]],
-        name: ['', [Validators.required]],
-        description: ['', [Validators.required]],
-        cost: ['', [Validators.required, Validators.maxLength(10)]],
-        quantity: ['', [Validators.required, Validators.maxLength(13)]],
+        //id: ['', [Validators.required]],
+        productItemName: ['', [Validators.required]],
+        //description: ['', [Validators.required]],
+        productItemCost: ['', [Validators.required ]],
+        productItemQuantityOnHand: ['', [Validators.required, Validators.maxLength(13)]],
        }, formOptions);
 
     if (!this.isAddMode) {
       this.ProductitemService.getProductItemByID(this.id). subscribe(res => {
-        this.productitem = res
+        this.Productitem = res
         console.log(res)
         this.form = this.formBuilder.group({
-          id: [this.productitem.id, [Validators.required]],
-          name: [this.productitem.name, [Validators.required]],
-          description: [this.productitem.description, [Validators.required]],
-          cost: [this.productitem.cost, [Validators.required, Validators.maxLength(10)]],
-          quantity: [this.productitem.quantity, [Validators.required, Validators.maxLength(13)]],
+          //id: [this.Productitem.productItemId, [Validators.required]],
+          productItemName: [this.Productitem.productItemName, [Validators.required]],
+         // productItemDescription: [this.productitem.description, [Validators.required]],
+          productItemCost: [this.Productitem.productItemCost, [Validators.required ]],
+         // productItemQuantityOnHand: [this.productitem.quantity, [Validators.required, Validators.maxLength(13)]],
           }, formOptions);
       })
     }
@@ -81,10 +81,10 @@ export class AddEditProductitemsComponent implements OnInit {
 
   updateProductitem() {
     const productitem: Productitem = this.form.value;
-    productitem.id = this.productitem.id;
+    productitem.productItemId = this.Productitem.productItemId;
     this.ProductitemService.UpdateProductItem(productitem).subscribe(res => {
       console.log(res)
-      this.form.reset();
+      //this.form.reset();
       this.router.navigateByUrl('productItem');
     });
   }

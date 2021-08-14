@@ -10,7 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class SpecialService {
 
-  server = 'https://localhost:44308/api/';
+  server = 'https://localhost:44393/api/';
   httpOptions = {
     headers: new HttpHeaders({
       ContentType: 'application/json'
@@ -21,23 +21,23 @@ export class SpecialService {
   constructor(private http: HttpClient) { }
 
   GetSpecial():  Observable<Special[]>  {
-    return this.http.get<Special[]>(`${this.server}Special/GetSpecial`).pipe(map(res => res));
+    return this.http.get<Special[]>(`${this.server}Special/GetSpecials`).pipe(map(res => res));
   }
 
-  getSpecialByID(specialid):  Observable<Special>  {
-    return this.http.get<Special>(`${this.server}Special/GetSpecialByID/${specialid}`).pipe(map(res => res));
+  getSpecialByID(specialId):  Observable<Special>  {
+    return this.http.get<Special>(`${this.server}Special/GetSpecialsByID/${specialId}`).pipe(map(res => res));
   }
 
   CreateSpecial(Special:Special):  Observable<Special[]>  {
-    return this.http.post<Special[]>(`${this.server}Special/CreateSpecial`, Special,this.httpOptions);
+    return this.http.post<Special[]>(`${this.server}Special/CreateSpecials`, Special,this.httpOptions);
   }
 
   UpdateSpecial(Special:Special):  Observable<Special[]>  {
-    return this.http.put<Special[]>(`${this.server}Special/UpdateSpecial`, Special,this.httpOptions);
+    return this.http.put<Special[]>(`${this.server}Special/UpdateSpecials`, Special,this.httpOptions);
   }
 
-    DeleteSpecial(SpecialId):  Observable<Special>  {
-    return this.http.delete<Special>(`${this.server}Special/DeleteSpecial/${SpecialId}`).pipe(map(res => res));
+    DeleteSpecial(specialId):  Observable<Special>  {
+    return this.http.delete<Special>(`${this.server}Special/DeleteSpecials/${specialId}`).pipe(map(res => res));
   }
 }
   // getAll(): Special[] {
