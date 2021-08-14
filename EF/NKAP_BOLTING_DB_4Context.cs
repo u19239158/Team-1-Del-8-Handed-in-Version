@@ -907,11 +907,11 @@ namespace NKAP_API_2.EF
                     .IsUnicode(false)
                     .HasColumnName("Supplier_Email");
 
-                entity.Property(e => e.SupplierLocation)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
-                    .HasColumnName("Supplier_Location");
+                //entity.Property(e => e.SupplierLocation)
+                //    .IsRequired()
+                //    .HasMaxLength(150)
+                //    .IsUnicode(false)
+                //    .HasColumnName("Supplier_Location");
 
                 entity.Property(e => e.SupplierName)
                     .IsRequired()

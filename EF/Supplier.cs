@@ -19,7 +19,7 @@ namespace NKAP_API_2.EF
         public string SupplierName { get; set; }
         public int SupplierNumber { get; set; }
         public string SupplierEmail { get; set; }
-        public string SupplierLocation { get; set; }
+       // public string SupplierLocation { get; set; }
         public string SupplierAddressLine1 { get; set; }
         public string SupplierAddressLine2 { get; set; }
         public string SupplierAddressLine3 { get; set; }
