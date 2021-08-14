@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NKAP_API_2.EF;
 using NKAP_API_2.Models;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace NKAP_API_2.Controllers
 {
@@ -160,7 +162,7 @@ namespace NKAP_API_2.Controllers
             PItem.ProductItemName = model.ProductItemName;
             PItem.ProductItemCost = model.ProductItemCost;
             //PItem.ProductItemImage = Convert.ToByte(model.ProductItemImage);
-            PItem.QuantityOnHand = model.QuantityOnHand;
+           // PItem.QuantityOnHand = model.QuantityOnHand;
             _db.ProductItems.Attach(PItem); //Attach Record
             _db.SaveChanges();
 

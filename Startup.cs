@@ -29,7 +29,7 @@ namespace NKAP_API_2
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             //services.AddDbContext<NKAP_BOLTING_DB_4Context>(options => options.UseSqlServer)
             services.AddDbContext<NKAP_BOLTING_DB_4Context>(options => options.UseSqlServer(Configuration.GetConnectionString("NKAP_DB")));
             services.AddCors();

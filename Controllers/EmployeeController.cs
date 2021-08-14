@@ -29,6 +29,16 @@ namespace NKAP_API_2.Controllers
 
         }
 
+        [Route("GetEmployeeByName/{employeeid}")] //route
+        [HttpGet]
+        //get Employee by name (Read)
+        public IActionResult get(int employeid)
+        {
+            var Employees = _db.Employees.FirstOrDefault(en => en.EmployeeId == employeid);
+            return Ok(Employees);
+        }
+
+
         [Route("GetEmployeeByName/{employeename}")] //route
         [HttpGet]
         //get Employee by name (Read)
@@ -84,16 +94,16 @@ namespace NKAP_API_2.Controllers
             return Ok(employee);
         }
 
-        [Route("DeleteEmployee/{Employee_ID}")] //route
+        [Route("DeleteEmployee/{employeeid}")] //route
         [HttpDelete]
         //Delete Employee
         public IActionResult DeleteEmployee(int employeeid)
         {
-            var employee = _db.Employees.Find(employeeid);
-            _db.Employees.Remove(employee); //Delete Record
+            var delemployee = _db.Employees.Find(employeeid);
+            _db.Employees.Remove(delemployee); //Delete Record
             _db.SaveChanges();
 
-            return Ok(employee);
+            return Ok(delemployee);
         }
     }
 }

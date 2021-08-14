@@ -94,12 +94,12 @@ namespace NKAP_API_2.Controllers
             return Ok(special);
         }
 
-        [Route("DeleteSpecials/{speciaid}")] //route
+        [Route("DeleteSpecials/{specialid}")] //route
         [HttpDelete]
         //Delete Specialss
-        public IActionResult DeleteSpecials(int speciaid)
+        public IActionResult DeleteSpecials(int specialid)
         {
-            var special = _db.Specials.Find(speciaid);
+            var special = _db.Specials.Find(specialid);
             _db.Specials.Remove(special); //Delete Record
             _db.SaveChanges();
 
