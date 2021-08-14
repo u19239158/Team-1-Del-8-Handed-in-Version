@@ -127,7 +127,7 @@ namespace NKAP_API_2.Controllers
             admin.AdminName = model.AdminName; //attributes in table
             admin.AdminSurname = model.AdminSurName;
             admin.AdminEmailAddress = model.AdminEmailAddress;
-            admin.AdminCellphoneNumber = Convert.ToInt32(model.AdminCellPhoneNumber);
+            admin.AdminCellphoneNumber = model.AdminCellPhoneNumber;
             admin.TitleId = model.TitleID;
             _db.Admins.Add(admin);
             _db.SaveChanges();
@@ -144,7 +144,7 @@ namespace NKAP_API_2.Controllers
             admin.AdminName = model.AdminName; //attributes in table
             admin.AdminSurname = model.AdminSurName;
             admin.AdminEmailAddress = model.AdminEmailAddress;
-            admin.AdminCellphoneNumber = Convert.ToInt32(model.AdminCellPhoneNumber);
+            admin.AdminCellphoneNumber = model.AdminCellPhoneNumber;
             admin.TitleId = model.TitleID;
             _db.Admins.Attach(admin); //Attach Record
             _db.SaveChanges();

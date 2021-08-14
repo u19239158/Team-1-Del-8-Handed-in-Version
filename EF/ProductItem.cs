@@ -22,7 +22,7 @@ namespace NKAP_API_2.EF
         public int ProductItemId { get; set; }
         public int? CategoryTypeId { get; set; }
         public string ProductItemName { get; set; }
-        public decimal ProductItemCost { get; set; }
+        public decimal? ProductItemCost { get; set; }
         public int QuantityOnHand { get; set; }
 
         public virtual CategoryType CategoryType { get; set; }

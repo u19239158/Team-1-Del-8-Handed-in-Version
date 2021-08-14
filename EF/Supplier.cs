@@ -15,7 +15,6 @@ namespace NKAP_API_2.EF
         }
 
         public int SupplierId { get; set; }
-        public int? SupplierTypeId { get; set; }
         public string SupplierName { get; set; }
         public string SupplierNumber { get; set; }
         public string SupplierEmail { get; set; }
@@ -26,7 +25,6 @@ namespace NKAP_API_2.EF
         public int SupplierPostalCode { get; set; }
         public decimal? SupplierBalance { get; set; }
 
-        public virtual SupplierType SupplierType { get; set; }
         public virtual ICollection<SupplierInvoice> SupplierInvoices { get; set; }
         public virtual ICollection<SupplierOrder> SupplierOrders { get; set; }
         public virtual ICollection<SupplierPayment> SupplierPayments { get; set; }

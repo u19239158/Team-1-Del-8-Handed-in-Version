@@ -17,7 +17,7 @@ namespace NKAP_API_2.Models
         { get; set; }
 
         [JsonProperty("suppliernumber")]
-        public int SupplierNumber
+        public string SupplierNumber
         { get; set; }
 
         [JsonProperty("supplieremail")]

@@ -22,7 +22,7 @@ namespace NKAP_API_2.Models
         { get; set; }
 
         [JsonProperty("customercellphonenumber")]
-        public int CustomerCellphoneNumber
+        public string CustomerCellphoneNumber
         { get; set; }
 
         [JsonProperty("customeremailaddress")]
