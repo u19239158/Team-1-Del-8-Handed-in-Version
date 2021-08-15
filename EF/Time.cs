@@ -13,8 +13,8 @@ namespace NKAP_API_2.EF
         }
 
         public int TimeId { get; set; }
-        public TimeSpan StartTime { get; set; }
-        public TimeSpan EndTime { get; set; }
+        public Time StartTime { get; set; }
+        public Time EndTime { get; set; }
 
         public virtual ICollection<Shift> Shifts { get; set; }
     }
