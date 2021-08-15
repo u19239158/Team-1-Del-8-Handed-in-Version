@@ -4,6 +4,17 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
   <div class="mat-row">
+
+        <div class="mat-col-quarter">
+            <mat-form-field appearance="outline" class="control-w">
+                <mat-label> Category Type</mat-label>
+                <mat-select [(value)]="selected" formControlName="categoryTypeId">
+                  <mat-option *ngFor="let CategoryType of collection" [value]="CategoryType.categoryTypeId">{{CategoryType.categoryTypeDescription}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+
+
         <div class="mat-col-quarter">
             <mat-form-field appearance="outline" class="control-w">
                 <mat-label>Product Item Name</mat-label>
@@ -12,17 +23,7 @@
             </mat-form-field>
         </div>
 
-        <!-- <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-w">
-                <mat-label>Category Type</mat-label>
-                <mat-select formControlName="categorytype">
-                  <mat-option value="Product Category 1">Product Category 1</mat-option>
-                  <mat-option value="Product Category 2">Product Category 2</mat-option>
-                  <mat-option value="Product Category 3">Product Category 3</mat-option>
-                  <mat-option value="Product Category 4">Product Category 4</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div> -->
+        
   </div>
 
     <div class="mat-row">

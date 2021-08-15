@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Deliveryshift } from 'src/app/interfaces';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-edit-deliveryshift',
@@ -20,23 +21,27 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     submitted = false;
     deliveryshift: Deliveryshift;
     deliveryshifts: Observable<Deliveryshift[]>
+    collection = [];
+    selected: string;
 
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private DeliveryShiftService: DeliveryshiftService
+        private DeliveryShiftService: DeliveryshiftService,
+        private http: HttpClient
     ) {}
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
+    this.getCollection();
 
     const formOptions: AbstractControlOptions = { };
     this.form = this.formBuilder.group({
         startTime: ['', [Validators.required]],
         endTime: ['',[Validators.required]],
-        date: ['', [Validators.required]],
+        dayOfTheWeek: ['', [Validators.required]],
      }, formOptions);
 
     if (!this.isAddMode) {
@@ -46,7 +51,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
         this.form = this.formBuilder.group({
           startTime: [this.deliveryshift.startTime, [Validators.required]],
           endTime: [this.deliveryshift.endTime,[Validators.required]],
-          date: [this.deliveryshift.date, [Validators.required]],
+          dayOfTheWeek: [this.deliveryshift.dayOfTheWeek, [Validators.required]],
       }, formOptions);
       });
     }
@@ -64,6 +69,16 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     } else {
         this.updateDeliveryshift();
     }
+  }
+
+  getCollection() {
+    this.http
+      .get<any>('https://localhost:44393/api/DeliveryShift/GetShiftTime').subscribe((res: any) => {
+        this.collection = res;
+        console.log(res);
+      }, error => {
+        console.log({ error });
+      })
   }
 
   createDeliveryshift() {

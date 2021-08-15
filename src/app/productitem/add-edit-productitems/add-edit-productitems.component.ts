@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Productitem } from 'src/app/interfaces';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-edit-productitems',
@@ -19,26 +20,31 @@ export class AddEditProductitemsComponent implements OnInit {
     loading = false;
     submitted = false;
     Productitem: Productitem;
-    productitem: Observable<Productitem[]>
+    productitem: Observable<Productitem[]>;
+    collection = [];
+    selected: string;
 
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private ProductitemService: ProductitemService
+        private ProductitemService: ProductitemService,
+        private http: HttpClient
     ) {}
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
+    this.getCollection();
 
     const formOptions: AbstractControlOptions = { };
     this.form = this.formBuilder.group({
         //id: ['', [Validators.required]],
         productItemName: ['', [Validators.required]],
+        categoryTypeId: ['', [Validators.required]],
         //description: ['', [Validators.required]],
         productItemCost: ['', [Validators.required ]],
-        productItemQuantityOnHand: ['', [Validators.required, Validators.maxLength(13)]],
+        productItemQuantityOnHand: ['', [Validators.required]],
        }, formOptions);
 
     if (!this.isAddMode) {
@@ -48,9 +54,10 @@ export class AddEditProductitemsComponent implements OnInit {
         this.form = this.formBuilder.group({
           //id: [this.Productitem.productItemId, [Validators.required]],
           productItemName: [this.Productitem.productItemName, [Validators.required]],
+          categoryTypeId: [this.Productitem.categoryTypeId, [Validators.required]],
          // productItemDescription: [this.productitem.description, [Validators.required]],
           productItemCost: [this.Productitem.productItemCost, [Validators.required ]],
-         // productItemQuantityOnHand: [this.productitem.quantity, [Validators.required, Validators.maxLength(13)]],
+         productItemQuantityOnHand: [this.Productitem.productItemQuantityOnHand, [Validators.required, Validators.maxLength(13)]],
           }, formOptions);
       })
     }
@@ -68,6 +75,17 @@ export class AddEditProductitemsComponent implements OnInit {
     } else {
         this.updateProductitem();
     }
+  }
+
+
+  getCollection() {
+    this.http
+      .get<any>('https://localhost:44393/api/CategoryType/GetCategoryType').subscribe((res: any) => {
+        this.collection = res;
+        //console.log = res;
+      }, error => {
+        console.log({ error });
+      })
   }
 
   createProductitem() {

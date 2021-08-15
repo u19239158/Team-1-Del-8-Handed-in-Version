@@ -1,20 +1,15 @@
 <h1 *ngIf="isAddMode">Add Delivery Shift</h1>
 <h1 *ngIf="!isAddMode">Edit Delivery Shift</h1>
 
+<!-- max time for a shift is 1 hour (ADD Validation) -->
+
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="mat-row">
         <div class="mat-col-quarter">
             <mat-form-field appearance="outline" class="control-w">
                 <mat-label>Start Time</mat-label>
                 <mat-select formControlName="startTime">
-                  <mat-option value="08:00">08:00</mat-option>
-                  <mat-option value="09:00">09:00</mat-option>
-                  <mat-option value="10:00">10:00</mat-option>
-                  <mat-option value="11:00">11:00</mat-option>
-                  <mat-option value="12:00">12:00</mat-option>
-                  <mat-option value="13:00">13:00</mat-option>
-                  <mat-option value="14:00">14:00</mat-option>
-                  <mat-option value="15:00">15:00</mat-option>
+                  <mat-option *ngFor="let ds of collection" [value]="ds.timeId">{{ds.startTime}}</mat-option>        
                 </mat-select>
               </mat-form-field>
         </div>
@@ -25,14 +20,7 @@
             <mat-form-field appearance="outline" class="control-w">
                 <mat-label>End Time</mat-label>
                 <mat-select formControlName="endTime">
-                  <mat-option value="09:00">09:00</mat-option>
-                  <mat-option value="10:00">10:00</mat-option>
-                  <mat-option value="11:00">11:00</mat-option>
-                  <mat-option value="12:00">12:00</mat-option>
-                  <mat-option value="13:00">13:00</mat-option>
-                  <mat-option value="14:00">14:00</mat-option>
-                  <mat-option value="15:00">15:00</mat-option>
-                  <mat-option value="16:00">16:00</mat-option>
+                  <mat-option *ngFor="let ds of collection" [value]="ds.timeId">{{ds.endTime}}</mat-option>
                 </mat-select>
               </mat-form-field>
         </div>

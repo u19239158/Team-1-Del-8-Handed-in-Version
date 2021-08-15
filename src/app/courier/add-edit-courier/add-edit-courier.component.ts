@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Courier } from 'src/app/interfaces';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-edit-courier',
@@ -20,24 +21,30 @@ export class AddEditCourierComponent implements OnInit {
     submitted = false;
     courier: Courier;
     couriers: Observable<Courier[]>;
+    collection = [];
+    selected: string;
 
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private CourierService: CourierService
+        private CourierService: CourierService,
+        private http: HttpClient
+        
     ) {}
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
+    this.getCollection();
 
     const formOptions: AbstractControlOptions = { };
     this.form = this.formBuilder.group({
-        name: ['', [Validators.required]],
-        type: ['', [Validators.required]],
-        email: ['', [Validators.required, Validators.email]],
-        contactNumber: ['', Validators.required, Validators.maxLength(10)],
+      courierName: ['', [Validators.required]],
+      courierTypeID: ['', [Validators.required]],
+        courierEmail: ['', [Validators.required, Validators.email]],
+        courierNumber: ['', Validators.required, Validators.maxLength(10)],
+        
         }, formOptions);
 
     if (!this.isAddMode) {
@@ -45,10 +52,10 @@ export class AddEditCourierComponent implements OnInit {
         this.courier = res
         console.log(res)
         this.form = this.formBuilder.group({
-          name: [this.courier.name, [Validators.required]],
-          type: [this.courier.type, [Validators.required]],
-          email: [this.courier.email, [Validators.required, Validators.email]],
-          contactNumber: [this.courier.contactNumber, [Validators.required, Validators.maxLength(10)]],
+          courierName: [this.courier.courierName, [Validators.required]],
+          courierTypeID: [this.courier.courierTypeID, [Validators.required]],
+          courierEmail: [this.courier.courierEmail, [Validators.required, Validators.email]],
+          courierNumber: [this.courier.courierNumber, [Validators.required, Validators.maxLength(10)]],
           }, formOptions);
       });
     }
@@ -68,6 +75,16 @@ export class AddEditCourierComponent implements OnInit {
     }
   }
 
+  getCollection() {
+    this.http
+      .get<any>('https://localhost:44393/api/CourierType/GetCourierType').subscribe((res: any) => {
+        this.collection = res;
+        //console.log = res;
+      }, error => {
+        console.log({ error });
+      })
+  }
+
   createCourier() {
     const courier: Courier = this.form.value;
     this.CourierService.CreateCourier(courier).subscribe(res => {
@@ -79,7 +96,7 @@ export class AddEditCourierComponent implements OnInit {
 
   updateCourier() {
     const courier: Courier = this.form.value;
-    courier.id = this.courier.id;
+    courier.courierID = this.courier.courierID;
     this.CourierService.UpdateCouriere(courier).subscribe(res => {
       console.log(res)
       this.form.reset();

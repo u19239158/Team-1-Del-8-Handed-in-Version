@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Categorytype } from 'src/app/interfaces';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-edit-categorytypes',
@@ -19,23 +20,28 @@ export class AddEditCategorytypesComponent implements OnInit {
     loading = false;
     submitted = false;
     categorytype: Categorytype;
-    categorytypes: Observable<Categorytype[]>
+    categorytypes: Observable<Categorytype[]>;
+    collection = [];
+    selected: string;
 
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private CategorytypeService: CategorytypeService
+        private CategorytypeService: CategorytypeService,
+        private http: HttpClient
     ) {}
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
+    this.getCollection();
 
     const formOptions: AbstractControlOptions = { };
     this.form = this.formBuilder.group({
-        categoryType: ['', [Validators.required, Validators.maxLength(50)]],
-        productCategoryName: ['', [Validators.required, Validators.maxLength(50)]],
+      categoryTypeDescription: ['', [Validators.required, Validators.maxLength(50)]],
+      description: ['', [Validators.required, Validators.maxLength(50)]],
+      productCategoryID: ['', [Validators.required, Validators.maxLength(50)]],
     }, formOptions);
 
     if (!this.isAddMode) {
@@ -43,8 +49,9 @@ export class AddEditCategorytypesComponent implements OnInit {
         this.categorytype = res
         console.log(res)
         this.form = this.formBuilder.group({
-          categoryType: [this.categorytype.categoryType, [Validators.required, Validators.maxLength(50)]],
-          productCategoryName: [this.categorytype.productCategoryName, [Validators.required, Validators.maxLength(50)]],
+          categoryTypeDescription: [this.categorytype.categoryTypeDescription, [Validators.required, Validators.maxLength(50)]],
+          description: [this.categorytype.description, [Validators.required, Validators.maxLength(50)]],
+          productCategoryID: [this.categorytype.productCategoryID, [Validators.required, Validators.maxLength(50)]],
           }, formOptions);
       });
     }
@@ -71,6 +78,16 @@ export class AddEditCategorytypesComponent implements OnInit {
       this.loading = false
       this.router.navigateByUrl('categoryType');
     });
+  }
+
+  getCollection() {
+    this.http
+      .get<any>('https://localhost:44393/api/ProductCategory/GetProdCat').subscribe((res: any) => {
+        this.collection = res;
+        console.log(res);
+      }, error => {
+        console.log({ error });
+      })
   }
 
   updateCategorytype() {

@@ -51,18 +51,19 @@ export interface Special {
 }
 
 export interface Courier {
-  id: number;
-  name:string;
-  type: 'International'|'National';
-  email: string;
-  contactNumber: number;
+  courierID: number;
+  courierName:string;
+  courierTypeDescription: string;
+  courierEmail: string;
+  courierNumber: number;
+  courierTypeID: number;
 }
 
 export interface Deliveryshift {
   id:number;
-  startTime: '08:00' | '09:00' | '10:00' | '11:00' | '12:00' | '13:00' | '14:00' | '15:00' ;
-  endTime: '09:00' | '10:00' | '11:00' | '12:00' | '13:00' | '14:00' | '15:00' | '16:00';
-  date: string;
+  startTime: string ;
+  endTime: string;
+  dayOfTheWeek: string;
 }
 
 export interface Productcategory {
@@ -74,16 +75,18 @@ export interface Productcategory {
 export interface Categorytype {
   categoryTypeId:number;
   // image: ImageBitmap;
-  categoryType: string;
-  productCategoryName: |'Product Category 1'|'Product Category 2'|'Product Category 3'|'Product Category 4';
+  categoryTypeDescription: string;
+  description: string;
+  productCategoryDesc: string;
+  productCategoryID: number;
 }
 
 export interface Productitem {
   productItemId:number;
   productItemName: string;
-  productItemDescription:string;
+  //productItemDescription:string;
   productItemCost: number;
   productItemQuantityOnHand: number;
-  categorytype: 'Product Category 1'|'Product Category 2'|'Product Category 3'|'Product Category 4';
+  categoryTypeId: number;
   }
 

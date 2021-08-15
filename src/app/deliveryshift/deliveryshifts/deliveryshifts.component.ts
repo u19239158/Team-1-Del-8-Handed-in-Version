@@ -18,7 +18,7 @@ export class DeliveryshiftsComponent implements OnInit {
   deliveryshifts: Deliveryshift[] = [];
   deliveryShift: Observable<Deliveryshift[]>;
   dataSource = new MatTableDataSource<Deliveryshift>();
-  displayedColumns: string[] = ['startTime', 'endTime', 'date', 'assign', 'actions'];
+  displayedColumns: string[] = ['startTime', 'endTime', 'dayOfTheWeek', 'assign', 'actions'];
 
   constructor(private deliveryshiftService: DeliveryshiftService,
               private snack: MatSnackBar,

@@ -6,11 +6,8 @@
         <div class="mat-col-quarter">
             <mat-form-field appearance="outline" class="control-w">
                 <mat-label>Product Category Name</mat-label>
-                <mat-select formControlName="productCategoryName">
-                  <mat-option value="Product Category 1">Product Category 1</mat-option>
-                  <mat-option value="Product Category 2">Product Category 2</mat-option>
-                  <mat-option value="Product Category 3">Product Category 3</mat-option>
-                  <mat-option value="Product Category 4">Product Category 4</mat-option>
+                <mat-select [(value)]="selected" formControlName="productCategoryID">
+                  <mat-option *ngFor="let ProductCategory of collection" [value]="ProductCategory.productCategoryId">{{ProductCategory.productCategoryDescription}}</mat-option>
                 </mat-select>
               </mat-form-field>
         </div>
@@ -18,10 +15,17 @@
         <div class="mat-col-quarter">
             <mat-form-field appearance="outline" class="control-w">
                 <mat-label>Category Type Name</mat-label>
-                <input type="text" matInput placeholder="Category Type Name" formControlName="categoryType">
+                <input type="text" matInput placeholder="Category Type Name" formControlName="categoryTypeDescription">
             </mat-form-field>
         </div>
     </div>
+
+    <div class="mat-col-quarter">
+      <mat-form-field [style.width.%]="60" appearance="outline" class="control-w">
+          <mat-label>Category Type Description</mat-label>
+          <input type="text" matInput placeholder="Category Type Name" formControlName="description">
+      </mat-form-field>
+  </div>
 
   <div class="mat-row">
 
