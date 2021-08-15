@@ -39,11 +39,11 @@ namespace NKAP_API_2.Models
 
 
         [JsonProperty("starttime")]
-        public Time StartTime
+        public TimeSpan StartTime
         { get; set; }
 
         [JsonProperty("endtime")]
-        public Time EndTime
+        public TimeSpan EndTime
         { get; set; }
 
         [JsonProperty("employeename")]
