@@ -29,7 +29,7 @@ namespace NKAP_API_2.Controllers
 
         }
 
-        [Route("GetEmployeeByName/{employeeid}")] //route
+        [Route("GetEmployeeById/{employeeid}")] //route
         [HttpGet]
         //get Employee by name (Read)
         public IActionResult get(int employeid)

@@ -19,6 +19,69 @@ namespace NKAP_API_2.Controllers
         private NKAP_BOLTING_DB_4Context _db; //dependency injection for db
         public DeliveryShiftController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
+        [Route("GetDeliveryShiftByID/{shiftid}")] //route
+        [HttpGet]
+        //get Delivery Shift (Read)
+        public IActionResult get(int shiftid)
+        {
+            //var Admins = _db.Admins.ToList();
+
+            var DeliveryShift = _db.Shifts.Join(_db.EmployeeShifts,
+                a => a.ShiftId,
+                t => t.ShiftId,
+                (a, t) => new
+                {
+                    ShiftId = a.ShiftId,
+                    EmployeeId = t.EmployeeId,
+                    DateId = a.DateId,
+                    TimeId = a.TimeId
+
+                }).Join(_db.Dates,
+                 sor => sor.DateId,
+                 sd => sd.DateId,
+                 (sor, sd) => new
+                 {
+                     DateId = sor.DateId,
+                     EmployeeID = sor.EmployeeId,
+                     TimeId = sor.TimeId,
+                     ShiftId = sor.ShiftId,
+                     DayOfTheWeek = sd.DayOfTheWeek.ToString("dd/MM/yyyy")
+
+
+                 }).Join(_db.Times,
+                 sor => sor.TimeId,
+                 sd => sd.TimeId,
+                 (sor, sd) => new
+                 {
+                     TimeId = sor.TimeId,
+                     EmployeeID = sor.EmployeeID,
+                     DateId = sor.DateId,
+                     ShiftId = sor.ShiftId,
+                     DayOfTheWeek = sor.DayOfTheWeek,
+                     StartTime = sd.StartTime,
+                     EndTime = sd.EndTime
+
+
+                 }).Join(_db.Employees,
+                 sor => sor.EmployeeID,
+                 sd => sd.EmployeeId,
+                 (sor, sd) => new
+                 {
+                     ShiftId = sor.ShiftId,
+                     EmployeeID = sd.EmployeeId,
+                     EmployeeName = sd.EmployeeName,
+                     EmployeeSurame = sd.EmployeeSurname,
+                     TimeId = sor.TimeId,
+                     DateId = sor.DateId,
+                     DayOfTheWeek = sor.DayOfTheWeek,
+                     StartTime = sor.StartTime,
+                     EndTime = sor.EndTime
+                 }).First(an => an.ShiftId == shiftid);
+
+            return Ok(DeliveryShift);
+
+        }
+
         [Route("GetDeliveryShift")] //route
         [HttpGet]
         //get Delivery Shift (Read)
