@@ -39,7 +39,7 @@ namespace NKAP_API_2.Controllers
                         CategoryTypeDescription = t.ItemDescription,
                         ProductItemName = a.ProductItemName,
                         ProductItemCost = a.ProductItemCost,
-                        ProductItemQuantityOnHand = a.QuantityOnHand,
+                        QuantityOnHand = a.QuantityOnHand,
 
 
                     });
@@ -68,7 +68,7 @@ namespace NKAP_API_2.Controllers
                         CategoryTypeDescription = t.ItemDescription,
                         ProductItemName = a.ProductItemName,
                         ProductItemCost = a.ProductItemCost,
-                        ProductItemQuantityOnHand = a.QuantityOnHand,
+                        QuantityOnHand = a.QuantityOnHand,
 
 
 
@@ -97,7 +97,7 @@ namespace NKAP_API_2.Controllers
                         CategoryTypeDescription = t.ItemDescription,
                         ProductItemName = a.ProductItemName,
                         ProductItemCost = a.ProductItemCost,
-                        ProductItemQuantityOnHand = a.QuantityOnHand,
+                        QuantityOnHand = a.QuantityOnHand,
 
 
 
@@ -126,7 +126,7 @@ namespace NKAP_API_2.Controllers
                         CategoryTypeDescription = t.ItemDescription,
                         ProductItemName = a.ProductItemName,
                         ProductItemCost = a.ProductItemCost,
-                        ProductItemQuantityOnHand = a.QuantityOnHand,
+                        QuantityOnHand = a.QuantityOnHand,
 
 
 
@@ -145,7 +145,7 @@ namespace NKAP_API_2.Controllers
             ProductItem PItem = new ProductItem();
             PItem.ProductItemName = model.ProductItemName; //attributes in table
             PItem.ProductItemCost = model.ProductItemCost;
-            //PItem.ProductItemImage = model.ProductItemImage;
+            PItem.CategoryTypeId = model.CategoryTypeID;
             PItem.QuantityOnHand = model.QuantityOnHand;
             _db.ProductItems.Add(PItem);
             _db.SaveChanges();
