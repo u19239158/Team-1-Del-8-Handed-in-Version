@@ -46,6 +46,9 @@ import { PlaceSupplierOrderComponent } from './supplier/place-supplier-order/pla
 import { ReceiveSupplierOrderComponent } from './supplier/receive-supplier-order/receive-supplier-order.component';
 import { MakePaymentComponent } from './supplier/make-payment/make-payment.component';
 import { AddItemsComponent } from './supplier/add-items/add-items.component';
+import { WriteOffStockComponent } from './admin/write-off-stock/write-off-stock.component';
+import { StockTakeComponent } from './admin/stock-take/stock-take.component';
+
 
 @NgModule({
   declarations: [
@@ -78,6 +81,9 @@ import { AddItemsComponent } from './supplier/add-items/add-items.component';
     ReceiveSupplierOrderComponent,
     MakePaymentComponent,
     AddItemsComponent,
+    WriteOffStockComponent,
+    StockTakeComponent,
+    // ReportsComponent,
   ],
   imports: [
     BrowserModule,

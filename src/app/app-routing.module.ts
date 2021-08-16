@@ -37,7 +37,8 @@ import { AddEditProductitemsComponent } from './productitem/add-edit-productitem
 import { CustomersComponent } from './customer/customers/customers.component';
 import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
 
-
+import { StockTakeComponent } from './admin/stock-take/stock-take.component';
+import { WriteOffStockComponent } from './admin/write-off-stock/write-off-stock.component';
 
 const routes: Routes = [
   {
@@ -178,6 +179,14 @@ const routes: Routes = [
   {
     path: 'editCustomer/:id',
     component: AddEditCustomerComponent,
+  },
+  {
+    path: 'stockTake',
+    component: StockTakeComponent,
+  },
+  {
+    path: 'writeOffStock',
+    component: WriteOffStockComponent,
   },
 ];
 

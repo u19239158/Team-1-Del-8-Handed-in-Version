@@ -51,8 +51,8 @@
 </mat-list-item>
 <mat-menu #menu3="matMenu">
 <button mat-menu-item (click)="onSidenavClose()">Search Online Sales</button>
-<button mat-menu-item routerLink="/userRole" (click)="onSidenavClose()">Do Stock Take</button>
-<button mat-menu-item routerLink="/userRole" (click)="onSidenavClose()">Write Off Stock</button>
+<button mat-menu-item routerLink="/stockTake" (click)="onSidenavClose()">Do Stock Take</button>
+<button mat-menu-item routerLink="/writeOffStock" (click)="onSidenavClose()">Write Off Stock</button>
 <button mat-menu-item routerLink="/userRole" (click)="onSidenavClose()">Assign Delivery Order</button>
 </mat-menu>
 
@@ -108,7 +108,7 @@
   <a matline>Reports</a>
 </mat-list-item>
 <mat-menu #menu8="matMenu">
-<button mat-menu-item routerLink="/generateReport" (click)="onSidenavClose()">Generate Report</button>
+<button mat-menu-item routerLink="/report" (click)="onSidenavClose()">Generate Report</button>
 </mat-menu>
 
   <a mat-list-item routerLink="/login" (click)="onSidenavClose()">
