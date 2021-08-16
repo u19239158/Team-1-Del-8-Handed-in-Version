@@ -84,7 +84,7 @@ createSupplier(){
   this.SupplierService.CreateSupplier(supplier).subscribe(res => {
     console.log(res)
     this.loading = false;
-    this.router.navigateByUrl('supplier')
+    this.router.navigateByUrl('/supplier')
   })
 }
 
@@ -94,7 +94,7 @@ createSupplier(){
     this.SupplierService.UpdateSupplier(supplier).subscribe(res => {
       console.log(res)
       this.loading = false
-      this.router.navigateByUrl('supplier');
+      this.router.navigateByUrl('/supplier');
     });
   }
 

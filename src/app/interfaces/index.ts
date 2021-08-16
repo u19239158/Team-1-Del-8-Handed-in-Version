@@ -4,7 +4,7 @@ export interface Employee {
   employeeId: any;
   employeeName: string;
   employeeSurname: string;
-  employeeCellphoneNumber: number;
+  employeePhoneNumber: string;
   employeeIdnumber: number;
   employeeDob: string;
   //title: 'Dr'|'Mr'|'Mrs'|'Miss'|'Ms';
@@ -18,7 +18,7 @@ export interface Supplier {
   supplierName: string;
   supplierTypeDesc: string;
   supplierEmail: string;
-  supplierNumber: number;
+  supplierNumber: string;
   supplierAddressLine1: string;
   supplierAddressLine2: string;
   supplierAddressLine3: string;
@@ -55,7 +55,7 @@ export interface Courier {
   courierName:string;
   courierTypeDescription: string;
   courierEmail: string;
-  courierNumber: number;
+  courierNumber: string;
   courierTypeID: number;
 }
 
