@@ -49,5 +49,51 @@ namespace NKAP_API_2.Controllers
 
             return Ok(stocktake);
         }
+
+        [Route("DoStockTake")] //route
+        [HttpPost]
+        //Add Product Item StockTake
+        //Create a Model for table
+        public IActionResult DoStockTake(ProductItemStockTakeModel model) //reference the model
+        {
+            StockTake stock = new StockTake
+            {
+                StockTakeId = model.StockTakeID,
+                StockTakeDate = model.StockTakeDate  // assigning the date the stocktake happened to the correct table
+            };
+            _db.StockTakes.Add(stock);
+            _db.SaveChanges();
+
+            ProductItemStockTake PItemStockTake = new ProductItemStockTake
+            {
+                StockTakeQuantity = model.StockTakeQuantity, //attributes in table 
+                //NewPQuantity.ProductItemId = model.ProductItemId;  //(int)PItemWriteOff.ProductItemId; // Getting the Id of the producitem to match with the bridge and the model
+                ProductItemId = model.ProductItemID,
+                StockTakeId = model.StockTakeID
+            };
+
+
+            //NewPQuantity.QuantityOnHand = NewPQuantity.QuantityOnHand - model.WriteOffQuantity;// Function to subtract the entered quantity from the existing quantity on hand and assign it the productitem
+
+            _db.ProductItemStockTakes.Add(PItemStockTake);
+            _db.SaveChanges();
+
+            return Ok(PItemStockTake);
+        }
+
+        [Route("UpdateProdItemQuantity")] //route
+        [HttpPut]
+        //Update Quant on Hand
+        public IActionResult UpdateProdQuantity(ProductItemStockTakeModel model)
+        {
+            var NewPQuantity = _db.ProductItems.Find(model.ProductItemID);
+            //NewPQuantity.ProductItemId = model.ProductItemId;  //(int)PItemWriteOff.ProductItemId; // Getting the Id of the producitem to match with the bridge and the model
+            NewPQuantity.QuantityOnHand =  model.StockTakeQuantity;// Function to subtract the entered quantity from the existing quantity on hand and assign it the productitem
+            _db.ProductItems.Attach(NewPQuantity);
+            //Attach Record
+            _db.SaveChanges();
+
+            return Ok(NewPQuantity);
+        }
     }
 }

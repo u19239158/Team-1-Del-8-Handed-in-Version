@@ -20,5 +20,14 @@ namespace NKAP_API_2.Models
         public int ProductItemID
         { get; set; }
 
+
+        [JsonProperty("stocktakeid")]
+        public int StockTakeID
+        { get; set; }
+
+        [JsonProperty("stocktakedate")]
+        public DateTime StockTakeDate
+        { get; set; }
+
     }
 }

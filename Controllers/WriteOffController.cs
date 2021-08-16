@@ -74,7 +74,7 @@ namespace NKAP_API_2.Controllers
         [Route("UpdatePIQuantity")] //route
         [HttpPut]
         //Update Quant on Hand
-        public IActionResult UpdateUser(ProductItemWrittenOffStockModel model)
+        public IActionResult UpdatePIQuantity(ProductItemWrittenOffStockModel model)
         {
             var NewPQuantity = _db.ProductItems.Find(model.ProductItemId);
             //NewPQuantity.ProductItemId = model.ProductItemId;  //(int)PItemWriteOff.ProductItemId; // Getting the Id of the producitem to match with the bridge and the model
