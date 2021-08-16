@@ -42,6 +42,7 @@ import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-
 import { MaterialModule } from './material/material/material.module';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
+import { PlaceSupplierOrderComponent } from './supplier/place-supplier-order/place-supplier-order.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     AddEditProductcategorysComponent,
     CustomersComponent,
     AddEditCustomerComponent,
+    PlaceSupplierOrderComponent,
   ],
   imports: [
     BrowserModule,
