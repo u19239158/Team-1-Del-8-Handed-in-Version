@@ -32,10 +32,10 @@ namespace NKAP_API_2.Controllers
         [Route("GetEmployeeById/{employeeid}")] //route
         [HttpGet]
         //get Employee by name (Read)
-        public IActionResult get(int employeid)
+        public IActionResult get(int employeeid)
         {
-            var Employees = _db.Employees.FirstOrDefault(en => en.EmployeeId == employeid);
-            return Ok(Employees);
+            var Employee = _db.Employees.First(sc => sc.EmployeeId == employeeid);
+            return Ok(Employee);
         }
 
 
@@ -70,6 +70,7 @@ namespace NKAP_API_2.Controllers
             employee.EmployeeAddressLine2 = model.EmployeeAddressLine2;
             employee.EmployeeDob = model.EmployeeDOB;
             employee.EmployeeIdnumber = (model.EmployeeIDNumber);
+            employee.EmployeePhoneNumber = model.EmployeePhoneNumber;
             _db.Employees.Add(employee);
             _db.SaveChanges();
 
@@ -86,6 +87,8 @@ namespace NKAP_API_2.Controllers
             employee.EmployeeSurname = model.EmployeeSurName;
             employee.EmployeeAddressLine1 = model.EmployeeAddressLine1;
             employee.EmployeeAddressLine2 = model.EmployeeAddressLine2;
+            employee.EmployeePhoneNumber = model.EmployeePhoneNumber;
+        
             employee.EmployeeDob = model.EmployeeDOB;
             employee.EmployeeIdnumber = model.EmployeeIDNumber;
             _db.Employees.Attach(employee); //Attach Record

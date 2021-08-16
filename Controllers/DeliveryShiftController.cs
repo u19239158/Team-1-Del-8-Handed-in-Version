@@ -170,6 +170,22 @@ namespace NKAP_API_2.Controllers
             return Ok(shiftDate);
         }
 
+        [Route("AddShift")] //route
+        [HttpPost]
+        //Add Date
+        //Create a Model for table
+        public IActionResult Addshift(DeliveryShiftModel model) //reference the model
+        {
+            Shift shift = new Shift();
+            shift.DateId = model.DateID;
+            shift.TimeId = model.TimeID;
+            
+            _db.Shifts.Add(shift);
+            _db.SaveChanges();
+
+            return Ok(shift);
+        }
+
         [Route("UpdateDeliveryShift")] //route
         [HttpPut]
         //Add Date

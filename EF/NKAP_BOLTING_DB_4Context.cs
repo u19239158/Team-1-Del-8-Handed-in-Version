@@ -448,7 +448,7 @@ namespace NKAP_API_2.EF
                     .IsUnicode(false)
                     .HasColumnName("Employee_AddressLine2");
 
-                entity.Property(e => e.EmployeeCellphoneNumber)
+                entity.Property(e => e.EmployeePhoneNumber)
                     .IsRequired()
                     .HasMaxLength(10)
                     .IsUnicode(false)

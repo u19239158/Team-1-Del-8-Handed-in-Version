@@ -16,7 +16,7 @@ namespace NKAP_API_2.EF
         public int EmployeeId { get; set; }
         public string EmployeeName { get; set; }
         public string EmployeeSurname { get; set; }
-        public string EmployeeCellphoneNumber { get; set; }
+        public string EmployeePhoneNumber { get; set; }
         public string EmployeeAddressLine1 { get; set; }
         public string EmployeeAddressLine2 { get; set; }
         public DateTime EmployeeDob { get; set; }
