@@ -37,6 +37,8 @@ import { AddEditProductitemsComponent } from './productitem/add-edit-productitem
 import { CustomersComponent } from './customer/customers/customers.component';
 import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
 
+
+
 const routes: Routes = [
   {
     path: '',

@@ -103,3 +103,12 @@ export interface Customer {
   customerBusinessName: string;
   customerPassword: string;
 }
+
+export interface ReceiveSupplierOrder {
+  id: string;
+  orderDatePlaced: string;
+  orderDateReceived: string;
+  invoiceNumber: number;
+  invoiceDate: string;
+  invoiceTotal: number;
+}

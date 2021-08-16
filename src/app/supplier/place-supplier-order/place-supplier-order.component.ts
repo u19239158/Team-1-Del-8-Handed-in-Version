@@ -12,4 +12,6 @@ export class PlaceSupplierOrderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+showTable(){
+}
 }
