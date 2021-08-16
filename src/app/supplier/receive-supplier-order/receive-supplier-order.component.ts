@@ -6,6 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./receive-supplier-order.component.scss']
 })
 export class ReceiveSupplierOrderComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'orderDatePlaced', 'orderDateReceived', 'invoiceNumber', 'invoiceDate', 'invoiceTotal','items'];
+  // supplierOrder: SupplierOrder[] = [];
+  // supplier: Observable<SupplierOrder[]>;
+  // dataSource = new MatTableDataSource<SupplierOrder>();
+
 
   constructor() { }
 

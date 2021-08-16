@@ -6,6 +6,7 @@ import { SuppliersComponent } from './supplier/suppliers/suppliers.component';
 import { ReceiveSupplierOrderComponent } from './supplier/receive-supplier-order/receive-supplier-order.component';
 import { PlaceSupplierOrderComponent } from './supplier/place-supplier-order/place-supplier-order.component';
 import { MakePaymentComponent } from './supplier/make-payment/make-payment.component';
+import { AddItemsComponent } from './supplier/add-items/add-items.component';
 
 import { AddEditEmployeesComponent } from './employee/add-edit-employees/add-edit-employees.component';
 import { EmployeesComponent } from './employee/employees/employees.component';
@@ -76,6 +77,10 @@ const routes: Routes = [
   {
     path: 'makePayment',
     component: MakePaymentComponent
+  },
+  {
+    path: 'addItems',
+    component: AddItemsComponent
   },
   {
     path: 'special',

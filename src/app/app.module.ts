@@ -45,6 +45,7 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 import { PlaceSupplierOrderComponent } from './supplier/place-supplier-order/place-supplier-order.component';
 import { ReceiveSupplierOrderComponent } from './supplier/receive-supplier-order/receive-supplier-order.component';
 import { MakePaymentComponent } from './supplier/make-payment/make-payment.component';
+import { AddItemsComponent } from './supplier/add-items/add-items.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { MakePaymentComponent } from './supplier/make-payment/make-payment.compo
     PlaceSupplierOrderComponent,
     ReceiveSupplierOrderComponent,
     MakePaymentComponent,
+    AddItemsComponent,
   ],
   imports: [
     BrowserModule,
