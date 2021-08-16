@@ -51,5 +51,9 @@ deleteUserRole(UserRole: UserRole) {
     }
   });
 }
+
+searchUserRole(){
+
+}
 }
 
