@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { CartService } from 'src/app/services/service/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -7,11 +8,16 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  public totalItem : number = 0;
+  constructor(private cartService : CartService) { }
+
   @Output() public sidenavToggle = new EventEmitter();
 
-  constructor() { }
-
   ngOnInit(): void {
+    this.cartService.getProducts()
+    .subscribe(res=>{
+      this.totalItem = res.length;
+    })
   }
 
   public onToggleSidenav = () => { 

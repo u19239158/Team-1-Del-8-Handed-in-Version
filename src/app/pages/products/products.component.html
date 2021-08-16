@@ -1,46 +1,66 @@
 
 <div class="container">
-    <div class="row"></div>
-    <div class="row">
-    
+    <div class="row">    
         <ng-container *ngFor="let item of productList">
             <div class="card col-md-3">
                 <center><img src="{{item.image}}" alt="" (click)=modal(item)></center>
                 <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{item.title}}</p>
                 <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{item.description}}</p>
-                <p class="subtitle"><strong>Price:</strong> ${{item.price}}</p>
-                <button class="button is-info is-rounded" (click)=addtocart(item)>Add to cart</button>
+                <p class="subtitle"><strong>Price:</strong> R{{item.price}}</p>              
+                <button class="button is-info is-rounded"  (click)=openmodal(item) id="launchModal">More Info</button>
             </div>
         </ng-container>
-</div>
+    </div>
 </div>
 
 
-<!--MODAL -->
-<div id="productModal" class="modal">
+<div class="modal">
   <div class="modal-background"></div>
   <div class="modal-card">
-    <ng-container *ngFor="let item of productList">
-        <header class="modal-card-head">
-        <p class="modal-card-title">Product Item</p>
-        <button class="delete" aria-label="close"></button>
-        </header>
+    <header class="modal-card-head">
+        <ng-container *ngFor="let item of products; let i = index">
+      <p class="modal-card-title">Product Item</p>
+      <button class="delete" id="closetop" aria-label="close" (click)=closemodal(item)></button>
+        </ng-container>
+    </header>
+    <div class="content">
+    <section class="modal-card-body">
+        <ng-container *ngFor="let item of products; let i = index">
+        <h1>{{item.title}}</h1>        
+        <img src="{{item.image}}" alt="" width="100" height="100">
+        <p>{{item.description}}</p>
+        <h2><strong>Price:</strong> R{{item.price}}</h2>
 
-        <section class="modal-card-body">
-                <div class="card col-md-3">
-                    <center><img src="{{item.image}}" alt="" (click)=modal(item)></center>
-                    <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{item.title}}</p>
-                    <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{item.description}}</p>
-                    <p class="subtitle"><strong>Price:</strong> ${{item.price}}</p>
+        <div class="dropdown">
+            <div class="dropdown-trigger">
+              <button class="button" aria-haspopup="true" aria-controls="dropdown-menu2" (click)=Itemdropdown()>
+                <span>Select Type</span>
+                <span class="icon is-small">
+                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+              </button>
+            </div>
+
+            <div class="dropdown-menu" id="dropdown-menu2" role="menu">
+              <div class="dropdown-content">
+                <div class="dropdown-item">
+                  <p>type 1</p>
                 </div>
-        </section>
-
-        <footer class="modal-card-foot">
-            <button class="button is-info is-rounded" (click)=addtocart(item)>Add to cart</button>
-        </footer>
-    </ng-container>
+                <hr class="dropdown-divider">
+                <a href="#" class="dropdown-item">
+                  link to type 2
+                </a>
+              </div>
+            </div>
+          </div>    
+        </ng-container>
+    </section>
+    <div>  
+    <footer class="modal-card-foot">
+        <ng-container *ngFor="let item of products; let i = index">
+        <button class="button is-info is-rounded" (click)=addtocart(item)>Add to cart</button>
+        <button class="button is-danger is-rounded" (click)=closemodal(item)>Close</button>
+        </ng-container>
+    </footer>
   </div>
 </div>
-
-
-

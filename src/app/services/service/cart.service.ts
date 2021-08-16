@@ -8,10 +8,16 @@ export class CartService {
 
   public cartItemList : any =[]
   public productList = new BehaviorSubject<any>([]);
+  public productItems = new BehaviorSubject<any>([]);
 
+  public modalItems : any =[]
   constructor() { }
   getProducts(){
     return this.productList.asObservable();
+  }
+
+  getModalProduct(){
+    return this.productItems.asObservable();
   }
 
   setProduct(product : any){
@@ -23,6 +29,15 @@ export class CartService {
     this.productList.next(this.cartItemList);
     this.getTotalPrice();
     console.log(this.cartItemList)
+  }
+  showItemModal(product : any){
+    this.modalItems.push(product);
+    this.productItems.next(this.modalItems);
+    console.log(this.modalItems)
+  }
+  closeItemModal(product : any){    
+    this.modalItems = [];
+    console.log(this.modalItems)
   }
   getTotalPrice() : number{
     let grandTotal = 0;

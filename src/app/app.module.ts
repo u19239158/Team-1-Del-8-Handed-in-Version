@@ -25,7 +25,7 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
       ProductsComponent,
       CartComponent,
       HeaderComponent,
-      SidenavListComponent
+      SidenavListComponent,
   ],
   imports: [
     BrowserModule,
