@@ -20,22 +20,23 @@ namespace NKAP_API_2.Controllers
         public WrittenOffStockController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
 
-        [Route("GetWrittenOffStock")] //route
-        [HttpGet]
-        //get WrittenOffStock (Read)
-        public IActionResult get()
-        {
-            var WrittenOffStocks = _db.WrittenOffStocks.ToList();
-            return Ok(WrittenOffStocks);
-        }
+        //[Route("GetWrittenOffStock")] //route
+        //[HttpGet]
+        ////get WrittenOffStock (Read)
+        //public IActionResult get()
+        //{
+        //    var WrittenOffStocks = _db.WrittenOffStocks.ToList();
+        //    return Ok(WrittenOffStocks);
+        //}
 
-        [Route("CreateWrittenOffStock")] //route
+        [Route("WriteOffStock")] //route
         [HttpPost]
         //Add WrittenOffStock
         //Create a Model for table
         public IActionResult CreateWrittenOffStock(WrittenOffStockModel model) //reference the model
         {
             WrittenOffStock writtenoffstock = new WrittenOffStock();
+            ProductItemWrittenOffStock offStock = new ProductItemWrittenOffStock();
             writtenoffstock.WrittenOffStockDate = model.WrittenOffStock_Date; //attributes in table
             _db.WrittenOffStocks.Add(writtenoffstock);
             _db.SaveChanges();

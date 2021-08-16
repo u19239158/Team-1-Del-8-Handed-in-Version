@@ -15,5 +15,10 @@ namespace NKAP_API_2.Models
         [JsonProperty("StockTakequantity")]
         public int StockTakeQuantity
         { get; set; }
+
+        [JsonProperty("productitemid")]
+        public int ProductItemID
+        { get; set; }
+
     }
 }

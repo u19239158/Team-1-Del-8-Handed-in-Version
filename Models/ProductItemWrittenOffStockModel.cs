@@ -19,5 +19,19 @@ namespace NKAP_API_2.Models
         [JsonProperty("WriteOffquantity")]
         public int WriteOffQuantity
         { get; set; }
+
+        [JsonProperty("writtenoffstockdate")]
+        public DateTime WrittenOffStock_Date
+        { get; set; }
+
+        [JsonProperty("productItemid")]
+        public int ProductItemId
+        { get; set; }
+
+        [JsonProperty("writtenoffstockid")]
+        public int WrittenOffStockId
+        { get; set; }
+
+       
     }
 }
