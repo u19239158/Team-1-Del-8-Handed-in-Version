@@ -9,11 +9,15 @@ namespace NKAP_API_2.Models
     public class ProductSpecialModel
     {
         [JsonProperty("productspecialid")]
-        public int ProductSpecialID
+        public int ProductSpecialId
         { get; set; }
 
         [JsonProperty("Specialprice")]
         public decimal SpecialPrice
+        { get; set; }
+
+        [JsonProperty("specialid")]
+        public int SpecialID
         { get; set; }
     }
 }

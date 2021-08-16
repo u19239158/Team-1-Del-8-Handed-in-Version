@@ -32,9 +32,9 @@ namespace NKAP_API_2.Controllers
         [Route("GetEmployeeById/{employeeid}")] //route
         [HttpGet]
         //get Employee by name (Read)
-        public IActionResult get(int employeid)
+        public IActionResult get(int employeeid)
         {
-            var Employees = _db.Employees.FirstOrDefault(en => en.EmployeeId == employeid);
+            var Employees = _db.Employees.FirstOrDefault(en => en.EmployeeId == employeeid);
             return Ok(Employees);
         }
 
