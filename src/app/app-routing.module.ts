@@ -29,6 +29,8 @@ import { AddEditProductcategorysComponent } from './productcategory/add-edit-pro
 import { ProductitemsComponent } from './productitem/productitems/productitems.component';
 import { AddEditProductitemsComponent } from './productitem/add-edit-productitems/add-edit-productitems.component';
 
+import { CustomersComponent } from './customer/customers/customers.component';
+import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
 
 const routes: Routes = [
   {
@@ -141,6 +143,18 @@ const routes: Routes = [
   {
     path: 'editCategoryType/:id',
     component: AddEditCategorytypesComponent,
+  },
+  {
+    path: 'customer',
+    component: CustomersComponent,
+  },
+  {
+    path: 'addCustomer',
+    component: AddEditCustomerComponent,
+  },
+  {
+    path: 'editCustomer/:id',
+    component: AddEditCustomerComponent,
   },
 ];
 

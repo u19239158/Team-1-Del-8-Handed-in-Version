@@ -36,6 +36,8 @@ import { ProductitemsComponent } from './productitem/productitems/productitems.c
 import { AddEditProductitemsComponent } from './productitem/add-edit-productitems/add-edit-productitems.component';
 import { ProductcategorysComponent } from './productcategory/productcategorys/productcategorys.component';
 import { AddEditProductcategorysComponent } from './productcategory/add-edit-productcategorys/add-edit-productcategorys.component';
+import { CustomersComponent } from './customer/customers/customers.component';
+import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
 
 import { MaterialModule } from './material/material/material.module';
 import { HeaderComponent } from './navigation/header/header.component';
@@ -66,6 +68,8 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     AddEditProductitemsComponent,
     ProductcategorysComponent,
     AddEditProductcategorysComponent,
+    CustomersComponent,
+    AddEditCustomerComponent,
   ],
   imports: [
     BrowserModule,

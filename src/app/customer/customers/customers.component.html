@@ -1,0 +1,60 @@
+
+<div class="content" >
+    <h2>Customers</h2>
+
+    <div class="mat-elevation-z8 table" >
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let element">{{element.customerName}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="contactNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Number </th>
+                <td mat-cell *matCellDef="let element"> {{element.customerContactNumber}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Email Address </th>
+                <td mat-cell *matCellDef="let element"> {{element.customerEmailAddress}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="businessName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Business Name </th>
+              <td mat-cell *matCellDef="let element">{{element.customerBusinessName}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="vat">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> VAT Number </th>
+                <td mat-cell *matCellDef="let element">{{element.customerVat}} </td>
+                </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>
+                    <button mat-icon-button color="primary" aria-label="Example icon button with a home icon"
+                    routerLink = "/addCustomer"
+                    >
+                        <mat-icon>add</mat-icon>
+                      </button>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu" xPosition="before">
+                    <button mat-menu-item [routerLink]="['/editCustomer', element.id]" >Update Customer</button>
+                    <button mat-menu-item (click)="deleteCustomer(element)">Delete Customer</button>
+                    </mat-menu>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+    </div>
+
+

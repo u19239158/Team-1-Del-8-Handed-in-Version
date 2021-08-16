@@ -1,25 +1,13 @@
+<div class="content">
+
 <h1 *ngIf="isAddMode">Add Employee</h1>
 <h1 *ngIf="!isAddMode">Edit Employee</h1>
 
- <form [formGroup]="form" (ngSubmit)="onSubmit()" class="main"> 
-    <!-- <div class="mat-row">
-      < Employee Title -->
-        <!-- <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-w">
-                <mat-label>Title</mat-label>
-                <mat-select formControlName="title">
-                  <mat-option value="Dr">Dr</mat-option>
-                  <mat-option value="Mr">Mr</mat-option>
-                  <mat-option value="Mrs">Mrs</mat-option>
-                  <mat-option value="Miss">Miss</mat-option>
-                  <mat-option value="Ms">Ms</mat-option>
-                </mat-select>
-              </mat-form-field>
-        </div> --> 
-
+ <form [formGroup]="form" (ngSubmit)="onSubmit()"> 
+    <div class="mat-row">
          <!-- Employee First Name -->
         <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-w">
+            <mat-form-field appearance="outline" class="control-m">
                 <mat-label>First Name</mat-label>
                 <input type="text" matInput placeholder="First Name" formControlName="employeeName">
             </mat-form-field>
@@ -27,25 +15,35 @@
 
         <!-- Employee Last Name -->
         <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-w">
+            <mat-form-field appearance="outline" class="control-m">
                 <mat-label>Last Name</mat-label>
                 <input type="text" matInput placeholder="Last Name" formControlName="employeeSurname">
             </mat-form-field>
         </div>
-    
+    </div>
+
+    <div class="mat-row">
+    <!-- Employee User Name -->
+        <div class="mat-col-quarter">
+          <mat-form-field appearance="outline" class="control-m">
+              <mat-label>Username</mat-label>
+              <input type="text" matInput placeholder="Username" formControlName="employeeUsername">
+          </mat-form-field>
+        </div>
 
     <!-- Employee Contact Number -->
-    <div class="mat-row">
         <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-w">
+            <mat-form-field appearance="outline" class="control-m">
                 <mat-label>Contact Number</mat-label>
                 <input type="text" matInput placeholder="contactNumber" formControlName="employeePhoneNumber">
             </mat-form-field>
         </div>
+      </div>
 
+      <div class="mat-row">
         <!-- Employee ID Number -->
         <div class="mat-col-quarter">
-          <mat-form-field appearance="outline" class="control-w">
+          <mat-form-field appearance="outline" class="control-m">
               <mat-label>ID Number</mat-label>
               <input type="text" matInput placeholder="idNumber" formControlName="employeeIdnumber">
           </mat-form-field>
@@ -53,20 +51,18 @@
 
       <!-- Employee Date of birth -->
       <div class="mat-col-quarter">
-        <mat-form-field>
+        <mat-form-field class="control-m">
           <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="employeeDob">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
       </div>
-
     </div>
 
     <div class="mat-row">
-
       <!-- Employee Address Line 1 -->
         <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-w">
+            <mat-form-field appearance="outline" class="control-m">
                 <mat-label>Address Line 1</mat-label>
                 <input type="text" matInput placeholder="addressLine1" formControlName="employeeAddressLine1">
             </mat-form-field>
@@ -74,12 +70,12 @@
 
         <!-- Employee Address Line 2 -->
         <div class="mat-col-quarter">
-          <mat-form-field appearance="outline" class="control-w">
+          <mat-form-field appearance="outline" class="control-m">
               <mat-label>Address Line 2</mat-label>
               <input type="text" matInput placeholder="addressLine2" formControlName="employeeAddressLine2">
           </mat-form-field>
       </div>
-
+    </div>
       <!-- Employee Address Line 3
     <div class="mat-col-quarter">
       <mat-form-field appearance="outline" class="control-w">
@@ -106,6 +102,7 @@
       </div>  -->
 
       <!-- Employee save and cancel buttons -->
+      <div class="mat-row">
     <div class="form-group" class="control-w">
       <button mat-raised-button color ="primary" [disabled]="loading">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
@@ -113,7 +110,7 @@
       </button>
       <a (click)="Close()" mat-button>Cancel</a>
   </div>
-  </div>
+</div>
 
 
 

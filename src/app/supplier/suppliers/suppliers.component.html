@@ -1,6 +1,23 @@
 
 <div class="content">
-  <h2>Suppliers</h2>
+    <div>
+        <h2>Suppliers</h2>
+
+        <div class="search">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search"/>
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-secondary"
+                type="button">
+                Search
+                <span class="fas fa-search search-icon"></span>
+              </button>
+          </div>
+          </div>
+        </div>
+      </div>
+
 
   <div class="mat-elevation-z8 table" >
       <table mat-table [dataSource]="dataSource" matSort>

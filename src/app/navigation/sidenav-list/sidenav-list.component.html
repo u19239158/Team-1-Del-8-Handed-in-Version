@@ -14,7 +14,7 @@
       <!-- <button mat-button [matMenuTriggerFor]="menu">Users</button> -->
   </mat-list-item>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="onSidenavClose()">Customer</button>
+    <button mat-menu-item routerLink="/customer" (click)="onSidenavClose()">Customer</button>
     <button mat-menu-item routerLink="/userRole" (click)="onSidenavClose()">User Role</button>
   </mat-menu>
 

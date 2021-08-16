@@ -90,3 +90,14 @@ export interface Productitem {
   categoryTypeId: number;
   }
 
+export interface Customer {
+  customerId: number;
+  customerUserName: string;
+  customerName: string;
+  customerSurname: string;
+  customerContactNumber: number;
+  customerEmail: string;
+  customerVat: number;
+  customerBusinessName: string;
+  customerPassword: string;
+}
