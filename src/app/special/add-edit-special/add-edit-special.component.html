@@ -1,19 +1,22 @@
+<div class="content">
 <h1 *ngIf="isAddMode">Add Special</h1>
 <h1 *ngIf="!isAddMode">Edit Special</h1>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="main">
 
   <div class="mat-row">
-
      <!-- Choose special image -->
-    <div class="mat-col-quarter">
-        <mat-form-field appearance="outline" class="control-m">
-            <mat-label>Select Image</mat-label>
-              <input type="file" id="img" name="img" accept="image/*">
-            <input type="text" matInput placeholder="Special Image" formControlName="specialImage">
-        </mat-form-field>
+     <div appearance="outline" class="mat-col-quarter">
+      <label class="image-upload-container btn btn-bwm">
+    <span>Select Image</span>
+    <input #imageInput
+          type="file"
+          accept="image/*">
+    </label>
+    </div>
     </div>
 
+    <div class="mat-row">
     <!-- Special Description -->
     <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m">
@@ -24,20 +27,21 @@
 </div>
 
 <div class="mat-row">
-
   <!-- Start Date -->
   <div class="mat-col-quarter">
     <mat-form-field class="control-m">
-      <input matInput [matDatepicker]="picker" placeholder="Choose a date"formControlName="specialStartDate">
+      <input matInput [matDatepicker]="picker" placeholder="Special Start Date"formControlName="specialStartDate">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
   </div>
+</div>
 
+<div class="mat-row">
   <!-- End Date -->
   <div class="mat-col-quarter">
     <mat-form-field class="control-m">
-      <input matInput [matDatepicker]="picker1" placeholder="Choose a date" formControlName="specialEndDate">
+      <input matInput [matDatepicker]="picker1" placeholder="Special End Date" formControlName="specialEndDate">
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
@@ -45,7 +49,6 @@
 </div>
 
 <div class="mat-row">
-
   <!-- Special Price -->
   <div class="mat-col-quarter">
       <mat-form-field appearance="outline" class="control-m">
@@ -55,7 +58,9 @@
           <span matSuffix>.00</span>
       </mat-form-field>
   </div>
+</div>
 
+<div class="mat-row">
   <!-- Save or cancel special -->
   <div class="form-group" class="control-m">
     <button mat-raised-button color ="primary" [disabled]="loading">
@@ -68,3 +73,4 @@
 </div>
 
 </form>
+</div>

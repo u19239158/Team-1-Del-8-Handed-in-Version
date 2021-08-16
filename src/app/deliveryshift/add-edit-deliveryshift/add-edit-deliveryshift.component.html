@@ -1,12 +1,13 @@
-<h1 *ngIf="isAddMode">Add Delivery Shift</h1>
-<h1 *ngIf="!isAddMode">Edit Delivery Shift</h1>
+<div class="content">
+<h2 *ngIf="isAddMode">Add Delivery Shift</h2>
+<h2 *ngIf="!isAddMode">Edit Delivery Shift</h2>
 
 <!-- max time for a shift is 1 hour (ADD Validation) -->
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="mat-row">
         <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-w">
+            <mat-form-field appearance="outline" class="control-m">
                 <mat-label>Start Time</mat-label>
                 <mat-select formControlName="startTime">
                   <mat-option *ngFor="let ds of collection" [value]="ds.timeId">{{ds.startTime}}</mat-option>        
@@ -17,7 +18,7 @@
 
     <div class="mat-row">
         <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-w">
+            <mat-form-field appearance="outline" class="control-m">
                 <mat-label>End Time</mat-label>
                 <mat-select formControlName="endTime">
                   <mat-option *ngFor="let ds of collection" [value]="ds.timeId">{{ds.endTime}}</mat-option>
@@ -28,7 +29,7 @@
 
 <div class="mat-row">
         <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-w">
+            <mat-form-field appearance="outline" class="control-m">
               <input matInput [matDatepicker]="picker" placeholder="Choose a date">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
@@ -37,7 +38,7 @@
 </div>
 
   <div class="mat-row">
-    <div class="form-group" class="control-w">
+    <div class="form-group" class="control-m">
       <button mat-raised-button color ="primary" [disabled]="loading">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Save
@@ -48,3 +49,4 @@
 </div>
 
 </form>
+</div>
