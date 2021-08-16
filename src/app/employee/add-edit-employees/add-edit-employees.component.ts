@@ -109,10 +109,9 @@ export class AddEditEmployeesComponent implements OnInit {
     });
   }
 
-
   Close() {
     this.form.reset();
-    this.router.navigateByUrl('employees');
+    this.router.navigateByUrl('/employees');
   }
 
 }
