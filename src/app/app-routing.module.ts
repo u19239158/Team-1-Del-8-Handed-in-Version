@@ -1,7 +1,11 @@
-import { AddEditSupplierComponent } from './supplier/add-edit-supplier/add-edit-supplier.component';
-import { SuppliersComponent } from './supplier/suppliers/suppliers.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
+import { AddEditSupplierComponent } from './supplier/add-edit-supplier/add-edit-supplier.component';
+import { SuppliersComponent } from './supplier/suppliers/suppliers.component';
+import { ReceiveSupplierOrderComponent } from './supplier/receive-supplier-order/receive-supplier-order.component';
+import { PlaceSupplierOrderComponent } from './supplier/place-supplier-order/place-supplier-order.component';
+import { MakePaymentComponent } from './supplier/make-payment/make-payment.component';
 
 import { AddEditEmployeesComponent } from './employee/add-edit-employees/add-edit-employees.component';
 import { EmployeesComponent } from './employee/employees/employees.component';
@@ -60,6 +64,18 @@ const routes: Routes = [
   {
     path: 'supplierEdit/:id',
     component: AddEditSupplierComponent
+  },
+  {
+    path: 'placeSupplierOrder',
+    component: PlaceSupplierOrderComponent
+  },
+  {
+    path: 'receiveSupplierOrder',
+    component: ReceiveSupplierOrderComponent
+  },
+  {
+    path: 'makePayment',
+    component: MakePaymentComponent
   },
   {
     path: 'special',
