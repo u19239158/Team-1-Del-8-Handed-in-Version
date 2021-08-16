@@ -44,7 +44,7 @@ export class AddEditProductitemsComponent implements OnInit {
         categoryTypeId: ['', [Validators.required]],
         //description: ['', [Validators.required]],
         productItemCost: ['', [Validators.required ]],
-        productItemQuantityOnHand: ['', [Validators.required]],
+        quantityOnHand: ['', [Validators.required]],
        }, formOptions);
 
     if (!this.isAddMode) {
@@ -57,7 +57,7 @@ export class AddEditProductitemsComponent implements OnInit {
           categoryTypeId: [this.Productitem.categoryTypeId, [Validators.required]],
          // productItemDescription: [this.productitem.description, [Validators.required]],
           productItemCost: [this.Productitem.productItemCost, [Validators.required ]],
-         productItemQuantityOnHand: [this.Productitem.productItemQuantityOnHand, [Validators.required, Validators.maxLength(13)]],
+          quantityOnHand: [this.Productitem.quantityOnHand, [Validators.required, Validators.maxLength(13)]],
           }, formOptions);
       })
     }

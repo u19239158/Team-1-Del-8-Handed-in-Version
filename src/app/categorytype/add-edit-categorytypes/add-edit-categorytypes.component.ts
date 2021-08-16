@@ -40,7 +40,7 @@ export class AddEditCategorytypesComponent implements OnInit {
     const formOptions: AbstractControlOptions = { };
     this.form = this.formBuilder.group({
       categoryTypeDescription: ['', [Validators.required, Validators.maxLength(50)]],
-      description: ['', [Validators.required, Validators.maxLength(50)]],
+      itemDescription: ['', [Validators.required, Validators.maxLength(50)]],
       productCategoryID: ['', [Validators.required, Validators.maxLength(50)]],
     }, formOptions);
 
@@ -50,7 +50,7 @@ export class AddEditCategorytypesComponent implements OnInit {
         console.log(res)
         this.form = this.formBuilder.group({
           categoryTypeDescription: [this.categorytype.categoryTypeDescription, [Validators.required, Validators.maxLength(50)]],
-          description: [this.categorytype.description, [Validators.required, Validators.maxLength(50)]],
+          itemDescription: [this.categorytype.itemDescription, [Validators.required, Validators.maxLength(50)]],
           productCategoryID: [this.categorytype.productCategoryID, [Validators.required, Validators.maxLength(50)]],
           }, formOptions);
       });
