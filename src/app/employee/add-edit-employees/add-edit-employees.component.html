@@ -3,7 +3,7 @@
 <h1 *ngIf="isAddMode">Add Employee</h1>
 <h1 *ngIf="!isAddMode">Edit Employee</h1>
 
- <form [formGroup]="form" (ngSubmit)="onSubmit()"> 
+ <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="mat-row">
          <!-- Employee First Name -->
         <div class="mat-col-quarter">
@@ -101,9 +101,37 @@
           </mat-form-field>
       </div>  -->
 
-      <!-- Employee save and cancel buttons -->
       <div class="mat-row">
-    <div class="form-group" class="control-w">
+        <!-- Employee Password -->
+       <div class="mat-col-quarter">
+           <mat-form-field appearance="outline" class="control-m">
+               <mat-label>Password</mat-label>
+               <input type="text" matInput placeholder="Password" formControlName="employeePassword">
+           </mat-form-field>
+       </div>
+
+       <!-- Employee Confirm Password -->
+       <div class="mat-col-quarter">
+           <mat-form-field appearance="outline" class="control-m">
+               <mat-label>Confirm Password</mat-label>
+               <input type="text" matInput placeholder="Confirm Password" formControlName="employeePassword">
+           </mat-form-field>
+       </div>
+   </div>
+
+
+
+   <div class="mat-row">
+
+    <div class="mat-col-quarter">
+      <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Username</mat-label>
+          <input type="text" matInput placeholder="Username" formControlName="employeeUsername">
+      </mat-form-field>
+  </div>
+
+    <!-- Employee save and cancel buttons -->
+    <div class="form-group" class="control-m">
       <button mat-raised-button color ="primary" [disabled]="loading">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Save

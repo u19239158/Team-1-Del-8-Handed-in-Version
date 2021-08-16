@@ -11,6 +11,8 @@ export interface Employee {
   employeeAddressLine1: string;
   employeeAddressLine2: string;
   id: number;
+  employeeUsername: string;
+  employeePassword: string;
 }
 
 export interface Supplier {

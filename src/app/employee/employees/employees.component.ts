@@ -19,7 +19,7 @@ export class EmployeesComponent implements OnInit {
   Employee:Employee;
   employee: Observable<Employee[]>;
   dataSource = new MatTableDataSource<Employee>();
-  displayedColumns: string[] = ['name', 'employeePhoneNumber', 'dateOfBirth', 'actions'];
+  displayedColumns: string[] = ['username','name', 'employeePhoneNumber', 'dateOfBirth', 'actions'];
 
   constructor(private EmployeeService: EmployeeService,
               private snack: MatSnackBar,
