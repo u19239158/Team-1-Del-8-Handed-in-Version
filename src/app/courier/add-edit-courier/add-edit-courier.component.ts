@@ -29,8 +29,7 @@ export class AddEditCourierComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private CourierService: CourierService,
-        private http: HttpClient
-        
+        private http: HttpClient    
     ) {}
 
   ngOnInit(): void {
@@ -42,10 +41,9 @@ export class AddEditCourierComponent implements OnInit {
     this.form = this.formBuilder.group({
       courierName: ['', [Validators.required]],
       courierTypeID: ['', [Validators.required]],
-        courierEmail: ['', [Validators.required, Validators.email]],
-        courierNumber: ['', Validators.required, Validators.maxLength(10)],
-        
-        }, formOptions);
+      courierEmail: ['', [Validators.required, Validators.email]],
+      courierNumber: ['', Validators.required, Validators.maxLength(10)],
+      }, formOptions);
 
     if (!this.isAddMode) {
       this.CourierService.getCourierByID(this.id).subscribe(res => {
@@ -75,6 +73,15 @@ export class AddEditCourierComponent implements OnInit {
     }
   }
 
+  createCourier() {
+    const courier: Courier = this.form.value;
+    this.CourierService.CreateCourier(courier).subscribe(res => {
+      console.log(res)
+      this.loading = false;
+      this.router.navigateByUrl('couriers');
+    });
+  }
+  
   getCollection() {
     this.http
       .get<any>('https://localhost:44393/api/CourierType/GetCourierType').subscribe((res: any) => {
@@ -85,14 +92,7 @@ export class AddEditCourierComponent implements OnInit {
       })
   }
 
-  createCourier() {
-    const courier: Courier = this.form.value;
-    this.CourierService.CreateCourier(courier).subscribe(res => {
-      console.log(res)
-      this.loading = false;
-      this.router.navigateByUrl('couriers');
-    });
-  }
+
 
   updateCourier() {
     const courier: Courier = this.form.value;

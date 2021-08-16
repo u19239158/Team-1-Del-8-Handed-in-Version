@@ -76,7 +76,7 @@ export interface Categorytype {
   categoryTypeId:number;
   // image: ImageBitmap;
   categoryTypeDescription: string;
-  description: string;
+  itemDescription: string;
   productCategoryDesc: string;
   productCategoryID: number;
 }
@@ -86,7 +86,7 @@ export interface Productitem {
   productItemName: string;
   //productItemDescription:string;
   productItemCost: number;
-  productItemQuantityOnHand: number;
+  quantityOnHand: number;
   categoryTypeId: number;
   }
 

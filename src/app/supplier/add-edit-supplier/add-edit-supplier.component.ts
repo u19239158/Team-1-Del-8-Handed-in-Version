@@ -11,7 +11,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./add-edit-supplier.component.scss']
 })
 export class AddEditSupplierComponent implements OnInit {
-
     form: FormGroup;
     id: number;
     isAddMode: boolean;
@@ -43,7 +42,6 @@ export class AddEditSupplierComponent implements OnInit {
         supplierCityTown: ['', [Validators.required]],
         supplierPostalCode: ['', [Validators.required, Validators.maxLength(4)]],
     }, formOptions);
-
 
   if (!this.isAddMode) {
     this.SupplierService.getSupplierByID(this.id).subscribe(res => {
@@ -84,7 +82,7 @@ createSupplier(){
   this.SupplierService.CreateSupplier(supplier).subscribe(res => {
     console.log(res)
     this.loading = false;
-    this.router.navigateByUrl('/supplier')
+    this.router.navigateByUrl('supplier')
   })
 }
 
@@ -94,7 +92,7 @@ createSupplier(){
     this.SupplierService.UpdateSupplier(supplier).subscribe(res => {
       console.log(res)
       this.loading = false
-      this.router.navigateByUrl('/supplier');
+      this.router.navigateByUrl('supplier');
     });
   }
 
