@@ -57,7 +57,7 @@ namespace NKAP_API_2.Controllers
         //Update Product Specials
         public IActionResult UpdateProductSpecials(ProductSpecialModel model)
         {
-            var ProductSpecial = _db.ProductSpecials.Find(model.ProductSpecialID);
+            var ProductSpecial = _db.ProductSpecials.Find(model.ProductSpecialId);
             ProductSpecial.SpecialPrice = model.SpecialPrice;
             _db.ProductSpecials.Attach(ProductSpecial); //Attach Record
             _db.SaveChanges();

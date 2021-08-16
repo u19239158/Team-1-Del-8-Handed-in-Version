@@ -1079,6 +1079,7 @@ namespace NKAP_API_2.EF
                 entity.ToTable("Time");
 
                 entity.Property(e => e.TimeId).HasColumnName("Time_ID");
+
             });
 
             modelBuilder.Entity<Title>(entity =>

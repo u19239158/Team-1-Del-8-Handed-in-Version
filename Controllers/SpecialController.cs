@@ -24,7 +24,21 @@ namespace NKAP_API_2.Controllers
         //get Specials (Read)
         public IActionResult get()
         {
-            var special = _db.Specials.ToList();
+            //var special = _db.Specials.ToList();
+            var special = _db.Specials.Join(_db.ProductSpecials,
+               a => a.SpecialId,
+               t => t.SpecialId,
+               (a, t) => new
+               {
+                   SpecialID = a.SpecialId,
+                   SpecialPrice = t.SpecialPrice,
+                   ProductSpecialId = t.ProductSpecialId,
+                   SpecialDescription = a.SpecialDescription,
+                   SpecialStartDate = a.SpecialStartDate,
+                   SpecialEndDate = a.SpecialEndDate,
+                   SpecialImage = a.SpecialImage,
+
+               });
             return Ok(special);
 
         }
@@ -34,7 +48,21 @@ namespace NKAP_API_2.Controllers
         //get Specials by ID (Read)
         public IActionResult get(int speciaid)
         {
-            var special = _db.Specials.Find(speciaid);
+           // var special = _db.Specials.Find(speciaid);
+            var special = _db.Specials.Join(_db.ProductSpecials,
+               a => a.SpecialId,
+               t => t.SpecialId,
+               (a, t) => new
+               {
+                   SpecialID = a.SpecialId,
+                   SpecialPrice = t.SpecialPrice,
+                   ProductSpecialId = t.ProductSpecialId,
+                   SpecialDescription = a.SpecialDescription,
+                   SpecialStartDate = a.SpecialStartDate,
+                   SpecialEndDate = a.SpecialEndDate,
+                   SpecialImage = a.SpecialImage,
+
+               }).First(ss => ss.SpecialID == speciaid);
             return Ok(special);
         }
 
@@ -43,7 +71,21 @@ namespace NKAP_API_2.Controllers
         //get Specials by Start date (Read)
         public IActionResult get(DateTime SpecialStartdate)
         {
-            var special = _db.Specials.FirstOrDefault(sd => sd.SpecialStartDate == SpecialStartdate);
+            // var special = _db.Specials.FirstOrDefault(sd => sd.SpecialStartDate == SpecialStartdate);
+            var special = _db.Specials.Join(_db.ProductSpecials,
+               a => a.SpecialId,
+               t => t.SpecialId,
+               (a, t) => new
+               {
+                   SpecialID = a.SpecialId,
+                   SpecialPrice = t.SpecialPrice,
+                   ProductSpecialId = t.ProductSpecialId,
+                   SpecialDescription = a.SpecialDescription,
+                   SpecialStartDate = a.SpecialStartDate,
+                   SpecialEndDate = a.SpecialEndDate,
+                   SpecialImage = a.SpecialImage,
+
+               }).Where(sd => sd.SpecialStartDate == SpecialStartdate);
             return Ok(special);
         }
 
@@ -52,7 +94,21 @@ namespace NKAP_API_2.Controllers
         //get Specials by Start date (Read)
         public IActionResult Get(DateTime SpecialEnddate)
         {
-            var special = _db.Specials.FirstOrDefault(se => se.SpecialEndDate == SpecialEnddate);
+            // var special = _db.Specials.FirstOrDefault(se => se.SpecialEndDate == SpecialEnddate);
+            var special = _db.Specials.Join(_db.ProductSpecials,
+              a => a.SpecialId,
+              t => t.SpecialId,
+              (a, t) => new
+              {
+                  SpecialID = a.SpecialId,
+                  SpecialPrice = t.SpecialPrice,
+                  ProductSpecialId = t.ProductSpecialId,
+                  SpecialDescription = a.SpecialDescription,
+                  SpecialStartDate = a.SpecialStartDate,
+                  SpecialEndDate = a.SpecialEndDate,
+                  SpecialImage = a.SpecialImage,
+
+              }).Where(sd => sd.SpecialEndDate == SpecialEnddate);
             return Ok(special);
         }
 
@@ -81,7 +137,7 @@ namespace NKAP_API_2.Controllers
         //Update Specials
         public IActionResult UpdateSpecials(SpecialModel model)
         {
-            var special = _db.Specials.Find(model.SpeciaID);
+            var special = _db.Specials.Find(model.SpecialID);
             special.SpecialDescription = model.SpecialDescription;
             special.SpecialStartDate = model.SpecialStartDate;
             special.SpecialEndDate = model.SpecialEndDate;

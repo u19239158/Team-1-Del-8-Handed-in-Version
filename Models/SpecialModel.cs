@@ -8,8 +8,8 @@ namespace NKAP_API_2.Models
 {
     public class SpecialModel
     {
-        [JsonProperty("speciaid")]
-        public int SpeciaID
+        [JsonProperty("specialid")]
+        public int SpecialID
         { get; set; }
 
         [JsonProperty("Specialdescription")]
@@ -27,5 +27,10 @@ namespace NKAP_API_2.Models
         [JsonProperty("SpecialEnddate")]
         public DateTime SpecialEndDate
         { get; set; }
+
+        [JsonProperty("productspecialid")]
+        public int ProductSpecialID
+        { get; set; }
     }
+
 }
