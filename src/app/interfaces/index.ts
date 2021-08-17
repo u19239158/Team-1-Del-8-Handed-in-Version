@@ -4,10 +4,9 @@ export interface Employee {
   employeeId: any;
   employeeName: string;
   employeeSurname: string;
-  employeePhoneNumber: string;
+  employeeCellphoneNumber: string;
   employeeIdnumber: number;
   employeeDob: string;
-  //title: 'Dr'|'Mr'|'Mrs'|'Miss'|'Ms';
   employeeAddressLine1: string;
   employeeAddressLine2: string;
   id: number;
