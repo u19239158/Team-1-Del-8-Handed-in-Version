@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Employee } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
+import {  HttpClient  } from '@angular/common/http';
 
 @Component({
   selector: 'app-employees',
@@ -14,6 +15,10 @@ import { EmployeeService } from 'src/app/services/employee/employee.service';
   styleUrls: ['./employees.component.scss']
 })
 export class EmployeesComponent implements OnInit {
+
+//search code
+Employees: Employee[];
+searchValue: string;
 
   //employees: Employee[] = [];
   Employee:Employee;
@@ -24,10 +29,17 @@ export class EmployeesComponent implements OnInit {
   constructor(private EmployeeService: EmployeeService,
               private snack: MatSnackBar,
               private router: Router,
-              private dialog: MatDialog) {}
+              private dialog: MatDialog,
+              private httpClient: HttpClient
+              ) {}
 
   ngOnInit(): void {
     this.readEmployees();
+
+    this.EmployeeService.GetEmployee().subscribe((result:Employee[]) => {
+      this.Employees = result;
+    });
+    
   }
 
    readEmployees(): void {
@@ -35,6 +47,11 @@ export class EmployeesComponent implements OnInit {
        console.log(res)
        this.dataSource = new MatTableDataSource(res)
      })
+    }
+
+    filter(){
+      this.dataSource = new MatTableDataSource (this.Employees.filter(e=>e.employeeName.toLowerCase().includes(this.searchValue.toLowerCase())))
+      this.dataSource = new MatTableDataSource (this.Employees.filter(e=>e.employeeSurname.toLowerCase().includes(this.searchValue.toLowerCase())))
     }
 
   deleteEmployee(Employee: Employee) {

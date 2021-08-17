@@ -34,7 +34,8 @@ import { AddEditProductcategorysComponent } from './productcategory/add-edit-pro
 import { ProductitemsComponent } from './productitem/productitems/productitems.component';
 import { AddEditProductitemsComponent } from './productitem/add-edit-productitems/add-edit-productitems.component';
 
-// import { AssigndeliveryshiftComponent } from './deliveryshift/assigndeliveryshift/assigndeliveryshift.component';
+import { AssigndeliveryshiftComponent } from './deliveryshift/assigndeliveryshift/assigndeliveryshift.component';
+
 import { CustomersComponent } from './customer/customers/customers.component';
 import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
 
@@ -169,10 +170,10 @@ const routes: Routes = [
     path: 'editCategoryType/:id',
     component: AddEditCategorytypesComponent,
   },
-  // {
-  //   path: 'assigndeliveryshift',
-  //   component: AssigndeliveryshiftComponent,
-  // },
+  {
+    path: 'assigndeliveryshift',
+    component: AssigndeliveryshiftComponent,
+  },
   {
     path: 'customer',
     component: CustomersComponent,

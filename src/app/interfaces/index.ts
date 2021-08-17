@@ -65,7 +65,7 @@ export interface Deliveryshift {
   startTime: string ;
   endTime: string;
   dayOfTheWeek: string;
-  // firstName: string;
+  employeeName: string;
 }
 
 export interface Productcategory {
@@ -76,7 +76,7 @@ export interface Productcategory {
 
 export interface Categorytype {
   categoryTypeId:number;
-  // image: ImageBitmap;
+  categoryTypeImage: string;
   categoryTypeDescription: string;
   itemDescription: string;
   productCategoryDesc: string;
@@ -90,6 +90,8 @@ export interface Productitem {
   productItemCost: number;
   quantityOnHand: number;
   categoryTypeId: number;
+  categoryTypeName: string;
+  categoryTypeDescription: string;
   }
 
 export interface Customer {
