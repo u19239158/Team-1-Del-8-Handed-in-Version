@@ -24,11 +24,11 @@ namespace NKAP_API_2.Models
         public string EmployeeCellphoneNumber
         { get; set; }
 
-        [JsonProperty("employeaddressline1")]
+        [JsonProperty("employeeaddressline1")]
         public string EmployeeAddressLine1
         { get; set; }
 
-        [JsonProperty("employeaddressline2")]
+        [JsonProperty("employeeaddressline2")]
         public string EmployeeAddressLine2
         { get; set; }
 

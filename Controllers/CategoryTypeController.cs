@@ -58,7 +58,7 @@ namespace NKAP_API_2.Controllers
                     CategoryTypeId = c.CategoryTypeId,
                     CategoryTypeDescription = c.CategoryTypeDescription,
                     CategoryTypeImage = c.CategoryTypeImage,
-                    Description = c.ItemDescription
+                    ItemDescription = c.ItemDescription
 
                 }).First( cc => cc.CategoryTypeId == categorytypeid) ;
 

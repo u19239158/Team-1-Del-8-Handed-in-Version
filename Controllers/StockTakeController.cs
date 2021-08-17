@@ -58,7 +58,7 @@ namespace NKAP_API_2.Controllers
         {
             StockTake stock = new StockTake
             {
-                StockTakeId = model.StockTakeID,
+                //StockTakeId = model.StockTakeID,
                 StockTakeDate = model.StockTakeDate  // assigning the date the stocktake happened to the correct table
             };
             _db.StockTakes.Add(stock);
@@ -69,16 +69,21 @@ namespace NKAP_API_2.Controllers
                 StockTakeQuantity = model.StockTakeQuantity, //attributes in table 
                 //NewPQuantity.ProductItemId = model.ProductItemId;  //(int)PItemWriteOff.ProductItemId; // Getting the Id of the producitem to match with the bridge and the model
                 ProductItemId = model.ProductItemID,
-                StockTakeId = model.StockTakeID
+                StockTakeId = stock.StockTakeId
             };
-
-
             //NewPQuantity.QuantityOnHand = NewPQuantity.QuantityOnHand - model.WriteOffQuantity;// Function to subtract the entered quantity from the existing quantity on hand and assign it the productitem
 
             _db.ProductItemStockTakes.Add(PItemStockTake);
             _db.SaveChanges();
 
-            return Ok(PItemStockTake);
+            var NewPQuantity = _db.ProductItems.Find(model.ProductItemID);
+            //NewPQuantity.ProductItemId = model.ProductItemId;  //(int)PItemWriteOff.ProductItemId; // Getting the Id of the producitem to match with the bridge and the model
+            NewPQuantity.QuantityOnHand = model.StockTakeQuantity;// Function to subtract the entered quantity from the existing quantity on hand and assign it the productitem
+            _db.ProductItems.Attach(NewPQuantity);
+            //Attach Record
+            _db.SaveChanges();
+
+            return Ok(NewPQuantity);
         }
 
         [Route("UpdateProdItemQuantity")] //route
@@ -93,7 +98,7 @@ namespace NKAP_API_2.Controllers
             //Attach Record
             _db.SaveChanges();
 
-            return Ok(NewPQuantity);
+            return Ok();
         }
     }
 }

@@ -46,7 +46,7 @@ namespace NKAP_API_2.Controllers
         {
             WrittenOffStock writtenoffstock = new WrittenOffStock
             {
-                WrittenOffStockId = model.WrittenOffStockId,
+                //WrittenOffStockId = model.WrittenOffStockId,
                 WrittenOffStockDate = model.WrittenOffStock_Date  // assigning the date the writeoff happened to the correct table
             };
             _db.WrittenOffStocks.Add(writtenoffstock);
@@ -58,16 +58,22 @@ namespace NKAP_API_2.Controllers
                 WriteOffReason = model.WriteOffReason,
                 //NewPQuantity.ProductItemId = model.ProductItemId;  //(int)PItemWriteOff.ProductItemId; // Getting the Id of the producitem to match with the bridge and the model
                 ProductItemId = model.ProductItemId,
-                WrittenOffStockId = model.WrittenOffStockId
+                WrittenOffStockId = writtenoffstock.WrittenOffStockId
             };
-            
-          
-            //NewPQuantity.QuantityOnHand = NewPQuantity.QuantityOnHand - model.WriteOffQuantity;// Function to subtract the entered quantity from the existing quantity on hand and assign it the productitem
-           
+
             _db.ProductItemWrittenOffStocks.Add(PItemWriteOff);
             _db.SaveChanges();
+            //NewPQuantity.QuantityOnHand = NewPQuantity.QuantityOnHand - model.WriteOffQuantity;// Function to subtract the entered quantity from the existing quantity on hand and assign it the productitem
+            var NewPQuantity = _db.ProductItems.Find(model.ProductItemId);
+            //NewPQuantity.ProductItemId = model.ProductItemId;  //(int)PItemWriteOff.ProductItemId; // Getting the Id of the producitem to match with the bridge and the model
+            NewPQuantity.QuantityOnHand = NewPQuantity.QuantityOnHand - model.WriteOffQuantity;// Function to subtract the entered quantity from the existing quantity on hand and assign it the productitem
+            _db.ProductItems.Attach(NewPQuantity);
+            //Attach Record
+            _db.SaveChanges();
 
-            return Ok(PItemWriteOff);
+
+
+            return Ok();
         }
 
 
