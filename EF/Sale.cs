@@ -14,6 +14,7 @@ namespace NKAP_API_2.EF
         }
 
         public int SaleId { get; set; }
+        public int? CustomerId { get; set; }
         public int? PaymentTypeId { get; set; }
         public int? OrderStatusId { get; set; }
         public int? EmployeeId { get; set; }
@@ -24,6 +25,7 @@ namespace NKAP_API_2.EF
         public decimal PaymentAmount { get; set; }
         public DateTime PaymentDate { get; set; }
 
+        public virtual Customer Customer { get; set; }
         public virtual Employee Employee { get; set; }
         public virtual OrderStatus OrderStatus { get; set; }
         public virtual PaymentType PaymentType { get; set; }

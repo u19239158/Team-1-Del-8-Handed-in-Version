@@ -16,7 +16,7 @@ namespace NKAP_API_2.EF
         public DateTime SpecialStartDate { get; set; }
         public DateTime SpecialEndDate { get; set; }
         public string SpecialDescription { get; set; }
-        public byte[] SpecialImage { get; set; }
+        public string SpecialImage { get; set; }
 
         public virtual ICollection<ProductSpecial> ProductSpecials { get; set; }
     }

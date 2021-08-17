@@ -10,6 +10,7 @@ namespace NKAP_API_2.EF
         public Customer()
         {
             Addresses = new HashSet<Address>();
+            Sales = new HashSet<Sale>();
         }
 
         public int CustomerId { get; set; }
@@ -23,5 +24,6 @@ namespace NKAP_API_2.EF
 
         public virtual Title Title { get; set; }
         public virtual ICollection<Address> Addresses { get; set; }
+        public virtual ICollection<Sale> Sales { get; set; }
     }
 }
