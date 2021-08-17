@@ -201,6 +201,56 @@ namespace NKAP_API_2.Controllers
             return Ok(Sale);
         }
 
+        [Route("SearchSales/{OrderStatusId}")] //route
+        [HttpGet]
+        //get Sales by Date (Read)
+        public IActionResult get(SaleModel model, int OrderStatusId)
+        {
+            var Sale = _db.Sales.Join(_db.OrderStatuses,
+                 su => su.OrderStatusId,
+                 so => so.OrderStatusId,
+
+                 (su, so) => new
+                 {
+                     SaleID = su.SaleId,
+                     SaleDescription = su.SaleOrderDescription, //attributes in table
+                     SaleOrderDate = su.SaleOrderDate,
+                     SaleAssign = su.SaleOrderAssign,
+                     SaleReceiveType = su.SaleOrderRecieveType,
+                     SalePaymentDate = su.PaymentDate,
+                     SalePaymentAmount = su.PaymentAmount,
+                     OrderStatusID = so.OrderStatusId,
+                     OrderStatusDesc = so.OrderStatusDescription,
+                     PaymentTypeID = su.PaymentTypeId,
+                     StartDate = model.StartDate,
+                     EndDate = model.EndDate
+
+
+                 }).Join(_db.PaymentTypes,
+                 sor => sor.PaymentTypeID,
+                 sd => sd.PaymentTypeId,
+                 (sor, sd) => new
+                 {
+                     SaleID = sor.SaleID,
+                     SaleDescription = sor.SaleDescription,
+                     SaleOrderDate = sor.SaleOrderDate,
+                     SaleAssign = sor.SaleAssign,
+                     SaleReceiveType = sor.SaleReceiveType,
+                     SalePaymentDate = sor.SalePaymentDate,
+                     SalePaymentAmount = sor.SalePaymentAmount,
+                     OrderStatusID = sor.OrderStatusID,
+                     OrderStatusDesc = sor.OrderStatusDesc,
+                     PaymentTypeID = sor.PaymentTypeID,
+                     PaymentTypeDescription = sd.PaymentTypeDescription,
+                     StartDate = model.StartDate,
+                     EndDate = model.EndDate
+                     
+                 }).Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).Where(ss => ss.OrderStatusID == OrderStatusId);
+
+            return Ok(Sale);
+
+        }
+
         [Route("GetSalesByOrderStatus/{orderstatusdescription}")] //route
         [HttpGet]
         //get Sales by Date (Read)
@@ -213,7 +263,7 @@ namespace NKAP_API_2.Controllers
                  (su, so) => new
                  {
                      SaleID = su.SaleId,
-                     SaleDescription = su.SaleOrderDescription,
+                     SaleDescription = su.SaleOrderDescription, //attributes in table
                      SaleDate = su.SaleOrderDate,
                      SaleAssign = su.SaleOrderAssign,
                      SaleReceiveType = su.SaleOrderRecieveType,
@@ -223,7 +273,6 @@ namespace NKAP_API_2.Controllers
                      OrderStatusDesc = so.OrderStatusDescription,
                      PaymentTypeID = su.PaymentTypeId
 
-                     //attributes in table
                  }).Join(_db.PaymentTypes,
                  sor => sor.PaymentTypeID,
                  sd => sd.PaymentTypeId,
@@ -267,6 +316,88 @@ namespace NKAP_API_2.Controllers
             _db.SaveChanges();
 
             return Ok(sale);
+        }
+
+        [Route("ViewSales/{saleid}")] //route
+        [HttpGet]
+        //get Sales by ID (Read)
+        public IActionResult Get(int saleid)
+        {
+            var Sale = _db.Sales.Join(_db.OrderStatuses,
+                su => su.OrderStatusId,
+                so => so.OrderStatusId,
+
+                (su, so) => new
+                {
+                    SaleID = su.SaleId,
+                    SaleDescription = su.SaleOrderDescription,
+                    SaleDate = su.SaleOrderDate,
+                    SaleAssign = su.SaleOrderAssign,
+                    SaleReceiveType = su.SaleOrderRecieveType,
+                    SalePaymentDate = su.PaymentDate,
+                    SalePaymentAmount = su.PaymentAmount,
+                    OrderStatusID = so.OrderStatusId,
+                    OrderStatusDesc = so.OrderStatusDescription,
+                    PaymentTypeID = su.PaymentTypeId,
+                    CustomerID = su.CustomerId
+
+                    //attributes in table
+                }).Join(_db.PaymentTypes,
+                sor => sor.PaymentTypeID,
+                sd => sd.PaymentTypeId,
+                (sor, sd) => new
+                {
+                    SaleID = sor.SaleID,
+                    SaleDescription = sor.SaleDescription,
+                    SaleDate = sor.SaleDate,
+                    SaleAssign = sor.SaleAssign,
+                    SaleReceiveType = sor.SaleReceiveType,
+                    SalePaymentDate = sor.SalePaymentDate,
+                    SalePaymentAmount = sor.SalePaymentAmount,
+                    OrderStatusID = sor.OrderStatusID,
+                    OrderStatusDesc = sor.OrderStatusDesc,
+                    PaymentTypeID = sor.PaymentTypeID,
+                    PaymentTypeDescription = sd.PaymentTypeDescription,
+                    CustomerID = sor.CustomerID
+
+
+                }).Join(_db.Customers,
+                sor => sor.CustomerID,
+                sd => sd.CustomerId,
+                (sor, sd) => new
+                {
+                    CustomerID = sor.CustomerID,
+                    SaleDescription = sor.SaleDescription,
+                    SaleDate = sor.SaleDate,
+                    SaleAssign = sor.SaleAssign,
+                    SaleReceiveType = sor.SaleReceiveType,
+                    SalePaymentDate = sor.SalePaymentDate,
+                    SalePaymentAmount = sor.SalePaymentAmount,
+                    OrderStatusID = sor.OrderStatusID,
+                    OrderStatusDesc = sor.OrderStatusDesc,
+                    PaymentTypeID = sor.PaymentTypeID,
+                    PaymentTypeDescription = sor.PaymentTypeDescription,
+                    CustomerName = sd.CustomerName,
+                    CustomerSurname = sd.CustomerSurname,
+                    CustomerBusinessName = sd.CustomerBusinessName,
+                    SaleID = sor.SaleID
+
+                }).First(ss => ss.SaleID == saleid);
+
+            return Ok(Sale);
+        }
+
+        [Route("PackOrder")] //route
+        [HttpPut]
+        //Update Order Status
+        public IActionResult PackOrder(SaleModel model, int OrderStatusId)
+        {
+            var PackOrder = _db.Sales.Find(model.SaleID);
+            PackOrder.OrderStatusId = OrderStatusId;
+            _db.Sales.Attach(PackOrder); //Attach Record
+            _db.SaveChanges();
+
+            return Ok(PackOrder);
         }
 
     }

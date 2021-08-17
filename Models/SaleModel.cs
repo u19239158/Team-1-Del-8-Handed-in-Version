@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using NKAP_API_2.EF;
 
 namespace NKAP_API_2.Models
 {
@@ -42,6 +43,23 @@ namespace NKAP_API_2.Models
 
         [JsonProperty("paymenttypeid")]
         public int PaymentTypeId
+        { get; set; }
+
+        [JsonProperty("startdate")]
+        public DateTime StartDate
+        { get; set; }
+
+        [JsonProperty("enddate")]
+        public DateTime EndDate
+        { get; set; }
+
+        [JsonProperty("orderstatusdescription")]
+        public string OrderStatusDescription
+        { get; set; }
+
+
+        [JsonProperty("customerid")]
+        public int CustomerID
         { get; set; }
 
     }

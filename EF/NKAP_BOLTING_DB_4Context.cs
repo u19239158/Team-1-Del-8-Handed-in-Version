@@ -488,7 +488,6 @@ namespace NKAP_API_2.EF
                 entity.Property(e => e.EmployeeId).HasColumnName("Employee_ID");
 
                 entity.Property(e => e.NoOfDeliveries)
-                    .IsRequired()
                     .HasMaxLength(5)
                     .IsUnicode(false)
                     .HasColumnName("No_of_Deliveries");

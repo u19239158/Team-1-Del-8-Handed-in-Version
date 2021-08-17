@@ -215,5 +215,49 @@ namespace NKAP_API_2.Controllers
             return Ok(delShift);
         }
 
+        [Route("AssignDeliveryShift")] //route
+        [HttpPost]
+        //Add Product Item Write-of
+        //Create a Model for table
+        public IActionResult AssignDeliveryShift(DeliveryShiftModel model) //reference the model
+        {
+            Time Times = new Time
+            {
+                //attributes in table 
+                StartTime = model.StartTime,
+                EndTime = model.EndTime
+            };
+            _db.Times.Add(Times);
+            _db.SaveChanges();
+
+            Date Dates = new Date
+            {
+                //attributes in table 
+                DayOfTheWeek = model.DayOfTheWeek
+            };
+           // _db.Dates.Add(Dates);
+            _db.SaveChanges();
+
+            Shift shifts = new Shift
+            {
+                DateId = Dates.DateId,
+                TimeId = Times.TimeId  // assigning the date the writeoff happened to the correct table
+            };
+            _db.Shifts.Add(shifts);
+            _db.SaveChanges();
+
+
+            EmployeeShift EmpShifts = new EmployeeShift
+            {
+                //attributes in table 
+                ShiftId = shifts.ShiftId,
+                EmployeeId = model.EmployeeID,
+            };
+            _db.EmployeeShifts.Add(EmpShifts);
+            _db.SaveChanges();
+
+            return Ok();
+        }
+
     }
 }
