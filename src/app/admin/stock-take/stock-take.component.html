@@ -34,7 +34,8 @@
   </div>
 
   <div class="mat-elevation-z8 table">
-    <table mat-table [dataSource]="dataSource" matSort>
+    <table >
+      <!-- mat-table [dataSource]="dataSource" matSort> -->
 
         <!-- Product Item -->
         <ng-container matColumnDef="productItem">
@@ -62,6 +63,5 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 </div>
-
 </div>
 

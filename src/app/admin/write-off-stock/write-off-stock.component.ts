@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { CategorytypeService } from 'src/app/services/categorytype/categorytype.service';
-import { Categorytype } from 'src/app/interfaces';
+
+import { WriteOffStock } from 'src/app/interfaces';
+import { WriteOffStockService } from 'src/app/services/admin/write-off-stock/write-off-stock.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-write-off-stock',
@@ -11,10 +13,14 @@ import { Categorytype } from 'src/app/interfaces';
 export class WriteOffStockComponent implements OnInit {
   loading = false;
   submitted = false;
-  dataSource = new MatTableDataSource<Categorytype>();
+  collection = [];
+  selected: string;
+  writeOffStocks: WriteOffStock[] = [];
+  writeOffStock: Observable<WriteOffStock[]>;
+  dataSource = new MatTableDataSource<WriteOffStock>();
   displayedColumns: string[] = ['productItem', 'quantity', 'reason'];
   
-  constructor(categoryTypeService: CategorytypeService
+  constructor(writeOffStockService: WriteOffStockService
   ) { }
 
   ngOnInit(): void {

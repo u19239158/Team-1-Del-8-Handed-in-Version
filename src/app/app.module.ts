@@ -13,6 +13,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
+import { MatInputModule } from '@angular/material/input';
 
 import { GlobalErrorComponent } from './modals/globals/global-error/global-error.component';
 import { GlobalConfirmComponent } from './modals/globals/global-confirm/global-confirm.component';
@@ -103,6 +104,7 @@ import { StockTakeComponent } from './admin/stock-take/stock-take.component';
     MatListModule,
     MatDialogModule,
     MatNativeDateModule,
+    MatInputModule,
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
