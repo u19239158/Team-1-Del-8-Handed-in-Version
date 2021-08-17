@@ -22,14 +22,17 @@
 
         <!-- Assign Column -->
         <ng-container matColumnDef="assign">
-            <th mat-header-cell *matHeaderCellDef>
-                Assign To
-            </th>
+            <!-- <th mat-header-cell *matHeaderCellDef mat-sort-header> Assign To</th> -->
             <td mat-cell *matCellDef="let element">
-            <!-- {% comment %} assign delivery shift  {% endcomment %} -->
-                <button mat-menu-item [routerLink]="['/assigndeliveryshift', element.shiftId]" >Assign</button>
-            </td>
+            <!-- <button mat-raised-button align="center" mat-color ="primary" routerLink = "/assigndeliveryshift"> Assign To </button> -->
+            </td> 
         </ng-container>
+
+        <!-- Employee Column
+        <ng-container matColumnDef="assignees">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Assignees </th>
+            <td mat-cell *matCellDef="let element"> {{element.employeeName}} </td>
+        </ng-container> -->
 
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">

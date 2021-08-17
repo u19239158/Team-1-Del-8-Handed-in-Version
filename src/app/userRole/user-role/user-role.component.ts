@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { UserRole } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { UserRoleService } from 'src/app/services/user-role/user-role.service';
+// import {  HttpClient  } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-role',
@@ -14,6 +15,10 @@ import { UserRoleService } from 'src/app/services/user-role/user-role.service';
   styleUrls: ['./user-role.component.scss']
 })
 export class UserRoleComponent implements OnInit {
+
+// //search code
+// UserRoles: UserRole[];
+// searchValue: string;
 
 //userRoles: UserRole[] = [];
 UserRole: UserRole;
@@ -24,11 +29,21 @@ displayedColumns: string[] = ['name', 'description','actions'];
 constructor(private UserRoleService: UserRoleService,
             private snack: MatSnackBar,
             private router: Router,
-            private dialog: MatDialog) {}
+            private dialog: MatDialog,
+            // private httpClient: HttpClient
+            ) {}
 
 ngOnInit(): void {
   this.readUserRoles();
-}
+
+//   this.UserRoleService.GetUserRole().subscribe((result:UserRole[]) => {
+//     this.UserRoles = result;
+//   });
+ }
+
+// filter(){
+//   this.dataSource = new MatTableDataSource (this.UserRoles.filter(e=>e.userRoleName.toLowerCase().includes(this.searchValue.toLowerCase())))
+// }
 
 readUserRoles(): void {
   //this.dataSource = new MatTableDataSource<UserRole[]>(this.UserRoleService.GetUserRole());
@@ -37,6 +52,8 @@ readUserRoles(): void {
      this.dataSource = new MatTableDataSource(res)
    })
 }
+
+
 
 deleteUserRole(UserRole: UserRole) {
   const confirm = this.dialog.open(GlobalConfirmComponent, {
@@ -50,10 +67,6 @@ deleteUserRole(UserRole: UserRole) {
       })
     }
   });
-}
-
-searchUserRole(){
-
-}
+ }
 }
 

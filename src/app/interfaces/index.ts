@@ -64,6 +64,7 @@ export interface Deliveryshift {
   startTime: string ;
   endTime: string;
   dayOfTheWeek: string;
+  // firstName: string;
 }
 
 export interface Productcategory {

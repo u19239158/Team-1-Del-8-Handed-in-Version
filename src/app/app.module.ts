@@ -40,6 +40,8 @@ import { AddEditProductcategorysComponent } from './productcategory/add-edit-pro
 import { MaterialModule } from './material/material/material.module';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
+// import { AssigndeliveryshiftComponent } from './deliveryshift/assigndeliveryshift/assigndeliveryshift.component';
+
 
 @NgModule({
   declarations: [
@@ -66,6 +68,7 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     AddEditProductitemsComponent,
     ProductcategorysComponent,
     AddEditProductcategorysComponent,
+    // AssigndeliveryshiftComponent,
   ],
   imports: [
     BrowserModule,
