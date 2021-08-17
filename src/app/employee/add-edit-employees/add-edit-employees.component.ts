@@ -5,6 +5,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from 'src/app/interfaces';
+import { MustMatch } from './must-match.validators';
 
 @Component({
   selector: 'app-add-edit-employees',
@@ -33,16 +34,24 @@ export class AddEditEmployeesComponent implements OnInit {
     this.id = +this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
 
-    const formOptions: AbstractControlOptions = { };
+    const passwordValidators = [Validators.minLength(6)];
+  if (this.isAddMode) {
+      passwordValidators.push(Validators.required);
+  }
+
+    const formOptions: AbstractControlOptions = { validators: MustMatch('customerPassword', 'customerConfirmPassword')};
     this.form = this.formBuilder.group({
         //title: ['', Validators.required],
         employeeName: ['', [Validators.required]],
         employeeSurname: ['', [Validators.required]],
-        employeePhoneNumber: ['', [Validators.required, Validators.maxLength(10)]],
+        employeeCellphoneNumber: ['', [Validators.required, Validators.maxLength(10)]],
         employeeIdnumber: ['', [Validators.required, Validators.maxLength(13)]],
         employeeDob: ['', [Validators.required]],
         employeeAddressLine1: ['', [Validators.required]],
         employeeAddressLine2: ['', [Validators.required]],
+        employeeUsername: ['', [Validators.required]],
+        employeePassword:['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
+        employeeConfirmPassword: ['', this.isAddMode ? Validators.required : Validators.nullValidator]
     }, formOptions);
 
     if (!this.isAddMode) {
@@ -54,11 +63,14 @@ export class AddEditEmployeesComponent implements OnInit {
          id: [this.employee.employeeId, Validators.required],
           employeeName: [this.employee.employeeName, [Validators.required]],
           employeeSurname: [this.employee.employeeSurname, [Validators.required]],
-          employeePhoneNumber: [this.employee.employeePhoneNumber, [Validators.required, Validators.maxLength(10)]],
+          employeeCellphoneNumber: [this.employee.employeeCellphoneNumber, [Validators.required, Validators.maxLength(10)]],
           employeeIdnumber: [this.employee.employeeIdnumber, [Validators.required, Validators.maxLength(13)]],
           employeeDob: [this.employee.employeeDob, [Validators.required]],
           employeeAddressLine1: [this.employee.employeeAddressLine1, [Validators.required]],
           employeeAddressLine2: [this.employee.employeeAddressLine2, [Validators.required]],
+          employeeUsername: [this.employee.employeeUsername, [Validators.required]],
+          employeePassword: ['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
+          employeeConfirmPassword: ['', this.isAddMode ? Validators.required : Validators.nullValidator]
       }, formOptions);
       })
     }
@@ -97,10 +109,9 @@ export class AddEditEmployeesComponent implements OnInit {
     });
   }
 
-
   Close() {
     this.form.reset();
-    this.router.navigateByUrl('employees');
+    this.router.navigateByUrl('/employees');
   }
 
 }

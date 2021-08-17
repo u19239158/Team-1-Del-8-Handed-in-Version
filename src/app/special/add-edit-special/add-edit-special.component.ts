@@ -25,6 +25,7 @@ export class AddEditSpecialComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private SpecialService: SpecialService,
+
   ) { }
 
   ngOnInit(): void {
@@ -45,6 +46,7 @@ export class AddEditSpecialComponent implements OnInit {
         this.special = res
         console.log(res)
         this.form = this.formBuilder.group({
+          id: [this.special.specialID, Validators.required],
           specialImage: [this.special.specialImage, [Validators.required]],
           specialDescription: [this.special.specialDescription, [Validators.required]],
           specialPrice: [this.special.specialPrice, [Validators.required]],
@@ -80,7 +82,7 @@ export class AddEditSpecialComponent implements OnInit {
 
   updateSpecial() {
     const special: Special = this.form.value;
-    special.specialId = this.special.specialId;
+    special.specialID = this.special.specialID;
     this.SpecialService.UpdateSpecial(special).subscribe(res => {
       console.log(res)
       this.form.reset();
@@ -92,5 +94,4 @@ export class AddEditSpecialComponent implements OnInit {
     this.form.reset();
     this.router.navigateByUrl('special');
   }
-
 }

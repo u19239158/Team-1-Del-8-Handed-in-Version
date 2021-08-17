@@ -18,7 +18,7 @@ export class ProductcategorysComponent implements OnInit {
   productcategorys: Productcategory[] = [];
   productcategory: Observable<Productcategory[]>;
   dataSource = new MatTableDataSource<Productcategory>();
-  displayedColumns: string[] = ['id', 'productCategoryName', 'actions'];
+  displayedColumns: string[] = ['productCategoryName', 'actions'];
 
   constructor(private productcategoryService: ProductcategoryService,
               private snack: MatSnackBar,
@@ -46,7 +46,7 @@ export class ProductcategorysComponent implements OnInit {
         this.productcategoryService.DeleteProductCategory(Productcategory).subscribe(res => {
           this.readProductcategorys();
         });
-        
+
       }
     });
   }

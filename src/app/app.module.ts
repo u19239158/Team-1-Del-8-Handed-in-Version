@@ -13,6 +13,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
+import { MatInputModule } from '@angular/material/input';
 
 import { GlobalErrorComponent } from './modals/globals/global-error/global-error.component';
 import { GlobalConfirmComponent } from './modals/globals/global-confirm/global-confirm.component';
@@ -36,11 +37,19 @@ import { ProductitemsComponent } from './productitem/productitems/productitems.c
 import { AddEditProductitemsComponent } from './productitem/add-edit-productitems/add-edit-productitems.component';
 import { ProductcategorysComponent } from './productcategory/productcategorys/productcategorys.component';
 import { AddEditProductcategorysComponent } from './productcategory/add-edit-productcategorys/add-edit-productcategorys.component';
+import { CustomersComponent } from './customer/customers/customers.component';
+import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
 
 import { MaterialModule } from './material/material/material.module';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 // import { AssigndeliveryshiftComponent } from './deliveryshift/assigndeliveryshift/assigndeliveryshift.component';
+import { PlaceSupplierOrderComponent } from './supplier/place-supplier-order/place-supplier-order.component';
+import { ReceiveSupplierOrderComponent } from './supplier/receive-supplier-order/receive-supplier-order.component';
+import { MakePaymentComponent } from './supplier/make-payment/make-payment.component';
+import { AddItemsComponent } from './supplier/add-items/add-items.component';
+import { WriteOffStockComponent } from './admin/write-off-stock/write-off-stock.component';
+import { StockTakeComponent } from './admin/stock-take/stock-take.component';
 
 
 @NgModule({
@@ -69,6 +78,15 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     ProductcategorysComponent,
     AddEditProductcategorysComponent,
     // AssigndeliveryshiftComponent,
+    CustomersComponent,
+    AddEditCustomerComponent,
+    PlaceSupplierOrderComponent,
+    ReceiveSupplierOrderComponent,
+    MakePaymentComponent,
+    AddItemsComponent,
+    WriteOffStockComponent,
+    StockTakeComponent,
+    // ReportsComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,6 +106,7 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     MatListModule,
     MatDialogModule,
     MatNativeDateModule,
+    MatInputModule,
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

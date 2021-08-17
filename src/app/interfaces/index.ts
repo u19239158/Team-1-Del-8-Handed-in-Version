@@ -4,13 +4,14 @@ export interface Employee {
   employeeId: any;
   employeeName: string;
   employeeSurname: string;
-  employeePhoneNumber: string;
+  employeeCellphoneNumber: string;
   employeeIdnumber: number;
   employeeDob: string;
-  //title: 'Dr'|'Mr'|'Mrs'|'Miss'|'Ms';
   employeeAddressLine1: string;
   employeeAddressLine2: string;
   id: number;
+  employeeUsername: string;
+  employeePassword: string;
 }
 
 export interface Supplier {
@@ -42,7 +43,7 @@ export class UserRole {
 }
 
 export interface Special {
-  specialId: number;
+  specialID: number;
   specialImage: string;
   specialDescription: string;
   specialPrice: string;
@@ -91,3 +92,40 @@ export interface Productitem {
   categoryTypeId: number;
   }
 
+export interface Customer {
+  customerId: number;
+  customerUserName: string;
+  customerName: string;
+  customerSurname: string;
+  customerContactNumber: number;
+  customerEmail: string;
+  customerVat: number;
+  customerBusinessName: string;
+  customerPassword: string;
+}
+
+export interface ReceiveSupplierOrder {
+  id: string;
+  orderDatePlaced: string;
+  orderDateReceived: string;
+  invoiceNumber: number;
+  invoiceDate: string;
+  invoiceTotal: number;
+}
+
+export interface StockTake{
+  dateOfStockTake: string;
+  categoryType: string;
+  productItem: string;
+  quantityOnHand: number;
+  physicalCount: number;
+} 
+
+export interface WriteOffStock {
+  writtenOffStockId: number;
+  writtenOffStockDate: string;
+  categoryType: string;
+  productItem: string;
+  writeOffQuantityOnHand: number;
+  writeOffReason: string;
+}

@@ -1,7 +1,8 @@
 h2 {
-  text-align: center;
+  //text-align: left;
   font-weight: 400;
   font-size: 45px;
+  left: 40px;
 }
 
 .content {
@@ -39,4 +40,11 @@ button {
 .example-container {
     margin-left: 100px;
     margin-right: 100px;
+}
+
+
+.search {
+  position: absolute;
+  right: 20px;
+  top: 75px;
 }
