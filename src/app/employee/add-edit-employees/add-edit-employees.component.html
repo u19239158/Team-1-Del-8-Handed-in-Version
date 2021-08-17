@@ -35,7 +35,7 @@
         <div class="mat-col-quarter">
             <mat-form-field appearance="outline" class="control-m">
                 <mat-label>Contact Number</mat-label>
-                <input type="text" matInput placeholder="contactNumber" formControlName="employeePhoneNumber">
+                <input type="text" matInput placeholder="contactNumber" formControlName="employeeCellphoneNumber">
             </mat-form-field>
         </div>
       </div>
@@ -52,7 +52,7 @@
       <!-- Employee Date of birth -->
       <div class="mat-col-quarter">
         <mat-form-field class="control-m">
-          <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="employeeDob">
+          <input matInput [matDatepicker]="picker" placeholder="Select Date of Birth" formControlName="employeeDob">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
