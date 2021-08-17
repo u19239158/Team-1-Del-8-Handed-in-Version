@@ -43,7 +43,7 @@ export class UserRole {
 }
 
 export interface Special {
-  specialId: number;
+  specialID: number;
   specialImage: string;
   specialDescription: string;
   specialPrice: string;
