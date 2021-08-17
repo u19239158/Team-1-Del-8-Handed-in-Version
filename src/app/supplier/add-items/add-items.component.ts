@@ -18,6 +18,13 @@ export class AddItemsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onSubmit() {
+
+    if (this.form.invalid) {
+      return;
+    }
+  }
+
   Close() {
     this.form.reset();
     this.router.navigateByUrl('receiveSupplierOrder');

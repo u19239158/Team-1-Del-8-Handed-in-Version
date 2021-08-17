@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { last } from 'rxjs/operators';
-import { Productitem, WriteOffStock } from 'src/app/interfaces';
+import { PlaceSupplierOrder } from 'src/app/interfaces';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class WriteOffStockService {
+export class PlaceSupplierOrderService {
   server = "https://localhost:44393/api/";
 
   httpOptions = {
@@ -18,8 +18,7 @@ export class WriteOffStockService {
 };
   constructor(private http: HttpClient) { }
 
-  CreateWriteOffStock(WriteOffStock:WriteOffStock):  Observable<WriteOffStock[]>  {
-    return this.http.post<WriteOffStock[]>(`${this.server}WriteOffStock/CreateWriteOffStock`, WriteOffStock,this.httpOptions);
+  CreateSupplierOrder(PlaceSupplierOrder:PlaceSupplierOrder):  Observable<PlaceSupplierOrder[]>  {
+    return this.http.post<PlaceSupplierOrder[]>(`${this.server}PlaceSupplierOrder/CreateSupplierOrder`, PlaceSupplierOrder,this.httpOptions);
   }
-
 }

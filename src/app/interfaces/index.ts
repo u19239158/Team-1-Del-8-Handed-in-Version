@@ -115,13 +115,19 @@ export interface ReceiveSupplierOrder {
   invoiceTotal: number;
 }
 
+export interface PlaceSupplierOrder {
+  productItem: string;
+  price: string;
+  quantity: number;
+}
+
 export interface StockTake{
   dateOfStockTake: string;
   categoryType: string;
   productItem: string;
   quantityOnHand: number;
   physicalCount: number;
-} 
+}
 
 export interface WriteOffStock {
   writtenOffStockId: number;

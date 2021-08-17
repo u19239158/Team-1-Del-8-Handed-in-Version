@@ -33,7 +33,6 @@ export class AddEditSupplierComponent implements OnInit {
     const formOptions: AbstractControlOptions = { };
     this.form = this.formBuilder.group({
       supplierName: ['', [Validators.required]],
-        supplierType: ['', [Validators.required]],
         supplierEmail: ['', [Validators.required, Validators.email]],
         supplierNumber: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
         supplierAddressLine1: ['', [Validators.required]],
@@ -50,7 +49,6 @@ export class AddEditSupplierComponent implements OnInit {
       this.form = this.formBuilder.group({
         id: [this.supplier.supplierID, Validators.required],
         supplierName: [this.supplier.supplierName, [Validators.required]],
-        supplierType: [this.supplier.supplierTypeDesc],
         supplierEmail: [this.supplier.supplierEmail, [Validators.required, Validators.email]],
         supplierNumber: [this.supplier.supplierNumber, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
         supplierAddressLine1: [this.supplier.supplierAddressLine1, [Validators.required]],
@@ -82,7 +80,7 @@ createSupplier(){
   const supplier: Supplier = this.form.value;
   this.SupplierService.CreateSupplier(supplier).subscribe(res => {
     console.log(res)
-    //this.loading = false;
+    this.loading = false;
     this.router.navigateByUrl('supplier')
   })
 }

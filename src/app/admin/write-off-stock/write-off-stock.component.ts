@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ProductitemService } from 'src/app/services/productitem/productitem.service';
 
 @Component({
   selector: 'app-write-off-stock',
@@ -23,8 +24,10 @@ export class WriteOffStockComponent implements OnInit {
   writeOffStock: Observable<WriteOffStock[]>;
   dataSource = new MatTableDataSource<WriteOffStock>();
   displayedColumns: string[] = ['productItem', 'quantity', 'reason'];
+  productItemService: any;
 
   constructor(
+    productItemService: ProductitemService,
     writeOffStockService: WriteOffStockService,
     private http: HttpClient,
     private router: Router,
@@ -32,6 +35,16 @@ export class WriteOffStockComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCollection();
+    this.getProductItemByID();
+  }
+
+  getProductItemByID() : void {
+    this.isHidden = false;
+
+    this.productItemService.GetProductItem().subscribe(res => {
+      console.log(res)
+      this.dataSource = new MatTableDataSource(res)
+    })
   }
 
   getCollection() {
@@ -44,7 +57,8 @@ export class WriteOffStockComponent implements OnInit {
       })
   }
 
-  showProducts(){
-    this.isHidden = false;
-  }
+  // showProducts(){
+  //   this.isHidden = false;
+  // }
+
 }
