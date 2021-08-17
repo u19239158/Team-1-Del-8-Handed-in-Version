@@ -68,7 +68,7 @@ namespace NKAP_API_2.Controllers
             employee.EmployeeSurname = model.EmployeeSurName;
             employee.EmployeeAddressLine1 = model.EmployeeAddressLine1;
             employee.EmployeeAddressLine2 = model.EmployeeAddressLine2;
-            employee.EmployeePhoneNumber = model.EmployeePhoneNumber;
+            employee.EmployeeCellphoneNumber = model.EmployeeCellphoneNumber;
             employee.EmployeeDob = model.EmployeeDOB;
             employee.EmployeeIdnumber = (model.EmployeeIDNumber);
             _db.Employees.Add(employee);
@@ -87,7 +87,7 @@ namespace NKAP_API_2.Controllers
             employee.EmployeeSurname = model.EmployeeSurName;
             employee.EmployeeAddressLine1 = model.EmployeeAddressLine1;
             employee.EmployeeAddressLine2 = model.EmployeeAddressLine2;
-            employee.EmployeePhoneNumber = model.EmployeePhoneNumber;
+            employee.EmployeeCellphoneNumber = model.EmployeeCellphoneNumber;
             employee.EmployeeDob = model.EmployeeDOB;
             employee.EmployeeIdnumber = model.EmployeeIDNumber;
             _db.Employees.Attach(employee); //Attach Record

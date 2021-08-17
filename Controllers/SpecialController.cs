@@ -123,8 +123,9 @@ namespace NKAP_API_2.Controllers
             special.SpecialDescription = model.SpecialDescription;
             special.SpecialStartDate = model.SpecialStartDate;
             special.SpecialEndDate = model.SpecialEndDate;
-            byte[] byteArray = new byte[model.SpecialImage];
-            special.SpecialImage = byteArray;
+            special.SpecialImage = Convert.ToString(model.SpecialImage);
+            //byte[] byteArray = new byte[model.SpecialImage];
+            //special.SpecialImage = byteArray;
             /* special.SpecialImage = Convert.ToByte(model.SpecialImage);*/ //attributes in table
             _db.Specials.Add(special);
             _db.SaveChanges();
@@ -141,8 +142,9 @@ namespace NKAP_API_2.Controllers
             special.SpecialDescription = model.SpecialDescription;
             special.SpecialStartDate = model.SpecialStartDate;
             special.SpecialEndDate = model.SpecialEndDate;
-            byte[] byteArray = new byte[model.SpecialImage];
-            special.SpecialImage = byteArray;
+            special.SpecialImage = Convert.ToString(model.SpecialImage);
+            //byte[] byteArray = new byte[model.SpecialImage];
+            //special.SpecialImage = byteArray;
             //special.SpecialImage = Convert.ToByte(model.SpecialImage);
             _db.Specials.Attach(special); //Attach Record
             _db.SaveChanges();

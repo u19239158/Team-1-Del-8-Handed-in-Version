@@ -20,8 +20,8 @@ namespace NKAP_API_2.Models
         public string EmployeeSurName
         { get; set; }
 
-        [JsonProperty("employeephonenumber")]
-        public string EmployeePhoneNumber
+        [JsonProperty("employeecellphonenumber")]
+        public string EmployeeCellphoneNumber
         { get; set; }
 
         [JsonProperty("employeaddressline1")]
