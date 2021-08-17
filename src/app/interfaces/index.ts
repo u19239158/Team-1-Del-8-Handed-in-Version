@@ -10,6 +10,8 @@ export interface Employee {
   employeeAddressLine1: string;
   employeeAddressLine2: string;
   id: number;
+  employeeUsername: string;
+  employeePassword: string;
 }
 
 export interface Supplier {
@@ -89,3 +91,23 @@ export interface Productitem {
   categoryTypeId: number;
   }
 
+export interface Customer {
+  customerId: number;
+  customerUserName: string;
+  customerName: string;
+  customerSurname: string;
+  customerContactNumber: number;
+  customerEmail: string;
+  customerVat: number;
+  customerBusinessName: string;
+  customerPassword: string;
+}
+
+export interface ReceiveSupplierOrder {
+  id: string;
+  orderDatePlaced: string;
+  orderDateReceived: string;
+  invoiceNumber: number;
+  invoiceDate: string;
+  invoiceTotal: number;
+}

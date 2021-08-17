@@ -1,5 +1,21 @@
-<div class="main" class="content mat-elevation-z8">
-<h1>Couriers</h1>
+<div>
+  <h1>Courier</h1>
+
+  <div class="search">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Search"/>
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          >
+          Search
+          <span class="fas fa-search search-icon"></span>
+        </button>
+    </div>
+    </div>
+  </div>
+</div>
 
 <div class="mat-elevation-z8 table">
     <table mat-table [dataSource]="dataSource" matSort>
@@ -49,5 +65,4 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-</div>
 </div>

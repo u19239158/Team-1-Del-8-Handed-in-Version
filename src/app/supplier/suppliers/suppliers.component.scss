@@ -1,12 +1,21 @@
-h1 {
-  text-align: center;
-  font-weight: 600;
+h2 {
+  //text-align: left;
+  font-weight: 400;
   font-size: 45px;
+  left: 40px;
+}
+
+.content {
+margin: 0;
+position:inherit;
+top: 25%;
+left: 25%;
 }
 
 table {
-border-collapse: collapse;
-width: 100%;
+  margin-top: 20px;
+  width: 100%;
+  background-color: rgb(66, 108, 224);
 }
 
 th, td {
@@ -32,11 +41,10 @@ button {
     margin-left: 100px;
     margin-right: 100px;
 }
-td {
-    width: auto;
-}
 
-.table {
-    width: 100%;
-    margin: 0 auto;
+
+.search {
+  position: absolute;
+  right: 20px;
+  top: 75px;
 }

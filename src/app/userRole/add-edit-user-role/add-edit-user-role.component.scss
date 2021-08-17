@@ -1,14 +1,15 @@
-h1 {
-  text-align: center;
-  font-weight: 600;
-  font-size: 45px;
+.content {
+  // align-content: center;
+  margin: 0;
+  position: absolute;
+  top: 25%;
+  left: 25%;
 }
 
-.main {
-margin-left: 200px; /* Same as the width of the sidenav */
-font-size: 20px; /* Increased text to enable scrolling */
-padding: 0px 10px;
-align-items: center;
+h2 {
+  text-align: center;
+  font-weight: 400;
+  font-size: 45px;
 }
 
 .mat-row {
@@ -16,16 +17,14 @@ align-items: center;
   flex-direction: row;
   justify-content: center;
   margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .mat-col-quarter {
-  width: 60%;
-}
-
-
-.control-w {
   margin-top: 20px;
-  width: 350px;
+  margin-left: 20;
+  width: 500px;
 }
 
 .control-m {
@@ -34,11 +33,3 @@ align-items: center;
   width: 500px;
 }
 
-.control-m-s {
-  margin-top: 20px;
-  width: 250px;
-}
-
-.content{
-  align-items: center;
-}

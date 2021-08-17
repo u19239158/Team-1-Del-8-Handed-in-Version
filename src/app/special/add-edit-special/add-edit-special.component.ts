@@ -25,6 +25,7 @@ export class AddEditSpecialComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private SpecialService: SpecialService,
+
   ) { }
 
   ngOnInit(): void {
@@ -92,5 +93,4 @@ export class AddEditSpecialComponent implements OnInit {
     this.form.reset();
     this.router.navigateByUrl('special');
   }
-
 }

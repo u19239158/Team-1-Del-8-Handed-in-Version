@@ -18,7 +18,7 @@ export class ProductitemsComponent implements OnInit {
   productitems: Productitem[] = [];
   productitem: Observable<Productitem[]>;
   dataSource = new MatTableDataSource<Productitem>();
-  displayedColumns: string[] = ['id','categorytype','name', 'description', 'cost','quantity', 'actions'];
+  displayedColumns: string[] = ['categorytype','name', 'description', 'cost','quantity', 'actions'];
 
   constructor(private productitemService: ProductitemService,
               private snack: MatSnackBar,
@@ -47,7 +47,7 @@ export class ProductitemsComponent implements OnInit {
         this.productitemService.DeleteProductitem(Productitem).subscribe( res =>{
           this.readProductitems();
         });
-        
+
       }
     });
   }

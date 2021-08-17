@@ -18,7 +18,7 @@ export class CategorytypesComponent implements OnInit {
   categorytypes: Categorytype[] = [];
   categorytype: Observable<Categorytype[]>;
   dataSource = new MatTableDataSource<Categorytype>();
-  displayedColumns: string[] = ['id', 'productCategoryName', 'categoryType', 'actions'];
+  displayedColumns: string[] = ['productCategoryName', 'categoryType', 'actions'];
 
   constructor(private categorytypeService: CategorytypeService,
               private snack: MatSnackBar,
@@ -47,7 +47,7 @@ export class CategorytypesComponent implements OnInit {
         this.categorytypeService.DeleteCategoryType(Categorytype).subscribe(res => {
           this.readCategorytypes();
         });
-        
+
       }
     });
   }
