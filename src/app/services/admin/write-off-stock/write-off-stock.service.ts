@@ -4,7 +4,7 @@ import { WriteOffStock } from 'src/app/interfaces';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { Categorytype } from 'src/app/interfaces';
 @Injectable({
   providedIn: 'root'
 })

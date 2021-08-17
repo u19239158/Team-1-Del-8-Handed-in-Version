@@ -82,7 +82,7 @@ createSupplier(){
   const supplier: Supplier = this.form.value;
   this.SupplierService.CreateSupplier(supplier).subscribe(res => {
     console.log(res)
-    this.loading = false;
+    //this.loading = false;
     this.router.navigateByUrl('supplier')
   })
 }

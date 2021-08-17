@@ -12,28 +12,31 @@
     </div>
   </div>
 
-  <div class="mat-row">
-    <div class="mat-col-quarter">
-        <mat-form-field appearance="outline" class="control-m">
-            <mat-label>Category Type</mat-label>
-            <mat-select [(value)]="selected" formControlName="productCategoryID">
-              <mat-option *ngFor="let ProductCategory of collection" [value]="ProductCategory.productCategoryId">{{ProductCategory.productCategoryDescription}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-    </div>
-    </div>
-
-  <div class="mat-row">
-    <!-- Save or cancel special -->
-    <div class="form-group" class="control-m">
-      <button mat-raised-button color ="primary" [disabled]="loading">
-          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-          Save
-      </button>
-      <a (click)="Close()" mat-button>Cancel</a>
+<div class="mat-row">
+  <div class="mat-col-quarter">
+      <mat-form-field appearance="outline" class="control-m">
+          <mat-label> Category Type</mat-label>
+          <mat-select [(value)]="selected" formControlName="categoryTypeId">
+            <mat-option *ngFor="let CategoryType of collection" [value]="CategoryType.categoryTypeId">{{CategoryType.categoryTypeDescription}}</mat-option>
+          </mat-select>
+        </mat-form-field>
   </div>
+</div>
 
-  <div class="mat-elevation-z8 table">
+<div class="mat-row">
+  <div class="form-group" class="control-m">
+    <button mat-raised-button color ="primary" [disabled]="loading" (click)="showProducts()">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        Show Products
+    </button>
+    </div>
+</div>
+
+
+  <br>
+  <br>
+
+  <div [hidden]="isHidden">
     <table mat-table [dataSource]="dataSource" matSort>
 
         <!-- Product Item -->
@@ -45,7 +48,7 @@
         <!-- Quantity -->
         <ng-container matColumnDef="quantity">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
-            <td mat-cell *matCellDef="let element">
+            <td mat-cell>
             <input type="number">
             </td>
         </ng-container>
@@ -53,11 +56,11 @@
         <!-- Reason -->
         <ng-container matColumnDef="reason">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason </th>
-          <td mat-cell *matCellDef="let element">
+          <td mat-cell >
           <input type="text">
           </td>
       </ng-container>
-      
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>

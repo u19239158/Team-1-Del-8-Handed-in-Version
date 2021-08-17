@@ -1,8 +1,11 @@
+import { StockTakeService } from './../../services/admin/stock-take/stock-take.service';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { CategorytypeService } from 'src/app/services/categorytype/categorytype.service';
 import { StockTake } from 'src/app/interfaces';
-//import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-stock-take',
@@ -12,15 +15,35 @@ import { StockTake } from 'src/app/interfaces';
 export class StockTakeComponent implements OnInit {
   loading = false;
   submitted = false;
-  // dataSource = new MatTableDataSource<Categorytype>();
+  isHidden: boolean = true;
+  collection = [];
+  selected: string;
+  stockTakes: StockTake[] = [];
+  StockTake: Observable<StockTake[]>;
+  dataSource = new MatTableDataSource<StockTake>();
   displayedColumns: string[] = ['productItem', 'quantity', 'reason'];
 
-  constructor(categoryTypeService: CategorytypeService
+  constructor(
+    stockTakeService: StockTakeService,
+    private http: HttpClient,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
+    this.getCollection();
   }
-Close(){
 
-}
+  getCollection() {
+    this.http
+      .get<any>('https://localhost:44393/api/CategoryType/GetCategoryType').subscribe((res: any) => {
+        this.collection = res;
+        //console.log = res;
+      }, error => {
+        console.log({ error });
+      })
+  }
+
+  showProducts(){
+    this.isHidden = false;
+  }
 }
