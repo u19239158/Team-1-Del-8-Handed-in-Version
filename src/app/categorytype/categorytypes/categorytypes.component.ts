@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Categorytype } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { CategorytypeService } from 'src/app/services/categorytype/categorytype.service';
+import {  HttpClient  } from '@angular/common/http';
 
 @Component({
   selector: 'app-categorytypes',
@@ -14,6 +15,10 @@ import { CategorytypeService } from 'src/app/services/categorytype/categorytype.
   styleUrls: ['./categorytypes.component.scss']
 })
 export class CategorytypesComponent implements OnInit {
+
+//search code
+CategoryTypes: Categorytype[];
+searchValue: string;
 
   categorytypes: Categorytype[] = [];
   categorytype: Observable<Categorytype[]>;
@@ -23,10 +28,22 @@ export class CategorytypesComponent implements OnInit {
   constructor(private categorytypeService: CategorytypeService,
               private snack: MatSnackBar,
               private router: Router,
-              private dialog: MatDialog) {}
+              private dialog: MatDialog,
+              private httpClient: HttpClient) {}
 
   ngOnInit(): void {
     this.readCategorytypes();
+
+    this.categorytypeService.GetCategoryType().subscribe((result:Categorytype[]) => {
+      this.CategoryTypes = result;
+    });
+
+  }
+
+  filter(){
+  
+    this.dataSource = new MatTableDataSource (this.CategoryTypes.filter(e=>e.productCategoryDesc.toLowerCase().includes(this.searchValue.toLowerCase())))
+    this.dataSource = new MatTableDataSource (this.CategoryTypes.filter(e=>e.categoryTypeDescription.toLowerCase().includes(this.searchValue.toLowerCase())))
   }
 
    readCategorytypes(): void {

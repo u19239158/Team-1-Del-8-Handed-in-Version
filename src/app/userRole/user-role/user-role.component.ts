@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { UserRole } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { UserRoleService } from 'src/app/services/user-role/user-role.service';
-// import {  HttpClient  } from '@angular/common/http';
+import {  HttpClient  } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-role',
@@ -16,9 +16,9 @@ import { UserRoleService } from 'src/app/services/user-role/user-role.service';
 })
 export class UserRoleComponent implements OnInit {
 
-// //search code
-// UserRoles: UserRole[];
-// searchValue: string;
+//search code
+UserRoles: UserRole[];
+searchValue: string;
 
 //userRoles: UserRole[] = [];
 UserRole: UserRole;
@@ -30,20 +30,20 @@ constructor(private UserRoleService: UserRoleService,
             private snack: MatSnackBar,
             private router: Router,
             private dialog: MatDialog,
-            // private httpClient: HttpClient
+            private httpClient: HttpClient
             ) {}
 
 ngOnInit(): void {
   this.readUserRoles();
 
-//   this.UserRoleService.GetUserRole().subscribe((result:UserRole[]) => {
-//     this.UserRoles = result;
-//   });
- }
+  this.UserRoleService.GetUserRole().subscribe((result:UserRole[]) => {
+    this.UserRoles = result;
+  });
+}
 
-// filter(){
-//   this.dataSource = new MatTableDataSource (this.UserRoles.filter(e=>e.userRoleName.toLowerCase().includes(this.searchValue.toLowerCase())))
-// }
+filter(){
+  this.dataSource = new MatTableDataSource (this.UserRoles.filter(e=>e.userRoleName.toLowerCase().includes(this.searchValue.toLowerCase())))
+}
 
 readUserRoles(): void {
   //this.dataSource = new MatTableDataSource<UserRole[]>(this.UserRoleService.GetUserRole());

@@ -1,21 +1,23 @@
-<div>
-  <h1>Courier</h1>
+<div class="main">
+    <div>
+        <h2>Couriers</h2>
 
-  <div class="search">
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="Search"/>
-      <div class="input-group-append">
-        <button
-          class="btn btn-outline-secondary"
-          type="button"
-          >
-          Search
-          <span class="fas fa-search search-icon"></span>
-        </button>
-    </div>
-    </div>
+    <div class="search">
+      <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+          <li>         
+              <div class="field has-addons" >
+                <div class="control" >
+                  <input type="text" [(ngModel)]="searchValue" class="input" id="search" placeholder="Type here...">
+                </div>
+                <div class="control">
+                  <a class="button is-info" (click)="filter()">
+          <span class="fas fa-search search-icon"></span>  
+                  </a>
+                </div>
+              </div>   
+          </li>
+      </ul>
   </div>
-</div>
 
 <div class="mat-elevation-z8 table">
     <table mat-table [dataSource]="dataSource" matSort>

@@ -1,4 +1,21 @@
-// {
+{
+    "cSpell.words": [
+        "Categorytype",
+        "Categorytypes",
+        "Deliveryshifts",
+        "Idnumber",
+        "Productitems",
+        "assigndeliveryshift",
+        "assigneeshift",
+        "assigneeshifts",
+        "deliveryshift",
+        "productcategory",
+        "productcategorys",
+        "productitem",
+        "shiftid",
+        "sidenav"
+    ]
+} // {
 //     "cSpell.words": [
 //         "Categorytype",
 //         "Datepicker",

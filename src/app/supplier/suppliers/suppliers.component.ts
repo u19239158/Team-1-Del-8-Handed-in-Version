@@ -8,6 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { SupplierService } from 'src/app/services/supplier/supplier.service.component';
+import {  HttpClient  } from '@angular/common/http';
 
 @Component({
   selector: 'app-suppliers',
@@ -15,6 +16,10 @@ import { SupplierService } from 'src/app/services/supplier/supplier.service.comp
   styleUrls: ['./suppliers.component.scss']
 })
 export class SuppliersComponent implements OnInit {
+//search code
+Suppliers: Supplier[];
+searchValue: string;
+
   Supplier: Supplier;
   supplier: Observable<Supplier[]>;
   dataSource = new MatTableDataSource<Supplier>();
@@ -27,6 +32,14 @@ export class SuppliersComponent implements OnInit {
 
   ngOnInit(): void {
     this.readSuppliers();
+
+    this.supplierService.GetSupplier().subscribe((result:Supplier[]) => {
+      this.Suppliers = result;
+    });
+  }
+
+  filter(){
+    this.dataSource = new MatTableDataSource (this.Suppliers.filter(e=>e.supplierName.toLowerCase().includes(this.searchValue.toLowerCase())))
   }
 
   readSuppliers(): void {
