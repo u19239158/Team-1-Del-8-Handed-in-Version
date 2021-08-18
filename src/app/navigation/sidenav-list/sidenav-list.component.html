@@ -19,16 +19,12 @@
   </mat-menu>
 
   <!-- Employees -->
-  <mat-list-item [matMenuTriggerFor]="menu1">
-      <!-- <mat-icon>shopping_basket</mat-icon> -->
-     <img src="assets/images/employee.png" class="w3-margin-right" width=20px height=20px>
-      <a matline>Employees</a>
-  </mat-list-item>
-  <mat-menu #menu1="matMenu">
-    <button mat-menu-item routerLink="/employees" (click)="onSidenavClose()">View Employees</button>
-    <button mat-menu-item routerLink="/employeesAdd" (click)="onSidenavClose()">Add Employees</button>
-  </mat-menu>
-
+  <a mat-list-item routerLink="/employees" (click)="onSidenavClose()">
+    <!-- <mat-icon>home</mat-icon>  -->
+    <img src="assets/images/employee.png" class="w3-margin-right" width=20px height=20px>
+    <span class="nav-caption">Employees</span>
+</a>
+  
   <!-- Suppliers -->
   <mat-list-item [matMenuTriggerFor]="menu2">
     <!-- <mat-icon>shopping_cart</mat-icon> -->
@@ -36,11 +32,10 @@
     <a matline>Suppliers</a>
 </mat-list-item>
 <mat-menu #menu2="matMenu">
-  <button mat-menu-item routerLink="/supplier" (click)="onSidenavClose()">View Suppliers</button>
-  <button mat-menu-item routerLink="/supplierAdd" (click)="onSidenavClose()">Add Supplier</button>
-  <button mat-menu-item routerLink="/placeSupplierOrder" (click)="onSidenavClose()">Place Supplier Order</button>
-  <button mat-menu-item routerLink="/receiveSupplierOrder" (click)="onSidenavClose()">Receive Supplier Order</button>
-  <button mat-menu-item routerLink="/makePayment" (click)="onSidenavClose()">Make Supplier Payment</button>
+  <button mat-menu-item routerLink="/supplier" (click)="onSidenavClose()"> View Suppliers </button>
+  <button mat-menu-item routerLink="/supplierAdd" (click)="onSidenavClose()"> Add Supplier </button>
+  <button mat-menu-item routerLink="/placeSupplierOrder" (click)="onSidenavClose()"> Place Supplier Order </button>
+  <button mat-menu-item routerLink="/receiveSupplierOrder" (click)="onSidenavClose()"> Receive Supplier Order </button>
 </mat-menu>
 
   <!-- Admin -->
@@ -53,7 +48,7 @@
 <button mat-menu-item (click)="onSidenavClose()">Search Online Sales</button>
 <button mat-menu-item routerLink="/stockTake" (click)="onSidenavClose()">Do Stock Take</button>
 <button mat-menu-item routerLink="/writeOffStock" (click)="onSidenavClose()">Write Off Stock</button>
-<button mat-menu-item routerLink="/userRole" (click)="onSidenavClose()">Assign Delivery Order</button>
+<button mat-menu-item routerLink="/assigndeliveryorder" (click)="onSidenavClose()">Assign Delivery Order</button>
 </mat-menu>
 
   <!-- Products -->

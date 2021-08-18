@@ -1,4 +1,30 @@
-// {
+{
+    "cSpell.words": [
+        "Categorytype",
+        "Categorytypes",
+        "Datepicker",
+        "Deliveryshifts",
+        "Idnumber",
+        "Productitems",
+        "Unscheduleddeliveries",
+        "Unscheduleddelivery",
+        "Unscheduleddeliverys",
+        "assigncourierdelivery",
+        "assigndeliveryorder",
+        "assigndeliveryshift",
+        "assigneeshift",
+        "assigneeshifts",
+        "assignlocaldelivery",
+        "deliverycourier",
+        "deliverydistance",
+        "deliveryshift",
+        "productcategory",
+        "productcategorys",
+        "productitem",
+        "shiftid",
+        "sidenav"
+    ]
+} // {
 //     "cSpell.words": [
 //         "Categorytype",
 //         "Datepicker",

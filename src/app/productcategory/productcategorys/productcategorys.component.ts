@@ -1,12 +1,13 @@
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Productcategory } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { ProductcategoryService } from 'src/app/services/productcategory/productcategory.service';
+import {  HttpClient  } from '@angular/common/http';
 
 @Component({
   selector: 'app-productcategorys',
@@ -14,6 +15,10 @@ import { ProductcategoryService } from 'src/app/services/productcategory/product
   styleUrls: ['./productcategorys.component.scss']
 })
 export class ProductcategorysComponent implements OnInit {
+
+//search code
+Productcategorys:Productcategory[];
+searchValue: string;
 
   productcategorys: Productcategory[] = [];
   productcategory: Observable<Productcategory[]>;
@@ -23,10 +28,17 @@ export class ProductcategorysComponent implements OnInit {
   constructor(private productcategoryService: ProductcategoryService,
               private snack: MatSnackBar,
               private router: Router,
-              private dialog: MatDialog) {}
+              private dialog: MatDialog,
+              private httpClient: HttpClient
+              ) {}
 
   ngOnInit(): void {
     this.readProductcategorys();
+
+    this.productcategoryService.GetProductCategory().subscribe((result:Productcategory[]) => {
+      this.Productcategorys = result;
+    });
+
   }
 
    readProductcategorys(): void {
@@ -34,6 +46,10 @@ export class ProductcategorysComponent implements OnInit {
        console.log(res)
        this.dataSource = new MatTableDataSource(res)
      })
+  }
+
+  filter(){
+    this.dataSource = new MatTableDataSource (this.Productcategorys.filter(e=>e.productCategoryDescription.toLowerCase().includes(this.searchValue.toLowerCase())))
   }
 
   deleteProductcategory(Productcategory: Productcategory) {

@@ -3,10 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { Customer } from 'src/app/interfaces';
-import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
+import {  HttpClient  } from '@angular/common/http';
 
 @Component({
   selector: 'app-customers',
@@ -14,6 +15,11 @@ import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/gl
   styleUrls: ['./customers.component.scss']
 })
 export class CustomersComponent implements OnInit {
+
+  //search code
+Customers: Customer[];
+searchValue: string;
+
 //customers: Customer[] = [];
 Customer: Customer;
 customers: Observable<Customer[]>;
@@ -23,10 +29,16 @@ displayedColumns: string[] = ['name', 'contactNumber', 'email', 'businessName', 
 constructor(private customerService: CustomerService,
   private snack: MatSnackBar,
   private router: Router,
-  private dialog: MatDialog) { }
+  private dialog: MatDialog,
+  private httpClient: HttpClient) { }
 
 ngOnInit(): void {
   this.readCustomers();
+
+  this.customerService.GetCustomer().subscribe((result:Customer[]) => {
+    this.Customers = result;
+  });
+
 }
 
 readCustomers(): void {
@@ -34,6 +46,12 @@ readCustomers(): void {
      console.log(res)
      this.dataSource = new MatTableDataSource(res)
    })
+}
+
+filter(){
+  this.dataSource = new MatTableDataSource (this.Customers.filter(e=>e.customerName.toLowerCase().includes(this.searchValue.toLowerCase())))
+  this.dataSource = new MatTableDataSource (this.Customers.filter(e=>e.customerSurname.toLowerCase().includes(this.searchValue.toLowerCase())))
+  this.dataSource = new MatTableDataSource (this.Customers.filter(e=>e.customerBusinessName.toLowerCase().includes(this.searchValue.toLowerCase())))
 }
 
 deleteCustomer(Customer: Customer) {

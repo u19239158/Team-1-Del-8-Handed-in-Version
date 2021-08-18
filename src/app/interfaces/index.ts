@@ -65,7 +65,8 @@ export interface Deliveryshift {
   startTime: string ;
   endTime: string;
   dayOfTheWeek: string;
-  // firstName: string;
+  employeeName: string;
+  employeeId: number;
 }
 
 export interface Productcategory {
@@ -76,7 +77,7 @@ export interface Productcategory {
 
 export interface Categorytype {
   categoryTypeId:number;
-  // image: ImageBitmap;
+  categoryTypeImage: string;
   categoryTypeDescription: string;
   itemDescription: string;
   productCategoryDesc: string;
@@ -90,6 +91,8 @@ export interface Productitem {
   productItemCost: number;
   quantityOnHand: number;
   categoryTypeId: number;
+  categoryTypeName: string;
+  categoryTypeDescription: string;
   }
 
 export interface Customer {
@@ -113,13 +116,19 @@ export interface ReceiveSupplierOrder {
   invoiceTotal: number;
 }
 
+export interface PlaceSupplierOrder {
+  productItem: string;
+  price: string;
+  quantity: number;
+}
+
 export interface StockTake{
   dateOfStockTake: string;
   categoryType: string;
   productItem: string;
   quantityOnHand: number;
   physicalCount: number;
-} 
+}
 
 export interface WriteOffStock {
   writtenOffStockId: number;
@@ -128,4 +137,11 @@ export interface WriteOffStock {
   productItem: string;
   writeOffQuantityOnHand: number;
   writeOffReason: string;
+}
+
+export interface AssignUnscheduledDelivery {
+  saleId:number;
+  customerName: string;
+  deliveryDistance: number;
+  orderAddress: string;
 }

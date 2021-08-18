@@ -1,4 +1,8 @@
+import { ReceiveSupplerService } from './../../services/supplier/receive-supplier-order';
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { Observable } from 'rxjs';
+import { ReceiveSupplierOrder } from 'src/app/interfaces';
 
 @Component({
   selector: 'app-receive-supplier-order',
@@ -7,12 +11,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReceiveSupplierOrderComponent implements OnInit {
   displayedColumns: string[] = ['id', 'orderDatePlaced', 'orderDateReceived', 'invoiceNumber', 'invoiceDate', 'invoiceTotal','items'];
-  // supplierOrder: SupplierOrder[] = [];
-  // supplier: Observable<SupplierOrder[]>;
-  // dataSource = new MatTableDataSource<SupplierOrder>();
+  receiveSupplierOrders: ReceiveSupplierOrder[] = [];
+   receiveSupplierOrder: Observable<ReceiveSupplierOrder[]>;
+   dataSource = new MatTableDataSource<ReceiveSupplierOrder>();
 
 
-  constructor() { }
+  constructor(
+    receiveSupplierService: ReceiveSupplerService,
+  ) { }
 
   ngOnInit(): void {
   }

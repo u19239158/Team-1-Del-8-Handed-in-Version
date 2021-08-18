@@ -3,6 +3,19 @@
 <h1 *ngIf="!isAddMode">Edit Category Types</h1>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+<div class="mat-row">
+     <!-- Choose category image -->
+     <div appearance="outline" class="mat-col-quarter">
+      <label class="image-upload-container btn btn-bwm">
+    <span>Select Image</span>
+    <input #imageInput
+          type="file"
+          accept="image/*">
+    </label>
+    </div>
+    </div>
+
     <div class="mat-row">
         <div class="mat-col-quarter">
             <mat-form-field appearance="outline" class="control-m">
@@ -33,7 +46,6 @@
 </div>
 
   <div class="mat-row">
-
     <div class="form-group" class="control-m">
       <button mat-raised-button color ="primary" [disabled]="loading">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>

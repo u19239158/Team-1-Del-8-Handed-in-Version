@@ -1,21 +1,23 @@
-<div>
-  <h1>Delivery Shifts</h1>
+<div class="main">
+    <div>
+        <h2>Delivery Shifts</h2>
 
-  <div class="search">
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="Search"/>
-      <div class="input-group-append">
-        <button
-          class="btn btn-outline-secondary"
-          type="button"
-          >
-          Search
-          <span class="fas fa-search search-icon"></span>
-        </button>
-    </div>
-    </div>
+    <div class="search">
+      <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+          <li>         
+              <div class="field has-addons" >
+                <!-- <div class="control" >
+                  <input type="text" [(ngModel)]="searchWord" class="input" id="search" placeholder="Type here...">
+                </div> -->
+                <div class="control">
+                  <!-- <a class="button is-info" (click)="filter()">
+                     <span class="fas fa-search search-icon"></span>  
+                  </a> -->
+                </div>
+              </div>   
+          </li>
+      </ul>
   </div>
-</div>
 
 <div class="mat-elevation-z8 table">
     <table mat-table [dataSource]="dataSource" matSort>
@@ -37,19 +39,11 @@
             <td mat-cell *matCellDef="let element"> {{element.dayOfTheWeek}} </td>
         </ng-container>
 
-        <!-- Assign Column -->
-        <ng-container matColumnDef="assign">
-            <!-- <th mat-header-cell *matHeaderCellDef mat-sort-header> Assign To</th> -->
-            <td mat-cell *matCellDef="let element">
-            <!-- <button mat-raised-button align="center" mat-color ="primary" routerLink = "/assigndeliveryshift"> Assign To </button> -->
-            </td> 
-        </ng-container>
-
-        <!-- Employee Column
+        <!-- Employee Column  -->
         <ng-container matColumnDef="assignees">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Assignees </th>
             <td mat-cell *matCellDef="let element"> {{element.employeeName}} </td>
-        </ng-container> -->
+        </ng-container>
 
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">

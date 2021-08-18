@@ -43,13 +43,16 @@ import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-
 import { MaterialModule } from './material/material/material.module';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
-// import { AssigndeliveryshiftComponent } from './deliveryshift/assigndeliveryshift/assigndeliveryshift.component';
+import { AssigndeliveryshiftComponent } from './deliveryshift/assigndeliveryshift/assigndeliveryshift.component';
 import { PlaceSupplierOrderComponent } from './supplier/place-supplier-order/place-supplier-order.component';
 import { ReceiveSupplierOrderComponent } from './supplier/receive-supplier-order/receive-supplier-order.component';
 import { MakePaymentComponent } from './supplier/make-payment/make-payment.component';
 import { AddItemsComponent } from './supplier/add-items/add-items.component';
 import { WriteOffStockComponent } from './admin/write-off-stock/write-off-stock.component';
 import { StockTakeComponent } from './admin/stock-take/stock-take.component';
+import { AssignDeliveryOrderComponent } from './admin/assign-delivery-order/assign-delivery-order.component';
+import { AssignCourierDeliveryComponent } from './admin/assign-courier-delivery/assign-courier-delivery.component';
+import { AssignLocalDeliveryComponent } from './admin/assign-local-delivery/assign-local-delivery.component';
 
 
 @NgModule({
@@ -77,7 +80,7 @@ import { StockTakeComponent } from './admin/stock-take/stock-take.component';
     AddEditProductitemsComponent,
     ProductcategorysComponent,
     AddEditProductcategorysComponent,
-    // AssigndeliveryshiftComponent,
+    AssigndeliveryshiftComponent,
     CustomersComponent,
     AddEditCustomerComponent,
     PlaceSupplierOrderComponent,
@@ -86,6 +89,9 @@ import { StockTakeComponent } from './admin/stock-take/stock-take.component';
     AddItemsComponent,
     WriteOffStockComponent,
     StockTakeComponent,
+    AssignDeliveryOrderComponent,
+    AssignCourierDeliveryComponent,
+    AssignLocalDeliveryComponent,
     // ReportsComponent,
   ],
   imports: [
