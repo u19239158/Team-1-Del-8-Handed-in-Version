@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NKAP_API_2.EF;
 using NKAP_API_2.Models;
+
 
 
 namespace NKAP_API_2.Controllers
@@ -64,7 +66,7 @@ namespace NKAP_API_2.Controllers
                     PaymentDate = a.PaymentDate,
                     OrderStatusDescription = t.OrderStatusDescription,
                     CustomerId = a.CustomerId
-                    
+
 
                 }).Where(oo => oo.OrderStatusId == 3)
 
@@ -188,9 +190,9 @@ namespace NKAP_API_2.Controllers
                      CustomerEmailAddress = so.CustomerEmailAddress,
                      StartDate = model.StartDate,
                      EndDate = model.EndDate,
-                   
 
-        }).Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate);
+
+                 }).Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate);
 
             return Ok(Sales);
 
@@ -231,16 +233,16 @@ namespace NKAP_API_2.Controllers
 
                   });
 
-          return Ok(Stocklevel);
+            return Ok(Stocklevel);
 
         }
 
         [Route("GenerateFrequentBuyerReport")] //route
         [HttpGet]
-        //get Sales by Date (Read)
-        public IActionResult getFrequenBuyers(ReportModel model)
+        //get Frequent Buyers (Read)
+        public IActionResult getFrequentBuyers(ReportModel model)
         {
-            
+
             var Sales = _db.Sales.Join(_db.Customers,
                  su => su.CustomerId,
                  so => so.CustomerId,
@@ -262,10 +264,150 @@ namespace NKAP_API_2.Controllers
 
 
                  }).Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate);
-        
+
+           // return getFrequenBuyersList (Sales)
             return Ok(Sales);
+
+
+        }
+
+        //public IActionResult getFrequenBuyersList(Sales)
+
+        //{
+        //    var Fsales = Sales.GroupBy(zz => zz.Sales.SaleId);
+        //    foreach (var Sale in Fsales)
+        //    {
+        //        dynamic var = new ExpandoObject();
+        //        var.SaleId = Sale.Key;
+        //        var.FrequentBuyers = Math.Round((double)Sale.Count(ss => ss.SaleId));
+        //    }
+
+        //    return Ok(Fsales);
+        //}
+
+
+        [Route("GetFastSellingProducts")] //route
+        [HttpGet]
+        //get Fast Selling Products (Read)
+        public IActionResult getFastSellingProducts(ReportModel model)
+        {
+
+            var FastSellingP = _db.ProductItems.Join(_db.SaleLines,
+                 su => su.ProductItemId,
+                 so => so.ProductItemId,
+
+                 (su, so) => new
+                 {
+                     ProductItemId = su.ProductItemId,
+                     SaleLineId = so.SaleLineId,
+                     SaleLineQuantity = so.SaleLineQuantity,
+                     SaleId = so.SaleId,
+                     ProductItemName = su.ProductItemName,
+
+                 }).Join(_db.Sales,
+                 su => su.SaleId,
+                 so => so.SaleId,
+
+                 (su, so) => new
+                 {
+                     ProductItemId = su.ProductItemId,
+                     SaleLineId = su.SaleLineId,
+                     SaleLineQuantity = su.SaleLineQuantity,
+                     SaleId = so.SaleId,
+                     ProductItemName = su.ProductItemName,
+
+                 });
+                 
+            return Ok(FastSellingP);
+
+        }
+
+        [Route("GetSlowSellingProducts")] //route
+        [HttpGet]
+        //get Slow Selling Products (Read)
+        public IActionResult getSlowSellingProducts(ReportModel model)
+        {
+
+            var SlowSellingP = _db.ProductItems.Join(_db.SaleLines,
+                 su => su.ProductItemId,
+                 so => so.ProductItemId,
+
+                 (su, so) => new
+                 {
+                     ProductItemId = su.ProductItemId,
+                     SaleLineId = so.SaleLineId,
+                     SaleLineQuantity = so.SaleLineQuantity,
+                     SaleId = so.SaleId,
+                     ProductItemName = su.ProductItemName,
+
+                 }).Join(_db.Sales,
+                 su => su.SaleId,
+                 so => so.SaleId,
+
+                 (su, so) => new
+                 {
+                     ProductItemId = su.ProductItemId,
+                     SaleLineId = su.SaleLineId,
+                     SaleLineQuantity = su.SaleLineQuantity,
+                     SaleId = so.SaleId,
+                     ProductItemName = su.ProductItemName,
+
+                 });
+
+            return Ok(SlowSellingP);
+
+        }
+
+        [Route("MostPopularLocation")] //route
+        [HttpGet]
+        //get Slow Selling Products (Read)
+        public IActionResult getMostPopularLocation(ReportModel model)
+        {
+
+            var PopularLocation = _db.Sales.Join(_db.Customers,
+                a => a.CustomerId,
+                t => t.CustomerId,
+                (a, t) => new
+                {
+                    
+                    SaleId = a.SaleId,
+                    CustomerId = t.CustomerId
+
+                }).Join(_db.Addresses,
+                a => a.CustomerId,
+                t => t.CustomerId,
+                (a, t) => new
+                {
+                    SaleId = a.SaleId,
+                    AddressID = t.AddressId,
+                    ProvinceID = t.ProvinceId
+
+                }).Join(_db.Provinces,
+                a => a.ProvinceID,
+                t => t.ProvinceId,
+                (a, t) => new
+                {
+                    SaleId = a.SaleId,
+                    ProvinceID = a.ProvinceID,
+                    ProvinceDescription = t.ProvinceDescription,
+
+                }).Join(_db.Cities,
+                a => a.ProvinceID,
+                t => t.ProvinceId,
+                (a, t) => new
+                {
+                    SaleId = a.SaleId,
+                    ProvinceID = a.ProvinceID,
+                    ProvinceDescription = a.ProvinceDescription,
+                    CityID = t.CityId,
+                    CityDescription = t.CityDescription
+
+                });
+
+            return Ok(PopularLocation);
 
         }
     }
 
-    } 
+} 
+
