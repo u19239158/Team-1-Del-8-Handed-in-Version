@@ -53,8 +53,6 @@ readUserRoles(): void {
    })
 }
 
-
-
 deleteUserRole(UserRole: UserRole) {
   const confirm = this.dialog.open(GlobalConfirmComponent, {
            disableClose: true,

@@ -1,7 +1,7 @@
 <div class="content">
-  <form >
+
     <h2>Add Invoice Items</h2>
-  
+
     <div class="mat-row">
       <div class="mat-col-quarter">
           <mat-form-field appearance="outline" class="control-m">
@@ -10,7 +10,7 @@
           </mat-form-field>
       </div>
     </div>
-  
+
     <div class="mat-row">
       <div class="mat-col-quarter">
           <mat-form-field appearance="outline" class="control-m">
@@ -19,7 +19,7 @@
           </mat-form-field>
       </div>
     </div>
-  
+
     <div class="mat-row">
       <div class="mat-col-quarter">
           <mat-form-field appearance="outline" class="control-m">
@@ -28,18 +28,16 @@
           </mat-form-field>
       </div>
   </div>
-  
+
   <div class="mat-row">
     <div class="form-group" class="control-m">
-      <button mat-raised-button color ="primary" [disabled]="loading"> 
-          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> 
+      <button mat-raised-button color ="primary" [disabled]="loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
            Add
       </button>
       <a (click)="Close()" mat-button>Cancel</a>
     </div>
   </div>
 
-  
-  </form>
   </div>
-  
+
