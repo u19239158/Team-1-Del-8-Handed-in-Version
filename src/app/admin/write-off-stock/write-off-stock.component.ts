@@ -39,7 +39,7 @@ searchItem: string;
 
   ngOnInit(): void {
     this.getCollection();
-    this.getProductItemByID();
+    this.getProductItemByCategoryType();
 
     this.productItemService.GetProductItem().subscribe((result:Productitem[]) => {
       this.ProductItems = result;
