@@ -393,7 +393,7 @@ namespace NKAP_API_2.Controllers
         public IActionResult PackOrder(SaleModel model, int OrderStatusId)
         {
             var PackOrder = _db.Sales.Find(model.SaleID);
-            PackOrder.OrderStatusId = OrderStatusId;
+            PackOrder.OrderStatusId = model.OrderStatusId;
             _db.Sales.Attach(PackOrder); //Attach Record
             _db.SaveChanges();
 

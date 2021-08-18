@@ -95,5 +95,13 @@ namespace NKAP_API_2.Models
         [JsonProperty("provincedescription")]
         public int ProvinceDescription
         { get; set; }
+
+        [JsonProperty("startdate")]
+        public DateTime StartDate
+        { get; set; }
+
+        [JsonProperty("enddate")]
+        public DateTime EndDate
+        { get; set; }
     }
 }

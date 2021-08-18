@@ -17,7 +17,7 @@ namespace NKAP_API_2.Models
         { get; set; }
 
         [JsonProperty("Specialimage")]
-        public byte SpecialImage
+        public string SpecialImage
         { get; set; }
 
         [JsonProperty("SpecialStartdate")]

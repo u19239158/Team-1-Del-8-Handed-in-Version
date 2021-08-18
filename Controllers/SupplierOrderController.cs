@@ -164,5 +164,66 @@ namespace NKAP_API_2.Controllers
             return Ok(supOrder);
         }
 
+        [Route("DisplaySupplierOrder")] //route
+        [HttpGet]
+        //get Supplier Order (Read)
+        public IActionResult Get()
+        {
+            var SupplierOrders = _db.SupplierOrders.Join(_db.SupplierOrderLines,
+                su => su.SupplierOrderId,
+                so => so.SupplierOrderId,
+
+                (su, so) => new
+                {
+
+                    SupplierOrderId = su.SupplierOrderId,               
+                    OrderDatePlaced = su.OrderDatePlaced, //attributes in table
+                    SupplierOrderLineId = so.SupplierOrderLineId,
+                    SupplierProducts = so.SupplierProducts
+
+                });
+
+            return Ok(SupplierOrders);
+        }
+
+
+        //[Route("ReceiveSupplierOrder")] //route
+        //[HttpPost]
+        ////Add Product Item Write-of
+        ////Create a Model for table
+        //public IActionResult ReceiveSupplierOrder(ProductItemWrittenOffStockModel model) //reference the model
+        //{
+        //    WrittenOffStock writtenoffstock = new WrittenOffStock
+        //    {
+        //        //WrittenOffStockId = model.WrittenOffStockId,
+        //        WrittenOffStockDate = model.WrittenOffStock_Date  // assigning the date the writeoff happened to the correct table
+        //    };
+        //    _db.WrittenOffStocks.Add(writtenoffstock);
+        //    _db.SaveChanges();
+
+        //    ProductItemWrittenOffStock PItemWriteOff = new ProductItemWrittenOffStock
+        //    {
+        //        WriteOffQuantity = model.WriteOffQuantity, //attributes in table 
+        //        WriteOffReason = model.WriteOffReason,
+        //        //NewPQuantity.ProductItemId = model.ProductItemId;  //(int)PItemWriteOff.ProductItemId; // Getting the Id of the producitem to match with the bridge and the model
+        //        ProductItemId = model.ProductItemId,
+        //        WrittenOffStockId = writtenoffstock.WrittenOffStockId
+        //    };
+
+        //    _db.ProductItemWrittenOffStocks.Add(PItemWriteOff);
+        //    _db.SaveChanges();
+        //    //NewPQuantity.QuantityOnHand = NewPQuantity.QuantityOnHand - model.WriteOffQuantity;// Function to subtract the entered quantity from the existing quantity on hand and assign it the productitem
+        //    var NewPQuantity = _db.ProductItems.Find(model.ProductItemId);
+        //    //NewPQuantity.ProductItemId = model.ProductItemId;  //(int)PItemWriteOff.ProductItemId; // Getting the Id of the producitem to match with the bridge and the model
+        //    NewPQuantity.QuantityOnHand = NewPQuantity.QuantityOnHand - model.WriteOffQuantity;// Function to subtract the entered quantity from the existing quantity on hand and assign it the productitem
+        //    _db.ProductItems.Attach(NewPQuantity);
+        //    //Attach Record
+        //    _db.SaveChanges();
+
+
+
+        //    return Ok();
+        //}
+
     }
 }

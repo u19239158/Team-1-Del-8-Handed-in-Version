@@ -182,9 +182,6 @@ namespace NKAP_API_2.Controllers
             return Ok(delivery);
         }
 
-
-
-
         [Route("DeleteDeliveries/{deliveryid}")] //route
         [HttpDelete]
         //Delete Delivery
@@ -195,6 +192,123 @@ namespace NKAP_API_2.Controllers
             _db.SaveChanges();
 
             return Ok(delivery);
+        }
+
+        [Route("GetUnassignedDeliveries")] //route
+        [HttpGet]
+        //get Delivery Shift (Read)
+        public IActionResult GetUnassignedDeliveries()
+        {
+            //var Admins = _db.Admins.ToList();
+
+            var Unassigned = _db.Sales.Join(_db.OrderStatuses,
+                a => a.OrderStatusId,
+                t => t.OrderStatusId,
+                (a, t) => new
+                {
+                    SaleId = a.SaleId,
+                    SaleOrderAssign = a.SaleOrderAssign,
+                    SaleOrderRecieveType = a.SaleOrderRecieveType,
+                    OrderStatusId = t.OrderStatusId,
+                    CustomerId = a.CustomerId
+
+                }).Join(_db.Customers,
+                 sor => sor.CustomerId,
+                 sd => sd.CustomerId,
+                 (sor, sd) => new
+                 {
+                     SaleId = sor.SaleId,
+                     SaleOrderAssign = sor.SaleOrderAssign,
+                     SaleOrderRecieveType = sor.SaleOrderRecieveType,
+                     OrderStatusId = sor.OrderStatusId,
+                     CustomerId = sd.CustomerId,
+                     CustomerName = sd.CustomerName,
+                     CustomerSurname = sd.CustomerSurname
+
+                 }).Join(_db.Addresses,
+                 sor => sor.CustomerId,
+                 sd => sd.CustomerId,
+                 (sor, sd) => new
+                 {
+                     SaleId = sor.SaleId,
+                     SaleOrderAssign = sor.SaleOrderAssign,
+                     SaleOrderRecieveType = sor.SaleOrderRecieveType,
+                     OrderStatusId = sor.OrderStatusId,
+                     CustomerId = sor.CustomerId,
+                     CustomerName = sor.CustomerName,
+                     CustomerSurname = sor.CustomerSurname,
+                     AddressId = sd.AddressId,
+                     AddressLine1 = sd.AddressLine1,
+                     AddressLine2 = sd.AddressLine2,
+                     AddressLine3 = sd.AddressLine3,
+                     AddressPostalCode = sd.AddressPostalCode,
+                     ProvinceId = sd.ProvinceId
+
+                 }).Where(ss => ss.SaleOrderAssign == false).Join(_db.Provinces,
+                 sor => sor.ProvinceId,
+                 sd => sd.ProvinceId,
+                 (sor, sd) => new
+                 {
+                     SaleId = sor.SaleId,
+                     SaleOrderAssign = sor.SaleOrderAssign,
+                     SaleOrderRecieveType = sor.SaleOrderRecieveType,
+                     OrderStatusId = sor.OrderStatusId,
+                     CustomerId = sor.CustomerId,
+                     CustomerName = sor.CustomerName,
+                     CustomerSurname = sor.CustomerSurname,
+                     AddressId = sor.AddressId,
+                     AddressLine1 = sor.AddressLine1,
+                     AddressLine2 = sor.AddressLine2,
+                     AddressLine3 = sor.AddressLine3,
+                     AddressPostalCode = sor.AddressPostalCode,
+                     ProvinceId = sd.ProvinceId,
+                     ProvinceDescription = sd.ProvinceDescription,
+
+                 }).Where(ss => ss.SaleOrderRecieveType == true).Join(_db.Cities,
+                 sor => sor.ProvinceId,
+                 sd => sd.ProvinceId,
+                    (sor, sd) => new
+                    {
+                        SaleId = sor.SaleId,
+                        SaleOrderAssign = sor.SaleOrderAssign,
+                        SaleOrderRecieveType = sor.SaleOrderRecieveType,
+                        OrderStatusId = sor.OrderStatusId,
+                        CustomerId = sor.CustomerId,
+                        CustomerName = sor.CustomerName,
+                        CustomerSurname = sor.CustomerSurname,
+                        AddressId = sor.AddressId,
+                        AddressLine1 = sor.AddressLine1,
+                        AddressLine2 = sor.AddressLine2,
+                        AddressLine3 = sor.AddressLine3,
+                        AddressPostalCode = sor.AddressPostalCode,
+                        ProvinceId = sor.ProvinceId,
+                        ProvinceDescription = sor.ProvinceDescription,
+                        CityDescription = sd.CityDescription
+                    }).Where(ss => ss.OrderStatusId == 3).Join(_db.Deliveries,
+                 sor => sor.AddressId,
+                 sd => sd.AddressId,
+                    (sor, sd) => new
+                    {
+                        SaleId = sor.SaleId,
+                        SaleOrderAssign = sor.SaleOrderAssign,
+                        SaleOrderRecieveType = sor.SaleOrderRecieveType,
+                        OrderStatusId = sor.OrderStatusId,
+                        CustomerId = sor.CustomerId,
+                        CustomerName = sor.CustomerName,
+                        CustomerSurname = sor.CustomerSurname,
+                        AddressId = sor.AddressId,
+                        AddressLine1 = sor.AddressLine1,
+                        AddressLine2 = sor.AddressLine2,
+                        AddressLine3 = sor.AddressLine3,
+                        AddressPostalCode = sor.AddressPostalCode,
+                        ProvinceId = sor.ProvinceId,
+                        ProvinceDescription = sor.ProvinceDescription,
+                        CityDescription = sor.CityDescription,
+                        DeliveryDistance = sd.DeliveryDistance
+                    });
+
+            return Ok(Unassigned);
+
         }
     }
 }

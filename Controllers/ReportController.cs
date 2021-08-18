@@ -66,7 +66,7 @@ namespace NKAP_API_2.Controllers
                     CustomerId = a.CustomerId
                     
 
-                }).Where(oo => oo.OrderStatusDescription == "Ready for Delivery")
+                }).Where(oo => oo.OrderStatusId == 3)
 
                 .Join(_db.Customers,
                 a => a.CustomerId,
@@ -162,6 +162,109 @@ namespace NKAP_API_2.Controllers
                 });
 
             return Ok(ReadyForDeliveryOrder);
+        }
+
+
+        [Route("GenerateSalesReport")] //route
+        [HttpGet]
+        //get Sales by Date (Read)
+        public IActionResult getSalesReport(ReportModel model)
+        {
+            var Sales = _db.Sales.Join(_db.Customers,
+                 su => su.CustomerId,
+                 so => so.CustomerId,
+
+                 (su, so) => new
+                 {
+                     SaleID = su.SaleId,
+                     SaleDescription = su.SaleOrderDescription, //attributes in table
+                     SaleOrderDate = su.SaleOrderDate,
+                     SalePaymentDate = su.PaymentDate,
+                     SalePaymentAmount = su.PaymentAmount,
+                     CustomerId = so.CustomerId,
+                     CustomerName = so.CustomerName,
+                     CustomerCellphoneNumber = so.CustomerCellphoneNumber,
+                     CustomerBusinessName = so.CustomerBusinessName,
+                     CustomerEmailAddress = so.CustomerEmailAddress,
+                     StartDate = model.StartDate,
+                     EndDate = model.EndDate,
+                   
+
+        }).Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate);
+
+            return Ok(Sales);
+
+        }
+
+        [Route("GenerateStockLevel")] //route
+        [HttpGet]
+        //get Sales by Date (Read)
+        public IActionResult getStock(ReportModel model)
+        {
+            var Stocklevel = _db.ProductItems.Join(_db.CategoryTypes,
+                 su => su.CategoryTypeId,
+                 so => so.CategoryTypeId,
+
+                 (su, so) => new
+                 {
+                     ProductItemId = su.ProductItemId,
+                     ProductItemName = su.ProductItemName, //attributes in table
+                     QuantityOnHand = su.QuantityOnHand,
+                     CategoryTypeId = su.CategoryTypeId,
+                     CategoryTypeDescription = so.CategoryTypeDescription,
+                     ProductCategoryId = so.ProductCategoryId
+
+
+                 }).Join(_db.ProductCategories,
+                 su => su.ProductCategoryId,
+                 so => so.ProductCategoryId,
+                  (su, so) => new
+                  {
+                      ProductItemId = su.ProductItemId,
+                      ProductItemName = su.ProductItemName, //attributes in table
+                      QuantityOnHand = su.QuantityOnHand,
+                      CategoryTypeId = su.CategoryTypeId,
+                      CategoryTypeDescription = su.CategoryTypeDescription,
+                      ProductCategoryId = so.ProductCategoryId,
+                      ProductCategoryDescription = so.ProductCategoryDescription
+
+
+                  });
+
+          return Ok(Stocklevel);
+
+        }
+
+        [Route("GenerateFrequentBuyerReport")] //route
+        [HttpGet]
+        //get Sales by Date (Read)
+        public IActionResult getFrequenBuyers(ReportModel model)
+        {
+            
+            var Sales = _db.Sales.Join(_db.Customers,
+                 su => su.CustomerId,
+                 so => so.CustomerId,
+
+                 (su, so) => new
+                 {
+                     SaleID = su.SaleId,
+                     SaleDescription = su.SaleOrderDescription, //attributes in table
+                     SaleOrderDate = su.SaleOrderDate,
+                     SalePaymentDate = su.PaymentDate,
+                     SalePaymentAmount = su.PaymentAmount,
+                     CustomerId = so.CustomerId,
+                     CustomerName = so.CustomerName,
+                     CustomerCellphoneNumber = so.CustomerCellphoneNumber,
+                     CustomerBusinessName = so.CustomerBusinessName,
+                     CustomerEmailAddress = so.CustomerEmailAddress,
+                     StartDate = model.StartDate,
+                     EndDate = model.EndDate,
+
+
+                 }).Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate);
+        
+            return Ok(Sales);
+
         }
     }
 

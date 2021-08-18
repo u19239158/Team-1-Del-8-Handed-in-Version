@@ -60,11 +60,12 @@ namespace NKAP_API_2.Controllers
                 t => t.TitleId,
                 (c, t) => new
                 {
+                    CustomerId = c.CustomerId,
                     TitleID = c.TitleId,
                     TitleDesc = t.TitleDescription,
                     CustomerName = c.CustomerName,
                     CustomerSurname = c.CustomerSurname,
-                    CustomerCellphone = c.CustomerCellphoneNumber,
+                    CustomerCellphoneNumber = c.CustomerCellphoneNumber,
                     CustomerEmailAddress = c.CustomerEmailAddress,
                     CustomerVATReg= c.CustomerVatreg,
                     CustomerBusinessName = c.CustomerBusinessName,
@@ -94,12 +95,14 @@ namespace NKAP_API_2.Controllers
               t => t.TitleId,
               (c, t) => new
               {
+                    CustomerId = c.CustomerId,
+
                   TitleID = c.TitleId,
                   TitleDesc = t.TitleDescription,
                   CustomerID = c.CustomerId,
                   CustomerName = c.CustomerName,
                   CustomerSurname = c.CustomerSurname,
-                  CustomerCellphone = c.CustomerCellphoneNumber,
+                  CustomerCellphoneNumber = c.CustomerCellphoneNumber,
                   CustomerEmailAddress = c.CustomerEmailAddress,
                   CustomerVATReg = c.CustomerVatreg,
                   CustomerBusinessName = c.CustomerBusinessName,
@@ -121,11 +124,13 @@ namespace NKAP_API_2.Controllers
                t => t.TitleId,
                (c, t) => new
                {
+                   CustomerId = c.CustomerId,
+
                    TitleID = c.TitleId,
                    TitleDesc = t.TitleDescription,
                    CustomerName = c.CustomerName,
                    CustomerSurname = c.CustomerSurname,
-                   CustomerCellphone = c.CustomerCellphoneNumber,
+                   CustomerCellphoneNumber = c.CustomerCellphoneNumber,
                    CustomerEmailAddress = c.CustomerEmailAddress,
                    CustomerVATReg = c.CustomerVatreg,
                    CustomerBusinessName = c.CustomerBusinessName,
@@ -148,11 +153,13 @@ namespace NKAP_API_2.Controllers
                t => t.TitleId,
                (c, t) => new
                {
+                   CustomerId = c.CustomerId,
+
                    TitleID = c.TitleId,
                    TitleDesc = t.TitleDescription,
                    CustomerName = c.CustomerName,
                    CustomerSurname = c.CustomerSurname,
-                   CustomerCellphone = c.CustomerCellphoneNumber,
+                   CustomerCellphoneNumber = c.CustomerCellphoneNumber,
                    CustomerEmailAddress = c.CustomerEmailAddress,
                    CustomerVATReg = c.CustomerVatreg,
                    CustomerBusinessName = c.CustomerBusinessName,

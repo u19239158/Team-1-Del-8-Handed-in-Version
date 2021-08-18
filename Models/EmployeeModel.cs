@@ -39,5 +39,21 @@ namespace NKAP_API_2.Models
         [JsonProperty("employeeidnumber")]
         public string EmployeeIDNumber
         { get; set; }
+
+        [JsonProperty("usersid")]
+        public int UsersID
+        { get; set; }
+
+        [JsonProperty("userusername")]
+        public string UserUsername
+        { get; set; }
+
+        [JsonProperty("userpassword")]
+        public string UserPassword
+        { get; set; }
+
+        [JsonProperty("userroleid")]
+        public int UserRoleID
+        { get; set; }
     }
 }

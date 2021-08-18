@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NKAP_API_2.EF;
 using NKAP_API_2.Models;
+using System.Security.Cryptography;
+using System.Text;
+
+
 namespace NKAP_API_2.Controllers
 {
     [Route("api/[controller]")]
@@ -63,18 +67,49 @@ namespace NKAP_API_2.Controllers
         //Create a Model for table
         public IActionResult CreateEmployee(EmployeeModel model) //reference the model
         {
+            var newUser = new User
+            {
+                UserUsername = model.UserUsername,
+                UserPassword = ComputeSha256Hash(model.UserPassword),
+                UserRoleId = 3,
+
+            };
+            _db.Users.Add(newUser);
+
             Employee employee = new Employee();
-            employee.EmployeeName = model.EmployeeName; //attributes in table
-            employee.EmployeeSurname = model.EmployeeSurName;
-            employee.EmployeeAddressLine1 = model.EmployeeAddressLine1;
-            employee.EmployeeAddressLine2 = model.EmployeeAddressLine2;
-            employee.EmployeeCellphoneNumber = model.EmployeeCellphoneNumber;
-            employee.EmployeeDob = model.EmployeeDOB;
-            employee.EmployeeIdnumber = (model.EmployeeIDNumber);
-            _db.Employees.Add(employee);
-            _db.SaveChanges();
+            {
+                employee.EmployeeName = model.EmployeeName; //attributes in table
+                employee.EmployeeSurname = model.EmployeeSurName;
+                employee.EmployeeAddressLine1 = model.EmployeeAddressLine1;
+                employee.EmployeeAddressLine2 = model.EmployeeAddressLine2;
+                employee.EmployeeCellphoneNumber = model.EmployeeCellphoneNumber;
+                employee.EmployeeDob = model.EmployeeDOB;
+                employee.EmployeeIdnumber = (model.EmployeeIDNumber);
+                _db.Employees.Add(employee);
+                _db.SaveChanges();
+
+            }
+           
 
             return Ok(employee);
+        }
+
+        private string ComputeSha256Hash(string rawData)
+        {
+            // Create a SHA256   
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                // ComputeHash - returns byte array  
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+
+                // Convert byte array to a string   
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
         }
 
         [Route("UpdateEmployee")] //route
@@ -82,6 +117,16 @@ namespace NKAP_API_2.Controllers
         //Update Employee
         public IActionResult UpdateEmployee(EmployeeModel model)
         {
+
+            // var newUser = new User
+            //{
+            //    UserUsername = model.UserUsername,
+            //    //UserPassword = ComputeSha256Hash(model.UserPassword),
+            //    UserRoleId = 3,
+
+            //};
+            //_db.Users.Add(newUser);
+
             var employee = _db.Employees.Find(model.Employee_ID);
             employee.EmployeeName = model.EmployeeName; //attributes in table
             employee.EmployeeSurname = model.EmployeeSurName;
