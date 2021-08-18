@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog}from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { PlaceSupplierOrderService } from 'src/app/services/place-supplier-order/place-supplier-order.service';
-import { PlaceSupplierOrder, Supplier } from 'src/app/interfaces';
+import { PlaceSupplierOrder } from 'src/app/interfaces';
+import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 
 @Component({
   selector: 'app-place-supplier-order',
@@ -19,14 +20,17 @@ export class PlaceSupplierOrderComponent implements OnInit {
   collection = [];
   supplier = [];
   selected: string;
+
   placeSupplierOrders: PlaceSupplierOrder[] = [];
   placeSupplierOrder: Observable<PlaceSupplierOrder[]>;
   dataSource = new MatTableDataSource<PlaceSupplierOrder>();
   displayedColumns: string[] = ['productItem', 'quantity', 'reason'];
+  form: any;
 
   constructor(
     private placeSupplierOrderService: PlaceSupplierOrderService,
     private http: HttpClient,
+    private dialog: MatDialog,
     private router: Router,
   ) { }
 
@@ -60,6 +64,20 @@ export class PlaceSupplierOrderComponent implements OnInit {
   }
 
   placeOrder(){
+    const confirm = this.dialog.open(GlobalConfirmComponent, {
+      disableClose: true,
+     });
 
+     confirm.afterClosed().subscribe(res => {
+      if (res){
+
+      const placeSupplierOrder: PlaceSupplierOrder = this.form.value;
+      this.placeSupplierOrderService.CreateSupplierOrder(placeSupplierOrder).subscribe(res => {
+      console.log(res)
+      this.loading = false
+      this.router.navigateByUrl('supplier');
+      })
+    }
+  });
   }
 }
