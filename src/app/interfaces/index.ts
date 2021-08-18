@@ -66,6 +66,7 @@ export interface Deliveryshift {
   endTime: string;
   dayOfTheWeek: string;
   employeeName: string;
+  employeeId: number;
 }
 
 export interface Productcategory {
@@ -130,4 +131,11 @@ export interface WriteOffStock {
   productItem: string;
   writeOffQuantityOnHand: number;
   writeOffReason: string;
+}
+
+export interface AssignUnscheduledDelivery {
+  saleId:number;
+  customerName: string;
+  deliveryDistance: number;
+  orderAddress: string;
 }

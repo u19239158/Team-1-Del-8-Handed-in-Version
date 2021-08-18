@@ -41,7 +41,6 @@ searchValue: string;
   }
 
   filter(){
-  
     this.dataSource = new MatTableDataSource (this.CategoryTypes.filter(e=>e.productCategoryDesc.toLowerCase().includes(this.searchValue.toLowerCase())))
     this.dataSource = new MatTableDataSource (this.CategoryTypes.filter(e=>e.categoryTypeDescription.toLowerCase().includes(this.searchValue.toLowerCase())))
   }

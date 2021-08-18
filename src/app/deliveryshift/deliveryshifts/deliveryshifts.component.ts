@@ -17,30 +17,31 @@ import {  HttpClient  } from '@angular/common/http';
 export class DeliveryshiftsComponent implements OnInit {
 
 //search code
-// DeliveryShifts: Deliveryshift[];
-// searchValue: string;
+DeliveryShifts: Deliveryshift[];
+searchValue: number;
+searchWord: string;
 
   deliveryshift: Deliveryshift[] = [];
   // DeliveryShift: Deliveryshift;
   deliveryShift: Observable<Deliveryshift[]>;
   dataSource = new MatTableDataSource<Deliveryshift>();
   displayedColumns: string[] = ['startTime', 'endTime', 'dayOfTheWeek', 
-  // 'employeeName', 
+  // 'assignee', 
   'actions'];
 
   constructor(private deliveryshiftService: DeliveryshiftService,
               private snack: MatSnackBar,
               private router: Router,
               private dialog: MatDialog,
-              // private httpClient: HttpClient
+              private httpClient: HttpClient
               ) {}
 
   ngOnInit(): void {
     this.readDeliveryshifts();
 
-    // this.deliveryshiftService.GetDeliveryShift().subscribe((result:Deliveryshift[]) => {
-    //   this.DeliveryShifts = result;
-    // });
+    this.deliveryshiftService.GetDeliveryShift().subscribe((result:Deliveryshift[]) => {
+      this.DeliveryShifts = result;
+    });
 
   }
 
@@ -51,12 +52,12 @@ export class DeliveryshiftsComponent implements OnInit {
      })
    }
 
-  //  filter(){
-  //   this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.startTime.toLowerCase().includes(this.searchValue.toLowerCase())))
-  //   this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.endTime.toLowerCase().includes(this.searchValue.toLowerCase())))
-  //   this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.dayOfTheWeek.toLowerCase().includes(this.searchValue.toLowerCase())))
-  //   this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.employeeName.toLowerCase().includes(this.searchValue.toLowerCase())))
-  // }
+   filter(){
+    // this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.startTime.includes(this.searchValue)))
+    // // this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.endTime.includes(this.searchValue)))
+    // this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.dayOfTheWeek.includes(this.searchValue)))
+    this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.employeeName.toLowerCase().includes(this.searchWord.toLowerCase())))
+  }
 
   deleteDeliveryshift(Deliveryshift: Deliveryshift) {
     const confirm = this.dialog.open(GlobalConfirmComponent, {

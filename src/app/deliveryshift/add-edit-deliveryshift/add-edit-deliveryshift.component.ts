@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Deliveryshift } from 'src/app/interfaces';
+import { Employee } from 'src/app/interfaces';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -42,6 +43,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
         startTime: ['', [Validators.required]],
         endTime: ['',[Validators.required]],
         dayOfTheWeek: ['', [Validators.required]],
+        employeeId: ['', [Validators.required]],
      }, formOptions);
 
     if (!this.isAddMode) {
@@ -52,6 +54,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
           startTime: [this.deliveryshift.startTime, [Validators.required]],
           endTime: [this.deliveryshift.endTime,[Validators.required]],
           dayOfTheWeek: [this.deliveryshift.dayOfTheWeek, [Validators.required]],
+          employeeId: [this.deliveryshift.employeeId, [Validators.required]],
       }, formOptions);
       });
     }
@@ -78,7 +81,16 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
         console.log(res);
       }, error => {
         console.log({ error });
-      })
+      });
+
+      this.http
+    .get<any>('https://localhost:44393/api/Employee/GetEmployee').subscribe((res: any) => {
+      this.collection = res;
+      console.log(res);
+    }, error => {
+      console.log({ error });
+    })
+    
   }
 
   createDeliveryshift() {

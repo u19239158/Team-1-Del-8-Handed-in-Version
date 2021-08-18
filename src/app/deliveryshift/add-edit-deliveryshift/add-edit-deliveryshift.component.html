@@ -37,6 +37,17 @@
         </div>
 </div>
 
+<div class="mat-row">
+  <div class="mat-col-quarter">
+  <mat-form-field appearance="outline" class="control-m">
+    <mat-label>Employee</mat-label>
+      <mat-select formControlName="employeeId">
+        <mat-option *ngFor="let Employee of collection" [value]="Employee.employeeId">{{Employee.employeeName}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  </div>
+</div>
+
   <div class="mat-row">
     <div class="form-group" class="control-m">
       <button mat-raised-button color ="primary" [disabled]="loading">

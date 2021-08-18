@@ -50,6 +50,9 @@ import { MakePaymentComponent } from './supplier/make-payment/make-payment.compo
 import { AddItemsComponent } from './supplier/add-items/add-items.component';
 import { WriteOffStockComponent } from './admin/write-off-stock/write-off-stock.component';
 import { StockTakeComponent } from './admin/stock-take/stock-take.component';
+import { AssignDeliveryOrderComponent } from './admin/assign-delivery-order/assign-delivery-order.component';
+import { AssignCourierDeliveryComponent } from './admin/assign-courier-delivery/assign-courier-delivery.component';
+import { AssignLocalDeliveryComponent } from './admin/assign-local-delivery/assign-local-delivery.component';
 
 
 @NgModule({
@@ -86,6 +89,9 @@ import { StockTakeComponent } from './admin/stock-take/stock-take.component';
     AddItemsComponent,
     WriteOffStockComponent,
     StockTakeComponent,
+    AssignDeliveryOrderComponent,
+    AssignCourierDeliveryComponent,
+    AssignLocalDeliveryComponent,
     // ReportsComponent,
   ],
   imports: [
