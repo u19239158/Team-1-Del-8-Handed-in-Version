@@ -5,8 +5,8 @@
     <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m">
             <mat-label> Supplier </mat-label>
-            <mat-select [(value)]="selected" formControlName="supplierId">
-              <mat-option *ngFor="let Supplier of collection" [value]="Supplier.supplierId">{{Supplier.SupplierName}}</mat-option>
+            <mat-select [(value)]="selected" formControlName="supplierID">
+              <mat-option *ngFor="let Supplier of supplier" [value]="Supplier.supplierID">{{Supplier.supplierName}}</mat-option>
             </mat-select>
           </mat-form-field>
     </div>

@@ -22,4 +22,8 @@ export class WriteOffStockService {
     return this.http.post<WriteOffStock[]>(`${this.server}WriteOffStock/CreateWriteOffStock`, WriteOffStock,this.httpOptions);
   }
 
+  // GetProductItemByCategoryType(:WriteOffStock) {
+  //   return this.http.post<WriteOffStock[]>(`${this.server}GetPItemsByCatType/{CategoryTypeName}`, WriteOffStock,this.httpOptions);
+  // }
+
 }

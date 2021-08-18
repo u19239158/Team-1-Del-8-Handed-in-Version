@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { WriteOffStock } from 'src/app/interfaces';
+import { Productitem, WriteOffStock } from 'src/app/interfaces';
 import { WriteOffStockService } from 'src/app/services/admin/write-off-stock/write-off-stock.service';
 import { Observable } from 'rxjs';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -15,6 +15,10 @@ import { ProductitemService } from 'src/app/services/productitem/productitem.ser
 })
 
 export class WriteOffStockComponent implements OnInit {
+  //search code
+ProductItems: Productitem[];
+searchItem: string;
+  
   loading = false;
   submitted = false;
   isHidden: boolean = true;
@@ -36,15 +40,22 @@ export class WriteOffStockComponent implements OnInit {
   ngOnInit(): void {
     this.getCollection();
     this.getProductItemByID();
+
+    this.productItemService.GetProductItem().subscribe((result:Productitem[]) => {
+      this.ProductItems = result;
+    });
   }
 
-  getProductItemByID() : void {
+  getProductItemByCategoryType() : void {
     this.isHidden = false;
 
     this.productItemService.GetProductItem().subscribe(res => {
-      console.log(res)
-      this.dataSource = new MatTableDataSource(res)
-    })
+    console.log(res)
+    
+    this.dataSource = new MatTableDataSource(res.filter(e=>e.productItemName.toLowerCase().includes(this.searchItem.toLowerCase())))
+     })
+
+    //this.dataSource = new MatTableDataSource (this.ProductItems.filter(e=>e.productItemName.toLowerCase().includes(this.searchItem.toLowerCase())))
   }
 
   getCollection() {

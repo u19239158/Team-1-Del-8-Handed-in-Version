@@ -5,7 +5,7 @@ import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@ang
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { PlaceSupplierOrderService } from 'src/app/services/place-supplier-order/place-supplier-order.service';
-import { PlaceSupplierOrder } from 'src/app/interfaces';
+import { PlaceSupplierOrder, Supplier } from 'src/app/interfaces';
 
 @Component({
   selector: 'app-place-supplier-order',
@@ -17,6 +17,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
   submitted = false;
   isHidden: boolean = true;
   collection = [];
+  supplier = [];
   selected: string;
   placeSupplierOrders: PlaceSupplierOrder[] = [];
   placeSupplierOrder: Observable<PlaceSupplierOrder[]>;
@@ -37,8 +38,8 @@ export class PlaceSupplierOrderComponent implements OnInit {
   getSupplier() {
     this.http
       .get<any>('https://localhost:44393/api/Supplier/GetSupplier').subscribe((res: any) => {
-        this.collection = res;
-        //console.log = res;
+        this.supplier = res;
+        console.log  (res);
       }, error => {
         console.log({ error });
       })
