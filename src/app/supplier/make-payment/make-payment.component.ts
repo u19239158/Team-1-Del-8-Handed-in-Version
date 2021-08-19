@@ -13,16 +13,19 @@ export class MakePaymentComponent implements OnInit {
   isAddMode: boolean;
   loading = false;
   submitted = false;
-
+ 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     ) { }
 
   ngOnInit(): void {
+    this.id = +this.route.snapshot.params['id'];
   }
   onSubmit(){
-
+    if (this.form.invalid) {
+      return;
+    }
   }
 
   Close(){
