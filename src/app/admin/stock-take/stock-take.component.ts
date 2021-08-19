@@ -22,6 +22,7 @@ export class StockTakeComponent implements OnInit {
   StockTake: Observable<StockTake[]>;
   dataSource = new MatTableDataSource<StockTake>();
   displayedColumns: string[] = ['productItem', 'quantity', 'reason'];
+  StockTakeService: any;
 
   constructor(
     stockTakeService: StockTakeService,
@@ -43,6 +44,12 @@ export class StockTakeComponent implements OnInit {
       })
   }
 
+  getProductByCatType(): void {
+    this.StockTakeService.getProductByCatType().subscribe(res => {
+      console.log(res)
+      this.dataSource = new MatTableDataSource(res)
+    })
+  }
   showProducts(){
     this.isHidden = false;
   }

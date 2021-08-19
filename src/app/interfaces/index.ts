@@ -1,4 +1,5 @@
 import { CurrencyPipe } from "@angular/common";
+//import * as internal from "node:stream";
 
 export interface Employee {
   employeeId: any;
@@ -10,8 +11,9 @@ export interface Employee {
   employeeAddressLine1: string;
   employeeAddressLine2: string;
   id: number;
-  employeeUsername: string;
-  employeePassword: string;
+  userUsername: string;
+  userPassword: string;
+  employeeConfirmPassword: string;
 }
 
 export interface Supplier {
@@ -100,11 +102,12 @@ export interface Customer {
   customerUserName: string;
   customerName: string;
   customerSurname: string;
-  customerContactNumber: number;
-  customerEmail: string;
-  customerVat: number;
+  customerCellphoneNumber: number;
+  customerEmailAddress: string;
+  customerVATReg: number;
   customerBusinessName: string;
   customerPassword: string;
+  titleId: number;
 }
 
 export interface ReceiveSupplierOrder {
@@ -134,9 +137,10 @@ export interface WriteOffStock {
   writtenOffStockId: number;
   writtenOffStockDate: string;
   categoryType: string;
-  productItem: string;
-  writeOffQuantityOnHand: number;
+  productItemId: number;
+  writeOffQuantity: number;
   writeOffReason: string;
+  productItemWrittenOffStockId: number;
 }
 
 export interface AssignUnscheduledDelivery {
