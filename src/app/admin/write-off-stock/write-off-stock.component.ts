@@ -1,5 +1,3 @@
-//import { Productitem } from './../../interfaces/index';
-//import { WriteOffStockService } from './../../services/admin/write-off-stock/write-off-stock.service';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Productitem, WriteOffStock,Categorytype } from 'src/app/interfaces';
@@ -31,8 +29,8 @@ searchItem: string;
   writeOffStock: Observable<WriteOffStock[]>;
   productitems: Productitem[] = [];
   productitem: Observable<Productitem[]>;
-  dataSource = new MatTableDataSource<string>();
-  displayedColumns: string[] = ['productItem', 'quantity', 'reason'];
+  dataSource = new MatTableDataSource<Productitem>();
+  displayedColumns: string[] = ['productItem', 'quantity', 'actions'];
   productItemService: any;
 
   form = this.FB.group({
@@ -105,8 +103,8 @@ onClick(){
   showProducts(){
     this.isHidden = false;
     this.writeOffStockService.getProductByCatType(this.form.value.categoryTypeId).subscribe(res => {
-      console.log(res.map(x => x.productItemName))
-     this.dataSource = new MatTableDataSource(res.map(x => x.productItemName))
+      console.log(res)
+     this.dataSource = new MatTableDataSource(res)
     })
    ;
 

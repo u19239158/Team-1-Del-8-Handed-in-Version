@@ -46,22 +46,17 @@
         </ng-container>
 
         <!-- Price -->
-        <ng-container matColumnDef="reason">
+        <!-- <ng-container matColumnDef="reason">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason </th>
           <td mat-cell >
           <input type="text">
           </td>
-      </ng-container>
+      </ng-container> -->
 
         <!-- Quantity -->
         <ng-container matColumnDef="quantity">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
-            <td mat-cell>
-              <mat-form-field appearance="outline" class="control-m-s">
-                <mat-label>Quantity</mat-label>
-                <input type="number" matInput placeholder="Quantity" formControlName="quantity">
-            </mat-form-field>
-            </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity On Hand </th>
+            <td mat-cell *matCellDef="let element"> {{element.quantityOnHand}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
