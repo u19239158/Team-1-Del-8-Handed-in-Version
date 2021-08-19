@@ -1,13 +1,14 @@
-import { ReceiveSupplierOrder } from './../../interfaces/index';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
+import { OnlineSales } from 'src/app/interfaces';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ReceiveSupplierService {
+
+export class OnlineSalesService {
   server = "https://localhost:44393/api/";
 
   httpOptions = {
@@ -16,10 +17,9 @@ export class ReceiveSupplierService {
     })
 };
 
-  constructor(private http: HttpClient) { }
+constructor(private http: HttpClient) { }
 
-  ReceiveSupplierOrder():  Observable<ReceiveSupplierOrder[]>  {
-    return this.http.get<ReceiveSupplierOrder[]>(`${this.server}ReceiveSupplierOrder/ReceiveSupplierOrder`).pipe(map(res => res));
-  }
-
+GetOnlineSales():  Observable<OnlineSales[]>  {
+  return this.http.get<OnlineSales[]>(`${this.server}OnlineSales/GetOnlineSales`).pipe(map(res => res));
+}
 }

@@ -22,7 +22,7 @@ searchValue: string;
   specials: Special[] = [];
   special: Observable<Special[]>;
   dataSource = new MatTableDataSource<Special>();
-  displayedColumns: string[] = ['image', 'description',  'startDate','endDate', 'actions'];
+  displayedColumns: string[] = ['description',  'startDate','endDate', 'actions'];
 
   constructor(
     private specialService: SpecialService,

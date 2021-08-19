@@ -28,9 +28,9 @@ export class PlaceSupplierOrderComponent implements OnInit {
 
   placeSupplierOrders: PlaceSupplierOrder[] = [];
   placeSupplierOrder: Observable<PlaceSupplierOrder[]>;
-  dataSource = new MatTableDataSource<PlaceSupplierOrder>();
+  //dataSource = new MatTableDataSource<PlaceSupplierOrder>();
   displayedColumns: string[] = ['productItem', 'quantity'];
-  form: any;
+ 
 
   constructor(
     private productitemService: ProductitemService,
@@ -79,9 +79,9 @@ export class PlaceSupplierOrderComponent implements OnInit {
 
   onSubmit() {
 
-    if (this.form.invalid) {
-      return;
-    }
+    // if (this.form.invalid) {
+    //   return;
+    // }
   }
 
   showProducts(){

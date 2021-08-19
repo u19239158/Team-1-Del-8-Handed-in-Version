@@ -56,6 +56,9 @@ import { AssignLocalDeliveryComponent } from './admin/assign-local-delivery/assi
 import { PageComponent } from './admin/write-off-stock/page/page.component';
 import { StockTakePageComponent } from './admin/stock-take/stock-take-page/stock-take-page.component';
 import { ReceiveOrderComponent } from './supplier/receive-supplier-order/receive-order/receive-order.component';
+import { SearchOnlineSalesComponent } from './admin/search-online-sales/search-online-sales.component';
+import { OnlineSalesComponent } from './admin/online-sales/online-sales.component';
+import { PackOrderComponent } from './admin/pack-order/pack-order.component';
 
 
 @NgModule({
@@ -98,6 +101,9 @@ import { ReceiveOrderComponent } from './supplier/receive-supplier-order/receive
     PageComponent,
     StockTakePageComponent,
     ReceiveOrderComponent,
+    SearchOnlineSalesComponent,
+    OnlineSalesComponent,
+    PackOrderComponent,
     // ReportsComponent,
   ],
   imports: [

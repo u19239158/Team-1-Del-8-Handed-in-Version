@@ -16,12 +16,14 @@
 </div>
 
 <div class="mat-row">
+  <div class="mat-col-quarter">
   <div class="form-group" class="control-m">
     <button mat-raised-button color  ="primary" type = "submit"(click) ="showProducts()" [disabled]="loading" >
         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
         Show Products
     </button>
     </div>
+  </div>
 </div>
 </form>
  
@@ -48,7 +50,6 @@
          <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef>
               <button mat-icon-button color="primary" aria-label="Example icon button with a home icon"
-              routerLink = "/addCustomer"
               >
                   <mat-icon>add</mat-icon>
                 </button>

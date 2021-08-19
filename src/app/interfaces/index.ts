@@ -48,7 +48,7 @@ export class UserRole {
 
 export interface Special {
   specialID: number;
-  specialImage: string;
+  //specialImage: string;
   specialDescription: string;
   specialPrice: string;
   specialStartDate: string;
@@ -180,5 +180,10 @@ addressLine2: string;
 addressLine3: string;
 startDate: string;
 endDate: string;
+}
 
+export interface OnlineSales {
+  saleNumber: number;
+  saleDate: string;
+  orderStatus: string;
 }

@@ -37,8 +37,6 @@ export class PageComponent implements OnInit {
     }, formOptions);
   }
 
-  
-
   onSubmit() {
 
     if (this.form.invalid) {

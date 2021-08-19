@@ -34,7 +34,7 @@ export class AddEditSpecialComponent implements OnInit {
 
     const formOptions: AbstractControlOptions = { };
     this.form = this.formBuilder.group({
-      specialImage: ['', [Validators.required]],
+      //specialImage: ['', [Validators.required]],
       specialDescription: ['', [Validators.required]],
       specialPrice: ['', [Validators.required]],
       specialStartDate: ['', [Validators.required]],
@@ -47,7 +47,7 @@ export class AddEditSpecialComponent implements OnInit {
         console.log(res)
         this.form = this.formBuilder.group({
           id: [this.special.specialID, Validators.required],
-          specialImage: [this.special.specialImage, [Validators.required]],
+          //specialImage: [this.special.specialImage, [Validators.required]],
           specialDescription: [this.special.specialDescription, [Validators.required]],
           specialPrice: [this.special.specialPrice, [Validators.required]],
           specialStartDate: [this.special.specialStartDate, [Validators.required]],

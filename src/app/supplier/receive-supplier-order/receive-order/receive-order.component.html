@@ -1,1 +1,62 @@
-<p>receive-order works!</p>
+<div class="content">
+
+  <h2> Supplier Order Details</h2>
+  
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <!-- Invoice Number -->
+  <div class="mat-row">
+    <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+            <mat-label>Invoice Number</mat-label>
+            <input type="number" matInput placeholder="Invoice Number" formControlName="invoiceNumber">
+        </mat-form-field>
+    </div>
+  </div>
+  
+  <!-- Invoice Date Date -->
+  <div class="mat-row">
+  <div class="mat-col-quarter">
+    <mat-form-field class="control-m">
+      <input matInput [matDatepicker]="picker" placeholder="Invoice Date" formControlName="invoiceDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+</div>
+
+<!-- Invoice Total -->
+  <div class="mat-row">
+    <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+            <mat-label>Invoice Total</mat-label>
+            <input type="text" matInput placeholder="Invoice Total" formControlName="invoiceTotal">
+        </mat-form-field>
+    </div>
+  </div>
+
+   <!-- Order Date Receive -->
+   <div class="mat-row">
+    <div class="mat-col-quarter">
+      <mat-form-field class="control-m">
+        <input matInput [matDatepicker]="picker1" placeholder="Order Date Received" formControlName="orderDateReceived">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  
+  <div class="mat-row">
+    <div class="mat-col-quarter">
+    <div class="form-group" class="control-m">
+      <button mat-raised-button color ="primary" [disabled]="loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Save
+      </button>
+      <a (click)="Close()" mat-button>Cancel</a>
+    </div>
+  </div>
+  </div>
+  
+  </form>
+  </div>
+  
