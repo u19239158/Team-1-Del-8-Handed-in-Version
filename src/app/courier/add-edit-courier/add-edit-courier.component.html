@@ -1,7 +1,7 @@
 <div class="content">
 
-<h1 *ngIf="isAddMode">Add Courier</h1>
-<h1 *ngIf="!isAddMode">Edit Courier</h1>
+<h2 *ngIf="isAddMode">Add Courier</h2>
+<h2 *ngIf="!isAddMode">Edit Courier</h2>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="mat-row">
@@ -43,6 +43,7 @@
     </div>
 
     <div class="mat-row">
+      <div class="mat-col-quarter">
       <div class="form-group" class="control-m">
         <button mat-raised-button color ="primary" [disabled]="loading">
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
@@ -50,6 +51,7 @@
         </button>
         <a (click)="Close()" mat-button>Cancel</a>
       </div>
+    </div>
     </div>
 
 </form>

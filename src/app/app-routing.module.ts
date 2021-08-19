@@ -43,6 +43,7 @@ import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-
 
 import { StockTakeComponent } from './admin/stock-take/stock-take.component';
 import { WriteOffStockComponent } from './admin/write-off-stock/write-off-stock.component';
+import { PageComponent } from './admin/write-off-stock/page/page.component';
 
 const routes: Routes = [
   {
@@ -203,6 +204,10 @@ const routes: Routes = [
   {
     path: 'assignlocaldelivery',
     component: AssignLocalDeliveryComponent,
+  },
+  {
+    path: 'writeOff',
+    component: PageComponent,
   },
 ];
 

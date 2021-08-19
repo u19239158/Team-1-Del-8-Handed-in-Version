@@ -4,9 +4,11 @@ import { MatDialog}from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ProductitemService } from 'src/app/services/productitem/productitem.service';
 import { PlaceSupplierOrderService } from 'src/app/services/place-supplier-order/place-supplier-order.service';
-import { PlaceSupplierOrder } from 'src/app/interfaces';
+import { PlaceSupplierOrder, Productitem } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
+import { FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-place-supplier-order',
@@ -14,12 +16,15 @@ import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/gl
   styleUrls: ['./place-supplier-order.component.scss']
 })
 export class PlaceSupplierOrderComponent implements OnInit {
+  form: FormGroup;
   loading = false;
   submitted = false;
   isHidden: boolean = true;
   collection = [];
   supplier = [];
   selected: string;
+  productitems: Productitem[] = [];
+  dataSource = new MatTableDataSource<Productitem>();
 
   placeSupplierOrders: PlaceSupplierOrder[] = [];
   placeSupplierOrder: Observable<PlaceSupplierOrder[]>;
@@ -28,6 +33,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
   form: any;
 
   constructor(
+    private productitemService: ProductitemService,
     private placeSupplierOrderService: PlaceSupplierOrderService,
     private http: HttpClient,
     private dialog: MatDialog,
@@ -36,7 +42,19 @@ export class PlaceSupplierOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCollection();
-    this.getSupplier()
+    this.getSupplier();
+    this.readProductitems();
+
+    this.productitemService.GetProductItem().subscribe((result:Productitem[]) => {
+      this.productitems = result;
+    });
+  }
+
+  readProductitems(): void {
+    this.productitemService.GetProductItem().subscribe(res => {
+      console.log(res)
+      this.dataSource = new MatTableDataSource(res)
+    })
   }
 
   getSupplier() {
@@ -57,6 +75,13 @@ export class PlaceSupplierOrderComponent implements OnInit {
       }, error => {
         console.log({ error });
       })
+  }
+
+  onSubmit() {
+
+    if (this.form.invalid) {
+      return;
+    }
   }
 
   showProducts(){
