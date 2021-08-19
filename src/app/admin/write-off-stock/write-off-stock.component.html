@@ -58,7 +58,7 @@
                   <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item [routerLink]="['/editCustomer', element]" >Write Off</button>
+              <button mat-menu-item [routerLink]="['/writeOff', element.productItemId]" >Write Off</button>
               </mat-menu>
           </td>
       </ng-container>

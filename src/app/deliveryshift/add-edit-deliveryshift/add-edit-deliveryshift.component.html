@@ -9,7 +9,7 @@
         <div class="mat-col-quarter">
             <mat-form-field appearance="outline" class="control-m">
                 <mat-label>Start Time</mat-label>
-                <mat-select formControlName="startTime">
+                <mat-select [(value)]="selected" formControlName="startTime">
                   <mat-option *ngFor="let ds of collection" [value]="ds.timeId">{{ds.startTime}}</mat-option>        
                 </mat-select>
               </mat-form-field>
@@ -20,7 +20,7 @@
         <div class="mat-col-quarter">
             <mat-form-field appearance="outline" class="control-m">
                 <mat-label>End Time</mat-label>
-                <mat-select formControlName="endTime">
+                <mat-select [(value)]="selectend" formControlName="endTime">
                   <mat-option *ngFor="let ds of collection" [value]="ds.timeId">{{ds.endTime}}</mat-option>
                 </mat-select>
               </mat-form-field>
@@ -29,8 +29,8 @@
 
 <div class="mat-row">
         <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-m">
-              <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+            <mat-form-field appearance="outline" class="control-m">  
+              <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="dateId">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
@@ -41,8 +41,8 @@
   <div class="mat-col-quarter">
   <mat-form-field appearance="outline" class="control-m">
     <mat-label>Employee</mat-label>
-      <mat-select formControlName="employeeId">
-        <mat-option *ngFor="let Employee of collection" [value]="Employee.employeeId">{{Employee.employeeName}}</mat-option>
+      <mat-select [(value)]="selectemp" formControlName="employeeId">
+        <mat-option *ngFor="let Employee of employees" [value]="Employee.employeeId">{{Employee.employeeName}}</mat-option>
     </mat-select>
   </mat-form-field>
   </div>
