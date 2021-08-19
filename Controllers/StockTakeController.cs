@@ -59,7 +59,7 @@ namespace NKAP_API_2.Controllers
             StockTake stock = new StockTake
             {
                 //StockTakeId = model.StockTakeID,
-                StockTakeDate = model.StockTakeDate  // assigning the date the stocktake happened to the correct table
+                StockTakeDate = System.DateTime.Now  // assigning the date the stocktake happened to the correct table
             };
             _db.StockTakes.Add(stock);
             _db.SaveChanges();

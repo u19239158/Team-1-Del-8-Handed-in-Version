@@ -47,7 +47,7 @@ namespace NKAP_API_2.Controllers
             WrittenOffStock writtenoffstock = new WrittenOffStock
             {
                 //WrittenOffStockId = model.WrittenOffStockId,
-                WrittenOffStockDate = model.WrittenOffStock_Date  // assigning the date the writeoff happened to the correct table
+                WrittenOffStockDate = System.DateTime.Now // assigning the date the writeoff happened to the correct table
             };
             _db.WrittenOffStocks.Add(writtenoffstock);
             _db.SaveChanges();

@@ -97,7 +97,8 @@ namespace NKAP_API_2.Controllers
                     ShiftId = a.ShiftId,
                     EmployeeId = t.EmployeeId,
                     DateId = a.DateId,
-                    TimeId = a.TimeId
+                    TimeId = a.TimeId,
+                    EmployeeShiftId = t.EmployeeShiftId
 
                 }).Join(_db.Dates,
                  sor => sor.DateId,
@@ -108,7 +109,8 @@ namespace NKAP_API_2.Controllers
                      EmployeeID = sor.EmployeeId,
                      TimeId = sor.TimeId,
                      ShiftId = sor.ShiftId,
-                     DayOfTheWeek = sd.DayOfTheWeek.ToString("dd/MM/yyyy")
+                     DayOfTheWeek = sd.DayOfTheWeek.ToString("dd/MM/yyyy"),
+                     EmployeeShiftId = sor.EmployeeShiftId
 
 
                  }).Join(_db.Times,
@@ -122,7 +124,8 @@ namespace NKAP_API_2.Controllers
                      ShiftId = sor.ShiftId,
                      DayOfTheWeek = sor.DayOfTheWeek,
                      StartTime = sd.StartTime,
-                     EndTime = sd.EndTime
+                     EndTime = sd.EndTime,
+                     EmployeeShiftId = sor.EmployeeShiftId
 
 
                  }).Join(_db.Employees,
@@ -138,7 +141,8 @@ namespace NKAP_API_2.Controllers
                      DateId = sor.DateId,
                      DayOfTheWeek = sor.DayOfTheWeek,
                      StartTime = sor.StartTime,
-                     EndTime = sor.EndTime
+                     EndTime = sor.EndTime,
+                     EmployeeShiftId = sor.EmployeeShiftId
                  });
 
             return Ok(DeliveryShift);
@@ -194,9 +198,11 @@ namespace NKAP_API_2.Controllers
         {
             Date shiftDate = new Date();
             Time shiftTime = new Time();
+            var shift = _db.EmployeeShifts.Find(model.EmployeeShiftID);
             shiftDate.DayOfTheWeek = model.DayOfTheWeek;
             shiftTime.StartTime = model.StartTime;
             shiftTime.EndTime = model.EndTime;
+            shift.EmployeeId = model.EmployeeID;
             _db.Dates.Add(shiftDate);
             _db.SaveChanges();
 
