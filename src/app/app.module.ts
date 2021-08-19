@@ -47,13 +47,15 @@ import { AssigndeliveryshiftComponent } from './deliveryshift/assigndeliveryshif
 import { PlaceSupplierOrderComponent } from './supplier/place-supplier-order/place-supplier-order.component';
 import { ReceiveSupplierOrderComponent } from './supplier/receive-supplier-order/receive-supplier-order.component';
 import { MakePaymentComponent } from './supplier/make-payment/make-payment.component';
-import { AddItemsComponent } from './supplier/add-items/add-items.component';
+import { AddItemsComponent } from './supplier/receive-supplier-order/add-items/add-items.component';
 import { WriteOffStockComponent } from './admin/write-off-stock/write-off-stock.component';
 import { StockTakeComponent } from './admin/stock-take/stock-take.component';
 import { AssignDeliveryOrderComponent } from './admin/assign-delivery-order/assign-delivery-order.component';
 import { AssignCourierDeliveryComponent } from './admin/assign-courier-delivery/assign-courier-delivery.component';
 import { AssignLocalDeliveryComponent } from './admin/assign-local-delivery/assign-local-delivery.component';
 import { PageComponent } from './admin/write-off-stock/page/page.component';
+import { StockTakePageComponent } from './admin/stock-take/stock-take-page/stock-take-page.component';
+import { ReceiveOrderComponent } from './supplier/receive-supplier-order/receive-order/receive-order.component';
 
 
 @NgModule({
@@ -94,6 +96,8 @@ import { PageComponent } from './admin/write-off-stock/page/page.component';
     AssignCourierDeliveryComponent,
     AssignLocalDeliveryComponent,
     PageComponent,
+    StockTakePageComponent,
+    ReceiveOrderComponent,
     // ReportsComponent,
   ],
   imports: [

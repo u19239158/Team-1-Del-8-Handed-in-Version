@@ -6,7 +6,7 @@ import { SuppliersComponent } from './supplier/suppliers/suppliers.component';
 import { ReceiveSupplierOrderComponent } from './supplier/receive-supplier-order/receive-supplier-order.component';
 import { PlaceSupplierOrderComponent } from './supplier/place-supplier-order/place-supplier-order.component';
 import { MakePaymentComponent } from './supplier/make-payment/make-payment.component';
-import { AddItemsComponent } from './supplier/add-items/add-items.component';
+import { AddItemsComponent } from './supplier/receive-supplier-order/add-items/add-items.component';
 
 import { AddEditEmployeesComponent } from './employee/add-edit-employees/add-edit-employees.component';
 import { EmployeesComponent } from './employee/employees/employees.component';
@@ -44,6 +44,7 @@ import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-
 import { StockTakeComponent } from './admin/stock-take/stock-take.component';
 import { WriteOffStockComponent } from './admin/write-off-stock/write-off-stock.component';
 import { PageComponent } from './admin/write-off-stock/page/page.component';
+import { StockTakePageComponent } from './admin/stock-take/stock-take-page/stock-take-page.component';
 
 const routes: Routes = [
   {
@@ -83,7 +84,7 @@ const routes: Routes = [
     component: ReceiveSupplierOrderComponent
   },
   {
-    path: 'makePayment',
+    path: 'makePayment/:id',
     component: MakePaymentComponent
   },
   {
@@ -208,6 +209,10 @@ const routes: Routes = [
   {
     path: 'writeOff',
     component: PageComponent,
+  },
+  {
+    path: 'stockTakePage',
+    component: StockTakePageComponent,
   },
 ];
 
