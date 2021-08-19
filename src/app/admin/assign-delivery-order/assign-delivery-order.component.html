@@ -1,2 +1,47 @@
 <h1>Unscheduled Deliveries</h1>
 
+<div class="mat-elevation-z8 table">
+    <table mat-table matSort>
+        <!-- [dataSource]="dataSource"  -->
+        <!-- SaleID -->
+        <ng-container matColumnDef="saleId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Sale ID </th>
+        <td mat-cell *matCellDef="let element">{{element.saleId}}</td>
+        </ng-container>
+
+        <!-- Product Customer Name Column -->
+        <ng-container matColumnDef="customerName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.customerName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="deliverydistance">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Distance </th>
+            <td mat-cell *matCellDef="let element"> {{element.deliveryDistance}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="orderAddress">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+            <td mat-cell *matCellDef="let element"> {{element.orderAddress}} </td>
+        </ng-container>
+
+        <!-- Delivery/Courier Column -->
+        <ng-container matColumnDef="deliverycourier">
+            <th mat-header-cell *matHeaderCellDef>
+                <button mat-icon-button color="primary" aria-label="Example icon button with a home icon"
+                routerLink = "assigncourierdelivery"
+                >
+                    <mat-icon>add</mat-icon>
+                  </button>
+            </th> 
+             <td mat-cell *matCellDef="let element">                          
+                <button mat-menu-item [routerLink]="['/assignlocaldelivery', element.id]" >Delivery</button>
+                <button mat-menu-item [routerLink]="['/assigncourierdelivery', element.id]" >Courier</button>
+                
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
