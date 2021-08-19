@@ -27,6 +27,11 @@ export class ProductitemService {
     return this.http.get<Productitem>(`${this.server}Productitem/GetPItemsByID/${ProductItemid}`).pipe(map(res => res));
   }
 
+  getProductByCatType(categoryTypeName):  Observable<Productitem>  {
+    return this.http.get<Productitem>(`${this.server}ProductItem/GetPItemsByCatType/${categoryTypeName}`).pipe(map(res => res));
+  }
+
+
   CreateProductItem(Productitem:Productitem):  Observable<Productitem[]>  {
     return this.http.post<Productitem[]>(`${this.server}Productitem/CreateProductItem`, Productitem,this.httpOptions);
   }

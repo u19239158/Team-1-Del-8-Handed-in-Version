@@ -24,7 +24,7 @@ searchValue: string;
 Customer: Customer;
 customers: Observable<Customer[]>;
 dataSource = new MatTableDataSource<Customer>();
-displayedColumns: string[] = ['name', 'contactNumber', 'email', 'businessName', 'vat', 'actions'];
+displayedColumns: string[] = ['name', 'customerCellphoneNumber', 'email', 'businessName', 'vat', 'actions'];
 
 constructor(private customerService: CustomerService,
   private snack: MatSnackBar,

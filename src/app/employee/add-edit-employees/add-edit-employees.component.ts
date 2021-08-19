@@ -39,7 +39,7 @@ export class AddEditEmployeesComponent implements OnInit {
       passwordValidators.push(Validators.required);
   }
 
-    const formOptions: AbstractControlOptions = { validators: MustMatch('customerPassword', 'customerConfirmPassword')};
+    const formOptions: AbstractControlOptions = { validators: MustMatch('userPassword', 'employeeConfirmPassword')};
     this.form = this.formBuilder.group({
         //title: ['', Validators.required],
         employeeName: ['', [Validators.required]],
@@ -49,8 +49,8 @@ export class AddEditEmployeesComponent implements OnInit {
         employeeDob: ['', [Validators.required]],
         employeeAddressLine1: ['', [Validators.required]],
         employeeAddressLine2: ['', [Validators.required]],
-        employeeUsername: ['', [Validators.required]],
-        employeePassword:['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
+        userUsername: ['', [Validators.required]],
+        userPassword:['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
         employeeConfirmPassword: ['', this.isAddMode ? Validators.required : Validators.nullValidator]
     }, formOptions);
 
@@ -68,8 +68,8 @@ export class AddEditEmployeesComponent implements OnInit {
           employeeDob: [this.employee.employeeDob, [Validators.required]],
           employeeAddressLine1: [this.employee.employeeAddressLine1, [Validators.required]],
           employeeAddressLine2: [this.employee.employeeAddressLine2, [Validators.required]],
-          employeeUsername: [this.employee.employeeUsername, [Validators.required]],
-          employeePassword: ['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
+          userUsername: [this.employee.userUsername, [Validators.required]],
+          userPassword: ['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
           employeeConfirmPassword: ['', this.isAddMode ? Validators.required : Validators.nullValidator]
       }, formOptions);
       })
