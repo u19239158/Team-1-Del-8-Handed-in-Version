@@ -54,6 +54,7 @@ import { AssignDeliveryOrderComponent } from './admin/assign-delivery-order/assi
 import { AssignCourierDeliveryComponent } from './admin/assign-courier-delivery/assign-courier-delivery.component';
 import { AssignLocalDeliveryComponent } from './admin/assign-local-delivery/assign-local-delivery.component';
 import { PageComponent } from './admin/write-off-stock/page/page.component';
+import { PackingReportComponent } from './Reports/packing-report/packing-report.component';
 
 
 @NgModule({
@@ -94,6 +95,7 @@ import { PageComponent } from './admin/write-off-stock/page/page.component';
     AssignCourierDeliveryComponent,
     AssignLocalDeliveryComponent,
     PageComponent,
+    PackingReportComponent,
     // ReportsComponent,
   ],
   imports: [
