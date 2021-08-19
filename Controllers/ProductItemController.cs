@@ -107,10 +107,10 @@ namespace NKAP_API_2.Controllers
             }
         }
 
-        [Route("GetPItemsByCatType/{CategoryTypeName}")] //route
+        [Route("GetPItemsByCatType/{categoryTypeId}")] //route
         [HttpGet]
         //get Product Items by name (Read)
-        public IActionResult Get(string CategoryTypeName)
+        public IActionResult Get(int categoryTypeId)
         {
             //var productItem = _db.ProductItems.FirstOrDefault(pn => pn.ProductItemName == ProductItemname);
             {
@@ -130,11 +130,12 @@ namespace NKAP_API_2.Controllers
 
 
 
-                    }).Where(pp => pp.CategoryTypeName == CategoryTypeName);
+                    }).Where(pp => pp.CategoryTypeId == categoryTypeId);
 
                 return Ok(productItems);
             }
         }
+
 
         [Route("CreateProductItem")] //route
         [HttpPost]
