@@ -1,11 +1,12 @@
 import { StockTakeService } from './../../services/admin/stock-take/stock-take.service';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { StockTake } from 'src/app/interfaces';
+import { StockTake , Productitem} from 'src/app/interfaces';
 import { Observable } from 'rxjs';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ProductitemService } from 'src/app/services/productitem/productitem.service';
 
 @Component({
   selector: 'app-stock-take',
@@ -20,18 +21,36 @@ export class StockTakeComponent implements OnInit {
   selected: string;
   stockTakes: StockTake[] = [];
   StockTake: Observable<StockTake[]>;
-  dataSource = new MatTableDataSource<StockTake>();
-  displayedColumns: string[] = ['productItem', 'quantity', 'reason'];
-  StockTakeService: any;
+  productitems: Productitem[] = [];
+  productitem: Observable<Productitem[]>;
+  dataSource = new MatTableDataSource<Productitem>();
+  displayedColumns: string[] = ['productItem', 'quantity', 'actions'];
+ // StockTakeService: any;
+
+  form = this.FB.group({
+    writtenOffStockDate: ['',Validators.required],
+    categoryTypeId: ['',Validators.required]
+  }) 
+  Tableform;
 
   constructor(
-    stockTakeService: StockTakeService,
+    productItemService: ProductitemService,
+    private stockTakeService: StockTakeService,
     private http: HttpClient,
     private router: Router,
+    private FB:FormBuilder,
   ) { }
 
   ngOnInit(): void {
     this.getCollection();
+
+    const formOptions: AbstractControlOptions = { };
+    this.Tableform = this.FB.group({
+      categoryTypeDescription: ['', [Validators.required]],
+      stockTakeDate: ['', [Validators.required]],
+      stockTakeQuantity: ['', [Validators.required]],
+      
+      }, formOptions);
   }
 
   getCollection() {
@@ -44,13 +63,35 @@ export class StockTakeComponent implements OnInit {
       })
   }
 
-  getProductByCatType(): void {
-    this.StockTakeService.getProductByCatType().subscribe(res => {
-      console.log(res)
-      this.dataSource = new MatTableDataSource(res)
-    })
+  getProductByCatType(id) {
+   
   }
-  showProducts(){
-    this.isHidden = false;
+
+
+  // getProductByCatType(): void {
+  //   this.StockTakeService.getProductByCatType().subscribe(res => {
+  //     console.log(res)
+  //     this.dataSource = new MatTableDataSource(res)
+  //   })
+  // }
+  // showProducts(){
+  //   this.isHidden = false;
+  //}
+
+  onClick(){
+
   }
+  
+    showProducts(){
+      this.isHidden = false;
+      this.stockTakeService.getProductByCatType(this.form.value.categoryTypeId).subscribe(res => {
+        console.log(res)
+       this.dataSource = new MatTableDataSource(res)
+      })
+     ;
+  
+      // this.productItemService.getProductByCatType(this.ProductItems).subscribe((result => {
+        
+      // }));
+    }
 }

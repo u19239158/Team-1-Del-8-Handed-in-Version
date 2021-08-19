@@ -207,7 +207,7 @@ const routes: Routes = [
     component: AssignLocalDeliveryComponent,
   },
   {
-    path: 'writeOff',
+    path: 'writeOff/:id',
     component: PageComponent,
   },
   {

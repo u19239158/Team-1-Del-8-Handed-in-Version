@@ -28,9 +28,9 @@ export class PlaceSupplierOrderComponent implements OnInit {
 
   placeSupplierOrders: PlaceSupplierOrder[] = [];
   placeSupplierOrder: Observable<PlaceSupplierOrder[]>;
-  //dataSource = new MatTableDataSource<PlaceSupplierOrder>();
-  displayedColumns: string[] = ['productItem', 'quantity', 'reason'];
-  formBuilder: any;
+  dataSource = new MatTableDataSource<PlaceSupplierOrder>();
+  displayedColumns: string[] = ['productItem', 'quantity'];
+  form: any;
 
   constructor(
     private productitemService: ProductitemService,

@@ -1,4 +1,6 @@
+import { ReportServiceService } from './../services/Reports/report-service.service';
 import { CurrencyPipe } from "@angular/common";
+import { Identifiers } from "@angular/compiler";
 //import * as internal from "node:stream";
 
 export interface Employee {
@@ -69,6 +71,14 @@ export interface Deliveryshift {
   dayOfTheWeek: string;
   employeeName: string;
   employeeId: number;
+  saleId:number;
+  customerName: string;
+  deliveryDistance: number;
+  orderAddress: string;
+  shiftId : number;
+  dateId : number;
+  timeId : number;
+  employeeShiftId : number;
 }
 
 export interface Productcategory {
@@ -143,9 +153,32 @@ export interface WriteOffStock {
   productItemWrittenOffStockId: number;
 }
 
-export interface AssignUnscheduledDelivery {
-  saleId:number;
-  customerName: string;
-  deliveryDistance: number;
-  orderAddress: string;
+export interface AssignUnscheduledDelivery { //should be in delivery shift. we don't create interfaces for each individual requirement.
+//   saleId:number;
+//   customerName: string;
+//   deliveryDistance: number;
+//   orderAddress: string;
+ }
+
+export interface Reports {
+saleId: number;
+saleOrderDescription: string;
+saleOrderAssign: boolean;
+saleOrderDate: string;
+saleOrderRecieveType: boolean;
+paymentDate: string;
+orderStatusId: number;
+orderStatusDescription: string;
+customerId: number;
+customerName: string;
+customerSurname: string;
+customerCellphonenUmber: string;
+customerEmailAddress: string;
+addressId: number;
+addressLine1: string;
+addressLine2: string;
+addressLine3: string;
+startDate: string;
+endDate: string;
+
 }
