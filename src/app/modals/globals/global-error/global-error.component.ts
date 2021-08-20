@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-global-error',
@@ -13,11 +13,20 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
  * to create a generic modal that will display error messages.
  */
 export class GlobalErrorComponent implements OnInit {
-
-  message = this.data.error;
-  constructor(@Inject(MAT_DIALOG_DATA) private data: {error: any}) { }
+ /**
+   * 
+   * @param dialogRef {MatDialogRef<GlobalErrorComponent>} this parameter controls the modal component and can call methods to close the modal
+   */
+  constructor(private dialogRef: MatDialogRef<GlobalErrorComponent>) { }
 
   ngOnInit(): void {
   }
+
+      /**
+       * Once ok is clicked the modal will close 
+       */
+      Cancel(): void {
+        this.dialogRef.close(false);
+      }
 
 }

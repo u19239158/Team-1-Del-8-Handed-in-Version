@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Deliveryshift } from 'src/app/interfaces';
 import { Employee } from 'src/app/interfaces';
 import { HttpClient } from '@angular/common/http';
+import { AssigndeliveryshiftService } from 'src/app/services/assigndeliveryshift/assigndeliveryshift.service';
 
 @Component({
   selector: 'app-add-edit-deliveryshift',
@@ -23,6 +24,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     deliveryshift: Deliveryshift;
     deliveryshifts: Observable<Deliveryshift[]>
     collection = [];
+    collections = [];
     selected: string;
 
     constructor(
@@ -44,6 +46,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
         endTime: ['',[Validators.required]],
         dayOfTheWeek: ['', [Validators.required]],
         employeeId: ['', [Validators.required]],
+        employeeName: ['', [Validators.required]],
      }, formOptions);
 
     if (!this.isAddMode) {
@@ -55,6 +58,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
           endTime: [this.deliveryshift.endTime,[Validators.required]],
           dayOfTheWeek: [this.deliveryshift.dayOfTheWeek, [Validators.required]],
           employeeId: [this.deliveryshift.employeeId, [Validators.required]],
+          employeeName: [this.deliveryshift.employeeName, [Validators.required]],
       }, formOptions);
       });
     }
@@ -74,10 +78,24 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     }
   }
 
+  onSubmits() {
+
+    if (this.form.invalid) {
+      return;
+    }
+
+    this.loading = true;
+    if (this.isAddMode) {
+        this.AssignDeliveryShifts();
+    } else {
+        this.updateDeliveryshift();
+    }
+  }
+
   getCollection() {
     this.http
       .get<any>('https://localhost:44393/api/DeliveryShift/GetShiftTime').subscribe((res: any) => {
-        this.collection = res;
+        this.collections = res;
         console.log(res);
       }, error => {
         console.log({ error });
@@ -96,6 +114,15 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
   createDeliveryshift() {
     const deliveryshift: Deliveryshift = this.form.value;
     this.DeliveryShiftService.CreateDeliveryShift(deliveryshift).subscribe(res => {
+      console.log(res)
+      this.loading = false
+      this.router.navigateByUrl('deliveryShift');
+    });
+  }
+
+  AssignDeliveryShifts() {
+    const deliveryshift: Deliveryshift = this.form.value;
+    this.DeliveryShiftService.AssignDeliveryShifts(deliveryshift).subscribe(res => {
       console.log(res)
       this.loading = false
       this.router.navigateByUrl('deliveryShift');

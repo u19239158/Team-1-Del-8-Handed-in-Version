@@ -31,6 +31,10 @@ export class DeliveryshiftService {
     return this.http.post<Deliveryshift[]>(`${this.server}Deliveryshift/AddDate`, Deliveryshift,this.httpOptions);
   }
 
+  AssignDeliveryShifts(Deliveryshift:Deliveryshift):  Observable<Deliveryshift[]>  {
+    return this.http.post<Deliveryshift[]>(`${this.server}Deliveryshift/AssignDeliveryShift`, Deliveryshift,this.httpOptions);
+  }
+
   UpdateDeliveryShift(Deliveryshift:Deliveryshift):  Observable<Deliveryshift[]>  {
     return this.http.put<Deliveryshift[]>(`${this.server}Deliveryshift/UpdateDeliveryShift`, Deliveryshift,this.httpOptions);
   }
@@ -39,6 +43,7 @@ export class DeliveryshiftService {
     return this.http.delete<Deliveryshift>(`${this.server}Deliveryshift/DeleteDeliveryShift/${deliveryShiftId}`).pipe(map(res => res));
   }
 }
+
 //   getAll(): Deliveryshift[] {
 //     const deliveryshifts = JSON.parse(localStorage.getItem(this.KEY));
 

@@ -3,11 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router, ActivatedRoute  } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Deliveryshift } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { DeliveryshiftService } from 'src/app/services/deliveryshift/deliveryshift.service';
-import {  HttpClient  } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+// import { GlobalErrorComponent } from 'src/app/modals/globals/global-error/global-error.component';
 
 @Component({
   selector: 'app-deliveryshifts',
@@ -16,56 +17,76 @@ import {  HttpClient  } from '@angular/common/http';
 })
 export class DeliveryshiftsComponent implements OnInit {
 
-//search code
-DeliveryShifts: Deliveryshift[];
-searchValue: number;
-searchWord: string;
+  //search code
+  DeliveryShifts: Deliveryshift[];
+  searchValue: number;
+  searchWord: string;
 
   deliveryshift: Deliveryshift[] = [];
   // DeliveryShift: Deliveryshift;
   deliveryShift: Observable<Deliveryshift[]>;
   dataSource = new MatTableDataSource<Deliveryshift>();
-  displayedColumns: string[] = ['startTime', 'endTime', 'dayOfTheWeek', 
-  // 'assignee', 
-  'actions'];
+  displayedColumns: string[] = ['startTime', 'endTime', 'dayOfTheWeek', 'employeeName', 'actions'];
 
   constructor(private deliveryshiftService: DeliveryshiftService,
-              private snack: MatSnackBar,
-              private router: Router,
-              private dialog: MatDialog,
-              private httpClient: HttpClient
-              ) {}
+    private snack: MatSnackBar,
+    private router: Router,
+    private dialog: MatDialog,
+    private httpClient: HttpClient
+  ) { }
 
   ngOnInit(): void {
     this.readDeliveryshifts();
 
-    this.deliveryshiftService.GetDeliveryShift().subscribe((result:Deliveryshift[]) => {
+    this.deliveryshiftService.GetDeliveryShift().subscribe((result: Deliveryshift[]) => {
       this.DeliveryShifts = result;
     });
 
   }
 
-   readDeliveryshifts(): void {
-     this.deliveryshiftService.GetDeliveryShift().subscribe(res => {
-       console.log(res)
-       this.dataSource = new MatTableDataSource(res)
-     })
-   }
+  readDeliveryshifts(): void {
+    this.deliveryshiftService.GetDeliveryShift().subscribe(res => {
+      console.log(res)
+      this.dataSource = new MatTableDataSource(res)
+    })
+  }
 
-   filter(){
+  filter() {
     // this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.startTime.includes(this.searchValue)))
     // // this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.endTime.includes(this.searchValue)))
     // this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.dayOfTheWeek.includes(this.searchValue)))
-    this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.employeeName.toLowerCase().includes(this.searchWord.toLowerCase())))
+
+    const filter = (e) => {
+
+      return e.employeeName && e.employeeName.toLowerCase().includes(this.searchWord.toLowerCase()) ||
+        e.startTime && e.startTime.toLowerCase().includes(this.searchWord.toLowerCase()) ||
+        e.dayOfTheWeek && e.dayOfTheWeek.toString().toLowerCase().includes(this.searchWord.toLowerCase())
+    }
+
+    this.dataSource = new MatTableDataSource(this.DeliveryShifts.filter(filter))
   }
+
+  // noSearchResults(Deliveryshift: Deliveryshift) {
+  //   const confirm = this.dialog.open(GlobalErrorComponent, {
+  //       disableClose: true,
+  //   });
+
+  //   confirm.afterClosed().subscribe(res => {
+  //     if(res) {
+  //       this.deliveryshiftService.DeleteDeliveryShift(Deliveryshift).subscribe(res => {
+  //         this.readDeliveryshifts();
+  //       });
+  //     }
+  //   });
+  // }
 
   deleteDeliveryshift(Deliveryshift: Deliveryshift) {
     const confirm = this.dialog.open(GlobalConfirmComponent, {
-        disableClose: true,
+      disableClose: true,
     });
 
     confirm.afterClosed().subscribe(res => {
-      if(res) {
+      if (res) {
         this.deliveryshiftService.DeleteDeliveryShift(Deliveryshift).subscribe(res => {
           this.readDeliveryshifts();
         });
@@ -73,5 +94,5 @@ searchWord: string;
     });
   }
 
-  
+
 }

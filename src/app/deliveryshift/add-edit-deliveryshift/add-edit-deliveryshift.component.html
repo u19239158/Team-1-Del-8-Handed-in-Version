@@ -4,13 +4,13 @@
 
 <!-- max time for a shift is 1 hour (ADD Validation) -->
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmits()">
     <div class="mat-row">
         <div class="mat-col-quarter">
             <mat-form-field appearance="outline" class="control-m">
                 <mat-label>Start Time</mat-label>
                 <mat-select formControlName="startTime">
-                  <mat-option *ngFor="let ds of collection" [value]="ds.timeId">{{ds.startTime}}</mat-option>        
+                  <mat-option *ngFor="let ds of collections" [value]="ds.timeId">{{ds.startTime}}</mat-option>        
                 </mat-select>
               </mat-form-field>
         </div>
@@ -21,7 +21,7 @@
             <mat-form-field appearance="outline" class="control-m">
                 <mat-label>End Time</mat-label>
                 <mat-select formControlName="endTime">
-                  <mat-option *ngFor="let ds of collection" [value]="ds.timeId">{{ds.endTime}}</mat-option>
+                  <mat-option *ngFor="let ds of collections" [value]="ds.timeId">{{ds.endTime}}</mat-option>
                 </mat-select>
               </mat-form-field>
         </div>
@@ -42,7 +42,7 @@
   <mat-form-field appearance="outline" class="control-m">
     <mat-label>Employee</mat-label>
       <mat-select formControlName="employeeId">
-        <mat-option *ngFor="let Employee of collection" [value]="Employee.employeeId">{{Employee.employeeName}}</mat-option>
+        <mat-option *ngFor="let Employees of collection" [value]="Employees.employeeId">{{Employees.employeeName}}</mat-option>
     </mat-select>
   </mat-form-field>
   </div>

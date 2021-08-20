@@ -53,9 +53,9 @@ export class EmployeeService {
 //         dateOfBirth: '5 May',
 //         idNumber: '0101010101',
 //         addressLine1: '3 Far Far',
-//         addressLine2: 'Awaaaay',
-//         addressLine3: 'Kude kabi',
-//         cityTown: 'Weeeeh',
+//         addressLine2: '',
+//         addressLine3: '',
+//         cityTown: '',
 //         postalCode: '4678'
 //       };
 //       this.addEmployee(initialEmployee);
