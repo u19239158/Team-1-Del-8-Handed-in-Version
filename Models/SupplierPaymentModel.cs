@@ -16,6 +16,10 @@ namespace NKAP_API_2.Models
         public decimal SupplierAmount
         { get; set; }
 
+        [JsonProperty("Supplierpaymentdate")]
+        public DateTime SupplierPaymentDate
+        { get; set; }
+
         [JsonProperty("supplierid")]
         public int SupplierId
         { get; set; }

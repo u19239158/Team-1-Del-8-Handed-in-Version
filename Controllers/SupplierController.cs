@@ -99,5 +99,35 @@ namespace NKAP_API_2.Controllers
 
             return Ok(supplier);
         }
+
+        [Route("CaptureSupplierPayment")] //route
+        [HttpPost]
+        //Add Product Item Write-of
+        //Create a Model for table
+        public IActionResult CaptureSupplierPayment(SupplierPaymentModel model) //reference the model
+        {
+            SupplierPayment payment = new SupplierPayment
+            {
+                //attributes in table 
+                SupplierAmount = model.SupplierAmount,
+                SupplierId = model.SupplierId,
+                SupplierPaymentDate = System.DateTime.Now
+                 
+            };
+            _db.SupplierPayments.Add(payment);
+            _db.SaveChanges();
+
+            Supplier Suppayment = _db.Suppliers.Find(model.SupplierId);
+            {
+                //attributes in table 
+                Suppayment.SupplierBalance = Suppayment.SupplierBalance - model.SupplierAmount;
+            };
+            _db.Suppliers.Attach(Suppayment);
+            _db.SaveChanges();
+
+          
+
+            return Ok();
+        }
     }
 }

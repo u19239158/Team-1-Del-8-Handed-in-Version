@@ -10,6 +10,7 @@ namespace NKAP_API_2.EF
         public int SupplierPaymentId { get; set; }
         public int? SupplierId { get; set; }
         public decimal? SupplierAmount { get; set; }
+        public DateTime? SupplierPaymentDate { get; set; }
 
         public virtual Supplier Supplier { get; set; }
     }
