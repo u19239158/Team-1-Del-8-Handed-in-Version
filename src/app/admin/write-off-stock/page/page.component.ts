@@ -1,4 +1,5 @@
 import { Productitem } from './../../../interfaces/index';
+//import { WriteOffStock } from './../../../interfaces/index';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -28,21 +29,22 @@ export class PageComponent implements OnInit {
     private router: Router,
     private route : ActivatedRoute,
     private WriteOffStockService : WriteOffStockService,
-    private FormBuilder : FormBuilder
-
+    private formBuilder : FormBuilder,
   ) { }
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
-    const formOptions: AbstractControlOptions = { };
+
     this.WriteOffStockService.getProductItemByID(this.id).subscribe(res => {
-      this.productitem = res
-      console.log(res)
-    this.form = this.FormBuilder.group({
+    this.productitem = res
+    console.log(res)
+
+    const formOptions: AbstractControlOptions = { };
+    this.form = this.formBuilder.group({
       writeOffReason: ['', [Validators.required, Validators.maxLength(50)]],
-      writeOffQuantity: ['', [Validators.required]],
-     
-    }, formOptions);
+      writeOffQuantity: ['', [Validators.required]], 
+    }
+    , formOptions)
   });
   }
   

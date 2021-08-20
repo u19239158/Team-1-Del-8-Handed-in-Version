@@ -9,6 +9,7 @@
           <input matInput [matDatepicker]="picker" placeholder="Start Date"formControlName="startDate">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
+          <mat-hint>Select start date</mat-hint>
         </mat-form-field>
       </div>
     </div>
@@ -20,6 +21,7 @@
           <input matInput [matDatepicker]="picker1" placeholder="End Date" formControlName="endDate">
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
+          <mat-hint>Select end date</mat-hint>
         </mat-form-field>
       </div>
     </div>
@@ -31,6 +33,7 @@
               <mat-select [(value)]="selected" formControlName="orderStatusId">
                 <mat-option *ngFor="let OrderStatus of collection" [value]="OrderStatus.orderStatusId">{{OrderStatus.orderStatusDescription}}</mat-option>
               </mat-select>
+              <mat-hint>Select order status</mat-hint>
             </mat-form-field>
           </div>
       </div>

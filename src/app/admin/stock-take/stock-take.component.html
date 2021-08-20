@@ -9,6 +9,7 @@
           <mat-select [(value)]="selected" formControlName="categoryTypeId">
             <mat-option *ngFor="let CategoryType of collection" [value]="CategoryType.categoryTypeId">{{CategoryType.categoryTypeDescription}}</mat-option>
           </mat-select>
+          <mat-hint> Select a category type </mat-hint>
         </mat-form-field>
   </div>
 </div>
