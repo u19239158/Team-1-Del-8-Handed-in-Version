@@ -227,13 +227,12 @@ namespace NKAP_API_2.Controllers
         //Create a Model for table
         public IActionResult AssignDeliveryShift(DeliveryShiftModel model) //reference the model
         {
-            Time Times = new Time
+            Time Times = _db.Times.Find(model.TimeID);
             {
-                //attributes in table 
-                StartTime = model.StartTime,
-                EndTime = model.EndTime
+                model.StartTime = Times.StartTime;
+                model.EndTime = Times.EndTime;      
             };
-            _db.Times.Add(Times);
+      
             _db.SaveChanges();
 
             Date Dates = new Date
@@ -241,7 +240,7 @@ namespace NKAP_API_2.Controllers
                 //attributes in table 
                 DayOfTheWeek = model.DayOfTheWeek
             };
-           // _db.Dates.Add(Dates);
+            _db.Dates.Add(Dates);
             _db.SaveChanges();
 
             Shift shifts = new Shift
