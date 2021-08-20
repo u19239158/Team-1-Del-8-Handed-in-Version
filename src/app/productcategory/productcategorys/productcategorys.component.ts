@@ -19,6 +19,7 @@ export class ProductcategorysComponent implements OnInit {
 //search code
 Productcategorys:Productcategory[];
 searchValue: string;
+dataNotFound: boolean;
 
   productcategorys: Productcategory[] = [];
   productcategory: Observable<Productcategory[]>;
@@ -49,8 +50,15 @@ searchValue: string;
   }
 
   filter(){
-    this.dataSource = new MatTableDataSource (this.Productcategorys.filter(e=>e.productCategoryDescription.toLowerCase().includes(this.searchValue.toLowerCase())))
-  }
+
+    const filter = (e) => {
+
+      return e.productCategoryDescription && e.productCategoryDescription.toLowerCase().includes(this.searchValue.toLowerCase()) 
+    }
+    const data = (this.Productcategorys.filter(filter))
+    this.dataNotFound = data.length===0
+    this.dataSource = new MatTableDataSource(data)
+ }
 
   deleteProductcategory(Productcategory: Productcategory) {
     const confirm = this.dialog.open(GlobalConfirmComponent, {

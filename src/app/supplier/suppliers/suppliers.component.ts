@@ -19,6 +19,7 @@ export class SuppliersComponent implements OnInit {
 //search code
 Suppliers: Supplier[];
 searchValue: string;
+dataNotFound: boolean;
 
   Supplier: Supplier;
   supplier: Observable<Supplier[]>;
@@ -39,8 +40,16 @@ searchValue: string;
   }
 
   filter(){
-    this.dataSource = new MatTableDataSource (this.Suppliers.filter(e=>e.supplierName.toLowerCase().includes(this.searchValue.toLowerCase())))
-  }
+
+    const filter = (e) => {
+
+      return e.supplierName && e.supplierName.toLowerCase().includes(this.searchValue.toLowerCase()) 
+    }
+    const data = (this.Suppliers.filter(filter))
+    this.dataNotFound = data.length===0
+    this.dataSource = new MatTableDataSource(data)
+
+ }
 
   readSuppliers(): void {
     this.supplierService.GetSupplier().subscribe(res => {

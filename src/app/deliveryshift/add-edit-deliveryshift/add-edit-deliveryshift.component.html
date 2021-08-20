@@ -8,24 +8,13 @@
     <div class="mat-row">
         <div class="mat-col-quarter">
             <mat-form-field appearance="outline" class="control-m">
-                <mat-label>Start Time</mat-label>
+                <mat-label>Time Interval</mat-label>
                 <mat-select formControlName="startTime">
-                  <mat-option *ngFor="let ds of collections" [value]="ds.timeId">{{ds.startTime}}</mat-option>        
+                  <mat-option *ngFor="let ds of collections" [value]="ds.timeId">{{ds.startTime}} - {{ds.endTime}}</mat-option>        
                 </mat-select>
               </mat-form-field>
         </div>
     </div>
-
-    <div class="mat-row">
-        <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-m">
-                <mat-label>End Time</mat-label>
-                <mat-select formControlName="endTime">
-                  <mat-option *ngFor="let ds of collections" [value]="ds.timeId">{{ds.endTime}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-        </div>
- </div>
 
 <div class="mat-row">
         <div class="mat-col-quarter">
@@ -41,8 +30,8 @@
   <div class="mat-col-quarter">
   <mat-form-field appearance="outline" class="control-m">
     <mat-label>Employee</mat-label>
-      <mat-select formControlName="employeeId">
-        <mat-option *ngFor="let Employees of collection" [value]="Employees.employeeId">{{Employees.employeeName}}</mat-option>
+      <mat-select [(value)]="currentData" formControlName="employeeId"> 
+        <mat-option *ngFor="let Employees of employees" [value]="Employees.employeeId">{{Employees.employeeName}}</mat-option>
     </mat-select>
   </mat-form-field>
   </div>

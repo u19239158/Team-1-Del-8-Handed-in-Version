@@ -19,8 +19,10 @@
       </ul>
   </div>
 
-  <div class="mat-elevation-z8 table" >
-      <table mat-table [dataSource]="dataSource" matSort>
+  <app-global-error *ngIf="dataNotFound"></app-global-error>
+
+<div class="mat-elevation-z8 table">
+    <table mat-table [dataSource]="dataSource" matSort  *ngIf="!dataNotFound">
 
           <!-- <ng-container matColumnDef="image">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Image </th>

@@ -16,27 +16,29 @@ import { AssigndeliveryshiftService } from 'src/app/services/assigndeliveryshift
 
 export class AddEditDeliveryshiftsComponent implements OnInit {
 
-    form: FormGroup;
-    employeeShiftId: number;
-    isAddMode: boolean;
-    loading = false;
-    submitted = false;
-    deliveryshift: Deliveryshift;
-    deliveryshifts: Observable<Deliveryshift[]>
-    collection = [];
-    collections = [];
-    employees = [];
-    selected: string;
-    selectemp: string;
-    selectend: string;
+  form: FormGroup;
+  employeeShiftId: number;
+  isAddMode: boolean;
+  loading = false;
+  submitted = false;
+  deliveryshift: Deliveryshift;
+  deliveryshifts: Observable<Deliveryshift[]>
+  collection = [];
+  collections = [];
+  employees = [];
+  selected: string;
+  selectemp: string;
+  selectend: string;
+  currentData= 2;
+  
 
-    constructor(
-        private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
-        private router: Router,
-        private DeliveryShiftService: DeliveryshiftService,
-        private http: HttpClient
-    ) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private DeliveryShiftService: DeliveryshiftService,
+    private http: HttpClient
+  ) { }
 
   ngOnInit(): void {
     this.employeeShiftId = +this.route.snapshot.params['id'];
@@ -44,16 +46,16 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     this.getCollection();
     this.getEmployees();
 
-    const formOptions: AbstractControlOptions = { };
+    const formOptions: AbstractControlOptions = {};
     this.form = this.formBuilder.group({
-        startTime: ['', [Validators.required]],
-        endTime: ['',[Validators.required]],
-        dayOfTheWeek: ['', [Validators.required]],
-        employeeId: ['', [Validators.required]],
-        employeeName: ['', [Validators.required]],
-        dateId: ['', [Validators.required]],
-          timeId: ['', [Validators.required]],
-     }, formOptions);
+      startTime: ['', [Validators.required]],
+      endTime: ['', [Validators.required]],
+      dayOfTheWeek: ['', [Validators.required]],
+      employeeId: ['', [Validators.required]],
+      employeeName: ['', [Validators.required]],
+      dateId: ['', [Validators.required]],
+      timeId: ['', [Validators.required]],
+    }, formOptions);
 
     if (!this.isAddMode) {
       this.DeliveryShiftService.getDeliveryShiftByID(this.employeeShiftId).subscribe(res => {
@@ -63,12 +65,12 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
           dateId: [this.deliveryshift.dateId, [Validators.required]],
           timeId: [this.deliveryshift.timeId, [Validators.required]],
           startTime: [this.deliveryshift.startTime, [Validators.required]],
-          endTime: [this.deliveryshift.endTime,[Validators.required]],
+          endTime: [this.deliveryshift.endTime, [Validators.required]],
           dayOfTheWeek: [this.deliveryshift.dayOfTheWeek, [Validators.required]],
           employeeId: [this.deliveryshift.employeeId, [Validators.required]],
           employeeName: [this.deliveryshift.employeeName, [Validators.required]],
-          employeeShiftId:  [this.deliveryshift.employeeShiftId, [Validators.required]],
-      }, formOptions);
+          employeeShiftId: [this.deliveryshift.employeeShiftId, [Validators.required]],
+        }, formOptions);
       });
     }
   }
@@ -81,9 +83,9 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
 
     this.loading = true;
     if (this.isAddMode) {
-        this.createDeliveryshift();
+      this.createDeliveryshift();
     } else {
-        this.updateDeliveryshift();
+      this.updateDeliveryshift();
     }
   }
 
@@ -95,9 +97,9 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
 
     this.loading = true;
     if (this.isAddMode) {
-        this.AssignDeliveryShifts();
+      this.AssignDeliveryShifts();
     } else {
-        this.updateDeliveryshift();
+      this.updateDeliveryshift();
     }
   }
 
@@ -105,22 +107,23 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     this.http
       .get<any>('https://localhost:44393/api/DeliveryShift/GetShiftTime').subscribe((res: any) => {
         this.collections = res;
-        console.log(res);
       }, error => {
         console.log({ error });
       });
 
-    }
+  }
 
-    getEmployees() {
-      this.http
-    .get<any>('https://localhost:44393/api/Employee/GetEmployee').subscribe((res: any) => {
-      this.employees = res;
-      console.log(res);
-    }, error => {
-      console.log({ error });
-    })
-    
+  getEmployees() {
+    this.http
+      .get<any>('https://localhost:44393/api/Employee/GetEmployee').subscribe((res: any) => {
+        this.employees = res;
+        console.log("res2", res);
+        // this.currentData = res.find(e => e.employeeId === this.employeeShiftId)
+        // console.log("currentData", this.currentData);
+      }, error => {
+        console.log({ error });
+      })
+
   }
 
   createDeliveryshift() {
@@ -147,7 +150,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     this.DeliveryShiftService.UpdateDeliveryShift(deliveryshift).subscribe(res => {
       console.log(res)
       this.form.reset();
-    this.router.navigateByUrl('deliveryShift');
+      this.router.navigateByUrl('deliveryShift');
     });
   }
 
@@ -157,5 +160,5 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
   }
 }
 
-export class Datepicker {}
+export class Datepicker { }
 

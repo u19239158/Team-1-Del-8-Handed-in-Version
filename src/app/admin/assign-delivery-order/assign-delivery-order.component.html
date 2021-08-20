@@ -1,7 +1,7 @@
 <h1>Unscheduled Deliveries</h1>
 
 <div class="mat-elevation-z8 table">
-    <table mat-table matSort>
+    <table mat-table [dataSource]="dataSource" matSort>
         <!-- [dataSource]="dataSource"  -->
         <!-- SaleID -->
         <ng-container matColumnDef="saleId">

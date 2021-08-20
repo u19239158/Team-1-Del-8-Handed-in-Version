@@ -19,6 +19,7 @@ export class CustomersComponent implements OnInit {
   //search code
 Customers: Customer[];
 searchValue: string;
+dataNotFound: boolean;
 
 //customers: Customer[] = [];
 Customer: Customer;
@@ -49,9 +50,16 @@ readCustomers(): void {
 }
 
 filter(){
-  this.dataSource = new MatTableDataSource (this.Customers.filter(e=>e.customerName.toLowerCase().includes(this.searchValue.toLowerCase())))
-  this.dataSource = new MatTableDataSource (this.Customers.filter(e=>e.customerSurname.toLowerCase().includes(this.searchValue.toLowerCase())))
-  this.dataSource = new MatTableDataSource (this.Customers.filter(e=>e.customerBusinessName.toLowerCase().includes(this.searchValue.toLowerCase())))
+
+  const filter = (e) => {
+
+    return e.customerName && e.customerName.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+      e.customerSurname && e.customerSurname.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+      e.customerBusinessName && e.customerBusinessName.toLowerCase().includes(this.searchValue.toLowerCase()) 
+  }
+  const data = (this.Customers.filter(filter))
+  this.dataNotFound = data.length===0
+  this.dataSource = new MatTableDataSource(data)
 }
 
 deleteCustomer(Customer: Customer) {

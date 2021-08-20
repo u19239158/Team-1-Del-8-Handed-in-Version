@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Categorytype } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { CategorytypeService } from 'src/app/services/categorytype/categorytype.service';
-import {  HttpClient  } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-categorytypes',
@@ -16,9 +16,10 @@ import {  HttpClient  } from '@angular/common/http';
 })
 export class CategorytypesComponent implements OnInit {
 
-//search code
-CategoryTypes: Categorytype[];
-searchValue: string;
+  //search code
+  CategoryTypes: Categorytype[];
+  searchValue: string;
+  dataNotFound: boolean;
 
   categorytypes: Categorytype[] = [];
   categorytype: Observable<Categorytype[]>;
@@ -26,40 +27,48 @@ searchValue: string;
   displayedColumns: string[] = ['productCategoryName', 'categoryType', 'actions'];
 
   constructor(private categorytypeService: CategorytypeService,
-              private snack: MatSnackBar,
-              private router: Router,
-              private dialog: MatDialog,
-              private httpClient: HttpClient) {}
+    private snack: MatSnackBar,
+    private router: Router,
+    private dialog: MatDialog,
+    private httpClient: HttpClient) { }
 
   ngOnInit(): void {
     this.readCategorytypes();
 
-    this.categorytypeService.GetCategoryType().subscribe((result:Categorytype[]) => {
+    this.categorytypeService.GetCategoryType().subscribe((result: Categorytype[]) => {
       this.CategoryTypes = result;
     });
 
   }
 
-  filter(){
-    this.dataSource = new MatTableDataSource (this.CategoryTypes.filter(e=>e.productCategoryDesc.toLowerCase().includes(this.searchValue.toLowerCase())))
-    this.dataSource = new MatTableDataSource (this.CategoryTypes.filter(e=>e.categoryTypeDescription.toLowerCase().includes(this.searchValue.toLowerCase())))
+  filter() {
+
+    const filter = (e) => {
+      return e.productCategoryDesc && e.productCategoryDesc.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+        e.categoryTypeDescription && e.categoryTypeDescription.toLowerCase().includes(this.searchValue.toLowerCase())
+    }
+
+    const data = (this.CategoryTypes.filter(filter))
+    this.dataNotFound = data.length === 0
+    this.dataSource = new MatTableDataSource(data)
+
   }
 
-   readCategorytypes(): void {
-     this.categorytypeService.GetCategoryType().subscribe(res => {
-       console.log(res)
-       this.dataSource = new MatTableDataSource(res)
-     })
+  readCategorytypes(): void {
+    this.categorytypeService.GetCategoryType().subscribe(res => {
+      console.log(res)
+      this.dataSource = new MatTableDataSource(res)
+    })
     //this.dataSource = new MatTableDataSource<Categorytype>(this.categorytypeService.getAll());
   }
 
   deleteCategorytype(Categorytype: Categorytype) {
     const confirm = this.dialog.open(GlobalConfirmComponent, {
-        disableClose: true,
+      disableClose: true,
     });
 
     confirm.afterClosed().subscribe(res => {
-      if(res) {
+      if (res) {
         this.categorytypeService.DeleteCategoryType(Categorytype).subscribe(res => {
           this.readCategorytypes();
         });

@@ -19,6 +19,7 @@ export class ProductitemsComponent implements OnInit {
 //search code
 Productitems: Productitem[];
 searchValue: string;
+dataNotFound: boolean;
 
   productitems: Productitem[] = [];
   productitem: Observable<Productitem[]>;
@@ -50,10 +51,15 @@ searchValue: string;
   }
 
   filter(){
-    this.dataSource = new MatTableDataSource (this.Productitems.filter(e=>e.categoryTypeName.toLowerCase().includes(this.searchValue.toLowerCase())))
-    this.dataSource = new MatTableDataSource (this.Productitems.filter(e=>e.productItemName.toLowerCase().includes(this.searchValue.toLowerCase())))
-    // this.dataSource = new MatTableDataSource (this.Productitems.filter(e=>e.productItemCost.numbers().includes(this.searchValue.numbers())))
 
+    const filter = (e) => {
+
+      return e.categoryTypeName && e.categoryTypeName.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+        e.productItemName && e.productItemName.toLowerCase().includes(this.searchValue.toLowerCase()) 
+    }
+    const data = (this.Productitems.filter(filter))
+    this.dataNotFound = data.length===0
+    this.dataSource = new MatTableDataSource(data)
   }
 
   deleteProductitem(Productitem: Productitem) {

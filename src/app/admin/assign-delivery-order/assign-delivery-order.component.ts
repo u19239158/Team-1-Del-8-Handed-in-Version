@@ -4,9 +4,9 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AssignUnscheduledDelivery } from 'src/app/interfaces';
+import { Deliveryshift } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
-import { UnscheduleddeliveryService } from 'src/app/services/unscheduleddelivery/unscheduleddelivery.service';
+import { DeliveryshiftService } from 'src/app/services/deliveryshift/deliveryshift.service';
 import {  HttpClient  } from '@angular/common/http';
 
 @Component({
@@ -17,16 +17,16 @@ import {  HttpClient  } from '@angular/common/http';
 export class AssignDeliveryOrderComponent implements OnInit {
 
 //search code
-Unscheduleddeliverys: [];
+Deliveryshifts: [];
 searchValue: string;
 
-  // unscheduleddeliverys: Unscheduleddelivery[] = [];
-  // Unscheduleddelivery:Unscheduleddelivery;
-  // unscheduleddelivery: Observable<Unscheduleddelivery[]>;
-  // dataSource = new MatTableDataSource<>();
-  displayedColumns: string[] = ['saleId', 'customerName', 'deliveryDistance', 'orderAddress', 'deliverycourier'];
+  // unscheduleddeliverys: Deliveryshift[] = [];
+  Deliveryshift:Deliveryshift;
+  unscheduleddelivery: Observable<Deliveryshift[]>;
+  dataSource = new MatTableDataSource<Deliveryshift>();
+  displayedColumns: string[] = ['saleId', 'customerName', 'deliverydistance', 'orderAddress', 'deliverycourier'];
 
-  constructor(private UnscheduleddeliveryService: UnscheduleddeliveryService,
+  constructor(private DeliveryshiftService: DeliveryshiftService,
     private snack: MatSnackBar,
     private router: Router,
     private dialog: MatDialog,

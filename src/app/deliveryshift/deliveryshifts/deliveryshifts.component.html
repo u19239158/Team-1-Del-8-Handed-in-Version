@@ -19,8 +19,10 @@
       </ul>
   </div>
 
+<app-global-error *ngIf="dataNotFound"></app-global-error>
+
 <div class="mat-elevation-z8 table">
-    <table mat-table [dataSource]="dataSource" matSort>
+    <table mat-table [dataSource]="dataSource" matSort  *ngIf="!dataNotFound">
         
         <ng-container matColumnDef="employeeName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </th>
@@ -67,8 +69,6 @@
                 <mat-menu #menu="matMenu" xPosition="before">
                 <button mat-menu-item [routerLink]="['/editDeliveryShift', element.employeeShiftId]" >Update Delivery Shift</button>
                 <button mat-menu-item (click)="deleteDeliveryshift(element.employeeShiftId)">Delete Delivery Shift</button>
-                <!-- {% comment %} make click event fro cancel {% endcomment %} -->
-                <button mat-menu-item (click)="cancelShift(element)">Cancel</button>
                 </mat-menu>
             </td>
         </ng-container>

@@ -19,6 +19,7 @@ export class UserRoleComponent implements OnInit {
 //search code
 UserRoles: UserRole[];
 searchValue: string;
+dataNotFound: boolean;
 
 //userRoles: UserRole[] = [];
 UserRole: UserRole;
@@ -42,7 +43,14 @@ ngOnInit(): void {
 }
 
 filter(){
-  this.dataSource = new MatTableDataSource (this.UserRoles.filter(e=>e.userRoleName.toLowerCase().includes(this.searchValue.toLowerCase())))
+
+  const filter = (e) => {
+
+    return e.userRoleName && e.userRoleName.toLowerCase().includes(this.searchValue.toLowerCase())
+  }
+  const data = (this.UserRoles.filter(filter))
+  this.dataNotFound = data.length===0
+  this.dataSource = new MatTableDataSource(data)
 }
 
 readUserRoles(): void {

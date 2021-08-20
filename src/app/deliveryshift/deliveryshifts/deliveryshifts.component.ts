@@ -8,7 +8,6 @@ import { Deliveryshift } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { DeliveryshiftService } from 'src/app/services/deliveryshift/deliveryshift.service';
 import { HttpClient } from '@angular/common/http';
-// import { GlobalErrorComponent } from 'src/app/modals/globals/global-error/global-error.component';
 
 @Component({
   selector: 'app-deliveryshifts',
@@ -21,6 +20,7 @@ export class DeliveryshiftsComponent implements OnInit {
   DeliveryShifts: Deliveryshift[];
   searchValue: number;
   searchWord: string;
+  dataNotFound: boolean;
 
   deliveryshift: Deliveryshift[] = [];
   // DeliveryShift: Deliveryshift;
@@ -51,6 +51,8 @@ export class DeliveryshiftsComponent implements OnInit {
     })
   }
 
+
+
   filter() {
     // this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.startTime.includes(this.searchValue)))
     // // this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.endTime.includes(this.searchValue)))
@@ -60,25 +62,13 @@ export class DeliveryshiftsComponent implements OnInit {
 
       return e.employeeName && e.employeeName.toLowerCase().includes(this.searchWord.toLowerCase()) ||
         e.startTime && e.startTime.toLowerCase().includes(this.searchWord.toLowerCase()) ||
+        e.endTime && e.endTime.toLowerCase().includes(this.searchWord.toLowerCase()) ||
         e.dayOfTheWeek && e.dayOfTheWeek.toString().toLowerCase().includes(this.searchWord.toLowerCase())
     }
-
-    this.dataSource = new MatTableDataSource(this.DeliveryShifts.filter(filter))
+    const data = (this.DeliveryShifts.filter(filter))
+    this.dataNotFound = data.length===0
+    this.dataSource = new MatTableDataSource(data)
   }
-
-  // noSearchResults(Deliveryshift: Deliveryshift) {
-  //   const confirm = this.dialog.open(GlobalErrorComponent, {
-  //       disableClose: true,
-  //   });
-
-  //   confirm.afterClosed().subscribe(res => {
-  //     if(res) {
-  //       this.deliveryshiftService.DeleteDeliveryShift(Deliveryshift).subscribe(res => {
-  //         this.readDeliveryshifts();
-  //       });
-  //     }
-  //   });
-  // }
 
   deleteDeliveryshift(Deliveryshift: Deliveryshift) {
     const confirm = this.dialog.open(GlobalConfirmComponent, {
