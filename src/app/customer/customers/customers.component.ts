@@ -48,11 +48,26 @@ readCustomers(): void {
    })
 }
 
-filter(){
-  this.dataSource = new MatTableDataSource (this.Customers.filter(e=>e.customerName.toLowerCase().includes(this.searchValue.toLowerCase())))
-  this.dataSource = new MatTableDataSource (this.Customers.filter(e=>e.customerSurname.toLowerCase().includes(this.searchValue.toLowerCase())))
-  this.dataSource = new MatTableDataSource (this.Customers.filter(e=>e.customerBusinessName.toLowerCase().includes(this.searchValue.toLowerCase())))
+filter() {
+
+  const filter = (e) => {
+
+    return e.customerName && e.customerName.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+    e.customerSurname && e.customerSurname.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+    e.customerBusinessName && e.customerBusinessName.toLowerCase().includes(this.searchValue.toLowerCase()) 
+      // e.saleOrderDate && e.saleOrderDate.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+      // e.orderStatusDescription &&  e.orderStatusDescription.toString().toLowerCase().includes(this.searchValue.toLowerCase())
+  }
+
+  this.dataSource = new MatTableDataSource(this.Customers.filter(filter))
 }
+
+
+// filter(){
+//   this.dataSource = new MatTableDataSource (this.Customers.filter(e=>e.customerName.toLowerCase().includes(this.searchValue.toLowerCase())))
+//   this.dataSource = new MatTableDataSource (this.Customers.filter(e=>e.customerSurname.toLowerCase().includes(this.searchValue.toLowerCase())))
+//   this.dataSource = new MatTableDataSource (this.Customers.filter(e=>e.customerBusinessName.toLowerCase().includes(this.searchValue.toLowerCase())))
+// }
 
 deleteCustomer(Customer: Customer) {
   const confirm = this.dialog.open(GlobalConfirmComponent, {

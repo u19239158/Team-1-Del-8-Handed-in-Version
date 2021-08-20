@@ -1,4 +1,4 @@
-import { OnlineSales } from './../../interfaces/index';
+import { OnlineSales } from 'src/app/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,10 +17,13 @@ export class OnlineSalesComponent implements OnInit {
 
 //userRoles: UserRole[] = [];
 onlineSale: OnlineSales;
+
 onlineSales: Observable<OnlineSales[]>;
 dataSource = new MatTableDataSource<OnlineSales>();
-displayedColumns: string[] = ['saleNumber', 'saleDate','orderStatus','actions'];
+displayedColumns: string[] = ['saleNumber','customer','business', 'saleDate','orderStatus','actions'];
 OnlineSales: OnlineSales[];
+searchValue: number;
+searchWord: string;
 
 constructor(private OnlineSalesService: OnlineSalesService,
             private snack: MatSnackBar,
@@ -32,17 +35,31 @@ constructor(private OnlineSalesService: OnlineSalesService,
 ngOnInit(): void {
   this.readOnlineSales();
 
-  this.OnlineSalesService.GetOnlineSales().subscribe((result:OnlineSales[])=> {
+  this.OnlineSalesService.ViewAllSales().subscribe((result:OnlineSales[])=> {
     this.OnlineSales = result;
   })
 }
 
 readOnlineSales(): void {
   //this.dataSource = new MatTableDataSource<UserRole[]>(this.UserRoleService.GetUserRole());
-   this.OnlineSalesService.GetOnlineSales().subscribe(res => {
+   this.OnlineSalesService.ViewAllSales().subscribe(res => {
      console.log(res)
      this.dataSource = new MatTableDataSource(res)
    })
+}
+
+filter() {
+
+  const filter = (e) => {
+
+    return e.customerName && e.customerName.toLowerCase().includes(this.searchWord.toLowerCase()) ||
+    e.customerSurname && e.customerSurname.toLowerCase().includes(this.searchWord.toLowerCase()) ||
+    e.customerBusinessName && e.customerBusinessName.toLowerCase().includes(this.searchWord.toLowerCase()) ||
+      e.saleOrderDate && e.saleOrderDate.toLowerCase().includes(this.searchWord.toLowerCase()) ||
+      e.orderStatusDescription &&  e.orderStatusDescription.toString().toLowerCase().includes(this.searchWord.toLowerCase())
+  }
+
+  this.dataSource = new MatTableDataSource(this.OnlineSales.filter(filter))
 }
 
 Close(){
