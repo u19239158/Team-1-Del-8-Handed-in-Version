@@ -1,1 +1,100 @@
-<p>search-online-sales works!</p>
+  <h2 >Search Online Sales</h2>
+  <div class="content">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="mat-row">
+      <!-- Start Date -->
+      <div class="mat-col-quarter">
+        <mat-form-field class="control-m">
+          <input matInput [matDatepicker]="picker" placeholder="Start Date"formControlName="startDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-hint>Select start date</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="mat-row">
+      <!-- End Date -->
+      <div class="mat-col-quarter">
+        <mat-form-field class="control-m">
+          <input matInput [matDatepicker]="picker1" placeholder="End Date" formControlName="endDate">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+          <mat-hint>Select end date</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="mat-row">
+      <div class="mat-col-quarter">
+          <mat-form-field appearance="outline" class="control-m">
+              <mat-label>Order Status</mat-label>
+              <mat-select [(value)]="selected" formControlName="orderStatusId">
+                <mat-option *ngFor="let OrderStatus of collection" [value]="OrderStatus.orderStatusId">{{OrderStatus.orderStatusDescription}}</mat-option>
+              </mat-select>
+              <mat-hint>Select order status</mat-hint>
+            </mat-form-field>
+          </div>
+      </div>
+  
+<div class="mat-row">
+  <div class="mat-col-quarter">
+  <div class="form-group" class="control-m">
+    <button mat-raised-button color ="primary" [disabled]="loading" (click)="Search()">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        Search
+    </button>
+    
+  </div>
+</div>
+</div>
+
+</form>
+
+<div class="tablecontent" [hidden]="isHidden">
+  <div class="mat-elevation-z8 table" >
+    <table mat-table [dataSource]="dataSource" matSort>
+        <!-- Sale Number -->
+        <ng-container matColumnDef="saleNumber">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Sale Number </th>
+        <td mat-cell *matCellDef="let element">{{element.saleNumber}} </td>
+        </ng-container>
+
+        <!-- Sale Date -->
+        <ng-container matColumnDef="saleDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Sale Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.saleDate}} </td>
+        </ng-container>
+
+         <!-- Order Status -->
+         <ng-container matColumnDef="orderStatus">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Status </th>
+          <td mat-cell *matCellDef="let element"> {{element.orderStatus}} </td>
+      </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>
+                <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
+                    <mat-icon>add</mat-icon>
+                  </button>
+            </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-menu-item [routerLink]="['/viewSale',element.saleId]" >View</button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+
+<div class="mat-row">
+  <div class="mat-col-quarter">
+    <a (click)="Close()" mat-button>Cancel</a>
+  </div>
+</div>
+</div>
+</div>
+

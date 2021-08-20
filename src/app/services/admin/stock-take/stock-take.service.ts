@@ -27,4 +27,8 @@ export class StockTakeService {
   StockTake(StockTake:StockTake):  Observable<StockTake[]>  {
     return this.http.post<StockTake[]>(`${this.server}StockTake/DoStockTake`, StockTake,this.httpOptions);
   }
+
+  getProductItemByID(ProductItemId):  Observable<Productitem>  {
+    return this.http.get<Productitem>(`${this.server}Productitem/GetPItemsByID/${ProductItemId}`).pipe(map(res => res));
+  }
 }

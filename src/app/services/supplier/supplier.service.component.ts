@@ -39,11 +39,15 @@ export class SupplierService {
   DeleteSupplier(supplierId):  Observable<Supplier>  {
     return this.http.delete<Supplier>(`${this.server}Supplier/DeleteSupplier/${supplierId}`).pipe(map(res => res));
   }
+
+  CaptureSupplierPayment(Supplier:Supplier):  Observable<Supplier[]>  {
+    return this.http.post<Supplier[]>(`${this.server}Supplier/CaptureSupplierPayment`, Supplier,this.httpOptions);
+  }
 }
 
 //   getAll(): Supplier[] {
 //     const suppliers = JSON.parse(localStorage.getItem(this.KEY));
-
+//CaptureSupplierPayment
 //     if(!suppliers) {
 //       const initialSupplier: Supplier = {
 //         id: 1,

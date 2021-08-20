@@ -9,6 +9,7 @@
         <mat-form-field appearance="outline" class="control-m">
             <mat-label>Invoice Number</mat-label>
             <input type="number" matInput placeholder="Invoice Number" formControlName="invoiceNumber">
+            <mat-hint>Enter invoice number</mat-hint>
         </mat-form-field>
     </div>
   </div> -->
@@ -20,6 +21,7 @@
       <input matInput [matDatepicker]="picker" placeholder="Invoice Date" formControlName="invoiceDate">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
+      <mat-hint>Select an invoice date</mat-hint>
     </mat-form-field>
   </div>
 </div> -->
@@ -30,6 +32,7 @@
         <mat-form-field appearance="outline" class="control-m">
             <mat-label>Invoice Total</mat-label>
             <input type="text" matInput placeholder="Invoice Total" formControlName="invoiceTotal">
+            <mat-hint>Enter invoice total</mat-hint>
         </mat-form-field>
     </div>
   </div> -->
@@ -41,6 +44,7 @@
         <input matInput [matDatepicker]="picker1" placeholder="Order Date Received" formControlName="orderDateReceived">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
+        <mat-hint>Select the date the order was received</mat-hint>
       </mat-form-field>
     </div>
   </div> -->

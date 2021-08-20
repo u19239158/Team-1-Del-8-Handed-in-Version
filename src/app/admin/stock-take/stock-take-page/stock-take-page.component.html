@@ -2,13 +2,14 @@
 
     <h2 >Stock Take</h2>
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
   <div class="mat-row">
     <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m">
             <mat-label>Quantity</mat-label>
             <input type="number" matInput placeholder="Quantity" formControlName="stockTakeQuantity">
+            <mat-hint>Enter quantity</mat-hint>
         </mat-form-field>
     </div>
   </div>

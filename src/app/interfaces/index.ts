@@ -19,7 +19,7 @@ export interface Employee {
 }
 
 export interface Supplier {
-  supplierID: number;
+  supplierId: number;
   supplierName: string;
   supplierTypeDesc: string;
   supplierEmail: string;
@@ -31,6 +31,7 @@ export interface Supplier {
   supplierPostalCode: number;
   supplierBalance : number;
   supplierTypeId : number;
+  supplierAmount: number;
 }
 
 export interface UserRole {
@@ -140,7 +141,8 @@ export interface StockTake{
   categoryType: string;
   productItem: string;
   quantityOnHand: number;
-  physicalCount: number;
+  stockTakeQuantity: number;
+  productItemId: number;
 }
 
 export interface WriteOffStock {
@@ -183,7 +185,15 @@ endDate: string;
 }
 
 export interface OnlineSales {
-  saleNumber: number;
-  saleDate: string;
-  orderStatus: string;
+  saleID: number;
+  saleOrderDate: string;
+  orderStatusId: string;
+  orderStatusDescription: string;
+  customerId:string;
+  customerName: string;
+  customerSurame: string;
+  customerBusinessname: string;
+  
+
+
 }

@@ -8,12 +8,17 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ProductitemService } from 'src/app/services/productitem/productitem.service';
 
+
 @Component({
   selector: 'app-stock-take',
   templateUrl: './stock-take.component.html',
   styleUrls: ['./stock-take.component.scss']
 })
+
 export class StockTakeComponent implements OnInit {
+  ProductItems: Productitem[];
+  searchItem: string;
+
   loading = false;
   submitted = false;
   isHidden: boolean = true;
@@ -25,13 +30,15 @@ export class StockTakeComponent implements OnInit {
   productitem: Observable<Productitem[]>;
   dataSource = new MatTableDataSource<Productitem>();
   displayedColumns: string[] = ['productItem', 'quantity', 'actions'];
+  productItemService: any;
  // StockTakeService: any;
 
   form = this.FB.group({
-    writtenOffStockDate: ['',Validators.required],
+   // writtenOffStockDate: ['',Validators.required],
     categoryTypeId: ['',Validators.required]
   }) 
   Tableform;
+
 
   constructor(
     productItemService: ProductitemService,

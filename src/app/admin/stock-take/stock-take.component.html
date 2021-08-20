@@ -1,8 +1,7 @@
-<div class="content">
   <h2>Stock Take</h2>
+  <div class="content">
   <form [formGroup] = "form">
   
-
 <div class="mat-row">
   <div class="mat-col-quarter">
       <mat-form-field appearance="outline" class="control-m">
@@ -10,6 +9,7 @@
           <mat-select [(value)]="selected" formControlName="categoryTypeId">
             <mat-option *ngFor="let CategoryType of collection" [value]="CategoryType.categoryTypeId">{{CategoryType.categoryTypeDescription}}</mat-option>
           </mat-select>
+          <mat-hint> Select a category type </mat-hint>
         </mat-form-field>
   </div>
 </div>
@@ -27,7 +27,7 @@
   <br>
   <br>
 
-  <div [hidden]="isHidden">
+  <div [hidden]="isHidden" class="tablecontent">
     <table mat-table [dataSource]="dataSource" matSort>
 
         <!-- Product Item -->
@@ -45,18 +45,14 @@
          <!-- Actions Column -->
          <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef>
-              <button mat-icon-button color="primary" aria-label="Example icon button with a home icon"
-              routerLink = "/addCustomer"
-              >
-                  <mat-icon>add</mat-icon>
-                </button>
+      
           </th>
           <td mat-cell *matCellDef="let element">
               <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
                   <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item [routerLink]="['/editCustomer', element]" >Do Stock Take</button>
+              <button mat-menu-item [routerLink]="['/stockTakePage', element.productItemId]" >Do Stock Take</button>
               </mat-menu>
           </td>
       </ng-container>

@@ -24,7 +24,7 @@ dataNotFound: boolean;
   Supplier: Supplier;
   supplier: Observable<Supplier[]>;
   dataSource = new MatTableDataSource<Supplier>();
-  displayedColumns: string[] = ['name', 'contactNumber', 'email', 'actions'];
+  displayedColumns: string[] = ['name', 'contactNumber', 'email','supplierBalance', 'actions'];
 
   constructor(private supplierService: SupplierService,
     private snack: MatSnackBar,

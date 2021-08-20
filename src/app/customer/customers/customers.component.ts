@@ -62,6 +62,13 @@ filter(){
   this.dataSource = new MatTableDataSource(data)
 }
 
+
+// filter(){
+//   this.dataSource = new MatTableDataSource (this.Customers.filter(e=>e.customerName.toLowerCase().includes(this.searchValue.toLowerCase())))
+//   this.dataSource = new MatTableDataSource (this.Customers.filter(e=>e.customerSurname.toLowerCase().includes(this.searchValue.toLowerCase())))
+//   this.dataSource = new MatTableDataSource (this.Customers.filter(e=>e.customerBusinessName.toLowerCase().includes(this.searchValue.toLowerCase())))
+// }
+
 deleteCustomer(Customer: Customer) {
   const confirm = this.dialog.open(GlobalConfirmComponent, {
            disableClose: true,
