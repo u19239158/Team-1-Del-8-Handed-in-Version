@@ -1,5 +1,4 @@
 import { Productitem } from './../../../interfaces/index';
-//import { WriteOffStock } from './../../../interfaces/index';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';

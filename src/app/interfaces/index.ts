@@ -140,7 +140,8 @@ export interface StockTake{
   categoryType: string;
   productItem: string;
   quantityOnHand: number;
-  physicalCount: number;
+  stockTakeQuantity: number;
+  productItemId: number;
 }
 
 export interface WriteOffStock {

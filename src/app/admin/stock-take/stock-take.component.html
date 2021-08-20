@@ -51,7 +51,7 @@
                   <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item [routerLink]="['/editCustomer', element]" >Do Stock Take</button>
+              <button mat-menu-item [routerLink]="['/stockTakePage', element.productItemId]" >Do Stock Take</button>
               </mat-menu>
           </td>
       </ng-container>

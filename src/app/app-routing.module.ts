@@ -216,7 +216,7 @@ const routes: Routes = [
     component: PageComponent,
   },
   {
-    path: 'stockTakePage',
+    path: 'stockTakePage/:id',
     component: StockTakePageComponent,
   },
   // {

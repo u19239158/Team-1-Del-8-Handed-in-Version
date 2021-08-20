@@ -34,9 +34,9 @@ export class SearchOnlineSalesComponent implements OnInit {
 
   getCollection() {
     this.http
-      .get<any>('https://localhost:44393/api/CategoryType/GetCategoryType').subscribe((res: any) => {
+      .get<any>('https://localhost:44393/api/OrderStatus/GetOrderStatus').subscribe((res: any) => {
         this.collection = res;
-        //console.log = res;
+        console.log(res);
       }, error => {
         console.log({ error });
       })

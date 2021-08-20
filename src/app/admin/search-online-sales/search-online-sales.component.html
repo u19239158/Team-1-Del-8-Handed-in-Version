@@ -29,7 +29,7 @@
           <mat-form-field appearance="outline" class="control-m">
               <mat-label>Order Status</mat-label>
               <mat-select [(value)]="selected" formControlName="orderStatusId">
-                <mat-option *ngFor="let OrderStatus of collection" [value]="OrderStatus.orderStatusId">{{OrderStatus.orderStatusDescr}}</mat-option>
+                <mat-option *ngFor="let OrderStatus of collection" [value]="OrderStatus.orderStatusId">{{OrderStatus.orderStatusDescription}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
