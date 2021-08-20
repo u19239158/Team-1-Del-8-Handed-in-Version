@@ -5,7 +5,7 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class = "main">
     <div class="mat-row">
         <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-m">
+            <mat-form-field appearance="outline" class="control-m" [hidden]="isHidden">
                 <mat-label>Product Category Name</mat-label>
                 <input type="text" matInput placeholder="Product Category Name" formControlName="productCategoryDescription">
                 <mat-hint>Product Category Name</mat-hint>

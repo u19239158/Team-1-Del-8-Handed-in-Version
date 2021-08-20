@@ -14,6 +14,7 @@ export class AddEditProductcategorysComponent implements OnInit {
 
     form: FormGroup;
     id: number;
+    isHidden: boolean = true;
     isAddMode: boolean;
     loading = false;
     submitted = false;
@@ -30,9 +31,10 @@ export class AddEditProductcategorysComponent implements OnInit {
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
-
+  
     const formOptions: AbstractControlOptions = { };
-    this.form = this.formBuilder.group({
+    this.form = this.formBuilder.group(
+      {
         //id: ['', [Validators.required]],
         productCategoryDescription: ['', [Validators.required, Validators.maxLength(50)]],
        }, formOptions);

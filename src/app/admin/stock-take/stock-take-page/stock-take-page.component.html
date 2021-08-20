@@ -1,0 +1,29 @@
+<div class="content">
+
+    <h2 >Stock Take</h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <div class="mat-row">
+    <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+            <mat-label>Quantity</mat-label>
+            <input type="number" matInput placeholder="Quantity" formControlName="stockTakeQuantity">
+        </mat-form-field>
+    </div>
+  </div>
+
+  <div class="mat-row">
+    <div class="mat-col-quarter">
+    <div class="form-group" class="control-m">
+      <button mat-raised-button color ="primary" [disabled]="loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Save
+      </button>
+      <a (click)="Close()" mat-button>Cancel</a>
+    </div>
+  </div>
+  </div>
+
+  </form>
+  </div>

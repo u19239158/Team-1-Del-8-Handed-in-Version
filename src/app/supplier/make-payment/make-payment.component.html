@@ -1,7 +1,12 @@
 <div class="content">
     <h2>Capture Supplier Payment</h2>
-    
+
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="main">
+
+      <li *ngFor="let element">
+        {{ supplierName }}
+      </li>
+
     <!-- Payment -->
       <div class="mat-row">
         <div class="mat-col-quarter">

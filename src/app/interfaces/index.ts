@@ -1,4 +1,7 @@
+import { ReportServiceService } from './../services/Reports/report-service.service';
 import { CurrencyPipe } from "@angular/common";
+import { Identifiers } from "@angular/compiler";
+//import * as internal from "node:stream";
 
 export interface Employee {
   employeeId: any;
@@ -10,8 +13,9 @@ export interface Employee {
   employeeAddressLine1: string;
   employeeAddressLine2: string;
   id: number;
-  employeeUsername: string;
-  employeePassword: string;
+  userUsername: string;
+  userPassword: string;
+  employeeConfirmPassword: string;
 }
 
 export interface Supplier {
@@ -44,7 +48,7 @@ export class UserRole {
 
 export interface Special {
   specialID: number;
-  specialImage: string;
+  //specialImage: string;
   specialDescription: string;
   specialPrice: string;
   specialStartDate: string;
@@ -67,6 +71,14 @@ export interface Deliveryshift {
   dayOfTheWeek: string;
   employeeName: string;
   employeeId: number;
+  saleId:number;
+  customerName: string;
+  deliveryDistance: number;
+  orderAddress: string;
+  shiftId : number;
+  dateId : number;
+  timeId : number;
+  employeeShiftId : number;
 }
 
 export interface Productcategory {
@@ -100,11 +112,12 @@ export interface Customer {
   customerUserName: string;
   customerName: string;
   customerSurname: string;
-  customerContactNumber: number;
-  customerEmail: string;
-  customerVat: number;
+  customerCellphoneNumber: number;
+  customerEmailAddress: string;
+  customerVATReg: number;
   customerBusinessName: string;
   customerPassword: string;
+  titleId: number;
 }
 
 export interface ReceiveSupplierOrder {
@@ -134,14 +147,43 @@ export interface WriteOffStock {
   writtenOffStockId: number;
   writtenOffStockDate: string;
   categoryType: string;
-  productItem: string;
-  writeOffQuantityOnHand: number;
+  productItemId: number;
+  writeOffQuantity: number;
   writeOffReason: string;
+  productItemWrittenOffStockId: number;
 }
 
-export interface AssignUnscheduledDelivery {
-  saleId:number;
-  customerName: string;
-  deliveryDistance: number;
-  orderAddress: string;
+export interface AssignUnscheduledDelivery { //should be in delivery shift. we don't create interfaces for each individual requirement.
+//   saleId:number;
+//   customerName: string;
+//   deliveryDistance: number;
+//   orderAddress: string;
+ }
+
+export interface Reports {
+saleId: number;
+saleOrderDescription: string;
+saleOrderAssign: boolean;
+saleOrderDate: string;
+saleOrderRecieveType: boolean;
+paymentDate: string;
+orderStatusId: number;
+orderStatusDescription: string;
+customerId: number;
+customerName: string;
+customerSurname: string;
+customerCellphonenUmber: string;
+customerEmailAddress: string;
+addressId: number;
+addressLine1: string;
+addressLine2: string;
+addressLine3: string;
+startDate: string;
+endDate: string;
+}
+
+export interface OnlineSales {
+  saleNumber: number;
+  saleDate: string;
+  orderStatus: string;
 }

@@ -6,7 +6,7 @@ import { SuppliersComponent } from './supplier/suppliers/suppliers.component';
 import { ReceiveSupplierOrderComponent } from './supplier/receive-supplier-order/receive-supplier-order.component';
 import { PlaceSupplierOrderComponent } from './supplier/place-supplier-order/place-supplier-order.component';
 import { MakePaymentComponent } from './supplier/make-payment/make-payment.component';
-import { AddItemsComponent } from './supplier/add-items/add-items.component';
+import { AddItemsComponent } from './supplier/receive-supplier-order/add-items/add-items.component';
 
 import { AddEditEmployeesComponent } from './employee/add-edit-employees/add-edit-employees.component';
 import { EmployeesComponent } from './employee/employees/employees.component';
@@ -43,6 +43,13 @@ import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-
 
 import { StockTakeComponent } from './admin/stock-take/stock-take.component';
 import { WriteOffStockComponent } from './admin/write-off-stock/write-off-stock.component';
+import { PageComponent } from './admin/write-off-stock/page/page.component';
+import { StockTakePageComponent } from './admin/stock-take/stock-take-page/stock-take-page.component';
+import { ReceiveOrderComponent } from './supplier/receive-supplier-order/receive-order/receive-order.component';
+
+import { OnlineSalesComponent } from './admin/online-sales/online-sales.component';
+import { SearchOnlineSalesComponent } from './admin/search-online-sales/search-online-sales.component';
+import { PackOrderComponent } from './admin/pack-order/pack-order.component';
 
 const routes: Routes = [
   {
@@ -82,7 +89,7 @@ const routes: Routes = [
     component: ReceiveSupplierOrderComponent
   },
   {
-    path: 'makePayment',
+    path: 'makePayment/:id',
     component: MakePaymentComponent
   },
   {
@@ -203,6 +210,34 @@ const routes: Routes = [
   {
     path: 'assignlocaldelivery',
     component: AssignLocalDeliveryComponent,
+  },
+  {
+    path: 'writeOff/:id',
+    component: PageComponent,
+  },
+  {
+    path: 'stockTakePage',
+    component: StockTakePageComponent,
+  },
+  {
+    path: 'receiveOrder',
+    component: ReceiveOrderComponent,
+  },
+  {
+    path: 'onlineSales',
+    component: OnlineSalesComponent,
+  },
+  {
+    path: 'searchOnlineSales',
+    component: SearchOnlineSalesComponent,
+  },
+  {
+    path: 'packOrder',
+    component: PackOrderComponent,
+  },
+  {
+    path: 'addItems',
+    component: AddItemsComponent,
   },
 ];
 

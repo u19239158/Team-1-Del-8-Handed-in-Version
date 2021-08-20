@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class ReceiveSupplerService {
+export class ReceiveSupplierService {
   server = "https://localhost:44393/api/";
 
   httpOptions = {

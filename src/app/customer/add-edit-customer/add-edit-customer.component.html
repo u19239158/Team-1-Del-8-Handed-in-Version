@@ -9,6 +9,20 @@
 
     <div class="mat-row">
 
+      <!-- Title -->
+      <div class="mat-row">
+        <div class="mat-col-quarter">
+            <mat-form-field appearance="outline" class="control-m">
+                <mat-label>Title </mat-label>
+                <mat-select formControlName="titleId">
+                   <mat-option *ngFor="let c of collection" [value]="c.titleId">{{c.titleDescription}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+      </div>
+      </div>
+ 
+
       <!-- Customer Name -->
       <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m">
@@ -25,14 +39,14 @@
       </mat-form-field>
   </div>
 
-  </div>
+
 
   <div class="mat-row">
       <!-- Customer email address -->
       <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m">
             <mat-label>Customer Email Address</mat-label>
-            <input type="text" matInput placeholder="Customer Email Address" formControlName="customerEmail">
+            <input type="text" matInput placeholder="Customer Email Address" formControlName="customerEmailAddress">
         </mat-form-field>
     </div>
 
@@ -40,7 +54,7 @@
       <div class="mat-col-quarter">
           <mat-form-field appearance="outline" class="control-m">
               <mat-label>Customer Number</mat-label>
-              <input type="text" matInput placeholder="Customer Contact Number" formControlName="customerContactNumber">
+              <input type="text" matInput placeholder="Customer Contact Number" formControlName="customerCellphoneNumber">
           </mat-form-field>
       </div>
 
@@ -59,37 +73,37 @@
       <div class="mat-col-quarter">
           <mat-form-field appearance="outline" class="control-m">
               <mat-label>Customer VAT Number</mat-label>
-              <input type="text" matInput placeholder="Customer VAT Number" formControlName="customerVat">
+              <input type="text" matInput placeholder="Customer VAT Number" formControlName="customerVATReg">
           </mat-form-field>
       </div>
     </div>
 
-    <div class="mat-row">
+    <!-- <div class="mat-row"> -->
       <!-- Customer Password -->
-      <div class="mat-col-quarter">
+      <!-- <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m">
             <mat-label>Customer Password</mat-label>
             <input type="text" matInput placeholder="Customer Password" formControlName="customerPassword">
-        </mat-form-field>
-    </div>
+        </mat-form-field> -->
+    <!-- </div> -->
 
    <!-- Customer Confirm Password -->
-   <div class="mat-col-quarter">
+   <!-- <div class="mat-col-quarter">
     <mat-form-field appearance="outline" class="control-m">
         <mat-label>Confirm Customer Password</mat-label>
         <input type="text" matInput placeholder="Confirm Customer Password" formControlName="customerPassword">
     </mat-form-field>
     </div>
-    </div>
+    </div> -->
 
-    <div class="mat-row">
+    <!-- <div class="mat-row"> -->
     <!-- Customer Username-->
-    <div class="mat-col-quarter">
+    <!-- <div class="mat-col-quarter">
       <mat-form-field appearance="outline" class="control-m">
           <mat-label>Customer Username</mat-label>
           <input type="text" matInput placeholder="Customer Username" formControlName="customerUsername">
       </mat-form-field>
-      </div>
+      </div> -->
 
     <!-- Supplier save and cancel button -->
     <div class="mat-col-quarter">
@@ -102,7 +116,8 @@
   </div>
   </div>
 
-</div>
+<!-- </div> -->
     </form>
+ 
   </div>
 

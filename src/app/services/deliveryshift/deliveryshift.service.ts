@@ -42,6 +42,11 @@ export class DeliveryshiftService {
     DeleteDeliveryShift(deliveryShiftId):  Observable<Deliveryshift>  {
     return this.http.delete<Deliveryshift>(`${this.server}Deliveryshift/DeleteDeliveryShift/${deliveryShiftId}`).pipe(map(res => res));
   }
+
+  AssignDeliveryShift(Deliveryshift:Deliveryshift):  Observable<Deliveryshift[]>  {
+    return this.http.post<Deliveryshift[]>(`${this.server}Deliveryshift/AssignDeliveryShift`, Deliveryshift,this.httpOptions);
+  }
+
 }
 
 //   getAll(): Deliveryshift[] {

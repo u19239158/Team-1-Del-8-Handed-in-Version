@@ -24,8 +24,8 @@ export class SpecialService {
     return this.http.get<Special[]>(`${this.server}Special/GetSpecials`).pipe(map(res => res));
   }
 
-  getSpecialByID(specialId):  Observable<Special>  {
-    return this.http.get<Special>(`${this.server}Special/GetSpecialsByID/${specialId}`).pipe(map(res => res));
+  getSpecialByID(specialID):  Observable<Special>  {
+    return this.http.get<Special>(`${this.server}Special/GetSpecialsByID/${specialID}`).pipe(map(res => res));
   }
 
   CreateSpecial(Special:Special):  Observable<Special[]>  {
