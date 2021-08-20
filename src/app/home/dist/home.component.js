@@ -9,20 +9,28 @@ exports.__esModule = true;
 exports.HomeComponent = void 0;
 var core_1 = require("@angular/core");
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent(api) {
+    function HomeComponent(api, cartService) {
         this.api = api;
+        this.cartService = cartService;
+        this.categoryTypes = [];
     }
     HomeComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.api.getCategoryType()
             .subscribe(function (res) {
-            _this.categoryType = res;
-            _this.categoryType.forEach(function (a) {
-                Object.assign(a, { quantity: 1, total: a.price });
-            });
+            _this.categoryTypes = res;
+            console.log(_this.categoryTypes);
+            // this.categoryType.forEach((a:any) => {
+            //   Object.assign(a,{quantity:1,total:a.price});
+            // });
+        });
+        this.cartService.getModalProduct()
+            .subscribe(function (res) {
+            _this.products = res;
         });
     };
     HomeComponent = __decorate([
+        core_1.Injectable(),
         core_1.Component({
             selector: 'app-home',
             templateUrl: './home.component.html',

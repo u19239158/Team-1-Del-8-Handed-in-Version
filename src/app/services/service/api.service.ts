@@ -14,9 +14,9 @@ export interface Product
 
 export interface CategoryType
 {
-  CategoryTypeDescription : string;
-  ItemDescription : string;
-  CategoryType_Image : ImageBitmap;
+  CategoryType_Description : string;
+  Item_Description : string;
+  //CategoryType_Image : ImageBitmap;
 }
 
 @Injectable({
@@ -24,7 +24,7 @@ export interface CategoryType
 })
 
 export class ApiService {
-  server = "https://localhost:44393/api";
+  server = "https://localhost:44393/api/";
 
   httpOptions ={
     headers: new HttpHeaders({
@@ -41,10 +41,10 @@ export class ApiService {
     }))
   }
   
-  getProduct(){
-    return this.http.get<any>("https://fakestoreapi.com/products")
-    .pipe(map((res:any)=>{
-      return res;
-    }))
-  }
+   getProduct(){
+     return this.http.get<any>("https://fakestoreapi.com/products")
+     .pipe(map((res:any)=>{
+       return res;
+     }))
+   }
 }

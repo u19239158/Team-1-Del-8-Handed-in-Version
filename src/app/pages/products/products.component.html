@@ -30,8 +30,18 @@
         <img src="{{item.image}}" alt="" width="100" height="100">
         <p>{{item.description}}</p>
         <h2><strong>Price:</strong> R{{item.price}}</h2>
+        
+        <mat-form-field appearance="outline">
+          <mat-label>Type</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let item of productList" [value]= "item.title">
+              {{item.title}}
+            </mat-option>
+          </mat-select>
 
-        <div class="dropdown">
+
+        </mat-form-field>
+        <!-- <div class="dropdown">
             <div class="dropdown-trigger">
               <button class="button" aria-haspopup="true" aria-controls="dropdown-menu2" (click)=Itemdropdown()>
                 <span>Select Type</span>
@@ -52,7 +62,7 @@
                 </a>
               </div>
             </div>
-          </div>    
+          </div>     -->
         </ng-container>
     </section>
     <div>  

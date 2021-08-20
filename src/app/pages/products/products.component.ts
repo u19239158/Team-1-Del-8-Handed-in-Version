@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { of } from 'rxjs/internal/observable/of';
-import { ApiService} from 'src/app/services/service/api.service';
+import { ApiService, CategoryType} from 'src/app/services/service/api.service';
 import { CartService } from 'src/app/services/service/cart.service';
 
 @Component({
@@ -8,9 +8,12 @@ import { CartService } from 'src/app/services/service/cart.service';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
+
 export class ProductsComponent implements OnInit {
 
   public productList : any ;
+  public CategoryType : any[];
+
   public products : any ;
   modalItems: any = [];
   constructor(private api : ApiService, private cartService : CartService) { }
@@ -19,18 +22,18 @@ export class ProductsComponent implements OnInit {
 
     this.api.getCategoryType()
     .subscribe(res=>{
-      this.productList=res;
+      this.CategoryType = res;
 
-      this.productList.forEach((a:any) => {
-        Object.assign(a,{quantity:1,total:a.price});
-      });
+      // this.productList.forEach((a:any) => {
+      //   Object.assign(a,{quantity:1,total:a.price});
+      // });
     })
 
     this.api.getProduct()
     .subscribe(res=>{
       this.productList = res;
 
-      this.productList.forEach((a:any) => {
+    this.productList.forEach((a:any) => {
         Object.assign(a,{quantity:1,total:a.price});      
       });
     })
@@ -41,6 +44,7 @@ export class ProductsComponent implements OnInit {
     })
   }
   
+  //outside ng oninit
   addtocart(item: any){
     this.cartService.addtoCart(item);
   }
