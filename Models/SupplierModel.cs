@@ -9,7 +9,7 @@ namespace NKAP_API_2.Models
     public class SupplierModel
     {
         [JsonProperty("supplierid")]
-        public int SupplierID
+        public int SupplierId
         { get; set; }
 
         [JsonProperty("suppliername")]

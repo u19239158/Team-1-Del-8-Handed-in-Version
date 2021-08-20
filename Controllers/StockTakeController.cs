@@ -77,13 +77,16 @@ namespace NKAP_API_2.Controllers
             _db.SaveChanges();
 
             var NewPQuantity = _db.ProductItems.Find(model.ProductItemID);
+            {
+                NewPQuantity.QuantityOnHand = model.StockTakeQuantity;// Function to subtract the entered quantity from the existing quantity on hand and assign it the productitem
+            }
             //NewPQuantity.ProductItemId = model.ProductItemId;  //(int)PItemWriteOff.ProductItemId; // Getting the Id of the producitem to match with the bridge and the model
-            NewPQuantity.QuantityOnHand = model.StockTakeQuantity;// Function to subtract the entered quantity from the existing quantity on hand and assign it the productitem
+            
             _db.ProductItems.Attach(NewPQuantity);
             //Attach Record
             _db.SaveChanges();
 
-            return Ok(NewPQuantity);
+            return Ok();
         }
 
         [Route("UpdateProdItemQuantity")] //route

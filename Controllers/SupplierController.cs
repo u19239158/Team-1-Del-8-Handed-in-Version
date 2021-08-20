@@ -72,7 +72,7 @@ namespace NKAP_API_2.Controllers
         //Update Supplier
         public IActionResult UpdateSupplier(SupplierModel model)
         {
-            var supplier = _db.Suppliers.Find(model.SupplierID);
+            var supplier = _db.Suppliers.Find(model.SupplierId);
             supplier.SupplierName = model.SupplierName; //attributes in table
             supplier.SupplierNumber = model.SupplierNumber;
             supplier.SupplierEmail = model.SupplierEmail;

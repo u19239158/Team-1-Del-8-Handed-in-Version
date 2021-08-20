@@ -30,13 +30,29 @@ namespace NKAP_API_2.Controllers
                t => t.SpecialId,
                (a, t) => new
                {
-                   SpecialID = a.SpecialId,
+                   SpecialId = a.SpecialId,
                    SpecialPrice = t.SpecialPrice,
                    ProductSpecialId = t.ProductSpecialId,
                    SpecialDescription = a.SpecialDescription,
                    SpecialStartDate = a.SpecialStartDate,
                    SpecialEndDate = a.SpecialEndDate,
                    SpecialImage = a.SpecialImage,
+                   ProductItemId = t.ProductItemId
+
+               }).Join(_db.ProductItems,
+               a => a.ProductItemId,
+               t => t.ProductItemId,
+               (a, t) => new
+               {
+                   SpecialId = a.SpecialId,
+                   SpecialPrice = a.SpecialPrice,
+                   ProductSpecialId = a.ProductSpecialId,
+                   SpecialDescription = a.SpecialDescription,
+                   SpecialStartDate = a.SpecialStartDate,
+                   SpecialEndDate = a.SpecialEndDate,
+                   SpecialImage = a.SpecialImage,
+                   ProductItemName = t.ProductItemName,
+                   ProductItemId = t.ProductItemId
 
                });
             return Ok(special);
