@@ -24,7 +24,7 @@
     <img src="assets/images/employee.png" class="w3-margin-right" width=20px height=20px>
     <span class="nav-caption">Employees</span>
 </a>
-  
+
   <!-- Suppliers -->
   <mat-list-item [matMenuTriggerFor]="menu2">
     <!-- <mat-icon>shopping_cart</mat-icon> -->
@@ -45,7 +45,8 @@
   <a matline>Admin</a>
 </mat-list-item>
 <mat-menu #menu3="matMenu">
-<button mat-menu-item (click)="onSidenavClose()">Search Online Sales</button>
+<button mat-menu-item routerLink="/onlineSales" (click)="onSidenavClose()">Online Sales</button>
+<button mat-menu-item routerLink="/searchOnlineSales" (click)="onSidenavClose()">Search Online Sales</button>
 <button mat-menu-item routerLink="/stockTake" (click)="onSidenavClose()">Do Stock Take</button>
 <button mat-menu-item routerLink="/writeOffStock" (click)="onSidenavClose()">Write Off Stock</button>
 <button mat-menu-item routerLink="/assigndeliveryorder" (click)="onSidenavClose()">Assign Delivery Order</button>

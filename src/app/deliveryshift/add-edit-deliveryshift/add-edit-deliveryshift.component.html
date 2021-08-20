@@ -10,7 +10,7 @@
             <mat-form-field appearance="outline" class="control-m">
                 <mat-label>Start Time</mat-label>
                 <mat-select formControlName="startTime">
-                  <mat-option *ngFor="let ds of collections" [value]="ds.timeId">{{ds.startTime}}</mat-option>        
+                  <mat-option *ngFor="let ds of collections" [value]="ds.timeId">{{ds.startTime}}</mat-option>
                 </mat-select>
               </mat-form-field>
         </div>
@@ -29,7 +29,7 @@
 
 <div class="mat-row">
         <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-m">  
+            <mat-form-field appearance="outline" class="control-m">
               <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="dateId">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
