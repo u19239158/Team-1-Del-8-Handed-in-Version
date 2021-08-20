@@ -47,7 +47,6 @@ export class AddEditSupplierComponent implements OnInit {
       this.supplier = res
       console.log(res)
       this.form = this.formBuilder.group({
-        id: [this.supplier.supplierID, Validators.required],
         supplierName: [this.supplier.supplierName, [Validators.required]],
         supplierEmail: [this.supplier.supplierEmail, [Validators.required, Validators.email]],
         supplierNumber: [this.supplier.supplierNumber, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
@@ -87,10 +86,10 @@ createSupplier(){
 
   updateSupplier() {
     const supplier: Supplier = this.form.value;
-    supplier.supplierID = this.supplier.supplierID;
+    supplier.supplierId = this.supplier.supplierId;
     this.SupplierService.UpdateSupplier(supplier).subscribe(res => {
       console.log(res)
-      this.loading = false
+      //this.loading = false
       this.router.navigateByUrl('supplier');
     });
   }

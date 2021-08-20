@@ -34,5 +34,10 @@ export class WriteOffStockService {
   WriteOffStock(WriteOffStock:WriteOffStock):  Observable<WriteOffStock[]>  {
     return this.http.post<WriteOffStock[]>(`${this.server}WriteOff/WriteOffStock`, WriteOffStock,this.httpOptions);
   }
+
+  getProductItemByID(ProductItemId):  Observable<Productitem>  {
+    return this.http.get<Productitem>(`${this.server}Productitem/GetPItemsByID/${ProductItemId}`).pipe(map(res => res));
+  }
+
 }
 

@@ -19,7 +19,7 @@ export interface Employee {
 }
 
 export interface Supplier {
-  supplierID: number;
+  supplierId: number;
   supplierName: string;
   supplierTypeDesc: string;
   supplierEmail: string;

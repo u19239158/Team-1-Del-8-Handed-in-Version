@@ -1,10 +1,11 @@
+import { Productitem } from './../../../interfaces/index';
 //import { WriteOffStock } from './../../../interfaces/index';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { WriteOffStock } from 'src/app/interfaces';
 import { WriteOffStockService } from 'src/app/services/admin/write-off-stock/write-off-stock.service';
-import { Observable, observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-page',
@@ -17,6 +18,10 @@ export class PageComponent implements OnInit {
   loading = false;
   writeOffStock : WriteOffStock;
   writeOffStocks : Observable<WriteOffStock[]>;
+  productitem: Productitem;
+  productitems: Observable<Productitem[]>;
+  submitted = false;
+
   //formBuilder: any;
 
 
@@ -29,14 +34,19 @@ export class PageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.id = +this.route.snapshot.params['id'];
     const formOptions: AbstractControlOptions = { };
+    this.WriteOffStockService.getProductItemByID(this.id).subscribe(res => {
+      this.productitem = res
+      console.log(res)
     this.form = this.FormBuilder.group({
       writeOffReason: ['', [Validators.required, Validators.maxLength(50)]],
       writeOffQuantity: ['', [Validators.required]],
-      productItemId :['', [Validators.required]]
+     
     }, formOptions);
+  });
   }
-
+  
   onSubmit() {
 
     if (this.form.invalid) {
@@ -44,13 +54,14 @@ export class PageComponent implements OnInit {
     } 
     if (this.loading = true) 
       {
-       return this.writeOff();
+        this.writeOff();
       }
   }
 
   writeOff() {
-    const WriteOffStock: WriteOffStock = this.form.value;
-    this.WriteOffStockService.WriteOffStock(WriteOffStock).subscribe(res => {
+    const writeOffStock: WriteOffStock = this.form.value;
+    writeOffStock.productItemId = this.productitem.productItemId;
+    this.WriteOffStockService.WriteOffStock(writeOffStock).subscribe(res => {
       console.log(res)
       this.loading = false
       this.router.navigateByUrl('writeOffStock');
