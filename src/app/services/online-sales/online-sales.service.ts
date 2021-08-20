@@ -19,7 +19,11 @@ export class OnlineSalesService {
 
 constructor(private http: HttpClient) { }
 
-GetOnlineSales():  Observable<OnlineSales[]>  {
-  return this.http.get<OnlineSales[]>(`${this.server}OnlineSales/GetOnlineSales`).pipe(map(res => res));
+// GetOnlineSales():  Observable<OnlineSales[]>  {
+//   return this.http.get<OnlineSales[]>(`${this.server}OnlineSales/GetOnlineSales`).pipe(map(res => res));
+// }
+
+ViewAllSales():  Observable<OnlineSales[]>  {
+  return this.http.get<OnlineSales[]>(`${this.server}Sale/ViewAllSales`).pipe(map(res => res));
 }
 }

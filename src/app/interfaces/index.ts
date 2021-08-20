@@ -31,6 +31,7 @@ export interface Supplier {
   supplierPostalCode: number;
   supplierBalance : number;
   supplierTypeId : number;
+  supplierAmount: number;
 }
 
 export interface UserRole {
@@ -184,7 +185,15 @@ endDate: string;
 }
 
 export interface OnlineSales {
-  saleNumber: number;
-  saleDate: string;
-  orderStatus: string;
+  saleID: number;
+  saleOrderDate: string;
+  orderStatusId: string;
+  orderStatusDescription: string;
+  customerId:string;
+  customerName: string;
+  customerSurame: string;
+  customerBusinessname: string;
+  
+
+
 }
