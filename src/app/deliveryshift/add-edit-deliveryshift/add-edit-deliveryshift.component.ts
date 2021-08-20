@@ -73,19 +73,19 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  // onSubmit() {
 
-    if (this.form.invalid) {
-      return;
-    }
+  //   if (this.form.invalid) {
+  //     return;
+  //   }
 
-    this.loading = true;
-    if (this.isAddMode) {
-        this.createDeliveryshift();
-    } else {
-        this.updateDeliveryshift();
-    }
-  }
+  //   this.loading = true;
+  //   if (this.isAddMode) {
+  //       this.createDeliveryshift();
+  //   } else {
+  //       this.updateDeliveryshift();
+  //   }
+  // }
 
   onSubmits() {
 
@@ -120,7 +120,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     }, error => {
       console.log({ error });
     })
-    
+
   }
 
   createDeliveryshift() {
