@@ -42,7 +42,7 @@ export class AddEditCourierComponent implements OnInit {
       courierName: ['', [Validators.required]],
       courierTypeID: ['', [Validators.required]],
       courierEmail: ['', [Validators.required, Validators.email]],
-      courierNumber: ['', Validators.required, Validators.maxLength(10)],
+      courierNumber: ['', [Validators.required, Validators.maxLength(10)]],
       }, formOptions);
 
     if (!this.isAddMode) {
