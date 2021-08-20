@@ -54,7 +54,7 @@ import { AssignLocalDeliveryComponent } from './admin/assign-local-delivery/assi
 import { AssignCourierDeliveryComponent } from './admin/assign-courier-delivery/assign-courier-delivery.component';
 import { PageComponent } from './admin/write-off-stock/page/page.component';
 import { StockTakePageComponent } from './admin/stock-take/stock-take-page/stock-take-page.component';
-import { ReceiveOrderComponent } from './supplier/receive-supplier-order/receive-order/receive-order.component';
+// import { ReceiveOrderComponent } from './supplier/receive-supplier-order/receive-order/receive-order.component';
 import { SearchOnlineSalesComponent } from './admin/search-online-sales/search-online-sales.component';
 import { OnlineSalesComponent } from './admin/online-sales/online-sales.component';
 import { PackOrderComponent } from './admin/pack-order/pack-order.component';
@@ -98,7 +98,7 @@ import { PackOrderComponent } from './admin/pack-order/pack-order.component';
     AssignLocalDeliveryComponent,
     PageComponent,
     StockTakePageComponent,
-    ReceiveOrderComponent,
+    // ReceiveOrderComponent,
     SearchOnlineSalesComponent,
     OnlineSalesComponent,
     PackOrderComponent,

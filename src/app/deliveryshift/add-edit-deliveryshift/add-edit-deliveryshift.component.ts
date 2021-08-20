@@ -24,11 +24,8 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     deliveryshift: Deliveryshift;
     deliveryshifts: Observable<Deliveryshift[]>
     collection = [];
-<<<<<<< HEAD
     collections = [];
-=======
     employees = [];
->>>>>>> da62d3c4cf873c493b72b419e767e0a9ae6a4781
     selected: string;
     selectemp: string;
     selectend: string;
@@ -69,11 +66,8 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
           endTime: [this.deliveryshift.endTime,[Validators.required]],
           dayOfTheWeek: [this.deliveryshift.dayOfTheWeek, [Validators.required]],
           employeeId: [this.deliveryshift.employeeId, [Validators.required]],
-<<<<<<< HEAD
           employeeName: [this.deliveryshift.employeeName, [Validators.required]],
-=======
           employeeShiftId:  [this.deliveryshift.employeeShiftId, [Validators.required]],
->>>>>>> da62d3c4cf873c493b72b419e767e0a9ae6a4781
       }, formOptions);
       });
     }

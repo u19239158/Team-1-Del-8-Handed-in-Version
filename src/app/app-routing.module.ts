@@ -45,7 +45,7 @@ import { StockTakeComponent } from './admin/stock-take/stock-take.component';
 import { WriteOffStockComponent } from './admin/write-off-stock/write-off-stock.component';
 import { PageComponent } from './admin/write-off-stock/page/page.component';
 import { StockTakePageComponent } from './admin/stock-take/stock-take-page/stock-take-page.component';
-import { ReceiveOrderComponent } from './supplier/receive-supplier-order/receive-order/receive-order.component';
+// import { ReceiveOrderComponent } from './supplier/receive-supplier-order/receive-order/receive-order.component';
 
 import { OnlineSalesComponent } from './admin/online-sales/online-sales.component';
 import { SearchOnlineSalesComponent } from './admin/search-online-sales/search-online-sales.component';
@@ -219,10 +219,10 @@ const routes: Routes = [
     path: 'stockTakePage',
     component: StockTakePageComponent,
   },
-  {
-    path: 'receiveOrder',
-    component: ReceiveOrderComponent,
-  },
+  // {
+  //   path: 'receiveOrder',
+  //   component: ReceiveOrderComponent,
+  // },
   {
     path: 'onlineSales',
     component: OnlineSalesComponent,

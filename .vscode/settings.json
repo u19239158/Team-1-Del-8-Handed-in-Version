@@ -8,6 +8,7 @@
         "Idnumber",
         "Nomatches",
         "Productitems",
+        "Serice",
         "Unscheduleddeliveries",
         "Unscheduleddelivery",
         "Unscheduleddeliverys",
@@ -26,6 +27,8 @@
         "productcategory",
         "productcategorys",
         "productitem",
+        "selectemp",
+        "selectend",
         "shiftid",
         "sidenav"
     ]
