@@ -60,7 +60,7 @@ export class EmployeesComponent implements OnInit {
     const data = (this.Employees.filter(filter))
     this.dataNotFound = data.length === 0
     this.dataSource = new MatTableDataSource(data)
- }
+  }
 
   deleteEmployee(Employee: Employee) {
     const confirm = this.dialog.open(GlobalConfirmComponent, {

@@ -22,7 +22,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
   isAddMode: boolean;
   loading = false;
   submitted = false;
-  deliveryshift: Deliveryshift;
+  deliveryshift: Deliveryshift = {} as Deliveryshift;
   deliveryshifts: Observable<Deliveryshift[]>
   collection = [];
   collections = [];
@@ -30,8 +30,8 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
   selected: string;
   selectemp: string;
   selectend: string;
-  currentData= 2;
-  
+  currentData = 2;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -61,7 +61,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     if (!this.isAddMode) {
       this.DeliveryShiftService.getDeliveryShiftByID(this.shiftId).subscribe(res => {
         this.deliveryshift = res
-        console.log(res)
+        console.log("res3", res)
         this.form = this.formBuilder.group({
           // dateId: [this.deliveryshift.dateId, [Validators.required]],
           timeId: [this.deliveryshift.timeId, [Validators.required]],
@@ -73,6 +73,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
         //employeeShiftId: [this.deliveryshift.employeeShiftID],
           shiftId:[this.deliveryshift.employeeShiftID],
         }, formOptions);
+        // employeeId: [this.employeeShiftId, [Validators.required]],
       });
     }
   }
@@ -120,6 +121,11 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
       .get<any>('https://localhost:44393/api/Employee/GetEmployee').subscribe((res: any) => {
         this.employees = res;
         console.log("res2", res);
+
+        setTimeout(() => {
+          // this.form.patchValue({ employeeId: 2 })
+        }, 3000);
+
         // this.currentData = res.find(e => e.employeeId === this.employeeShiftId)
         // console.log("currentData", this.currentData);
       }, error => {

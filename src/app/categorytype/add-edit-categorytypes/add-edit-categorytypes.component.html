@@ -1,60 +1,60 @@
 <div class="content">
-<h1 *ngIf="isAddMode">Add Category Types</h1>
-<h1 *ngIf="!isAddMode">Edit Category Types</h1>
+  <h1 *ngIf="isAddMode">Add Category Types</h1>
+  <h1 *ngIf="!isAddMode">Edit Category Types</h1>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-<div class="mat-row">
-     <!-- Choose category image -->
-     <div appearance="outline" class="mat-col-quarter">
-      <label class="image-upload-container btn btn-bwm">
-    <span>Select Image</span>
-    <input #imageInput
-          type="file"
-          accept="image/*">
-    </label>
-    </div>
+    <div class="mat-row">
+      <!-- Choose category image -->
+      <div appearance="outline" class="mat-col-quarter">
+        <label class="image-upload-container btn btn-bwm">
+          <span>Select Image</span>
+          <input #imageInput type="file" accept="image/*">
+        </label>
+      </div>
     </div>
 
     <div class="mat-row">
-        <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-m">
-                <mat-label>Product Category Name</mat-label>
-                <mat-select [(value)]="selected" formControlName="productCategoryID">
-                  <mat-option *ngFor="let ProductCategory of collection" [value]="ProductCategory.productCategoryId">{{ProductCategory.productCategoryDescription}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-        </div>
-        </div>
-
-        <div class="mat-row">
-        <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-m">
-                <mat-label>Category Type Name</mat-label>
-                <input type="text" matInput placeholder="Category Type Name" formControlName="categoryTypeDescription">
-            </mat-form-field>
-        </div>
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Product Category Name</mat-label>
+          <mat-select [(value)]="selected" formControlName="productCategoryID">
+            <mat-option *ngFor="let ProductCategory of collection" [value]="ProductCategory.productCategoryId">
+              {{ProductCategory.productCategoryDescription}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
 
     <div class="mat-row">
-    <div class="mat-col-quarter">
-      <mat-form-field appearance="outline" class="control-m">
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Category Type Name</mat-label>
+          <input type="text" matInput placeholder="Category Type Name" formControlName="categoryTypeDescription">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="mat-row">
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
           <mat-label>Category Type Description</mat-label>
           <input type="text" matInput placeholder="Category Type Name" formControlName="itemDescription">
-      </mat-form-field>
-  </div>
-</div>
+        </mat-form-field>
+      </div>
+    </div>
 
-  <div class="mat-row">
-    <div class="form-group" class="control-m">
-      <button mat-raised-button color ="primary" [disabled]="loading">
+    <div class="mat-row">
+      <div class="form-group" class="control-m">
+        <button mat-raised-button color="primary" [disabled]="loading">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Save
-      </button>
-      <a (click)="Close()" mat-button>Cancel</a>
-  </div>
+        </button>
+        <a (click)="Close()" mat-button>Cancel</a>
+      </div>
 
-</div>
+    </div>
 
-</form>
+  </form>
 </div>

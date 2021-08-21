@@ -1,52 +1,54 @@
 <div class="content">
-<h2 *ngIf="isAddMode">Add Delivery Shift</h2>
-<h2 *ngIf="!isAddMode">Edit Delivery Shift</h2>
+  <h2 *ngIf="isAddMode">Add Delivery Shift</h2>
+  <h2 *ngIf="!isAddMode">Edit Delivery Shift</h2>
 
-<!-- max time for a shift is 1 hour (ADD Validation) -->
+  <!-- max time for a shift is 1 hour (ADD Validation) -->
 
-<form [formGroup]="form" (ngSubmit)="onSubmits()">
+  <form [formGroup]="form" (ngSubmit)="onSubmits()">
     <div class="mat-row">
-        <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-m">
-                <mat-label>Time Interval</mat-label>
-                <mat-select formControlName="timeId">
-                  <mat-option *ngFor="let ds of collections" [value]="ds.timeId">{{ds.startTime}} - {{ds.endTime}}</mat-option>        
-                </mat-select>
-              </mat-form-field>
-        </div>
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Time Interval</mat-label>
+          <mat-select formControlName="timeId">
+            <mat-option *ngFor="let ds of collections" [value]="ds.timeId">{{ds.startTime}} - {{ds.endTime}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
 
-<div class="mat-row">
-        <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-m">
-              <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="dayOfTheWeek">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-        </div>
-</div>
+    <div class="mat-row">
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="dayOfTheWeek">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
 
-<div class="mat-row">
-  <div class="mat-col-quarter">
-  <mat-form-field appearance="outline" class="control-m">
-    <mat-label>Employee</mat-label>
-      <mat-select [(value)]="currentData" formControlName="employeeID"> 
-        <mat-option *ngFor="let Employees of employees" [value]="Employees.employeeId">{{Employees.employeeName}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  </div>
-</div>
+    <div class="mat-row">
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Employee</mat-label>
+          <mat-select [(value)]="currentData" formControlName="employeeID">
+            <mat-option *ngFor="let Employees of employees" [value]="Employees.employeeId">{{Employees.employeeName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
 
-  <div class="mat-row">
-    <div class="form-group" class="control-m">
-      <button mat-raised-button color ="primary" [disabled]="loading">
+    <div class="mat-row">
+      <div class="form-group" class="control-m">
+        <button mat-raised-button color="primary" [disabled]="loading">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Save
-      </button>
-      <a (click)="Close()" mat-button>Cancel</a>
-  </div>
+        </button>
+        <a (click)="Close()" mat-button>Cancel</a>
+      </div>
 
-</div>
+    </div>
 
-</form>
+  </form>
 </div>
