@@ -58,19 +58,19 @@
         <!-- Sale Number -->
         <ng-container matColumnDef="saleNumber">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Sale Number </th>
-        <td mat-cell *matCellDef="let element">{{element.saleNumber}} </td>
+        <td mat-cell *matCellDef="let element">{{element.saleID}} </td>
         </ng-container>
 
         <!-- Sale Date -->
         <ng-container matColumnDef="saleDate">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Sale Date </th>
-            <td mat-cell *matCellDef="let element"> {{element.saleDate}} </td>
+            <td mat-cell *matCellDef="let element"> {{element. saleOrderDate}} </td>
         </ng-container>
 
          <!-- Order Status -->
          <ng-container matColumnDef="orderStatus">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Status </th>
-          <td mat-cell *matCellDef="let element"> {{element.orderStatus}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.orderStatusDescription}} </td>
       </ng-container>
 
         <!-- Actions Column -->

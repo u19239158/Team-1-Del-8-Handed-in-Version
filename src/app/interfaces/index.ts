@@ -79,7 +79,8 @@ export interface Deliveryshift {
   shiftId : number;
   dateId : number;
   timeId : number;
-  employeeShiftId : number;
+  employeeShiftID : number;
+
 }
 
 export interface Productcategory {
@@ -197,3 +198,4 @@ export interface OnlineSales {
 
 
 }
+
