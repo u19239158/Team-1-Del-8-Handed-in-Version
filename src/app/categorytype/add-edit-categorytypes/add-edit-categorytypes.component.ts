@@ -14,30 +14,30 @@ import { HttpClient } from '@angular/common/http';
 
 export class AddEditCategorytypesComponent implements OnInit {
 
-    form: FormGroup;
-    id: number;
-    isAddMode: boolean;
-    loading = false;
-    submitted = false;
-    categorytype: Categorytype;
-    categorytypes: Observable<Categorytype[]>;
-    collection = [];
-    selected: string;
+  form: FormGroup;
+  id: number;
+  isAddMode: boolean;
+  loading = false;
+  submitted = false;
+  categorytype: Categorytype;
+  categorytypes: Observable<Categorytype[]>;
+  collection = [];
+  selected: string;
 
-    constructor(
-        private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
-        private router: Router,
-        private CategorytypeService: CategorytypeService,
-        private http: HttpClient
-    ) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private CategorytypeService: CategorytypeService,
+    private http: HttpClient
+  ) { }
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
     this.getCollection();
 
-    const formOptions: AbstractControlOptions = { };
+    const formOptions: AbstractControlOptions = {};
     this.form = this.formBuilder.group({
       categoryTypeDescription: ['', [Validators.required, Validators.maxLength(50)]],
       categoryTypeImage: ['', [Validators.required]],
@@ -54,8 +54,9 @@ export class AddEditCategorytypesComponent implements OnInit {
           specialImage: [this.categorytype.categoryTypeImage, [Validators.required]],
           itemDescription: [this.categorytype.itemDescription, [Validators.required, Validators.maxLength(50)]],
           productCategoryID: [this.categorytype.productCategoryID, [Validators.required, Validators.maxLength(50)]],
-          }, formOptions);
+        }, formOptions);
       });
+      this.form.get('productCategoryID').disable();
     }
   }
 
@@ -67,10 +68,11 @@ export class AddEditCategorytypesComponent implements OnInit {
 
     this.loading = true;
     if (this.isAddMode) {
-        this.createCategorytype();
+      this.createCategorytype();
     } else {
-        this.updateCategorytype();
+      this.updateCategorytype();
     }
+
   }
 
   createCategorytype() {
@@ -90,10 +92,12 @@ export class AddEditCategorytypesComponent implements OnInit {
       }, error => {
         console.log({ error });
       })
+
   }
 
   updateCategorytype() {
     const categorytype: Categorytype = this.form.value;
+
     categorytype.categoryTypeId = this.categorytype.categoryTypeId;
     this.CategorytypeService.UpdateCategoryType(categorytype).subscribe(res => {
       console.log(res)

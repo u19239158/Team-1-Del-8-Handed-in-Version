@@ -14,36 +14,36 @@ import { HttpClient } from '@angular/common/http';
 
 export class AddEditCourierComponent implements OnInit {
 
-    form: FormGroup;
-    id: number;
-    isAddMode: boolean;
-    loading = false;
-    submitted = false;
-    courier: Courier;
-    couriers: Observable<Courier[]>;
-    collection = [];
-    selected: string;
+  form: FormGroup;
+  id: number;
+  isAddMode: boolean;
+  loading = false;
+  submitted = false;
+  courier: Courier;
+  couriers: Observable<Courier[]>;
+  collection = [];
+  selected: string;
 
-    constructor(
-        private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
-        private router: Router,
-        private CourierService: CourierService,
-        private http: HttpClient    
-    ) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private CourierService: CourierService,
+    private http: HttpClient
+  ) { }
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
     this.getCollection();
 
-    const formOptions: AbstractControlOptions = { };
+    const formOptions: AbstractControlOptions = {};
     this.form = this.formBuilder.group({
       courierName: ['', [Validators.required]],
       courierTypeID: ['', [Validators.required]],
       courierEmail: ['', [Validators.required, Validators.email]],
       courierNumber: ['', [Validators.required, Validators.maxLength(10)]],
-      }, formOptions);
+    }, formOptions);
 
     if (!this.isAddMode) {
       this.CourierService.getCourierByID(this.id).subscribe(res => {
@@ -54,7 +54,7 @@ export class AddEditCourierComponent implements OnInit {
           courierTypeID: [this.courier.courierTypeID, [Validators.required]],
           courierEmail: [this.courier.courierEmail, [Validators.required, Validators.email]],
           courierNumber: [this.courier.courierNumber, [Validators.required, Validators.maxLength(10)]],
-          }, formOptions);
+        }, formOptions);
       });
     }
   }
@@ -67,9 +67,9 @@ export class AddEditCourierComponent implements OnInit {
 
     this.loading = true;
     if (this.isAddMode) {
-        this.createCourier();
+      this.createCourier();
     } else {
-        this.updateCourier();
+      this.updateCourier();
     }
   }
 
@@ -81,7 +81,7 @@ export class AddEditCourierComponent implements OnInit {
       this.router.navigateByUrl('couriers');
     });
   }
-  
+
   getCollection() {
     this.http
       .get<any>('https://localhost:44393/api/CourierType/GetCourierType').subscribe((res: any) => {

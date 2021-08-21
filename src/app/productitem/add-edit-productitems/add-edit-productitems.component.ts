@@ -14,52 +14,52 @@ import { HttpClient } from '@angular/common/http';
 
 export class AddEditProductitemsComponent implements OnInit {
 
-    form: FormGroup;
-    id: number;
-    isAddMode: boolean;
-    loading = false;
-    submitted = false;
-    Productitem: Productitem;
-    productitem: Observable<Productitem[]>;
-    collection = [];
-    selected: string;
+  form: FormGroup;
+  id: number;
+  isAddMode: boolean;
+  loading = false;
+  submitted = false;
+  Productitem: Productitem;
+  productitem: Observable<Productitem[]>;
+  collection = [];
+  selected: string;
 
-    constructor(
-        private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
-        private router: Router,
-        private ProductitemService: ProductitemService,
-        private http: HttpClient
-    ) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private ProductitemService: ProductitemService,
+    private http: HttpClient
+  ) { }
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
     this.getCollection();
 
-    const formOptions: AbstractControlOptions = { };
+    const formOptions: AbstractControlOptions = {};
     this.form = this.formBuilder.group({
-        //id: ['', [Validators.required]],
-        productItemName: ['', [Validators.required]],
-        categoryTypeId: ['', [Validators.required]],
-        //description: ['', [Validators.required]],
-        productItemCost: ['', [Validators.required ]],
-        quantityOnHand: ['', [Validators.required]],
-       }, formOptions);
+      //id: ['', [Validators.required]],
+      productItemName: ['', [Validators.required]],
+      categoryTypeId: ['', [Validators.required]],
+      //description: ['', [Validators.required]],
+      productItemCost: ['', [Validators.required]],
+      quantityOnHand: ['', [Validators.required]],
+    }, formOptions);
 
     if (!this.isAddMode) {
-      this.ProductitemService.getProductItemByID(this.id). subscribe(res => {
+      this.ProductitemService.getProductItemByID(this.id).subscribe(res => {
         this.Productitem = res
         console.log(res)
         this.form = this.formBuilder.group({
           //id: [this.Productitem.productItemId, [Validators.required]],
           productItemName: [this.Productitem.productItemName, [Validators.required]],
           categoryTypeId: [this.Productitem.categoryTypeId, [Validators.required]],
-         // productItemDescription: [this.productitem.description, [Validators.required]],
-          productItemCost: [this.Productitem.productItemCost, [Validators.required ]],
+          // productItemDescription: [this.productitem.description, [Validators.required]],
+          productItemCost: [this.Productitem.productItemCost, [Validators.required]],
           quantityOnHand: [this.Productitem.quantityOnHand, [Validators.required, Validators.maxLength(13)]],
-          }, formOptions);
-      })
+        }, formOptions);
+      });
     }
   }
 
@@ -71,9 +71,9 @@ export class AddEditProductitemsComponent implements OnInit {
 
     this.loading = true;
     if (this.isAddMode) {
-        this.createProductitem();
+      this.createProductitem();
     } else {
-        this.updateProductitem();
+      this.updateProductitem();
     }
   }
 
@@ -90,7 +90,7 @@ export class AddEditProductitemsComponent implements OnInit {
 
   createProductitem() {
     const productitem: Productitem = this.form.value;
-    this.ProductitemService.CreateProductItem(productitem).subscribe (res => {
+    this.ProductitemService.CreateProductItem(productitem).subscribe(res => {
       console.log(res)
       this.loading = false
       this.router.navigateByUrl('productItem');

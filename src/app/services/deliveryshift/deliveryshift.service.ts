@@ -14,37 +14,38 @@ export class DeliveryshiftService {
     headers: new HttpHeaders({
       ContentType: 'application/json'
     })
-};
+  };
 
 
   constructor(private http: HttpClient) { }
 
-  GetDeliveryShift():  Observable<Deliveryshift[]>  {
+  GetDeliveryShift(): Observable<Deliveryshift[]> {
     return this.http.get<Deliveryshift[]>(`${this.server}Deliveryshift/GetDeliveryShift`).pipe(map(res => res));
   }
 
-  getDeliveryShiftByID(shiftid):  Observable<Deliveryshift>  {
-    return this.http.get<Deliveryshift>(`${this.server}Deliveryshift/GetDeliveryShiftByID/${shiftid}`).pipe(map(res => res));
+  // Should it be get by employeeShiftId?
+  getDeliveryShiftByID(shiftId): Observable<Deliveryshift> {
+    return this.http.get<Deliveryshift>(`${this.server}Deliveryshift/GetDeliveryShiftByID/${shiftId}`).pipe(map(res => res));
   }
 
-  CreateDeliveryShift(Deliveryshift:Deliveryshift):  Observable<Deliveryshift[]>  {
-    return this.http.post<Deliveryshift[]>(`${this.server}Deliveryshift/AddDate`, Deliveryshift,this.httpOptions);
+  CreateDeliveryShift(Deliveryshift: Deliveryshift): Observable<Deliveryshift[]> {
+    return this.http.post<Deliveryshift[]>(`${this.server}Deliveryshift/AddDate`, Deliveryshift, this.httpOptions);
   }
 
-  AssignDeliveryShifts(Deliveryshift:Deliveryshift):  Observable<Deliveryshift[]>  {
-    return this.http.post<Deliveryshift[]>(`${this.server}Deliveryshift/AssignDeliveryShift`, Deliveryshift,this.httpOptions);
+  AssignDeliveryShifts(Deliveryshift: Deliveryshift): Observable<Deliveryshift[]> {
+    return this.http.post<Deliveryshift[]>(`${this.server}Deliveryshift/AssignDeliveryShift`, Deliveryshift, this.httpOptions);
   }
 
-  UpdateDeliveryShift(Deliveryshift:Deliveryshift):  Observable<Deliveryshift[]>  {
-    return this.http.put<Deliveryshift[]>(`${this.server}Deliveryshift/UpdateDeliveryShift`, Deliveryshift,this.httpOptions);
+  UpdateDeliveryShift(Deliveryshift: Deliveryshift): Observable<Deliveryshift[]> {
+    return this.http.put<Deliveryshift[]>(`${this.server}Deliveryshift/UpdateDeliveryShift`, Deliveryshift, this.httpOptions);
   }
 
-    DeleteDeliveryShift(deliveryShiftId):  Observable<Deliveryshift>  {
+  DeleteDeliveryShift(deliveryShiftId): Observable<Deliveryshift> {
     return this.http.delete<Deliveryshift>(`${this.server}Deliveryshift/DeleteDeliveryShift/${deliveryShiftId}`).pipe(map(res => res));
   }
 
-  AssignDeliveryShift(Deliveryshift:Deliveryshift):  Observable<Deliveryshift[]>  {
-    return this.http.post<Deliveryshift[]>(`${this.server}Deliveryshift/AssignDeliveryShift`, Deliveryshift,this.httpOptions);
+  AssignDeliveryShift(Deliveryshift: Deliveryshift): Observable<Deliveryshift[]> {
+    return this.http.post<Deliveryshift[]>(`${this.server}Deliveryshift/AssignDeliveryShift`, Deliveryshift, this.httpOptions);
   }
 
 }
