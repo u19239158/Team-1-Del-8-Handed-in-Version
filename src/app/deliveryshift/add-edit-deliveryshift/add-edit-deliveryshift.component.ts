@@ -17,7 +17,8 @@ import { AssigndeliveryshiftService } from 'src/app/services/assigndeliveryshift
 export class AddEditDeliveryshiftsComponent implements OnInit {
 
   form: FormGroup;
-  employeeShiftId: number;
+  // employeeShiftId: number;
+  shiftId: number;
   isAddMode: boolean;
   loading = false;
   submitted = false;
@@ -41,36 +42,37 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.employeeShiftId = +this.route.snapshot.params['id'];
-    this.isAddMode = !this.employeeShiftId;
+    this.shiftId = +this.route.snapshot.params['id'];
+    this.isAddMode = !this.shiftId;
     this.getCollection();
     this.getEmployees();
 
     const formOptions: AbstractControlOptions = {};
     this.form = this.formBuilder.group({
-      startTime: ['', [Validators.required]],
-      endTime: ['', [Validators.required]],
+      // startTime: ['', [Validators.required]],
+      // endTime: ['', [Validators.required]],
       dayOfTheWeek: ['', [Validators.required]],
-      employeeId: ['', [Validators.required]],
-      employeeName: ['', [Validators.required]],
-      dateId: ['', [Validators.required]],
+      employeeID: ['', [Validators.required]],
+      // employeeName: ['', [Validators.required]],
+      // dateId: ['', [Validators.required]],
       timeId: ['', [Validators.required]],
     }, formOptions);
 
     if (!this.isAddMode) {
-      this.DeliveryShiftService.getDeliveryShiftByID(this.employeeShiftId).subscribe(res => {
+      this.DeliveryShiftService.getDeliveryShiftByID(this.shiftId).subscribe(res => {
         this.deliveryshift = res
         console.log("res3", res)
         this.form = this.formBuilder.group({
-          dateId: ["08/03/2021", [Validators.required]],
+          // dateId: [this.deliveryshift.dateId, [Validators.required]],
           timeId: [this.deliveryshift.timeId, [Validators.required]],
-          startTime: [this.deliveryshift.startTime, [Validators.required]],
-          endTime: [this.deliveryshift.endTime, [Validators.required]],
+          // startTime: [this.deliveryshift.startTime, [Validators.required]],
+          // endTime: [this.deliveryshift.endTime, [Validators.required]],
           dayOfTheWeek: [this.deliveryshift.dayOfTheWeek, [Validators.required]],
-          employeeId: [this.employeeShiftId, [Validators.required]],
-          employeeName: [this.deliveryshift.employeeName, [Validators.required]],
+          employeeID: [this.deliveryshift.employeeShiftId, [Validators.required]],
+          // employeeName: [this.deliveryshift.employeeName, [Validators.required]],
           employeeShiftId: [this.deliveryshift.employeeShiftId, [Validators.required]],
         }, formOptions);
+        // employeeId: [this.employeeShiftId, [Validators.required]],
       });
     }
   }
@@ -151,7 +153,9 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
 
   updateDeliveryshift() {
     const deliveryshift: Deliveryshift = this.form.value;
+    deliveryshift.shiftId = this.deliveryshift.shiftId;
     deliveryshift.employeeShiftId = this.deliveryshift.employeeShiftId;
+    deliveryshift.employeeID = this.deliveryshift.employeeID;
     this.DeliveryShiftService.UpdateDeliveryShift(deliveryshift).subscribe(res => {
       console.log(res)
       this.form.reset();

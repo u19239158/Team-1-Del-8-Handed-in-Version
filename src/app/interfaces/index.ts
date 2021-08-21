@@ -71,7 +71,7 @@ export interface Deliveryshift {
   endTime: string;
   dayOfTheWeek: string;
   employeeName: string;
-  employeeId: number;
+  employeeID: number;
   saleId:number;
   customerName: string;
   deliveryDistance: number;
