@@ -264,7 +264,7 @@ namespace NKAP_API_2.Controllers
                      ProvinceId = sd.ProvinceId,
                      ProvinceDescription = sd.ProvinceDescription,
 
-                 }).Where(ss => ss.SaleOrderRecieveType == true).Join(_db.Cities,
+                 }).Where(ss => ss.SaleOrderRecieveType == true).Join(_db.Provinces,
                  sor => sor.ProvinceId,
                  sd => sd.ProvinceId,
                     (sor, sd) => new
@@ -283,7 +283,7 @@ namespace NKAP_API_2.Controllers
                         AddressPostalCode = sor.AddressPostalCode,
                         ProvinceId = sor.ProvinceId,
                         ProvinceDescription = sor.ProvinceDescription,
-                        CityDescription = sd.CityDescription
+                        //CityDescription = sd.CityDescription
                     }).Where(ss => ss.OrderStatusId == 3).Join(_db.Deliveries,
                  sor => sor.AddressId,
                  sd => sd.AddressId,
@@ -303,7 +303,7 @@ namespace NKAP_API_2.Controllers
                         AddressPostalCode = sor.AddressPostalCode,
                         ProvinceId = sor.ProvinceId,
                         ProvinceDescription = sor.ProvinceDescription,
-                        CityDescription = sor.CityDescription,
+                      //CityDescription = sor.CityDescription,
                         DeliveryDistance = sd.DeliveryDistance
                     });
 

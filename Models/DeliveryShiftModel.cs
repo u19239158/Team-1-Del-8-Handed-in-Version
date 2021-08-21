@@ -14,7 +14,7 @@ namespace NKAP_API_2.Models
     {
          
         [JsonProperty("shiftid")]
-        public int ShiftID
+        public int ShiftId
         { get; set; }
 
         [JsonProperty("employeeshiftid")]

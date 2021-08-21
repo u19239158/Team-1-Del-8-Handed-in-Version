@@ -190,24 +190,24 @@ namespace NKAP_API_2.Controllers
             return Ok(shift);
         }
 
-        [Route("UpdateDeliveryShift")] //route
-        [HttpPut]
-        //Add Date
-        //Create a Model for table
-        public IActionResult UpdateDeliveryShift(DeliveryShiftModel model) //reference the model
-        {
-            Date shiftDate = new Date();
-            Time shiftTime = new Time();
-            var shift = _db.EmployeeShifts.Find(model.EmployeeShiftID);
-            shiftDate.DayOfTheWeek = model.DayOfTheWeek;
-            shiftTime.StartTime = model.StartTime;
-            shiftTime.EndTime = model.EndTime;
-            shift.EmployeeId = model.EmployeeID;
-            _db.Dates.Add(shiftDate);
-            _db.SaveChanges();
+        //[Route("UpdateDeliveryShift")] //route
+        //[HttpPut]
+        ////Add Date
+        ////Create a Model for table
+        //public IActionResult UpdateDeliveryShift(DeliveryShiftModel model) //reference the model
+        //{
+        //    Date shiftDate = new Date();
+        //    Time shiftTime = new Time();
+        //    var shift = _db.EmployeeShifts.Find(model.EmployeeShiftID);
+        //    shiftDate.DayOfTheWeek = model.DayOfTheWeek;
+        //    shiftTime.StartTime = model.StartTime;
+        //    shiftTime.EndTime = model.EndTime;
+        //    shift.EmployeeId = model.EmployeeID;
+        //    _db.Dates.Add(shiftDate);
+        //    _db.SaveChanges();
 
-            return Ok(shiftDate);
-        }
+        //    return Ok(shiftDate);
+        //}
 
         [Route("DeleteDeliveryShift/{employeeshiftid}")] //route
         [HttpDelete]
@@ -259,6 +259,53 @@ namespace NKAP_API_2.Controllers
                 EmployeeId = model.EmployeeID,
             };
             _db.EmployeeShifts.Add(EmpShifts);
+            _db.SaveChanges();
+
+            return Ok();
+        }
+
+        [Route("UpdateDeliveryShift")] //route
+        [HttpPut]
+        //Create a Model for table
+        public IActionResult UpdateDeliveryShift(DeliveryShiftModel model) //reference the model
+        {
+            Time Times = _db.Times.Find(model.TimeID);
+            {
+                model.StartTime = Times.StartTime;
+                model.EndTime = Times.EndTime;
+            };
+
+            _db.SaveChanges();
+
+            Date Dates = new Date
+            {
+                //attributes in table 
+                DayOfTheWeek = model.DayOfTheWeek
+            };
+            _db.Dates.Add(Dates);
+            _db.SaveChanges();
+
+            var shifts = _db.Shifts.Find(model.ShiftId);
+            {
+                shifts.DateId = Dates.DateId;
+                shifts.TimeId = Times.TimeId;
+                
+                
+            };
+            _db.Shifts.Attach(shifts);
+            _db.SaveChanges();
+
+            
+            var EmpShifts = _db.EmployeeShifts.Find(model.EmployeeShiftID);
+            {
+                //attributes in table 
+                
+                EmpShifts.ShiftId = shifts.ShiftId;
+                EmpShifts.EmployeeId= model.EmployeeID;
+            
+                
+            };
+            _db.EmployeeShifts.Attach(EmpShifts);
             _db.SaveChanges();
 
             return Ok();
