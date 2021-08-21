@@ -1,12 +1,31 @@
 <h1>Unscheduled Deliveries</h1>
 
+<div class="search">
+    <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+        <li>
+            <div class="field has-addons">
+                <div class="control">
+                    <input type="text" [(ngModel)]="searchValue" class="input" id="search" placeholder="Type here...">
+                </div>
+                <div class="control">
+                    <a class="button is-info" (click)="filter()">
+                        <span class="fas fa-search search-icon"></span>
+                    </a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<app-global- error *ngIf="dataNotFound"></app-global->
+
 <div class="mat-elevation-z8 table">
-    <table mat-table [dataSource]="dataSource" matSort>
+    <table mat-table [dataSource]="dataSource" matSort *ngIf="!dataNotFound">
         <!-- [dataSource]="dataSource"  -->
         <!-- SaleID -->
         <ng-container matColumnDef="saleId">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Sale ID </th>
-        <td mat-cell *matCellDef="let element">{{element.saleId}}</td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Sale ID </th>
+            <td mat-cell *matCellDef="let element">{{element.saleId}}</td>
         </ng-container>
 
         <!-- Product Customer Name Column -->
@@ -22,27 +41,24 @@
 
         <ng-container matColumnDef="orderAddress">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
-            <td mat-cell *matCellDef="let element"> 
-            {{element.addressLine1}} <br>
-            {{element.addressLine2}} <br>
-            {{element.addressLine3}} <br>
-            {{element.addressPostalCode}} <br>
-            {{element.provinceDescription}} </td>
+            <td mat-cell *matCellDef="let element">
+                {{element.addressLine1}} <br>
+                {{element.addressLine2}} <br>
+                {{element.addressLine3}} <br>
+                {{element.addressPostalCode}} <br>
+                {{element.provinceDescription}}
+            </td>
         </ng-container>
 
         <!-- Delivery/Courier Column -->
         <ng-container matColumnDef="deliverycourier">
             <th mat-header-cell *matHeaderCellDef> Actions
-                <button mat-icon-button color="primary" aria-label="Example icon button with a home icon"
-                routerLink = "assigncourierdelivery"
-                >
-                    <mat-icon>add</mat-icon>
-                  </button>
-            </th> 
-             <td mat-cell *matCellDef="let element">                          
-                <button mat-menu-item [routerLink]="['/assignlocaldelivery', element.id]" >Delivery</button>
-                <button mat-menu-item [routerLink]="['/assigncourierdelivery', element.id]" >Courier</button>
-                
+
+            </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-menu-item [routerLink]="['/assignlocaldelivery', element.saleId]">Assign Delivery</button>
+                <button mat-menu-item [routerLink]="['/assigncourierdelivery', element.saleId]">Assign Courier</button>
+
             </td>
         </ng-container>
 
