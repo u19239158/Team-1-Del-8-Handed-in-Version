@@ -48,6 +48,11 @@ export class DeliveryshiftService {
     return this.http.post<Deliveryshift[]>(`${this.server}Deliveryshift/AssignDeliveryShift`, Deliveryshift, this.httpOptions);
   }
 
+  GetUnscheduledDeliveries():  Observable<Deliveryshift[]>  {
+    return this.http.get<Deliveryshift[]>(`${this.server}Delivery/GetUnassignedDeliveries`).pipe(map(res => res));
+  }
+
+
 }
 
 //   getAll(): Deliveryshift[] {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { OnlineSales } from 'src/app/interfaces';
+import { OnlineSales} from 'src/app/interfaces';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -26,4 +26,13 @@ constructor(private http: HttpClient) { }
 ViewAllSales():  Observable<OnlineSales[]>  {
   return this.http.get<OnlineSales[]>(`${this.server}Sale/ViewAllSales`).pipe(map(res => res));
 }
+
+SearchSales(OrderStatusId):  Observable<OnlineSales>  {
+  return this.http.get<OnlineSales>(`${this.server}Sale/SearchSales/${OrderStatusId}`).pipe(map(res => res));
+}
+
+getOrderStatusByID(OrderStatusId):  Observable<OnlineSales>  {
+  return this.http.get<OnlineSales>(`${this.server}OrderStatus/GetOrderStatusByID/${OrderStatusId}`).pipe(map(res => res));
+}
+
 }

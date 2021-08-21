@@ -22,6 +22,7 @@ searchValue: string;
 
   // unscheduleddeliverys: Deliveryshift[] = [];
   Deliveryshift:Deliveryshift;
+  UnscheduledDelivery : Deliveryshift[];
   unscheduleddelivery: Observable<Deliveryshift[]>;
   dataSource = new MatTableDataSource<Deliveryshift>();
   displayedColumns: string[] = ['saleId', 'customerName', 'deliverydistance', 'orderAddress', 'deliverycourier'];
@@ -34,7 +35,18 @@ searchValue: string;
     ) {}
 
   ngOnInit(): void {
-    
+    this.readUnscheduledDeliveries();
+
+  this.DeliveryshiftService.GetUnscheduledDeliveries().subscribe((result:Deliveryshift[])=> {
+    this.UnscheduledDelivery = result; })
   }
+
+  readUnscheduledDeliveries(): void {
+    //this.dataSource = new MatTableDataSource<UserRole[]>(this.UserRoleService.GetUserRole());
+     this.DeliveryshiftService.GetUnscheduledDeliveries().subscribe(res => {
+       console.log(res)
+       this.dataSource = new MatTableDataSource(res)
+     })
+    }
 
 }
