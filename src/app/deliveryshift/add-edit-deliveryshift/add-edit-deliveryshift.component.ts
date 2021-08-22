@@ -7,6 +7,7 @@ import { Deliveryshift } from 'src/app/interfaces';
 import { Employee } from 'src/app/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { AssigndeliveryshiftService } from 'src/app/services/assigndeliveryshift/assigndeliveryshift.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-add-edit-deliveryshift',
@@ -61,17 +62,17 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     if (!this.isAddMode) {
       this.DeliveryShiftService.getDeliveryShiftByID(this.shiftId).subscribe(res => {
         this.deliveryshift = res
-        console.log("res3", res)
+        console.log("dayOfTheWeek", this.deliveryshift.dayOfTheWeek)
         this.form = this.formBuilder.group({
-          // dateId: [this.deliveryshift.dateId, [Validators.required]],
+          dateId: [this.deliveryshift.dateId, [Validators.required]],
           timeId: [this.deliveryshift.timeId, [Validators.required]],
           // startTime: [this.deliveryshift.startTime, [Validators.required]],
           // endTime: [this.deliveryshift.endTime, [Validators.required]],
-          dayOfTheWeek: [this.deliveryshift.dayOfTheWeek, [Validators.required]],
+          dayOfTheWeek: [moment(this.deliveryshift.dayOfTheWeek).format('YYYY-MM-DD'), [Validators.required]],
           employeeID: [this.deliveryshift.employeeID],
           // employeeName: [this.deliveryshift.employeeName, [Validators.required]],
-        //employeeShiftId: [this.deliveryshift.employeeShiftID],
-          shiftId:[this.deliveryshift.employeeShiftID],
+         // employeeShiftID: [this.deliveryshift.employeeShiftID],
+          shiftId: [this.deliveryshift.employeeShiftID],
         }, formOptions);
         // employeeId: [this.employeeShiftId, [Validators.required]],
       });
@@ -155,8 +156,9 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
   updateDeliveryshift() {
     const deliveryshift: Deliveryshift = this.form.value;
     deliveryshift.shiftId = this.deliveryshift.shiftId;
-    deliveryshift.employeeShiftID = this.deliveryshift.employeeShiftID;
-  //  deliveryshift.employeeID = this.deliveryshift.employeeID;
+    const deliveryshiftS: Deliveryshift = this.form.value;
+    deliveryshiftS.employeeShiftID = this.deliveryshift.employeeShiftID;
+    //  deliveryshift.employeeID = this.deliveryshift.employeeID;
     this.DeliveryShiftService.UpdateDeliveryShift(deliveryshift).subscribe(res => {
       console.log(res)
       this.form.reset();

@@ -22,6 +22,7 @@ export class AssignLocalDeliveryComponent implements OnInit {
   DeliveryShifts: Deliveryshift[];
   searchValue: number;
   searchWord: string;
+  dataNotFound: boolean;
 
   deliveryshift: Deliveryshift[] = [];
   // DeliveryShift: Deliveryshift;
@@ -64,8 +65,9 @@ export class AssignLocalDeliveryComponent implements OnInit {
         e.endTime && e.endTime.toLowerCase().includes(this.searchWord.toLowerCase()) ||
         e.dayOfTheWeek && e.dayOfTheWeek.toString().toLowerCase().includes(this.searchWord.toLowerCase())
     }
-
-    this.dataSource = new MatTableDataSource(this.DeliveryShifts.filter(filter))
+    const data = (this.DeliveryShifts.filter(filter))
+    this.dataNotFound = data.length===0
+    this.dataSource = new MatTableDataSource(data)
   }
 
   // noSearchResults(Deliveryshift: Deliveryshift) {
