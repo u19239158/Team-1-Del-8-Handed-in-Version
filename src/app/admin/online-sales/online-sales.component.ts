@@ -15,9 +15,8 @@ import { OnlineSalesService } from 'src/app/services/online-sales/online-sales.s
 })
 export class OnlineSalesComponent implements OnInit {
 
-//userRoles: UserRole[] = [];
-onlineSale: OnlineSales;
 
+onlineSale: OnlineSales;
 onlineSales: Observable<OnlineSales[]>;
 dataSource = new MatTableDataSource<OnlineSales>();
 displayedColumns: string[] = ['saleNumber','customer','business', 'saleDate','orderStatus','actions'];

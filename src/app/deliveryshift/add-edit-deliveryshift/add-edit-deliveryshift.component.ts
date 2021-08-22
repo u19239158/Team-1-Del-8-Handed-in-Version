@@ -71,7 +71,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
           dayOfTheWeek: [moment(this.deliveryshift.dayOfTheWeek).format('YYYY-MM-DD'), [Validators.required]],
           employeeID: [this.deliveryshift.employeeID],
           // employeeName: [this.deliveryshift.employeeName, [Validators.required]],
-          //employeeShiftId: [this.deliveryshift.employeeShiftID],
+         // employeeShiftID: [this.deliveryshift.employeeShiftID],
           shiftId: [this.deliveryshift.employeeShiftID],
         }, formOptions);
         // employeeId: [this.employeeShiftId, [Validators.required]],
@@ -156,7 +156,8 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
   updateDeliveryshift() {
     const deliveryshift: Deliveryshift = this.form.value;
     deliveryshift.shiftId = this.deliveryshift.shiftId;
-    deliveryshift.employeeShiftID = this.deliveryshift.employeeShiftID;
+    const deliveryshiftS: Deliveryshift = this.form.value;
+    deliveryshiftS.employeeShiftID = this.deliveryshift.employeeShiftID;
     //  deliveryshift.employeeID = this.deliveryshift.employeeID;
     this.DeliveryShiftService.UpdateDeliveryShift(deliveryshift).subscribe(res => {
       console.log(res)

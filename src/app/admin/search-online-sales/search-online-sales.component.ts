@@ -1,7 +1,7 @@
 //import { OrderStatus } from './../../interfaces/index';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient , HttpHeaders} from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OnlineSales } from 'src/app/interfaces';
@@ -21,23 +21,33 @@ export class SearchOnlineSalesComponent implements OnInit {
   selected: string;
   dataSource = new MatTableDataSource<OnlineSales>();
   displayedColumns: string[] = ['saleNumber', 'saleDate','orderStatus','actions'];
-  OnlineSalesService: any;
-  OnlineSales : OnlineSales[];
-  onlineSales : OnlineSales;
+  //OnlineSalesService: any;
+  //OnlineSales : OnlineSales[];
+  onlineSale : OnlineSales;
+  //formBuilder: any;
 
   constructor(
+    private formBuilder: FormBuilder,
     private router: Router,
     private route : ActivatedRoute,
     private http: HttpClient,
-    //private WriteOffStockService : WriteOffStockService,
+    private OnlineSalesService : OnlineSalesService,
     //private FormBuilder : FormBuilder
   ) { }
 
   ngOnInit(): void {
     this.getCollection();
-  //  this.SearchSales();
+    //this.SearchSales();
+    // this.OnlineSalesService.SearchSales().subscribe((result:OnlineSales[])=> {
+    //   this.OnlineSales = result;
 
-    
+      const formOptions: AbstractControlOptions = {};
+      this.form = this.formBuilder.group({
+        startDate: ['', [Validators.required]],
+        endDate: ['', [Validators.required]],
+        orderStatusId: ['' ,[Validators.required]],
+      }, formOptions);
+  
   }
 
   getCollection() {
@@ -55,8 +65,7 @@ export class SearchOnlineSalesComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-    this.OnlineSalesService.SearchSales().subscribe((result:OnlineSales[])=> {
-      this.OnlineSales = result; })
+    this.SearchSales();
   }
 
   Search(){
@@ -69,11 +78,11 @@ export class SearchOnlineSalesComponent implements OnInit {
 
   SearchSales(): void {
     const searchSale: OnlineSales = this.form.value;
-    searchSale.orderStatusId = this.onlineSales.orderStatusId;
+   // searchSale.orderStatusId = this.onlineSale.orderStatusId;
     //this.dataSource = new MatTableDataSource<UserRole[]>(this.UserRoleService.GetUserRole());
-     this.OnlineSalesService.SearchSales().subscribe(res => {
-       console.log(res)
-       this.dataSource = new MatTableDataSource(res)
+     this.OnlineSalesService.SearchSales(searchSale).subscribe(res => {
+      console.log(res)
+      // this.dataSource = new MatTableDataSource(res)
      })
     }
 
