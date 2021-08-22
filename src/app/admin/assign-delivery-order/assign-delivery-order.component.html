@@ -56,8 +56,12 @@
 
             </th>
             <td mat-cell *matCellDef="let element">
-                <button mat-menu-item [routerLink]="['/assignlocaldelivery', element.saleId]">Assign Delivery</button>
-                <button mat-menu-item [routerLink]="['/assigncourierdelivery', element.saleId]">Assign Courier</button>
+                <button mat-menu-item [ngClass]="{'disable':parseInteger(element.deliveryDistance.slice(0, -2)) >50}"
+                    [routerLink]="parseInteger(element.deliveryDistance.slice(0, -2)) >50? []: ['/assignlocaldelivery']">Assign
+                    Delivery</button>
+                <button mat-menu-item [ngClass]="{'disable':parseInteger(element.deliveryDistance.slice(0, -2)) <=50}"
+                    [routerLink]="parseInteger(element.deliveryDistance.slice(0, -2)) <=50? []: ['/assigncourierdelivery']">Assign
+                    Courier</button>
 
             </td>
         </ng-container>

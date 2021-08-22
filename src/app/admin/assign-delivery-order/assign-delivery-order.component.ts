@@ -15,6 +15,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./assign-delivery-order.component.scss']
 })
 export class AssignDeliveryOrderComponent implements OnInit {
+  // var1 = false;
 
   //search code
   Deliveryshifts: Deliveryshift[];
@@ -54,6 +55,10 @@ export class AssignDeliveryOrderComponent implements OnInit {
     // this.dataNotFound = data.length === 0
     // this.dataSource = new MatTableDataSource(data)
 
+  }
+
+  parseInteger(value) {
+    return parseInt(value)
   }
 
   readUnscheduledDeliveries(): void {
