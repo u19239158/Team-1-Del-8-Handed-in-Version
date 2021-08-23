@@ -271,6 +271,7 @@ namespace NKAP_API_2.Controllers
 
         }
 
+
         //public IActionResult getFrequenBuyersList(Sales)
 
         //{
