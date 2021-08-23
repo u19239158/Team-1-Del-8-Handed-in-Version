@@ -20,9 +20,12 @@ var HomeComponent = /** @class */ (function () {
             .subscribe(function (res) {
             _this.categoryTypes = res;
             console.log(_this.categoryTypes);
-            // this.categoryType.forEach((a:any) => {
-            //   Object.assign(a,{quantity:1,total:a.price});
-            // });
+        });
+        //Home page different categories of products
+        this.api.getProductCategory()
+            .subscribe(function (res) {
+            _this.categoryTypes = res;
+            console.log(_this.categoryTypes);
         });
         this.cartService.getModalProduct()
             .subscribe(function (res) {
