@@ -39,7 +39,7 @@ namespace NKAP_API_2.Controllers
         public IActionResult CreatDiscount(DiscountModel model) //reference the model
         {
             Discount discount = new Discount();
-            discount.DiscountPercentage = model.Discount_Percentage; //attributes in table
+            discount.DiscountPercentage = model.DiscountPercentage; //attributes in table
             _db.Discounts.Add(discount);
             _db.SaveChanges();
 
@@ -54,7 +54,7 @@ namespace NKAP_API_2.Controllers
         public IActionResult UpdateDeliveryPrice(DiscountModel model)
         {
             var discount = _db.Discounts.Find(model.Discount_ID);
-            discount.DiscountPercentage = model.Discount_Percentage; //attributes in table
+            discount.DiscountPercentage = model.DiscountPercentage; //attributes in table
             _db.Discounts.Attach(discount); //Attach 
             _db.SaveChanges();
 

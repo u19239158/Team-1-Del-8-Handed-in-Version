@@ -136,17 +136,27 @@ namespace NKAP_API_2.Controllers
         public IActionResult CreateSpecials(SpecialModel model) //reference the model
         {
             Special special = new Special();
-            special.SpecialDescription = model.SpecialDescription;
-            special.SpecialStartDate = model.SpecialStartDate;
-            special.SpecialEndDate = model.SpecialEndDate;
-            special.SpecialImage = Convert.ToString(model.SpecialImage);
-            //byte[] byteArray = new byte[model.SpecialImage];
-            //special.SpecialImage = byteArray;
-            /* special.SpecialImage = Convert.ToByte(model.SpecialImage);*/ //attributes in table
+            {
+                special.SpecialDescription = model.SpecialDescription;
+                special.SpecialStartDate = model.SpecialStartDate;
+                special.SpecialEndDate = model.SpecialEndDate;
+            }
+
             _db.Specials.Add(special);
             _db.SaveChanges();
 
-            return Ok(special);
+
+            ProductSpecial PSpecial = new ProductSpecial();
+            {
+                PSpecial.ProductItemId = model.ProductItemId;
+                PSpecial.SpecialId = special.SpecialId;
+                PSpecial.SpecialPrice = model.ProductItemCost - (model.ProductItemCost * model.DiscountPercentage);
+            }
+
+            _db.ProductSpecials.Add(PSpecial);
+            _db.SaveChanges();
+
+            return Ok();
         }
 
         [Route("UpdateSpecials")] //route
@@ -174,8 +184,16 @@ namespace NKAP_API_2.Controllers
         public IActionResult DeleteSpecials(int specialid)
         {
             var special = _db.Specials.Find(specialid);
-            _db.Specials.Remove(special); //Delete Record
+            var Pspecial = _db.ProductSpecials.Find(specialid);
+            
+
+            //_db.ProductSpecials.Remove(Pspecial);//Delete Record
+            //_db.SaveChanges();
+
+            _db.Specials.Remove(special);
             _db.SaveChanges();
+
+            
 
             return Ok(special);
         }

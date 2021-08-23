@@ -31,6 +31,24 @@ namespace NKAP_API_2.Models
         [JsonProperty("productspecialid")]
         public int ProductSpecialID
         { get; set; }
+
+        [JsonProperty("discountid")]
+        public int DiscountId
+        { get; set; }
+
+        [JsonProperty("productitemid")]
+        public int ProductItemId
+        { get; set; }
+
+        [JsonProperty("ProductItemcost")]
+        public decimal ProductItemCost
+        { get; set; }
+
+        [JsonProperty("discountpercentage")]
+        public decimal DiscountPercentage
+        { get; set; }
+
+
     }
 
 }
