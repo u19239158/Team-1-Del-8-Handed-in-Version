@@ -24,10 +24,6 @@ export class HomeComponent implements OnInit {
     .subscribe(res=>{
       this.categoryTypes=res;
       console.log(this.categoryTypes);
-
-      // this.categoryType.forEach((a:any) => {
-      //   Object.assign(a,{quantity:1,total:a.price});
-      // });
     })
     
     this.cartService.getModalProduct()

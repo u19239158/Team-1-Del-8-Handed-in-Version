@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit, ViewEncapsulation  } from '@angular/core';
 import { of } from 'rxjs/internal/observable/of';
 import { ApiService, CategoryType} from 'src/app/services/service/api.service';
 import { CartService } from 'src/app/services/service/cart.service';
+
+@Injectable()
 
 @Component({
   selector: 'app-products',
@@ -12,7 +14,7 @@ import { CartService } from 'src/app/services/service/cart.service';
 export class ProductsComponent implements OnInit {
 
   public productList : any ;
-  public CategoryType : any[];
+  public categoryTypes : any[];
 
   public products : any ;
   modalItems: any = [];
@@ -22,11 +24,9 @@ export class ProductsComponent implements OnInit {
 
     this.api.getCategoryType()
     .subscribe(res=>{
-      this.CategoryType = res;
+      this.categoryTypes=res;
+      console.log(this.categoryTypes);
 
-      // this.productList.forEach((a:any) => {
-      //   Object.assign(a,{quantity:1,total:a.price});
-      // });
     })
 
     this.api.getProduct()

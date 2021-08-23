@@ -1,13 +1,13 @@
 
 <div class="container">
     <div class="row">    
-        <ng-container *ngFor="let item of productList">
+        <ng-container *ngFor="let category of categoryTypes">
             <div class="card col-md-3">
-                <center><img src="{{item.image}}" alt="" (click)=modal(item)></center>
-                <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{item.title}}</p>
-                <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{item.description}}</p>
-                <p class="subtitle"><strong>Price:</strong> R{{item.price}}</p>              
-                <button class="button is-info is-rounded"  (click)=openmodal(item) id="launchModal">More Info</button>
+                <center><img src="{{category.categoryTypeImage}}" alt="" (click)=modal(category)></center>
+                <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.productCategoryDesc}}</p>
+                <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.itemDescription}}</p>
+                <p class="subtitle"><strong>Price:</strong> R{{category.categoryTypeId}}</p>              
+                <button class="button is-info is-rounded"  (click)=openmodal(category) id="launchModal">More Info</button>
             </div>
         </ng-container>
     </div>
@@ -18,24 +18,24 @@
   <div class="modal-background"></div>
   <div class="modal-card">
     <header class="modal-card-head">
-        <ng-container *ngFor="let item of products; let i = index">
       <p class="modal-card-title">Product Item</p>
-      <button class="delete" id="closetop" aria-label="close" (click)=closemodal(item)></button>
+        <ng-container *ngFor="let category of categoryTypes">
+      <button class="delete" id="closetop" aria-label="close" (click)=closemodal(category)></button>
         </ng-container>
     </header>
     <div class="content">
     <section class="modal-card-body">
-        <ng-container *ngFor="let item of products; let i = index">
-        <h1>{{item.title}}</h1>        
-        <img src="{{item.image}}" alt="" width="100" height="100">
-        <p>{{item.description}}</p>
-        <h2><strong>Price:</strong> R{{item.price}}</h2>
+        <ng-container *ngFor="let category of categoryTypes">
+        <h1>{{category.productCategoryDesc}}</h1>        
+        <img src="{{category.categoryTypeImage}}" alt="" width="100" height="100">
+        <p>{{category.itemDescription}}</p>
+        <h2><strong>Price:</strong> R{{category.categoryTypeId}}</h2>
         
         <mat-form-field appearance="outline">
           <mat-label>Type</mat-label>
           <mat-select>
-            <mat-option *ngFor="let item of productList" [value]= "item.title">
-              {{item.title}}
+            <mat-option *ngFor="let category of categoryTypes" [value]= "category.itemDescription">
+              {{category.itemDescription}}
             </mat-option>
           </mat-select>
 
@@ -67,9 +67,9 @@
     </section>
     <div>  
     <footer class="modal-card-foot">
-        <ng-container *ngFor="let item of products; let i = index">
-        <button class="button is-info is-rounded" (click)=addtocart(item)>Add to cart</button>
-        <button class="button is-danger is-rounded" (click)=closemodal(item)>Close</button>
+        <ng-container *ngFor="let category of categoryTypes">
+        <button class="button is-info is-rounded" (click)=addtocart(category)>Add to cart</button>
+        <button class="button is-danger is-rounded" (click)=closemodal(category)>Close</button>
         </ng-container>
     </footer>
   </div>

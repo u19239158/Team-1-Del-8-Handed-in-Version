@@ -20,12 +20,28 @@ var ApiService = /** @class */ (function () {
             })
         };
     }
+    //home page(ProductCategory) SEARCH id endpoint route = GetPCByID/{productcategoryid}
+    //home page(ProductCategory) SEARCH description endpoint route = GetPCByDescription/{ProductCategoryDescription}
+    //home page(ProductCategory) endpoint route = GetProdCat
+    ApiService.prototype.getProductCategory = function () {
+        return this.http.get(this.server + "GetProdCat")
+            .pipe(operators_1.map(function (res) {
+            return res;
+        }));
+    };
+    //products page(CategoryType) SEARCH description endpoint route = GetCategoryTypeByProdDesc/{productcategorydescription} OR GetCategoryTypeByDescription/{categorytypedescription}
+    //products page(CategoryType) SEARCH ID endpoint route = GetCategoryTypeByID/{categorytypeid}
+    //products page(CategoryType) endpoint route = CategoryType/GetCategoryType
     ApiService.prototype.getCategoryType = function () {
         return this.http.get(this.server + "CategoryType/GetCategoryType")
             .pipe(operators_1.map(function (res) {
             return res;
         }));
     };
+    //product details modal(CategoryType, productItem) SEARCH id endpoint route = GetPItemsByID/{productitemid}
+    //product details modal(CategoryType, productItem) SEARCH ProductItemname endpoint route = GetPItemsByName/{ProductItemname} 
+    //product details modal(CategoryType, productItem) SEARCH CategoryTypeName endpoint route = GetPItemsByCatType/{CategoryTypeName}
+    //product details modal(CategoryType, productItem) endpoint route = GetProductItems
     ApiService.prototype.getProduct = function () {
         return this.http.get("https://fakestoreapi.com/products")
             .pipe(operators_1.map(function (res) {

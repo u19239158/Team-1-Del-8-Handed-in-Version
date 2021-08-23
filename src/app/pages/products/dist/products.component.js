@@ -18,10 +18,8 @@ var ProductsComponent = /** @class */ (function () {
         var _this = this;
         this.api.getCategoryType()
             .subscribe(function (res) {
-            _this.CategoryType = res;
-            // this.productList.forEach((a:any) => {
-            //   Object.assign(a,{quantity:1,total:a.price});
-            // });
+            _this.categoryTypes = res;
+            console.log(_this.categoryTypes);
         });
         this.api.getProduct()
             .subscribe(function (res) {
@@ -55,6 +53,7 @@ var ProductsComponent = /** @class */ (function () {
         document.querySelector('.dropdown').classList.remove('is-active');
     };
     ProductsComponent = __decorate([
+        core_1.Injectable(),
         core_1.Component({
             selector: 'app-products',
             templateUrl: './products.component.html',
