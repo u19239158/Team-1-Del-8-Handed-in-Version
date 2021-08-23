@@ -8,7 +8,7 @@ import { Courier } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { AssignCourierDeliveryService } from 'src/app/services/assigncourierdelivery/assigncourierdelivery.service';
 import { CourierService } from 'src/app/services/courier/courier.service';
-import {  HttpClient  } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-assign-courier-delivery',
@@ -17,51 +17,51 @@ import {  HttpClient  } from '@angular/common/http';
 })
 export class AssignCourierDeliveryComponent implements OnInit {
 
-//search code
-Couriers: Courier[];
-searchValue: string;
+  //search code
+  Couriers: Courier[];
+  searchValue: string;
 
   // couriers: Courier[] = [];
-  Courier:Courier;
+  Courier: Courier;
   courier: Observable<Courier[]>;
   dataSource = new MatTableDataSource<Courier>();
-  displayedColumns: string[] = ['name', 'type', 'contactNumber', 'email'];
+  displayedColumns: string[] = ['name', 'type', 'contactNumber', 'email', 'actions'];
 
-  constructor(private AssignCourierDeliveryService:AssignCourierDeliveryService,
-              private snack: MatSnackBar,
-              private router: Router,
-              private dialog: MatDialog,
-              private httpClient: HttpClient
-              ) {}
+  constructor(private AssignCourierDeliveryService: AssignCourierDeliveryService,
+    private snack: MatSnackBar,
+    private router: Router,
+    private dialog: MatDialog,
+    private httpClient: HttpClient
+  ) { }
 
   ngOnInit(): void {
     this.readCouriers();
 
-    this.AssignCourierDeliveryService.GeCourier().subscribe((result:Courier[]) => {
+    this.AssignCourierDeliveryService.GeCourier().subscribe((result: Courier[]) => {
       this.Couriers = result;
     });
 
   }
 
-   readCouriers(): void {
-     this.AssignCourierDeliveryService.GeCourier().subscribe(res => {
-       console.log(res)
-       this.dataSource = new MatTableDataSource(res)
-     })
-    }
+  readCouriers(): void {
+    this.AssignCourierDeliveryService.GeCourier().subscribe(res => {
+      console.log(res)
+      this.dataSource = new MatTableDataSource(res)
+    })
+  }
 
-  filter(){
-    this.dataSource = new MatTableDataSource (this.Couriers.filter(c=>c.courierTypeDescription.toLowerCase().includes(this.searchValue.toLowerCase())))
-    this.dataSource = new MatTableDataSource (this.Couriers.filter(c=>c.courierName.toLowerCase().includes(this.searchValue.toLowerCase())))
+  filter() {
+    this.dataSource = new MatTableDataSource(this.Couriers.filter(c => c.courierTypeDescription.toLowerCase().includes(this.searchValue.toLowerCase())))
+    this.dataSource = new MatTableDataSource(this.Couriers.filter(c => c.courierName.toLowerCase().includes(this.searchValue.toLowerCase())))
   }
 
   deleteCourier(Courier: Courier) {
     const confirm = this.dialog.open(GlobalConfirmComponent, {
-        disableClose: true,
+      disableClose: true,
     });
 
     confirm.afterClosed().subscribe(res => {
-      if(res) {
+      if (res) {
         this.AssignCourierDeliveryService.DeleteCourier(Courier).subscribe(res => {
           this.readCouriers()
         })

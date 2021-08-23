@@ -28,7 +28,7 @@ export class AssignLocalDeliveryComponent implements OnInit {
   // DeliveryShift: Deliveryshift;
   deliveryShift: Observable<Deliveryshift[]>;
   dataSource = new MatTableDataSource<Deliveryshift>();
-  displayedColumns: string[] = ['startTime', 'endTime', 'dayOfTheWeek', 'employeeName', 'actions'];
+  displayedColumns: string[] = ['startTime', 'endTime', 'dayOfTheWeek', 'employeeName', 'noOfDeliveries', 'SelectOrderDeliveryShift'];
 
   constructor(private deliveryshiftService: DeliveryshiftService,
     private snack: MatSnackBar,
@@ -66,7 +66,7 @@ export class AssignLocalDeliveryComponent implements OnInit {
         e.dayOfTheWeek && e.dayOfTheWeek.toString().toLowerCase().includes(this.searchWord.toLowerCase())
     }
     const data = (this.DeliveryShifts.filter(filter))
-    this.dataNotFound = data.length===0
+    this.dataNotFound = data.length === 0
     this.dataSource = new MatTableDataSource(data)
   }
 
