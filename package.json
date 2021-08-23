@@ -26,8 +26,8 @@
     "firebase": "^8.4.2",
     "jspdf": "^2.3.1",
     "jspdf-autotable": "^3.5.20",
-    "ng2-charts": "^2.4.3",
     "moment": "^2.29.1",
+    "ng2-charts": "^2.4.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

@@ -123,7 +123,7 @@ export interface Customer {
 }
 
 export interface ReceiveSupplierOrder {
-  id: string;
+  supplierOrderID: number;
   orderDatePlaced: string;
   orderDateReceived: string;
   invoiceNumber: number;
