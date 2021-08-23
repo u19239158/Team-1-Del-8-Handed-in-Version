@@ -51,6 +51,13 @@ import { OnlineSalesComponent } from './admin/online-sales/online-sales.componen
 import { SearchOnlineSalesComponent } from './admin/search-online-sales/search-online-sales.component';
 import { PackOrderComponent } from './admin/pack-order/pack-order.component';
 
+import { FastSellingProductsReportComponent } from './Reports/fast-selling-products-report/fast-selling-products-report.component';
+import { SlowSellingProductsReportComponent } from './reports/slow-selling-products-report/slow-selling-products-report.component';
+import { MonthlySalesOrderReportComponent } from './reports/monthly-sales-order-report/monthly-sales-order-report.component';
+import { MostFrequentBuyersReportComponent } from './reports/most-frequent-buyers-report/most-frequent-buyers-report.component';
+import { PopularLocationReportComponent } from './reports/popular-location-report/popular-location-report.component';
+import { WeeklySaleOrdersReportComponent } from './reports/weekly-sale-orders-report/weekly-sale-orders-report.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -239,6 +246,30 @@ const routes: Routes = [
     path: 'addItems',
     component: AddItemsComponent,
   },
+  {
+    path: 'fastSellingProductsReport',
+    component: FastSellingProductsReportComponent,
+  },
+  {
+    path: 'slowSellingProductsReport',
+    component: SlowSellingProductsReportComponent,
+  },
+  {
+    path: 'monthlySalesOrderReport',
+    component: MonthlySalesOrderReportComponent
+  },
+  {
+    path:'weeklySalesOrderReport',
+    component: WeeklySaleOrdersReportComponent
+  },
+  {
+    path: 'mostFrequentBuyersReport',
+    component: MostFrequentBuyersReportComponent
+  },
+  {
+    path: 'popularLocationsReport',
+    component: PopularLocationReportComponent,
+  }
 ];
 
 @NgModule({
