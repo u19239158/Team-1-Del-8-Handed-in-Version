@@ -60,6 +60,11 @@ import { StockTakePageComponent } from './admin/stock-take/stock-take-page/stock
 import { SearchOnlineSalesComponent } from './admin/search-online-sales/search-online-sales.component';
 import { OnlineSalesComponent } from './admin/online-sales/online-sales.component';
 import { PackOrderComponent } from './admin/pack-order/pack-order.component';
+import { SlowSellingProductsReportComponent } from './reports/slow-selling-products-report/slow-selling-products-report.component';
+import { MostFrequentBuyersReportComponent } from './reports/most-frequent-buyers-report/most-frequent-buyers-report.component';
+import { WeeklySaleOrdersReportComponent } from './reports/weekly-sale-orders-report/weekly-sale-orders-report.component';
+import { MonthlySalesOrderReportComponent } from './reports/monthly-sales-order-report/monthly-sales-order-report.component';
+import { PopularLocationReportComponent } from './reports/popular-location-report/popular-location-report.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDF8jZluZQu1iARJPootZqStlIMNnQ6OFA",
@@ -112,6 +117,11 @@ const firebaseConfig = {
     SearchOnlineSalesComponent,
     OnlineSalesComponent,
     PackOrderComponent,
+    SlowSellingProductsReportComponent,
+    MostFrequentBuyersReportComponent,
+    WeeklySaleOrdersReportComponent,
+    MonthlySalesOrderReportComponent,
+    PopularLocationReportComponent,
     // ReportsComponent,
   ],
   imports: [
