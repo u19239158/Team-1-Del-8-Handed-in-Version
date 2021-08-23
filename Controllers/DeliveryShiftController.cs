@@ -98,7 +98,8 @@ namespace NKAP_API_2.Controllers
                     EmployeeId = t.EmployeeId,
                     DateId = a.DateId,
                     TimeId = a.TimeId,
-                    EmployeeShiftId = t.EmployeeShiftId
+                    EmployeeShiftId = t.EmployeeShiftId,
+                    NoOfDeliveries = t.NoOfDeliveries
 
                 }).Join(_db.Dates,
                  sor => sor.DateId,
@@ -110,7 +111,8 @@ namespace NKAP_API_2.Controllers
                      TimeId = sor.TimeId,
                      ShiftId = sor.ShiftId,
                      DayOfTheWeek = sd.DayOfTheWeek.ToString("dd/MM/yyyy"),
-                     EmployeeShiftId = sor.EmployeeShiftId
+                     EmployeeShiftId = sor.EmployeeShiftId,
+                     NoOfDeliveries = sor.NoOfDeliveries
 
 
                  }).Join(_db.Times,
@@ -125,7 +127,8 @@ namespace NKAP_API_2.Controllers
                      DayOfTheWeek = sor.DayOfTheWeek,
                      StartTime = sd.StartTime,
                      EndTime = sd.EndTime,
-                     EmployeeShiftId = sor.EmployeeShiftId
+                     EmployeeShiftId = sor.EmployeeShiftId,
+                     NoOfDeliveries = sor.NoOfDeliveries
 
 
                  }).Join(_db.Employees,
@@ -142,7 +145,8 @@ namespace NKAP_API_2.Controllers
                      DayOfTheWeek = sor.DayOfTheWeek,
                      StartTime = sor.StartTime,
                      EndTime = sor.EndTime,
-                     EmployeeShiftId = sor.EmployeeShiftId
+                     EmployeeShiftId = sor.EmployeeShiftId,
+                     NoOfDeliveries = sor.NoOfDeliveries
                  });
 
             return Ok(DeliveryShift);

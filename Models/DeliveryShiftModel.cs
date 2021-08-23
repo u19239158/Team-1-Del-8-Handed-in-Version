@@ -54,6 +54,9 @@ namespace NKAP_API_2.Models
         public string EmployeeSurname
         { get; set; }
 
+        [JsonProperty("noofdeliveries")]
+        public string NoOfDeliveries
+        { get; set; }
 
     }
 }
