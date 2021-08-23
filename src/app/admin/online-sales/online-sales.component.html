@@ -42,7 +42,7 @@
         <!-- Sale Date -->
         <ng-container matColumnDef="saleDate">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Sale Date </th>
-            <td mat-cell *matCellDef="let element"> {{element.saleOrderDate}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.saleOrderDate| date:"dd/MM/yy"}} </td>
         </ng-container>
 
          <!-- Order Status -->

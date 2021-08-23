@@ -26,12 +26,12 @@
 
   <ng-container matColumnDef="orderDatePlaced">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Date Placed </th>
-    <td mat-cell *matCellDef="let element"> {{element.orderDatePlaced}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.orderDatePlaced | date:"dd/MM/yy"}} </td>
   </ng-container>
 
   <ng-container matColumnDef="orderDateReceived">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Date Received </th>
-    <td mat-cell *matCellDef="let element"> {{element.orderDateReceived}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.orderDateReceived | date:"dd/MM/yy"}} </td>
   </ng-container>
 
   <!-- Invoice Number -->
