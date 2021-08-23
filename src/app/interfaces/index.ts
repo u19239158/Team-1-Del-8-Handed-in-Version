@@ -79,7 +79,7 @@ export interface Deliveryshift {
   shiftId : number;
   dateId : number;
   timeId : number;
-  employeeShiftID : number;
+  employeeShiftId : number;
 
 }
 
