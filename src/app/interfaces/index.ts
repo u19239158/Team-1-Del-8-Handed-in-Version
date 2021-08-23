@@ -54,6 +54,7 @@ export interface Special {
   specialPrice: string;
   specialStartDate: string;
   specialEndDate: string;
+  discountId : number;
 }
 
 export interface Courier {
@@ -123,7 +124,7 @@ export interface Customer {
 }
 
 export interface ReceiveSupplierOrder {
-  id: string;
+  supplierOrderID: number;
   orderDatePlaced: string;
   orderDateReceived: string;
   invoiceNumber: number;
@@ -194,8 +195,8 @@ export interface OnlineSales {
   customerName: string;
   customerSurame: string;
   customerBusinessname: string;
-  
-
 
 }
+
+
 

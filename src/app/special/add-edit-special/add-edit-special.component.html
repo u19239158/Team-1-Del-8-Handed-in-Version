@@ -49,17 +49,19 @@
   </div>
 </div>
 
-<div class="mat-row">
+<div class="mat-row"> 
   <!-- Special Price -->
-  <div class="mat-col-quarter">
-      <mat-form-field appearance="outline" class="control-m">
-          <mat-label>Price</mat-label>
-          <input type="number" placeholder="0" matInput placeholder="Special Price" formControlName="specialPrice">
-          <span matPrefix>R&nbsp;</span>
-          <span matSuffix>.00</span>
-      </mat-form-field>
-  </div>
-</div>
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Discount Percentage</mat-label>
+          <mat-select [(value)]="selected" formControlName="discountId">
+            <mat-option *ngFor="let Discount of collection" [value]="Discount.discountId">
+              {{Discount.discountPercentage}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
 
 <div class="mat-row">
   <!-- Save or cancel special -->

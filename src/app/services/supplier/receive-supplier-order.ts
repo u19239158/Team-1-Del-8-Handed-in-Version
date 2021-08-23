@@ -19,7 +19,7 @@ export class ReceiveSupplierService {
   constructor(private http: HttpClient) { }
 
   ReceiveSupplierOrder():  Observable<ReceiveSupplierOrder[]>  {
-    return this.http.get<ReceiveSupplierOrder[]>(`${this.server}ReceiveSupplierOrder/ReceiveSupplierOrder`).pipe(map(res => res));
+    return this.http.get<ReceiveSupplierOrder[]>(`${this.server}SupplierOrder/GetSupplierOrder`).pipe(map(res => res));
   }
 
 }
