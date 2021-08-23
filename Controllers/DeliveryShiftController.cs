@@ -34,7 +34,8 @@ namespace NKAP_API_2.Controllers
                     ShiftId = a.ShiftId,
                     EmployeeId = t.EmployeeId,
                     DateId = a.DateId,
-                    TimeId = a.TimeId
+                    TimeId = a.TimeId,
+                    EmployeeShiftId = t.EmployeeShiftId
 
                 }).Join(_db.Dates,
                  sor => sor.DateId,
@@ -45,6 +46,7 @@ namespace NKAP_API_2.Controllers
                      EmployeeID = sor.EmployeeId,
                      TimeId = sor.TimeId,
                      ShiftId = sor.ShiftId,
+                     EmployeeShiftId = sor.EmployeeShiftId,
                      DayOfTheWeek = sd.DayOfTheWeek.ToString("dd/MM/yyyy")
 
 
@@ -53,6 +55,7 @@ namespace NKAP_API_2.Controllers
                  sd => sd.TimeId,
                  (sor, sd) => new
                  {
+                     EmployeeShiftId = sor.EmployeeShiftId,
                      TimeId = sor.TimeId,
                      EmployeeID = sor.EmployeeID,
                      DateId = sor.DateId,
@@ -67,6 +70,7 @@ namespace NKAP_API_2.Controllers
                  sd => sd.EmployeeId,
                  (sor, sd) => new
                  {
+                     EmployeeShiftId = sor.EmployeeShiftId,
                      ShiftId = sor.ShiftId,
                      EmployeeID = sd.EmployeeId,
                      EmployeeName = sd.EmployeeName,
@@ -296,7 +300,7 @@ namespace NKAP_API_2.Controllers
             _db.SaveChanges();
 
             
-            var EmpShifts = _db.EmployeeShifts.Find(model.EmployeeShiftID);
+            var EmpShifts = _db.EmployeeShifts.Find(model.EmployeeShiftId);
             {
                 //attributes in table 
                 

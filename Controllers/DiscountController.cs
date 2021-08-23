@@ -26,7 +26,7 @@ namespace NKAP_API_2.Controllers
         //get (Read)
         public IActionResult get()
         {
-            var Discounts = _db.DeliveryPrices.ToList();
+            var Discounts = _db.Discounts.ToList();
             return Ok(Discounts);
         }
 
