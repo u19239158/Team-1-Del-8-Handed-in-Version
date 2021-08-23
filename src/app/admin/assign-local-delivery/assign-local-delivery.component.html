@@ -55,17 +55,28 @@
         </ng-container> -->
 
                 <!-- Actions Column -->
-                <ng-container matColumnDef="actions">
+                <ng-container matColumnDef="noOfDeliveries">
                     <th mat-header-cell *matHeaderCellDef>
                         <!-- <button color="primary" aria-label="Example icon button with a home icon"
                             routerLink="/addDeliveryShift"> -->
-                        Select Delivery Shift
+                        Number of Deliveries
                         <!-- </button> -->
                     </th>
                     <td mat-header-cell *matCellDef="let element">
-                        <button class="btn btn-primary center">
-                            Select
-                        </button>
+
+                    </td>
+                </ng-container>
+
+                <!-- Select Shift for Delivery Column -->
+                <ng-container matColumnDef="SelectOrderDeliveryShift">
+                    <th mat-header-cell *matHeaderCellDef>
+                        <!-- <button color="primary" aria-label="Example icon button with a home icon"
+                            routerLink="/addDeliveryShift"> -->
+                        Select Order Delivery Shift
+                        <!-- </button> -->
+                    </th>
+                    <td mat-header-cell *matCellDef="let element">
+
                     </td>
                 </ng-container>
 
