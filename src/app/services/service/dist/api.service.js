@@ -42,6 +42,13 @@ var ApiService = /** @class */ (function () {
     //product details modal(CategoryType, productItem) SEARCH ProductItemname endpoint route = GetPItemsByName/{ProductItemname} 
     //product details modal(CategoryType, productItem) SEARCH CategoryTypeName endpoint route = GetPItemsByCatType/{CategoryTypeName}
     //product details modal(CategoryType, productItem) endpoint route = GetProductItems
+    ApiService.prototype.getProductItem = function () {
+        return this.http.get(this.server + "GetProductItems")
+            .pipe(operators_1.map(function (res) {
+            return res;
+        }));
+    };
+    //dummy data
     ApiService.prototype.getProduct = function () {
         return this.http.get("https://fakestoreapi.com/products")
             .pipe(operators_1.map(function (res) {

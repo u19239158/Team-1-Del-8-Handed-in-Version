@@ -16,11 +16,27 @@ var ProductsComponent = /** @class */ (function () {
     }
     ProductsComponent.prototype.ngOnInit = function () {
         var _this = this;
+        //Home page different categories of products
+        this.api.getProductCategory()
+            .subscribe(function (res) {
+            _this.categoryTypes = res;
+            console.log(_this.categoryTypes);
+        });
+        //product page content
         this.api.getCategoryType()
             .subscribe(function (res) {
             _this.categoryTypes = res;
             console.log(_this.categoryTypes);
         });
+        //modal product type dropdown
+        this.api.getProductItem()
+            .subscribe(function (res) {
+            _this.productList = res;
+            _this.productList.forEach(function (a) {
+                Object.assign(a, { quantity: 1, total: a.price });
+            });
+        });
+        //dummy data
         this.api.getProduct()
             .subscribe(function (res) {
             _this.productList = res;

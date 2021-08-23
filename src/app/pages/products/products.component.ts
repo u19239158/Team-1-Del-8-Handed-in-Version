@@ -22,6 +22,15 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
 
+    //Home page different categories of products
+    this.api.getProductCategory()
+    .subscribe(res=>{
+      this.categoryTypes=res;
+      console.log(this.categoryTypes);
+
+    })
+    
+    //product page content
     this.api.getCategoryType()
     .subscribe(res=>{
       this.categoryTypes=res;
@@ -29,6 +38,17 @@ export class ProductsComponent implements OnInit {
 
     })
 
+    //modal product type dropdown
+    this.api.getProductItem()
+    .subscribe(res=>{
+      this.productList = res;
+
+    this.productList.forEach((a:any) => {
+        Object.assign(a,{quantity:1,total:a.price});      
+      });
+    })
+
+    //dummy data
     this.api.getProduct()
     .subscribe(res=>{
       this.productList = res;

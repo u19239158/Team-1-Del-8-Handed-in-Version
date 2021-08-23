@@ -29,7 +29,7 @@ export interface ProductItem
 {
   CategoryType_Description : string;
   Item_Description : string;
-  //CategoryType_Image : ImageBitmap;
+  CategoryType_Image : ImageBitmap;
 }
 @Injectable({
   providedIn: 'root'
@@ -46,7 +46,9 @@ export class ApiService {
 
   constructor(private http : HttpClient) { }
   //home page(ProductCategory) SEARCH id endpoint route = GetPCByID/{productcategoryid}
+
   //home page(ProductCategory) SEARCH description endpoint route = GetPCByDescription/{ProductCategoryDescription}
+
   //home page(ProductCategory) endpoint route = GetProdCat
   getProductCategory(): Observable<ProductCategory[]>{
     return this.http.get<ProductCategory[]>(`${this.server}GetProdCat`)
@@ -54,8 +56,11 @@ export class ApiService {
       return res;
     }))
   }   
+
   //products page(CategoryType) SEARCH description endpoint route = GetCategoryTypeByProdDesc/{productcategorydescription} OR GetCategoryTypeByDescription/{categorytypedescription}
+
   //products page(CategoryType) SEARCH ID endpoint route = GetCategoryTypeByID/{categorytypeid}
+
   //products page(CategoryType) endpoint route = CategoryType/GetCategoryType
   getCategoryType(): Observable<CategoryType[]>{
     return this.http.get<CategoryType[]>(`${this.server}CategoryType/GetCategoryType`)
@@ -65,10 +70,21 @@ export class ApiService {
   }
 
   //product details modal(CategoryType, productItem) SEARCH id endpoint route = GetPItemsByID/{productitemid}
+
   //product details modal(CategoryType, productItem) SEARCH ProductItemname endpoint route = GetPItemsByName/{ProductItemname} 
+
   //product details modal(CategoryType, productItem) SEARCH CategoryTypeName endpoint route = GetPItemsByCatType/{CategoryTypeName}
+
   //product details modal(CategoryType, productItem) endpoint route = GetProductItems
-  
+  getProductItem(){
+    return this.http.get<CategoryType[]>(`${this.server}GetProductItems`)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
+
+  //dummy data
    getProduct(){
      return this.http.get<any>("https://fakestoreapi.com/products")
      .pipe(map((res:any)=>{

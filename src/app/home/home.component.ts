@@ -26,6 +26,14 @@ export class HomeComponent implements OnInit {
       console.log(this.categoryTypes);
     })
     
+    //Home page different categories of products
+    this.api.getProductCategory()
+    .subscribe(res=>{
+      this.categoryTypes=res;
+      console.log(this.categoryTypes);
+
+    })
+
     this.cartService.getModalProduct()
     .subscribe(res=>{
       this.products = res;
