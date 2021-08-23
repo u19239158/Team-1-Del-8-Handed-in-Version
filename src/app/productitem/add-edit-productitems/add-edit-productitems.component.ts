@@ -52,12 +52,13 @@ export class AddEditProductitemsComponent implements OnInit {
         this.Productitem = res
         console.log(res)
         this.form = this.formBuilder.group({
-          productItemName: [{ value: this.Productitem.productItemName, disabled: true }, [Validators.required]],
+          productItemName: [this.Productitem.productItemName, [Validators.required]],
           categoryTypeId: [this.Productitem.categoryTypeId, [Validators.required]],
-          productItemCost: [{ value: this.Productitem.productItemCost, disabled: true }, [Validators.required]],
-          quantityOnHand: [this.Productitem.quantityOnHand, [Validators.required, Validators.maxLength(13)]],
+          productItemCost: [this.Productitem.productItemCost, [Validators.required]],
+          quantityOnHand: [{ value: this.Productitem.quantityOnHand, disabled: true }, [Validators.required, Validators.maxLength(13)]],
         }, formOptions);
       });
+      this.form.get('categoryTypeId').disable();
     }
   }
 
