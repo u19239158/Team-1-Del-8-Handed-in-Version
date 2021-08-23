@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Label } from 'ng2-charts';
-import jsPDF from 'jspdf'
-import 'jspdf-autotable'
+import jsPDF from 'jspdf' ;
+import 'jspdf-autotable' ;
 import { Observable } from 'rxjs';
 import { ReportServiceService } from 'src/app/services/Reports/report-service.service';
 

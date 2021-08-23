@@ -64,7 +64,6 @@ import { WeeklySaleOrdersReportComponent } from './reports/weekly-sale-orders-re
 import { MonthlySalesOrderReportComponent } from './reports/monthly-sales-order-report/monthly-sales-order-report.component';
 import { PopularLocationReportComponent } from './reports/popular-location-report/popular-location-report.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -133,6 +132,7 @@ import { PopularLocationReportComponent } from './reports/popular-location-repor
     MatDialogModule,
     MatNativeDateModule,
     MatInputModule,
+  
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
