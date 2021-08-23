@@ -14,6 +14,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatInputModule } from '@angular/material/input';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { GlobalErrorComponent } from './modals/globals/global-error/global-error.component';
 import { GlobalConfirmComponent } from './modals/globals/global-confirm/global-confirm.component';
@@ -63,6 +65,15 @@ import { MostFrequentBuyersReportComponent } from './reports/most-frequent-buyer
 import { WeeklySaleOrdersReportComponent } from './reports/weekly-sale-orders-report/weekly-sale-orders-report.component';
 import { MonthlySalesOrderReportComponent } from './reports/monthly-sales-order-report/monthly-sales-order-report.component';
 import { PopularLocationReportComponent } from './reports/popular-location-report/popular-location-report.component';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDF8jZluZQu1iARJPootZqStlIMNnQ6OFA",
+  authDomain: "nkap-storage.firebaseapp.com",
+  projectId: "nkap-storage",
+  storageBucket: "nkap-storage.appspot.com",
+  messagingSenderId: "888332228309",
+  appId: "1:888332228309:web:3e2b823fde40b6f534b45c"
+};
 
 @NgModule({
   declarations: [
@@ -114,6 +125,8 @@ import { PopularLocationReportComponent } from './reports/popular-location-repor
     // ReportsComponent,
   ],
   imports: [
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireStorageModule ,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
