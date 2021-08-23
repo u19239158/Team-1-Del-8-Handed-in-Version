@@ -1,77 +1,85 @@
 <div class="main">
   <div>
-      <h2>Online Sales</h2>
+    <h2>Online Sales</h2>
 
- <div class="search">
+    <div class="search">
       <ul fxLayout fxLayoutGap="15px" class="navigation-items">
-          <li>         
-              <div class="field has-addons" >
-                <div class="control" >
-                  <input type="text" [(ngModel)]="searchWord" class="input" id="search" placeholder="Search Sale...">
-                </div>
-                <div class="control">
-                  <a class="button is-info" (click)="filter()">
-          <span class="fas fa-search search-icon"></span>  
-                  </a>
-                </div>
-              </div>   
-          </li>
+        <li>
+          <div class="field has-addons">
+            <div class="control">
+              <input type="text" [(ngModel)]="searchWord" class="input" id="search" placeholder="Search Sale...">
+            </div>
+            <div class="control">
+              <a class="button is-info" (click)="filter()">
+                <span class="fas fa-search search-icon"></span>
+              </a>
+            </div>
+          </div>
+        </li>
       </ul>
-  </div>
+    </div>
 
-<div class="mat-elevation-z8 table" >
-    <table mat-table [dataSource]="dataSource" matSort>
+    <div class="mat-elevation-z8 table">
+      <table mat-table [dataSource]="dataSource" matSort>
         <!-- Sale Number -->
         <ng-container matColumnDef="saleNumber">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Sale Number </th>
-        <td mat-cell *matCellDef="let element">{{element.saleID}} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Sale Number </th>
+          <td mat-cell *matCellDef="let element">{{element.saleID}} </td>
         </ng-container>
 
-          <!-- Customer Name and Surname  -->
+        <!-- Customer Name and Surname  -->
         <ng-container matColumnDef="customer">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer </th>
-            <td mat-cell *matCellDef="let element"> {{element.customerName}}  {{element.customerSurname}}</td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer </th>
+          <td mat-cell *matCellDef="let element"> {{element.customerName}} {{element.customerSurname}}</td>
         </ng-container>
 
-          <!-- Sale Date -->
+        <!-- Sale Date -->
         <ng-container matColumnDef="business">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Business Name</th>
-            <td mat-cell *matCellDef="let element"> {{element.customerBusinessName}} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Business Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.customerBusinessName}} </td>
         </ng-container>
 
         <!-- Sale Date -->
         <ng-container matColumnDef="saleDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Sale Date </th>
-            <td mat-cell *matCellDef="let element"> {{element.saleOrderDate| date:"dd/MM/yy"}} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Sale Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.saleOrderDate| date:"dd/MM/yy"}} </td>
         </ng-container>
 
-         <!-- Order Status -->
-         <ng-container matColumnDef="orderStatus">
+        <!-- Order Status -->
+        <ng-container matColumnDef="orderStatus">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Status </th>
           <td mat-cell *matCellDef="let element"> {{element.orderStatusDescription}} </td>
-      </ng-container>
+        </ng-container>
 
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef>
-             Actions
-                <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
-                    <mat-icon>add</mat-icon>
-                  </button>
-            </th>
-            <td mat-cell *matCellDef="let element">
-                <button mat-menu-item [routerLink]="['/viewSale',element.saleId]" >View</button>
-            </td>
+          <th mat-header-cell *matHeaderCellDef>
+            Actions
+            <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
+              <mat-icon>add</mat-icon>
+            </button>
+          </th>
+          <td mat-cell *matCellDef="let element">
+
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item [routerLink]="['/viewSale',element.saleId]">View</button>
+              <button mat-menu-item>Order Collected</button>
+              <button mat-menu-item>Order Delivered</button>
+            </mat-menu>
+          </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-</div>
+      </table>
+    </div>
 
-<div class="mat-row">
-  <div class="mat-col-quarter">
-    <a (click)="Close()" mat-button>Cancel</a>
+    <div class="mat-row">
+      <div class="mat-col-quarter">
+        <a (click)="Close()" mat-button>Cancel</a>
+      </div>
+    </div>
   </div>
-</div>
-</div>

@@ -1,31 +1,37 @@
 <div class="content">
 
-  <h2 >Pack Order</h2>
+  <h2>Pack Order</h2>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-<div class="mat-row">
-  <div class="mat-col-quarter">
-      <section class="checkbox">
-        <h3>Select one</h3>
-        <p><mat-checkbox formControlName="packed">Has this order been packed></mat-checkbox></p>
-        <p><mat-checkbox formControlName="delivery">Available for delivery></mat-checkbox></p>
-        <p><mat-checkbox formControlName="collection">Available for delivery></mat-checkbox></p>
-      </section>
-  </div>
-</div>
+    <div class="mat-row">
+      <div class="mat-col-quarter">
+        <section class="checkbox" align="left">
+          <h3>*Select one*</h3>
+          <p>
+            <mat-checkbox formControlName="packed">Has this order been packed</mat-checkbox>
+          </p>
+          <p>
+            <mat-checkbox formControlName="delivery">Available for delivery</mat-checkbox>
+          </p>
+          <p>
+            <mat-checkbox formControlName="collection">Available for delivery</mat-checkbox>
+          </p>
+        </section>
+      </div>
+    </div>
 
-<div class="mat-row">
-  <div class="mat-col-quarter">
-  <div class="form-group" class="control-m">
-    <button mat-raised-button color ="primary" [disabled]="loading">
-        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-        Confirm
-    </button>
-    <a (click)="Close()" mat-button>Cancel</a>
-  </div>
-</div>
-</div>
+    <div class="mat-row">
+      <div class="mat-col-quarter">
+        <div class="form-group" class="control-m">
+          <button mat-raised-button color="primary" [disabled]="loading">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Confirm
+          </button>
+          <a (click)="Close()" mat-button>Cancel</a>
+        </div>
+      </div>
+    </div>
 
-</form>
+  </form>
 </div>
