@@ -63,7 +63,9 @@ import { MostFrequentBuyersReportComponent } from './reports/most-frequent-buyer
 import { WeeklySaleOrdersReportComponent } from './reports/weekly-sale-orders-report/weekly-sale-orders-report.component';
 import { MonthlySalesOrderReportComponent } from './reports/monthly-sales-order-report/monthly-sales-order-report.component';
 import { PopularLocationReportComponent } from './reports/popular-location-report/popular-location-report.component';
-
+import { DeliveryReportComponent } from './reports/delivery-report/delivery-report.component';
+import { PackingReportComponent } from './reports/packing-report/packing-report.component';
+import { StockLevelReportComponent } from './reports/stock-level-report/stock-level-report.component';
 
 @NgModule({
   declarations: [
@@ -112,6 +114,9 @@ import { PopularLocationReportComponent } from './reports/popular-location-repor
     WeeklySaleOrdersReportComponent,
     MonthlySalesOrderReportComponent,
     PopularLocationReportComponent,
+    DeliveryReportComponent,
+    PackingReportComponent,
+    StockLevelReportComponent,
     // ReportsComponent,
   ],
   imports: [
