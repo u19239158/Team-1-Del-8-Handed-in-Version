@@ -57,7 +57,9 @@ import { MonthlySalesOrderReportComponent } from './reports/monthly-sales-order-
 import { MostFrequentBuyersReportComponent } from './reports/most-frequent-buyers-report/most-frequent-buyers-report.component';
 import { PopularLocationReportComponent } from './reports/popular-location-report/popular-location-report.component';
 import { WeeklySaleOrdersReportComponent } from './reports/weekly-sale-orders-report/weekly-sale-orders-report.component';
-
+import { PackingReportComponent } from './reports/Reports/packing-report.component';
+import { StockLevelReportComponent } from './reports/stock-level-report/stock-level-report.component';
+import { DeliveryReportComponent } from './reports/delivery-report/delivery-report.component';
 const routes: Routes = [
   {
     path: '',
@@ -269,7 +271,19 @@ const routes: Routes = [
   {
     path: 'popularLocationsReport',
     component: PopularLocationReportComponent,
-  }
+  },
+  {
+    path: 'deliveryReport',
+    component: DeliveryReportComponent,
+  },
+  {
+    path: 'stockLevelReport',
+    component: StockLevelReportComponent,
+  },
+  {
+    path: 'packingReport',
+    component: PackingReportComponent
+  },
 ];
 
 @NgModule({

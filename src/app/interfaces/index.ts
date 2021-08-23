@@ -195,8 +195,8 @@ export interface OnlineSales {
   customerName: string;
   customerSurame: string;
   customerBusinessname: string;
-  
-
 
 }
+
+
 
