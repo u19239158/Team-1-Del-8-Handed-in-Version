@@ -63,8 +63,8 @@
                       <mat-icon>more_vert</mat-icon>
                   </button>
                   <mat-menu #menu="matMenu" xPosition="before">
-                  <button mat-menu-item [routerLink]="['/specialEdit', element.specialID]" >Update Special</button>
-                  <button mat-menu-item (click)="deleteSpecial(element.specialID)">Delete Special</button>
+                  <button mat-menu-item [routerLink]="['/specialEdit', element.specialId]" >Update Special</button>
+                  <button mat-menu-item (click)="deleteSpecial(element.specialId)">Delete Special</button>
                   </mat-menu>
               </td>
           </ng-container>

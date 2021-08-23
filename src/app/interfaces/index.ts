@@ -54,6 +54,7 @@ export interface Special {
   specialPrice: string;
   specialStartDate: string;
   specialEndDate: string;
+  discountId : number;
 }
 
 export interface Courier {
