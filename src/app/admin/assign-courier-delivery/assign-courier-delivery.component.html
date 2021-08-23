@@ -58,6 +58,21 @@
           </td>
         </ng-container>
 
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>
+            <!-- <button color="primary" aria-label="Example icon button with a home icon"
+                  routerLink="/addDeliveryShift"> -->
+            Select Courier
+            <!-- </button> -->
+          </th>
+          <td mat-header-cell *matCellDef="let element">
+            <button class="btn btn-primary center">
+              Select
+            </button>
+          </td>
+        </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
@@ -69,8 +84,6 @@
           <button mat-raised-button><a mat-button>Cancel</a></button>
           <span> </span>
           <button mat-raised-button color="primary">Done</button>
-
-
         </div>
       </div>
     </div>
