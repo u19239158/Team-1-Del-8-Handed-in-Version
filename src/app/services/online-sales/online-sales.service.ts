@@ -35,4 +35,11 @@ getOrderStatusByID(OrderStatusId):  Observable<OnlineSales>  {
   return this.http.get<OnlineSales>(`${this.server}OrderStatus/GetOrderStatusByID/${OrderStatusId}`).pipe(map(res => res));
 }
 
+updateToCollected(OnlineSales:OnlineSales):  Observable<OnlineSales[]>  {
+  return this.http.put<OnlineSales[]>(`${this.server}Sale/UpdateOrderDelivered`, OnlineSales,this.httpOptions);
+}
+
+updateToDelivered(OnlineSales:OnlineSales):  Observable<OnlineSales[]>  {
+  return this.http.put<OnlineSales[]>(`${this.server}Sale/UpdateOrderDelivered`, OnlineSales,this.httpOptions);
+}
 }

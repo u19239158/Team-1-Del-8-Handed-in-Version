@@ -19,6 +19,7 @@ export class StockTakePageComponent implements OnInit {
   stockTake : StockTake;
   stockTakes : Observable<StockTake[]>;
   productitem: Productitem;
+  //form: FormGroup;
   productitems: Observable<Productitem[]>;
   submitted = false;
 

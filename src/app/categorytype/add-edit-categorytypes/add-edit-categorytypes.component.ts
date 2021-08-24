@@ -5,6 +5,8 @@ import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@ang
 import { ActivatedRoute, Router } from '@angular/router';
 import { Categorytype } from 'src/app/interfaces';
 import { HttpClient } from '@angular/common/http';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-add-edit-categorytypes',
@@ -23,14 +25,25 @@ export class AddEditCategorytypesComponent implements OnInit {
   categorytypes: Observable<Categorytype[]>;
   collection = [];
   selected: string;
+  path: string;
+  selectedImage: File;
+
+  
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private CategorytypeService: CategorytypeService,
-    private http: HttpClient
+    private http: HttpClient,
+    private storage : AngularFireStorage
+    
   ) { }
+
+  upload(event) {    
+    this.path = event.target.files[0]
+  }
+ 
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
@@ -60,6 +73,26 @@ export class AddEditCategorytypesComponent implements OnInit {
     }
   }
 
+   
+  uploadImage(){
+    console.log(this.path)
+    this.storage.upload('/images'+Math.random()+this.path, this.path);}
+
+  // chooseFile(event){
+  //   this.selectedImage = event.target.files[0];
+  // }
+
+// async uploadImage(){
+//   const key =`/files${Math.random()}${this.selectedImage.name}`;
+//   await this.storage.upload(key,this.selectedImage);
+//   const ref = this.storage.ref(key);
+//   const download = ref.getDownloadURL();
+
+//   return download;
+// }
+
+                    
+
   onSubmit() {
 
     if (this.form.invalid) {
@@ -72,11 +105,19 @@ export class AddEditCategorytypesComponent implements OnInit {
     } else {
       this.updateCategorytype();
     }
-
+console.log(this.path)
   }
 
-  createCategorytype() {
+  async createCategorytype() {
     const categorytype: Categorytype = this.form.value;
+    // const image = await this.uploadImage();
+    // this.CategorytypeService.CreateCategoryType(categorytype).subscribe(split =>{
+    //   image.subscribe(url => {
+    //     console.log(url);
+        
+    //   })
+    // } )   
+
     this.CategorytypeService.CreateCategoryType(categorytype).subscribe(res => {
       console.log(res)
       this.loading = false

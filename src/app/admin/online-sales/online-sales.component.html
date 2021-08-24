@@ -66,8 +66,8 @@
             </button>
             <mat-menu #menu="matMenu" xPosition="before">
               <button mat-menu-item [routerLink]="['/viewSale',element.saleId]">View</button>
-              <button mat-menu-item>Order Collected</button>
-              <button mat-menu-item>Order Delivered</button>
+              <button mat-menu-item (click)="Collected(element.saleID)"  [routerLink]="[element.saleId]" >Order Collected</button>
+              <button mat-menu-item (click)="Delivered()">Order Delivered</button>
             </mat-menu>
           </td>
         </ng-container>

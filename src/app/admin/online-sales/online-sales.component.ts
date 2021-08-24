@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { OnlineSales } from 'src/app/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -23,6 +24,9 @@ displayedColumns: string[] = ['saleNumber','customer','business', 'saleDate','or
 OnlineSales: OnlineSales[];
 searchValue: number;
 searchWord: string;
+  element: any;
+  route: any;
+  id: number;
 
 constructor(private OnlineSalesService: OnlineSalesService,
             private snack: MatSnackBar,
@@ -47,8 +51,28 @@ readOnlineSales(): void {
    })
 }
 
-filter() {
+updateToCollected() {
+  const onlineSales: OnlineSales = this.element.value;
+  onlineSales.saleID = this.onlineSale.saleID;
+  this.OnlineSalesService.updateToCollected(onlineSales).subscribe(res =>{
+    console.log(res)
+    //this.form.reset();
+    this.router.navigateByUrl('/onlineSales');
+  });
+}
 
+updateToDelivered() {
+  const onlineSales: OnlineSales = this.element.value;
+  onlineSales.saleID = this.onlineSale.saleID;
+  this.OnlineSalesService.updateToDelivered(onlineSales).subscribe(res =>{
+    console.log(res)
+    //this.form.reset();
+    this.router.navigateByUrl('/onlineSales');
+  });
+}
+
+
+filter() {
   const filter = (e) => {
 
     return e.customerName && e.customerName.toLowerCase().includes(this.searchWord.toLowerCase()) ||
@@ -57,8 +81,16 @@ filter() {
       e.saleOrderDate && e.saleOrderDate.toLowerCase().includes(this.searchWord.toLowerCase()) ||
       e.orderStatusDescription &&  e.orderStatusDescription.toString().toLowerCase().includes(this.searchWord.toLowerCase())
   }
-
   this.dataSource = new MatTableDataSource(this.OnlineSales.filter(filter))
+}
+
+
+Collected(){
+  this.updateToCollected();
+}
+
+Delivered(){
+ this.updateToDelivered();
 }
 
 Close(){

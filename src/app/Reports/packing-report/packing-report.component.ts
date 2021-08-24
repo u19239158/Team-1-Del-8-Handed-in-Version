@@ -1,9 +1,11 @@
+import { Reports } from 'src/app/interfaces';
 import { Component, OnInit } from '@angular/core';
 import 'jspdf-autotable';
 import jsPDF from 'jspdf';
 import { ReportServiceService } from 'src/app/services/Reports/report-service.service';
 import { MatTableDataSource } from '@angular/material/table'
 import { Customer } from './../../interfaces/index';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-packing-report',
@@ -12,20 +14,29 @@ import { Customer } from './../../interfaces/index';
 })
 
 export class PackingReportComponent implements OnInit {
-  constructor(private service: ReportServiceService ) { }
-  dataSource = new MatTableDataSource<Customer>();
-  displayedColumns: string[] = ['saleId', 'date','description', 'collectionDelivery', 'assignedTo', 'paymentDate'];
+  Reports: Reports[] = [];
+  report: Reports;
+  reports: Observable<Reports[]>;
+  dataSource = new MatTableDataSource<Reports>();
+  displayedColumns: string[] = ['saleId', 'saleOrderDate','saleOrderDescription', 'saleOrderRecieveType', 'assignedTo', 'paymentDate'];
 
+  constructor(private ReportServiceService: ReportServiceService 
+  
+  ) { }
   ngOnInit(): void {
-    //this.readPackingReport();
+    this.readPackingReport();
+
+    this.ReportServiceService.PackingReport().subscribe((result: Reports[]) => {
+      this.Reports = result;
+    });
   }
 
-  // readPackingReport(): void {
-  //    this.service.PackingReport(Reports : Reports).subscribe(res => {
-  //      console.log(res)
-  //      this.dataSource = new MatTableDataSource(res)
-  //    })
-  // }
+  readPackingReport(): void {
+     this.ReportServiceService.PackingReport().subscribe(res => {
+       console.log(res)
+       this.dataSource = new MatTableDataSource(res)
+     })
+  }
 
   header = [['Sale ID', 
               'Date', 
