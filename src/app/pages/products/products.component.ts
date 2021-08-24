@@ -15,6 +15,7 @@ export class ProductsComponent implements OnInit {
 
   public productList : any ;
   public categoryTypes : any[];
+  public productCategories : any = [];
 
   public products : any ;
   modalItems: any = [];
@@ -25,8 +26,8 @@ export class ProductsComponent implements OnInit {
     //Home page different categories of products
     this.api.getProductCategory()
     .subscribe(res=>{
-      this.categoryTypes=res;
-      console.log(this.categoryTypes);
+      this.productCategories=res;
+      console.log(this.productCategories);
 
     })
     

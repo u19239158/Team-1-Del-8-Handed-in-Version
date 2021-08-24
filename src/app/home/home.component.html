@@ -14,21 +14,24 @@
 <div class="container-fluid">
 <section>
     <div class="tile is-ancestor is-4by3">
-        <ng-container *ngFor="let category of categoryTypes">
+        <ng-container *ngFor="let prodcat of productCategories">
             <div class="tile is-parent">
-                    <article class="tile is-child box">
-                        <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.productCategoryDesc}}</p>
-                        <!-- <p class="subtitle"  style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.itemDescription}}</p> -->
-                        <div class="content">
-                            <!-- <p>{{category.productCategoryDesc}}</p>   -->
-                            
-               <p></p>
-                        </div>
-                            <!-- <figure class="image is-4by3">
-                                <img src="https://bulma.io/images/placeholders/640x480.png">
-                            </figure> -->
-                        <button class="button is-info is-rounded" routerLink="/products">More {{category.productCategoryDesc}}</button>
-                    </article>       
+
+              <article class="tile is-child box">
+                  <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">
+                    {{prodcat.productCategoryDescription}}
+                  </p>
+
+                  <div class="content">
+                    <center><img src="{{prodcat.productCategoryImage}}" width="60%" height="50%" alt="productCategoryImage"></center>
+                  </div>
+
+                  <footer>                
+                    <button class="button is-info is-rounded" routerLink="/products">More</button>
+                  </footer>
+                  
+                     </article>       
+
             </div>  
         </ng-container>
     </div> 

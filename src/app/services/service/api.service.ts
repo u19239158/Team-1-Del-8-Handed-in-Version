@@ -21,8 +21,8 @@ export interface CategoryType
 
 export interface ProductCategory
 {
-  ProductCategoryDesc : string;
-  ProductCategoryImage : string;
+  ProductCategory_Description : string;
+  ProductCategory_Image : string;
 }
 
 export interface ProductItem
@@ -51,7 +51,7 @@ export class ApiService {
 
   //home page(ProductCategory) endpoint route = GetProdCat
   getProductCategory(): Observable<ProductCategory[]>{
-    return this.http.get<ProductCategory[]>(`${this.server}GetProdCat`)
+    return this.http.get<ProductCategory[]>(`${this.server}ProductCategory/GetProdCat`)
     .pipe(map((res:any)=>{
       return res;
     }))

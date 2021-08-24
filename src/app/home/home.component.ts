@@ -13,8 +13,9 @@ import { CategoryType } from 'src/app/services/service/api.service';
 })
 export class HomeComponent implements OnInit {
 
-  public productList : any ;
+  // public productList : any ;
   public categoryTypes : any = [];
+  public productCategories : any = [];
   public products : any ;
 
   constructor(private api : ApiService, private cartService : CartService) { }
@@ -26,12 +27,11 @@ export class HomeComponent implements OnInit {
       console.log(this.categoryTypes);
     })    
     
-    //Home page different categories of products
+    //Home page 7 different categories of products
     this.api.getProductCategory()
     .subscribe(res=>{
-      this.categoryTypes=res;
-      console.log(this.categoryTypes);
-
+      this.productCategories=res;
+      console.log(this.productCategories);
     })
 
     this.cartService.getModalProduct()
