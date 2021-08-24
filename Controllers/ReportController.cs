@@ -20,36 +20,63 @@ namespace NKAP_API_2.Controllers
         private NKAP_BOLTING_DB_4Context _db; //dependency injection for db
         public ReportController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
+        
 
         [Route("GetPackingReportData")] //route
         [HttpGet]
         //get Sales with status "needs packing"
-        public IActionResult get(ReportModel model)
+        public IActionResult Getpacking(ReportModel model)
         {
+            
+            if (model.SaleOrderRecieveType == true)
+            {
+                var NeedsPackingSales = _db.Sales.Join(_db.OrderStatuses,
+               a => a.OrderStatusId,
+              t => t.OrderStatusId,
+              (a, t) => new
+              {
+                  OrderStatusId = a.OrderStatusId,
+                  SaleId = a.SaleId,
+                  SaleOrderDescription = a.SaleOrderDescription,
+
+                  SaleOrderDate = a.SaleOrderDate,
+                  SaleOrderRecieveType = "Collection",
+                  AssignedTo = a.SaleOrderAssign,
+                  PaymentDate = a.PaymentDate,
+                  OrderStatusDescription = t.OrderStatusDescription
+
+              }).Where(oo => oo.OrderStatusDescription == "Needs Packing");
+                return Ok(NeedsPackingSales);
+            }
+            else
+            {
+                var NeedsPackingSales = _db.Sales.Join(_db.OrderStatuses,
+             a => a.OrderStatusId,
+            t => t.OrderStatusId,
+            (a, t) => new
+            {
+                OrderStatusId = a.OrderStatusId,
+                SaleId = a.SaleId,
+                SaleOrderDescription = a.SaleOrderDescription,
+
+                SaleOrderDate = a.SaleOrderDate,
+                SaleOrderRecieveType = "Delivery",
+                AssignedTo = a.SaleOrderAssign,
+                PaymentDate = a.PaymentDate,
+                OrderStatusDescription = t.OrderStatusDescription
+
+            }).Where(oo => oo.OrderStatusDescription == "Needs Packing");
+                return Ok(NeedsPackingSales);
+            }
             //var NeedsPackingSales = _db.Sales.Include(od => od.OrderStatus).Where(od => od.OrderStatus.OrderStatusDescription == "Needs Packing").ToList();
-            var NeedsPackingSales = _db.Sales.Join(_db.OrderStatuses,
-                 a => a.OrderStatusId,
-                t => t.OrderStatusId,
-                (a, t) => new
-                {
-                    OrderStatusId = a.OrderStatusId,
-                    SaleId = a.SaleId,
-                    SaleOrderDescription = a.SaleOrderDescription,
-                    SaleOrderDate = a.SaleOrderDate,
-                    SaleOrderRecieveType = a.SaleOrderRecieveType,
-                    AssignedTo = a.SaleOrderAssign,
-                    PaymentDate = a.PaymentDate,
-                    OrderStatusDescription = t.OrderStatusDescription
 
-                }).Where(oo => oo.OrderStatusDescription == "Needs Packing");
-
-            return Ok(NeedsPackingSales);
+           
         }
 
         [Route("GetDeliveryReportData")] //route
         [HttpGet]
         //get Sales with status "needs packing"
-        public IActionResult Get(ReportModel model)
+        public IActionResult Get()
         {
             //var NeedsPackingSales = _db.Sales.Include(od => od.OrderStatus).Where(od => od.OrderStatus.OrderStatusDescription == "Needs Packing").ToList();
             var ReadyForDeliveryOrder = _db.Sales.Join(_db.OrderStatuses,
@@ -68,7 +95,7 @@ namespace NKAP_API_2.Controllers
                     CustomerId = a.CustomerId
 
 
-                }).Where(oo => oo.OrderStatusId == 3)
+                })
 
                 .Join(_db.Customers,
                 a => a.CustomerId,
@@ -86,6 +113,7 @@ namespace NKAP_API_2.Controllers
                     CustomerName = t.CustomerName,
                     CustomerSurname = t.CustomerSurname,
                     CustomerEmailAddress = t.CustomerEmailAddress,
+                    CustomerCellphoneNumber = t.CustomerCellphoneNumber,
                     CustomerId = t.CustomerId
 
                 }).Join(_db.Addresses,
@@ -105,6 +133,7 @@ namespace NKAP_API_2.Controllers
                     CustomerName = a.CustomerName,
                     CustomerSurname = a.CustomerSurname,
                     CustomerEmailAddress = a.CustomerEmailAddress,
+                    CustomerCellphoneNumber = a.CustomerCellphoneNumber,
                     AddressLine1 = t.AddressLine1,
                     AddressLine2 = t.AddressLine2,
                     AddressLine3 = t.AddressLine3,
@@ -128,6 +157,7 @@ namespace NKAP_API_2.Controllers
                     CustomerName = a.CustomerName,
                     CustomerSurname = a.CustomerSurname,
                     CustomerEmailAddress = a.CustomerEmailAddress,
+                    CustomerCellphoneNumber = a.CustomerCellphoneNumber,
                     AddressLine1 = a.AddressLine1,
                     AddressLine2 = a.AddressLine2,
                     AddressLine3 = a.AddressLine3,
@@ -135,41 +165,74 @@ namespace NKAP_API_2.Controllers
                     ProvinceID = a.ProvinceID,
                     ProvinceDescription = t.ProvinceDescription,
 
-                }).Join(_db.Cities,
-                a => a.ProvinceID,
-                t => t.ProvinceId,
-                (a, t) => new
-                {
-                    AddressID = a.AddressID,
-                    OrderStatusId = a.OrderStatusId,
-                    SaleId = a.SaleId,
-                    SaleOrderDescription = a.SaleOrderDescription,
-                    SaleOrderDate = a.SaleOrderDate,
-                    SaleOrderRecieveType = a.SaleOrderRecieveType,
-                    SaleOrderAssign = a.SaleOrderAssign,
-                    PaymentDate = a.PaymentDate,
-                    OrderStatusDescription = a.OrderStatusDescription,
-                    CustomerName = a.CustomerName,
-                    CustomerSurname = a.CustomerSurname,
-                    CustomerEmailAddress = a.CustomerEmailAddress,
-                    AddressLine1 = a.AddressLine1,
-                    AddressLine2 = a.AddressLine2,
-                    AddressLine3 = a.AddressLine3,
-                    AddressPostalCode = a.AddressPostalCode,
-                    ProvinceID = a.ProvinceID,
-                    ProvinceDescription = a.ProvinceDescription,
-                    CityID = t.CityId,
-                    CityDescription = t.CityDescription
+                }).Where(oo => oo.OrderStatusId == 3);
+                //.Join(_db.Cities,
+                //a => a.,
+                //t => t.ProvinceId,
+                //(a, t) => new
+                //{
+                //    AddressID = a.AddressID,
+                //    OrderStatusId = a.OrderStatusId,
+                //    SaleId = a.SaleId,
+                //    SaleOrderDescription = a.SaleOrderDescription,
+                //    SaleOrderDate = a.SaleOrderDate,
+                //    SaleOrderRecieveType = a.SaleOrderRecieveType,
+                //    SaleOrderAssign = a.SaleOrderAssign,
+                //    PaymentDate = a.PaymentDate,
+                //    OrderStatusDescription = a.OrderStatusDescription,
+                //    CustomerName = a.CustomerName,
+                //    CustomerSurname = a.CustomerSurname,
+                //    CustomerEmailAddress = a.CustomerEmailAddress,
+                //    CustomerCellphoneNumber = a.CustomerCellphoneNumber,
+                //    AddressLine1 = a.AddressLine1,
+                //    AddressLine2 = a.AddressLine2,
+                //    AddressLine3 = a.AddressLine3,
+                //    AddressPostalCode = a.AddressPostalCode,
+                //    ProvinceID = a.ProvinceID,
+                //    ProvinceDescription = a.ProvinceDescription,
+                //    CityID = t.CityId,
+                //    CityDescription = t.CityDescription
 
-                });
+                //});
 
             return Ok(ReadyForDeliveryOrder);
         }
 
 
-        [Route("GenerateSalesReport")] //route
+        [Route("GenerateSalesReportSum")] //route
         [HttpGet]
         //get Sales by Date (Read)
+        public IActionResult getSalesReportSum(ReportModel model)
+        {
+            var Sales = _db.Sales.Join(_db.Customers,
+                 su => su.CustomerId,
+                 so => so.CustomerId,
+
+                 (su, so) => new
+                 {
+                     SaleID = su.SaleId,
+                     SaleDescription = su.SaleOrderDescription, //attributes in table
+                     SaleOrderDate = su.SaleOrderDate,
+                     SalePaymentDate = su.PaymentDate,
+                     SalePaymentAmount = su.PaymentAmount,
+                     CustomerId = so.CustomerId,
+                     CustomerName = so.CustomerName,
+                     CustomerCellphoneNumber = so.CustomerCellphoneNumber,
+                     CustomerBusinessName = so.CustomerBusinessName,
+                     CustomerEmailAddress = so.CustomerEmailAddress,
+                     StartDate = model.StartDate,
+                     EndDate = model.EndDate,
+
+
+                 }).Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).Sum(zz => zz.SalePaymentAmount);
+
+            return Ok(Sales);
+
+        }
+
+
+        [Route("GenerateSalesReport")] //route
+        [HttpGet]
         public IActionResult getSalesReport(ReportModel model)
         {
             var Sales = _db.Sales.Join(_db.Customers,
@@ -201,7 +264,7 @@ namespace NKAP_API_2.Controllers
         [Route("GenerateStockLevel")] //route
         [HttpGet]
         //get Sales by Date (Read)
-        public IActionResult getStock(ReportModel model)
+        public IActionResult getStock()
         {
             var Stocklevel = _db.ProductItems.Join(_db.CategoryTypes,
                  su => su.CategoryTypeId,
@@ -229,8 +292,6 @@ namespace NKAP_API_2.Controllers
                       CategoryTypeDescription = su.CategoryTypeDescription,
                       ProductCategoryId = so.ProductCategoryId,
                       ProductCategoryDescription = so.ProductCategoryDescription
-
-
                   });
 
             return Ok(Stocklevel);
@@ -242,7 +303,6 @@ namespace NKAP_API_2.Controllers
         //get Frequent Buyers (Read)
         public IActionResult getFrequentBuyers(ReportModel model)
         {
-
             var Sales = _db.Sales.Join(_db.Customers,
                  su => su.CustomerId,
                  so => so.CustomerId,
@@ -267,6 +327,38 @@ namespace NKAP_API_2.Controllers
 
            // return getFrequenBuyersList (Sales)
             return Ok(Sales);
+        }
+
+        [Route("GenerateFrequentBuyerReportCount")] //route
+        [HttpGet]
+        //get Frequent Buyers (Read)
+        public IActionResult getFrequentBuyersCount(ReportModel model)
+        {
+
+            var Sales = _db.Sales.Join(_db.Customers,
+                 su => su.CustomerId,
+                 so => so.CustomerId,
+
+                 (su, so) => new
+                 {
+                     SaleID = su.SaleId,
+                     SaleDescription = su.SaleOrderDescription, //attributes in table
+                     SaleOrderDate = su.SaleOrderDate,
+                     SalePaymentDate = su.PaymentDate,
+                     SalePaymentAmount = su.PaymentAmount,
+                     CustomerId = so.CustomerId,
+                     CustomerName = so.CustomerName,
+                     CustomerCellphoneNumber = so.CustomerCellphoneNumber,
+                     CustomerBusinessName = so.CustomerBusinessName,
+                     CustomerEmailAddress = so.CustomerEmailAddress,
+                     StartDate = model.StartDate,
+                     EndDate = model.EndDate,
+
+
+                 }).Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).Count();
+
+            // return getFrequenBuyersList (Sales)
+            return Ok(Sales);
 
 
         }
@@ -286,6 +378,43 @@ namespace NKAP_API_2.Controllers
         //    return Ok(Fsales);
         //}
 
+
+        [Route("GetFastSellingProductsCount")] //route
+        [HttpGet]
+        //get Fast Selling Products (Read)
+        public IActionResult getFastSellingProductsCount(ReportModel model)
+        {
+
+            var FastSellingP = _db.ProductItems.Join(_db.SaleLines,
+                 su => su.ProductItemId,
+                 so => so.ProductItemId,
+
+                 (su, so) => new
+                 {
+                     ProductItemId = su.ProductItemId,
+                     SaleLineId = so.SaleLineId,
+                     SaleLineQuantity = so.SaleLineQuantity,
+                     SaleId = so.SaleId,
+                     ProductItemName = su.ProductItemName,
+
+                 }).Join(_db.Sales,
+                 su => su.SaleId,
+                 so => so.SaleId,
+
+                 (su, so) => new
+                 {
+                     SaleOrderDate = so.SaleOrderDate,
+                     ProductItemId = su.ProductItemId,
+                     SaleLineId = su.SaleLineId,
+                     SaleLineQuantity = su.SaleLineQuantity,
+                     SaleId = so.SaleId,
+                     ProductItemName = su.ProductItemName,
+
+                 }).Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).Count();
+                 
+            return Ok(FastSellingP);
+
+        }
 
         [Route("GetFastSellingProducts")] //route
         [HttpGet]
@@ -311,14 +440,15 @@ namespace NKAP_API_2.Controllers
 
                  (su, so) => new
                  {
+                     SaleOrderDate = so.SaleOrderDate,
                      ProductItemId = su.ProductItemId,
                      SaleLineId = su.SaleLineId,
                      SaleLineQuantity = su.SaleLineQuantity,
                      SaleId = so.SaleId,
                      ProductItemName = su.ProductItemName,
 
-                 });
-                 
+                 }).Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate);
+
             return Ok(FastSellingP);
 
         }

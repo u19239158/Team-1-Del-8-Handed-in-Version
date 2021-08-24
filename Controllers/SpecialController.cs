@@ -59,6 +59,46 @@ namespace NKAP_API_2.Controllers
 
         }
 
+        [Route("GetSpecialsByProductItemId/{productItemId}")] //route
+        [HttpGet]
+        //get Specials (Read)
+        public IActionResult getbyproduct(int productItemId)
+        {
+            //var special = _db.Specials.ToList();
+            var special = _db.Specials.Join(_db.ProductSpecials,
+               a => a.SpecialId,
+               t => t.SpecialId,
+               (a, t) => new
+               {
+                   SpecialId = a.SpecialId,
+                   SpecialPrice = t.SpecialPrice,
+                   ProductSpecialId = t.ProductSpecialId,
+                   SpecialDescription = a.SpecialDescription,
+                   SpecialStartDate = a.SpecialStartDate,
+                   SpecialEndDate = a.SpecialEndDate,
+                   SpecialImage = a.SpecialImage,
+                   ProductItemId = t.ProductItemId
+
+               }).Join(_db.ProductItems,
+               a => a.ProductItemId,
+               t => t.ProductItemId,
+               (a, t) => new
+               {
+                   SpecialId = a.SpecialId,
+                   SpecialPrice = a.SpecialPrice,
+                   ProductSpecialId = a.ProductSpecialId,
+                   SpecialDescription = a.SpecialDescription,
+                   SpecialStartDate = a.SpecialStartDate,
+                   SpecialEndDate = a.SpecialEndDate,
+                   SpecialImage = a.SpecialImage,
+                   ProductItemName = t.ProductItemName,
+                   ProductItemId = t.ProductItemId
+
+               }).First(ss => ss.ProductItemId == productItemId);
+            return Ok(special);
+
+        }
+
         [Route("GetSpecialsByID/{speciaid}")] //route
         [HttpGet]
         //get Specials by ID (Read)
@@ -165,13 +205,25 @@ namespace NKAP_API_2.Controllers
         public IActionResult UpdateSpecials(SpecialModel model)
         {
             var special = _db.Specials.Find(model.SpecialID);
-            special.SpecialDescription = model.SpecialDescription;
-            special.SpecialStartDate = model.SpecialStartDate;
-            special.SpecialEndDate = model.SpecialEndDate;
-            special.SpecialImage = Convert.ToString(model.SpecialImage);
-            //byte[] byteArray = new byte[model.SpecialImage];
-            //special.SpecialImage = byteArray;
-            //special.SpecialImage = Convert.ToByte(model.SpecialImage);
+            {
+                special.SpecialDescription = model.SpecialDescription;
+                special.SpecialStartDate = model.SpecialStartDate;
+                special.SpecialEndDate = model.SpecialEndDate;
+            }
+            _db.Specials.Attach(special);
+            _db.SaveChanges();
+
+
+            ProductSpecial PSpecial = new ProductSpecial();
+            {
+                PSpecial.ProductItemId = model.ProductItemId;
+                PSpecial.SpecialId = special.SpecialId;
+                PSpecial.SpecialPrice = model.ProductItemCost - (model.ProductItemCost * model.DiscountPercentage);
+            }
+
+            _db.ProductSpecials.Attach(PSpecial);
+            _db.SaveChanges();
+
             _db.Specials.Attach(special); //Attach Record
             _db.SaveChanges();
 
@@ -181,14 +233,14 @@ namespace NKAP_API_2.Controllers
         [Route("DeleteSpecials/{specialid}")] //route
         [HttpDelete]
         //Delete Specialss
-        public IActionResult DeleteSpecials(int specialid)
+        public IActionResult DeleteSpecials(int specialid, int productspecialId)
         {
-            var special = _db.Specials.Find(specialid);
-            var Pspecial = _db.ProductSpecials.Find(specialid);
-            
+            var Pspecial = _db.ProductSpecials.Where(zz=> zz.ProductSpecialId == productspecialId);
+            _db.ProductSpecials.Remove((ProductSpecial)Pspecial);//Delete Record
+            _db.SaveChanges();
 
-            //_db.ProductSpecials.Remove(Pspecial);//Delete Record
-            //_db.SaveChanges();
+            var special = _db.Specials.Find(specialid);
+
 
             _db.Specials.Remove(special);
             _db.SaveChanges();

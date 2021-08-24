@@ -223,7 +223,8 @@ namespace NKAP_API_2.Controllers
                      OrderStatusId = sor.OrderStatusId,
                      CustomerId = sd.CustomerId,
                      CustomerName = sd.CustomerName,
-                     CustomerSurname = sd.CustomerSurname
+                     CustomerSurname = sd.CustomerSurname,
+                     CustomerBusinessName = sd.CustomerBusinessName
 
                  }).Join(_db.Addresses,
                  sor => sor.CustomerId,
@@ -237,6 +238,7 @@ namespace NKAP_API_2.Controllers
                      CustomerId = sor.CustomerId,
                      CustomerName = sor.CustomerName,
                      CustomerSurname = sor.CustomerSurname,
+                     CustomerBusinessName = sor.CustomerBusinessName,
                      AddressId = sd.AddressId,
                      AddressLine1 = sd.AddressLine1,
                      AddressLine2 = sd.AddressLine2,
@@ -256,6 +258,7 @@ namespace NKAP_API_2.Controllers
                      CustomerId = sor.CustomerId,
                      CustomerName = sor.CustomerName,
                      CustomerSurname = sor.CustomerSurname,
+                     CustomerBusinessName = sor.CustomerBusinessName,
                      AddressId = sor.AddressId,
                      AddressLine1 = sor.AddressLine1,
                      AddressLine2 = sor.AddressLine2,
@@ -276,6 +279,7 @@ namespace NKAP_API_2.Controllers
                         CustomerId = sor.CustomerId,
                         CustomerName = sor.CustomerName,
                         CustomerSurname = sor.CustomerSurname,
+                        CustomerBusinessName = sor.CustomerBusinessName,
                         AddressId = sor.AddressId,
                         AddressLine1 = sor.AddressLine1,
                         AddressLine2 = sor.AddressLine2,
@@ -296,6 +300,7 @@ namespace NKAP_API_2.Controllers
                         CustomerId = sor.CustomerId,
                         CustomerName = sor.CustomerName,
                         CustomerSurname = sor.CustomerSurname,
+                        CustomerBusinessName = sor.CustomerBusinessName,
                         AddressId = sor.AddressId,
                         AddressLine1 = sor.AddressLine1,
                         AddressLine2 = sor.AddressLine2,
@@ -309,6 +314,41 @@ namespace NKAP_API_2.Controllers
 
             return Ok(Unassigned);
 
+        }
+
+        [Route("AssignLocalDelivery")] //route
+        [HttpPut]
+        //Update Order Status
+        public IActionResult AssignLocalDelivery(DeliveryShiftModel model)
+        {
+            var ds = _db.EmployeeShifts.Find(model.EmployeeShiftId);
+            ds.NoOfDeliveries = +1;
+            _db.EmployeeShifts.Attach(ds); //Attach Record
+            _db.SaveChanges();
+
+            var sd = _db.Sales.Find(model.SaleID);
+            sd.SaleOrderAssign = true;
+            _db.Sales.Attach(sd); //Attach Record
+            _db.SaveChanges();
+            return Ok(ds);
+        }
+
+
+        [Route("AssignCourier")] //route
+        [HttpPut]
+        //Update Order Status
+        public IActionResult AssignCourier(DeliveryShiftModel model)
+        {
+            //var ds = _db.EmployeeShifts.Find(model.EmployeeShiftId);
+            //ds.NoOfDeliveries = +1;
+            //_db.EmployeeShifts.Attach(ds); //Attach Record
+            //_db.SaveChanges();
+
+            var sd = _db.Sales.Find(model.SaleID);
+            sd.SaleOrderAssign = true;
+            _db.Sales.Attach(sd); //Attach Record
+            _db.SaveChanges();
+            return Ok(sd);
         }
     }
 }

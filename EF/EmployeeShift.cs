@@ -11,7 +11,7 @@ namespace NKAP_API_2.EF
         public int? EmployeeId { get; set; }
         public int? DeliveryId { get; set; }
         public int? ShiftId { get; set; }
-        public string NoOfDeliveries { get; set; }
+        public int? NoOfDeliveries { get; set; }
         public bool ShiftFull { get; set; }
 
         public virtual Delivery Delivery { get; set; }

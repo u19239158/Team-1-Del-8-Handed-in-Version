@@ -13,7 +13,7 @@ namespace NKAP_API_2.Models
         { get; set; }
 
         [JsonProperty("noofdeliveries")]
-        public string NoOfDeliveries
+        public int NoOfDeliveries
         { get; set; }
 
         [JsonProperty("shiftfull")]

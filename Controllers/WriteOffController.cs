@@ -76,7 +76,6 @@ namespace NKAP_API_2.Controllers
             return Ok();
         }
 
-
         [Route("UpdatePIQuantity")] //route
         [HttpPut]
         //Update Quant on Hand

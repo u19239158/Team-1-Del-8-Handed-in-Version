@@ -451,13 +451,26 @@ namespace NKAP_API_2.Controllers
         }
 
 
-        [Route("UpdateOrder")] //route
+        [Route("UpdateOrderCollected")] //route
         [HttpPut]
         //Update Order Status
-        public IActionResult UpdateOrder(SaleModel model, int OrderStatusId)
+        public IActionResult UpdateOrder(SaleModel model)
         {
             var orderstatus = _db.Sales.Find(model.SaleID);
-            orderstatus.OrderStatusId = model.OrderStatusId;
+            orderstatus.OrderStatusId = 6;
+            _db.Sales.Attach(orderstatus); //Attach Record
+            _db.SaveChanges();
+
+            return Ok(orderstatus);
+        }
+
+        [Route("UpdateOrderDelivered")] //route
+        [HttpPut]
+        //Update Order Status
+        public IActionResult UpdateOrders(SaleModel model)
+        {
+            var orderstatus = _db.Sales.Find(model.SaleID);
+            orderstatus.OrderStatusId = 7;
             _db.Sales.Attach(orderstatus); //Attach Record
             _db.SaveChanges();
 

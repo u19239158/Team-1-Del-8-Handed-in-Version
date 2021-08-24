@@ -58,5 +58,13 @@ namespace NKAP_API_2.Models
         public string NoOfDeliveries
         { get; set; }
 
+        [JsonProperty("shiftfull")]
+        public bool ShiftFull
+        { get; set; }
+
+        [JsonProperty("saleid")]
+        public int SaleID
+        { get; set; }
+
     }
 }

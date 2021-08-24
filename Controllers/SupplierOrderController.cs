@@ -187,6 +187,36 @@ namespace NKAP_API_2.Controllers
         }
 
 
+        [Route("ReceiveInvoice")] //route
+        [HttpPost]
+        //Add Product Item Write-of
+        //Create a Model for table
+        public IActionResult AssignDeliveryShift(SupplierOrderModel model) //reference the model
+        {
+            SupplierOrder suppOrder = _db.SupplierOrders.Find(model.SupplierOrderID);
+            {
+                model.OrderDateRecieved = (DateTime)suppOrder.OrderDateReceived;
+              
+            };
+
+            _db.SaveChanges();
+
+            SupplierInvoice supInvoice = new SupplierInvoice
+            {
+                //attributes in table 
+                SupplierInvoiceId = model.SupplierInvoiceID,
+                SupplierInvoiceDate = model.SupplierInvoiceDate,
+                SupplierInvoiceTotal = model.SupplierInvoiceTotal
+            
+            };
+            _db.SupplierInvoices.Add(supInvoice);
+            _db.SaveChanges();
+
+
+
+            return Ok();
+        }
+
         //[Route("ReceiveSupplierOrder")] //route
         //[HttpPost]
         ////Add Product Item Write-of

@@ -427,7 +427,7 @@ namespace NKAP_API_2.EF
                 entity.Property(e => e.DiscountId).HasColumnName("Discount_ID");
 
                 entity.Property(e => e.DiscountPercentage)
-                    .HasColumnType("decimal(18, 0)")
+                    .HasColumnType("decimal(10, 2)")
                     .HasColumnName("Discount_Percentage");
             });
 
@@ -487,10 +487,7 @@ namespace NKAP_API_2.EF
 
                 entity.Property(e => e.EmployeeId).HasColumnName("Employee_ID");
 
-                entity.Property(e => e.NoOfDeliveries)
-                    .HasMaxLength(5)
-                    .IsUnicode(false)
-                    .HasColumnName("No_of_Deliveries");
+                entity.Property(e => e.NoOfDeliveries).HasColumnName("No_of_Deliveries");
 
                 entity.Property(e => e.ShiftFull).HasColumnName("Shift_Full");
 
@@ -519,7 +516,7 @@ namespace NKAP_API_2.EF
                 entity.Property(e => e.MarkupId).HasColumnName("Markup_ID");
 
                 entity.Property(e => e.MarkupPercentage)
-                    .HasColumnType("decimal(18, 0)")
+                    .HasColumnType("decimal(10, 2)")
                     .HasColumnName("Markup_Percentage");
             });
 
@@ -1151,7 +1148,7 @@ namespace NKAP_API_2.EF
                 entity.Property(e => e.VatId).HasColumnName("VAT_ID");
 
                 entity.Property(e => e.VatPercentage)
-                    .HasColumnType("decimal(18, 0)")
+                    .HasColumnType("decimal(10, 2)")
                     .HasColumnName("VAT_Percentage");
             });
 
