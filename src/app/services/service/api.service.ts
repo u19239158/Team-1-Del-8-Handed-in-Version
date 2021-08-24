@@ -14,9 +14,10 @@ export interface Product
 
 export interface CategoryType
 {
-  CategoryType_Description : string;
-  Item_Description : string;
-  CategoryType_Image : ImageBitmap;
+  ProductCategoryID : number;
+  CategoryTypeDescription : string;
+  ItemDescription : string;
+  CategoryTypeImage : ImageBitmap;
 }
 
 export interface ProductCategory
@@ -77,18 +78,18 @@ export class ApiService {
 
   //product details modal(CategoryType, productItem) endpoint route = GetProductItems
   getProductItem(){
-    return this.http.get<CategoryType[]>(`${this.server}GetProductItems`)
+    return this.http.get<Product[]>(`${this.server}ProductItem/GetProductItems`)
     .pipe(map((res:any)=>{
       return res;
     }))
   }
 
 
-  //dummy data
-   getProduct(){
-     return this.http.get<any>("https://fakestoreapi.com/products")
-     .pipe(map((res:any)=>{
-       return res;
-     }))
-   }
+  // //dummy data
+  //  getProduct(){
+  //    return this.http.get<any>("https://fakestoreapi.com/products")
+  //    .pipe(map((res:any)=>{
+  //      return res;
+  //    }))
+  //  }
 }

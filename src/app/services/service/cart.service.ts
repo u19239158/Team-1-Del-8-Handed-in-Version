@@ -35,6 +35,7 @@ export class CartService {
     this.productItems.next(this.modalItems);
     console.log(this.modalItems)
   }
+  
   closeItemModal(product : any){    
     this.modalItems = [];
     console.log(this.modalItems)

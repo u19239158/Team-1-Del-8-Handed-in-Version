@@ -1,73 +1,86 @@
-
 <div class="container">
-    <div class="row">    
-        <ng-container *ngFor="let category of categoryTypes">
-            <div class="card col-md-3">
-                <center><img src="{{category.categoryTypeImage}}" alt="" (click)=modal(category)></center>
-                <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.productCategoryDesc}}</p>
-                <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.itemDescription}}</p>
-                <p class="subtitle"><strong>Price:</strong> R{{category.categoryTypeId}}</p>              
-                <button class="button is-info is-rounded"  (click)=openmodal(category) id="launchModal">More Info</button>
-            </div>
-        </ng-container>
-    </div>
+<!-- This is the menubar at the top to go to specific product category -->
+  <div class="row"> 
+        <div class="tabs is-centered is-boxed">
+            <ng-container *ngFor="let prodcat of productCategories">
+            <ul>
+              <li>
+                <a>
+                <span>{{prodcat.productCategoryDescription}}</span>
+                </a>
+              </li>
+            </ul>
+          </ng-container>
+        </div>
+  </div>
+
+  
+<!-- These are the cards displaying the category types -->
+    <div class="row"> 
+      <ng-container *ngFor="let category of categoryTypes">         
+          <div class="card col-md-3">
+              <center><img src="{{category.categoryTypeImage}}" alt=""></center>
+              
+              <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.categoryTypeDescription}}</p>
+              <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.itemDescription}}</p>
+              <button class="button is-info is-rounded"  (click)=openmodal(category) id="launchModal">More Info</button>
+          </div>
+      </ng-container>
+
+      
+    <!-- <ng-container *ngIf="categoryTypes.productCategoryDesc == 'Screws'">
+      <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">
+        it works!!
+      </p>
+      <div>
+        <center><img src="{{categoryTypes.categoryTypeImage}}" alt="" (click)=modal(category)></center>
+      </div>
+    </ng-container> -->
+
+  </div>
 </div>
+
+
 
 
 <div class="modal">
   <div class="modal-background"></div>
   <div class="modal-card">
+<!--header of modal -->
     <header class="modal-card-head">
-      <p class="modal-card-title">Product Item</p>
-        <ng-container *ngFor="let category of categoryTypes">
+      <p class="modal-card-title">Product Details</p>
+        <ng-container *ngFor="let category of products">
       <button class="delete" id="closetop" aria-label="close" (click)=closemodal(category)></button>
         </ng-container>
     </header>
+
+
     <div class="content">
     <section class="modal-card-body">
-        <ng-container *ngFor="let category of categoryTypes">
-        <h1>{{category.productCategoryDesc}}</h1>        
-        <img src="{{category.categoryTypeImage}}" alt="" width="100" height="100">
-        <p>{{category.itemDescription}}</p>
-        <h2><strong>Price:</strong> R{{category.categoryTypeId}}</h2>
-        
+        <ng-container *ngFor="let item of products">
+        <h1>{{item.productCategoryDesc}}</h1>        
+        <img src="{{item.categoryTypeImage}}" alt="" width="100" height="100">
+        <p>{{item.itemDescription}}</p>
+<!-- 
+        <div *ngFor="let productitem of productItems" [value]= "productitem.productItemCost">
+          <h2><strong>Price:</strong> R{{productitem.productItemCost}}</h2> 
+        </div>    
+             -->
+              
         <mat-form-field appearance="outline">
           <mat-label>Type</mat-label>
           <mat-select>
-            <mat-option *ngFor="let category of categoryTypes" [value]= "category.itemDescription">
-              {{category.itemDescription}}
+            <mat-option *ngFor="let productitem of productItems" [value]= "productitem.productItemName">
+              R{{productitem.productItemCost}} =
+              {{productitem.productItemName}}
             </mat-option>
           </mat-select>
-
-
         </mat-form-field>
-        <!-- <div class="dropdown">
-            <div class="dropdown-trigger">
-              <button class="button" aria-haspopup="true" aria-controls="dropdown-menu2" (click)=Itemdropdown()>
-                <span>Select Type</span>
-                <span class="icon is-small">
-                  <i class="fas fa-angle-down" aria-hidden="true"></i>
-                </span>
-              </button>
-            </div>
-
-            <div class="dropdown-menu" id="dropdown-menu2" role="menu">
-              <div class="dropdown-content">
-                <div class="dropdown-item">
-                  <p>type 1</p>
-                </div>
-                <hr class="dropdown-divider">
-                <a href="#" class="dropdown-item">
-                  link to type 2
-                </a>
-              </div>
-            </div>
-          </div>     -->
         </ng-container>
     </section>
     <div>  
     <footer class="modal-card-foot">
-        <ng-container *ngFor="let category of categoryTypes">
+        <ng-container *ngFor="let item of products">
         <button class="button is-info is-rounded" (click)=addtocart(category)>Add to cart</button>
         <button class="button is-danger is-rounded" (click)=closemodal(category)>Close</button>
         </ng-container>

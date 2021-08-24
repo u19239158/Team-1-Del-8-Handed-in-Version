@@ -13,11 +13,12 @@ import { CartService } from 'src/app/services/service/cart.service';
 
 export class ProductsComponent implements OnInit {
 
-  public productList : any ;
-  public categoryTypes : any[];
+  public productList : any = [];
+  public categoryTypes : any = [];
   public productCategories : any = [];
 
-  public products : any ;
+  public productItems : any = [];
+  public products : any = [];
   modalItems: any = [];
   constructor(private api : ApiService, private cartService : CartService) { }
 
@@ -42,22 +43,24 @@ export class ProductsComponent implements OnInit {
     //modal product type dropdown
     this.api.getProductItem()
     .subscribe(res=>{
-      this.productList = res;
+      this.productItems = res;
+      console.log(this.productItems);
 
-    this.productList.forEach((a:any) => {
-        Object.assign(a,{quantity:1,total:a.price});      
-      });
+    // this.products.forEach((a:any) => {
+    //     Object.assign(a,{quantity:1,total:a.price});      
+      // });
     })
+
 
     //dummy data
-    this.api.getProduct()
-    .subscribe(res=>{
-      this.productList = res;
+    // this.api.getProduct()
+    // .subscribe(res=>{
+    //   this.productList = res;
 
-    this.productList.forEach((a:any) => {
-        Object.assign(a,{quantity:1,total:a.price});      
-      });
-    })
+    // this.productList.forEach((a:any) => {
+    //     Object.assign(a,{quantity:1,total:a.price});      
+    //   });
+    // })
     
     this.cartService.getModalProduct()
     .subscribe(res=>{
@@ -85,7 +88,7 @@ export class ProductsComponent implements OnInit {
     document.querySelector('.dropdown').classList.add('is-active')
   }
 
-  ItemdropdownClose(){
-    document.querySelector('.dropdown').classList.remove('is-active')
-  }
+  // ItemdropdownClose(){
+  //   document.querySelector('.dropdown').classList.remove('is-active')
+  // }
 }

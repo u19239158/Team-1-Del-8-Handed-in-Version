@@ -53,9 +53,9 @@ var ProductsComponent = /** @class */ (function () {
     ProductsComponent.prototype.addtocart = function (item) {
         this.cartService.addtoCart(item);
     };
-    ProductsComponent.prototype.openmodal = function (item) {
+    ProductsComponent.prototype.openmodal = function (productItems) {
         document.querySelector('.modal').classList.add('is-active');
-        this.cartService.showItemModal(item);
+        this.cartService.showItemModal(productItems);
     };
     ProductsComponent.prototype.closemodal = function (item) {
         this.modalItems = [];
