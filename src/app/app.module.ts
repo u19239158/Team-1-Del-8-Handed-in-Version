@@ -5,7 +5,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
@@ -69,6 +69,9 @@ import { DeliveryReportComponent } from './reports/delivery-report/delivery-repo
 import { PackingReportComponent } from './reports/packing-report/packing-report.component';
 import { StockLevelReportComponent } from './reports/stock-level-report/stock-level-report.component';
 
+import {ScheduleModule, AgendaService, DragAndDropService, ResizeService, WeekService, WorkWeekService, MonthService, DayService } from '@syncfusion/ej2-angular-schedule';
+
+
 const firebaseConfig = {
   apiKey: "AIzaSyDF8jZluZQu1iARJPootZqStlIMNnQ6OFA",
   authDomain: "nkap-storage.firebaseapp.com",
@@ -129,10 +132,11 @@ const firebaseConfig = {
     PackingReportComponent,
     StockLevelReportComponent,
     // ReportsComponent,
+    
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireStorageModule ,
+    AngularFireStorageModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -151,8 +155,10 @@ const firebaseConfig = {
     MatDialogModule,
     MatNativeDateModule,
     MatInputModule,
-  
+    ScheduleModule,
+    BrowserModule,
   ],
+  providers: [AgendaService, DayService, WeekService, WorkWeekService, MonthService, DragAndDropService, ResizeService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

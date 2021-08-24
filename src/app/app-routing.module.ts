@@ -34,9 +34,9 @@ import { AddEditProductcategorysComponent } from './productcategory/add-edit-pro
 import { ProductitemsComponent } from './productitem/productitems/productitems.component';
 import { AddEditProductitemsComponent } from './productitem/add-edit-productitems/add-edit-productitems.component';
 
-import {AssignDeliveryOrderComponent} from './admin/assign-delivery-order/assign-delivery-order.component';
-import {AssignCourierDeliveryComponent} from './admin/assign-courier-delivery/assign-courier-delivery.component';
-import {AssignLocalDeliveryComponent} from './admin/assign-local-delivery/assign-local-delivery.component';
+import { AssignDeliveryOrderComponent } from './admin/assign-delivery-order/assign-delivery-order.component';
+import { AssignCourierDeliveryComponent } from './admin/assign-courier-delivery/assign-courier-delivery.component';
+import { AssignLocalDeliveryComponent } from './admin/assign-local-delivery/assign-local-delivery.component';
 
 import { CustomersComponent } from './customer/customers/customers.component';
 import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
@@ -152,7 +152,7 @@ const routes: Routes = [
   {
     path: 'editDeliveryShift/:id',
     component: AddEditDeliveryshiftsComponent
-  },{
+  }, {
     path: 'productCategory',
     component: ProductcategorysComponent,
   },
@@ -261,7 +261,7 @@ const routes: Routes = [
     component: MonthlySalesOrderReportComponent
   },
   {
-    path:'weeklySalesOrderReport',
+    path: 'weeklySalesOrderReport',
     component: WeeklySaleOrdersReportComponent
   },
   {
