@@ -1,79 +1,68 @@
 <div class="content">
-<h2 *ngIf="isAddMode">Add Special</h2>
-<h2 *ngIf="!isAddMode">Edit Special</h2>
+  <h2 *ngIf="isAddMode">Add Special</h2>
+  <h2 *ngIf="!isAddMode">Edit Special</h2>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="main">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="main">
 
-  <!-- <div class="mat-row"> -->
-     <!-- Choose special image -->
-     <!-- <div appearance="outline" class="mat-col-quarter">
-      <label class="image-upload-container btn btn-bwm">
-    <span>Select Image</span>
-    <input #imageInput
-          type="file"
-          accept="image/*"
-          filename="specialImage">
-    </label>
-    </div>
-    </div> -->
+
+
+        <div class="mat-row">
+          <!-- Special Description -->
+          <div class="mat-col-quarter">
+            <mat-form-field appearance="outline" class="control-m">
+                <mat-label>Description</mat-label>
+                <input type="text" matInput placeholder="Description" formControlName="specialDescription">
+            </mat-form-field>
+          </div>
+        </div>
+
+
+      <div class="mat-row">
+        <!-- Start Date -->
+       <div class="mat-col-quarter">
+        <mat-form-field class="control-m">
+          <input matInput [matDatepicker]="picker" placeholder="Special Start Date"formControlName="specialStartDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        </div>
+      </div>
+
+      <div class="mat-row"> 
+       <!-- End Date -->
+       <div class="mat-col-quarter">
+        <mat-form-field class="control-m">
+          <input matInput [matDatepicker]="picker1" placeholder="Special End Date" formControlName="specialEndDate">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+       </div>
+      </div>
+
+      <div class="mat-row"> 
+          <!-- Special Price -->
+          <div class="mat-col-quarter">
+            <mat-form-field appearance="outline" class="control-m">
+              <mat-label>Discount Percentage</mat-label>
+              <mat-select [(value)]="selected" formControlName="discountId">
+                <mat-option *ngFor="let Discount of collection" [value]="Discount.discountId">
+                  {{Discount.discountPercentage}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+      </div>
 
     <div class="mat-row">
-    <!-- Special Description -->
-    <div class="mat-col-quarter">
-        <mat-form-field appearance="outline" class="control-m">
-            <mat-label>Description</mat-label>
-            <input type="text" matInput placeholder="Description" formControlName="specialDescription">
-        </mat-form-field>
-    </div>
-</div>
-
-<div class="mat-row">
-  <!-- Start Date -->
-  <div class="mat-col-quarter">
-    <mat-form-field class="control-m">
-      <input matInput [matDatepicker]="picker" placeholder="Special Start Date"formControlName="specialStartDate">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-  </div>
-</div>
-
-<div class="mat-row">
-  <!-- End Date -->
-  <div class="mat-col-quarter">
-    <mat-form-field class="control-m">
-      <input matInput [matDatepicker]="picker1" placeholder="Special End Date" formControlName="specialEndDate">
-      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-      <mat-datepicker #picker1></mat-datepicker>
-    </mat-form-field>
-  </div>
-</div>
-
-<div class="mat-row"> 
-  <!-- Special Price -->
-      <div class="mat-col-quarter">
-        <mat-form-field appearance="outline" class="control-m">
-          <mat-label>Discount Percentage</mat-label>
-          <mat-select [(value)]="selected" formControlName="discountId">
-            <mat-option *ngFor="let Discount of collection" [value]="Discount.discountId">
-              {{Discount.discountPercentage}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+      <!-- Save or cancel special -->
+      <div class="form-group" class="control-m">
+        <button mat-raised-button color ="primary" [disabled]="loading">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Save
+        </button>
+        <a (click)="Close()" mat-button>Cancel</a>
     </div>
 
-<div class="mat-row">
-  <!-- Save or cancel special -->
-  <div class="form-group" class="control-m">
-    <button mat-raised-button color ="primary" [disabled]="loading">
-        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-        Save
-    </button>
-    <a (click)="Close()" mat-button>Cancel</a>
-</div>
-
-</div>
-
-</form>
+    </div>
+  </form>
 </div>

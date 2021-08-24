@@ -1,3 +1,4 @@
+import { Reports } from 'src/app/interfaces';
 import { Component, OnInit } from '@angular/core';
 import 'jspdf-autotable';
 import jsPDF from 'jspdf';
@@ -12,20 +13,20 @@ import { Customer } from './../../interfaces/index';
 })
 export class DeliveryReportComponent implements OnInit {
    constructor(private service: ReportServiceService ) { }
-  dataSource = new MatTableDataSource<Customer>();
-  displayedColumns: string[] = ['saleId', 'Date','customerId', 'customerName', 'contactNumber', 'customerEmailAddress', 'customerAddress'];
+  dataSource = new MatTableDataSource<Reports>();
+  displayedColumns: string[] = ['saleId', 'saleOrderDate','customerId', 'customerName', 'customerCellphoneNumber', 'customerEmailAddress', 'customerAddress'];
 
 
   ngOnInit(): void {
-    //this.readDeliveryReport();
+    this.readDeliveryReport();
   }
 
-  // readDeliveryReport(): void {
-  //    this.service.DeliveryReport(Reports : Reports).subscribe(res => {
-  //      console.log(res)
-  //      this.dataSource = new MatTableDataSource(res)
-  //    })
-  // }
+  readDeliveryReport(): void {
+     this.service.DeliveryReport().subscribe(res => {
+       console.log(res)
+       this.dataSource = new MatTableDataSource(res)
+     })
+  }
 
   header = [['Sale ID', 
               'Date', 

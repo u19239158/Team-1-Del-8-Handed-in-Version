@@ -28,6 +28,10 @@ export class SpecialService {
     return this.http.get<Special>(`${this.server}Special/GetSpecialsByID/${specialID}`).pipe(map(res => res));
   }
 
+  getSpecialByProductItemID(productItemId):  Observable<Special>  {
+    return this.http.get<Special>(`${this.server}Special/GetSpecialsByProductItemId/${productItemId}`).pipe(map(res => res));
+  }
+
   CreateSpecial(Special:Special):  Observable<Special[]>  {
     return this.http.post<Special[]>(`${this.server}Special/CreateSpecials`, Special,this.httpOptions);
   }
