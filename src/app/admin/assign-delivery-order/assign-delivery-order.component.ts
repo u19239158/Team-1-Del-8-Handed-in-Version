@@ -27,7 +27,7 @@ export class AssignDeliveryOrderComponent implements OnInit {
   UnscheduledDelivery: Deliveryshift[];
   unscheduleddelivery: Observable<Deliveryshift[]>;
   dataSource = new MatTableDataSource<Deliveryshift>();
-  displayedColumns: string[] = ['saleId', 'customerName', 'deliverydistance', 'orderAddress', 'deliverycourier'];
+  displayedColumns: string[] = ['saleId', 'customerName', 'customerBusinessName', 'deliverydistance', 'orderAddress', 'deliverycourier' ];
 
   constructor(private DeliveryshiftService: DeliveryshiftService,
     private snack: MatSnackBar,

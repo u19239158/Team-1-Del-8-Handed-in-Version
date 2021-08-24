@@ -25,7 +25,7 @@ PackingReport(): Observable<any>
   return this.http.get(`${this.server}Report/GetPackingReportData`).pipe(map(res => res))
 }
 
-DeliveryReport(Reports : Reports): Observable<any>
+DeliveryReport(): Observable<any>
 {
   return this.http.get(`${this.server}Report/GetDeliveryReportData`).pipe(map(res => res))
 }

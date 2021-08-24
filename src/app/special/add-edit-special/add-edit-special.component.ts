@@ -41,7 +41,8 @@ export class AddEditSpecialComponent implements OnInit {
     this.form = this.formBuilder.group({
       //specialImage: ['', [Validators.required]],
       specialDescription: ['', [Validators.required]],
-      dicountId: ['', [Validators.required]],
+      discountId: ['', [Validators.required]],
+      //productItemId: [this.special.productItemId,[Validators.required] ],
       specialStartDate: ['', [Validators.required]],
       specialEndDate: ['', [Validators.required]],
     }, formOptions);
@@ -55,6 +56,7 @@ export class AddEditSpecialComponent implements OnInit {
           //specialImage: [this.special.specialImage, [Validators.required]],
           specialDescription: [this.special.specialDescription, [Validators.required]],
           discountId: [this.special.discountId, [Validators.required]],
+          //productItemId: [this.special.productItemId,[Validators.required] ],
           specialStartDate: [this.special.specialStartDate, [Validators.required]],
           specialEndDate: [this.special.specialEndDate,[Validators.required]],
     }, formOptions);
@@ -100,6 +102,7 @@ export class AddEditSpecialComponent implements OnInit {
   updateSpecial() {
     const special: Special = this.form.value;
     special.specialID = this.special.specialID;
+    special.productItemId = this.special.productItemId;
     this.SpecialService.UpdateSpecial(special).subscribe(res => {
       console.log(res)
       this.form.reset();

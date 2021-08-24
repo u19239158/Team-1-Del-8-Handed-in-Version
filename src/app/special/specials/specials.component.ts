@@ -23,7 +23,7 @@ export class SpecialsComponent implements OnInit {
   specials: Special[] = [];
   special: Observable<Special[]>;
   dataSource = new MatTableDataSource<Special>();
-  displayedColumns: string[] = ['description', 'startDate', 'endDate', 'actions'];
+  displayedColumns: string[] = ['productItemName','description','specialPrice', 'startDate', 'endDate', 'actions'];
 
   constructor(
     private specialService: SpecialService,

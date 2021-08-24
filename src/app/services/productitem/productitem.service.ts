@@ -27,8 +27,8 @@ export class ProductitemService {
     return this.http.get<Productitem>(`${this.server}Productitem/GetPItemsByID/${ProductItemid}`).pipe(map(res => res));
   }
 
-  getProductByCatType(categoryTypeName):  Observable<Productitem>  {
-    return this.http.get<Productitem>(`${this.server}ProductItem/GetPItemsByCatType/${categoryTypeName}`).pipe(map(res => res));
+  getProductByCatType(categoryTypeId):  Observable<Productitem>  {
+    return this.http.get<Productitem>(`${this.server}ProductItem/GetPItemsByCatType/${categoryTypeId}`).pipe(map(res => res));
   }
 
 
