@@ -60,6 +60,9 @@ import { WeeklySaleOrdersReportComponent } from './reports/weekly-sale-orders-re
 import { PackingReportComponent } from './reports/Reports/packing-report.component';
 import { StockLevelReportComponent } from './reports/stock-level-report/stock-level-report.component';
 import { DeliveryReportComponent } from './reports/delivery-report/delivery-report.component';
+
+import { ViewSaleComponent } from './admin/online-sales/view-sale/view-sale.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -235,6 +238,10 @@ const routes: Routes = [
   {
     path: 'onlineSales',
     component: OnlineSalesComponent,
+  },
+  {
+    path: 'viewSale',
+    component: ViewSaleComponent,
   },
   {
     path: 'searchOnlineSales',

@@ -22,50 +22,49 @@ export class AppComponent {
   //     private httpClient: HttpClient
   // ) { }
 
-  public eventData: EventSettingsModel = {
+  // public eventData: EventSettingsModel = {
 
-    // this.deliveryshiftService.GetDeliveryShift().subscribe(res => {
-    //   console.log(res)
-    // }
+  //   // this.deliveryshiftService.GetDeliveryShift().subscribe(res => {
+  //   //   console.log(res)
+  //   // }
 
-    dataSource: [{
+  //   dataSource: [{
 
-      Id: 1,
+  //     Id: 1,
 
-      Subject: 'Board Meeting',
+  //     Subject: 'Board Meeting',
 
-      StartTime: new Date(2021, 10, 30, 9, 0),
+  //     StartTime: new Date(2021, 10, 30, 9, 0),
 
-      EndTime: new Date(2021, 10, 30, 11, 0)
+  //     EndTime: new Date(2021, 10, 30, 11, 0)
 
-    },
-    {
+  //   },
+  //   {
 
-      Id: 2,
+  //     Id: 2,
 
-      Subject: 'Training session on JSP',
+  //     Subject: 'Training session on JSP',
 
-      StartTime: new Date(2018, 10, 30, 15, 0),
+  //     StartTime: new Date(2018, 10, 30, 15, 0),
 
-      EndTime: new Date(2018, 10, 30, 17, 0)
+  //     EndTime: new Date(2018, 10, 30, 17, 0)
 
-    },
+  //   },
 
-    {
+  //   {
 
-      Id: 3,
+  //     Id: 3,
 
-      Subject: 'Sprint Planning with Team members',
+  //     Subject: 'Sprint Planning with Team members',
 
-      StartTime: new Date(2018, 10, 30, 9, 30),
+  //     StartTime: new Date(2018, 10, 30, 9, 30),
 
-      EndTime: new Date(2018, 10, 30, 11, 0)
+  //     EndTime: new Date(2018, 10, 30, 11, 0)
 
-    }]
-
-  }
+  //   }]
 
 }
+
 
 /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
 var dropdown = document.getElementsByClassName("menu-item");
