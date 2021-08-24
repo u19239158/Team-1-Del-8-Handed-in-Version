@@ -13,11 +13,13 @@
         "Poot",
         "Productitems",
         "Recieve",
+        "SAST",
         "Serice",
         "Surame",
         "Unscheduleddeliveries",
         "Unscheduleddelivery",
         "Unscheduleddeliverys",
+        "Viewdeliveryshiftsschedule",
         "appspot",
         "assigncourierdelivery",
         "assigndeliveryorder",
@@ -34,18 +36,23 @@
         "deliverydistance",
         "deliveryshift",
         "devkit",
+        "dropdowns",
         "employeeid",
         "firebaseapp",
         "goloi",
         "jspdf",
         "nkap",
+        "onlinesales",
+        "preconnect",
         "productcategory",
         "productcategorys",
         "productitem",
         "selectemp",
         "selectend",
         "shiftid",
-        "sidenav"
+        "sidenav",
+        "syncfusion",
+        "viewdeliveryshiftschedule"
     ]
 } // {
 //     "cSpell.words": [

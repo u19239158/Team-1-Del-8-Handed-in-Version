@@ -2,34 +2,28 @@
   <mat-sidenav-container>
 
     <mat-sidenav #sidenav role="navigation">
-    <app-sidenav-list (sidenavClose)="sidenav.close()"></app-sidenav-list>
+      <app-sidenav-list (sidenavClose)="sidenav.close()"></app-sidenav-list>
     </mat-sidenav>
 
     <mat-sidenav-content>
       <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
 
       <main>
+
         <router-outlet></router-outlet>
-        
+        <!-- <ejs-schedule [eventSettings]="eventData"></ejs-schedule> -->
+
         <footer>
           <div class="content has-text-centered">
-          <p>
-            <strong>© NKAP Bolting System 2021</strong> by 
-            <a href="https://ds3solutions370.wixsite.com/inf370">DS3 Solutions</a>.             
-          </p>
+            <p>
+              <strong>© NKAP Bolting System 2021</strong> by
+              <a href="https://ds3solutions370.wixsite.com/inf370">DS3 Solutions</a>.
+            </p>
           </div>
         </footer>
-
 
       </main>
 
     </mat-sidenav-content>
   </mat-sidenav-container>
 </app-layout>
-
-
-
-
-
-
-
