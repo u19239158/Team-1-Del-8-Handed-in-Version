@@ -9,7 +9,7 @@
   </mat-list-item>
   <mat-menu #menu1="matMenu">
     <button mat-menu-item routerLink="/products" (click)="onSidenavClose()">Products</button>
-    <button mat-menu-item (click)="onSidenavClose()">Category 2</button>
+    <button mat-menu-item routerLink="/cart" (click)="onSidenavClose()">Cart</button>
   </mat-menu>
     
   <mat-list-item [matMenuTriggerFor]="menu2">
@@ -17,8 +17,8 @@
       <a matline>Promotions</a>
   </mat-list-item>
   <mat-menu #menu2="matMenu">
-    <button mat-menu-item (click)="onSidenavClose()">Category 1</button>
-    <button mat-menu-item (click)="onSidenavClose()">Category 2</button>
+    <button mat-menu-item routerLink="/promotions" (click)="onSidenavClose()">Promos</button>
+    <button mat-menu-item routerLink="/cart" (click)="onSidenavClose()">Cart</button>
   </mat-menu>
 
 

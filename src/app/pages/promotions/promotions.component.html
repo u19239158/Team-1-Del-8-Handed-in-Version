@@ -1,0 +1,102 @@
+<section class="hero is-danger">
+  <div class="hero-body">
+    <p class="title">
+      NKAP Bolting
+    </p>
+    <p class="subtitle">
+      Promotions
+    </p>
+    <p class="title animated-heading">
+      <span class="txt">SALE SALE SALE SALE SALE </span>
+      <span class="txt">SALE SALE SALE SALE SALE </span>
+      <span class="txt">SALE SALE SALE SALE SALE </span>
+      <span class="txt">SALE SALE SALE SALE SALE </span>
+  </p>
+  </div>
+</section>
+
+
+
+
+
+<!-- These are the cards displaying the category types -->
+<div class="row"> 
+  <ng-container *ngFor="let category of categoryPromoTypes">         
+      <div class="card col-md-3">
+          <center>
+            <img src="{{category.categoryTypeImage}}" alt=""></center>
+          
+          <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.categoryTypeDescription}}</p>
+          <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.itemDescription}}</p>
+          
+          <div class="tags has-addons">
+            <span class="tag is-danger">Sale</span>
+            <span class="tag is-danger is-light">20%</span>
+          </div>
+            
+
+          <button class="button is-info is-rounded is-danger"  (click)=openmodal(category) id="launchModal">More Info</button>
+      </div>
+  </ng-container>
+
+  
+<!-- <ng-container *ngIf="categoryTypes.productCategoryDesc == 'Screws'">
+  <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">
+    it works!!
+  </p>
+  <div>
+    <center><img src="{{categoryTypes.categoryTypeImage}}" alt="" (click)=modal(category)></center>
+  </div>
+</ng-container> -->
+
+</div>
+
+
+
+<div class="modal">
+<div class="modal-background"></div>
+<div class="modal-card ">
+<!--header of modal -->
+<header class="modal-card-head">
+  <p class="modal-card-title">Product Details</p>
+    <ng-container *ngFor="let category of promoproducts">
+    <button class="delete" id="closetop" aria-label="close" (click)=closemodal(category)></button>
+    </ng-container>
+</header>
+
+
+<div class="content ">
+<section class="modal-card-body">
+    <ng-container *ngFor="let item of promoproducts">
+      <h1>{{item.productCategoryDesc}}: {{item.categoryTypeDescription}}</h1>   
+    <img src="{{item.categoryTypeImage}}" alt="" width="100" height="100">
+    <p>{{item.itemDescription}}</p>
+<!-- 
+    <div *ngFor="let productitem of productItems" [value]= "productitem.productItemCost">
+      <h2><strong>Price:</strong> R{{productitem.productItemCost}}</h2> 
+    </div>    
+         -->
+         <div class="tags has-addons">
+          <span class="tag is-danger">Sale</span>
+          <span class="tag is-danger is-light">20%</span>
+        </div>
+          
+    <mat-form-field appearance="outline">
+      <mat-label>Type</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let productitem of promoProductItems" [value]= "productitem.productItemName">
+          R{{productitem.productItemCost}} =
+          {{productitem.productItemName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    </ng-container>
+</section>
+<div>  
+<footer class="modal-card-foot">
+    <ng-container *ngFor="let item of promoproducts">
+    <button class="button is-info is-rounded" (click)=addtocart(category)>Add to cart</button>
+    <button class="button is-danger is-rounded" (click)=closemodal(category)>Close</button>
+    </ng-container>
+</footer>
+</div>

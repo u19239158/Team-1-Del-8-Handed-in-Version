@@ -33,6 +33,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 
+import { CommonModule } from '@angular/common';
 import {A11yModule} from '@angular/cdk/a11y';
 import {BidiModule} from '@angular/cdk/bidi';
 import {ObserversModule} from '@angular/cdk/observers';
@@ -73,7 +74,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     DragDropModule,
 
     // Material
-
+    CommonModule,
     BrowserModule,
     MatCheckboxModule,
     MatCheckboxModule,

@@ -6,12 +6,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { CommonModule } from '@angular/common';
 import { MaterialModule } from './material/material/material.module';
 import { GlobalErrorComponent } from './modals/globals/global-error/global-error.component';
 import { GlobalConfirmComponent } from './modals/globals/global-confirm/global-confirm.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { CartComponent } from './pages/cart/cart.component';
-
+import { PromotionsComponent } from './pages/promotions/promotions.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
@@ -26,9 +27,11 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
       CartComponent,
       HeaderComponent,
       SidenavListComponent,
+      PromotionsComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,

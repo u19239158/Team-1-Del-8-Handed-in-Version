@@ -1,0 +1,95 @@
+.card-top {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: .25rem;
+}
+
+.item img {
+    width: 64px;
+}
+
+.item {
+    margin: 0px 15px;
+    text-align: center;
+}
+
+.item a:hover {
+    color: blue;
+}
+
+.card {
+    padding: 20px;
+    margin: 50px;
+}
+
+.card img {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 15px;
+    transition: 0.3s ease-in-out;
+}
+
+.card img:hover {
+    transition: 0.3s ease-in-out;
+    transform: scale(1.1);
+}
+
+
+
+
+
+
+
+
+.animated-heading {
+    color: #d40000;
+    font-family: arial;
+    height: 60px;
+    overflow: hidden;
+    border-radius: 10px;
+    padding: 0px 15px;
+}
+.txt{
+    text-align: center;
+    font-size: 40px;
+    border-radius: 10px;
+    display: block;
+    line-height: 60px;
+}
+.txt:first-child{
+    animation: spin 12s infinite;
+}
+@-webkit-keyframes spin {
+    0%{
+        -webkit-margin-top: 0;
+    }
+    16%{
+        -webkit-margin-top: -60px;
+    }
+    33%{
+        -webkit-margin-top: -120px;
+    }
+    50%{
+        -webkit-margin-top: -180px;
+    }
+}
+@keyframes spin {
+    0%{
+        margin-top: 0;
+    }
+    16%{
+        margin-top: -60px;
+    }
+    33%{
+        margin-top: -120px;
+    }
+    50%{
+        margin-top: -180px;
+    }
+} 

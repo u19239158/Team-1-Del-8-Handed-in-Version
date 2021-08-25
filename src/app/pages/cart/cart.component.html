@@ -45,14 +45,16 @@
 
 
 <ng-container *ngIf="products.length ==0">
-    <div class="container">
-        <div class="card">
-            <h5 class="card-title">My Cart</h5>
-        </div>
-        <div class="center">
-            <h4>Your cart is empty!</h4>
-            <h6>Add item to it now</h6>
-            <button routerLink="/products" class="btn btn-primary">Shop Now</button>
-        </div>
+    <div class="container has-text-centered">
+            <div class="notification is-warning">
+                <p class="title">
+                    Your cart is empty!
+                  </p>
+                  <p class="subtitle">
+                    Add item to it now
+                  </p>            
+                  <button routerLink="/products" class="button is-dark">Shop Now</button>
+            </div>
     </div>
+
 </ng-container>
