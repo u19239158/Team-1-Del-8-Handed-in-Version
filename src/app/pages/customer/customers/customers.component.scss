@@ -1,0 +1,53 @@
+h2 {
+  //text-align: left;
+  font-weight: 400;
+  font-size: 45px;
+  left: 40px;
+}
+
+.content {
+margin: 0;
+position:inherit;
+top: 25%;
+left: 25%;
+}
+
+table {
+    margin-top: 20px;
+    width: 100%;
+    background-color: white;
+}
+
+th {
+  top: 10px;
+  text-align: center;
+  font-size: medium;
+}
+td {
+  border-bottom: 1px solid #ddd;
+}
+
+#addBtn {
+    margin-top: 30px;
+    margin-left: auto;
+    display: inline-block;
+}
+button {
+    float: right;
+}
+
+.more-button {
+    text-align: center;
+}
+
+.example-container {
+
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.search {
+  position: absolute;
+  right: 20px;
+  top: 75px;
+}

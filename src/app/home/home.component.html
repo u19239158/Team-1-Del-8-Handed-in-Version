@@ -11,29 +11,30 @@
 
 
 <br/>
-<div class="container-fluid">
-<section>
-    <div class="tile is-ancestor is-4by3">
-        <ng-container *ngFor="let prodcat of productCategories">
-            <div class="tile is-parent">
 
-              <article class="tile is-child box">
-                  <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">
-                    {{prodcat.productCategoryDescription}}
-                  </p>
-
-                  <div class="content">
-                    <center><img src="{{prodcat.productCategoryImage}}" width="60%" height="50%" alt="productCategoryImage"></center>
-                  </div>
-
-                  <footer>                
-                    <button class="button is-info is-rounded" routerLink="/products">More</button>
-                  </footer>
+<div class="container">
+  <div class="row">    
+    <section>
+      <div class="tile is-ancestor is-vertical is-centered">
+          <ng-container *ngFor="let prodcat of productCategories">
+              <div class="tile is-parent is-8">
+  
+                <article class="tile is-child box">
                   
-                     </article>       
-
-            </div>  
-        </ng-container>
-    </div> 
-</section>
+                    <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">
+                      {{prodcat.productCategoryDescription}}
+                    </p>               
+                    <button class="button is-info is-rounded is-centered is-small" routerLink="/products">Go To {{prodcat.productCategoryDescription}}</button>
+                    <br/>
+                    <span class="content">
+                      <center><img src="{{prodcat.productCategoryImage}}" width="60%" height="50%" padding=5 alt="productCategoryImage"></center>
+                    </span>
+  
+                </article>       
+  
+              </div>  
+          </ng-container>
+      </div> 
+  </section>
+  </div>
 </div> 

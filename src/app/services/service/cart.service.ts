@@ -27,7 +27,7 @@ export class CartService {
   addtoCart(product : any){
     this.cartItemList.push(product);
     this.productList.next(this.cartItemList);
-    this.getTotalPrice();
+    //this.getTotalPrice();
     console.log(this.cartItemList)
   }
   showItemModal(product : any){
@@ -40,6 +40,7 @@ export class CartService {
     this.modalItems = [];
     console.log(this.modalItems)
   }
+
   getTotalPrice() : number{
     let grandTotal = 0;
     this.cartItemList.map((a:any)=>{
@@ -47,6 +48,7 @@ export class CartService {
     })
     return grandTotal;
   }
+
   removeCartItem(product: any){
     this.cartItemList.map((a:any, index:any)=>{
       if(product.id=== a.id){
