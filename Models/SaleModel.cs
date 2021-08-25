@@ -62,5 +62,31 @@ namespace NKAP_API_2.Models
         public int CustomerID
         { get; set; }
 
+        [JsonProperty("productitemid")]
+        public int ProductItemId
+        { get; set; }
+
+        [JsonProperty("ProductItemname")]
+        public string ProductItemName
+        { get; set; }
+
+        [JsonProperty("salelineid")]
+        public int SaleLineID
+        { get; set; }
+
+        [JsonProperty("SaleLinequantity")]
+        public int SaleLineQuantity
+        { get; set; }
+
+        [JsonProperty("deliverydistance")]
+        public string DeliveryDistance
+        { get; set; }
+
+        [JsonProperty("addressid")]
+        public int AddressId
+        {
+            get; set;
+
+        }
     }
 }

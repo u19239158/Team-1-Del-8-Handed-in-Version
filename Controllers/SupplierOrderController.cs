@@ -189,9 +189,8 @@ namespace NKAP_API_2.Controllers
 
         [Route("ReceiveInvoice")] //route
         [HttpPost]
-        //Add Product Item Write-of
         //Create a Model for table
-        public IActionResult AssignDeliveryShift(SupplierOrderModel model) //reference the model
+        public IActionResult RecieveInvoice(SupplierOrderModel model) //reference the model
         {
             SupplierOrder suppOrder = _db.SupplierOrders.Find(model.SupplierOrderID);
             {
@@ -199,6 +198,7 @@ namespace NKAP_API_2.Controllers
               
             };
 
+            _db.SupplierOrders.Attach(suppOrder);
             _db.SaveChanges();
 
             SupplierInvoice supInvoice = new SupplierInvoice
@@ -217,43 +217,69 @@ namespace NKAP_API_2.Controllers
             return Ok();
         }
 
-        //[Route("ReceiveSupplierOrder")] //route
-        //[HttpPost]
-        ////Add Product Item Write-of
-        ////Create a Model for table
-        //public IActionResult ReceiveSupplierOrder(ProductItemWrittenOffStockModel model) //reference the model
-        //{
-        //    WrittenOffStock writtenoffstock = new WrittenOffStock
-        //    {
-        //        //WrittenOffStockId = model.WrittenOffStockId,
-        //        WrittenOffStockDate = model.WrittenOffStock_Date  // assigning the date the writeoff happened to the correct table
-        //    };
-        //    _db.WrittenOffStocks.Add(writtenoffstock);
-        //    _db.SaveChanges();
+        [Route("AddInvoiceLine")] //route
+        [HttpPost]
+        //Add Sales
+        //Create a Model for table
+        public IActionResult AddInvoiceLine(SupplierInvoiceLineModel model) //reference the model
+        {
 
-        //    ProductItemWrittenOffStock PItemWriteOff = new ProductItemWrittenOffStock
-        //    {
-        //        WriteOffQuantity = model.WriteOffQuantity, //attributes in table 
-        //        WriteOffReason = model.WriteOffReason,
-        //        //NewPQuantity.ProductItemId = model.ProductItemId;  //(int)PItemWriteOff.ProductItemId; // Getting the Id of the producitem to match with the bridge and the model
-        //        ProductItemId = model.ProductItemId,
-        //        WrittenOffStockId = writtenoffstock.WrittenOffStockId
-        //    };
+            SupplierInvoiceLine SIline = new SupplierInvoiceLine();
+            SIline.SupplierInvoiceId = model.SupplierInvoiceId;
+            SIline.SupplierItemName = model.SupplierItemName;
+            SIline.QuantityReceived = model.QuantityRecieved;
+            SIline.ProductItemId = model.ProductItemId;
 
-        //    _db.ProductItemWrittenOffStocks.Add(PItemWriteOff);
-        //    _db.SaveChanges();
-        //    //NewPQuantity.QuantityOnHand = NewPQuantity.QuantityOnHand - model.WriteOffQuantity;// Function to subtract the entered quantity from the existing quantity on hand and assign it the productitem
-        //    var NewPQuantity = _db.ProductItems.Find(model.ProductItemId);
-        //    //NewPQuantity.ProductItemId = model.ProductItemId;  //(int)PItemWriteOff.ProductItemId; // Getting the Id of the producitem to match with the bridge and the model
-        //    NewPQuantity.QuantityOnHand = NewPQuantity.QuantityOnHand - model.WriteOffQuantity;// Function to subtract the entered quantity from the existing quantity on hand and assign it the productitem
-        //    _db.ProductItems.Attach(NewPQuantity);
-        //    //Attach Record
-        //    _db.SaveChanges();
+            _db.SupplierInvoiceLines.Add(SIline);
+            _db.SaveChanges();
+
+            var NewPQuantity = _db.ProductItems.Find(model.ProductItemId);
+            NewPQuantity.QuantityOnHand = NewPQuantity.QuantityOnHand + model.QuantityRecieved;
+            _db.ProductItems.Attach(NewPQuantity);
+            //Attach Record
+            _db.SaveChanges();
+
+            return Ok();
+        }
+
+        [Route("PlaceSupplierOrder")] //route
+        [HttpPost]
+        //Add SupplierOrder
+        //Create a Model for table
+        public IActionResult PlaceSupplierOrder(SupplierOrderModel model) //reference the model
+        {
+            SupplierOrder supOrder = new SupplierOrder();
+            supOrder.OrderDatePlaced = model.OrderDatePlaced; //attributes in table
+            //supOrder.OrderDateReceived = model.OrderDateRecieved;
+            //supOrder.SupplierOrderTotal = model.SupplierOrderTotal;
+            //supOrder.SupplierOrderSubTotal = model.SupplierOrderTotal;
+            //supOrder.SupplierOrderVat = model.SupplierOrderVat;
+            supOrder.SupplierOrderStatusId = 1;
+            supOrder.SupplierId = model.SupplierID;
+            _db.SupplierOrders.Add(supOrder);
+            _db.SaveChanges();
+
+            return Ok(supOrder);
+        }
 
 
+        [Route("SupplierOrderLine")] //route
+        [HttpPost]
+        //Add SupplierOrder
+        //Create a Model for table
+        public IActionResult SupplierOrderLine(SupplierOrderLineModel model) //reference the model
+        {
+            SupplierOrderLine Sline = new SupplierOrderLine();
+            Sline.ProductItemId = model.ProductItemId;
+            Sline.SupplierQuantityOrdered = model.SupplierQuantityOrdered;
+            Sline.SupplierOrderId = model.SupplierOrderId;
+            Sline.SupplierProducts = model.SupplierProducts;
+            _db.SupplierOrderLines.Add(Sline);
+            _db.SaveChanges();
 
-        //    return Ok();
-        //}
+            return Ok(Sline);
+        }
+
 
     }
 }
