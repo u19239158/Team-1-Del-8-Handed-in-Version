@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/services/service/api.service';
 import { CartService } from 'src/app/services/service/cart.service';
 import { TransactionService } from 'src/app/services/service/transaction.service';
 @Component({
@@ -12,12 +13,12 @@ export class CartComponent implements OnInit {
   public products : any = [];
   public transaction : any =[];
   public grandTotal !: number;
-  constructor(private cartService : CartService, private transactionService: TransactionService) { }
+  constructor(private cartService : CartService, private transactionService: TransactionService, private apiservice: ApiService) { }
 
 
   ngOnInit(): void {
-
-    this.cartService.getProducts()
+//changed from .getProducts() to .getModalProduct()
+    this.cartService.getModalProduct()
     .subscribe(res=>{
       this.products = res;
       console.log(this.products)
