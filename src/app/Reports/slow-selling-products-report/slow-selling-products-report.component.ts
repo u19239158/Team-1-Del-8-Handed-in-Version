@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./slow-selling-products-report.component.scss']
 })
 export class SlowSellingProductsReportComponent implements OnInit {
-
+  form: any;
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  generateReport(){
+
+  }
+  
+  generatePdf(){
+
+  }
 }
