@@ -10,8 +10,6 @@
                             <th>Product Image</th>
                             <th>Description</th>
                             <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Total</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -28,30 +26,39 @@
                                 <button (click)="removeItem(item)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                             </td>
                         </tr> -->
-                        <tr *ngFor="let item of productList;let i = index">
+                        <tr *ngFor="let item of products;let i = index">
                                 <td>{{i+1}}</td>
+                                <td style="width: 25%;">{{item.productItemName}}</td>
                                 <td><img style="width: 120px;" src="{{item.categoryTypeImage}}" alt=""></td>
-                                <td style="width: 25%;">{{item.categoryTypeDescription}}</td>
                                 <th style="width: 12%;">{{item.itemDescription}}</th>
-                                <td style="width: 12%;">{{item.productCategoryDesc}}</td>
-                                <td style="width: 12%;">{{item.productCategoryID}}</td>
+                                <td style="width: 12%;">R{{item.productItemCost}}</td>
                                 <td>
-                                    <button (click)="removeItem(item)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                    <button (click)="removeItem(item)" class="button is-rounded is-danger is-outlined"><i class="fas fa-trash-alt"></i></button>
                                 </td>
                         </tr>
                         <tr>
-                            <td colspan="4"></td>
-                            <td><button (click)="emptycart()" class="btn btn-danger">Empty Cart</button></td>
-                            <td><button routerLink="/products" class="btn btn-primary">Shop More</button></td>
+                            <td colspan="3"></td>
+                            <td><button (click)="emptycart()" class="button is-rounded is-danger is-outlined">Empty Cart</button></td>
+                            <td><button routerLink="/products" class="button is-info is-rounded is-outlined">Shop More</button></td>
                             <!-- Create a ckeckout button that will open the YOCO payment gateway popup-->
-                            <td><button id="checkout-button" class="btn btn-success">Checkout</button></td>
-                            <td><strong>Grand Total : R{{grandTotal}}</strong></td>
+                            <td>
+                                <button (click)="transactionCheckout()" id="checkout-button" class="button is-success is-rounded is-outlined">Checkout</button>
+                                
+                                <!-- this is highkey cheating because it does not create a new token for each transaction
+                                it also does not get the GRANDTOTAL from out website and display it in the PAYSTACK website-->
+                                <input type="button"  class="button is-success is-rounded is-outlined" value="Fake Checkout" onclick="window.location.href='https://checkout.paystack.com/26ho92bd1vjeght'"/>                                
+                            </td>
+                            <td>
+                                <span class="tag is-large is-success is-rounded"><strong>Grand Total : R{{grandTotal}}</strong></span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
+    
 </ng-container>
 
 
@@ -64,8 +71,11 @@
                   <p class="subtitle">
                     Add item to it now
                   </p>            
-                  <button routerLink="/products" class="button is-dark">Shop Now</button>
+                  <button routerLink="/products" class="button is-dark is-rounded is-outlined">Shop Now</button>
             </div>
     </div>
 
 </ng-container>
+
+
+

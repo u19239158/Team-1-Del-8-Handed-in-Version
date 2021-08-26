@@ -34,10 +34,10 @@ export class HomeComponent implements OnInit {
       console.log(this.productCategories);
     })
 
-    this.cartService.getModalProduct()
-    .subscribe(res=>{
-      this.products = res;
-    })
+    // this.cartService.getModalProduct()
+    // .subscribe(res=>{
+    //   this.products = res;
+    // })
   }
 
 }

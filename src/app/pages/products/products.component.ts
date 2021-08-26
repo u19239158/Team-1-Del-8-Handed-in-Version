@@ -38,6 +38,9 @@ export class ProductsComponent implements OnInit {
       this.categoryTypes=res;
       console.log(this.categoryTypes);
 
+      this.products.forEach((a:any) => {
+        Object.assign(a,{quantity:1,total:a.productItemCost});      
+      });
     })
 
     //modal product type dropdown
@@ -46,26 +49,15 @@ export class ProductsComponent implements OnInit {
       this.productItems = res;
       console.log(this.productItems);
 
-    // this.products.forEach((a:any) => {
-    //     Object.assign(a,{quantity:1,total:a.price});      
-      // });
+    this.products.forEach((a:any) => {
+        Object.assign(a,{quantity:1,total:a.productItemCost});      
+      });
     })
-
-
-    //dummy data
-    // this.api.getProduct()
-    // .subscribe(res=>{
-    //   this.productList = res;
-
-    // this.productList.forEach((a:any) => {
-    //     Object.assign(a,{quantity:1,total:a.price});      
-    //   });
-    // })
     
-    this.cartService.getModalProduct()
-    .subscribe(res=>{
-      this.products = res;
-    })
+    // this.cartService.getModalProduct()
+    // .subscribe(res=>{
+    //   this.products = res;
+    // })
   }
   
   //outside ng oninit
@@ -73,16 +65,16 @@ export class ProductsComponent implements OnInit {
     this.cartService.addtoCart(item);
   }
 
-  openmodal(item: any){
-    document.querySelector('.modal').classList.add('is-active')
-    this.cartService.showItemModal(item);
-  }
+  // openmodal(item: any){
+  //   document.querySelector('.modal').classList.add('is-active')
+  //   this.cartService.showItemModal(item);
+  // }
 
-  closemodal(item:any){
-    this.modalItems = [];
-      document.querySelector('.modal').classList.remove('is-active')
-      this.cartService.closeItemModal(item);
-    }
+  // closemodal(item:any){
+  //   this.modalItems = [];
+  //     document.querySelector('.modal').classList.remove('is-active')
+  //     this.cartService.closeItemModal(item);
+  //   }
     
   Itemdropdown(){
     document.querySelector('.dropdown').classList.add('is-active')

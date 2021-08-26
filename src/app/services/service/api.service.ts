@@ -38,13 +38,14 @@ export interface ProductItem
 
 export class ApiService {
   server = "https://localhost:44393/api/";
+  server2 = "https://localhost:44393/api/";
 
   httpOptions ={
     headers: new HttpHeaders({
       ContentType: 'application/json'
     })
   };
-
+  
   constructor(private http : HttpClient) { }
   //home page(ProductCategory) SEARCH id endpoint route = GetPCByID/{productcategoryid}
 
@@ -64,7 +65,7 @@ export class ApiService {
 
   //products page(CategoryType) endpoint route = CategoryType/GetCategoryType
   getCategoryType(): Observable<CategoryType[]>{
-    return this.http.get<CategoryType[]>(`${this.server}CategoryType/GetCategoryType`)
+    return this.http.get<CategoryType[]>(`${this.server}Checkout/getProducts`)
     .pipe(map((res:any)=>{
       return res;
     }))
@@ -84,12 +85,4 @@ export class ApiService {
     }))
   }
 
-
-  // //dummy data
-  //  getProduct(){
-  //    return this.http.get<any>("https://fakestoreapi.com/products")
-  //    .pipe(map((res:any)=>{
-  //      return res;
-  //    }))
-  //  }
 }

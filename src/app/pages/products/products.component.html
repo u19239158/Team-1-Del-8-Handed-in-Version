@@ -38,12 +38,24 @@
           <div class="card col-md-3">
               <center><img src="{{category.categoryTypeImage}}" alt=""></center>
               
-              <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.categoryTypeDescription}}</p>
+              <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.productItemName}}</p>
+              <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.categoryTypeName}}</p>
               <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.itemDescription}}</p>
-              <button class="button is-info is-rounded"  (click)=openmodal(category) id="launchModal">More Info</button>
-          </div>
+              <!-- <strong>Price:</strong><p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.productItemName}}</p> -->
+              <!-- <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.productItemCost}}</p> -->
+              <h2><strong>Price:</strong> R{{category.productItemCost}}</h2> 
+              <!-- <button class="button is-info is-rounded"  (click)=openmodal(category) id="launchModal">More Info</button> -->
+              <button class="button is-info is-rounded"  (click)=addtocart(category) id="launchModal">Add to Cart</button>
+            </div>
       </ng-container>
-
+      <!-- 
+      categoryTypeDescription: "Self-tapping screws most commonly designed with a single thread that runs all the way from the base of the head to the tip"
+      
+      categoryTypeName: "Chipboard Screws"
+      productItemCost: 2.95
+      
+      productItemName: "2mm Chipboard Screw" -->
+      
       
     <!-- <ng-container *ngIf="categoryTypes.productCategoryDesc == 'Screws'">
       <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">

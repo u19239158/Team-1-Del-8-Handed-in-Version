@@ -50,10 +50,10 @@ export class PromotionsComponent implements OnInit {
     })
 
     
-    this.cartService.getModalProduct()
-    .subscribe(res=>{
-      this.promoproducts = res;
-    })
+    // this.cartService.getModalProduct()
+    // .subscribe(res=>{
+    //   this.promoproducts = res;
+    // })
   }
   
   //outside ng oninit
@@ -61,16 +61,16 @@ export class PromotionsComponent implements OnInit {
     this.cartService.addtoCart(item);
   }
 
-  openmodal(item: any){
-    document.querySelector('.modal').classList.add('is-active')
-    this.cartService.showItemModal(item);
-  }
+  // openmodal(item: any){
+  //   document.querySelector('.modal').classList.add('is-active')
+  //   this.cartService.showItemModal(item);
+  // }
 
-  closemodal(item:any){
-    this.modalItems = [];
-      document.querySelector('.modal').classList.remove('is-active')
-      this.cartService.closeItemModal(item);
-    }
+  // closemodal(item:any){
+  //   this.modalItems = [];
+  //     document.querySelector('.modal').classList.remove('is-active')
+  //     this.cartService.closeItemModal(item);
+  //   }
     
   Itemdropdown(){
     document.querySelector('.dropdown').classList.add('is-active')
