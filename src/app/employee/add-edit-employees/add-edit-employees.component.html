@@ -1,7 +1,7 @@
 <div class="content">
 
-<h1 *ngIf="isAddMode">Add Employee</h1>
-<h1 *ngIf="!isAddMode">Edit Employee</h1>
+<h2 *ngIf="isAddMode">Add Employee</h2>
+<h2 *ngIf="!isAddMode">Edit Employee</h2>
 
  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="mat-row">
@@ -137,6 +137,9 @@
       </button>
       <a (click)="Close()" mat-button>Cancel</a>
   </div>
+
+  <br>
+  <br>
 </div>
 
 
