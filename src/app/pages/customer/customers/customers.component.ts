@@ -1,8 +1,7 @@
-import { CustomerService } from './../../services/customer/customer.service';
+import { Customer, CustomerService } from 'src/app/services/customer/customer.service';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
-import { Customer } from 'src/app/interfaces';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
