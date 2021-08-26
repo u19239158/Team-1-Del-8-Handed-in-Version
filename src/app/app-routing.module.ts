@@ -5,7 +5,6 @@ import { ProductsComponent } from './pages/products/products.component';
 import { PromotionsComponent } from './pages/promotions/promotions.component';
 import { HomeComponent } from './home/home.component';
 import { CustomersComponent } from './pages/customer/customers/customers.component';
-import { AddEditCustomerComponent } from './pages/customer/add-edit-customer/add-edit-customer.component';
 
 const routes: Routes = [
   { 
