@@ -1,4 +1,4 @@
-import { QuantityModal } from './quantity-modal';
+//import { QuantityModal } from './quantity-modal';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA }from '@angular/material/dialog';
@@ -76,15 +76,15 @@ export class PlaceSupplierOrderComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(QuantityModal, {
-      width: '250px',
+    // const dialogRef = this.dialog.open(QuantityModal, {
+    //   width: '250px',
       // element: {name: this.quantity, animal: this.animal}
-    });
+    // });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      //this.Quantity = result;
-    });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log('The dialog was closed');
+    //   //this.Quantity = result;
+    // });
   }
 
 
@@ -96,7 +96,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
     }
     const data = (this.Productitems.filter(filter))
     this.dataNotFound = data.length===0
-    this.dataSource = new MatTableDataSource(data)
+    this.dataSource = new MatTableDataSource(data);
   }
 
   placeOrder(){
@@ -115,6 +115,6 @@ export class PlaceSupplierOrderComponent implements OnInit {
       })
     }
   });
-  }
 
+  }
 }
