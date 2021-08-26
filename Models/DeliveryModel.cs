@@ -9,7 +9,7 @@ namespace NKAP_API_2.Models
     public class DeliveryModel
     {
         [JsonProperty("deliveryid")]
-        public int DeliveryID
+        public int DeliveryId
         { get; set; }
 
 

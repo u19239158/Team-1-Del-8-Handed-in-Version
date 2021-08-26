@@ -233,7 +233,7 @@ namespace NKAP_API_2.Controllers
 
         [Route("GenerateSalesReport")] //route
         [HttpGet]
-        public IActionResult getSalesReport(ReportModel model)
+        public IActionResult getSalesReport([FromBody]ReportModel model)
         {
             var Sales = _db.Sales.Join(_db.Customers,
                  su => su.CustomerId,
@@ -321,9 +321,10 @@ namespace NKAP_API_2.Controllers
                      CustomerEmailAddress = so.CustomerEmailAddress,
                      StartDate = model.StartDate,
                      EndDate = model.EndDate,
+                     
 
 
-                 }).Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate);
+                 }).Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).OrderBy(zz=> zz.SaleID);
 
            // return getFrequenBuyersList (Sales)
             return Ok(Sales);
@@ -410,9 +411,10 @@ namespace NKAP_API_2.Controllers
                      SaleId = so.SaleId,
                      ProductItemName = su.ProductItemName,
 
-                 }).Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).Count();
-                 
-            return Ok(FastSellingP);
+                 }).Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate);
+
+           var sum  = FastSellingP.SumAsync(zz => zz.SaleLineQuantity);
+            return Ok(sum);
 
         }
 

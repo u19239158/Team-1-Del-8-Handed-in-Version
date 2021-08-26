@@ -169,7 +169,7 @@ namespace NKAP_API_2.Controllers
         //Update delivery
         public IActionResult UpdateDelivery(DeliveryModel model)
         {
-            var delivery = _db.Deliveries.Find(model.DeliveryID);
+            var delivery = _db.Deliveries.Find(model.DeliveryId);
             delivery.DeliveryDate = model.Delivery_Date; //attributes in table
             delivery.DeliveryDistance = model.Delivery_Distance;
             delivery.CourierTrackingNumber = model.Courier_TrackingNumber;
@@ -349,6 +349,68 @@ namespace NKAP_API_2.Controllers
             _db.Sales.Attach(sd); //Attach Record
             _db.SaveChanges();
             return Ok(sd);
+        }
+
+
+        [Route("GetDeliveryInfo/{deliveryId}")] //route
+        [HttpGet]
+        //get (Read)                                                                                                                                                                                        
+        public IActionResult GetDeliveryInfo(int deliveryId)
+        {
+            var Deliveries = _db.Deliveries.Join(_db.Sales,
+                sor => sor.SaleId,
+                sd => sd.SaleId,
+                (sor, sd) => new
+                {
+                    DeliveryId = sor.DeliveryId,
+                    SaleId = sd.SaleId,
+                    CustomerId = sd.CustomerId,
+                    DeliveryDate = sor.DeliveryDate,
+                    CourierTrackingNumber = sor.CourierTrackingNumber,
+                    DeliveryDistance = sor.DeliveryDistance,
+                    AddressId = sor.AddressId
+
+                }).Join(_db.Customers ,
+                sor => sor.CustomerId,
+                sd => sd.CustomerId,
+                (jj, dd) => new
+                {
+                    DeliveryId = jj.DeliveryId,
+                    SaleId = jj.SaleId,
+                    CustomerName = dd.CustomerName,
+                    CustomerSurname = dd.CustomerSurname,
+                    CustomerBusinessName = dd.CustomerBusinessName,
+                    CustomerCellphoneNumber = dd.CustomerCellphoneNumber,
+                    CustomerEmailAddress = dd.CustomerEmailAddress,
+                    AddressId = jj.AddressId,
+                    CourierTrackingNumber = jj.CourierTrackingNumber,
+                    DeliveryDistance = jj.DeliveryDistance,
+                    DeliveryDate = jj.DeliveryDate
+
+                }).Join(_db.Addresses,
+                sor => sor.AddressId,
+                sd => sd.AddressId,
+                (jj, dd) => new
+                {
+                    DeliveryId = jj.DeliveryId,
+                    SaleId = jj.SaleId,
+                    CustomerName = jj.CustomerName,
+                    CustomerSurname = jj.CustomerSurname,
+                    CustomerBusinessName = jj.CustomerBusinessName,
+                    CustomerCellphoneNumber = jj.CustomerCellphoneNumber,
+                    CustomerEmailAddress = jj.CustomerEmailAddress,
+                    AddressId = dd.AddressId,
+                    AddressLine1 = dd.AddressLine1,
+                    AddressLine2 = dd.AddressLine2,
+                    AddressLine3 = dd.AddressLine3,
+                    PostalCode = dd.AddressPostalCode,
+                    CourierTrackingNumber = jj.CourierTrackingNumber,
+                    DeliveryDistance = jj.DeliveryDistance,
+                    DeliveryDate = jj.DeliveryDate
+
+                }).First(zz =>zz.DeliveryId == deliveryId) ;
+           
+            return Ok(Deliveries);
         }
     }
 }
