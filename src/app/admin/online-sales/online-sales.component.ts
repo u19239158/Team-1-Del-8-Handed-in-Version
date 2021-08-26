@@ -37,11 +37,19 @@ constructor(private OnlineSalesService: OnlineSalesService,
 
 ngOnInit(): void {
   this.readOnlineSales();
-
+ 
   this.OnlineSalesService.ViewAllSales().subscribe((result:OnlineSales[])=> {
     this.OnlineSales = result;
   })
 }
+
+click(){
+  this.id = +this.element['saleID'];
+  
+  this.OnlineSalesService.GetSaleByID(this.id).subscribe(res => {
+    this.onlineSale = res
+    console.log(res)})
+ }
 
 readOnlineSales(): void {
   //this.dataSource = new MatTableDataSource<UserRole[]>(this.UserRoleService.GetUserRole());
@@ -52,14 +60,16 @@ readOnlineSales(): void {
 }
 
 updateToCollected() {
-  const onlineSales: OnlineSales = this.element.value;
-  onlineSales.saleID = this.onlineSale.saleID;
+  
+  const onlineSales: OnlineSales = this.element?.saleID;
+ // onlineSales.saleID = this.onlineSale?.saleID;
   this.OnlineSalesService.updateToCollected(onlineSales).subscribe(res =>{
     console.log(res)
     //this.form.reset();
     this.router.navigateByUrl('/onlineSales');
   });
 }
+
 
 updateToDelivered() {
   const onlineSales: OnlineSales = this.element.value;
