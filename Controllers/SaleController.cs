@@ -477,7 +477,55 @@ namespace NKAP_API_2.Controllers
             return Ok(orderstatus);
         }
 
-       
+        [Route("Checkout")] //route
+        [HttpPost]
+        //Add Sales
+        //Create a Model for table
+        public IActionResult Checkout(SaleModel model) //reference the model
+        {
+            Sale sale = new Sale();
+            sale.SaleOrderDescription = ""; //attributes in table
+            sale.SaleOrderDate = System.DateTime.Now;
+            sale.SaleOrderRecieveType = model.SaleOrderRecieveType;
+            sale.PaymentAmount = model.PaymentAmount;
+            sale.PaymentDate = System.DateTime.Now;
+            sale.OrderStatusId = 1;
+            sale.PaymentTypeId = 1;
+            sale.CustomerId = model.CustomerID;
+            _db.Sales.Add(sale);
+            _db.SaveChanges();
+
+            Delivery Del = new Delivery();
+            Del.AddressId = model.AddressId;
+            Del.SaleId = sale.SaleId;
+            Del.DeliveryDistance = model.DeliveryDistance;
+            _db.Deliveries.Add(Del);
+            _db.SaveChanges();
+
+            return Ok();
+        }
+
+        [Route("AddSaleLine")] //route
+        [HttpPost]
+        //Add Sales
+        //Create a Model for table
+        public IActionResult AddSaleLine(SaleModel model) //reference the model
+        {
+           
+            SaleLine Sline = new SaleLine();
+            Sline.ProductItemId = model.ProductItemId;
+            Sline.SaleLineQuantity = model.SaleLineQuantity;
+            Sline.SaleId = model.SaleID;
+            _db.SaleLines.Add(Sline);
+            _db.SaveChanges();
+
+            var sd = _db.Sales.Find(model.SaleID);
+            sd.SaleOrderDescription += "," + model.SaleLineQuantity + "x " + model.ProductItemName;
+            _db.Sales.Attach(sd); //Attach Record
+            _db.SaveChanges();
+
+            return Ok();
+        }
 
     }
 

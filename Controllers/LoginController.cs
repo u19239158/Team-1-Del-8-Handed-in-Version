@@ -78,7 +78,7 @@ namespace NKAP_API_2.Controllers
             
             var newCustomer = new Customer
             {
-                TitleId = model.TitleID,
+                //TitleId = model.TitleID,
                 CustomerName = model.CustomerName,
                 CustomerSurname = model.CustomerSurname,
                 CustomerCellphoneNumber = model.CustomerCellphoneNumber,
