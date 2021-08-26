@@ -29,6 +29,8 @@ export class StockLevelReportComponent implements OnInit {
      })
   }
 
+
+  
   header = [['Product Category', 
               'Category Type', 
               'Product Item ID', 

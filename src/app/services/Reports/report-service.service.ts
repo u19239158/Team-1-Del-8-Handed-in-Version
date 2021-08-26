@@ -1,3 +1,4 @@
+import { ReportParameters } from './../../interfaces/index';
 //import { Reports } from './../../interfaces/index';
 import { Injectable } from '@angular/core';
 import { Reports } from 'src/app/interfaces';
@@ -30,7 +31,7 @@ DeliveryReport(): Observable<any>
   return this.http.get(`${this.server}Report/GetDeliveryReportData`).pipe(map(res => res))
 }
 
-SalesReport(Reports : Reports): Observable<any>
+SalesReport(ReportParams : ReportParameters): Observable<any>
 {
   return this.http.get(`${this.server}Report/GenerateSalesReport`).pipe(map(res => res))
 }

@@ -62,7 +62,7 @@
                   <mat-menu #menu="matMenu" xPosition="before">
                   <button mat-menu-item [routerLink]="['/supplierEdit', element.supplierId]" >Update Supplier</button>
                   <button mat-menu-item (click)="deleteSupplier(element.supplierId)">Delete Supplier</button>
-                  <button mat-menu-item [routerLink]="['/makePayment', element.supplierId]" >Make Supplier Payment</button>
+                  <button mat-menu-item [routerLink]="['/makePayment', element.supplierId]" >Capture Supplier Payment</button>
                   </mat-menu>
               </td>
           </ng-container>

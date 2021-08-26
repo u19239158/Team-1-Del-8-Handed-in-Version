@@ -2,39 +2,39 @@
 
   <h2 >Write Off Stock</h2>
 
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-<div class="mat-row">
-  <div class="mat-col-quarter">
+  <div class="mat-row">
+    <div class="mat-col-quarter">
       <mat-form-field appearance="outline" class="control-m">
           <mat-label>Quantity</mat-label>
           <input type="number" matInput placeholder="Quantity" formControlName="writeOffQuantity">
       </mat-form-field>
       <mat-hint>Enter quantity</mat-hint>
+    </div>
   </div>
-</div>
 
-<div class="mat-row">
-  <div class="mat-col-quarter">
-      <mat-form-field appearance="outline" class="control-m">
-          <mat-label>Reason</mat-label>
-          <input type="text" matInput placeholder="Reason" formControlName="writeOffReason">
-      </mat-form-field>
-      <mat-hint>Enter reason</mat-hint>
+  <div class="mat-row">
+    <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+            <mat-label>Reason</mat-label>
+            <input type="text" matInput placeholder="Reason" formControlName="writeOffReason">
+        </mat-form-field>
+        <mat-hint>Enter reason</mat-hint>
+    </div>
   </div>
-</div>
 
-<div class="mat-row">
-  <div class="mat-col-quarter">
-  <div class="form-group" class="control-m">
-    <button mat-raised-button color ="primary" [disabled]="loading">
-        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-        Save
-    </button>
-    <a (click)="Close()" mat-button>Cancel</a>
+  <div class="mat-row">
+    <div class="mat-col-quarter">
+      <div class="form-group" class="control-m">
+        <button mat-raised-button color ="primary" [disabled]="loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Save
+        </button>
+        <a (click)="Close()" mat-button>Cancel</a>
+      </div>
+    </div>
   </div>
-</div>
-</div>
 
 </form>
 </div>

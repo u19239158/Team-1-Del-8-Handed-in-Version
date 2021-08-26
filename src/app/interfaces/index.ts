@@ -171,7 +171,7 @@ export interface AssignUnscheduledDelivery { //should be in delivery shift. we d
 export interface ReportParameters {
   startDate: string;
   endDate: string;
-  productCategoryId: number;
+  //productCategoryId: number;
 }
 
 export interface Reports {

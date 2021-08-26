@@ -22,7 +22,7 @@ export class PageComponent implements OnInit {
   productitems: Observable<Productitem[]>;
   submitted = false;
 
-  //formBuilder: any;
+  // formBuilder: any;
 
 
   constructor(
@@ -33,18 +33,19 @@ export class PageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.id = +this.route.snapshot.params['id'];
-
-    this.WriteOffStockService.getProductItemByID(this.id).subscribe(res => {
-    this.productitem = res
-    console.log(res)
-
     const formOptions: AbstractControlOptions = { };
     this.form = this.formBuilder.group({
       writeOffReason: ['', [Validators.required, Validators.maxLength(50)]],
       writeOffQuantity: ['', [Validators.required]], 
     }
     , formOptions)
+    this.id = +this.route.snapshot.params['id'];
+
+    this.WriteOffStockService.getProductItemByID(this.id).subscribe(res => {
+    this.productitem = res
+    console.log(res)
+
+    
   });
   }
   

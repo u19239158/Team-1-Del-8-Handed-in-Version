@@ -27,6 +27,7 @@ searchWord: string;
   element: any;
   route: any;
   id: number;
+public sale : any =[];
 
 constructor(private OnlineSalesService: OnlineSalesService,
             private snack: MatSnackBar,
@@ -44,11 +45,11 @@ ngOnInit(): void {
 }
 
 click(){
-  this.id = +this.element['saleID'];
+  //this.id = +this.element['saleID'];
   
-  this.OnlineSalesService.GetSaleByID(this.id).subscribe(res => {
-    this.onlineSale = res
-    console.log(res)})
+  // this.OnlineSalesService.GetSaleByID(this.id).subscribe(res => {
+  //   this.onlineSale = res
+  //   console.log(res)})
  }
 
 readOnlineSales(): void {
@@ -59,26 +60,30 @@ readOnlineSales(): void {
    })
 }
 
-updateToCollected() {
+updateToCollected(saleID: any) {
+  //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
+this.OnlineSalesService.GetSaleByID(saleID).subscribe(res=>{
+  this.sale =res;
+  console.log(this.sale)
+  this.OnlineSalesService.updateToCollected(this.sale).subscribe(res =>{
+    console.log(res)});
+});
   
-  const onlineSales: OnlineSales = this.element?.saleID;
- // onlineSales.saleID = this.onlineSale?.saleID;
-  this.OnlineSalesService.updateToCollected(onlineSales).subscribe(res =>{
-    console.log(res)
-    //this.form.reset();
-    this.router.navigateByUrl('/onlineSales');
-  });
+  window.location.reload();
+
 }
 
-
-updateToDelivered() {
-  const onlineSales: OnlineSales = this.element.value;
-  onlineSales.saleID = this.onlineSale.saleID;
-  this.OnlineSalesService.updateToDelivered(onlineSales).subscribe(res =>{
-    console.log(res)
-    //this.form.reset();
-    this.router.navigateByUrl('/onlineSales');
+updateToDelivered(saleID: any) {
+  this.OnlineSalesService.GetSaleByID(saleID).subscribe(res=>{
+    this.sale =res;
+    console.log(this.sale)
+    this.OnlineSalesService.updateToDelivered(this.sale).subscribe(res =>{
+      console.log(res)});
+      window.location.reload();
   });
+
+  
+
 }
 
 
@@ -92,15 +97,6 @@ filter() {
       e.orderStatusDescription &&  e.orderStatusDescription.toString().toLowerCase().includes(this.searchWord.toLowerCase())
   }
   this.dataSource = new MatTableDataSource(this.OnlineSales.filter(filter))
-}
-
-
-Collected(){
-  this.updateToCollected();
-}
-
-Delivered(){
- this.updateToDelivered();
 }
 
 Close(){
