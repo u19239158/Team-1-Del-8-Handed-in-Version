@@ -1,5 +1,5 @@
 <div>
-  <h2>Delivery Report </h2>
+  <h2>Packing Report </h2>
   <button (click)="generatePdf">Generate PDF</button>
 </div>
 
@@ -8,22 +8,22 @@
        
         <ng-container matColumnDef="saleId">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Sale ID </th>
-        <td mat-cell *matCellDef="let element">{{element.saleId} </td>
+        <td mat-cell *matCellDef="let element">{{element.saleId}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="date">
+        <ng-container matColumnDef="saleOrderDate">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-            <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.saleOrderDate}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="description">
+        <ng-container matColumnDef="saleOrderDescription">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
-          <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.saleOrderDescription}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="collectionDelivery">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Collection/ Delivery </th>
-        <td mat-cell *matCellDef="let element"> {{element.collectionDelivery}} </td>
+      <ng-container matColumnDef="saleOrderRecieveType">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Receival Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.saleOrderRecieveType}} </td>
     </ng-container>
     
     <ng-container matColumnDef="assignedTo">

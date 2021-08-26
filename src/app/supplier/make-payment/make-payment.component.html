@@ -4,7 +4,7 @@
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="main">
 
       <li *ngFor="let element">
-        {{ supplierName }}
+        {{supplierName}}
       </li>
 
     <!-- Payment -->
@@ -12,7 +12,7 @@
         <div class="mat-col-quarter">
             <mat-form-field appearance="outline" class="control-m">
                 <mat-label>Payment</mat-label>
-                <input type="text" matInput placeholder="Please enter payment" formControlName="supplierPayment">
+                <input type="text" matInput placeholder="Please enter payment" formControlName="supplierAmount">
                 <mat-hint>Enter payment amount</mat-hint>
             </mat-form-field>
         </div>

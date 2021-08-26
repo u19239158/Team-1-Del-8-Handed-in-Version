@@ -14,7 +14,7 @@ import { Customer } from './../../interfaces/index';
 export class DeliveryReportComponent implements OnInit {
    constructor(private service: ReportServiceService ) { }
   dataSource = new MatTableDataSource<Reports>();
-  displayedColumns: string[] = ['saleId', 'saleOrderDate','customerId', 'customerName', 'customerCellphoneNumber', 'customerEmailAddress', 'customerAddress'];
+  displayedColumns: string[] = ['saleId', 'saleOrderDate', 'customerName', 'customerCellphoneNumber', 'customerEmailAddress', 'customerAddress'];
 
 
   ngOnInit(): void {

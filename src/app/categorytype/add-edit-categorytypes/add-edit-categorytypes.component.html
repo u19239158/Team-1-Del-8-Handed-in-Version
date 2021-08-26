@@ -9,7 +9,7 @@
       <div appearance="outline" class="mat-col-quarter">
         <label class="image-upload-container btn btn-bwm">
           <span>Select Image</span>
-          <input #imageInput type="file" accept="image/*">
+          <input #fileInput type="file" accept=".png,.jpg" (change)="upload($event)">
         </label>
       </div>
     </div>
@@ -47,7 +47,7 @@
 
     <div class="mat-row">
       <div class="form-group" class="control-m">
-        <button mat-raised-button color="primary" [disabled]="loading">
+        <button mat-raised-button color="primary" (click)="uploadImage()" [disabled]="loading">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Save
         </button>

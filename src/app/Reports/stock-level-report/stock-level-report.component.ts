@@ -13,21 +13,21 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 
 export class StockLevelReportComponent implements OnInit {
-  dataSource = new MatTableDataSource<Productitem>();
+  dataSource = new MatTableDataSource<Reports>();
   displayedColumns: string[] = ['productCategory', 'categoryType','productItemId', 'productItemName', 'quantityOnHand'];
 
   constructor(private service: ReportServiceService ) { }
 
   ngOnInit(): void {
-    //this.readStockLevel();
+    this.readStockLevel();
   }
 
-  // readStockLevel(): void {
-  //    this.service.StockLevelReport(Reports : Reports).subscribe(res => {
-  //      console.log(res)
-  //      this.dataSource = new MatTableDataSource(res)
-  //    })
-  // }
+  readStockLevel(): void {
+     this.service.StockLevelReport().subscribe(res => {
+       console.log(res)
+       this.dataSource = new MatTableDataSource(res)
+     })
+  }
 
   header = [['Product Category', 
               'Category Type', 

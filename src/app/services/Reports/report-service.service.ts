@@ -20,9 +20,9 @@ export class ReportServiceService {
 
   constructor(private http: HttpClient) {}
 
-PackingReport(): Observable<any>
+PackingReport(): Observable<Reports[]>
 {
-  return this.http.get(`${this.server}Report/GetPackingReportData`).pipe(map(res => res))
+  return this.http.get<Reports[]>(`${this.server}Report/GetPackingReportData`).pipe(map(res => res))
 }
 
 DeliveryReport(): Observable<any>
@@ -35,7 +35,7 @@ SalesReport(Reports : Reports): Observable<any>
   return this.http.get(`${this.server}Report/GenerateSalesReport`).pipe(map(res => res))
 }
 
-StockLevelReport(Reports : Reports): Observable<any>
+StockLevelReport(): Observable<any>
 {
   return this.http.get(`${this.server}Report/GenerateStockLevel`).pipe(map(res => res))
 }

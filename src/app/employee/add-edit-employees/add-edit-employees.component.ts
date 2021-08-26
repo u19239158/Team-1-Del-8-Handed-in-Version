@@ -72,7 +72,10 @@ export class AddEditEmployeesComponent implements OnInit {
           userPassword: ['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
           employeeConfirmPassword: ['', this.isAddMode ? Validators.required : Validators.nullValidator]
       }, formOptions);
-      })
+      });
+      this.form.get('userUsername').disable();
+      this.form.get('userPassword').disable();
+      this.form.get('employeeConfirmPassword').disable();
     }
   }
 
