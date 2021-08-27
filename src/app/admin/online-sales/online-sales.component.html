@@ -33,7 +33,7 @@
           <td mat-cell *matCellDef="let element"> {{element.customerName}} {{element.customerSurname}}</td>
         </ng-container>
 
-        <!-- Sale Date -->
+        <!-- Business Name -->
         <ng-container matColumnDef="business">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Business Name</th>
           <td mat-cell *matCellDef="let element"> {{element.customerBusinessName}} </td>
@@ -66,8 +66,10 @@
             </button>
             <mat-menu #menu="matMenu" xPosition="before">
               <button mat-menu-item [routerLink]="['/viewSale',element.saleId]">View</button>
-              <button mat-menu-item>Order Collected</button>
-              <button mat-menu-item>Order Delivered</button>
+              <button mat-menu-item
+                [ngClass]="{'disable':element.orderStatusID ===1 || element.orderStatusID ===3}">Order Collected
+              </button>
+              <button mat-menu-item [ngClass]="{'disable':element.orderStatusID ===1}">Order Delivered</button>
             </mat-menu>
           </td>
         </ng-container>

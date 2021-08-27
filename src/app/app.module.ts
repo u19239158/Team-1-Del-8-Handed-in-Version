@@ -68,7 +68,7 @@ import { PopularLocationReportComponent } from './reports/popular-location-repor
 import { DeliveryReportComponent } from './reports/delivery-report/delivery-report.component';
 import { PackingReportComponent } from './reports/packing-report/packing-report.component';
 import { StockLevelReportComponent } from './reports/stock-level-report/stock-level-report.component';
-
+import { ViewdeliveryshiftscheduleComponent } from './deliveryshift/viewdeliveryshiftschedule/viewdeliveryshiftschedule.component';
 import { ScheduleModule, AgendaService, DragAndDropService, ResizeService, WeekService, WorkWeekService, MonthService, DayService } from '@syncfusion/ej2-angular-schedule';
 import { ViewSaleComponent } from './admin/online-sales/view-sale/view-sale.component';
 
@@ -134,6 +134,7 @@ const firebaseConfig = {
     StockLevelReportComponent,
     ViewSaleComponent,
     // ReportsComponent,
+    ViewdeliveryshiftscheduleComponent,
 
   ],
   imports: [

@@ -11,7 +11,8 @@ export class PackOrderComponent implements OnInit {
   form: FormGroup;
   id : number;
   loading = false;
-
+   checked =false;labelPosition:'before' | 'after' ='after';
+   disabled =false;
   constructor(
     private router: Router,
     private route : ActivatedRoute,

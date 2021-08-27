@@ -29,6 +29,8 @@ export class AssignLocalDeliveryComponent implements OnInit {
   deliveryShift: Observable<Deliveryshift[]>;
   dataSource = new MatTableDataSource<Deliveryshift>();
   displayedColumns: string[] = ['startTime', 'endTime', 'dayOfTheWeek', 'employeeName', 'noOfDeliveries', 'SelectOrderDeliveryShift'];
+  displayedColumn: string[] = ['saleId', 'customerName', 'customerBusinessName', 'deliverydistance', 'orderAddress', 'deliverycourier'];
+
 
   constructor(private deliveryshiftService: DeliveryshiftService,
     private snack: MatSnackBar,
