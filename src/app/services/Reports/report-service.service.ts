@@ -1,3 +1,4 @@
+import { ReportParameters } from './../../interfaces/index';
 //import { Reports } from './../../interfaces/index';
 import { Injectable } from '@angular/core';
 import { Reports } from 'src/app/interfaces';
@@ -20,9 +21,9 @@ export class ReportServiceService {
 
   constructor(private http: HttpClient) {}
 
-PackingReport(): Observable<any>
+PackingReport(): Observable<Reports[]>
 {
-  return this.http.get(`${this.server}Report/GetPackingReportData`).pipe(map(res => res))
+  return this.http.get<Reports[]>(`${this.server}Report/GetPackingReportData`).pipe(map(res => res))
 }
 
 DeliveryReport(): Observable<any>
@@ -30,12 +31,12 @@ DeliveryReport(): Observable<any>
   return this.http.get(`${this.server}Report/GetDeliveryReportData`).pipe(map(res => res))
 }
 
-SalesReport(Reports : Reports): Observable<any>
+SalesReport(ReportParams : ReportParameters): Observable<any>
 {
   return this.http.get(`${this.server}Report/GenerateSalesReport`).pipe(map(res => res))
 }
 
-StockLevelReport(Reports : Reports): Observable<any>
+StockLevelReport(): Observable<any>
 {
   return this.http.get(`${this.server}Report/GenerateStockLevel`).pipe(map(res => res))
 }

@@ -19,6 +19,7 @@ export class StockTakePageComponent implements OnInit {
   stockTake : StockTake;
   stockTakes : Observable<StockTake[]>;
   productitem: Productitem;
+  //form: FormGroup;
   productitems: Observable<Productitem[]>;
   submitted = false;
 
@@ -30,14 +31,16 @@ export class StockTakePageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.id = +this.route.snapshot.params['id'];
     const formOptions: AbstractControlOptions = { };
-    this.StockTakeService.getProductItemByID(this.id).subscribe(res => {
-      this.productitem = res
-      console.log(res)
     this.form = this.FormBuilder.group({
       stockTakeQuantity: ['', [Validators.required]],
     }, formOptions);
+    this.id = +this.route.snapshot.params['id'];
+    
+    this.StockTakeService.getProductItemByID(this.id).subscribe(res => {
+      this.productitem = res
+      console.log(res)
+   
   });
 
   }

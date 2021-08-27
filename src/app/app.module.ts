@@ -2,6 +2,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,6 +17,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatInputModule } from '@angular/material/input';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { GlobalErrorComponent } from './modals/globals/global-error/global-error.component';
 import { GlobalConfirmComponent } from './modals/globals/global-confirm/global-confirm.component';
@@ -160,9 +162,11 @@ const firebaseConfig = {
     MatInputModule,
     ScheduleModule,
     BrowserModule,
+    MatDatepickerModule,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [AgendaService, DayService, WeekService, WorkWeekService, MonthService, DragAndDropService, ResizeService],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+ 
 })
 export class AppModule { }

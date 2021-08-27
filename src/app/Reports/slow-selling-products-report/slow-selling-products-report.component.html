@@ -1,1 +1,34 @@
-<p>slow-selling-products-report works!</p>
+<h2>slow selling products report</h2>
+
+<div class="container">
+  <div class="parameters">
+      <h1>Report Parameters</h1>
+      <h3>Date Range</h3>
+     <form [formGroup]="form">
+      <div>
+          <!-- Start Date -->
+          <label>Start Date</label>
+          <br>
+          <input type="date" formControlName="startDate">
+
+
+          <br>
+          <br>
+         <!-- End Date -->
+         <label>End Date</label>
+         <br>
+         <input type="date" formControlName="endDate">
+
+
+      </div>
+    </form>
+      <br>
+      <br>
+      <br>
+      <br>
+
+      <button type="submit" mat-raised-button color ="primary" (click)="generateReport()">Generate Report</button>
+      <br>
+      <br>
+      <button type="submit" mat-raised-button color ="primary" (click)="generatePdf()">Download Report PDF</button>
+  </div>

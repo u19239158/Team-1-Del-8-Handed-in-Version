@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { OnlineSales } from 'src/app/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -23,6 +24,10 @@ export class OnlineSalesComponent implements OnInit {
   OnlineSales: OnlineSales[];
   searchValue: number;
   searchWord: string;
+  element: any;
+  route: any;
+  id: number;
+public sale : any =[];
 
   constructor(private OnlineSalesService: OnlineSalesService,
     private snack: MatSnackBar,
@@ -31,27 +36,59 @@ export class OnlineSalesComponent implements OnInit {
     private httpClient: HttpClient
   ) { }
 
-  ngOnInit(): void {
-    this.readOnlineSales();
+ngOnInit(): void {
+  this.readOnlineSales();
+ 
+  this.OnlineSalesService.ViewAllSales().subscribe((result:OnlineSales[])=> {
+    this.OnlineSales = result;
+  })
+}
 
-    this.OnlineSalesService.ViewAllSales().subscribe((result: OnlineSales[]) => {
-      this.OnlineSales = result;
-    })
-  }
+click(){
+  //this.id = +this.element['saleID'];
+  
+  // this.OnlineSalesService.GetSaleByID(this.id).subscribe(res => {
+  //   this.onlineSale = res
+  //   console.log(res)})
+ }
 
-  readOnlineSales(): void {
-    //this.dataSource = new MatTableDataSource<UserRole[]>(this.UserRoleService.GetUserRole());
-    this.OnlineSalesService.ViewAllSales().subscribe(res => {
-      console.log("res2", res)
-      this.dataSource = new MatTableDataSource(res)
-    })
-  }
+readOnlineSales(): void {
+  //this.dataSource = new MatTableDataSource<UserRole[]>(this.UserRoleService.GetUserRole());
+   this.OnlineSalesService.ViewAllSales().subscribe(res => {
+     console.log(res)
+     this.dataSource = new MatTableDataSource(res)
+   })
+}
 
-  // log(val) { console.log(val); }
+updateToCollected(saleID: any) {
+  //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
+this.OnlineSalesService.GetSaleByID(saleID).subscribe(res=>{
+  this.sale =res;
+  console.log(this.sale)
+  this.OnlineSalesService.updateToCollected(this.sale).subscribe(res =>{
+    console.log(res)});
+});
+  
+  window.location.reload();
 
-  filter() {
+}
 
-    const filter = (e) => {
+updateToDelivered(saleID: any) {
+  this.OnlineSalesService.GetSaleByID(saleID).subscribe(res=>{
+    this.sale =res;
+    console.log(this.sale)
+    this.OnlineSalesService.updateToDelivered(this.sale).subscribe(res =>{
+      console.log(res)});
+      window.location.reload();
+  });
+
+  
+
+}
+
+
+filter() {
+  const filter = (e) => {
 
       return e.customerName && e.customerName.toLowerCase().includes(this.searchWord.toLowerCase()) ||
         e.customerSurname && e.customerSurname.toLowerCase().includes(this.searchWord.toLowerCase()) ||

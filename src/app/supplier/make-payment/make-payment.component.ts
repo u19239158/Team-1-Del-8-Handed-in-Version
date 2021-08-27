@@ -27,16 +27,16 @@ export class MakePaymentComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.id = +this.route.snapshot.params['id'];
-
     const formOptions: AbstractControlOptions = { };
+    this.id = +this.route.snapshot.params['id'];
+    this.form = this.formBuilder.group({
+      supplierAmount: ['', [Validators.required]]
+    }, formOptions);
 
     this.SupplierService.getSupplierByID(this.id).subscribe(res => {
       this.supplier = res
       console.log(res)
-    this.form = this.formBuilder.group({
-      supplierAmount: ['', [Validators.required]]
-    }, formOptions);})
+   })
 }
 
   onSubmit(){

@@ -134,9 +134,12 @@ export interface ReceiveSupplierOrder {
 }
 
 export interface PlaceSupplierOrder {
+  checked: boolean;
   productItem: string;
   price: string;
   quantity: number;
+  highlighted?: boolean;
+  hovered?: boolean;
 }
 
 export interface StockTake {
@@ -163,6 +166,12 @@ export interface AssignUnscheduledDelivery { //should be in delivery shift. we d
   //   customerName: string;
   //   deliveryDistance: number;
   //   orderAddress: string;
+}
+
+export interface ReportParameters {
+  startDate: string;
+  endDate: string;
+  //productCategoryId: number;
 }
 
 export interface Reports {
