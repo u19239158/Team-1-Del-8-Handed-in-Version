@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-enum CheckBoxType { AVAILABLE_FOR_COLLECTION, AVAILABLE_FOR_DELIVERY, NONE };
+enum CheckBoxType { READY_FOR_COLLECTION, READY_FOR_DELIVERY, NONE };
 
 @Component({
   selector: 'app-pack-order',
