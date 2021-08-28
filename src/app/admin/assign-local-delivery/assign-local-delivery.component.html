@@ -73,10 +73,16 @@
                         <!-- <button color="primary" aria-label="Example icon button with a home icon"
                             routerLink="/addDeliveryShift"> -->
                         Select Order Delivery Shift
+                        <p>
+                            <mat-hint>*Select one*</mat-hint>
+                        </p>
+
                         <!-- </button> -->
                     </th>
                     <td mat-header-cell *matCellDef="let element">
-                        <mat-checkbox formControlName="assign"></mat-checkbox>
+                        <input type="checkbox" name="assign"
+                            [checked]="currentlyChecked === check_box_type.ASSIGN_SHIFT">
+                        <!-- (click)="selectCheckBox(check_box_type.ASSIGN_SHIFT)"> -->
 
                     </td>
                 </ng-container>
