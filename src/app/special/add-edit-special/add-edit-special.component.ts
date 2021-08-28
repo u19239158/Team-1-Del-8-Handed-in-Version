@@ -92,6 +92,7 @@ export class AddEditSpecialComponent implements OnInit {
 
   createSpecial() {
     const special: Special = this.form.value;
+    special.productItemId = this.special.productItemId;
     this.SpecialService.CreateSpecial(special).subscribe(res => {
       console.log(res)
       this.loading = false

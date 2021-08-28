@@ -82,8 +82,6 @@ updateToDelivered(saleID: any) {
       window.location.reload();
   });
 
-  
-
 }
 
 

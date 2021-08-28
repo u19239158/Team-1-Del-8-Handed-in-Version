@@ -32,6 +32,7 @@ export class AddEditCategorytypesComponent implements OnInit {
   path: string;
   selectedImage: File;
   url : string;
+  image : string = null;
   downloadURL: Observable<string>;
   taskRef: AngularFireStorageReference;
 
@@ -45,32 +46,35 @@ export class AddEditCategorytypesComponent implements OnInit {
     private http: HttpClient,
     private storage : AngularFireStorage
      
-    
-    
   ) { }
 
-  upload(event) {    
+  async upload(event) {    
     this.path = event.target.files[0]
-
     const filePath = 'test';
-    const fileRef = this.storage.ref(filePath);
+    //const fileRef = this.storage.ref(filePath);
+    //const task = this.storage.upload(filePath, this.path);
+    //this.file = event.target.files[0]
+
+    //const selectedImage =this.storage.upload('/images'+Math.random()+this.path, this.path);
+    //const path = 'test';
+    //const selectedImage = this.storage.ref(path);
     const task = this.storage.upload(filePath, this.path);
+    //const task = this.storage.upload(filePath, selectedImage);
+    const ref = this.storage.ref(filePath);
+    //console.log(selectedImage)
+    //this.uploadPercent = task.percentageChanges();
 
-    // observe percentage changes
-    this.uploadPercent = task.percentageChanges();
+    // upload image, save url
+    await task;
+    console.log('Image uploaded!');
+    this.image = await ref.getDownloadURL().toPromise();
+    console.log( this.image)
 
-    // get notified when the download URL is available
-    task.snapshotChanges().pipe(
-        finalize(() => this.downloadURL = fileRef.getDownloadURL() )
-        
-     )
-    .subscribe()
-    console.log(task);
+    return this.image;
+      
+    // this.downloadURL = this.taskRef.getDownloadURL();
+    // console.log(this.downloadURL)
 
-    this.downloadURL = this.taskRef.getDownloadURL();
-    console.log(this.downloadURL)
-
-    
   }
  
 
@@ -79,10 +83,12 @@ export class AddEditCategorytypesComponent implements OnInit {
     this.isAddMode = !this.id;
     this.getCollection();
 
+    
     const formOptions: AbstractControlOptions = {};
     this.form = this.formBuilder.group({
       categoryTypeDescription: ['', [Validators.required, Validators.maxLength(50)]],
-      categoryTypeImage: ['', [Validators.required]],
+      categoryTypeImage : this.image,
+     // categoryTypeImage: ['', [Validators.required]],
       itemDescription: ['', [Validators.required, Validators.maxLength(50)]],
       productCategoryID: ['', [Validators.required, Validators.maxLength(50)]],
     }, formOptions);
@@ -93,7 +99,7 @@ export class AddEditCategorytypesComponent implements OnInit {
         console.log(res)
         this.form = this.formBuilder.group({
           categoryTypeDescription: [this.categorytype.categoryTypeDescription, [Validators.required, Validators.maxLength(50)]],
-          specialImage: [this.categorytype.categoryTypeImage, [Validators.required]],
+          categoryTypeImage: [this.image, [Validators.required]],
           itemDescription: [this.categorytype.itemDescription, [Validators.required, Validators.maxLength(50)]],
           productCategoryID: [this.categorytype.productCategoryID, [Validators.required, Validators.maxLength(50)]],
         }, formOptions);
@@ -102,14 +108,16 @@ export class AddEditCategorytypesComponent implements OnInit {
     }
   }
 
+  
    
-  uploadImage(){
-    console.log(this.path)
-     this.storage.upload('/images'+Math.random()+this.path, this.path);
-    //const fileref = this.storage.ref(this.path);
-    
+  // uploadImage(){
+  //   console.log(this.path)
+  //    const img =this.storage.upload('/images'+Math.random()+this.path, this.path);
+  //   const fileref = this.storage.ref(this.path);
 
-    }
+  //   //const downloadUrl = img.getDownloadURL();
+
+  // }
 
     
   // chooseFile(event){
@@ -142,16 +150,9 @@ export class AddEditCategorytypesComponent implements OnInit {
 console.log(this.path)
   }
 
-  async createCategorytype() {
+  createCategorytype() {
     const categorytype: Categorytype = this.form.value;
-    // const image = await this.uploadImage();
-    // this.CategorytypeService.CreateCategoryType(categorytype).subscribe(split =>{
-    //   image.subscribe(url => {
-    //     console.log(url);
-        
-    //   })
-    // } )   
-
+   
     this.CategorytypeService.CreateCategoryType(categorytype).subscribe(res => {
       console.log(res)
       this.loading = false
