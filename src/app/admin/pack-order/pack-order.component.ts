@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+enum CheckBoxType { AVAILABLE_FOR_COLLECTION, AVAILABLE_FOR_DELIVERY,NONE };
 
 @Component({
   selector: 'app-pack-order',
@@ -9,28 +10,41 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class PackOrderComponent implements OnInit {
   form: FormGroup;
-  id : number;
+  id: number;
   loading = false;
-   checked =false;labelPosition:'before' | 'after' ='after';
-   disabled =false;
+  checked = false; labelPosition: 'before' | 'after' = 'after';
+  disabled = false;
   constructor(
     private router: Router,
-    private route : ActivatedRoute,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
   }
 
+  check_box_type = CheckBoxType;
+  currentlyChecked: CheckBoxType;
+
+  selectCheckBox(targetType: CheckBoxType) {
+    // If the checkbox was already checked, clear the currentlyChecked variable
+    if (this.currentlyChecked === targetType) {
+      this.currentlyChecked = CheckBoxType.NONE;
+      return;
+    }
+
+    this.currentlyChecked = targetType;
+  }
+
   onSubmit() {
 
     if (this.form.invalid) {
-      return; 
-    } 
+      return;
+    }
   }
 
   Close() {
     this.form.reset();
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('viewSale');
   }
 
 }
