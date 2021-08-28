@@ -1,7 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-enum CheckBoxType { AVAILABLE_FOR_COLLECTION, AVAILABLE_FOR_DELIVERY,NONE };
+enum CheckBoxType { AVAILABLE_FOR_COLLECTION, AVAILABLE_FOR_DELIVERY, NONE };
 
 @Component({
   selector: 'app-pack-order',
@@ -14,12 +15,16 @@ export class PackOrderComponent implements OnInit {
   loading = false;
   checked = false; labelPosition: 'before' | 'after' = 'after';
   disabled = false;
+
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
+
   }
 
   check_box_type = CheckBoxType;

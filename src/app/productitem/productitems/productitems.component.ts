@@ -22,6 +22,7 @@ searchValue: string;
 dataNotFound: boolean;
 
   productitems: Productitem[] = [];
+  public pItem : any =[];
   productitem: Observable<Productitem[]>;
   dataSource = new MatTableDataSource<Productitem>();
   displayedColumns: string[] = ['categorytype','name', 'description', 'cost','quantity', 'actions'];
@@ -48,6 +49,17 @@ dataNotFound: boolean;
       this.dataSource = new MatTableDataSource(res)
     })
     //this.dataSource = new MatTableDataSource<Productitem>(this.productitemService.getAll());
+  }
+
+  SendID(productItemId: any) {
+    //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
+  this.productitemService.getProductItemByID(productItemId).subscribe(res=>{
+    this.pItem =res;
+    console.log(this.pItem)
+   
+  });
+  
+  
   }
 
   filter(){
