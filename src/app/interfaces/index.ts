@@ -29,8 +29,8 @@ export interface Supplier {
   supplierAddressLine3: string;
   supplierCityTown: string;
   supplierPostalCode: number;
-  supplierBalance : number;
-  supplierTypeId : number;
+  supplierBalance: number;
+  supplierTypeId: number;
   supplierAmount: number;
 }
 
@@ -54,13 +54,13 @@ export interface Special {
   specialPrice: string;
   specialStartDate: string;
   specialEndDate: string;
-  discountId : number;
+  discountId: number;
   productItemId: number;
 }
 
 export interface Courier {
   courierID: number;
-  courierName:string;
+  courierName: string;
   courierTypeDescription: string;
   courierEmail: string;
   courierNumber: string;
@@ -68,31 +68,31 @@ export interface Courier {
 }
 
 export interface Deliveryshift {
-  id:number;
-  startTime: string ;
+  id: number;
+  startTime: string;
   endTime: string;
   dayOfTheWeek: string;
   employeeName: string;
   employeeID: number;
-  saleId:number;
+  saleId: number;
   customerName: string;
   deliveryDistance: number;
   orderAddress: string;
-  shiftId : number;
-  dateId : number;
-  timeId : number;
-  employeeShiftId : number;
+  shiftId: number;
+  dateId: number;
+  timeId: number;
+  employeeShiftId: number;
 
 }
 
 export interface Productcategory {
-  productCategoryId:number;
+  productCategoryId: number;
   productCategoryDescription: string;
   productCategoryImage: string;
 }
 
 export interface Categorytype {
-  categoryTypeId:number;
+  categoryTypeId: number;
   categoryTypeImage: string;
   categoryTypeDescription: string;
   itemDescription: string;
@@ -101,7 +101,7 @@ export interface Categorytype {
 }
 
 export interface Productitem {
-  productItemId:number;
+  productItemId: number;
   productItemName: string;
   //productItemDescription:string;
   productItemCost: number;
@@ -109,7 +109,7 @@ export interface Productitem {
   categoryTypeId: number;
   categoryTypeName: string;
   categoryTypeDescription: string;
-  }
+}
 
 export interface Customer {
   customerId: number;
@@ -142,7 +142,7 @@ export interface PlaceSupplierOrder {
   hovered?: boolean;
 }
 
-export interface StockTake{
+export interface StockTake {
   dateOfStockTake: string;
   categoryType: string;
   productItem: string;
@@ -162,11 +162,11 @@ export interface WriteOffStock {
 }
 
 export interface AssignUnscheduledDelivery { //should be in delivery shift. we don't create interfaces for each individual requirement.
-//   saleId:number;
-//   customerName: string;
-//   deliveryDistance: number;
-//   orderAddress: string;
- }
+  //   saleId:number;
+  //   customerName: string;
+  //   deliveryDistance: number;
+  //   orderAddress: string;
+}
 
 export interface ReportParameters {
   startDate: string;
@@ -175,25 +175,25 @@ export interface ReportParameters {
 }
 
 export interface Reports {
-saleId: number;
-saleOrderDescription: string;
-saleOrderAssign: boolean;
-saleOrderDate: string;
-saleOrderRecieveType: boolean;
-paymentDate: string;
-orderStatusId: number;
-orderStatusDescription: string;
-customerId: number;
-customerName: string;
-customerSurname: string;
-customerCellphonenUmber: string;
-customerEmailAddress: string;
-addressId: number;
-addressLine1: string;
-addressLine2: string;
-addressLine3: string;
-startDate: string;
-endDate: string;
+  saleId: number;
+  saleOrderDescription: string;
+  saleOrderAssign: boolean;
+  saleOrderDate: string;
+  saleOrderRecieveType: boolean;
+  paymentDate: string;
+  orderStatusID: number;
+  orderStatusDescription: string;
+  customerId: number;
+  customerName: string;
+  customerSurname: string;
+  customerCellphonenUmber: string;
+  customerEmailAddress: string;
+  addressId: number;
+  addressLine1: string;
+  addressLine2: string;
+  addressLine3: string;
+  startDate: string;
+  endDate: string;
 }
 
 export interface OnlineSales {
@@ -201,7 +201,7 @@ export interface OnlineSales {
   saleOrderDate: string;
   orderStatusId: string;
   orderStatusDescription: string;
-  customerId:string;
+  customerId: string;
   customerName: string;
   customerSurame: string;
   customerBusinessname: string;
