@@ -84,6 +84,15 @@ updateToDelivered(saleID: any) {
 
 }
 
+viewSale(saleID: any) {
+  //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
+this.OnlineSalesService.GetSaleByID(saleID).subscribe(res=>{
+  this.sale =res;
+  console.log(this.sale)
+  // this.OnlineSalesService.updateToCollected(this.sale).subscribe(res =>{
+  //   console.log(res)});
+});}
+
 
 filter() {
   const filter = (e) => {

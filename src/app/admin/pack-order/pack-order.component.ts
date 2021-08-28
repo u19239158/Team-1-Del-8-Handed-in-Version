@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,13 +14,20 @@ export class PackOrderComponent implements OnInit {
   loading = false;
    checked =false;labelPosition:'before' | 'after' ='after';
    disabled =false;
+  
+
+
   constructor(
     private router: Router,
     private route : ActivatedRoute,
+    private http: HttpClient   
   ) { }
 
   ngOnInit(): void {
+    
   }
+
+ 
 
   onSubmit() {
 
@@ -28,9 +36,9 @@ export class PackOrderComponent implements OnInit {
     } 
   }
 
-  Close() {
+Close() {
     this.form.reset();
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('viewSale');
   }
 
 }

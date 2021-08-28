@@ -6,10 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Categorytype } from 'src/app/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
-import { ThrowStmt } from '@angular/compiler';
-import { finalize } from 'rxjs/operators';
-import { Console } from 'node:console';
-import * as firebase from 'firebase';
+
 
 @Component({
   selector: 'app-add-edit-categorytypes',
@@ -51,30 +48,23 @@ export class AddEditCategorytypesComponent implements OnInit {
   async upload(event) {    
     this.path = event.target.files[0]
     const filePath = 'test';
-    //const fileRef = this.storage.ref(filePath);
-    //const task = this.storage.upload(filePath, this.path);
-    //this.file = event.target.files[0]
-
-    //const selectedImage =this.storage.upload('/images'+Math.random()+this.path, this.path);
-    //const path = 'test';
-    //const selectedImage = this.storage.ref(path);
-    const task = this.storage.upload(filePath, this.path);
-    //const task = this.storage.upload(filePath, selectedImage);
+    const task = this.storage.upload('/images'+Math.random()+filePath, this.path);
     const ref = this.storage.ref(filePath);
-    //console.log(selectedImage)
-    //this.uploadPercent = task.percentageChanges();
-
     // upload image, save url
     await task;
     console.log('Image uploaded!');
     this.image = await ref.getDownloadURL().toPromise();
     console.log( this.image)
 
-    return this.image;
-      
-    // this.downloadURL = this.taskRef.getDownloadURL();
-    // console.log(this.downloadURL)
+    const formOptions: AbstractControlOptions = {};
+    this.form = this.formBuilder.group({
+      categoryTypeDescription: ['', [Validators.required, Validators.maxLength(50)]],
+      categoryTypeImage : this.image,
+      itemDescription: ['', [Validators.required, Validators.maxLength(50)]],
+      productCategoryID: ['', [Validators.required, Validators.maxLength(50)]],
 
+    }, formOptions);
+    
   }
  
 
@@ -98,8 +88,9 @@ export class AddEditCategorytypesComponent implements OnInit {
         this.categorytype = res
         console.log(res)
         this.form = this.formBuilder.group({
+          categoryTypeImage : this.image,
           categoryTypeDescription: [this.categorytype.categoryTypeDescription, [Validators.required, Validators.maxLength(50)]],
-          categoryTypeImage: [this.image, [Validators.required]],
+          //categoryTypeImage: [this.image, [Validators.required]],
           itemDescription: [this.categorytype.itemDescription, [Validators.required, Validators.maxLength(50)]],
           productCategoryID: [this.categorytype.productCategoryID, [Validators.required, Validators.maxLength(50)]],
         }, formOptions);

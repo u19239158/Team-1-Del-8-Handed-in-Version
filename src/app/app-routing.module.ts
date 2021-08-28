@@ -245,7 +245,7 @@ const routes: Routes = [
     component: OnlineSalesComponent,
   },
   {
-    path: 'viewSale',
+    path: 'viewSale/:id',
     component: ViewSaleComponent,
   },
   {
