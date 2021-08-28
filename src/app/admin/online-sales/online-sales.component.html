@@ -70,7 +70,8 @@
               <button mat-menu-item
                 [ngClass]="{'disable':element.orderStatusID ===1 || element.orderStatusID ===3}">Collected
               </button>
-              <button mat-menu-item [ngClass]="{'disable':element.orderStatusID ===1}">Delivered</button>
+              <button mat-menu-item
+                [ngClass]="{'disable':element.orderStatusID ===1 || element.orderStatusID ===2}">Delivered</button>
             </mat-menu>
           </td>
         </ng-container>
