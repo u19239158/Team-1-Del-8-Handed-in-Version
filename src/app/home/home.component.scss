@@ -9,3 +9,13 @@ h1 {
     font-weight: 600;
     font-size: 45px;
 }
+
+.column{
+  float: left;
+  padding: 10px;
+  text-align: center;
+}
+
+.left, .right, .middle {
+  width: 10%;
+}
