@@ -464,5 +464,65 @@ namespace NKAP_API_2.Controllers
             return Ok(orderstatus);
         }
 
+        [Route("GetComplexSaleByID/{saleid}")] //route
+        [HttpGet]
+        //get Sales by ID (Read)
+        public IActionResult GetComplexSale(int saleid)
+        {
+            var Sale = _db.Sales.Join(_db.OrderStatuses,
+                su => su.OrderStatusId,
+                so => so.OrderStatusId,
+
+                (su, so) => new
+                {
+                    SaleID = su.SaleId,
+                    SaleDescription = su.SaleOrderDescription,
+                    SaleDate = su.SaleOrderDate,
+                    SaleAssign = su.SaleOrderAssign,
+                    SaleReceiveType = su.SaleOrderRecieveType,
+                    SalePaymentDate = su.PaymentDate,
+                    SalePaymentAmount = su.PaymentAmount,
+                    OrderStatusID = so.OrderStatusId,
+                    OrderStatusDesc = so.OrderStatusDescription,
+                    PaymentTypeID = su.PaymentTypeId,
+                    CustomerId = su.CustomerId
+
+
+                    //attributes in table
+                }).Join(_db.Customers,
+                sor => sor.CustomerId,
+                sd => sd.CustomerId,
+                (sor, sd) => new
+                {
+                    CustomerId = sor.CustomerId,
+                    CustomerName = sd.CustomerName,
+                    CustomerSurname = sd.CustomerSurname,
+                    CustomerBusinessName = sd.CustomerBusinessName,
+                    CustomerCellphoneNumber = sd.CustomerCellphoneNumber,
+                    CustomerEmailAddress = sd.CustomerEmailAddress,
+                    SaleID = sor.SaleID
+
+                }).Join(_db.Addresses,
+                sor => sor.CustomerId,
+                sd => sd.CustomerId,
+                (sor, sd) => new
+                {
+                    SaleID = sor.SaleID,
+                    CustomerId = sor.CustomerId,
+                    CustomerName = sor.CustomerName,
+                    CustomerSurname = sor.CustomerSurname,
+                    CustomerBusinessName = sor.CustomerBusinessName,
+                    CustomerCellphoneNumber = sor.CustomerCellphoneNumber,
+                    CustomerEmailAddress = sor.CustomerEmailAddress,
+                    AddressLine1 = sd.AddressLine1,
+                    AddressLine2 = sd.AddressLine2,
+                    AddressLine3 = sd.AddressLine3,
+                    AddressPostalCode = sd.AddressPostalCode
+
+                }).First(ss => ss.SaleID == saleid);
+
+            return Ok(Sale);
+        }
+
     }
 }
