@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace NKAP_API_2.Models
 {
     public class CourierOrderMailData
-    {        
+    {
         public string RecipientBusinessName
         { get; set; }
 
@@ -25,29 +26,54 @@ namespace NKAP_API_2.Models
         public int RecipientPostalCode
         { get; set; }
 
-        //public string SenderName
-        //{ get; set; }
 
-        //public string SenderEmailAddress
-        //{ get; set; }
+        [JsonProperty("customername")]
+        public string CustomerName
+        { get; set; }
 
+        [JsonProperty("customersurname")]
+        public string CustomerSurname
+        { get; set; }
 
-        //public string SenderContactNumber
-        //{ get; set; }
+        [JsonProperty("customercellphonenumber")]
+        public string CustomerCellphoneNumber
+        { get; set; }
 
+        [JsonProperty("customeremailaddress")]
+        public string CustomerEmailAddress
+        { get; set; }
 
-        //public string SenderProvince
-        //{ get; set; }
+        [JsonProperty("customerbusinessname")]
+        public string CustomerBusinessName
+        { get; set; }
 
+        [JsonProperty("customerid")]
+        public int CustomerID
+        { get; set; }
 
-        //public string SenderCityTown
-        //{ get; set; }
+        [JsonProperty("addressid")]
+        public int AddressID
+        { get; set; }
 
-        //public string SenderStreetAddress
-        //{ get; set; }
+        [JsonProperty("addressline1")]
+        public string AddressLine1
+        { get; set; }
 
-        //public int SenderPostalCode
-        //{ get; set; }
+        [JsonProperty("addressline2")]
+        public string AddressLine2
+        { get; set; }
+
+        [JsonProperty("addressline3")]
+        public string AddressLine3
+        { get; set; }
+
+        [JsonProperty("addresspostalcode")]
+        public int AddressPostalCode
+        { get; set; }
+
+        [JsonProperty("courieremail")]
+        public string CourierEmail
+        { get; set; }
 
     }
 

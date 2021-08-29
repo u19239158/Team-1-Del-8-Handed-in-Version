@@ -29,16 +29,16 @@ namespace NKAP_API_2.Controllers
         //create click event in angular for when the email link is clicked
 
         //[Route("NotifyCourier/{emailAddress}, {}")]
-        [Route("NotifyCourier/{emailAddress}")] //route
-        [HttpGet]
-        public async Task<IActionResult> GetAsync(CourierOrderMailData model)
+        [Route("NotifyCourier/{courierEmail}")] //route
+        [HttpPost]
+        public async Task<IActionResult> GetAsync(CourierOrderMailData model, string courierEmail)
         {
             var apiKey = "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";
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage();
             msg.SetSubject("Test");
             msg.SetFrom(new EmailAddress("ds3solutions370@outlook.com", "NKAP Bolting"));
-            msg.AddTo(new EmailAddress(model.CourierEmail));
+            msg.AddTo(new EmailAddress(courierEmail));
             msg.SetTemplateId("d-25e2e27e38ef405382724a74ca22d398");
 
 
@@ -100,13 +100,13 @@ namespace NKAP_API_2.Controllers
 
             var dynamicTemplateData = new Models.CourierOrderMailData
             {
-                RecipientBusinessName = model.CustomerBusinessName,
-                RecipientName = model.CustomerName + model.CustomerSurname,
+               
+                RecipientName = model.CustomerName +" "+ model.CustomerSurname ,
                 RecipientContactNumber = model.CustomerCellphoneNumber,
                 RecipientEmailAddress = model.CustomerEmailAddress,
                 RecipientAddress = model.AddressLine1 + ", " + model.AddressLine2 + ", " + model.AddressLine3,
                 RecipientPostalCode = model.AddressPostalCode,
-
+                RecipientBusinessName = model.CustomerBusinessName + " ",
                 //RecipientBusinessName = "Midas",
                 //RecipientName = "John",
                 //RecipientContactNumber = "+27 (0) 39 123 1234",
@@ -135,6 +135,84 @@ namespace NKAP_API_2.Controllers
             //return Ok(CouriersTypes);
         }
 
+
+        [Route("GetFullSaleByID/{saleid}")] //route
+        [HttpGet]
+        //get Sales by ID (Read)
+        public IActionResult GetComplexSale(int saleid)
+        {
+            var Sale = _db.Sales.Join(_db.Deliveries,
+                su => su.SaleId,
+                so => so.SaleId,
+
+                (su, so) => new
+                {
+                    SaleID = su.SaleId,
+                    SaleDescription = su.SaleOrderDescription,
+                    SaleDate = su.SaleOrderDate,
+                    SaleAssign = su.SaleOrderAssign,
+                    SaleReceiveType = su.SaleOrderRecieveType,
+                    SalePaymentDate = su.PaymentDate,
+                    SalePaymentAmount = su.PaymentAmount,
+                    DeliveryId = so.DeliveryId,
+                    PaymentTypeID = su.PaymentTypeId,
+                    CustomerId = su.CustomerId,
+                    CourierId = so.CourierId
+
+
+                    //attributes in table
+                }).Join(_db.Couriers,
+                sor => sor.CourierId,
+                sd => sd.CourierId,
+                (sor, sd) => new
+                {
+
+                    CustomerId = sor.CustomerId,
+                    CourierEmail = sd.CourierEmail,
+                    CourierName = sd.CourierName,
+                    CourierNumber = sd.CourierNumber,
+                    SaleID = sor.SaleID
+
+                }).Join(_db.Customers,
+                sor => sor.CustomerId,
+                sd => sd.CustomerId,
+                (sor, sd) => new
+                {
+                    CourierEmail = sor.CourierEmail,
+                    CourierName = sor.CourierName,
+                    CourierNumber = sor.CourierNumber,
+                    CustomerId = sor.CustomerId,
+                    CustomerName = sd.CustomerName,
+                    CustomerSurname = sd.CustomerSurname,
+                    CustomerBusinessName = sd.CustomerBusinessName,
+                    CustomerCellphoneNumber = sd.CustomerCellphoneNumber,
+                    CustomerEmailAddress = sd.CustomerEmailAddress,
+                    SaleID = sor.SaleID
+
+                }).Join(_db.Addresses,
+                sor => sor.CustomerId,
+                sd => sd.CustomerId,
+                (sor, sd) => new
+                {
+                    CourierEmail = sor.CourierEmail,
+                    CourierName = sor.CourierName,
+                    CourierNumber = sor.CourierNumber,
+                    SaleID = sor.SaleID,
+                    CustomerId = sor.CustomerId,
+                    CustomerName = sor.CustomerName,
+                    CustomerSurname = sor.CustomerSurname,
+                    CustomerBusinessName = sor.CustomerBusinessName,
+                    CustomerCellphoneNumber = sor.CustomerCellphoneNumber,
+                    CustomerEmailAddress = sor.CustomerEmailAddress,
+                    AddressLine1 = sd.AddressLine1,
+                    AddressLine2 = sd.AddressLine2,
+                    AddressLine3 = sd.AddressLine3,
+                    AddressPostalCode = sd.AddressPostalCode
+
+                }).First(ss => ss.SaleID == saleid);
+
+            return Ok(Sale);
+        }
 
     }
 }
