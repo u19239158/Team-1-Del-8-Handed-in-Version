@@ -3,25 +3,18 @@
   <h2>Pack Order</h2>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <section class="example-section">
-      <mat-checkbox-group [(ngModel)]="labelPosition">
-        <mat-checkbox class="example-margin" value="after">after</mat-checkbox>
-        <mat-checkbox class="example-margin" value="before">before</mat-checkbox>
-      </mat-checkbox-group>
-    </section>
     <div class="mat-row">
       <div class="mat-col-quarter">
         <section class="checkbox" align="left">
 
           <h3>*Select one*</h3>
           <p>
-            <mat-checkbox formControlName="packed" value="1">Has this order been packed</mat-checkbox>
+            <input type="checkbox" name="test" [checked]="currentlyChecked === check_box_type.READY_FOR_DELIVERY"
+              (click)="selectCheckBox(check_box_type.READY_FOR_DELIVERY)">Ready for Delivery
           </p>
           <p>
-            <mat-checkbox formControlName="delivery" value="2">Available for delivery</mat-checkbox>
-          </p>
-          <p>
-            <mat-checkbox formControlName="collection" value="3">Available for delivery</mat-checkbox>
+            <input type="checkbox" name="test" [checked]="currentlyChecked === check_box_type.READY_FOR_COLLECTION"
+              (click)="selectCheckBox(check_box_type.READY_FOR_COLLECTION)">Ready for Collection
           </p>
         </section>
       </div>
