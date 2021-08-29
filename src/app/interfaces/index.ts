@@ -203,9 +203,15 @@ export interface OnlineSales {
   orderStatusDescription: string;
   customerId:string;
   customerName: string;
-  customerSurame: string;
+  customerSurname: string;
   customerBusinessname: string;
-
+  saleAssign: boolean;
+ saleDescription: string;
+salePaymentAmount: number;
+salePaymentDate: string;
+saleReceiveType : boolean;
+saleDate : string;
+paymentTypeDescription : string;
 }
 
 
