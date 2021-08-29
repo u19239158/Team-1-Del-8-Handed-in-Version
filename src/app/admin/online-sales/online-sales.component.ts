@@ -60,7 +60,7 @@ readOnlineSales(): void {
    })
 }
 
-updateToCollected(aleID: sany) {
+updateToCollected(saleID: any) {
   //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
 this.OnlineSalesService.GetSaleByID(saleID).subscribe(res=>{
   this.sale =res;

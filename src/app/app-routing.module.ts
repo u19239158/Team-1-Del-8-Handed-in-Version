@@ -221,7 +221,7 @@ const routes: Routes = [
     component: AssignDeliveryOrderComponent,
   },
   {
-    path: 'assigncourierdelivery',
+    path: 'assigncourierdelivery/:id',
     component: AssignCourierDeliveryComponent,
   },
   {
