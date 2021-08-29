@@ -14,9 +14,8 @@ import { OnlineSalesService } from 'src/app/services/online-sales/online-sales.s
   templateUrl: './online-sales.component.html',
   styleUrls: ['./online-sales.component.scss']
 })
+
 export class OnlineSalesComponent implements OnInit {
-
-
   onlineSale: OnlineSales;
   onlineSales: Observable<OnlineSales[]>;
   dataSource = new MatTableDataSource<OnlineSales>();
@@ -60,16 +59,14 @@ readOnlineSales(): void {
    })
 }
 
-updateToCollected(
-  // aleID: sany
-  ) {
-//   //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
-// this.OnlineSalesService.GetSaleByID(saleID).subscribe(res=>{
-//   this.sale =res;
-//   console.log(this.sale)
-//   this.OnlineSalesService.updateToCollected(this.sale).subscribe(res =>{
-//     console.log(res)});
-// });
+updateToCollected(saleID: any) {
+  //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
+this.OnlineSalesService.GetSaleByID(saleID).subscribe(res=>{
+  this.sale =res;
+  console.log(this.sale)
+  this.OnlineSalesService.updateToCollected(this.sale).subscribe(res =>{
+    console.log(res)});
+});
   
 //   window.location.reload();
 
