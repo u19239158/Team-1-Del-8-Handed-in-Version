@@ -17,24 +17,24 @@ import { OnlineSalesService } from 'src/app/services/online-sales/online-sales.s
 export class OnlineSalesComponent implements OnInit {
 
 
-onlineSale: OnlineSales;
-onlineSales: Observable<OnlineSales[]>;
-dataSource = new MatTableDataSource<OnlineSales>();
-displayedColumns: string[] = ['saleNumber','customer','business', 'saleDate','orderStatus','actions'];
-OnlineSales: OnlineSales[];
-searchValue: number;
-searchWord: string;
+  onlineSale: OnlineSales;
+  onlineSales: Observable<OnlineSales[]>;
+  dataSource = new MatTableDataSource<OnlineSales>();
+  displayedColumns: string[] = ['saleNumber', 'customer', 'business', 'saleDate', 'orderStatus', 'actions'];
+  OnlineSales: OnlineSales[];
+  searchValue: number;
+  searchWord: string;
   element: any;
   route: any;
   id: number;
 public sale : any =[];
 
-constructor(private OnlineSalesService: OnlineSalesService,
-            private snack: MatSnackBar,
-            private router: Router,
-            private dialog: MatDialog,
-            private httpClient: HttpClient
-            ) {}
+  constructor(private OnlineSalesService: OnlineSalesService,
+    private snack: MatSnackBar,
+    private router: Router,
+    private dialog: MatDialog,
+    private httpClient: HttpClient
+  ) { }
 
 ngOnInit(): void {
   this.readOnlineSales();
@@ -60,7 +60,7 @@ readOnlineSales(): void {
    })
 }
 
-updateToCollected(saleID: any) {
+updateToCollected(aleID: sany) {
   //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
 this.OnlineSalesService.GetSaleByID(saleID).subscribe(res=>{
   this.sale =res;
@@ -82,24 +82,36 @@ updateToDelivered(saleID: any) {
       window.location.reload();
   });
 
-  
-
 }
+
+viewSale(saleID: any) {
+  //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
+this.OnlineSalesService.GetSaleByID(saleID).subscribe(res=>{
+  this.sale =res;
+  console.log(this.sale)
+  // this.OnlineSalesService.updateToCollected(this.sale).subscribe(res =>{
+  //   console.log(res)});
+});}
 
 
 filter() {
   const filter = (e) => {
 
-    return e.customerName && e.customerName.toLowerCase().includes(this.searchWord.toLowerCase()) ||
-    e.customerSurname && e.customerSurname.toLowerCase().includes(this.searchWord.toLowerCase()) ||
-    e.customerBusinessName && e.customerBusinessName.toLowerCase().includes(this.searchWord.toLowerCase()) ||
-      e.saleOrderDate && e.saleOrderDate.toLowerCase().includes(this.searchWord.toLowerCase()) ||
-      e.orderStatusDescription &&  e.orderStatusDescription.toString().toLowerCase().includes(this.searchWord.toLowerCase())
-  }
-  this.dataSource = new MatTableDataSource(this.OnlineSales.filter(filter))
-}
+      return e.customerName && e.customerName.toLowerCase().includes(this.searchWord.toLowerCase()) ||
+        e.customerSurname && e.customerSurname.toLowerCase().includes(this.searchWord.toLowerCase()) ||
+        e.customerBusinessName && e.customerBusinessName.toLowerCase().includes(this.searchWord.toLowerCase()) ||
+        e.saleOrderDate && e.saleOrderDate.toLowerCase().includes(this.searchWord.toLowerCase()) ||
+        e.orderStatusDescription && e.orderStatusDescription.toString().toLowerCase().includes(this.searchWord.toLowerCase())
+    }
 
-Close(){
-  this.router.navigateByUrl('/');
-}
+    this.dataSource = new MatTableDataSource(this.OnlineSales.filter(filter))
+  }
+
+  parseInteger(value) {
+    return parseInt(value)
+  }
+
+  Close() {
+    this.router.navigateByUrl('/');
+  }
 }

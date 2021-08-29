@@ -8,6 +8,7 @@ import { Deliveryshift } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { DeliveryshiftService } from 'src/app/services/deliveryshift/deliveryshift.service';
 import { HttpClient } from '@angular/common/http';
+enum CheckBoxType { ASSIGN_SHIFT, NONE };
 
 // import { GlobalErrorComponent } from 'src/app/modals/globals/global-error/global-error.component';
 
@@ -29,6 +30,8 @@ export class AssignLocalDeliveryComponent implements OnInit {
   deliveryShift: Observable<Deliveryshift[]>;
   dataSource = new MatTableDataSource<Deliveryshift>();
   displayedColumns: string[] = ['startTime', 'endTime', 'dayOfTheWeek', 'employeeName', 'noOfDeliveries', 'SelectOrderDeliveryShift'];
+  displayedColumn: string[] = ['saleId', 'customerName', 'customerBusinessName', 'deliverydistance', 'orderAddress', 'deliverycourier'];
+
 
   constructor(private deliveryshiftService: DeliveryshiftService,
     private snack: MatSnackBar,
@@ -44,6 +47,19 @@ export class AssignLocalDeliveryComponent implements OnInit {
       this.DeliveryShifts = result;
     });
 
+  }
+
+  check_box_type = CheckBoxType;
+  currentlyChecked: CheckBoxType;
+
+  selectCheckBox(targetType: CheckBoxType) {
+    // If the checkbox was already checked, clear the currentlyChecked variable
+    if (this.currentlyChecked === targetType) {
+      this.currentlyChecked = CheckBoxType.NONE;
+      return;
+    }
+
+    this.currentlyChecked = targetType;
   }
 
   readDeliveryshifts(): void {

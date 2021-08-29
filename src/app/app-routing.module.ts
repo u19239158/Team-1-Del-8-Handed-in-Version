@@ -60,7 +60,7 @@ import { WeeklySaleOrdersReportComponent } from './reports/weekly-sale-orders-re
 import { PackingReportComponent } from './reports/packing-report/packing-report.component';
 import { StockLevelReportComponent } from './reports/stock-level-report/stock-level-report.component';
 import { DeliveryReportComponent } from './reports/delivery-report/delivery-report.component';
-
+import { ViewdeliveryshiftscheduleComponent } from './deliveryshift/viewdeliveryshiftschedule/viewdeliveryshiftschedule.component';
 import { ViewSaleComponent } from './admin/online-sales/view-sale/view-sale.component';
 
 const routes: Routes = [
@@ -113,7 +113,7 @@ const routes: Routes = [
     component: SpecialsComponent
   },
   {
-    path: 'specialAdd',
+    path: 'specialAdd/:id',
     component: AddEditSpecialComponent
   },
   {
@@ -155,7 +155,12 @@ const routes: Routes = [
   {
     path: 'editDeliveryShift/:id',
     component: AddEditDeliveryshiftsComponent
-  }, {
+  },
+  {
+    path: 'viewdeliveryshiftschedule',
+    component: ViewdeliveryshiftscheduleComponent
+  },
+  {
     path: 'productCategory',
     component: ProductcategorysComponent,
   },
@@ -240,7 +245,7 @@ const routes: Routes = [
     component: OnlineSalesComponent,
   },
   {
-    path: 'viewSale',
+    path: 'viewSale/:id',
     component: ViewSaleComponent,
   },
   {

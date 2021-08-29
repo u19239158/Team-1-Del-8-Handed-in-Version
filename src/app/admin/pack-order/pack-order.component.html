@@ -3,19 +3,18 @@
   <h2>Pack Order</h2>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-
     <div class="mat-row">
       <div class="mat-col-quarter">
         <section class="checkbox" align="left">
+
           <h3>*Select one*</h3>
           <p>
-            <mat-checkbox formControlName="packed">Has this order been packed</mat-checkbox>
+            <input type="checkbox" name="test" [checked]="currentlyChecked === check_box_type.READY_FOR_DELIVERY"
+              (click)="selectCheckBox(check_box_type.READY_FOR_DELIVERY)">Ready for Delivery
           </p>
           <p>
-            <mat-checkbox formControlName="delivery">Available for delivery</mat-checkbox>
-          </p>
-          <p>
-            <mat-checkbox formControlName="collection">Available for delivery</mat-checkbox>
+            <input type="checkbox" name="test" [checked]="currentlyChecked === check_box_type.READY_FOR_COLLECTION"
+              (click)="selectCheckBox(check_box_type.READY_FOR_COLLECTION)">Ready for Collection
           </p>
         </section>
       </div>

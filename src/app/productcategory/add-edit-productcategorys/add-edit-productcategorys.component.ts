@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Productcategory } from 'src/app/interfaces';
+import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-add-edit-productcategorys',
@@ -20,14 +21,42 @@ export class AddEditProductcategorysComponent implements OnInit {
     submitted = false;
     productcategory: Productcategory;
     productcategorys: Observable<Productcategory[]>
+    path: string;
+    selectedImage: File;
+    url : string;
+    image : string = null;
+    downloadURL: Observable<string>;
 
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private ProductcategoryService: ProductcategoryService
+        private ProductcategoryService: ProductcategoryService,
+        private storage : AngularFireStorage
     ) {}
 
+
+    async upload(event) {    
+      this.path = event.target.files[0]
+      const filePath = 'test';
+      const task = this.storage.upload('/images'+Math.random()+filePath, this.path);
+      const ref = this.storage.ref(filePath);
+      // upload image, save url
+      await task;
+      console.log('Image uploaded!');
+      this.image = await ref.getDownloadURL().toPromise();
+      console.log( this.image)
+  
+      const formOptions: AbstractControlOptions = {};
+      this.form = this.formBuilder.group({
+        productCategoryImage : this.image,
+
+        productCategoryDescription: ['', [Validators.required, Validators.maxLength(50)]],
+  
+      }, formOptions);
+      
+    }
+    
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
@@ -37,6 +66,7 @@ export class AddEditProductcategorysComponent implements OnInit {
       {
         //id: ['', [Validators.required]],
         productCategoryDescription: ['', [Validators.required, Validators.maxLength(50)]],
+        productCategoryImage : this.image,
        }, formOptions);
 
     if (!this.isAddMode) {
@@ -45,8 +75,9 @@ export class AddEditProductcategorysComponent implements OnInit {
         console.log(res)
         this.form = this.formBuilder.group({
           id: [this.productcategory.productCategoryId, Validators.required],
+          productCategoryImage : this.image,
           productCategoryDescription: [this.productcategory.productCategoryDescription, [Validators.required, Validators.maxLength(50)]],
-          productCategoryImage: [this.productcategory.productCategoryImage, []]
+         // productCategoryImage: [this.productcategory.productCategoryImage, []]
           }, formOptions);
       })
     }

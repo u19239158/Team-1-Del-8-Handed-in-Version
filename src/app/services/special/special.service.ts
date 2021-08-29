@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { Special } from 'src/app/interfaces';
+import { Productitem, Special } from 'src/app/interfaces';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -28,6 +28,10 @@ export class SpecialService {
     return this.http.get<Special>(`${this.server}Special/GetSpecialsByID/${specialID}`).pipe(map(res => res));
   }
 
+  getProductItemByID(ProductItemid):  Observable<Productitem>  {
+    return this.http.get<Productitem>(`${this.server}Productitem/GetPItemsByID/${ProductItemid}`).pipe(map(res => res));
+  }
+
   getSpecialByProductItemID(productItemId):  Observable<Special>  {
     return this.http.get<Special>(`${this.server}Special/GetSpecialsByProductItemId/${productItemId}`).pipe(map(res => res));
   }
@@ -40,9 +44,17 @@ export class SpecialService {
     return this.http.put<Special[]>(`${this.server}Special/UpdateSpecials`, Special,this.httpOptions);
   }
 
-    DeleteSpecial(specialId):  Observable<Special>  {
-    return this.http.delete<Special>(`${this.server}Special/DeleteSpecials/${specialId}`).pipe(map(res => res));
+  // DeleteSpecials(Special:Special):  Observable<Special[]>  {
+  //   return this.http.delete<Special[]>(`${this.server}Special/DeleteSpecials`).pipe(map(res => res))
+  // }
+
+  DeleteSpecials():  Observable<Special>  {
+    return this.http.delete<Special>(`${this.server}Special/DeleteSpecials`).pipe(map(res => res));
   }
+
+  //   DeleteSpecial(specialId,Special:Special):  Observable<Special[]>  {
+  //   return this.http.delete<Special[]>(`${this.server}Special/DeleteSpecials/${specialId}`).pipe(map(res => res));
+  // }
 }
   // getAll(): Special[] {
   //   const specials = JSON.parse(localStorage.getItem(this.KEY));
