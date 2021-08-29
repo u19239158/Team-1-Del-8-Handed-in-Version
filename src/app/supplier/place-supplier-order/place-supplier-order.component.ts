@@ -1,4 +1,4 @@
-//import { QuantityModal } from './quantity-modal';
+import { QuantityModal } from './quantity-modal';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA }from '@angular/material/dialog';
@@ -46,7 +46,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
     private http: HttpClient,
     private dialog: MatDialog,
     private router: Router,
-    public dialogRef: MatDialogRef<PlaceSupplierOrder>
+    // public dialogRef: MatDialogRef<PlaceSupplierOrder>
   ) { }
 
   ngOnInit(): void {
@@ -75,17 +75,17 @@ export class PlaceSupplierOrderComponent implements OnInit {
       })
   }
 
-  openDialog(): void {
-    // const dialogRef = this.dialog.open(QuantityModal, {
-    //   width: '250px',
-      // element: {name: this.quantity, animal: this.animal}
-    // });
+  // openDialog(): void {
+  //   // const dialogRef = this.dialog.open(QuantityModal, {
+  //   //   width: '250px',
+  //     // element: {name: this.quantity, animal: this.animal}
+  //   // });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    //   //this.Quantity = result;
-    // });
-  }
+  //   // dialogRef.afterClosed().subscribe(result => {
+  //   //   console.log('The dialog was closed');
+  //   //   //this.Quantity = result;
+  //   // });
+  // }
 
 
   filter(){
@@ -100,7 +100,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
   }
 
   placeOrder(){
-    const confirm = this.dialog.open(GlobalConfirmComponent, {
+    const confirm = this.dialog.open(QuantityModal, {
       disableClose: true,
      });
 

@@ -1,8 +1,6 @@
-import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-
-
+import { MatDialogModule } from '@angular/material/dialog';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,6 +19,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { GlobalErrorComponent } from './modals/globals/global-error/global-error.component';
 import { GlobalConfirmComponent } from './modals/globals/global-confirm/global-confirm.component';
+import { LoginComponent } from './login/login.component';
 import { EmployeesComponent } from './employee/employees/employees.component';
 import { AddEditEmployeesComponent } from './employee/add-edit-employees/add-edit-employees.component';
 import { MatListModule } from '@angular/material/list';
@@ -137,7 +136,7 @@ const firebaseConfig = {
     ViewSaleComponent,
     // ReportsComponent,
     ViewdeliveryshiftscheduleComponent,
-
+    LoginComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
@@ -167,6 +166,6 @@ const firebaseConfig = {
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [AgendaService, DayService, WeekService, WorkWeekService, MonthService, DragAndDropService, ResizeService],
   bootstrap: [AppComponent],
- 
+
 })
 export class AppModule { }

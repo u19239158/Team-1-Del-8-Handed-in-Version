@@ -40,7 +40,7 @@
   <div>
     <table mat-table [dataSource]="dataSource" matSort>
       <!-- Position Column -->
-    <ng-container matColumnDef="checked" (click)="openDialog()">
+    <ng-container matColumnDef="checked" (click)="placeOrder()">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Check </th>
       <td mat-cell *matCellDef="let element">
         <mat-checkbox [(ngModel)]="element.checked"></mat-checkbox>

@@ -12,7 +12,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
  */
 export class GlobalConfirmComponent implements OnInit {
   /**
-   * 
+   *
    * @param dialogRef {MatDialogRef<GlobalConfirmComponent>} this parameter controls the modal component and can call methods to close the modal
    */
   constructor(private dialogRef: MatDialogRef<GlobalConfirmComponent>) { }

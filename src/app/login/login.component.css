@@ -1,0 +1,19 @@
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  top: 0%;
+  background-color: white;
+}
+
+.picture {
+  left: 0;
+  background-color: white;
+}
+
+.information {
+  top: 20px;
+  right: 0;
+  text-align: center;
+  background-color: white;
+}

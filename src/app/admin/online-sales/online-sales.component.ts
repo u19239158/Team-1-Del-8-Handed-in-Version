@@ -60,16 +60,18 @@ readOnlineSales(): void {
    })
 }
 
-updateToCollected(aleID: sany) {
-  //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
-this.OnlineSalesService.GetSaleByID(saleID).subscribe(res=>{
-  this.sale =res;
-  console.log(this.sale)
-  this.OnlineSalesService.updateToCollected(this.sale).subscribe(res =>{
-    console.log(res)});
-});
+updateToCollected(
+  // aleID: sany
+  ) {
+//   //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
+// this.OnlineSalesService.GetSaleByID(saleID).subscribe(res=>{
+//   this.sale =res;
+//   console.log(this.sale)
+//   this.OnlineSalesService.updateToCollected(this.sale).subscribe(res =>{
+//     console.log(res)});
+// });
   
-  window.location.reload();
+//   window.location.reload();
 
 }
 
