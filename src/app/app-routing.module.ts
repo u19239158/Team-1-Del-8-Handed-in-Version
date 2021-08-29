@@ -113,7 +113,7 @@ const routes: Routes = [
     component: SpecialsComponent
   },
   {
-    path: 'specialAdd',
+    path: 'specialAdd/:id',
     component: AddEditSpecialComponent
   },
   {

@@ -19,7 +19,7 @@ export class SpecialsComponent implements OnInit {
   Specials: Special[];
   searchValue: string;
   dataNotFound: boolean;
-
+public specspeiial : any = [];
   specials: Special[] = [];
   special: Observable<Special[]>;
   dataSource = new MatTableDataSource<Special>();
@@ -61,20 +61,24 @@ export class SpecialsComponent implements OnInit {
     this.dataSource = new MatTableDataSource(data)
   }
 
-  deleteSpecial(Special: Special) {
+  deleteSpecial(specialID: any, special :Special) {
+    this.specialService.getSpecialByID(specialID).subscribe(res=>{
+      this.specspeiial =res;
+      console.log(this.specspeiial)
     const confirm = this.dialog.open(GlobalConfirmComponent, {
       disableClose: true,
     });
 
     confirm.afterClosed().subscribe(res => {
       if (res) {
-        this.specialService.DeleteSpecial(Special).subscribe(res => {
+        this.specialService.DeleteSpecials().subscribe(res => {
           this.readSpecials();
         });
 
       }
     });
-  }
+  })
+}
 
 
 }
