@@ -14,9 +14,8 @@ import { OnlineSalesService } from 'src/app/services/online-sales/online-sales.s
   templateUrl: './online-sales.component.html',
   styleUrls: ['./online-sales.component.scss']
 })
+
 export class OnlineSalesComponent implements OnInit {
-
-
   onlineSale: OnlineSales;
   onlineSales: Observable<OnlineSales[]>;
   dataSource = new MatTableDataSource<OnlineSales>();
@@ -69,7 +68,7 @@ this.OnlineSalesService.GetSaleByID(saleID).subscribe(res=>{
     console.log(res)});
 });
   
-  window.location.reload();
+//   window.location.reload();
 
 }
 
