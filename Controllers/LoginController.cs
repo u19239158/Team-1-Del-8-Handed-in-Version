@@ -11,6 +11,10 @@ using NKAP_API_2.Models;
 using System.Dynamic;
 using System.Security.Cryptography;
 using System.Text;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+
 
 
 namespace NKAP_API_2.Controllers

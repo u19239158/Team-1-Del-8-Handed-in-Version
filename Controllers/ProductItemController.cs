@@ -39,9 +39,7 @@ namespace NKAP_API_2.Controllers
                         CategoryTypeDescription = t.ItemDescription,
                         ProductItemName = a.ProductItemName,
                         ProductItemCost = a.ProductItemCost,
-                        QuantityOnHand = a.QuantityOnHand,
-
-
+                        QuantityOnHand = a.QuantityOnHand
                     });
 
                 return Ok(productItems);

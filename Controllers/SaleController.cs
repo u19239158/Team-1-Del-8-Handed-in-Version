@@ -330,14 +330,14 @@ namespace NKAP_API_2.Controllers
                 (su, so) => new
                 {
                     SaleID = su.SaleId,
-                    SaleDescription = su.SaleOrderDescription,
-                    SaleDate = su.SaleOrderDate,
-                    SaleAssign = su.SaleOrderAssign,
-                    SaleReceiveType = su.SaleOrderRecieveType,
+                    SaleOrderDescription = su.SaleOrderDescription,
+                    SaleOrderDate = su.SaleOrderDate,
+                    SaleOrderAssign = su.SaleOrderAssign,
+                    SaleOrderRecieveType = su.SaleOrderRecieveType,
                     SalePaymentDate = su.PaymentDate,
                     SalePaymentAmount = su.PaymentAmount,
                     OrderStatusID = so.OrderStatusId,
-                    OrderStatusDesc = so.OrderStatusDescription,
+                    OrderStatusDescription = so.OrderStatusDescription,
                     PaymentTypeID = su.PaymentTypeId,
                     CustomerID = su.CustomerId
 
@@ -348,14 +348,14 @@ namespace NKAP_API_2.Controllers
                 (sor, sd) => new
                 {
                     SaleID = sor.SaleID,
-                    SaleDescription = sor.SaleDescription,
-                    SaleDate = sor.SaleDate,
-                    SaleAssign = sor.SaleAssign,
-                    SaleReceiveType = sor.SaleReceiveType,
+                    SaleOrderDescription = sor.SaleOrderDescription,
+                    SaleOrderDate = sor.SaleOrderDate,
+                    SaleOrderAssign = sor.SaleOrderAssign,
+                    SaleOrderRecieveType = sor.SaleOrderRecieveType,
                     SalePaymentDate = sor.SalePaymentDate,
                     SalePaymentAmount = sor.SalePaymentAmount,
                     OrderStatusID = sor.OrderStatusID,
-                    OrderStatusDesc = sor.OrderStatusDesc,
+                    OrderStatusDescription = sor.OrderStatusDescription,
                     PaymentTypeID = sor.PaymentTypeID,
                     PaymentTypeDescription = sd.PaymentTypeDescription,
                     CustomerID = sor.CustomerID
@@ -367,14 +367,14 @@ namespace NKAP_API_2.Controllers
                 (sor, sd) => new
                 {
                     CustomerID = sor.CustomerID,
-                    SaleDescription = sor.SaleDescription,
-                    SaleDate = sor.SaleDate,
-                    SaleAssign = sor.SaleAssign,
-                    SaleReceiveType = sor.SaleReceiveType,
+                    SaleOrderDescription = sor.SaleOrderDescription,
+                    SaleOrderDate = sor.SaleOrderDate,
+                    SaleOrderAssign = sor.SaleOrderAssign,
+                    SaleOrderRecieveType = sor.SaleOrderRecieveType == true ? "Collection" : "Delivery",
                     SalePaymentDate = sor.SalePaymentDate,
                     SalePaymentAmount = sor.SalePaymentAmount,
                     OrderStatusID = sor.OrderStatusID,
-                    OrderStatusDesc = sor.OrderStatusDesc,
+                    OrderStatusDescription = sor.OrderStatusDescription,
                     PaymentTypeID = sor.PaymentTypeID,
                     PaymentTypeDescription = sor.PaymentTypeDescription,
                     CustomerName = sd.CustomerName,

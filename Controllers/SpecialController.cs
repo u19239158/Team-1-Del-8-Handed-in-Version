@@ -92,6 +92,7 @@ namespace NKAP_API_2.Controllers
                    SpecialEndDate = a.SpecialEndDate,
                    SpecialImage = a.SpecialImage,
                    ProductItemName = t.ProductItemName,
+                   prod = t.ProductItemCost,
                    ProductItemId = t.ProductItemId
 
                }).First(ss => ss.ProductItemId == productItemId);
@@ -110,15 +111,32 @@ namespace NKAP_API_2.Controllers
                t => t.SpecialId,
                (a, t) => new
                {
-                   SpecialID = a.SpecialId,
+                   SpecialId = a.SpecialId,
                    SpecialPrice = t.SpecialPrice,
                    ProductSpecialId = t.ProductSpecialId,
                    SpecialDescription = a.SpecialDescription,
                    SpecialStartDate = a.SpecialStartDate,
                    SpecialEndDate = a.SpecialEndDate,
                    SpecialImage = a.SpecialImage,
+                   ProductItemId = t.ProductItemId
 
-               }).First(ss => ss.SpecialID == speciaid);
+               }).Join(_db.ProductItems,
+               a => a.ProductItemId,
+               t => t.ProductItemId,
+               (a, t) => new
+               {
+                   SpecialId = a.SpecialId,
+                   SpecialPrice = a.SpecialPrice,
+                   ProductSpecialId = a.ProductSpecialId,
+                   SpecialDescription = a.SpecialDescription,
+                   SpecialStartDate = a.SpecialStartDate,
+                   SpecialEndDate = a.SpecialEndDate,
+                   SpecialImage = a.SpecialImage,
+                   ProductItemName = t.ProductItemName,
+                   ProductItemCost = t.ProductItemCost,
+                   ProductItemId = t.ProductItemId
+
+               }).First(ss => ss.SpecialId == speciaid);
             return Ok(special);
         }
 
@@ -185,12 +203,12 @@ namespace NKAP_API_2.Controllers
             _db.Specials.Add(special);
             _db.SaveChanges();
 
-
+            var discount = _db.Discounts.FirstOrDefault(zz => zz.DiscountId == model.DiscountId);
             ProductSpecial PSpecial = new ProductSpecial();
             {
                 PSpecial.ProductItemId = model.ProductItemId;
                 PSpecial.SpecialId = special.SpecialId;
-                PSpecial.SpecialPrice = model.ProductItemCost - (model.ProductItemCost * model.DiscountPercentage);
+                PSpecial.SpecialPrice = model.ProductItemCost - (model.ProductItemCost *  discount.DiscountPercentage);
             }
 
             _db.ProductSpecials.Add(PSpecial);
@@ -233,10 +251,13 @@ namespace NKAP_API_2.Controllers
         [Route("DeleteSpecials/{specialid}")] //route
         [HttpDelete]
         //Delete Specialss
-        public IActionResult DeleteSpecials(int specialid, int productspecialId)
+        public IActionResult DeleteSpecials(int specialid)
         {
-            var Pspecial = _db.ProductSpecials.Where(zz=> zz.ProductSpecialId == productspecialId);
-            _db.ProductSpecials.Remove((ProductSpecial)Pspecial);//Delete Record
+            var spec = _db.ProductSpecials.FirstOrDefault(zz => zz.SpecialId == specialid);
+            
+            //var Pspecial = _db.ProductSpecials.Find(productspecialId);
+            _db.ProductSpecials.Remove(spec);
+            //_db.ProductSpecials.Remove(Pspecial);//Delete Record
             _db.SaveChanges();
 
             var special = _db.Specials.Find(specialid);
