@@ -13,8 +13,10 @@ import html2canvas from 'html2canvas';
   styleUrls: ['./delivery-report.component.scss']
 })
 export class DeliveryReportComponent implements OnInit {
+  Reports: Reports;
   @ViewChild('htmlData') htmlData:ElementRef | any;
    constructor(private service: ReportServiceService 
+   
     ) { }
 
    

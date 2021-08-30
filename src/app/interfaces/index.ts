@@ -217,13 +217,24 @@ export interface OnlineSales {
   customerName: string;
   customerSurname: string;
   customerBusinessname: string;
+  customerCellphoneNumber: number;
+  customerEmailAddress: string;
   saleAssign: boolean;
- saleDescription: string;
-salePaymentAmount: number;
-salePaymentDate: string;
-saleReceiveType : boolean;
-saleDate : string;
-paymentTypeDescription : string;
+  saleDescription: string;
+  salePaymentAmount: number;
+  salePaymentDate: string;
+  saleReceiveType: boolean;
+  saleDate: string;
+  paymentTypeDescription: string;
+  addressId: number;
+  addressLine1: string;
+  addressLine2: string;
+  addressLine3: string;
+  addressPostalCode: string;
+  courierName: string;
+  courierTypeDescription: string;
+  courierEmail: string;
+  courierNumber: string;
 }
 
 

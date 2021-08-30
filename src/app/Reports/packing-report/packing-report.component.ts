@@ -17,6 +17,8 @@ export class PackingReportComponent implements OnInit {
   Reports: Reports[] = [];
   report: Reports;
   reports: Observable<Reports[]>;
+  string : string;
+  
   dataSource = new MatTableDataSource<Reports>();
   displayedColumns: string[] = ['saleId', 'saleOrderDate','saleOrderDescription', 'saleOrderRecieveType', 'assignedTo', 'paymentDate'];
 
@@ -26,13 +28,14 @@ export class PackingReportComponent implements OnInit {
   ngOnInit(): void {
     this.readPackingReport();
 
-    this.ReportServiceService.PackingReport().subscribe((result: Reports[]) => {
-      this.Reports = result;
-    });
+    // this.ReportServiceService.PackingReport().subscribe((result: Reports[]) => {
+    //   this.Reports = result;
+    // });
   }
 
   readPackingReport(): void {
-     this.ReportServiceService.PackingReport().subscribe(res => {
+    //const Report :Reports;
+     this.ReportServiceService.PackingReport(this.report).subscribe(res => {
        console.log(res)
        this.dataSource = new MatTableDataSource(res)
      })

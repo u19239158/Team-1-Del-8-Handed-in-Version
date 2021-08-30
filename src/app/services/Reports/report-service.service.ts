@@ -1,7 +1,7 @@
-import { ReportParameters } from './../../interfaces/index';
+import { ReportParameters, Reports } from './../../interfaces/index';
 //import { Reports } from './../../interfaces/index';
 import { Injectable } from '@angular/core';
-import { Reports } from 'src/app/interfaces';
+//import { Reports } from 'src/app/interfaces';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { last, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -21,10 +21,18 @@ export class ReportServiceService {
 
   constructor(private http: HttpClient) {}
 
-PackingReport(): Observable<Reports[]>
+// PackingReport(): Observable<Reports[]>
+// {
+//   return this.http.post<Reports[]>(`${this.server}Report/GetPackingReportData`).pipe(map(res => res))
+// }
+PackingReport(Reports : Reports): Observable<any>
 {
-  return this.http.get<Reports[]>(`${this.server}Report/GetPackingReportData`).pipe(map(res => res))
+  return this.http.post(`${this.server}Report/GetPackingReportData`, Reports).pipe(map(res => res))
 }
+
+// PackingReport(Reports:Reports):  Observable<Reports[]>  {
+//   return this.http.post<Reports[]>(`${this.server}Report/GetPackingReportData`, Reports,this.httpOptions);
+// }
 
 DeliveryReport(): Observable<any>
 {

@@ -80,17 +80,30 @@ export class AssignCourierDeliveryComponent implements OnInit {
 
   getEmail(courierID: any, saleId : any) {
     //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
-  this.AssignCourierDeliveryService.getCourierByID(courierID).subscribe(res=>{
-    this.couriers =res;
-    console.log(this.couriers)
-  });
-    this.AssignCourierDeliveryService.GetComplexSaleByID(this.id).subscribe(res=>{
+  this.AssignCourierDeliveryService.getCourierByID(courierID).subscribe(data=>{
+    this.couriers = data
+    console.log(data)
+
+    this.AssignCourierDeliveryService.GetFullSaleByID(this.id).subscribe(res=>{
       this.sales =res;
-      console.log(this.sales)
-    // this.AssignCourierDeliveryService.getCourierByID(this.couriers).subscribe(res =>{
-    //   console.log(res)})
-    const EmailData = this.sales + this.couriers
-    console.log(EmailData)
+      console.log("Result" ,this.sales)});
+
+    
+    this.AssignCourierDeliveryService.NotifyCourier(this.sales,this.couriers.courierEmail).subscribe(res => {
+      console.log(res)});
+  // }) ||
+  // this.AssignCourierDeliveryService.GetFullSaleByID(this.id).subscribe(data=>{
+  //   this.sales =  data;
+    
+  // });console.log(this.couriers + this.sales)
+  //   this.AssignCourierDeliveryService.GetFullSaleByID(this.id).subscribe(res=>{
+  //     this.sales =res;
+  //     console.log("Result" ,this.sales) 
+
+  //   // this.AssignCourierDeliveryService.getCourierByID(this.couriers).subscribe(res =>{
+  //   //   console.log(res)})
+  //   // const EmailData = this.sales + this.couriers
+  //   // console.log(EmailData)
   });
 
   // Close() {
