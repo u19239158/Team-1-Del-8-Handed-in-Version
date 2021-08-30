@@ -24,7 +24,7 @@ namespace NKAP_API_2.Controllers
         [Route("GetPackingReportData")] //route
         [HttpGet]
         //get Sales with status "needs packing"
-        public IActionResult get(ReportModel model)
+        public IActionResult get()
         {
             //var NeedsPackingSales = _db.Sales.Include(od => od.OrderStatus).Where(od => od.OrderStatus.OrderStatusDescription == "Needs Packing").ToList();
             var NeedsPackingSales = _db.Sales.Join(_db.OrderStatuses,
@@ -49,7 +49,7 @@ namespace NKAP_API_2.Controllers
         [Route("GetDeliveryReportData")] //route
         [HttpGet]
         //get Sales with status "needs packing"
-        public IActionResult Get(ReportModel model)
+        public IActionResult Get( )
         {
             //var NeedsPackingSales = _db.Sales.Include(od => od.OrderStatus).Where(od => od.OrderStatus.OrderStatusDescription == "Needs Packing").ToList();
             var ReadyForDeliveryOrder = _db.Sales.Join(_db.OrderStatuses,

@@ -499,6 +499,7 @@ namespace NKAP_API_2.Controllers
                     CustomerSurname = sd.CustomerSurname,
                     CustomerBusinessName = sd.CustomerBusinessName,
                     CustomerCellphoneNumber = sd.CustomerCellphoneNumber,
+                    
                     CustomerEmailAddress = sd.CustomerEmailAddress,
                     SaleID = sor.SaleID
 

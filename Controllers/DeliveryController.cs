@@ -223,7 +223,8 @@ namespace NKAP_API_2.Controllers
                      OrderStatusId = sor.OrderStatusId,
                      CustomerId = sd.CustomerId,
                      CustomerName = sd.CustomerName,
-                     CustomerSurname = sd.CustomerSurname
+                     CustomerSurname = sd.CustomerSurname,
+                     CustomerBusinessName = sd.CustomerBusinessName
 
                  }).Join(_db.Addresses,
                  sor => sor.CustomerId,
@@ -237,6 +238,7 @@ namespace NKAP_API_2.Controllers
                      CustomerId = sor.CustomerId,
                      CustomerName = sor.CustomerName,
                      CustomerSurname = sor.CustomerSurname,
+                     CustomerBusinessName = sor.CustomerBusinessName,
                      AddressId = sd.AddressId,
                      AddressLine1 = sd.AddressLine1,
                      AddressLine2 = sd.AddressLine2,
@@ -256,6 +258,7 @@ namespace NKAP_API_2.Controllers
                      CustomerId = sor.CustomerId,
                      CustomerName = sor.CustomerName,
                      CustomerSurname = sor.CustomerSurname,
+                     CustomerBusinessName = sor.CustomerBusinessName,
                      AddressId = sor.AddressId,
                      AddressLine1 = sor.AddressLine1,
                      AddressLine2 = sor.AddressLine2,
@@ -276,6 +279,7 @@ namespace NKAP_API_2.Controllers
                         CustomerId = sor.CustomerId,
                         CustomerName = sor.CustomerName,
                         CustomerSurname = sor.CustomerSurname,
+                        CustomerBusinessName = sor.CustomerBusinessName,
                         AddressId = sor.AddressId,
                         AddressLine1 = sor.AddressLine1,
                         AddressLine2 = sor.AddressLine2,
@@ -296,6 +300,7 @@ namespace NKAP_API_2.Controllers
                         CustomerId = sor.CustomerId,
                         CustomerName = sor.CustomerName,
                         CustomerSurname = sor.CustomerSurname,
+                        CustomerBusinessName = sor.CustomerBusinessName,
                         AddressId = sor.AddressId,
                         AddressLine1 = sor.AddressLine1,
                         AddressLine2 = sor.AddressLine2,
