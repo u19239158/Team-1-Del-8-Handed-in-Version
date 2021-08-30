@@ -61,8 +61,8 @@ public specspeiial : any = [];
     this.dataSource = new MatTableDataSource(data)
   }
 
-  deleteSpecial(specialID: any, special :Special) {
-    this.specialService.getSpecialByID(specialID).subscribe(res=>{
+  deleteSpecial(special:Special) {
+    this.specialService.getSpecialByID(special).subscribe(res=>{
       this.specspeiial =res;
       console.log(this.specspeiial)
     const confirm = this.dialog.open(GlobalConfirmComponent, {
@@ -71,7 +71,7 @@ public specspeiial : any = [];
 
     confirm.afterClosed().subscribe(res => {
       if (res) {
-        this.specialService.DeleteSpecials().subscribe(res => {
+        this.specialService.DeleteSpecial(special).subscribe(res => {
           this.readSpecials();
         });
 

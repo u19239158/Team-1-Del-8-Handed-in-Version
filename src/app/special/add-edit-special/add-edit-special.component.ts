@@ -44,14 +44,12 @@ export class AddEditSpecialComponent implements OnInit {
       this.productItem = res
       console.log(res)
   });
-
-   
-
     const formOptions: AbstractControlOptions = { };
     this.form = this.formBuilder.group({
       //specialImage: ['', [Validators.required]],
       specialDescription: ['', [Validators.required]],
       discountId: ['', [Validators.required]],
+      // discountPercentage: [0,[Validators.required]],
       //productItemId: [this.special.productItemId,[Validators.required] ],
       specialStartDate: ['', [Validators.required]],
       specialEndDate: ['', [Validators.required]],

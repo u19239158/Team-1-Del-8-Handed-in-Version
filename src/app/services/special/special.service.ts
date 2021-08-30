@@ -52,9 +52,9 @@ export class SpecialService {
     return this.http.delete<Special>(`${this.server}Special/DeleteSpecials`).pipe(map(res => res));
   }
 
-  //   DeleteSpecial(specialId,Special:Special):  Observable<Special[]>  {
-  //   return this.http.delete<Special[]>(`${this.server}Special/DeleteSpecials/${specialId}`).pipe(map(res => res));
-  // }
+    DeleteSpecial(specialId):  Observable<Special[]>  {
+    return this.http.delete<Special[]>(`${this.server}Special/DeleteSpecials/${specialId}`).pipe(map(res => res));
+  }
 }
   // getAll(): Special[] {
   //   const specials = JSON.parse(localStorage.getItem(this.KEY));
