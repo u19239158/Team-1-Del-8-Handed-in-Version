@@ -1,0 +1,16 @@
+
+.container{
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.tile {
+    margin: 0px 15px;
+    text-align: center;
+}
+
+.tile button:hover {
+    transition: 0.3s ease-in-out;
+    transform: scale(1.1);
+}

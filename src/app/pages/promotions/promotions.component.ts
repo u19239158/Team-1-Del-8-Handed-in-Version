@@ -14,9 +14,11 @@ import { CartService } from 'src/app/services/service/cart.service';
 export class PromotionsComponent implements OnInit {
 
   public categoryPromoTypes : any = [];
+  public specials : any = [];
   public promoCategories : any = [];
   public promoproducts : any = [];
   public promoProductItems : any = [];
+  public discountprices : any = [];
   modalItems: any = [];
   constructor(private api : ApiService, private cartService : CartService) { }
 
@@ -38,6 +40,20 @@ export class PromotionsComponent implements OnInit {
 
     })
 
+
+    //getDiscount
+    //discount price content
+    this.api.getDiscount()
+    .subscribe(res=>{
+      this.discountprices=res;
+      console.log(this.discountprices);
+    })
+
+    this.api.GetSpecial()
+    .subscribe(res=>{
+      this.specials=res;
+      console.log(this.specials);
+    })
     //modal product type dropdown
     this.api.getProductItem()
     .subscribe(res=>{

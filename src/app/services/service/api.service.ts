@@ -12,6 +12,20 @@ export interface Product
   Quantity_On_hand : number;
 }
 
+export interface Special {
+  specialID: number;
+  specialImage: string;
+  specialDescription: string;
+  specialPrice: string;
+  specialStartDate: string;
+  specialEndDate: string;
+  discountId: number;
+  productItemId: number;
+  productItemCost: number;
+  discountPercentage:number;
+}
+
+
 export interface CategoryType
 {
   ProductCategoryID : number;
@@ -32,13 +46,16 @@ export interface ProductItem
   Item_Description : string;
   CategoryType_Image : ImageBitmap;
 }
+export interface Discount
+{
+  DiscountPercentage : number;
+}
 @Injectable({
   providedIn: 'root'
 })
 
 export class ApiService {
   server = "https://localhost:44393/api/";
-  server2 = "https://localhost:44393/api/";
 
   httpOptions ={
     headers: new HttpHeaders({
@@ -85,4 +102,19 @@ export class ApiService {
     }))
   }
 
+  getDiscount(){
+    return this.http.get<Product[]>(`${this.server}Discount/GetDiscount`)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
+
+  GetSpecial():  Observable<Special[]>  {
+    return this.http.get<Special[]>(`${this.server}Special/GetSpecials`)
+    .pipe(map((res:any)=>{
+    return res;
+    }))
+  }
+
+ 
 }

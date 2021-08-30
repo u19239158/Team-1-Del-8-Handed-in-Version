@@ -38,9 +38,6 @@ export class ProductsComponent implements OnInit {
       this.categoryTypes=res;
       console.log(this.categoryTypes);
 
-      this.products.forEach((a:any) => {
-        Object.assign(a,{quantity:1,total:a.productItemCost});      
-      });
     })
 
     //modal product type dropdown
@@ -48,10 +45,6 @@ export class ProductsComponent implements OnInit {
     .subscribe(res=>{
       this.productItems = res;
       console.log(this.productItems);
-
-    this.products.forEach((a:any) => {
-        Object.assign(a,{quantity:1,total:a.productItemCost});      
-      });
     })
     
     // this.cartService.getModalProduct()

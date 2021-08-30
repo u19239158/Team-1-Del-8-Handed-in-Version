@@ -21,33 +21,27 @@
 
 <!-- These are the cards displaying the category types -->
 <div class="row"> 
-  <ng-container *ngFor="let category of categoryPromoTypes">         
+  <ng-container *ngFor="let specials of specials">         
       <div class="card col-md-3">
-          <center>
-            <img src="{{category.categoryTypeImage}}" alt=""></center>
-          
-          <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.categoryTypeDescription}}</p>
-          <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.itemDescription}}</p>
-          
-          <div class="tags has-addons">
-            <span class="tag is-danger">Sale</span>
-            <span class="tag is-danger is-light">20%</span>
-          </div>
-            
+            <center><img src="{{specials.specialImage}}" alt=""></center>
+              
+            <p class="title">{{specials.specialPrice}}</p>
+            <p class="subtitle">{{specials.specialDescription}}</p>
+   
+            <div class="tags has-addons">
+              <span class="tag is-danger">Sale starts</span>
+              <span class="tag is-danger is-light">{{specials.specialStartDate | date:"dd/MM/yy"}}</span>
+            </div>
 
-          <button class="button is-info is-rounded is-danger"  (click)=openmodal(category) id="launchModal">More Info</button>
+            <div class="tags has-addons">
+              <span class="tag is-danger">Sale ends</span>
+              <span class="tag is-danger is-light">{{specials.specialEndDate | date:"dd/MM/yy"}}</span>
+            </div>
+            
+            <button class="button is-danger is-rounded"  routerLink="/products">Go to Products</button>               
+
       </div>
   </ng-container>
-
-  
-<!-- <ng-container *ngIf="categoryTypes.productCategoryDesc == 'Screws'">
-  <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">
-    it works!!
-  </p>
-  <div>
-    <center><img src="{{categoryTypes.categoryTypeImage}}" alt="" (click)=modal(category)></center>
-  </div>
-</ng-container> -->
 
 </div>
 

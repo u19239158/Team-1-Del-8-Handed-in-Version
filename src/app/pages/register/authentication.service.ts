@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { JwtRequest } from '../models/jwt-request';
-import { JwtResponse } from '../models/jwt-response';
+import { JwtRequest } from '../../models/jwt-request';
+import { JwtResponse } from '../../models/jwt-response';
 import { tap, shareReplay } from 'rxjs/operators';
-import { DateService } from '../services/service/date.service';
+import { DateService } from '../../services/service/date.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {

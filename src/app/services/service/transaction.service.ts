@@ -26,7 +26,7 @@ export interface Transaction
 export class TransactionService {
   //server = "https://api.paystack.co/transaction/";
   //https://api.paystack.co/transaction/initialize
-server = "https://checkout.paystack.com/";
+server = "https://checkout.paystack.com";
 
   httpOptions ={
     headers: new HttpHeaders({
@@ -37,7 +37,7 @@ server = "https://checkout.paystack.com/";
   //this should be a POST method
   constructor(private http : HttpClient) { }
   initTransaction(): Observable<Transaction[]>{
-    return this.http.get<Transaction[]>(`${this.server}26ho92bd1vjeght`)
+    return this.http.get<Transaction[]>(`${this.server}/26ho92bd1vjeght`)
     .pipe(map((res:any)=>{
       return res;
     }))

@@ -12,7 +12,7 @@
   </div>
   <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
       <ul fxLayout fxLayoutGap="15px" class="navigation-items">
-          <li>         
+          <!-- <li>         
               <div class="field has-addons" >
                 <div class="control" >
                   <input class="input" type="text"  placeholder="search products...">
@@ -23,13 +23,17 @@
                   </a>
                 </div>
               </div>   
-          </li>
+          </li> -->
           <li>
         <a routerLink="cart" class="btn btn-outline">
         <i style="font-size: 30px;" class="fas fa-cart-plus"></i>
         <div style="font-size: 10px;" class="badge bg-dark">{{totalItem}}</div>
-
         </a>
+          </li>
+          <li>
+            <a routerLink="customer" class="btn btn-outline">
+              <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+            </a>
           </li>
       </ul>
   </div>

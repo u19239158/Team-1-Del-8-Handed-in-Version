@@ -16,6 +16,7 @@ import { PromotionsComponent } from './pages/promotions/promotions.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
+import { FilterPipe } from './services/service/filter.pipe';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
       CartComponent,
       HeaderComponent,
       SidenavListComponent,
-      PromotionsComponent
+      PromotionsComponent,
+      FilterPipe
   ],
   imports: [
     BrowserModule,

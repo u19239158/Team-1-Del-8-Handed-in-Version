@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
+import { AngularFireModule } from '@angular/fire';
 import { BehaviorSubject } from 'rxjs';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -85,4 +87,5 @@ export class CartService {
     this.cartItemList = []
     this.productList.next(this.cartItemList);
   }
+
 }

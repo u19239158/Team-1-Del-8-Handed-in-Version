@@ -85,6 +85,23 @@ footer {
   bottom: 0;
   width: 100%;
   background-color: rgb(66, 108, 224);
-  color: white;
+  color: black;
   text-align: center;
+}
+
+
+a {
+  color: black;
+}
+/* visited link */
+a:visited {
+  color: #ffffff;
+}
+/* mouse over link */
+a:hover {
+  color: #42bbbf;
+}
+/* selected link */
+a:active {
+  color: #4400ff;
 }
