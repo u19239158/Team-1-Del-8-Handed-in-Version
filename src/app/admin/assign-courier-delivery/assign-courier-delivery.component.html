@@ -67,7 +67,7 @@
             <!-- </button> -->
           </th>
           <td mat-header-cell *matCellDef="let element">
-            <button class="btn btn-primary center">
+            <button mat-menu-item (click)="getEmail(element.courierID, element.saleId)" class="btn btn-primary center">
               Select
             </button>
           </td>

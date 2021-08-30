@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Courier } from 'src/app/interfaces';
+import { Courier, OnlineSales } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { AssignCourierDeliveryService } from 'src/app/services/assigncourierdelivery/assigncourierdelivery.service';
 import { CourierService } from 'src/app/services/courier/courier.service';
@@ -26,15 +26,24 @@ export class AssignCourierDeliveryComponent implements OnInit {
   courier: Observable<Courier[]>;
   dataSource = new MatTableDataSource<Courier>();
   displayedColumns: string[] = ['name', 'type', 'contactNumber', 'email', 'actions'];
-
+  CourierService: any;
+  sale: any;
+  OnlineSalesService: any;
+  public couriers : any =[];
+  public sales : any =[];
+  id: number;
+  public EmailData : any = [];
+  
   constructor(private AssignCourierDeliveryService: AssignCourierDeliveryService,
     private snack: MatSnackBar,
     private router: Router,
     private dialog: MatDialog,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
+    this.id = +this.route.snapshot.params['id'];
     this.readCouriers();
 
     this.AssignCourierDeliveryService.GeCourier().subscribe((result: Courier[]) => {
@@ -69,8 +78,23 @@ export class AssignCourierDeliveryComponent implements OnInit {
     });
   }
 
+  getEmail(courierID: any, saleId : any) {
+    //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
+  this.AssignCourierDeliveryService.getCourierByID(courierID).subscribe(res=>{
+    this.couriers =res;
+    console.log(this.couriers)
+  });
+    this.AssignCourierDeliveryService.GetComplexSaleByID(this.id).subscribe(res=>{
+      this.sales =res;
+      console.log(this.sales)
+    // this.AssignCourierDeliveryService.getCourierByID(this.couriers).subscribe(res =>{
+    //   console.log(res)})
+    const EmailData = this.sales + this.couriers
+    console.log(EmailData)
+  });
+
   // Close() {
   //   this.form.reset();
   //   this.router.navigateByUrl('couriers');
   // }
-}
+}}

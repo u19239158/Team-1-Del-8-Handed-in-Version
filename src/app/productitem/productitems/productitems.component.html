@@ -66,7 +66,7 @@
                 </button>
                 <mat-menu #menu="matMenu" xPosition="before">
                 <button mat-menu-item [routerLink]="['/editProductItem', element.productItemId]" >Update Product Item</button>
-                 <button mat-menu-item (click)="SendID(element.productItemId)"[routerLink]="['/specialAdd']" >Add Special</button>
+                 <button mat-menu-item (click)="SendID(element.productItemId)"[routerLink]="['/specialAdd', element.productItemId]" >Add Special</button>
                 <button mat-menu-item (click)="deleteProductitem(element.productItemId)">Delete Product Item</button>
                 </mat-menu>
             </td>

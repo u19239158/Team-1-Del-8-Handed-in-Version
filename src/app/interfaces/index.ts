@@ -3,6 +3,11 @@ import { CurrencyPipe } from "@angular/common";
 import { Identifiers } from "@angular/compiler";
 //import * as internal from "node:stream";
 
+export interface Login {
+  userName: string;
+  password: string;
+}
+
 export interface Employee {
   employeeId: any;
   employeeName: string;
@@ -56,6 +61,8 @@ export interface Special {
   specialEndDate: string;
   discountId: number;
   productItemId: number;
+  productItemCost: number;
+  discountPercentage:number;
 }
 
 export interface Courier {
@@ -126,14 +133,19 @@ export interface Customer {
 
 export interface ReceiveSupplierOrder {
   supplierOrderID: number;
-  orderDatePlaced: string;
-  orderDateReceived: string;
-  invoiceNumber: number;
-  invoiceDate: string;
-  invoiceTotal: number;
+  productItem: string;
+  quantity: number;
+  supplierName: string;
+  // orderDatePlaced: string;
+  // orderDateReceived: string;
+  // invoiceNumber: number;
+  // invoiceDate: string;
+  // invoiceTotal: number;
+  // price: string;
 }
 
 export interface PlaceSupplierOrder {
+  supplierName: string;
   checked: boolean;
   productItem: string;
   price: string;
@@ -203,12 +215,15 @@ export interface OnlineSales {
   orderStatusDescription: string;
   customerId: string;
   customerName: string;
-  customerSurame: string;
+  customerSurname: string;
   customerBusinessname: string;
-  paymentType: string;
-  paymentDate: string;
-  SalePaymentAmount: string;
-  receiveType: string;
+  saleAssign: boolean;
+ saleDescription: string;
+salePaymentAmount: number;
+salePaymentDate: string;
+saleReceiveType : boolean;
+saleDate : string;
+paymentTypeDescription : string;
 }
 
 

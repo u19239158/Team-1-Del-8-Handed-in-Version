@@ -48,5 +48,9 @@ updateToDelivered(sale:OnlineSales):  Observable<OnlineSales[]>  {
   return this.http.put<OnlineSales[]>(`${this.server}Sale/UpdateOrderDelivered`, sale,this.httpOptions);
 }
 
+ViewSale(saleId):  Observable<OnlineSales>  {
+  return this.http.get<OnlineSales>(`${this.server}Sale/ViewSale/${saleId}`).pipe(map(res => res));
+}
+
 }
 

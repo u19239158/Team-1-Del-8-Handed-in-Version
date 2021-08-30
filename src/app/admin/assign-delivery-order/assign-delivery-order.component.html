@@ -71,7 +71,7 @@
                         Delivery</button>
                     <button mat-menu-item
                         [ngClass]="{'disable':parseInteger(element.deliveryDistance.slice(0, -2)) <=50}"
-                        [routerLink]="parseInteger(element.deliveryDistance.slice(0, -2)) <=50? []: ['/assigncourierdelivery']">Assign
+                        [routerLink]="parseInteger(element.deliveryDistance.slice(0, -2)) <=50? []: ['/assigncourierdelivery' , element.saleId]">Assign
                         Courier</button>
                 </mat-menu>
             </td>

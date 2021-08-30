@@ -1,1 +1,64 @@
-<p>weekly-sale-orders-report works!</p>
+<h1>Sales Report</h1>
+
+<div class="column left">
+  <div class="parameters">
+      <h2>Report Parameters</h2>
+      <h3>Date Range</h3>
+     <form [formGroup]="form" class="main">
+      <div>
+       <!-- <div class="mat-row"> -->
+        <!-- Start Date -->
+       <!-- <div class="mat-col-quarter"> -->
+        <mat-form-field class="control-m">
+          <input matInput [matDatepicker]="picker" placeholder="Special Start Date"formControlName="startDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <!-- </div>
+      </div>
+
+      <div class="mat-row">  -->
+          <br>
+          <br>
+       <!-- End Date -->
+       <!-- <div class="mat-col-quarter"> -->
+        <mat-form-field class="control-m">
+          <input matInput [matDatepicker]="picker1" placeholder="Special End Date" formControlName="endDate">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+       <!-- </div>
+      </div> -->
+
+      </div>
+
+      <br>
+      <br>
+      <br>
+      <br>
+
+      <button type="submit" mat-raised-button color ="primary" (click)="generateReport()">Generate Report</button>
+      <br>
+      <br>
+      <button type="submit" mat-raised-button color ="primary" (click)="generatePdf()">Download Report PDF</button>
+    </form>
+    </div>
+  </div>
+
+
+<div class="column right">
+  <div *ngIf="created">
+    <div style="align-content: center;">
+      <canvas baseChart
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [chartType]="barChartType">
+      </canvas>
+    </div>
+    <button mat-button mat-raised-button color="primary" (click)="randomize()">Update</button>
+
+  </div>
+</div>

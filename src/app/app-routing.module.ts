@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { LoginComponent } from './login/login.component';
 import { AddEditSupplierComponent } from './supplier/add-edit-supplier/add-edit-supplier.component';
 import { SuppliersComponent } from './supplier/suppliers/suppliers.component';
 import { ReceiveSupplierOrderComponent } from './supplier/receive-supplier-order/receive-supplier-order.component';
@@ -69,6 +70,10 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
     path: 'employees',
     component: EmployeesComponent,
   },
@@ -113,7 +118,7 @@ const routes: Routes = [
     component: SpecialsComponent
   },
   {
-    path: 'specialAdd',
+    path: 'specialAdd/:id',
     component: AddEditSpecialComponent
   },
   {
@@ -221,7 +226,7 @@ const routes: Routes = [
     component: AssignDeliveryOrderComponent,
   },
   {
-    path: 'assigncourierdelivery',
+    path: 'assigncourierdelivery/:id',
     component: AssignCourierDeliveryComponent,
   },
   {
