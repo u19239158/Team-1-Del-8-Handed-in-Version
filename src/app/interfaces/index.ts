@@ -3,6 +3,11 @@ import { CurrencyPipe } from "@angular/common";
 import { Identifiers } from "@angular/compiler";
 //import * as internal from "node:stream";
 
+export interface Login {
+  userName: string;
+  password: string;
+}
+
 export interface Employee {
   employeeId: any;
   employeeName: string;
