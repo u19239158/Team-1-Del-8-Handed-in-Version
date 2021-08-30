@@ -27,7 +27,7 @@ import { OnlineSalesService } from 'src/app/services/online-sales/online-sales.s
 
 export class ViewSaleComponent implements OnInit {
   id: number;
-  sale : OnlineSales;
+  sale: OnlineSales = {} as OnlineSales;
   collection = [];
   selected: string;
 
@@ -37,12 +37,11 @@ export class ViewSaleComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private http: HttpClient
-    ) {}
+  ) { }
 
-    
+
   ngOnInit(): void {
-    this.id = +this.route.snapshot.params['id'];
-    // this.readOnlineSales();
+    this.id = this.route.snapshot.params['id'];
     this.getCollection();
     
     this.OnlineSalesService.ViewSale(this.id).subscribe(res => {
@@ -51,25 +50,21 @@ export class ViewSaleComponent implements OnInit {
    
   });
   }
+
   getCollection() {
     this.http
       .get<any>('https://localhost:44393/api/Sale/ViewAllSales').subscribe((res: any) => {
-        this.collection = res;
-        //console.log = res;
+        this.sale = res.filter(sale => {
+          return sale.saleID == this.id;
+        })[0]
+        console.log("check", this.sale)
       }, error => {
         console.log({ error });
       })
   }
-  // readOnlineSales(): void {
-  // //this.dataSource = new MatTableDataSource<UserRole[]>(this.UserRoleService.GetUserRole());
-  //  this.OnlineSalesService.ViewAllSales().subscribe(res => {
-  //    console.log(res)
-  //    this.dataSource = new MatTableDataSource(res)
-  //  })
-// }
 
-Close() {
-  this.router.navigateByUrl('onlineSales');
-}
+  Close() {
+    this.router.navigateByUrl('onlineSales');
+  }
 
 }

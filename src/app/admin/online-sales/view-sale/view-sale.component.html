@@ -2,110 +2,111 @@
 
     <h1 align="center">View Sale</h1>
 
-    <div >
-        <mat-card >
-            <mat-card-content >
+    <div>
+        <mat-card>
+            <mat-card-content>
                 <div>
                     <div>
                         <label for="saleID">Sale Number:</label>
-                        <mat-label *ngFor="let c of collection" [value]="c.saleID">{{c.saleID}}</mat-label>
+                        <mat-label>{{sale.saleID}}</mat-label>
                     </div>
                 </div>
             </mat-card-content>
-       
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
-                <p><label for="saleOrderDate">Sale Date:</label>
-                    Sale Date
-            </div>
-        </div>
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
-                <p><label for="orderStatusDescription">Order Status:</label>
-                    Order Status
-            </div>
-        </div>
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
-                <p><label for="customerName">Customer:</label>
-                    Customer
-            </div>
-        </div>
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
-                <p><label for="customerBusinessname">Business Name:</label>
-                    Business Name
-            </div>
-        </div>
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
-                <p><label for="paymentType">Payment Type:</label>
-                    Payment Type
-
-            </div>
-        </div>
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
-                <p><label for="paymentDate">Payment Date:</label>
-                    Payment Date:
-            </div>
-        </div>
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
-                <p><label for="paymentAmount">Payment Amount:</label>
-                    Payment Amount
-            </div>
-        </div>
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
-                <p><label for="receiveType">Receive Type:</label>
-                    Receive Type
-            </div>
-        </div>
 
 
-        <div class="mat-row">
-            <div class="mat-col-quarter">
-                <div class="form-group" class="control-m">
-                    <button [routerLink]="['/packOrder']" mat-raised-button color="primary">
-                        <!-- [disabled]="loading"> -->
-                        <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> -->
-                        Pack Order
-                    </button>
-
-                    <!-- (click)="Close()"  -->
-                    <a (click)="Close()" mat-button>Cancel</a>
+            <div class="mat-row">
+                <div class="mat-col-quarter">
+                    <p><label for="saleOrderDate">Sale Date:</label>
+                        <span>{{sale.saleOrderDate}}</span>
                 </div>
             </div>
-        </div>
-    </mat-card>
+
+            <div class="mat-row">
+                <div class="mat-col-quarter">
+                    <p><label for="orderStatusDescription">Order Status:</label>
+                        <span>{{sale.orderStatusDescription}}</span>
+
+                </div>
+            </div>
+
+            <div class="mat-row">
+                <div class="mat-col-quarter">
+                    <p><label for="customerName">Customer:</label>
+                        <span>{{sale.customerName}}</span>
+                </div>
+            </div>
+
+            <div class="mat-row">
+                <div class="mat-col-quarter">
+                    <p><label for="customerBusinessname">Business Name:</label>
+                        <span>{{sale.customerBusinessname}}</span>
+                </div>
+            </div>
+
+            <div class="mat-row">
+                <div class="mat-col-quarter">
+                    <p><label for="paymentType">Payment Type:</label>
+                        <span>{{sale.paymentType}}</span>
+
+                </div>
+            </div>
+
+            <div class="mat-row">
+                <div class="mat-col-quarter">
+                    <p><label for="paymentDate">Payment Date:</label>
+                        <span>{{sale.paymentDate}}</span>
+                </div>
+            </div>
+
+            <div class="mat-row">
+                <div class="mat-col-quarter">
+                    <p><label for="SalePaymentAmount">Payment Amount:</label>
+                        <span>{{sale.SalePaymentAmount}}</span>
+                </div>
+            </div>
+
+            <div class="mat-row">
+                <div class="mat-col-quarter">
+                    <p><label for="receiveType">Receive Type:</label>
+                        <span>{{sale.receiveType}}</span>
+                </div>
+            </div>
+
+
+            <div class="mat-row">
+                <div class="mat-col-quarter">
+                    <div class="form-group" class="control-m">
+                        <button [routerLink]="['/packOrder']" mat-raised-button color="primary">
+                            <!-- [disabled]="loading"> -->
+                            <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> -->
+                            Pack Order
+                        </button>
+
+                        <!-- (click)="Close()"  -->
+                        <a (click)="Close()" mat-button>Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
     </div>
 </div>
 
 <!-- <div class="mat-elevation-z8 table">
     <table mat-table matSort> -->
-        <!-- Item -->
-        <!-- <ng-container matColumnDef="productItemName">
+<!-- Item -->
+<!-- <ng-container matColumnDef="productItemName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Item </th>
             <td mat-cell *matCellDef="let element">{{element.productItemName}} </td>
         </ng-container> -->
 
-        <!-- Quantity  -->
-        <!-- <ng-container matColumnDef="quantityOnHand">
+<!-- Quantity  -->
+<!-- <ng-container matColumnDef="quantityOnHand">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
             <td mat-cell *matCellDef="let element"> {{element.quantityOnHand}}</td>
         </ng-container> -->
 
 
-        <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+<!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> -->
-    <!-- </table>
+<!-- </table>
 </div> -->
