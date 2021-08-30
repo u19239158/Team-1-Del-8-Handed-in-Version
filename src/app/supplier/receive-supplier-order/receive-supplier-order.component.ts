@@ -7,6 +7,8 @@ import { ReceiveSupplierOrder } from 'src/app/interfaces';
 import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { QuantityModal } from '../place-supplier-order/quantity-modal';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-receive-supplier-order',
@@ -14,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./receive-supplier-order.component.scss']
 })
 export class ReceiveSupplierOrderComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'orderDatePlaced', 'orderDateReceived', 'invoiceNumber', 'invoiceDate', 'invoiceTotal','actions'];
+  displayedColumns: string[] = ['supplierName', 'productItem', 'quantity'];
   receiveSupplierOrders: ReceiveSupplierOrder[] = [];
   receiveSupplierOrder: Observable<ReceiveSupplierOrder[]>;
   dataSource = new MatTableDataSource<ReceiveSupplierOrder>();
@@ -33,10 +35,11 @@ export class ReceiveSupplierOrderComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private http: HttpClient,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
-   //this.readSuppliers();
+   this.readSupplierOrder();
    this.getSupplier();
 
    this.receiveSupplierService.ReceiveSupplierOrder().subscribe((result:ReceiveSupplierOrder[])=> {
@@ -53,14 +56,25 @@ export class ReceiveSupplierOrderComponent implements OnInit {
         })
     }
 
-  // readSuppliers(): void {
-  //   this.receiveSupplierService.ReceiveSupplierOrder().subscribe(res => {
-  //     console.log(res)
-  //     this.dataSource = new MatTableDataSource(res)
-  //   })
-  // }
-    //this.dataSource = new MatTableDataSource<Supplier>(this.supplierService.getAll());
+  readSupplierOrder(): void {
+    this.receiveSupplierService.ReceiveSupplierOrder().subscribe(res => {
+      console.log(res)
+      this.dataSource = new MatTableDataSource(res)
+    })
+  }
 
+  // receiveOrder(item: Item) {
+  //   const confirm = this.dialog.open(QuantityModal, {
+  //            disableClose: true,
+  //           });
 
+  //   confirm.afterClosed().subscribe(res => {
+  //     if (res){
+  //       this.receiveSupplierService.ReceiveSupplierOrder(Item).subscribe(res =>{
+  //         this.readSupplierOrder()
+  //       })
+  //     }
+  //   });
+  //  }
 
 }

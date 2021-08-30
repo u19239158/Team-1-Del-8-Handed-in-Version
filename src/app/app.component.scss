@@ -11,10 +11,10 @@ mat-sidenav {
 }
 
 /* for sidenav to take a whole page */
-html, body { 
+html, body {
   margin: 0;
   height: 100%;
-} 
+}
 
 main {
   padding: 10px;
@@ -88,4 +88,24 @@ footer {
   background-color: rgb(66, 108, 224);
   color: white;
   text-align: center;
+}
+
+a{
+  color: black;
+}
+
+// visited link
+a:visited {
+  color: #ffffff
+}
+
+//mouse over link
+a
+:hover {
+  color: #42bbbf;
+}
+
+//selected link
+a:active {
+  color: #4400ff;
 }

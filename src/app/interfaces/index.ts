@@ -128,14 +128,19 @@ export interface Customer {
 
 export interface ReceiveSupplierOrder {
   supplierOrderID: number;
-  orderDatePlaced: string;
-  orderDateReceived: string;
-  invoiceNumber: number;
-  invoiceDate: string;
-  invoiceTotal: number;
+  productItem: string;
+  quantity: number;
+  supplierName: string;
+  // orderDatePlaced: string;
+  // orderDateReceived: string;
+  // invoiceNumber: number;
+  // invoiceDate: string;
+  // invoiceTotal: number;
+  // price: string;
 }
 
 export interface PlaceSupplierOrder {
+  supplierName: string;
   checked: boolean;
   productItem: string;
   price: string;
