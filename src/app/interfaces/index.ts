@@ -205,7 +205,10 @@ export interface OnlineSales {
   customerName: string;
   customerSurame: string;
   customerBusinessname: string;
-
+  paymentType: string;
+  paymentDate: string;
+  SalePaymentAmount: string;
+  receiveType: string;
 }
 
 

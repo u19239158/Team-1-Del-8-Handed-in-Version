@@ -3,6 +3,7 @@ import { EventSettingsModel, View } from '@syncfusion/ej2-angular-schedule';
 import { DeliveryshiftService } from 'src/app/services/deliveryshift/deliveryshift.service';
 import { HttpClient } from '@angular/common/http';
 import { Deliveryshift } from 'src/app/interfaces';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-viewdeliveryshiftschedule',
@@ -34,9 +35,10 @@ export class ViewdeliveryshiftscheduleComponent {
 
           Subject: item.employeeName,
 
-          StartTime: new Date(),
+          //(yyyy,  (mm+1),  dd, hr,mm):For Both Dates
+          StartTime: moment(moment(item.dayOfTheWeek + ' ' + item.startTime).utc().toDate()).format('DD/MM/YYYY HH:mm:ss'),
 
-          EndTime: new Date(2021, 10, 30, 11, 0)
+          EndTime: moment(moment(item.dayOfTheWeek + ' ' + item.endTime).utc().toDate()).format('DD/MM/YYYY HH:mm:ss'),
 
         })
       }
