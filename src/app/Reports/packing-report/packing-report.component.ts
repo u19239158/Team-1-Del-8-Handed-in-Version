@@ -20,7 +20,7 @@ export class PackingReportComponent implements OnInit {
   string : string;
   
   dataSource = new MatTableDataSource<Reports>();
-  displayedColumns: string[] = ['saleId', 'saleOrderDate','saleOrderDescription', 'saleOrderRecieveType', 'assignedTo', 'paymentDate'];
+  displayedColumns: string[] = ['saleId', 'saleOrderDate','saleOrderDescription', 'saleOrderRecieveType', 'orderStatusDescription', 'paymentDate'];
 
   constructor(private ReportServiceService: ReportServiceService 
   
@@ -35,7 +35,7 @@ export class PackingReportComponent implements OnInit {
 
   readPackingReport(): void {
     //const Report :Reports;
-     this.ReportServiceService.PackingReport(this.report).subscribe(res => {
+     this.ReportServiceService.PackingReport().subscribe(res => {
        console.log(res)
        this.dataSource = new MatTableDataSource(res)
      })
@@ -45,7 +45,7 @@ export class PackingReportComponent implements OnInit {
               'Date', 
               'Description', 
               'Collection/Delivery',
-              'Assigned To',
+              'Order Status',
               'Payment Date'
             ]]
 
@@ -53,7 +53,7 @@ export class PackingReportComponent implements OnInit {
     var pdf = new jsPDF();
   
           pdf.setFontSize(2);
-          pdf.text('Stock Level Report', 11, 8);
+          pdf.text('Packing Report', 11, 8);
           pdf.setFontSize(12);
           pdf.setTextColor(99);
   

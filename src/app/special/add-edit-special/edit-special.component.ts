@@ -7,9 +7,9 @@ import { Special, Productitem } from 'src/app/interfaces';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-add-edit-special',
-  templateUrl: './add-edit-special.component.html',
-  styleUrls: ['./add-edit-special.component.scss']
+  selector: 'app-edit-special',
+  templateUrl: './edit-special.component.html',
+  styleUrls: ['./edit-special.component.scss']
 })
 export class EditSpecialComponent implements OnInit {
 
@@ -34,48 +34,65 @@ export class EditSpecialComponent implements OnInit {
 
   ) { }
 
+  
+  // ngOnInit(): void {
+    
+  //   this.getCollection();
+    
+  //   this.id = +this.route.snapshot.params['id'];
+  //   this.SpecialService.getSpecialByID(this.id).subscribe(res =>{
+     
+  //      this.special = res
+  //     console.log(res)
+  //   const formOptions: AbstractControlOptions = { };
+  //   this.form = this.formBuilder.group({
+  //     id: [this.special.specialID, Validators.required],
+  //     specialDescription: [this.special.specialDescription, [Validators.required]],
+  //     discountId: [this.special.discountId, [Validators.required]],
+  //     specialStartDate: [this.special.specialStartDate, [Validators.required]],
+  //     specialEndDate: [this.special.specialEndDate, [Validators.required]],
+  //   }, formOptions); ;})
+    
+  // }
+
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
     //this.isAddMode = !this.id;
     this.getCollection();
     this.collection
 
-    this.SpecialService.getSpecialByID(this.id).subscribe(res =>{
-      console.log(res)
-    })
-    
-
   //   this.SpecialService.getProductItemByID(this.id).subscribe(res => {
   //     this.productItem = res
   //     console.log(res)
   // });
     const formOptions: AbstractControlOptions = { };
-    this.form = this.formBuilder.group({
-      //specialImage: ['', [Validators.required]],
-      specialDescription: ['', [Validators.required]],
-      discountId: ['', [Validators.required]],
-      // discountPercentage: [0,[Validators.required]],
-      //productItemId: [this.special.productItemId,[Validators.required] ],
-      specialStartDate: ['', [Validators.required]],
-      specialEndDate: ['', [Validators.required]],
-    }, formOptions);
-
-    // if (!this.isAddMode) {
-    //   //this.SpecialService.getSpecialByID(this.id).subscribe(res => {
-    //     //this.special = res
-    //    // console.log(res)
-    //     this.form = this.formBuilder.group({
-    //       id: [this.special.specialID, Validators.required],
-    //       //specialImage: [this.special.specialImage, [Validators.required]],
-    //       specialDescription: [this.special.specialDescription, [Validators.required]],
-    //       discountId: [this.special.discountId, [Validators.required]],
-    //       //productItemId: [this.special.productItemId,[Validators.required] ],
-    //       specialStartDate: [this.special.specialStartDate, [Validators.required]],
-    //       specialEndDate: [this.special.specialEndDate,[Validators.required]],
+    // this.form = this.formBuilder.group({
+    //   //specialImage: ['', [Validators.required]],
+    //   specialDescription: ['', [Validators.required]],
+    //   discountId: ['', [Validators.required]],
+    //   // discountPercentage: [0,[Validators.required]],
+    //   //productItemId: [this.special.productItemId,[Validators.required] ],
+    //   specialStartDate: ['', [Validators.required]],
+    //   specialEndDate: ['', [Validators.required]],
     // }, formOptions);
-    //   ;
-    // }
-  }
+
+    // if (!this.isAddMode) 
+    {
+      this.SpecialService.getSpecialByID(this.id).subscribe(res => {
+        this.special = res
+       console.log(res)
+        this.form = this.formBuilder.group({
+          id: [this.special.specialID, Validators.required],
+          //specialImage: [this.special.specialImage, [Validators.required]],
+          specialDescription: [this.special.specialDescription, [Validators.required]],
+          discountId: [this.special.discountId, [Validators.required]],
+          //productItemId: [this.special.productItemId,[Validators.required] ],
+          specialStartDate: [this.special.specialStartDate, [Validators.required]],
+          specialEndDate: [this.special.specialEndDate,[Validators.required]],
+    }, formOptions);
+    })
+  }}
+
 
 
   onSubmit() {

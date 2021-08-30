@@ -25,9 +25,9 @@ export class ReportServiceService {
 // {
 //   return this.http.post<Reports[]>(`${this.server}Report/GetPackingReportData`).pipe(map(res => res))
 // }
-PackingReport(Reports : Reports): Observable<any>
+PackingReport(): Observable<any>
 {
-  return this.http.post(`${this.server}Report/GetPackingReportData`, Reports).pipe(map(res => res))
+  return this.http.get(`${this.server}Report/GetPackingReportData`).pipe(map(res => res))
 }
 
 // PackingReport(Reports:Reports):  Observable<Reports[]>  {

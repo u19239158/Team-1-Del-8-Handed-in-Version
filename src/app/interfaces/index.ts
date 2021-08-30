@@ -216,14 +216,14 @@ export interface OnlineSales {
   customerId: string;
   customerName: string;
   customerSurname: string;
-  customerBusinessname: string;
+  customerBusinessName: string;
   customerCellphoneNumber: number;
   customerEmailAddress: string;
   saleAssign: boolean;
-  saleDescription: string;
+  saleOrderDescription: string;
   salePaymentAmount: number;
   salePaymentDate: string;
-  saleReceiveType: boolean;
+  saleOrderRecieveType: string;
   saleDate: string;
   paymentTypeDescription: string;
   addressId: number;

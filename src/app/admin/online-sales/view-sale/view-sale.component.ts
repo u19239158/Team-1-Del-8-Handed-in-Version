@@ -57,7 +57,7 @@ export class ViewSaleComponent implements OnInit {
         this.sale = res.filter(sale => {
           return sale.saleID == this.id;
         })[0]
-        console.log("check", this.sale)
+       // console.log("check", this.sale)
       }, error => {
         console.log({ error });
       })

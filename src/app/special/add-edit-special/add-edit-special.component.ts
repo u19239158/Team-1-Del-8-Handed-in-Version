@@ -55,21 +55,21 @@ export class AddEditSpecialComponent implements OnInit {
       specialEndDate: ['', [Validators.required]],
     }, formOptions);
 
-    // if (!this.isAddMode) {
-    //   //this.SpecialService.getSpecialByID(this.id).subscribe(res => {
-    //     //this.special = res
-    //    // console.log(res)
-    //     this.form = this.formBuilder.group({
-    //       id: [this.special.specialID, Validators.required],
-    //       //specialImage: [this.special.specialImage, [Validators.required]],
-    //       specialDescription: [this.special.specialDescription, [Validators.required]],
-    //       discountId: [this.special.discountId, [Validators.required]],
-    //       //productItemId: [this.special.productItemId,[Validators.required] ],
-    //       specialStartDate: [this.special.specialStartDate, [Validators.required]],
-    //       specialEndDate: [this.special.specialEndDate,[Validators.required]],
-    // }, formOptions);
-    //   ;
-    // }
+    if (!this.isAddMode) {
+      //this.SpecialService.getSpecialByID(this.id).subscribe(res => {
+        //this.special = res
+       // console.log(res)
+        this.form = this.formBuilder.group({
+          id: [this.special.specialID, Validators.required],
+          //specialImage: [this.special.specialImage, [Validators.required]],
+          specialDescription: [this.special.specialDescription, [Validators.required]],
+          discountId: [this.special.discountId, [Validators.required]],
+          //productItemId: [this.special.productItemId,[Validators.required] ],
+          specialStartDate: [this.special.specialStartDate, [Validators.required]],
+          specialEndDate: [this.special.specialEndDate,[Validators.required]],
+    }, formOptions);
+      ;
+    }
   }
 
 
