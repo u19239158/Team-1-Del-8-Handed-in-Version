@@ -40,18 +40,8 @@
                             <td colspan="3"></td>
                             <td><button (click)="emptycart()" class="button is-rounded is-danger is-outlined">Empty Cart</button></td>
                             <td><button routerLink="/products" class="button is-info is-rounded is-outlined">Shop More</button></td>
-                            <!-- Create a ckeckout button that will open the YOCO payment gateway popup-->
                             <td>
-                                <!-- <button (click)="transactionCheckout()" id="checkout-button" class="button is-success is-rounded is-outlined">Checkout</button> -->
-                                <button (click)="makePayment(grandTotal)" id="checkout-button" class="button is-success is-rounded is-outlined">Checkout2</button>
-                                
-                                <!-- this is highkey cheating because it does not create a new token for each transaction
-                                it also does not get the GRANDTOTAL from out website and display it in the PAYSTACK website-->
-                                <!-- <input type="button"  class="button is-success is-rounded is-outlined" value="Fake Checkout" onclick="window.location.href='https://checkout.paystack.com/26ho92bd1vjeght'"/>                                 -->
-                            
-                            
-                            <!-- The text attribute can also take custom html, but does not compile directives yet-->
-'
+                              <button class="button is-success is-rounded is-outlined" (click)=openmodal() id="launchModal">Checkout</button>
                             </td>
                             <td>
                                 <span class="tag is-large is-success is-rounded"><strong>Grand Total : R{{grandTotal}}</strong></span>
@@ -82,97 +72,113 @@
 
 </ng-container>
 
+<!-- Modal -->
+<div class="modal"  tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          Delivery or Collection
+          <button type="button" class="btn-close btn-close-black" (click)=close()></button>
+       </h3>
+      </div>
+			<form #myForm="ngForm" (submit)="submitForm(myForm)" novalidate>
+            <div class="modal-body">
+              <div class="control">
+                  <!-- Gender -->
+                  <div>
+                    <input id="delivery" type="radio" class="custom-control-input" value="delivery" name="method" ngModel required>
+                    <label class="custom-control-label" for="male">Delivery</label>
+                  </div>
 
-<!-- MODAL -->
+                  <div>
+                    <input id="collection" type="radio" class="custom-control-input" value="collection" name="method" ngModel required>
+                    <label class="custom-control-label" for="female">Collection</label>
+                  </div>
 
-
-<div class="modal">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-<div class="field">
-    <label class="label">Name</label>
-    <div class="control">
-      <input class="input" type="text" placeholder="Text input">
+                  <div *ngIf="isSubmitted && myForm.invalid">
+                    <p>Please select either value</p>
+                  </div>
+            </div>
+          </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)=close()>Close</button>
+        <button type="submit" class="btn btn-primary">Proceed</button>
+      </div>
+      </form>
     </div>
   </div>
-  
-  <div class="field">
-    <label class="label">Username</label>
-    <div class="control has-icons-left has-icons-right">
-      <input class="input is-success" type="text" placeholder="Text input" value="bulma">
-      <span class="icon is-small is-left">
-        <i class="fas fa-user"></i>
-      </span>
-      <span class="icon is-small is-right">
-        <i class="fas fa-check"></i>
-      </span>
-    </div>
-    <p class="help is-success">This username is available</p>
-  </div>
-  
-  <div class="field">
-    <label class="label">Email</label>
-    <div class="control has-icons-left has-icons-right">
-      <input class="input is-danger" type="email" placeholder="Email input" value="hello@">
-      <span class="icon is-small is-left">
-        <i class="fas fa-envelope"></i>
-      </span>
-      <span class="icon is-small is-right">
-        <i class="fas fa-exclamation-triangle"></i>
-      </span>
-    </div>
-    <p class="help is-danger">This email is invalid</p>
-  </div>
-  
-  <div class="field">
-    <label class="label">Subject</label>
-    <div class="control">
-      <div class="select">
-        <select>
-          <option>Select dropdown</option>
-          <option>With options</option>
-        </select>
+</div>
+
+
+
+<!-- DELIVERY ADDRESS Modal -->
+<div class="modal" id="deliveryModal" tabindex="-1" role="dialog"  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          Checkout - Delivery Details
+          <button type="button" class="btn-close btn-close-black" (click)=closeDeliveryModal()></button>
+       </h3>
+      </div>
+            <div class="modal-body">                  
+                          
+                <div class="field">
+                    <label class="label">Address Line 1</label>
+                    <div class="control">
+                      <input class="input" type="text" placeholder="Address Line 1">
+                    </div>
+                </div>
+                <div class="field">
+                  <label class="label">Address Line 2</label>
+                  <div class="control">
+                    <input class="input" type="text" placeholder="Address Line 2">
+                  </div>
+              </div>
+              <div class="field">
+                <label class="label">Address Line 3</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Address Line 3">
+                </div>
+            </div>
+        
+                <div class="field">
+                    <label class="label">Postal Code</label>
+                    <div class="control">
+                      <input class="input" type="text" placeholder="Postal Code">
+                    </div>
+                </div>
+                  
+        
+                  <div class="field">
+                    <label class="label">Province</label>
+                    <div class="control">
+                      <input class="input" type="text" placeholder="Province">
+                    </div>
+                </div>
+                  
+                  <div class="field">
+                    <label class="label">City</label>
+                    <div class="control">
+                      <input class="input" type="text" placeholder="City">
+                    </div>
+                </div>      
+
+            </div>
+      <div class="modal-footer">
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-link"  (click)="makePayment()" id="checkout-button">Submit</button> 
+          </div>
+          <div class="control">
+            <button class="button is-link is-light" (click)=closeDeliveryModal()>Cancel</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  
-  <div class="field">
-    <label class="label">Message</label>
-    <div class="control">
-      <textarea class="textarea" placeholder="Textarea"></textarea>
-    </div>
-  </div>
-  
-  <div class="field">
-    <div class="control">
-      <label class="checkbox">
-        <input type="checkbox">
-        I agree to the <a href="#">terms and conditions</a>
-      </label>
-    </div>
-  </div>
-  
-  <div class="field">
-    <div class="control">
-      <label class="radio">
-        <input type="radio" name="question">
-        Yes
-      </label>
-      <label class="radio">
-        <input type="radio" name="question">
-        No
-      </label>
-    </div>
-  </div>
-  
-  <div class="field is-grouped">
-    <div class="control">
-      <button class="button is-link">Submit</button>
-    </div>
-    <div class="control">
-      <button class="button is-link is-light">Cancel</button>
-    </div>
-  </div>
-
 </div>
-</div> 
+
+
+

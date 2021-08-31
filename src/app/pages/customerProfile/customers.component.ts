@@ -2,6 +2,7 @@ import { Customer, CustomerService } from 'src/app/services/customer/customer.se
 import { Component, OnInit,Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {  HttpClient  } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-customers',
@@ -11,6 +12,7 @@ import {  HttpClient  } from '@angular/common/http';
 
 export class CustomersComponent implements OnInit {
 
+  isSubmitted = false;
 //customers: Customer[] = [];
 //Customer: Customer;
 customers: Observable<Customer[]>;
@@ -26,6 +28,18 @@ ngOnInit(): void {
       console.log(this.topCustomers);
     })
 
+}
+
+submitForm(form: NgForm) {
+  this.isSubmitted = true;
+  if(!form.valid) {
+    return false;
+  }
+  else{
+    //alert(JSON.stringify(form.value))
+    document.querySelector('#deliveryModal').classList.add('is-active')
+    // window.location.href='https://checkout.paystack.com/26ho92bd1vjeght'
+  }
 }
 
 // readCustomers(): void {

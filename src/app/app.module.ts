@@ -17,7 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { FilterPipe } from './services/service/filter.pipe';
-
+import { EditCustProfileComponent } from './pages/edit-cust-profile/edit-cust-profile.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,9 @@ import { FilterPipe } from './services/service/filter.pipe';
       HeaderComponent,
       SidenavListComponent,
       PromotionsComponent,
-      FilterPipe
+      FilterPipe,
+      EditCustProfileComponent,
+      
   ],
   imports: [
     BrowserModule,
