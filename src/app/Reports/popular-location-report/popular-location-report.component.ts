@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-//import { ChartDataset, ChartOptions, ChartType } from 'chart.js';
+import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 //import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
 
@@ -26,10 +26,10 @@ export class PopularLocationReportComponent implements OnInit {
   public barChartLegend = true;
 
   //Where our data comes from
- // public barChartData: ChartDataset[] = [
-  //   { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-  //   { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
-  // ];
+  public barChartData: ChartDataSets[] = [
+    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
+    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
+  ];
 
 
 
@@ -48,7 +48,7 @@ export class PopularLocationReportComponent implements OnInit {
   }
 
   // public randomize(): void {
-    // Only Change 3 values
+  // Only Change 3 values
   //   this.barChartData[0].data = [
   //     Math.round(Math.random() * 100),
   //     59,

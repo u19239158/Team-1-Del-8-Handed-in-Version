@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 //import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
@@ -15,14 +15,14 @@ import { ReportServiceService } from 'src/app/services/Reports/report-service.se
 export class WeeklySaleOrdersReportComponent implements OnInit {
 
   tableData: any;
-  ReportParams : ReportParameters = {
+  ReportParams: ReportParameters = {
     startDate: null,
     endDate: null
   };
-  form:FormGroup
+  form: FormGroup
   created = false;
 
-    // ReportParameters: ReportParameters[];
+  // ReportParameters: ReportParameters[];
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -36,13 +36,13 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
     }
   };
   public barChartLabels: Label[] = ['Gauteng',
-                                    'Eastern Cape',
-                                    'Western Cape',
-                                    'KZN',
-                                    'Northern Cape',
-                                    'Mpumalanga',
-                                    'North West',
-                                    'Limpopo'];
+    'Eastern Cape',
+    'Western Cape',
+    'KZN',
+    'Northern Cape',
+    'Mpumalanga',
+    'North West',
+    'Limpopo'];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   //public barChartPlugins = [pluginDataLabels];
@@ -53,11 +53,15 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
   ];
 
   constructor(
-    private serv : ReportServiceService,
+    private serv: ReportServiceService,
     private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit(): void {
+    this.form = this.formBuilder.group({
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+    })
   }
 
   // events
@@ -69,9 +73,10 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
     console.log(event, active);
   }
 
-  generateReport(){
-    this.serv.SalesReport(this.ReportParams).subscribe(data => {
+  generateReport() {
+    this.serv.SalesReport(this.form.value).subscribe(data => {
       this.created = false;
+      console.log(data);
 
       this.generateChart(data);
     });
@@ -86,7 +91,7 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
     this.created = true;
   }
 
-  generatePdf(){
+  generatePdf() {
 
   }
 
@@ -105,6 +110,6 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
       (Math.random() * 100),
       56,
       (Math.random() * 100),
-      40 ];
+      40];
   }
 }
