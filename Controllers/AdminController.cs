@@ -12,7 +12,7 @@ using NKAP_API_2.Models;
 
 namespace NKAP_API_2.Controllers
 {
-    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+    
     [Route("api/[controller]")]
     [ApiController]
     public class AdminController : ControllerBase
@@ -46,7 +46,7 @@ namespace NKAP_API_2.Controllers
 
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        
         [Route("GetAdminByID/{adminid}")] //route
         [HttpGet]
         //get Admin by ID (Read)
@@ -71,7 +71,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Admins);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        
         [Route("GetAdminByName/{adminname}")] //route
         [HttpGet]
         //get Admin by Name (Read)
@@ -96,7 +96,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Admins);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+   
         [Route("getadminbysurname/{adminsurname}")] //route
         [HttpGet]
         //get admin by surname (read)

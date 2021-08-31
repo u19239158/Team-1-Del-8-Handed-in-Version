@@ -10,7 +10,7 @@ using NKAP_API_2.EF;
 using NKAP_API_2.Models;
 using System.Security.Cryptography;
 using System.Text;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace NKAP_API_2.Controllers
 {
@@ -23,6 +23,7 @@ namespace NKAP_API_2.Controllers
         public EmployeeController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetEmployee")] //route
         [HttpGet]
         //get Employee (Read)
@@ -33,6 +34,7 @@ namespace NKAP_API_2.Controllers
 
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetEmployeeById/{employeeid}")] //route
         [HttpGet]
         //get Employee by name (Read)
@@ -42,7 +44,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Employees);
         }
 
-
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetEmployeeByName/{employeename}")] //route
         [HttpGet]
         //get Employee by name (Read)
@@ -51,7 +53,8 @@ namespace NKAP_API_2.Controllers
             var Employees = _db.Employees.FirstOrDefault(en => en.EmployeeName == employeename);
             return Ok(Employees);
         }
-
+        
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetEmployeeBySurname/{employeesurname}")] //route
         [HttpGet]
         //get Employee by name (Read)
@@ -61,6 +64,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Employees);
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("CreateEmployee")] //route
         [HttpPost]
         //Add Employee
@@ -112,6 +116,7 @@ namespace NKAP_API_2.Controllers
             }
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("UpdateEmployee")] //route
         [HttpPut]
         //Update Employee
@@ -141,6 +146,7 @@ namespace NKAP_API_2.Controllers
             return Ok(employee);
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("DeleteEmployee/{employeeid}")] //route
         [HttpDelete]
         //Delete Employee
