@@ -13,6 +13,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NKAP_API_2.EF;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using NKAP_API_2.Controllers;
 
 namespace NKAP_API_2
 {
@@ -33,6 +37,24 @@ namespace NKAP_API_2
             //services.AddDbContext<NKAP_BOLTING_DB_4Context>(options => options.UseSqlServer)
             services.AddDbContext<NKAP_BOLTING_DB_4Context>(options => options.UseSqlServer(Configuration.GetConnectionString("NKAP_DB")));
             services.AddCors();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = "JwtBearer";
+                options.DefaultChallengeScheme = "JwtBearer";
+            }
+            ).AddJwtBearer("JwtBearer", jwtOptions =>
+             {
+                 jwtOptions.TokenValidationParameters = new TokenValidationParameters()
+                 {
+                     ValidateIssuer = false,
+                     ValidateAudience = false,
+                     ValidateLifetime = true,
+                     ValidateIssuerSigningKey = true,
+                     IssuerSigningKey = TokenController.SIGNING_KEY,
+                     ClockSkew = TimeSpan.FromMinutes(5)
+                 };
+             });
 
         }
 

@@ -56,6 +56,14 @@ namespace NKAP_API_2.Models
         public int UserRoleID
         { get; set; }
 
+        [JsonProperty("userroledescription")]
+        public string UserRoleDescription
+        { get; set; }
+
+        [JsonProperty("userrolename")]
+        public string UserRoleName
+        { get; set; }
+
         [JsonProperty("audittrailid")]
         public int AuditTrailId
         { get; set; }
