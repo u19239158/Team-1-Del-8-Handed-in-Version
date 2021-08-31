@@ -183,10 +183,11 @@ namespace NKAP_API_2.Controllers
 
     //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GenerateSalesReportSum")] //route
-        [HttpGet]
+        [HttpPost]
         //get Sales by Date (Read)
         public IActionResult getSalesReportSum(ReportModel model)
         {
+            decimal Total  = 0;
             var Sales = _db.Sales.Join(_db.Customers,
                  su => su.CustomerId,
                  so => so.CustomerId,
@@ -205,11 +206,10 @@ namespace NKAP_API_2.Controllers
                      CustomerEmailAddress = so.CustomerEmailAddress,
                      StartDate = model.StartDate,
                      EndDate = model.EndDate,
-
-
+                    
                  }).Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).Sum(zz => zz.SalePaymentAmount);
-
-            return Ok(Sales);
+            Total = Sales;
+            return Ok(Total);
 
         }
 
@@ -232,6 +232,7 @@ namespace NKAP_API_2.Controllers
                      SalePaymentAmount = su.PaymentAmount,
                      CustomerId = so.CustomerId,
                      CustomerName = so.CustomerName,
+                     CustomerSurname = so.CustomerSurname,
                      CustomerCellphoneNumber = so.CustomerCellphoneNumber,
                      CustomerBusinessName = so.CustomerBusinessName,
                      CustomerEmailAddress = so.CustomerEmailAddress,
