@@ -22,7 +22,7 @@ namespace NKAP_API_2.Controllers
         { _db = db; }
 
 
-        [Route("GetDeliveryShiftByID/{shiftid}")] //route
+      //  [Route("GetDeliveryShiftByID/{shiftid}")] //route
         [HttpGet]
         //get Delivery Shift (Read)
         public IActionResult get(int shiftid)
@@ -89,7 +89,7 @@ namespace NKAP_API_2.Controllers
 
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin, Employee")]
+      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin, Employee")]
         [Route("GetDeliveryShift")] //route
         [HttpGet]
         //get Delivery Shift (Read)
@@ -161,7 +161,7 @@ namespace NKAP_API_2.Controllers
 
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin, Employee")]
+     //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin, Employee")]
         [Route("GetShiftTime")] //route
         [HttpGet]
         //Get Shift Time
@@ -173,7 +173,7 @@ namespace NKAP_API_2.Controllers
             return Ok(shiftTime);
         }
 
-        [Route("AddDate")] //route
+     //   [Route("AddDate")] //route
         [HttpPost]
         //Add Date
         //Create a Model for table
@@ -187,7 +187,7 @@ namespace NKAP_API_2.Controllers
             return Ok(shiftDate);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("AddShift")] //route
         [HttpPost]
         //Add Date
@@ -223,7 +223,7 @@ namespace NKAP_API_2.Controllers
         //    return Ok(shiftDate);
         //}
 
-        [Route("DeleteDeliveryShift/{employeeshiftid}")] //route
+     //   [Route("DeleteDeliveryShift/{employeeshiftid}")] //route
         [HttpDelete]
         //Delete Admin
         public IActionResult DeleteDeliveryShift(int employeeshiftid)
@@ -235,7 +235,7 @@ namespace NKAP_API_2.Controllers
             return Ok(delShift);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("AssignDeliveryShift")] //route
         [HttpPost]
         //Add Product Item Write-of
@@ -279,7 +279,7 @@ namespace NKAP_API_2.Controllers
             return Ok();
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("UpdateDeliveryShift")] //route
         [HttpPut]
         //Create a Model for table

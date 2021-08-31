@@ -136,7 +136,7 @@ namespace NKAP_API_2.Controllers
         }
 
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("CreateProductItem")] //route
         [HttpPost]
         //Add Product Item
@@ -155,7 +155,7 @@ namespace NKAP_API_2.Controllers
         }
 
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+    //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("UpdateProductItem")] //route
         [HttpPut]
         //Update Product Item
@@ -173,7 +173,7 @@ namespace NKAP_API_2.Controllers
         }
 
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("DeleteProductItem/{productitemid}")] //route
         [HttpDelete]
         //Delete Product Item

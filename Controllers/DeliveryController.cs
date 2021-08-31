@@ -21,7 +21,7 @@ namespace NKAP_API_2.Controllers
         public DeliveryController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetDelivery")] //route
         [HttpGet]
         //get (Read)                                                                                                                                                                                        
@@ -82,7 +82,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Deliveries);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetDeliveryByDate/{deliverydate}")] //route
         [HttpGet]
         //get Delivery by ID (Read)
@@ -145,7 +145,7 @@ namespace NKAP_API_2.Controllers
         }
 
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("CreateDelivery")] //route
         [HttpPost]
         //Add Delivery
@@ -166,7 +166,7 @@ namespace NKAP_API_2.Controllers
         }
 
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("UpdateDelivery")] //route
         [HttpPut]
         //Update delivery
@@ -185,7 +185,7 @@ namespace NKAP_API_2.Controllers
             return Ok(delivery);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("DeleteDeliveries/{deliveryid}")] //route
         [HttpDelete]
         //Delete Delivery
@@ -198,7 +198,7 @@ namespace NKAP_API_2.Controllers
             return Ok(delivery);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetUnassignedDeliveries")] //route
         [HttpGet]
         //get Delivery Shift (Read)
@@ -321,7 +321,7 @@ namespace NKAP_API_2.Controllers
 
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("AssignLocalDelivery")] //route
         [HttpPut]
         //Update Order Status
@@ -339,7 +339,7 @@ namespace NKAP_API_2.Controllers
             return Ok(ds);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("AssignCourier")] //route
         [HttpPut]
         //Update Order Status
@@ -357,7 +357,7 @@ namespace NKAP_API_2.Controllers
             return Ok(sd);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetDeliveryInfo/{deliveryId}")] //route
         [HttpGet]
         //get (Read)                                                                                                                                                                                        

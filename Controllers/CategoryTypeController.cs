@@ -46,7 +46,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Cattype);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetCategoryTypeByID/{categorytypeid}")] //route
         [HttpGet]
         //get CategoryType by ID (Read)
@@ -69,7 +69,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Cattype);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+       // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetCategoryTypeByDescription/{categorytypedescription}")] //route
         [HttpGet]
         //get CategoryType by Description (Read)
@@ -92,7 +92,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Cattype);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetCategoryTypeByProdDesc/{productcategorydescription}")] //route
         [HttpGet]
         //get CategoryType by Description (Read)
@@ -116,7 +116,7 @@ namespace NKAP_API_2.Controllers
 
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+       // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("CreateCategoryType")] //route
         [HttpPost]
         //Add CategoryType
@@ -134,7 +134,7 @@ namespace NKAP_API_2.Controllers
             return Ok(catType);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+       // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("UpdateCategoryType")] //route
         [HttpPut]
         //Update CategoryType
@@ -151,7 +151,7 @@ namespace NKAP_API_2.Controllers
             return Ok(catType);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+       // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("DeleteCategoryType/{categorytypeid}")] //route
         [HttpDelete]
         //Delete Category Type

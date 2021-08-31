@@ -20,7 +20,7 @@ namespace NKAP_API_2.Controllers
         public DiscountController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+     //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetDiscount")] //route
         [HttpGet]
         //get (Read)

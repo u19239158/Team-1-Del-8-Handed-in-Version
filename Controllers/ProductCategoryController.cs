@@ -22,7 +22,7 @@ namespace NKAP_API_2.Controllers
         public ProductCategoryController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Customer")]
+    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Customer")]
         [Route("GetProdCat")] //route
         [HttpGet]
         //get Product Categories (Read)
@@ -33,7 +33,7 @@ namespace NKAP_API_2.Controllers
 
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Customer")]
+    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Customer")]
         [Route("GetPCByID/{productcategoryid}")] //route
         [HttpGet]
         //get Product Categories by ID (Read)
@@ -43,7 +43,7 @@ namespace NKAP_API_2.Controllers
             return Ok(productCategory);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Customer")]
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Customer")]
         [Route("GetPCByDescription/{ProductCategoryDescription}")] //route
         [HttpGet]
         //get Product Categories by name (Read)
@@ -53,7 +53,7 @@ namespace NKAP_API_2.Controllers
             return Ok(productCategory);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("CreatePC")] //route
         [HttpPost]
         //Add Product Categories
@@ -71,7 +71,7 @@ namespace NKAP_API_2.Controllers
 
 
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("UpdatePC")] //route
         [HttpPut]
         //Update Product Categories
@@ -86,7 +86,7 @@ namespace NKAP_API_2.Controllers
             return Ok(ProdCat);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("DeletePC/{productcategoryid}")] //route
         [HttpDelete]
         //Delete Product Categories 
