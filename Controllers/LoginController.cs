@@ -16,8 +16,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using NKAP_API_2.Controllers;
 using Microsoft.AspNetCore.Authorization;
-
-
+using Org.BouncyCastle.Asn1.Cmp;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 
 namespace NKAP_API_2.Controllers
 {
@@ -38,10 +38,12 @@ namespace NKAP_API_2.Controllers
             //using var db = new NKAP_BOLTING_DB_4Context();
 
             var hashedPassword = this.ComputeSha256Hash(model.UserPassword);
+            model.UserRoleName = "Admin";
             var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
             if (user == null)
             {
-                return null;
+               string request = "user not found";
+               return request;
             }
             else
             {
@@ -75,7 +77,7 @@ namespace NKAP_API_2.Controllers
             {
                 UserUsername = model.UserUsername,
                 UserPassword = ComputeSha256Hash(model.UserPassword),
-                UserRoleId = 2,
+                UserRoleId = 3,
                 
             };
 
@@ -86,7 +88,7 @@ namespace NKAP_API_2.Controllers
             //    PasswordHistoryText = ComputeSha256Hash(model.UserPassword) //trying to save the hashed password
             //};
 
-            
+
             var newCustomer = new Customer
             {
                 //TitleId = model.TitleID,
@@ -97,6 +99,16 @@ namespace NKAP_API_2.Controllers
                 CustomerBusinessName = model.CustomerBusinessName,
                 CustomerVatreg = model.CustomerVatReg
             };
+
+            //var newAdmin = new Admin
+            //{
+            //    TitleId = model.TitleID,
+            //    AdminName = model.CustomerName,
+            //    AdminSurname = model.CustomerSurname,
+            //    AdminCellphoneNumber = model.CustomerCellphoneNumber,
+            //    AdminEmailAddress = model.CustomerEmailAddress,
+
+            //};
 
 
             try

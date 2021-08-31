@@ -113,5 +113,52 @@ namespace NKAP_API_2.Controllers
             return Ok(Stocklevel);
 
         }
+
+        //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
+        [Route("Collection")] //route
+        [HttpPut]
+        //Update Order Status
+        public IActionResult Collection(SaleModel model)
+        {
+            var sale = _db.Sales.Find(model.SaleID);
+            sale.SaleOrderRecieveType = true;
+            _db.Sales.Attach(sale); //Attach Record
+            _db.SaveChanges();
+
+            return Ok(sale);
+        }
+
+        //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
+        [Route("Delivery")] //route
+        [HttpPut]
+        //Update Order Status
+        public IActionResult Delivery(SaleModel model)
+        {
+            var sale = _db.Sales.Find(model.SaleID);
+            sale.SaleOrderRecieveType = false;
+            _db.Sales.Attach(sale); //Attach Record
+            _db.SaveChanges();
+
+            return Ok(sale);
+        }
+
+        [Route("AddAddress")] //route
+        [HttpPost]
+        //Add Address
+        //Create a Model for table
+        public IActionResult AddAddress(AddressModel model) //reference the model
+        {
+            Address address = new Address();
+            address.AddressLine1 = model.AddressLine1; //attributes in table
+            address.AddressLine2 = model.AddressLine2;
+            address.AddressLine3 = model.AddressLine3;
+            address.AddressPostalCode = model.AddressPostalCode;
+            address.CustomerId = model.CustomerID;
+            address.ProvinceId = model.ProvinceID;
+            _db.Addresses.Add(address);
+            _db.SaveChanges();
+
+            return Ok(address);
+        }
     }
 }

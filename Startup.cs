@@ -63,7 +63,7 @@ namespace NKAP_API_2
         {
        
 
-            app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200", " http://localhost:58239"));
+            app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
            
 
             if (env.IsDevelopment())

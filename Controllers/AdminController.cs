@@ -158,7 +158,7 @@ namespace NKAP_API_2.Controllers
             return Ok(admin);
         }
 
-      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+      //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("DeleteAdmin/{adminid}")] //route
         [HttpDelete]
         //Delete Admin

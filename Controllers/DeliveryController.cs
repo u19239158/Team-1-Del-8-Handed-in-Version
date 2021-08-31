@@ -345,11 +345,6 @@ namespace NKAP_API_2.Controllers
         //Update Order Status
         public IActionResult AssignCourier(DeliveryShiftModel model)
         {
-            //var ds = _db.EmployeeShifts.Find(model.EmployeeShiftId);
-            //ds.NoOfDeliveries = +1;
-            //_db.EmployeeShifts.Attach(ds); //Attach Record
-            //_db.SaveChanges();
-
             var sd = _db.Sales.Find(model.SaleID);
             sd.SaleOrderAssign = true;
             _db.Sales.Attach(sd); //Attach Record

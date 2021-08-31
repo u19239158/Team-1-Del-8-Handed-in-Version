@@ -17,7 +17,7 @@ namespace NKAP_API_2.Controllers
     [ApiController]
     public class TokenController : ControllerBase
     {
-        private const string SECRET_KEY = "NKAPSECURITY";
+        private const string SECRET_KEY = "NKAPSECURITY2021";
         public static readonly SymmetricSecurityKey SIGNING_KEY = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(TokenController.SECRET_KEY));
 
         public string GenerateToken(RegisterModel model)

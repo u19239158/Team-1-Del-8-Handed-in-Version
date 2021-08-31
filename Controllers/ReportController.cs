@@ -183,7 +183,7 @@ namespace NKAP_API_2.Controllers
 
     //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GenerateSalesReportSum")] //route
-        [HttpGet]
+        [HttpPost]
         //get Sales by Date (Read)
         public IActionResult getSalesReportSum(ReportModel model)
         {
@@ -216,7 +216,7 @@ namespace NKAP_API_2.Controllers
 
     //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GenerateSalesReport")] //route
-        [HttpGet]
+        [HttpPost]
         public IActionResult getSalesReport([FromBody]ReportModel model)
         {
             var Sales = _db.Sales.Join(_db.Customers,
@@ -287,7 +287,7 @@ namespace NKAP_API_2.Controllers
 
     //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GenerateFrequentBuyerReport")] //route
-        [HttpGet]
+        [HttpPost]
         //get Frequent Buyers (Read)
         public IActionResult getFrequentBuyers(ReportModel model)
         {
@@ -321,7 +321,7 @@ namespace NKAP_API_2.Controllers
 
     //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GenerateFrequentBuyerReportCount")] //route
-        [HttpGet]
+        [HttpPost]
         //get Frequent Buyers (Read)
         public IActionResult getFrequentBuyersCount(ReportModel model)
         {
@@ -373,7 +373,7 @@ namespace NKAP_API_2.Controllers
 
     //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetFastSellingProductsCount")] //route
-        [HttpGet]
+        [HttpPost]
         //get Fast Selling Products (Read)
         public IActionResult getFastSellingProductsCount(ReportModel model, int ProductItemId)
         {
@@ -413,7 +413,7 @@ namespace NKAP_API_2.Controllers
 
     //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetFastSellingProducts")] //route
-        [HttpGet]
+        [HttpPost]
         //get Fast Selling Products (Read)
         public IActionResult getFastSellingProducts(ReportModel model)
         {
@@ -452,7 +452,7 @@ namespace NKAP_API_2.Controllers
 
     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetSlowSellingProducts")] //route
-        [HttpGet]
+        [HttpPost]
         //get Slow Selling Products (Read)
         public IActionResult getSlowSellingProducts(ReportModel model)
         {
@@ -490,7 +490,7 @@ namespace NKAP_API_2.Controllers
 
      //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("MostPopularLocation")] //route
-        [HttpGet]
+        [HttpPost]
         //get Slow Selling Products (Read)
         public IActionResult getMostPopularLocation( )
         {

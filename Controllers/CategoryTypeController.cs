@@ -14,7 +14,7 @@ using NKAP_API_2.Models;
 
 namespace NKAP_API_2.Controllers
 {
-    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+   // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoryTypeController : ControllerBase
