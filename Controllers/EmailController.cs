@@ -214,5 +214,69 @@ namespace NKAP_API_2.Controllers
             return Ok(Sale);
         }
 
+        //[Route("ReadyForCollection/{customerEmail}, {}")]
+        [Route("ReadyForCollection/{customerEmail}")] //route
+        [HttpGet]
+        public async Task<IActionResult> GetAsync(string customerEmail)
+        {
+            var apiKey = "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";
+            var client = new SendGridClient(apiKey);
+            var msg = new SendGridMessage();
+            msg.SetSubject("Ready for Collection");
+            msg.SetFrom(new EmailAddress("ds3solutions370@outlook.com", "NKAP Bolting"));
+            msg.AddTo(new EmailAddress(customerEmail));
+            msg.SetTemplateId("d-ded3de28bc274242abcfc20e95e85450");
+
+
+
+            //var dynamicTemplateData = new Models.CourierOrderMailData
+            //{
+            //    //Subject = "Hi!",
+            //    //Name = "Example User"
+            //};
+
+            //msg.SetTemplateData(dynamicTemplateData);
+
+            var response = await client.SendEmailAsync(msg);
+
+
+            //var emailResult = new EmailResult();
+            //emailResult.message="Email sent.";
+            //await CourierOrderMail.Execute(emailAddress);
+            return Ok(response);
+
+        }
+
+        ////[Route("PromoteSpecials/{customerEmail}, {}")]
+        //[Route("PromoteSpecials/{customerEmail}")] //route
+        //[HttpGet]
+        //public async Task<IActionResult> GetAsync(string customerEmail)
+        //{
+        //    var apiKey = "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";
+        //    var client = new SendGridClient(apiKey);
+        //    var msg = new SendGridMessage();
+        //    msg.SetSubject("Promote Specials");
+        //    msg.SetFrom(new EmailAddress("ds3solutions370@outlook.com", "NKAP Bolting"));
+        //    msg.AddTo(new EmailAddress(customerEmail));
+        //    msg.SetTemplateId("________");
+
+
+
+        //    //var dynamicTemplateData = new Models.CourierOrderMailData
+        //    //{
+        //    //    //Subject = "Hi!",
+        //    //    //Name = "Example User"
+        //    //};
+
+        //    //msg.SetTemplateData(dynamicTemplateData);
+
+        //    var response = await client.SendEmailAsync(msg);
+
+        //    return Ok(response);
+
+        //}
+
+
     }
+
 }
