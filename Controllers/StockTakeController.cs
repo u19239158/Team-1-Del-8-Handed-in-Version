@@ -19,7 +19,7 @@ namespace NKAP_API_2.Controllers
             private NKAP_BOLTING_DB_4Context _db; //dependency injection for db
             public StockTakeController(NKAP_BOLTING_DB_4Context db)
             { _db = db; }
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetStockTake")] //route
             [HttpGet]
             //get StockTake (Read)
@@ -29,7 +29,7 @@ namespace NKAP_API_2.Controllers
                 return Ok(StockTakes);
             }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetStockTakeByID/{stocktakeid}")] //route
         [HttpGet]
         //get Stock Take by ID (Read)
@@ -39,7 +39,7 @@ namespace NKAP_API_2.Controllers
             return Ok(StockTakes);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("CreateStockTake")] //route
         [HttpPost]
         //Add Stock Take
@@ -54,7 +54,7 @@ namespace NKAP_API_2.Controllers
             return Ok(stocktake);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("DoStockTake")] //route
         [HttpPost]
         //Add Product Item StockTake
@@ -94,7 +94,7 @@ namespace NKAP_API_2.Controllers
             return Ok();
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("UpdateProdItemQuantity")] //route
         [HttpPut]
         //Update Quant on Hand
