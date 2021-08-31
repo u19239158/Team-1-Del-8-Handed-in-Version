@@ -20,7 +20,7 @@ namespace NKAP_API_2.Controllers
         public CheckoutController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Customer")]
+      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Customer")]
         [Route("Checkout")] //route
         [HttpPost]
         //Add Sales
@@ -49,7 +49,7 @@ namespace NKAP_API_2.Controllers
             return Ok();
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Customer")]
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Customer")]
         [Route("AddSaleLine")] //route
         [HttpPost]
         //Add Sales

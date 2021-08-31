@@ -20,7 +20,7 @@ namespace NKAP_API_2.Controllers
         public CourierController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetCourier")] //route
         [HttpGet]
         //get Courier (Read)
@@ -44,7 +44,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Couriers);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetCourierByID/{courierid}")] //route
         [HttpGet]
         //get Courier by ID (Read)
@@ -68,7 +68,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Couriers);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetCourierByName/{couriername}")] //route
         [HttpGet]
         //get Courier by ID (Read)
@@ -91,7 +91,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Couriers);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("CreateCourier")] //route
         [HttpPost]
         //Add Courier
@@ -109,7 +109,7 @@ namespace NKAP_API_2.Controllers
             return Ok(courier);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("UpdateCourier")] //route
         [HttpPut]
         //Update Courier
@@ -126,7 +126,7 @@ namespace NKAP_API_2.Controllers
             return Ok(courier);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("DeleteCourier/{courierid}")] //route
         [HttpDelete]
         //Delete Category Type

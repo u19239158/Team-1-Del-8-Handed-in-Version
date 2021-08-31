@@ -20,7 +20,7 @@ namespace NKAP_API_2.Controllers
         public ProductSpecialController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetProductSpecials")] //route
         [HttpGet]
         //get Product Specials (Read)
@@ -32,7 +32,7 @@ namespace NKAP_API_2.Controllers
         }
 
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetProductSpecial/{productspecialid}")] //route
         [HttpGet]
         //get Product Specials by ID (Read)
@@ -43,7 +43,7 @@ namespace NKAP_API_2.Controllers
         }
 
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("CreateProductSpecials")] //route
         [HttpPost]
         //Add Product Specials
@@ -59,7 +59,7 @@ namespace NKAP_API_2.Controllers
         }
 
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("UpdateProductSpecials")] //route
         [HttpPut]
         //Update Product Specials
@@ -74,7 +74,7 @@ namespace NKAP_API_2.Controllers
         }
 
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("DeleteOrderStatus/{productspecialid}")] //route
         [HttpDelete]
         //Delete Product Specials

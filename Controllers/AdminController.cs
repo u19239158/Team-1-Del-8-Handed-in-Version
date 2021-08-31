@@ -121,7 +121,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Admins);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+       // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("CreateAdmin")] //route
         [HttpPost]
         //Add Admin
@@ -140,7 +140,7 @@ namespace NKAP_API_2.Controllers
             return Ok(admin);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+       // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("UpdateAdmin")] //route
         [HttpPut]
         //Update Admin
@@ -158,7 +158,7 @@ namespace NKAP_API_2.Controllers
             return Ok(admin);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("DeleteAdmin/{adminid}")] //route
         [HttpDelete]
         //Delete Admin

@@ -20,7 +20,7 @@ namespace NKAP_API_2.Controllers
         public OrderStatusController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
+    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("GetOrderStatus")] //route
         [HttpGet] 
         //get Order Statuses (Read)
@@ -31,7 +31,7 @@ namespace NKAP_API_2.Controllers
                 
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
+    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("GetOrderStatusByID/{id}")] //route
         [HttpGet]
         //get Order Statuses by ID (Read)
@@ -41,7 +41,7 @@ namespace NKAP_API_2.Controllers
             return Ok(OrderStatus);
         }
 
-        [Route("GetOrderStatusByDescription/{description}")] //route
+    //    [Route("GetOrderStatusByDescription/{description}")] //route
         [HttpGet]
         //get Order Statuses by ID (Read)
         public IActionResult get(string description)

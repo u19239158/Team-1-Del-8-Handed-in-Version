@@ -22,7 +22,7 @@ namespace NKAP_API_2.Controllers
         public CustomerController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetCustomer")] //route
         [HttpGet]
         public ActionResult get()
@@ -55,7 +55,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Custitle);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetCustomerByID/{customerid}")] //route
         [HttpGet]
         //get Customer by ID (Read)
@@ -85,7 +85,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Custitle);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetCustomerByName/{customername}")] //route
         [HttpGet]
         //get Customer by Name (Read)
@@ -115,7 +115,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Custitle);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetCustomerBySurname/{customersurname}")] //route
         [HttpGet]
         //get Customer by ID (Read)
@@ -147,7 +147,7 @@ namespace NKAP_API_2.Controllers
            
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("CreateCustomer")] //route
         [HttpPost]
         //Add Customer
@@ -168,7 +168,7 @@ namespace NKAP_API_2.Controllers
             return Ok(customer);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin, Customer")]
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin, Customer")]
         [Route("UpdateCustomer")] //route
         [HttpPut]
         //Update Customer
@@ -188,7 +188,7 @@ namespace NKAP_API_2.Controllers
             return Ok(customer);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin, Customer")]
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin, Customer")]
         [Route("DeleteCustomer/{customerid}")] //route
         [HttpDelete]
         //Delete Customer
