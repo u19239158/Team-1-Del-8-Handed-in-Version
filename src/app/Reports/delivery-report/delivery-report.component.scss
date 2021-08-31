@@ -1,48 +1,102 @@
+// h2 {
+//   text-align: center;
+//   font-weight: 400;
+//   font-size: 45px;
+// }
+
+// .tableContainer {
+//   .grand { text-align: center;
+//       //margin-left: 400px;
+//   }
+//   .tables {
+//       //margin-left: 400px;
+//       border-radius: 5px;
+//       table {
+//           width: 100%;
+//           border-collapse: collapse;
+//           border-spacing: 0;
+//           margin-bottom: 30px;
+//           td, th {
+//               border: 1px solid #CCC;
+//           }
+
+//           th {
+//               background: #F3F3F3;
+//               font-weight: bold;
+//           }
+//           td {
+//               background: #FAFAFA;
+//               text-align: center;
+//               margin: 30px;
+//           }
+
+//           tr:nth-child(even) td {
+//                background: #F1F1F1;
+//           }
+
+//           tr:nth-child(odd) td {
+//               background: #FEFEFE;
+//           }
+
+//           tr td:hover {
+//               background: #666; color: #FFF;
+//           }
+
+//       }
+//   }
+
+// }
+
 h2 {
-  text-align: center;
-  font-weight: 400;
-  font-size: 45px;
-}
-
-.tableContainer {
-  .grand {
-      margin-left: 400px;
+    //text-align: left;
+    font-weight: 400;
+    font-size: 45px;
+    left: 40px;
   }
-  .tables {
-      margin-left: 400px;
-      border-radius: 5px;
-      table {
-          width: 100%;
-          border-collapse: collapse;
-          border-spacing: 0;
-          margin-bottom: 30px;
-          td, th {
-              border: 1px solid #CCC;
-          }
-
-          th {
-              background: #F3F3F3;
-              font-weight: bold;
-          }
-          td {
-              background: #FAFAFA;
-              text-align: center;
-              margin: 30px;
-          }
-
-          tr:nth-child(even) td {
-               background: #F1F1F1;
-          }
-
-          tr:nth-child(odd) td {
-              background: #FEFEFE;
-          }
-
-          tr td:hover {
-              background: #666; color: #FFF;
-          }
-
-      }
-  }
-
-}
+    .content {
+    margin: 0;
+    position:inherit;
+    top: 25%;
+    left: 25%;
+    }
+  
+    table {
+        margin-top: 20px;
+        width: 100%;
+        background-color: white;
+    }
+  
+    th {
+      top: 10px;
+      text-align: center;
+      font-size: medium;
+    }
+    td {
+      border-bottom: 1px solid #ddd;
+    }
+  
+    #addBtn {
+        margin-top: 30px;
+        margin-left: auto;
+        display: inline-block;
+    }
+    button {
+        float: right;
+    }
+  
+    .more-button {
+        text-align: center;
+    }
+  
+    .example-container {
+  
+        margin-left: 100px;
+        margin-right: 100px;
+    }
+  
+    .search {
+      position: absolute;
+      right: 20px;
+      top: 75px;
+    }
+  

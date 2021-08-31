@@ -70,9 +70,6 @@ export class DeliveryReportComponent implements OnInit {
 
   generatePdf(): void {
     let Data = document.getElementById('htmlData')!;
-
-
-
     // Canvas Options
     html2canvas(Data).then(canvas => {
       let fileWidth = 210;
@@ -85,7 +82,7 @@ export class DeliveryReportComponent implements OnInit {
       let topPosition = 10;
       let leftPosition = 0;
       PDF.addImage(contentDataURL, 'PNG', leftPosition, topPosition, fileWidth, fileHeight)
-      PDF.save('Delivery.pdf');
+      PDF.save('Delivery Report.pdf');
     });
   }
 

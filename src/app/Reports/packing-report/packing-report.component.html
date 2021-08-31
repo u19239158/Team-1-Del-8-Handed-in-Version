@@ -1,9 +1,11 @@
 <div>
   <h2>Packing Report </h2>
-  <button (click)="generatePdf">Generate PDF</button>
+  <button (click)="generatePdf()"  mat-raised-button color ="primary">Generate PDF</button>
 </div>
-
-<div class="mat-elevation-z8 table">
+<br>
+<br>
+<br>
+<div class="mat-elevation-z8 table" id = "htmlData">
   <table mat-table [dataSource]="dataSource" matSort>
        
         <ng-container matColumnDef="saleId">

@@ -5,6 +5,7 @@ import 'jspdf-autotable';
 import jsPDF from 'jspdf';
 import { ReportServiceService } from 'src/app/services/Reports/report-service.service';
 import { MatTableDataSource } from '@angular/material/table';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-stock-level-report',
@@ -38,28 +39,21 @@ export class StockLevelReportComponent implements OnInit {
               'Quantity on Hand'
             ]]
 
-  generatePdf() {
-  var pdf = new jsPDF();
+  generatePdf(): void {
+    let Data = document.getElementById('htmlData')!;
+    // Canvas Options
+    html2canvas(Data).then(canvas => {
+      let fileWidth = 210;
+      let fileHeight = canvas.height * fileWidth / canvas.width;
 
-        pdf.setFontSize(2);
-        pdf.text('Stock Level Report', 11, 8);
-        pdf.setFontSize(12);
-        pdf.setTextColor(99);
+      const contentDataURL = canvas.toDataURL('image/png')
 
 
-        (pdf as any).autoTable({
-        head: this.header,
-        body: this.dataSource,
-        theme: 'plain',
-        didDrawCell: data => {
-            console.log(data.column.index)
-        }
-        })
-
-        // Open PDF document in browser's new tab
-        pdf.output('dataurlnewwindow')
-
-        // Download PDF doc  
-        pdf.save('Stock Level Report.pdf');
-    }  
+      let PDF = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4', });
+      let topPosition = 10;
+      let leftPosition = 0;
+      PDF.addImage(contentDataURL, 'PNG', leftPosition, topPosition, fileWidth, fileHeight)
+      PDF.save('Delivery Report.pdf');
+    });
+  }
 }
