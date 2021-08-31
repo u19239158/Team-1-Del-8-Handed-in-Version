@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -19,6 +20,7 @@ namespace NKAP_API_2.Controllers
         private NKAP_BOLTING_DB_4Context _db; //dependency injection for db
         public SupplierOrderController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetSupplierOrder")] //route
         [HttpGet]
         //get Supplier Order (Read)
@@ -62,6 +64,7 @@ namespace NKAP_API_2.Controllers
 
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetSupplierOrderByID/{supplierorderid}")] //route
         [HttpGet]
         //get SupplierOrder by ID (Read)
@@ -103,6 +106,7 @@ namespace NKAP_API_2.Controllers
             return Ok(SupplierOrders);
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetSupplierOrderByDatePlaced/{orderdateplaced}")] //route
         [HttpGet]
         //get SupplierOrder by Date Placed (Read)
@@ -144,6 +148,7 @@ namespace NKAP_API_2.Controllers
             return Ok(SupplierOrders);
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("CreateSupplierOrder")] //route
         [HttpPost]
         //Add SupplierOrder
@@ -164,6 +169,7 @@ namespace NKAP_API_2.Controllers
             return Ok(supOrder);
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("DisplaySupplierOrder")] //route
         [HttpGet]
         //get Supplier Order (Read)
@@ -186,7 +192,7 @@ namespace NKAP_API_2.Controllers
             return Ok(SupplierOrders);
         }
 
-
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("ReceiveInvoice")] //route
         [HttpPost]
         //Create a Model for table
@@ -217,6 +223,7 @@ namespace NKAP_API_2.Controllers
             return Ok();
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("AddInvoiceLine")] //route
         [HttpPost]
         //Add Sales
@@ -242,6 +249,7 @@ namespace NKAP_API_2.Controllers
             return Ok();
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("PlaceSupplierOrder")] //route
         [HttpPost]
         //Add SupplierOrder
@@ -262,7 +270,7 @@ namespace NKAP_API_2.Controllers
             return Ok(supOrder);
         }
 
-
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("SupplierOrderLine")] //route
         [HttpPost]
         //Add SupplierOrder

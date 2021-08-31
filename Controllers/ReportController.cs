@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +22,7 @@ namespace NKAP_API_2.Controllers
         public ReportController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
 
-
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetPackingReportData")] //route
         [HttpGet]
         //get Sales with status "needs packing"
@@ -51,8 +52,9 @@ namespace NKAP_API_2.Controllers
         //var NeedsPackingSales = _db.Sales.Include(od => od.OrderStatus).Where(od => od.OrderStatus.OrderStatusDescription == "Needs Packing").ToList();
 
 
-    
 
+
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetDeliveryReportData")] //route
         [HttpGet]
         //get Sales with status "needs packing"
@@ -179,6 +181,7 @@ namespace NKAP_API_2.Controllers
         }
 
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GenerateSalesReportSum")] //route
         [HttpGet]
         //get Sales by Date (Read)
@@ -211,6 +214,7 @@ namespace NKAP_API_2.Controllers
         }
 
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GenerateSalesReport")] //route
         [HttpGet]
         public IActionResult getSalesReport([FromBody]ReportModel model)
@@ -241,6 +245,8 @@ namespace NKAP_API_2.Controllers
 
         }
 
+
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GenerateStockLevel")] //route
         [HttpGet]
         //get Sales by Date (Read)
@@ -278,6 +284,8 @@ namespace NKAP_API_2.Controllers
 
         }
 
+
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GenerateFrequentBuyerReport")] //route
         [HttpGet]
         //get Frequent Buyers (Read)
@@ -310,6 +318,8 @@ namespace NKAP_API_2.Controllers
             return Ok(Sales);
         }
 
+
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GenerateFrequentBuyerReportCount")] //route
         [HttpGet]
         //get Frequent Buyers (Read)
@@ -360,6 +370,8 @@ namespace NKAP_API_2.Controllers
         //}
 
 
+
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetFastSellingProductsCount")] //route
         [HttpGet]
         //get Fast Selling Products (Read)
@@ -398,6 +410,8 @@ namespace NKAP_API_2.Controllers
 
         }
 
+
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetFastSellingProducts")] //route
         [HttpGet]
         //get Fast Selling Products (Read)
@@ -435,6 +449,8 @@ namespace NKAP_API_2.Controllers
 
         }
 
+
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetSlowSellingProducts")] //route
         [HttpGet]
         //get Slow Selling Products (Read)
@@ -471,6 +487,8 @@ namespace NKAP_API_2.Controllers
 
         }
 
+
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("MostPopularLocation")] //route
         [HttpGet]
         //get Slow Selling Products (Read)

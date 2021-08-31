@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -18,6 +19,9 @@ namespace NKAP_API_2.Controllers
         private NKAP_BOLTING_DB_4Context _db; //dependency injection for db
         public SaleController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
+
+
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("GetSales")] //route
         [HttpGet]
         //get Sales (Read)
@@ -65,6 +69,7 @@ namespace NKAP_API_2.Controllers
 
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("GetSaleByID/{saleid}")] //route
         [HttpGet]
         //get Sales by ID (Read)
@@ -110,6 +115,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Sale);
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("GetSalesByDate/{SaleOrderdate}")] //route
         [HttpGet]
         //get Sales by Date (Read)
@@ -156,6 +162,7 @@ namespace NKAP_API_2.Controllers
             
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("GetSalesReceiveType/{SaleOrderRecievetype}")] //route
         [HttpGet]
         //get Sales by ReceiveType (Read)
@@ -201,6 +208,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Sale);
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("SearchSales/{OrderStatusId}")] //route
         [HttpGet]
         //get Sales by Date (Read)
@@ -251,6 +259,7 @@ namespace NKAP_API_2.Controllers
 
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("GetSalesByOrderStatus/{orderstatusdescription}")] //route
         [HttpGet]
         //get Sales by Date (Read)
@@ -296,6 +305,7 @@ namespace NKAP_API_2.Controllers
 
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("CreateSales")] //route
         [HttpPost]
         //Add Sales
@@ -318,6 +328,7 @@ namespace NKAP_API_2.Controllers
             return Ok(sale);
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("ViewSale/{saleid}")] //route
         [HttpGet]
         //get Sales by ID (Read)
@@ -387,6 +398,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Sale);
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("Collection")] //route
         [HttpPut]
         //Update Order Status
@@ -400,6 +412,7 @@ namespace NKAP_API_2.Controllers
             return Ok(PackOrder);
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("Delivery")] //route
         [HttpPut]
         //Update Order Status
@@ -413,6 +426,7 @@ namespace NKAP_API_2.Controllers
             return Ok(PackOrder);
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("ViewAllSales")] //route
         [HttpGet]
         //get Sales by ID (Read)
@@ -463,7 +477,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Sale);
         }
 
-
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("UpdateOrderCollected")] //route
         [HttpPut]
         //Update Order Status
@@ -477,6 +491,7 @@ namespace NKAP_API_2.Controllers
             return Ok(orderstatus);
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("UpdateOrderDelivered")] //route
         [HttpPut]
         //Update Order Status
@@ -540,6 +555,7 @@ namespace NKAP_API_2.Controllers
             return Ok();
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("GetComplexSaleByID/{saleid}")] //route
         [HttpGet]
         //get Sales by ID (Read)

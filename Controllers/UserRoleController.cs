@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -18,6 +19,7 @@ namespace NKAP_API_2.Controllers
         private NKAP_BOLTING_DB_4Context _db; //dependency injection for db
         public UserRoleController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetUserRole")] //route
         [HttpGet]
         //get User Role (Read)
@@ -28,6 +30,7 @@ namespace NKAP_API_2.Controllers
 
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetUserRoleByID/{userroleid}")] //route
         [HttpGet]
         //get UserRole by ID (Read)
@@ -37,6 +40,7 @@ namespace NKAP_API_2.Controllers
             return Ok(UserRoles);
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetUserRoleByName/{userrolename}")] //route
         [HttpGet]
         //get UserRole by Name (Read)
@@ -46,7 +50,7 @@ namespace NKAP_API_2.Controllers
             return Ok(UserRoles);
         }
 
-
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("CreateUserRole")] //route
         [HttpPost]
         //Add UserRole
@@ -62,6 +66,7 @@ namespace NKAP_API_2.Controllers
             return Ok(userrole);
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("UpdateUserRole")] //route
         [HttpPut]
         //Update UserRole
@@ -77,6 +82,7 @@ namespace NKAP_API_2.Controllers
             return Ok(userrole);
         }
 
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("DeleteUserRole/{userroleid}")] //route
         [HttpDelete]
         //Delete UserRole
