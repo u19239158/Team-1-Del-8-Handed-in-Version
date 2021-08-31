@@ -216,7 +216,7 @@ namespace NKAP_API_2.Controllers
 
     //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GenerateSalesReport")] //route
-        [HttpGet]
+        [HttpPost]
         public IActionResult getSalesReport([FromBody]ReportModel model)
         {
             var Sales = _db.Sales.Join(_db.Customers,
