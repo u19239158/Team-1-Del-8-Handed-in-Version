@@ -7,7 +7,7 @@
       <div class="mat-col-quarter">
         <section class="checkbox" align="left">
 
-          <h3>*Select one*</h3>
+          <h3>Select An Option to Pack Order</h3>
           <p>
             <input type="checkbox" name="test" [checked]="currentlyChecked === check_box_type.READY_FOR_DELIVERY"
               (click)="selectCheckBox(check_box_type.READY_FOR_DELIVERY)">Ready for Delivery
@@ -27,7 +27,7 @@
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
             Confirm
           </button>
-          <a (click)="Close()" mat-button>Cancel</a>
+          <button [routerLink]="['/onlineSales']" (click)="Close()" mat-button>Cancel</button>
         </div>
       </div>
     </div>

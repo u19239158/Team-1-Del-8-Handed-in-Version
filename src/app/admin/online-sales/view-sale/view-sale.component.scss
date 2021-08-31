@@ -2,3 +2,29 @@
     background-color: rgba(0,0,0,.12);
     box-shadow: 0 0 0 0 rgb(0 0 0 / 20%), 0 0 0 0 rgb(0 0 0 / 14%), 0 0 0 0 rgb(0 0 0 / 12%);
   }
+
+  .contentx,.content1 {
+    // align-content: center;
+    flex: 50%;
+    width: 50%;
+    float: left;
+    padding: 10px;
+    margin: 0;
+    //position: absolute;
+    top: 15%;
+    right: 25%;
+    width: 50%;
+  }
+
+  .content {
+    flex: 50%;
+    width: 50%;
+    float: left;
+    padding: 10px;
+  }
+
+  .content1 {
+    text-align : left;
+  }
+  
+  

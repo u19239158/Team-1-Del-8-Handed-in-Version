@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { AbstractControlOptions, FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 enum CheckBoxType { READY_FOR_COLLECTION, READY_FOR_DELIVERY, NONE };
 
@@ -20,12 +20,18 @@ export class PackOrderComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private formBuilder : FormBuilder
   ) { }
 
   ngOnInit(): void {
-
+    this.id = this.route.snapshot.params['id'];
+    const formOptions: AbstractControlOptions = { };
+    this.form = this.formBuilder.group({
+    }, formOptions);
   }
+
+  
 
   check_box_type = CheckBoxType;
   currentlyChecked: CheckBoxType;
@@ -49,7 +55,7 @@ export class PackOrderComponent implements OnInit {
 
   Close() {
     this.form.reset();
-    this.router.navigateByUrl('viewSale');
+    this.router.navigateByUrl('onlineSales');
   }
 
 }

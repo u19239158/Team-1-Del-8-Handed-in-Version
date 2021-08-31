@@ -2,16 +2,16 @@
 
     <h1 align="center">View Sale</h1>
 
-    <div>
-        <mat-card>
-            <mat-card-content>
+    <div class = "content1">
+        <!-- <mat-card> -->
+            <!-- <mat-card-content> -->
                 <div>
                     <div>
                         <label for="saleID">Sale Number: </label>
-                        <mat-label>{{sale.saleID}}</mat-label>
+                        <span>{{sale.saleID}}</span>
                     </div>
                 </div>
-            </mat-card-content>
+            <!-- </mat-card-content> -->
 
             <div class="mat-row">
                 <div class="mat-col-quarter">
@@ -83,20 +83,64 @@
             <div class="mat-row">
                 <div class="mat-col-quarter">
                     <div class="form-group" class="control-m">
-                        <button [routerLink]="['/packOrder']" mat-raised-button color="primary">
-                            <!-- [disabled]="loading"> -->
-                            <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> -->
+                        <button mat-raised-button color  ="primary" type = "submit"(click) ="PackOrder()" [disabled]="loading" >
+                            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                             Pack Order
                         </button>
+                        <!-- <button (click)="PackOrder()" mat-raised-button color="primary"> -->
+                            <!-- [disabled]="loading"> -->
+                            <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> -->
+                            <!-- Pack Order
+                        </button> -->
 
                         <!-- (click)="Close()"  -->
                         <a (click)="Close()" mat-button>Cancel</a>
                     </div>
                 </div>
             </div>
-        </mat-card>
+        <!-- </mat-card> -->
     </div>
+
+    <div class="contentx" [hidden]="isHidden">
+
+  <h2>Pack Order</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="mat-row">
+      <div class="mat-col-quarter">
+        <section class="checkbox" align="left">
+
+          <h3>Select An Option to Pack Order</h3>
+          <p>
+            <!-- [ngClass]="{'disable':element.saleOrderRecieveType ===0}">Delivered -->
+            <input type="checkbox" name="test" [checked]="currentlyChecked === check_box_type.READY_FOR_DELIVERY"
+              (click)="selectCheckBox(check_box_type.READY_FOR_DELIVERY)" [ngClass]="{'disable':sale.saleOrderRecieveType ===0}">Ready for Delivery
+          </p>
+          <p>
+            <input type="checkbox" name="test" [checked]="currentlyChecked === check_box_type.READY_FOR_COLLECTION"
+              (click)="selectCheckBox(check_box_type.READY_FOR_COLLECTION)">Ready for Collection
+          </p>
+        </section>
+      </div>
+    </div>
+
+    <div class="mat-row">
+      <div class="mat-col-quarter">
+        <div class="form-group" class="control-m">
+          <button mat-raised-button color="primary" [disabled]="loading">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Confirm
+          </button>
+          <button [routerLink]="['/onlineSales']" (click)="Close()" mat-button>Cancel</button>
+        </div>
+      </div>
+    </div>
+
+  </form>
 </div>
+</div>
+
+
 
 <!-- <div class="mat-elevation-z8 table">
     <table mat-table matSort> -->
