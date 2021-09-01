@@ -16,7 +16,7 @@ namespace NKAP_API_2.EF
         public int? CourierId { get; set; }
         public int? AddressId { get; set; }
         public int? SaleId { get; set; }
-        public DateTime DeliveryDate { get; set; }
+        public DateTime? DeliveryDate { get; set; }
         public string CourierTrackingNumber { get; set; }
         public string DeliveryDistance { get; set; }
 

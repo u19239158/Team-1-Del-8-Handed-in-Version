@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -20,41 +21,13 @@ namespace NKAP_API_2.Controllers
         private NKAP_BOLTING_DB_4Context _db; //dependency injection for db
         public CustomerController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
+
+      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetCustomer")] //route
         [HttpGet]
-        //get Customer (Read)
-        //public IActionResult get()
-        //{
-        //    var Customers = _db.Customers.ToList();
-            
-        //    var desc = _db.Titles.Select(td => td.TitleDescription.Where(td.TitleId = )
-        //    return Ok(Customers);
-        //}
-
         public ActionResult get()
         {
-            //var TtitlesDesc = _db.Titles.Select(zz => zz.TitleDescription).ToList();
-            //var Customers = _db.Customers.Include(zz => zz.Title).ToList();
-            //var Titles = _db.Titles.Include(xx => xx.Customers);
-            //dynamic toreturn = new List<dynamic>();
-           //// foreach (var customer in Customers)
-           // {
-           //     dynamic dynamicCust = new ExpandoObject();
-           //     dynamicCust.CustomerName = customer.CustomerName;
-           //     dynamicCust.CustomerSurname = customer.CustomerSurname;
-           //     dynamicCust.CustomerCellphoneNumber = customer.CustomerCellphoneNumber;
-           //     dynamicCust.CustomerEmailAddress = customer.CustomerEmailAddress;
-           //     dynamicCust.CustomerVatReg = customer.CustomerVatreg;
-           //     dynamicCust.BusinessName = customer.CustomerBusinessName;
-           //     dynamicCust.TitleID = customer.TitleId;
-
-           //     toreturn.Add(dynamicCust);
-
-           //     //var descr = from a in Titles
-           //     //            join c in Customers on a.TitleId equals c.TitleId
-           //     //            select a.TitleDescription;
-           // }
-
+           
             var Custitle = _db.Customers.Join(_db.Titles,
                 c => c.TitleId,
                 t => t.TitleId,
@@ -82,7 +55,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Custitle);
         }
 
-
+    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetCustomerByID/{customerid}")] //route
         [HttpGet]
         //get Customer by ID (Read)
@@ -112,6 +85,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Custitle);
         }
 
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetCustomerByName/{customername}")] //route
         [HttpGet]
         //get Customer by Name (Read)
@@ -141,6 +115,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Custitle);
         }
 
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetCustomerBySurname/{customersurname}")] //route
         [HttpGet]
         //get Customer by ID (Read)
@@ -172,6 +147,7 @@ namespace NKAP_API_2.Controllers
            
         }
 
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("CreateCustomer")] //route
         [HttpPost]
         //Add Customer
@@ -192,6 +168,7 @@ namespace NKAP_API_2.Controllers
             return Ok(customer);
         }
 
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin, Customer")]
         [Route("UpdateCustomer")] //route
         [HttpPut]
         //Update Customer
@@ -211,6 +188,7 @@ namespace NKAP_API_2.Controllers
             return Ok(customer);
         }
 
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin, Customer")]
         [Route("DeleteCustomer/{customerid}")] //route
         [HttpDelete]
         //Delete Customer

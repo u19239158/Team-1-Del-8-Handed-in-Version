@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -11,6 +12,7 @@ using NKAP_API_2.Models;
 
 namespace NKAP_API_2.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class AdminController : ControllerBase
@@ -44,6 +46,7 @@ namespace NKAP_API_2.Controllers
 
         }
 
+        
         [Route("GetAdminByID/{adminid}")] //route
         [HttpGet]
         //get Admin by ID (Read)
@@ -68,6 +71,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Admins);
         }
 
+        
         [Route("GetAdminByName/{adminname}")] //route
         [HttpGet]
         //get Admin by Name (Read)
@@ -92,6 +96,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Admins);
         }
 
+   
         [Route("getadminbysurname/{adminsurname}")] //route
         [HttpGet]
         //get admin by surname (read)
@@ -116,7 +121,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Admins);
         }
 
-
+       // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("CreateAdmin")] //route
         [HttpPost]
         //Add Admin
@@ -135,6 +140,7 @@ namespace NKAP_API_2.Controllers
             return Ok(admin);
         }
 
+       // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("UpdateAdmin")] //route
         [HttpPut]
         //Update Admin
@@ -152,6 +158,7 @@ namespace NKAP_API_2.Controllers
             return Ok(admin);
         }
 
+      //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("DeleteAdmin/{adminid}")] //route
         [HttpDelete]
         //Delete Admin

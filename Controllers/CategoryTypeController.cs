@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -10,8 +11,10 @@ using NKAP_API_2.EF;
 using NKAP_API_2.Models;
 
 
+
 namespace NKAP_API_2.Controllers
 {
+   // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoryTypeController : ControllerBase
@@ -43,6 +46,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Cattype);
         }
 
+      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetCategoryTypeByID/{categorytypeid}")] //route
         [HttpGet]
         //get CategoryType by ID (Read)
@@ -65,6 +69,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Cattype);
         }
 
+       // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetCategoryTypeByDescription/{categorytypedescription}")] //route
         [HttpGet]
         //get CategoryType by Description (Read)
@@ -87,6 +92,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Cattype);
         }
 
+      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetCategoryTypeByProdDesc/{productcategorydescription}")] //route
         [HttpGet]
         //get CategoryType by Description (Read)
@@ -110,6 +116,7 @@ namespace NKAP_API_2.Controllers
 
         }
 
+       // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("CreateCategoryType")] //route
         [HttpPost]
         //Add CategoryType
@@ -127,6 +134,7 @@ namespace NKAP_API_2.Controllers
             return Ok(catType);
         }
 
+       // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("UpdateCategoryType")] //route
         [HttpPut]
         //Update CategoryType
@@ -143,6 +151,7 @@ namespace NKAP_API_2.Controllers
             return Ok(catType);
         }
 
+       // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("DeleteCategoryType/{categorytypeid}")] //route
         [HttpDelete]
         //Delete Category Type

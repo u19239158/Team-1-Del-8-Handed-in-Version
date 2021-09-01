@@ -12,6 +12,11 @@ namespace NKAP_API_2.Models
         public int SaleID
         { get; set; }
 
+
+        [JsonProperty("productitemid")]
+        public int ProductItemId
+        { get; set; }
+
         [JsonProperty("SaleOrderdescription")]
         public string SaleOrderDescription
         { get; set; }

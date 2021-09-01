@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -19,6 +20,7 @@ namespace NKAP_API_2.Controllers
         private NKAP_BOLTING_DB_4Context _db; //dependency injection for db
         public SupplierOrderLineController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
+        //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetSupplierOrderLine")] //route
         [HttpGet]
         //get Supplier OrderLine (Read)
@@ -60,6 +62,7 @@ namespace NKAP_API_2.Controllers
 
         }
 
+        //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetSupplierOrderLineByOrderID/{supplierorderid}")] //route
         [HttpGet]
         //get Supplier OrderLine (Read)
@@ -100,6 +103,7 @@ namespace NKAP_API_2.Controllers
 
         }
 
+        //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("CreateSupplierOrderLine")] //route
         [HttpPost]
         //Add SupplierOrderLine

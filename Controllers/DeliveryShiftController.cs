@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -19,7 +20,9 @@ namespace NKAP_API_2.Controllers
         private NKAP_BOLTING_DB_4Context _db; //dependency injection for db
         public DeliveryShiftController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
-        [Route("GetDeliveryShiftByID/{shiftid}")] //route
+
+
+      //  [Route("GetDeliveryShiftByID/{shiftid}")] //route
         [HttpGet]
         //get Delivery Shift (Read)
         public IActionResult get(int shiftid)
@@ -86,6 +89,7 @@ namespace NKAP_API_2.Controllers
 
         }
 
+      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin, Employee")]
         [Route("GetDeliveryShift")] //route
         [HttpGet]
         //get Delivery Shift (Read)
@@ -102,7 +106,8 @@ namespace NKAP_API_2.Controllers
                     EmployeeId = t.EmployeeId,
                     DateId = a.DateId,
                     TimeId = a.TimeId,
-                    EmployeeShiftId = t.EmployeeShiftId
+                    EmployeeShiftId = t.EmployeeShiftId,
+                    NoOfDeliveries = t.NoOfDeliveries
 
                 }).Join(_db.Dates,
                  sor => sor.DateId,
@@ -114,7 +119,8 @@ namespace NKAP_API_2.Controllers
                      TimeId = sor.TimeId,
                      ShiftId = sor.ShiftId,
                      DayOfTheWeek = sd.DayOfTheWeek.ToString("dd/MM/yyyy"),
-                     EmployeeShiftId = sor.EmployeeShiftId
+                     EmployeeShiftId = sor.EmployeeShiftId,
+                     NoOfDeliveries = sor.NoOfDeliveries
 
 
                  }).Join(_db.Times,
@@ -129,7 +135,8 @@ namespace NKAP_API_2.Controllers
                      DayOfTheWeek = sor.DayOfTheWeek,
                      StartTime = sd.StartTime,
                      EndTime = sd.EndTime,
-                     EmployeeShiftId = sor.EmployeeShiftId
+                     EmployeeShiftId = sor.EmployeeShiftId,
+                     NoOfDeliveries = sor.NoOfDeliveries
 
 
                  }).Join(_db.Employees,
@@ -146,13 +153,15 @@ namespace NKAP_API_2.Controllers
                      DayOfTheWeek = sor.DayOfTheWeek,
                      StartTime = sor.StartTime,
                      EndTime = sor.EndTime,
-                     EmployeeShiftId = sor.EmployeeShiftId
+                     EmployeeShiftId = sor.EmployeeShiftId,
+                     NoOfDeliveries = sor.NoOfDeliveries
                  });
 
             return Ok(DeliveryShift);
 
         }
 
+     //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin, Employee")]
         [Route("GetShiftTime")] //route
         [HttpGet]
         //Get Shift Time
@@ -164,7 +173,7 @@ namespace NKAP_API_2.Controllers
             return Ok(shiftTime);
         }
 
-        [Route("AddDate")] //route
+     //   [Route("AddDate")] //route
         [HttpPost]
         //Add Date
         //Create a Model for table
@@ -178,6 +187,7 @@ namespace NKAP_API_2.Controllers
             return Ok(shiftDate);
         }
 
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("AddShift")] //route
         [HttpPost]
         //Add Date
@@ -213,7 +223,7 @@ namespace NKAP_API_2.Controllers
         //    return Ok(shiftDate);
         //}
 
-        [Route("DeleteDeliveryShift/{employeeshiftid}")] //route
+     //   [Route("DeleteDeliveryShift/{employeeshiftid}")] //route
         [HttpDelete]
         //Delete Admin
         public IActionResult DeleteDeliveryShift(int employeeshiftid)
@@ -225,6 +235,7 @@ namespace NKAP_API_2.Controllers
             return Ok(delShift);
         }
 
+      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("AssignDeliveryShift")] //route
         [HttpPost]
         //Add Product Item Write-of
@@ -268,6 +279,7 @@ namespace NKAP_API_2.Controllers
             return Ok();
         }
 
+     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("UpdateDeliveryShift")] //route
         [HttpPut]
         //Create a Model for table

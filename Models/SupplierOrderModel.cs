@@ -39,5 +39,17 @@ namespace NKAP_API_2.Models
         [JsonProperty("supplierid")]
         public int SupplierID
         { get; set; }
+
+        [JsonProperty("supplierinvoiceid")]
+        public int SupplierInvoiceID
+        { get; set; }
+
+        [JsonProperty("supplierinvoicedate")]
+        public DateTime SupplierInvoiceDate
+        { get; set; }
+
+        [JsonProperty("supplierinvoicetotal")]
+        public decimal SupplierInvoiceTotal
+        { get; set; }
     }
 }

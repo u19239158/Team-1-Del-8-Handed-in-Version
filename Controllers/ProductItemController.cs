@@ -10,6 +10,7 @@ using NKAP_API_2.EF;
 using NKAP_API_2.Models;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NKAP_API_2.Controllers
 {
@@ -39,9 +40,7 @@ namespace NKAP_API_2.Controllers
                         CategoryTypeDescription = t.ItemDescription,
                         ProductItemName = a.ProductItemName,
                         ProductItemCost = a.ProductItemCost,
-                        QuantityOnHand = a.QuantityOnHand,
-
-
+                        QuantityOnHand = a.QuantityOnHand
                     });
 
                 return Ok(productItems);
@@ -137,6 +136,7 @@ namespace NKAP_API_2.Controllers
         }
 
 
+    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("CreateProductItem")] //route
         [HttpPost]
         //Add Product Item
@@ -154,6 +154,8 @@ namespace NKAP_API_2.Controllers
             return Ok(PItem);
         }
 
+
+    //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("UpdateProductItem")] //route
         [HttpPut]
         //Update Product Item
@@ -170,6 +172,8 @@ namespace NKAP_API_2.Controllers
             return Ok(PItem);
         }
 
+
+    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("DeleteProductItem/{productitemid}")] //route
         [HttpDelete]
         //Delete Product Item

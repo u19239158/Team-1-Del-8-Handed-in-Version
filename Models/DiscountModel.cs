@@ -14,7 +14,7 @@ namespace NKAP_API_2.Models
 
 
         [JsonProperty("discountpercentage")]
-        public int Discount_Percentage
+        public decimal DiscountPercentage
         { get; set; }
     }
 }

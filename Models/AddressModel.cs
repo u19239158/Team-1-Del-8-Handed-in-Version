@@ -28,5 +28,13 @@ namespace NKAP_API_2.Models
         public int AddressPostalCode
         { get; set; }
 
+        [JsonProperty("customerid")]
+        public int CustomerID
+        { get; set; }
+
+        [JsonProperty("provinceid")]
+        public int ProvinceID
+        { get; set; }
+
     }
 }
