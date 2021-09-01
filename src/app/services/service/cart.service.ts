@@ -1,14 +1,50 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, NgModule } from '@angular/core';
-import { AngularFireModule } from '@angular/fire';
 import { BehaviorSubject } from 'rxjs';
-import { ApiService } from './api.service';
+import { Observable } from 'rxjs';
+
+export interface Sale 
+{
+  SaleID : number;
+  SaleOrderDescription : string;
+  // SaleOrderDate : Date;
+  SaleOrderRecieveType : number;
+  PaymentAmount : number;
+  // PaymentDate : Date;
+  // OrderStatusId : number;
+  // PaymentTypeId : number;
+  // StartDate: Date;
+  // EndDate: Date;
+  // OrderStatusDescription: string;
+  // CustomerID: number;
+  // ProductItemId: number;
+  // ProductItemName: string;
+  // SaleLineID: number;
+  // SaleLineQuantity: number;
+  // DeliveryDistance: string;
+  AddressId : number;
+}
+
+export interface Address {
+  //customerId: number;
+  ProvinceID: number;
+  AddressLine1: string;
+  AddressLine2: string;
+  AddressLine3: string;
+  AddressPostalCode: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
+    server = "https://localhost:44393/api/";
 
+    httpOptions = {
+      headers: new HttpHeaders({
+        ContentType: 'application/json'
+      })
+  };
   public cartItemList : any =[]
   //for the producst page
   public productList = new BehaviorSubject<any>([]);
@@ -25,6 +61,7 @@ export class CartService {
     console.log(item)
     return this.http.post<any>('https://api.paystack.co/transaction/initialize',item, this.headers)
   }
+
 
   getProducts(){
     return this.productList.asObservable();
@@ -61,6 +98,10 @@ export class CartService {
   removeAllCart(){
     this.cartItemList = []
     this.productList.next(this.cartItemList);
+  }
+
+  CreateCustomerAddress(Address:Address):Observable<Address[]>  {
+    return this.http.post<Address[]>(`${this.server}Checkout/AddAddress`, Address,this.httpOptions);
   }
 
 }

@@ -1,7 +1,10 @@
 import { AutofillMonitor } from '@angular/cdk/text-field';
 import { Component, OnInit } from '@angular/core';
-import { CartService } from 'src/app/services/service/cart.service';
-import { NgForm } from '@angular/forms';
+import { CartService, Sale } from 'src/app/services/service/cart.service';
+import { AbstractControlOptions ,FormBuilder, FormGroup, NgForm, Validators, FormControl } from '@angular/forms';
+import { SafeMethodCall } from '@angular/compiler';
+import { Observable } from 'rxjs';
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-cart',
@@ -10,16 +13,22 @@ import { NgForm } from '@angular/forms';
 })
 export class CartComponent implements OnInit {
 
+  email = new FormControl('', [Validators.required, Validators.email]);
+  addressform: FormGroup;
 
   isSubmitted = false;
   public products : any = [];
   public transaction : any =[];
   public grandTotal !: number;
-  constructor(private cartService : CartService) { }
+
+  constructor(
+    private cartService : CartService,
+    private formBuilder: FormBuilder,
+    ) { }
 
   ngOnInit() {
-    //PAYSTACK
-    this.invokePaystack();
+    const formOptions: AbstractControlOptions = { };
+
       
     //show products in cart
     this.cartService.getProducts()
@@ -27,19 +36,13 @@ export class CartComponent implements OnInit {
       this.products = res;
       this.grandTotal = this.cartService.getTotalPrice();
     })
+    
+
   }
 
 
-//OUTSIDE ngOnInit
 
-    // //transaction- checkout button - tried using to go to Paystack website
-    // transactionCheckout(){
-    //   this.transactionService.getTransaction()
-    //   .subscribe(res=>{
-    //     this.transaction =res;
-    //     console.log(this.transaction)
-    //   })
-    // }
+//OUTSIDE ngOnInit
 
 //CART METHODS - Remove, clear items
   removeItem(item: any){
@@ -57,32 +60,48 @@ export class CartComponent implements OnInit {
     document.querySelector('.modal').classList.remove('is-active')
   }
 
-  
-  // openDeliveryModal(){
-  //   document.querySelector('#deliveryModal').classList.add('is-active')
-  //   document.querySelector('.modal').classList.remove('is-active')
-  // }
   closeDeliveryModal(){
     document.querySelector('#deliveryModal').classList.remove('is-active')
   }
+
   submitForm(form: NgForm) {
     this.isSubmitted = true;
+
     if(!form.valid) {
       return false;
-    } else if(form.value=='delivery'){
-      // alert(JSON.stringify(form.value))
+
+    } else if(form.value.method=="delivery"){
+      
+      const customerEmail = this.email.value
+      console.log("else if",form.value)
+      console.log(customerEmail)
+      
       document.querySelector('#deliveryModal').classList.add('is-active')
-      // document.querySelector('.modal').classList.remove('is-active')
+      document.querySelector('.modal').classList.remove('is-active')
     }
     else{
-      //alert(JSON.stringify(form.value))
-      document.querySelector('#deliveryModal').classList.add('is-active')
-      // window.location.href='https://checkout.paystack.com/26ho92bd1vjeght'
+      const customerEmail = this.email.value
+      
+      console.log("else",form.value)
+      console.log(customerEmail)
+      
+      document.querySelector('.modal').classList.remove('is-active')
+
+      this.makePayment()
     }
   }
+
+  createCustomerAddress(){
+    const customerEmail = this.email.value
+    console.log("yessssss")
+
+    this.makePayment()
+  }
+
+
   makePayment(){
     const data = {
-      email: 'u19072912@tuks.co.za',
+      email: this.email.value,
       amount: this.grandTotal*100
     }
     this.cartService.paymentInit(data)
@@ -90,11 +109,10 @@ export class CartComponent implements OnInit {
       console.log(res)
       window.open(res.data.authorization_url)
     })
-  
-//     data: {authorization_url: "https://checkout.paystack.com/gd6vsc1ntkdnl4x", access_code: "gd6vsc1ntkdnl4x", reference: "h64xkamnbs"}
-// message: "Authorization URL created"
-// status: tru
   }
+
+
+
     //PAYSTACK method
     invokePaystack(){
     if (!window.document.getElementById('paystack-script')){

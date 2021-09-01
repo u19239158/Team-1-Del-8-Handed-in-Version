@@ -23,10 +23,9 @@
 <div class="row"> 
   <ng-container *ngFor="let specials of specials">         
       <div class="card col-md-3">
-            <center><img src="{{specials.specialImage}}" alt=""></center>
               
-            <p class="title">{{specials.specialPrice}}</p>
-            <p class="subtitle">{{specials.specialDescription}}</p>
+            <p class="title">{{specials.productItemName}}</p>
+            <p class="subtitle">R {{specials.specialPrice}}</p>
    
             <div class="tags has-addons">
               <span class="tag is-danger">Sale starts</span>

@@ -1,4 +1,68 @@
-<div fxFlex fxLayout="column" fxLayoutGap="0px">
+<div>
+  <div>
+    <div>
+
+      <div class="split picture">
+        <img style="margin-top:30px" src="assets/images/NKAP.jpg" />
+      </div>
+    </div>
+
+    <div class="split information">
+      <div>
+        <!-- <div fxLayout="row" fxLayoutAlign="end">
+          <a routerLink="/home"> 
+            <h4><mat-icon>arrow_back</mat-icon>Go back</h4>      
+          </a>
+        </div> -->
+        <div fxLayout="row" fxLayoutAlign="center">
+          <h1>Log in to Nkap Bolting</h1>
+        </div>
+      </div>
+
+      <div fxLayout="column" fxLayoutAlign="center" style="margin-top:100px">
+
+        <form [formGroup]="form">
+          <!-- (ngSubmit)="Login(form.value)"> -->
+
+          <div fxLayoutAlign="center">
+            <mat-form-field style="width:50%" appearance="outline">
+              <mat-label>Enter username</mat-label>
+              <input formControlName="userUsername" matInput>
+              <mat-error *ngIf="form.controls['userUsername'].invalid">Please enter a valid username</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxLayoutAlign="center" style="margin-top:10px">
+            <mat-form-field style="width:50%" appearance="outline">
+              <mat-label>Enter password</mat-label>
+              <input type="password" formControlName="userPassword" matInput>
+              <mat-error *ngIf="form.controls['userPassword'].invalid">Please enter a valid password</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxLayoutAlign="center" style="margin-top:10px">
+            <a routerLink="/home">
+              <h5>Forgot password... again?</h5>
+            </a>
+          </div>
+
+
+          <div fxLayoutAlign="center" style="margin-top:20px">
+            <button (click) = "Login()" mat-raised-button color="primary">Login</button>
+          </div>
+
+          <!-- <div fxLayoutAlign="center" style="margin-top:20px">
+          <a [routerLink]="['/register']">
+          <button mat-raised-button color="primary">Register</button>
+          </a>
+          </div> -->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div fxFlex fxLayout="column" fxLayoutGap="0px">
   <div fxLayout="row wrap">
     <div fxFlex="50" fxFlex.lt-md="100" fxLayout="column">
 
@@ -59,4 +123,4 @@
       </div>
     </div>
   </div> 
-</div>
+</div> -->

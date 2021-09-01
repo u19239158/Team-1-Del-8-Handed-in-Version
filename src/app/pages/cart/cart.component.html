@@ -85,8 +85,16 @@
 			<form #myForm="ngForm" (submit)="submitForm(myForm)" novalidate>
             <div class="modal-body">
               <div class="control">
-                  <!-- Gender -->
+                <!-- Customer Email -->
+
+                  <label class="label">Please enter your email address:</label>
+                  <div class="control">
+                    <input class="input" type="email" [formControl]="email" placeholder="hello@mymail.com" required>
+                  </div>
+
+                  <!-- ReceiveType -->
                   <div>
+                    <label class="label">Please select how you would like to receive your order:</label>
                     <input id="delivery" type="radio" class="custom-control-input" value="delivery" name="method" ngModel required>
                     <label class="custom-control-label" for="male">Delivery</label>
                   </div>
@@ -97,7 +105,7 @@
                   </div>
 
                   <div *ngIf="isSubmitted && myForm.invalid">
-                    <p>Please select either value</p>
+                    <p>Please select a value</p>
                   </div>
             </div>
           </div>
@@ -122,6 +130,7 @@
           <button type="button" class="btn-close btn-close-black" (click)=closeDeliveryModal()></button>
        </h3>
       </div>
+      <!-- <form [formGroup]="addressform" (ngSubmit)="createCustomerAddress()"> -->
             <div class="modal-body">                  
                           
                 <div class="field">
@@ -169,13 +178,14 @@
       <div class="modal-footer">
         <div class="field is-grouped">
           <div class="control">
-            <button class="button is-link"  (click)="makePayment()" id="checkout-button">Submit</button> 
+            <button class="button is-link"  (click)="createCustomerAddress()">Submit</button> 
           </div>
           <div class="control">
             <button class="button is-link is-light" (click)=closeDeliveryModal()>Cancel</button>
           </div>
         </div>
       </div>
+    <!-- </form> -->
     </div>
   </div>
 </div>
