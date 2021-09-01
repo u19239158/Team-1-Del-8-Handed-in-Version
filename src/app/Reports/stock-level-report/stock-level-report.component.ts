@@ -30,17 +30,9 @@ export class StockLevelReportComponent implements OnInit {
      })
   }
 
-
-  
-  header = [['Product Category', 
-              'Category Type', 
-              'Product Item ID', 
-              'Product Item Name',
-              'Quantity on Hand'
-            ]]
-
   generatePdf(): void {
     let Data = document.getElementById('htmlData')!;
+
     // Canvas Options
     html2canvas(Data).then(canvas => {
       let fileWidth = 210;
@@ -53,7 +45,16 @@ export class StockLevelReportComponent implements OnInit {
       let topPosition = 10;
       let leftPosition = 0;
       PDF.addImage(contentDataURL, 'PNG', leftPosition, topPosition, fileWidth, fileHeight)
-      PDF.save('Delivery Report.pdf');
+      PDF.save('Stock Report.pdf');
     });
   }
+  
+  header = [['Product Category', 
+              'Category Type', 
+              'Product Item ID', 
+              'Product Item Name',
+              'Quantity on Hand'
+            ]]
+
+   
 }

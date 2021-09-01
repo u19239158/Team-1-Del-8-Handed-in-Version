@@ -19,7 +19,7 @@ export class EditSpecialComponent implements OnInit {
     isAddMode: boolean;
     loading = false;
     submitted = false;
-    special: Special;
+    lls: Special;
     productItem :Productitem;
     specials: Observable<Special[]>;
     collection = [];
@@ -57,40 +57,21 @@ export class EditSpecialComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
-    //this.isAddMode = !this.id;
     this.getCollection();
-    this.collection
-
-  //   this.SpecialService.getProductItemByID(this.id).subscribe(res => {
-  //     this.productItem = res
-  //     console.log(res)
-  // });
     const formOptions: AbstractControlOptions = { };
-    // this.form = this.formBuilder.group({
-    //   //specialImage: ['', [Validators.required]],
-    //   specialDescription: ['', [Validators.required]],
-    //   discountId: ['', [Validators.required]],
-    //   // discountPercentage: [0,[Validators.required]],
-    //   //productItemId: [this.special.productItemId,[Validators.required] ],
-    //   specialStartDate: ['', [Validators.required]],
-    //   specialEndDate: ['', [Validators.required]],
-    // }, formOptions);
-
-    // if (!this.isAddMode) 
     {
       this.SpecialService.getSpecialByID(this.id).subscribe(res => {
-        this.special = res
+        this.lls = res;
        console.log(res)
         this.form = this.formBuilder.group({
-          id: [this.special.specialID, Validators.required],
-          //specialImage: [this.special.specialImage, [Validators.required]],
-          specialDescription: [this.special.specialDescription, [Validators.required]],
-          discountId: [this.special.discountId, [Validators.required]],
-          //productItemId: [this.special.productItemId,[Validators.required] ],
-          specialStartDate: [this.special.specialStartDate, [Validators.required]],
-          specialEndDate: [this.special.specialEndDate,[Validators.required]],
+          id: [this.lls.specialID, Validators.required],
+          specialDescription: [this.lls.specialDescription, [Validators.required]],
+          discountId: [this.lls.discountId, [Validators.required]],
+          specialStartDate: [this.lls.specialStartDate, [Validators.required]],
+          specialEndDate: [this.lls.specialEndDate,[Validators.required]],
     }, formOptions);
     })
+  
   }}
 
 
@@ -136,8 +117,9 @@ export class EditSpecialComponent implements OnInit {
 
   updateSpecial() {
     const special: Special = this.form.value;
-    special.specialID = this.special.specialID;
-    //special.productItemId = this.special.productItemId;
+    special.specialID = this.lls.specialID;
+    special.productItemId = this.lls.productItemId;
+    special.productItemCost = this.lls.productItemCost;
     this.SpecialService.UpdateSpecial(special).subscribe(res => {
       console.log(res)
       this.form.reset();

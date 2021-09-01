@@ -14,6 +14,7 @@ import { LoginService } from '../services/login/login-service';
     styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  
   form : FormGroup = this.fb.group({
     'userUsername': ['', Validators.compose([Validators.required])],
     'userPassword': ['', Validators.compose([Validators.required])]
@@ -59,33 +60,34 @@ export class LoginComponent implements OnInit {
         {
           this.Loginservice.Login(this.form.value).subscribe(res => {
             // route to home
+            
             localStorage.setItem('user', JSON.stringify(res));
             this.router.navigateByUrl('/');
-          }, 
-          
-          (error: HttpErrorResponse) => 
-          {
+          }
+          )}
+          // (error: HttpErrorResponse) => 
+          // {
       
-            if (error.status === 404)
-            {
-              this.snack.open('Invalid credentials.', 'OK', 
-              {
-                verticalPosition: 'bottom',
-                horizontalPosition: 'center',
-                duration: 3000
-              });
+          //   if (error.status === 404)
+          //   {
+          //     this.snack.open('Invalid credentials.', 'OK', 
+          //     {
+          //       verticalPosition: 'bottom',
+          //       horizontalPosition: 'center',
+          //       duration: 3000
+          //     });
              
-              this.form.reset();
-              return;
-            }
+          //     this.form.reset();
+          //     return;
+          //   }
 
-            this.snack.open('An error occured on our servers. Try again later.', 'OK',
-            {
-              verticalPosition: 'bottom',
-              horizontalPosition: 'center',
-              duration: 3000
-            });
-            this.form.reset();
-          });
-        }
-    }
+            // this.snack.open('An error occured on our servers. Try again later.', 'OK',
+            // {
+            //   verticalPosition: 'bottom',
+            //   horizontalPosition: 'center',
+            //   duration: 3000
+            // });
+          //   this.form.reset();
+          // });
+        //}
+}

@@ -139,8 +139,44 @@
                 </div>
             </div>
 
-        </form>
+    <div class="contentx" [hidden]="isHidden">
+
+  <h2>Pack Order</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="mat-row">
+      <div class="mat-col-quarter">
+        <section class="checkbox" align="left">
+
+          <h3>Select An Option to Pack Order</h3>
+          <p>
+            <!-- [ngClass]="{'disable':element.saleOrderRecieveType ===0}">Delivered -->
+            <input type="checkbox" name="test" [checked]="currentlyChecked === check_box_type.READY_FOR_DELIVERY"
+              (click)="selectCheckBox(check_box_type.READY_FOR_DELIVERY)" (click) = "Delivery()"
+              >Ready for Delivery
+          </p>
+          <p>
+            <input type="checkbox" name="test" [checked]="currentlyChecked === check_box_type.READY_FOR_COLLECTION"
+              (click)="selectCheckBox(check_box_type.READY_FOR_COLLECTION)" (click) = "Collection()">Ready for Collection
+          </p>
+        </section>
+      </div>
     </div>
+
+    <div class="mat-row">
+      <div class="mat-col-quarter">
+        <div class="form-group" class="control-m">
+          <button mat-raised-button color="primary"[routerLink]="['/onlineSales']" (click)="Confirm()"[disabled]="loading">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Confirm
+          </button>
+          <button [routerLink]="['/onlineSales']" (click)="Close()" mat-button>Cancel</button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
 </div>
 
 
