@@ -22,10 +22,10 @@ namespace NKAP_API_2.Controllers
         { _db = db; }
 
 
-       [Route("GetDeliveryShiftByID/{employeeshiftID}")] //route
+       [Route("GetDeliveryShiftByID/{ShiftId}")] //route
         [HttpGet]
         //get Delivery Shift (Read)
-        public IActionResult get(int employeeshiftID)
+        public IActionResult GetDeliveryShiftByID(int ShiftId)
         {
             //var Admins = _db.Admins.ToList();
 
@@ -83,13 +83,80 @@ namespace NKAP_API_2.Controllers
                      DayOfTheWeek = sor.DayOfTheWeek,
                      StartTime = sor.StartTime,
                      EndTime = sor.EndTime
-                 }).First(an => an.EmployeeShiftId == employeeshiftID);
+                 }).First(an => an.ShiftId == ShiftId);
 
             return Ok(DeliveryShift);
 
         }
 
-      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin, Employee")]
+        [Route("GetDeliveryShiftByEmpShiftID/{EmployeeShiftId}")] //route
+        [HttpGet]
+        //get Delivery Shift (Read)
+        public IActionResult GetDeliveryShiftByEmpShiftID(int EmployeeShiftId)
+        {
+            //var Admins = _db.Admins.ToList();
+
+            var DeliveryShift = _db.Shifts.Join(_db.EmployeeShifts,
+                a => a.ShiftId,
+                t => t.ShiftId,
+                (a, t) => new
+                {
+                    ShiftId = a.ShiftId,
+                    EmployeeId = t.EmployeeId,
+                    DateId = a.DateId,
+                    TimeId = a.TimeId,
+                    EmployeeShiftId = t.EmployeeShiftId
+
+                }).Join(_db.Dates,
+                 sor => sor.DateId,
+                 sd => sd.DateId,
+                 (sor, sd) => new
+                 {
+                     DateId = sor.DateId,
+                     EmployeeID = sor.EmployeeId,
+                     TimeId = sor.TimeId,
+                     ShiftId = sor.ShiftId,
+                     EmployeeShiftId = sor.EmployeeShiftId,
+                     DayOfTheWeek = sd.DayOfTheWeek.ToString("dd/MM/yyyy")
+
+
+                 }).Join(_db.Times,
+                 sor => sor.TimeId,
+                 sd => sd.TimeId,
+                 (sor, sd) => new
+                 {
+                     EmployeeShiftId = sor.EmployeeShiftId,
+                     TimeId = sor.TimeId,
+                     EmployeeID = sor.EmployeeID,
+                     DateId = sor.DateId,
+                     ShiftId = sor.ShiftId,
+                     DayOfTheWeek = sor.DayOfTheWeek,
+                     StartTime = sd.StartTime,
+                     EndTime = sd.EndTime
+
+
+                 }).Join(_db.Employees,
+                 sor => sor.EmployeeID,
+                 sd => sd.EmployeeId,
+                 (sor, sd) => new
+                 {
+                     EmployeeShiftId = sor.EmployeeShiftId,
+                     ShiftId = sor.ShiftId,
+                     EmployeeID = sd.EmployeeId,
+                     EmployeeName = sd.EmployeeName,
+                     EmployeeSurame = sd.EmployeeSurname,
+                     TimeId = sor.TimeId,
+                     DateId = sor.DateId,
+                     DayOfTheWeek = sor.DayOfTheWeek,
+                     StartTime = sor.StartTime,
+                     EndTime = sor.EndTime
+                 }).First(an => an.EmployeeShiftId == EmployeeShiftId);
+
+            return Ok(DeliveryShift);
+
+        }
+
+        //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin, Employee")]
         [Route("GetDeliveryShift")] //route
         [HttpGet]
         //get Delivery Shift (Read)
@@ -223,7 +290,7 @@ namespace NKAP_API_2.Controllers
         //    return Ok(shiftDate);
         //}
 
-     //   [Route("DeleteDeliveryShift/{employeeshiftid}")] //route
+        [Route("DeleteDeliveryShift/{employeeshiftid}")] //route
         [HttpDelete]
         //Delete Admin
         public IActionResult DeleteDeliveryShift(int employeeshiftid)

@@ -314,7 +314,8 @@ namespace NKAP_API_2.Controllers
                         ProvinceId = sor.ProvinceId,
                         ProvinceDescription = sor.ProvinceDescription,
                       //CityDescription = sor.CityDescription,
-                        DeliveryDistance = sd.DeliveryDistance
+                        DeliveryDistance = sd.DeliveryDistance,
+                        DeliveryId = sd.DeliveryId
                     });
 
             return Ok(Unassigned);

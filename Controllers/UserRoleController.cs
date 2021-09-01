@@ -50,7 +50,7 @@ namespace NKAP_API_2.Controllers
             return Ok(UserRoles);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+       // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("CreateUserRole")] //route
         [HttpPost]
         //Add UserRole

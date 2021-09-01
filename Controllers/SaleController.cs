@@ -110,6 +110,52 @@ namespace NKAP_API_2.Controllers
                     PaymentTypeID = sor.PaymentTypeID,
                     PaymentTypeDescription = sd.PaymentTypeDescription
 
+                }).First(ss => ss.SaleID == saleid);
+
+            return Ok(Sale);
+        }
+
+
+        [Route("GetSaleByIDAddress/{saleid}")] //route
+        [HttpGet]
+        //get Sales by ID (Read)
+        public IActionResult GetSaleByIDAddress(int saleid)
+        {
+            var Sale = _db.Sales.Join(_db.OrderStatuses,
+                su => su.OrderStatusId,
+                so => so.OrderStatusId,
+
+                (su, so) => new
+                {
+                    SaleID = su.SaleId,
+                    SaleDescription = su.SaleOrderDescription,
+                    SaleDate = su.SaleOrderDate,
+                    SaleAssign = su.SaleOrderAssign,
+                    SaleReceiveType = su.SaleOrderRecieveType,
+                    SalePaymentDate = su.PaymentDate,
+                    SalePaymentAmount = su.PaymentAmount,
+                    OrderStatusID = so.OrderStatusId,
+                    OrderStatusDesc = so.OrderStatusDescription,
+                    PaymentTypeID = su.PaymentTypeId
+
+                    //attributes in table
+                }).Join(_db.PaymentTypes,
+                sor => sor.PaymentTypeID,
+                sd => sd.PaymentTypeId,
+                (sor, sd) => new
+                {
+                    SaleID = sor.SaleID,
+                    SaleDescription = sor.SaleDescription,
+                    SaleDate = sor.SaleDate,
+                    SaleAssign = sor.SaleAssign,
+                    SaleReceiveType = sor.SaleReceiveType,
+                    SalePaymentDate = sor.SalePaymentDate,
+                    SalePaymentAmount = sor.SalePaymentAmount,
+                    OrderStatusID = sor.OrderStatusID,
+                    OrderStatusDesc = sor.OrderStatusDesc,
+                    PaymentTypeID = sor.PaymentTypeID,
+                    PaymentTypeDescription = sd.PaymentTypeDescription
+
                 }).Join(_db.Deliveries,
                 sor => sor.SaleID,
                 sd => sd.SaleId,
