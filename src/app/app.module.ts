@@ -74,6 +74,7 @@ import { StockLevelReportComponent } from './reports/stock-level-report/stock-le
 import { ViewdeliveryshiftscheduleComponent } from './deliveryshift/viewdeliveryshiftschedule/viewdeliveryshiftschedule.component';
 import { ScheduleModule, AgendaService, DragAndDropService, ResizeService, WeekService, WorkWeekService, MonthService, DayService } from '@syncfusion/ej2-angular-schedule';
 import { ViewSaleComponent } from './admin/online-sales/view-sale/view-sale.component';
+import { ViewDeliveryDetailsComponent } from './deliveryshift/view-delivery-details/view-delivery-details.component';
 
 
 const firebaseConfig = {
@@ -140,6 +141,7 @@ const firebaseConfig = {
     // ReportsComponent,
     ViewdeliveryshiftscheduleComponent,
     LoginComponent,
+    ViewDeliveryDetailsComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),

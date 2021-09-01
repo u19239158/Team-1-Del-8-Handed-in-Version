@@ -60,9 +60,10 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     }, formOptions);
 
     if (!this.isAddMode) {
+      console.log("test", this.shiftId)
       this.DeliveryShiftService.getDeliveryShiftByID(this.shiftId).subscribe(res => {
         this.deliveryshift = res
-        console.log(res)
+        console.log("res5", res)
         console.log("dayOfTheWeek", this.deliveryshift.dayOfTheWeek)
         this.form = this.formBuilder.group({
           dateId: [this.deliveryshift.dateId, [Validators.required]],
@@ -72,8 +73,8 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
           dayOfTheWeek: [moment(this.deliveryshift.dayOfTheWeek).format('YYYY-MM-DD'), [Validators.required]],
           employeeID: [this.deliveryshift.employeeID],
           // employeeName: [this.deliveryshift.employeeName, [Validators.required]],
-         // employeeShiftID: [this.deliveryshift.employeeShiftID],
-         employeeShiftId: [this.deliveryshift.employeeShiftId],
+          // employeeShiftID: [this.deliveryshift.employeeShiftID],
+          employeeShiftId: [this.deliveryshift.employeeShiftId],
         }, formOptions);
         // employeeId: [this.employeeShiftId, [Validators.required]],
       });
@@ -159,6 +160,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     deliveryshift.shiftId = this.deliveryshift.shiftId;
     const deliveryshiftS: Deliveryshift = this.form.value;
     deliveryshiftS.employeeShiftId = this.deliveryshift.employeeShiftId;
+    console.log("deliveryshift", deliveryshift);
     //  deliveryshift.employeeID = this.deliveryshift.employeeID;
     this.DeliveryShiftService.UpdateDeliveryShift(deliveryshift).subscribe(res => {
       console.log(res)
