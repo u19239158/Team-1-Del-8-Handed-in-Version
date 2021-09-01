@@ -7,75 +7,41 @@
         <!-- <mat-card-content> -->
         <div>
             <div>
-                <label for="saleID">Sale Number: </label>
-                <!-- <span>{{sale.saleID}}</span> -->
+                <label for="saleID">Sale_ID: </label>
+                <span> &nbsp;{{sale.saleID}}</span>
             </div>
         </div>
         <!-- </mat-card-content> -->
 
         <div class="mat-row">
             <div class="mat-col-quarter">
-                <p><label for="SaleOrderDescription">Items ordered: </label>
-                    <!-- <span>{{sale.saleOrderDescription}}</span> -->
-
+                <p><label for="customerName">Customer Name:
+                    </label>
+                    <span> &nbsp;{{sale.customerName}} &nbsp; {{sale.customerSurname}}</span>
             </div>
         </div>
 
         <div class="mat-row">
             <div class="mat-col-quarter">
-                <p><label for="saleOrderDate">Sale Date: </label>
-                    <!-- <span>{{sale.saleOrderDate | date:"dd/MM/yyyy"}}</span> -->
+                <p><label for="customerBusinessName">Business Name:
+                    </label>
+                    <span> &nbsp;{{sale.customerBusinessName}}</span>
             </div>
         </div>
 
         <div class="mat-row">
             <div class="mat-col-quarter">
-                <p><label for="orderStatusDescription">Order Status: </label>
-                    <!-- <span>{{sale.orderStatusDescription}}</span> -->
-
+                <p><label for="customerCellphoneNumber">Customer Number</label>
+                    <span> &nbsp;{{sale.customerCellphoneNumber}}</span>
             </div>
         </div>
 
         <div class="mat-row">
             <div class="mat-col-quarter">
-                <p><label for="customerName">Customer: </label>
-                    <!-- <span>{{sale.customerName}} {{sale.customerSurname}}</span> -->
-            </div>
-        </div>
+                <p><label for="addressLine1"> Address
+                    </label>
 
-        <div class="mat-row">
-            <div class="mat-col-quarter">
-                <p><label for="customerBusinessname">Business Name: </label>
-                    <!-- <span>{{sale.customerBusinessName}}</span> -->
-            </div>
-        </div>
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
-                <p><label for="paymentType">Payment Type: </label>
-                    <!-- <span>{{sale.paymentTypeDescription}}</span> -->
-
-            </div>
-        </div>
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
-                <p><label for="paymentDate">Payment Date: </label>
-                    <!-- <span>{{sale.salePaymentDate | date:"dd/MM/yyyy"}}</span> -->
-            </div>
-        </div>
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
-                <p><label for="SalePaymentAmount">Payment Amount: </label>
-                    <!-- <span>{{sale.salePaymentAmount}}</span> -->
-            </div>
-        </div>
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
-                <p><label for="receiveType">Receive Type: </label>
-                    <!-- <span>{{sale.saleOrderRecieveType}}</span> -->
+                    <span> &nbsp;{{sale.addressLine1}} &nbsp;{{sale.addressLine2}} &nbsp;{{sale.addressLine3}}</span>
             </div>
         </div>
 
@@ -83,7 +49,7 @@
         <div class="mat-row">
             <div class="mat-col-quarter">
                 <div class="form-group" class="control-m">
-                    <a href="#" (click)="Close()" mat-button>Cancel</a>
+                    <a href="#" (click)="Close()" mat-button>Home</a>
                 </div>
             </div>
         </div>

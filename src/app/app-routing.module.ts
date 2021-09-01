@@ -153,7 +153,7 @@ const routes: Routes = [
     component: AddEditCourierComponent
   },
   {
-    path: 'viewDeliveryDetails',
+    path: 'viewDeliveryDetails/:id',
     component: ViewDeliveryDetailsComponent
   },
   {

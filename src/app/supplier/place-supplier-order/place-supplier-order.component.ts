@@ -1,7 +1,7 @@
 import { QuantityModal } from './quantity-modal';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA }from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { ProductitemService } from 'src/app/services/productitem/productitem.ser
 import { PlaceSupplierOrderService } from 'src/app/services/place-supplier-order/place-supplier-order.service';
 import { PlaceSupplierOrder, Productitem } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
-import { FormGroup, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-place-supplier-order',
@@ -34,7 +34,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
   placeSupplierOrders: PlaceSupplierOrder[] = [];
   placeSupplierOrder: Observable<PlaceSupplierOrder[]>;
   //dataSource = new MatTableDataSource<PlaceSupplierOrder>();
-  displayedColumns: string[] = ['checked','productItem', 'quantity'];
+  displayedColumns: string[] = ['checked', 'productItem', 'quantity'];
 
   highlight(element: PlaceSupplierOrder) {
     element.highlighted = !element.highlighted;
@@ -46,14 +46,22 @@ export class PlaceSupplierOrderComponent implements OnInit {
     private http: HttpClient,
     private dialog: MatDialog,
     private router: Router,
+    private FormGroup: FormBuilder,
     // public dialogRef: MatDialogRef<PlaceSupplierOrder>
   ) { }
 
   ngOnInit(): void {
+
+    const formOptions: AbstractControlOptions = {};
+    this.form = this.FormGroup.group({
+      supplierName: ['', [Validators.required, Validators.maxLength(50)]],
+    }
+      , formOptions)
+
     this.getSupplier();
     this.readProductitems();
 
-    this.productitemService.GetProductItem().subscribe((result:Productitem[]) => {
+    this.productitemService.GetProductItem().subscribe((result: Productitem[]) => {
       this.productitems = result;
     });
   }
@@ -69,7 +77,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
     this.http
       .get<any>('https://localhost:44393/api/Supplier/GetSupplier').subscribe((res: any) => {
         this.supplier = res;
-        console.log  (res);
+        console.log(res);
       }, error => {
         console.log({ error });
       })
@@ -88,33 +96,33 @@ export class PlaceSupplierOrderComponent implements OnInit {
   // }
 
 
-  filter(){
+  filter() {
 
     const filter = (e) => {
 
       return e.productItemName && e.productItemName.toLowerCase().includes(this.searchValue.toLowerCase())
     }
     const data = (this.Productitems.filter(filter))
-    this.dataNotFound = data.length===0
+    this.dataNotFound = data.length === 0
     this.dataSource = new MatTableDataSource(data);
   }
 
-  placeOrder(){
+  placeOrder() {
     const confirm = this.dialog.open(QuantityModal, {
       disableClose: true,
-     });
+    });
 
-     confirm.afterClosed().subscribe(res => {
-      if (res){
+    confirm.afterClosed().subscribe(res => {
+      if (res) {
 
-      const placeSupplierOrder: PlaceSupplierOrder = this.form.value;
-      this.placeSupplierOrderService.CreateSupplierOrder(placeSupplierOrder).subscribe(res => {
-      console.log(res)
-      this.loading = false
-      this.router.navigateByUrl('supplier');
-      })
-    }
-  });
+        const placeSupplierOrder: PlaceSupplierOrder = this.form.value;
+        this.placeSupplierOrderService.CreateSupplierOrder(placeSupplierOrder).subscribe(res => {
+          console.log(res)
+          this.loading = false
+          this.router.navigateByUrl('supplier');
+        })
+      }
+    });
 
   }
 }
