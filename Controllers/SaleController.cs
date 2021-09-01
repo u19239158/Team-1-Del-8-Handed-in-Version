@@ -505,6 +505,7 @@ namespace NKAP_API_2.Controllers
             return Ok(orderstatus);
         }
 
+
         [Route("Checkout")] //route
         [HttpPost]
         //Add Sales
@@ -556,6 +557,7 @@ namespace NKAP_API_2.Controllers
         }
 
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
+
         [Route("GetComplexSaleByID/{saleid}")] //route
         [HttpGet]
         //get Sales by ID (Read)
@@ -591,6 +593,8 @@ namespace NKAP_API_2.Controllers
                     CustomerSurname = sd.CustomerSurname,
                     CustomerBusinessName = sd.CustomerBusinessName,
                     CustomerCellphoneNumber = sd.CustomerCellphoneNumber,
+
+
                     CustomerEmailAddress = sd.CustomerEmailAddress,
                     SaleID = sor.SaleID
 
