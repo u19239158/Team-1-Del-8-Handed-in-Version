@@ -38,6 +38,7 @@ export class ViewDeliveryDetailsComponent implements OnInit {
     this.OnlineSalesService.ViewSale(this.id).subscribe(res => {
       this.sale = res
       console.log(res)
+
     });
   }
 
