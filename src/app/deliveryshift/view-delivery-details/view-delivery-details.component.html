@@ -38,10 +38,19 @@
 
         <div class="mat-row">
             <div class="mat-col-quarter">
-                <p><label for="addressLine1"> Address
+                <p><label for="addressLine1"> Address:
                     </label>
 
                     <span> &nbsp;{{sale.addressLine1}} &nbsp;{{sale.addressLine2}} &nbsp;{{sale.addressLine3}}</span>
+            </div>
+        </div>
+
+        <div class="mat-row">
+            <div class="mat-col-quarter">
+                <p><label for="addressPostalCode"> Postal Code:
+                    </label>
+
+                    <span> &nbsp;{{sale.addressPostalCode}}</span>
             </div>
         </div>
 
@@ -49,7 +58,8 @@
         <div class="mat-row">
             <div class="mat-col-quarter">
                 <div class="form-group" class="control-m">
-                    <a href="#" (click)="Close()" mat-button>Home</a>
+                    <button mat-raised-button [routerLink]="['/viewEmployeeDeliveryShifts']"><a
+                            mat-button>Back</a></button>
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@
   <div>
     <h2>Assign Courier Delivery</h2>
 
-    <h4>Click on email link to compose courier request</h4>
+    <h4>*Click on email link to request courier via automated email*</h4>
 
     <div class="search">
       <ul fxLayout fxLayoutGap="15px" class="navigation-items">
@@ -20,12 +20,6 @@
           </div>
         </li>
       </ul>
-    </div>
-
-    <!-- SaleID must display -->
-    <div class="control">
-      <label>Sale ID: </label>
-      <input type="text" id="search" class="control-m" placeholder="Sale ID">
     </div>
 
     <div class="mat-elevation-z8 table">
@@ -81,7 +75,7 @@
     <div class="mat-row" align="center">
       <div class="mat-col-quarter">
         <div class="form-group" class="control-m">
-          <button mat-raised-button  [routerLink]="['/assigndeliveryorder']"><a mat-button>Cancel</a></button>
+          <button mat-raised-button [routerLink]="['/assigndeliveryorder']"><a mat-button>Cancel</a></button>
           <span> </span>
           <button mat-raised-button color="primary" (click)="Done()">Done</button>
         </div>
