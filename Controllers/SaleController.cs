@@ -412,7 +412,7 @@ namespace NKAP_API_2.Controllers
             return Ok(PackOrder);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
+       // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("Delivery")] //route
         [HttpPut]
         //Update Order Status
