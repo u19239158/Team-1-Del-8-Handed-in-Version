@@ -412,7 +412,7 @@ namespace NKAP_API_2.Controllers
             return Ok(PackOrder);
         }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
+      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("Delivery")] //route
         [HttpPut]
         //Update Order Status
@@ -460,8 +460,8 @@ namespace NKAP_API_2.Controllers
                     //SaleDescription = sor.SaleDescription,
                     SaleOrderDate = sor.SaleOrderDate,
                     //SaleAssign = sor.SaleAssign,
-                   // SaleReceiveType = sor.SaleReceiveType,
-                   // SalePaymentDate = sor.SalePaymentDate,
+                    // SaleReceiveType = sor.SaleReceiveType,
+                    // SalePaymentDate = sor.SalePaymentDate,
                     //SalePaymentAmount = sor.SalePaymentAmount,
                     OrderStatusID = sor.OrderStatusID,
                     OrderStatusDescription = sor.OrderStatusDescription,
@@ -470,7 +470,34 @@ namespace NKAP_API_2.Controllers
                     CustomerName = sd.CustomerName,
                     CustomerSurname = sd.CustomerSurname,
                     CustomerBusinessName = sd.CustomerBusinessName,
+                    CustomerCellphoneNumber = sd.CustomerCellphoneNumber,
                     SaleID = sor.SaleID
+
+                }).Join(_db.Addresses,
+                sor => sor.CustomerId,
+                sd => sd.CustomerId,
+                (sor, sd) => new
+                {
+                    CustomerId = sor.CustomerId,
+                    //SaleDescription = sor.SaleDescription,
+                    SaleOrderDate = sor.SaleOrderDate,
+                    //SaleAssign = sor.SaleAssign,
+                    // SaleReceiveType = sor.SaleReceiveType,
+                    // SalePaymentDate = sor.SalePaymentDate,
+                    //SalePaymentAmount = sor.SalePaymentAmount,
+                    OrderStatusID = sor.OrderStatusID,
+                    OrderStatusDescription = sor.OrderStatusDescription,
+                    //PaymentTypeID = sor.PaymentTypeID,
+                    //PaymentTypeDescription = sor.PaymentTypeDescription,
+                    CustomerName = sor.CustomerName,
+                    CustomerSurname = sor.CustomerSurname,
+                    CustomerBusinessName = sor.CustomerBusinessName,
+                    CustomerCellphoneNumber = sor.CustomerCellphoneNumber,
+                    SaleID = sor.SaleID,
+                    AddressLine1 = sd.AddressLine1,
+                    AddressLine2 = sd.AddressLine2,
+                    AddressLine3 = sd.AddressLine3,
+                    AddressPostalCode = sd.AddressPostalCode
 
                 });
 
