@@ -39,7 +39,7 @@ export class ViewdeliveryshiftscheduleComponent {
           StartTime: moment(moment(item.dayOfTheWeek + ' ' + item.startTime).utc().toDate()).format('DD/MM/YYYY HH:mm:ss'),
 
           EndTime: moment(moment(item.dayOfTheWeek + ' ' + item.endTime).utc().toDate()).format('DD/MM/YYYY HH:mm:ss'),
-
+ 
         })
       }
     })

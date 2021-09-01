@@ -8,16 +8,13 @@ import { Deliveryshift } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { DeliveryshiftService } from 'src/app/services/deliveryshift/deliveryshift.service';
 import { HttpClient } from '@angular/common/http';
-enum CheckBoxType { ASSIGN_SHIFT, NONE };
-
-// import { GlobalErrorComponent } from 'src/app/modals/globals/global-error/global-error.component';
 
 @Component({
-  selector: 'app-assign-local-delivery',
-  templateUrl: './assign-local-delivery.component.html',
-  styleUrls: ['./assign-local-delivery.component.scss']
+  selector: 'app-view-employee-delivery-shifts',
+  templateUrl: './view-employee-delivery-shifts.component.html',
+  styleUrls: ['./view-employee-delivery-shifts.component.scss']
 })
-export class AssignLocalDeliveryComponent implements OnInit {
+export class ViewEmployeeDeliveryShiftsComponent implements OnInit {
 
   //search code
   DeliveryShifts: Deliveryshift[];
@@ -29,9 +26,7 @@ export class AssignLocalDeliveryComponent implements OnInit {
   // DeliveryShift: Deliveryshift;
   deliveryShift: Observable<Deliveryshift[]>;
   dataSource = new MatTableDataSource<Deliveryshift>();
-  displayedColumns: string[] = ['startTime', 'endTime', 'dayOfTheWeek', 'employeeName', 'noOfDeliveries', 'SelectOrderDeliveryShift'];
-  displayedColumn: string[] = ['saleId', 'customerName', 'customerBusinessName', 'deliverydistance', 'orderAddress', 'deliverycourier'];
-
+  displayedColumns: string[] = ['startTime', 'endTime', 'dayOfTheWeek', 'employeeName', 'noOfDeliveries', 'actions'];
 
   constructor(private deliveryshiftService: DeliveryshiftService,
     private snack: MatSnackBar,
@@ -49,27 +44,14 @@ export class AssignLocalDeliveryComponent implements OnInit {
 
   }
 
-  check_box_type = CheckBoxType;
-  currentlyChecked: CheckBoxType;
-
-  selectCheckBox(targetType: CheckBoxType) {
-    // If the checkbox was already checked, clear the currentlyChecked variable
-    if (this.currentlyChecked === targetType) {
-      // this.currentlyChecked = CheckBoxType.NONE;
-      // return;
-
-    }
-
-    this.currentlyChecked = targetType;
-    console.log("currentlchecked", this.currentlyChecked)
-  }
-
   readDeliveryshifts(): void {
     this.deliveryshiftService.GetDeliveryShift().subscribe(res => {
-      console.log("resss", res)
+      console.log(res)
       this.dataSource = new MatTableDataSource(res)
     })
   }
+
+
 
   filter() {
     // this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.startTime.includes(this.searchValue)))
@@ -88,33 +70,6 @@ export class AssignLocalDeliveryComponent implements OnInit {
     this.dataSource = new MatTableDataSource(data)
   }
 
-  // noSearchResults(Deliveryshift: Deliveryshift) {
-  //   const confirm = this.dialog.open(GlobalErrorComponent, {
-  //       disableClose: true,
-  //   });
-
-  //   confirm.afterClosed().subscribe(res => {
-  //     if(res) {
-  //       this.deliveryshiftService.DeleteDeliveryShift(Deliveryshift).subscribe(res => {
-  //         this.readDeliveryshifts();
-  //       });
-  //     }
-  //   });
-  // }
-
-  deleteDeliveryshift(Deliveryshift: Deliveryshift) {
-    const confirm = this.dialog.open(GlobalConfirmComponent, {
-      disableClose: true,
-    });
-
-    confirm.afterClosed().subscribe(res => {
-      if (res) {
-        this.deliveryshiftService.DeleteDeliveryShift(Deliveryshift).subscribe(res => {
-          this.readDeliveryshifts();
-        });
-      }
-    });
-  }
-
 
 }
+
