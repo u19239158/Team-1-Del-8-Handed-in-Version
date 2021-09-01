@@ -3,70 +3,69 @@
 
   <form [formGroup]="form" class="main">
 
-  <div class="mat-row">
-    <div class="mat-col-quarter">
+    <div class="mat-row">
+      <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m">
-            <mat-label> Supplier </mat-label>
-            <mat-select [(value)]="selected" formControlName="supplierID">
-              <mat-option *ngFor="let Supplier of supplier" [value]="Supplier.supplierID">{{Supplier.supplierName}}</mat-option>
-            </mat-select>
-            <mat-hint>Select a supplier</mat-hint>
-          </mat-form-field>
+          <mat-label> Supplier </mat-label>
+          <mat-select [(value)]="selected" formControlName="supplierID">
+            <mat-option *ngFor="let Supplier of supplier" [value]="Supplier.supplierID">{{Supplier.supplierName}}
+            </mat-option>
+          </mat-select>
+          <mat-hint>Select a supplier</mat-hint>
+        </mat-form-field>
+      </div>
     </div>
+
+  </form>
+
+  <div class="search">
+    <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+      <li>
+        <div class="field has-addons">
+          <div class="control">
+            <input type="text" [(ngModel)]="searchValue" class="input" id="search" placeholder="Type here...">
+          </div>
+          <div class="control">
+            <a class="button is-info" (click)="filter()">
+              <span class="fas fa-search search-icon"></span>
+            </a>
+          </div>
+        </div>
+      </li>
+    </ul>
   </div>
 
-</form>
-
-<div class="search">
-  <ul fxLayout fxLayoutGap="15px" class="navigation-items">
-      <li>
-          <div class="field has-addons" >
-            <div class="control" >
-              <input type="text" [(ngModel)]="searchValue" class="input" id="search" placeholder="Type here...">
-            </div>
-            <div class="control">
-              <a class="button is-info" (click)="filter()">
-      <span class="fas fa-search search-icon"></span>
-              </a>
-            </div>
-          </div>
-      </li>
-  </ul>
-</div>
-
   <br>
   <br>
 
-  <div>
-    <table mat-table [dataSource]="dataSource" matSort>
+  <app-global- error *ngIf="dataNotFound"></app-global->
+
+  <div class="mat-elevation-z8 table">
+    <table mat-table [dataSource]="dataSource" matSort *ngIf="!dataNotFound">
       <!-- Position Column -->
-    <ng-container matColumnDef="checked" (click)="placeOrder()">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Check </th>
-      <td mat-cell *matCellDef="let element">
-        <mat-checkbox [(ngModel)]="element.checked"></mat-checkbox>
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="checked" (click)="placeOrder()">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Check </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-checkbox [(ngModel)]="element.checked"></mat-checkbox>
+        </td>
+      </ng-container>
 
-        <!-- Product Item -->
-        <ng-container matColumnDef="productItem">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Item </th>
-            <td mat-cell *matCellDef="let element"> {{element.productItemName}} </td>
-        </ng-container>
+      <!-- Product Item -->
+      <ng-container matColumnDef="productItem">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Item </th>
+        <td mat-cell *matCellDef="let element"> {{element.productItemName}} </td>
+      </ng-container>
 
-        <!-- Quantity -->
-        <ng-container matColumnDef="quantity">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity On Hand </th>
-            <td mat-cell *matCellDef="let element"> {{element.quantityOnHand}} </td>
-        </ng-container>
+      <!-- Quantity -->
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity On Hand </th>
+        <td mat-cell *matCellDef="let element"> {{element.quantityOnHand}} </td>
+      </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-</div>
+  </div>
 
 </div>
-
-
-
-
