@@ -67,7 +67,7 @@
                 <mat-menu #menu="matMenu" xPosition="after">
                     <button mat-menu-item
                         [ngClass]="{'disable':parseInteger(element.deliveryDistance.slice(0, -2)) >50}"
-                        [routerLink]="parseInteger(element.deliveryDistance.slice(0, -2)) >50? []: ['/assignlocaldelivery']">Assign
+                        [routerLink]="parseInteger(element.deliveryDistance.slice(0, -2)) >50? []: ['/assignlocaldelivery', element.saleId]">Assign
                         Delivery</button>
                     <button mat-menu-item
                         [ngClass]="{'disable':parseInteger(element.deliveryDistance.slice(0, -2)) <=50}"

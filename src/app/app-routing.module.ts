@@ -241,7 +241,7 @@ const routes: Routes = [
     component: AssignCourierDeliveryComponent,
   },
   {
-    path: 'assignlocaldelivery',
+    path: 'assignlocaldelivery/:id',
     component: AssignLocalDeliveryComponent,
   },
   {
