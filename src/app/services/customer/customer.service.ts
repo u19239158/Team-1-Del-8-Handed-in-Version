@@ -18,6 +18,7 @@ export interface Customer {
   titleDesc: string;
 }
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -50,13 +51,14 @@ export class CustomerService {
     //   return this.http.post<Customer[]>(`${this.server}Customer/CreateCustomer`, Customer,this.httpOptions);
     // }
 
-    // UpdateCustomer(Customer:Customer):  Observable<Customer[]>  {
-    //   return this.http.put<Customer[]>(`${this.server}Customer/UpdateCustomer`, Customer,this.httpOptions);
-    // }
+    UpdateCustomer(Customer:Customer):  Observable<Customer[]>  {
+      return this.http.put<Customer[]>(`${this.server}Customer/UpdateCustomer`, Customer,this.httpOptions);
+    }
 
     //   DeleteCustomer(customerId):  Observable<Customer>  {
     //   return this.http.delete<Customer>(`${this.server}Customer/DeleteCustomer/${customerId}`).pipe(map(res => res));
     // }
+
 
   
   }

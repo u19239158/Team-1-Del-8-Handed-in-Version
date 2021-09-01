@@ -45,6 +45,7 @@ export class EditCustProfileComponent implements OnInit {
         this.customerService.getCustomerByID(1).subscribe(res => {
           this.Customer = res
           console.log(res)
+          
           this.form = this.formBuilder.group({
             titleID: [this.Customer.titleID, [Validators.required]],
             customerName:[this.Customer.customerName, [Validators.required]],
@@ -67,7 +68,7 @@ export class EditCustProfileComponent implements OnInit {
           return;
         }   
       }
-      
+      //get title descriptions for dropdown
     getCollection() {
       this.http
         .get<any>('https://localhost:44393/api/Title/GetTitle').subscribe((res: any) => {
