@@ -453,9 +453,36 @@ namespace NKAP_API_2.Controllers
                     PaymentTypeID = sor.PaymentTypeID,
                     PaymentTypeDescription = sor.PaymentTypeDescription,
                     CustomerName = sd.CustomerName,
+                    CustomerCellphoneNumber = sd.CustomerCellphoneNumber,
                     CustomerSurname = sd.CustomerSurname,
                     CustomerBusinessName = sd.CustomerBusinessName,
                     SaleID = sor.SaleID
+
+                }).Join(_db.Addresses,
+                sor => sor.CustomerID,
+                sd => sd.CustomerId,
+                (sor, sd) => new
+                {
+                    CustomerId = sor.CustomerID,
+                    //SaleDescription = sor.SaleDescription,
+                    SaleOrderDate = sor.SaleOrderDate,
+                    //SaleAssign = sor.SaleAssign,
+                    // SaleReceiveType = sor.SaleReceiveType,
+                    // SalePaymentDate = sor.SalePaymentDate,
+                    //SalePaymentAmount = sor.SalePaymentAmount,
+                    OrderStatusID = sor.OrderStatusID,
+                    OrderStatusDescription = sor.OrderStatusDescription,
+                    //PaymentTypeID = sor.PaymentTypeID,
+                    //PaymentTypeDescription = sor.PaymentTypeDescription,
+                    CustomerName = sor.CustomerName,
+                    CustomerSurname = sor.CustomerSurname,
+                    CustomerBusinessName = sor.CustomerBusinessName,
+                    CustomerCellphoneNumber = sor.CustomerCellphoneNumber,
+                    SaleID = sor.SaleID,
+                    AddressLine1 = sd.AddressLine1,
+                    AddressLine2 = sd.AddressLine2,
+                    AddressLine3 = sd.AddressLine3,
+                    AddressPostalCode = sd.AddressPostalCode
 
                 }).First(ss => ss.SaleID == saleid);
 
