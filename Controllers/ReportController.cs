@@ -27,6 +27,7 @@ namespace NKAP_API_2.Controllers
         [HttpGet]
         //get Sales with status "needs packing"
         public IActionResult Getpacking( )
+
         {
 
 
@@ -58,7 +59,9 @@ namespace NKAP_API_2.Controllers
         [Route("GetDeliveryReportData")] //route
         [HttpGet]
         //get Sales with status "needs packing"
+
         public IActionResult Get()
+
         {
             //var NeedsPackingSales = _db.Sales.Include(od => od.OrderStatus).Where(od => od.OrderStatus.OrderStatusDescription == "Needs Packing").ToList();
             var ReadyForDeliveryOrder = _db.Sales.Join(_db.OrderStatuses,

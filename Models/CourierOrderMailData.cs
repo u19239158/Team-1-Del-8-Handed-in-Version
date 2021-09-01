@@ -7,7 +7,9 @@ using Newtonsoft.Json;
 namespace NKAP_API_2.Models
 {
     public class CourierOrderMailData
+
     {        
+
         public string RecipientBusinessName
         { get; set; }
 
