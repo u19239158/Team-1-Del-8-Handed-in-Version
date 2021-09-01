@@ -32,9 +32,9 @@ export class ViewSaleComponent implements OnInit {
   sale: OnlineSales = {} as OnlineSales;
   collection = [];
   selected: string;
-  public sales : any =[];
+  public sales: any = [];
   form: FormGroup;
- // id: number;
+  // id: number;
   loading = false;
   checked = false; labelPosition: 'before' | 'after' = 'after';
   disabled = false;
@@ -46,23 +46,23 @@ export class ViewSaleComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private http: HttpClient,
-    private formBuilder : FormBuilder
+    private formBuilder: FormBuilder
   ) { }
 
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     this.getCollection();
-    
+
     this.OnlineSalesService.ViewSale(this.id).subscribe(res => {
       this.sale = res
       console.log(res)
 
-      const formOptions: AbstractControlOptions = { };
-    this.form = this.formBuilder.group({
-    }, formOptions)
-   
-  });
+      const formOptions: AbstractControlOptions = {};
+      this.form = this.formBuilder.group({
+      }, formOptions)
+
+    });
   }
 
   getCollection() {
@@ -71,7 +71,7 @@ export class ViewSaleComponent implements OnInit {
         this.sale = res.filter(sale => {
           return sale.saleID == this.id;
         })[0]
-       // console.log("check", this.sale)
+        // console.log("check", this.sale)
       }, error => {
         console.log({ error });
       })
@@ -79,16 +79,17 @@ export class ViewSaleComponent implements OnInit {
 
   PackOrder() {
     //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
-  // this.OnlineSalesService.GetSaleByID(saleID).subscribe(res=>{
-  //   this.sale =res;
-  //   console.log(this.sales)
-  this.isHidden = false;
+    // this.OnlineSalesService.GetSaleByID(saleID).subscribe(res=>{
+    //   this.sale =res;
+    //   console.log(this.sales)
+    this.isHidden = false;
 
-    this.OnlineSalesService.GetSaleByID(this.id).subscribe(data=>{
+    this.OnlineSalesService.GetSaleByID(this.id).subscribe(data => {
       console.log(data)
-    // this.OnlineSalesService.updateToCollected(this.sale).subscribe(res =>{
-    //   console.log(res)});
-  });}
+      // this.OnlineSalesService.updateToCollected(this.sale).subscribe(res =>{
+      //   console.log(res)});
+    });
+  }
 
   // showProducts(){
   //   this.isHidden = false;
@@ -98,7 +99,7 @@ export class ViewSaleComponent implements OnInit {
   //   })
   //  ;
 
-  
+
   check_box_type = CheckBoxType;
   currentlyChecked: CheckBoxType;
 
@@ -111,7 +112,7 @@ export class ViewSaleComponent implements OnInit {
 
     this.currentlyChecked = targetType;
   }
-  
+
   onSubmit() {
 
     if (this.form.invalid) {

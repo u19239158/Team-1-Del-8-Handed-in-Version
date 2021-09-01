@@ -64,6 +64,8 @@ import { StockLevelReportComponent } from './reports/stock-level-report/stock-le
 import { DeliveryReportComponent } from './reports/delivery-report/delivery-report.component';
 import { ViewdeliveryshiftscheduleComponent } from './deliveryshift/viewdeliveryshiftschedule/viewdeliveryshiftschedule.component';
 import { ViewSaleComponent } from './admin/online-sales/view-sale/view-sale.component';
+import { ViewDeliveryDetailsComponent } from './deliveryshift/view-delivery-details/view-delivery-details.component'
+import { ViewEmployeeDeliveryShiftsComponent } from './deliveryshift/view-employee-delivery-shifts/view-employee-delivery-shifts.component'
 
 const routes: Routes = [
   {
@@ -149,6 +151,14 @@ const routes: Routes = [
   {
     path: 'editCourier/:id',
     component: AddEditCourierComponent
+  },
+  {
+    path: 'viewDeliveryDetails',
+    component: ViewDeliveryDetailsComponent
+  },
+  {
+    path: 'viewEmployeeDeliveryShifts',
+    component: ViewEmployeeDeliveryShiftsComponent
   },
   {
     path: 'deliveryShift',

@@ -15,52 +15,55 @@ import { MustMatch } from './must-match.validators';
 
 export class AddEditEmployeesComponent implements OnInit {
 
-    form: FormGroup;
-    id: number;
-    isAddMode: boolean;
-    loading = false;
-    submitted = false;
-    employee: Employee;
-    employees: Observable<Employee[]>;
+  form: FormGroup;
+  id: number;
+  isAddMode: boolean;
+  loading = false;
+  submitted = false;
+  employee: Employee;
+  employees: Observable<Employee[]>;
 
-    constructor(
-        private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
-        private router: Router,
-        private EmployeeService: EmployeeService,
-    ) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private EmployeeService: EmployeeService,
+  ) { }
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
 
     const passwordValidators = [Validators.minLength(6)];
-  if (this.isAddMode) {
+    if (this.isAddMode) {
       passwordValidators.push(Validators.required);
-  }
+    }
 
-    const formOptions: AbstractControlOptions = { validators: MustMatch('userPassword', 'employeeConfirmPassword')};
+    const formOptions: AbstractControlOptions = { validators: MustMatch('userPassword', 'employeeConfirmPassword') };
     this.form = this.formBuilder.group({
-        //title: ['', Validators.required],
-        employeeName: ['', [Validators.required]],
-        employeeSurname: ['', [Validators.required]],
-        employeeCellphoneNumber: ['', [Validators.required, Validators.maxLength(10)]],
-        employeeIdnumber: ['', [Validators.required, Validators.maxLength(13)]],
-        employeeDob: ['', [Validators.required]],
-        employeeAddressLine1: ['', [Validators.required]],
-        employeeAddressLine2: ['', [Validators.required]],
-        userUsername: ['', [Validators.required]],
-        userPassword:['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
-        employeeConfirmPassword: ['', this.isAddMode ? Validators.required : Validators.nullValidator]
+      //title: ['', Validators.required],
+      employeeName: ['', [Validators.required]],
+      employeeSurname: ['', [Validators.required]],
+      employeeCellphoneNumber: ['', [Validators.required, Validators.maxLength(10)]],
+      employeeIdnumber: ['', [Validators.required, Validators.maxLength(13)]],
+      employeeDob: ['', [Validators.required]],
+      employeeAddressLine1: ['', [Validators.required]],
+      employeeAddressLine2: ['', [Validators.required]],
+      userUsername: ['', [Validators.required]],
+      userPassword: ['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
+      employeeConfirmPassword: ['', this.isAddMode ? Validators.required : Validators.nullValidator]
     }, formOptions);
 
+    console.log("notAddMode", !this.isAddMode)
     if (!this.isAddMode) {
+
       this.EmployeeService.getEmployeeByID(this.id).subscribe(res => {
+
         this.employee = res
-        console.log(res)
+        console.log("ress", res)
         this.form = this.formBuilder.group({
-         // title: [this.employee.title, Validators.required],
-         id: [this.employee.employeeId, Validators.required],
+          // title: [this.employee.title, Validators.required],
+          id: [this.employee.employeeId, Validators.required],
           employeeName: [this.employee.employeeName, [Validators.required]],
           employeeSurname: [this.employee.employeeSurname, [Validators.required]],
           employeeCellphoneNumber: [this.employee.employeeCellphoneNumber, [Validators.required, Validators.maxLength(10)]],
@@ -68,14 +71,13 @@ export class AddEditEmployeesComponent implements OnInit {
           employeeDob: [this.employee.employeeDob, [Validators.required]],
           employeeAddressLine1: [this.employee.employeeAddressLine1, [Validators.required]],
           employeeAddressLine2: [this.employee.employeeAddressLine2, [Validators.required]],
-          userUsername: [this.employee.userUsername, [Validators.required]],
-          userPassword: ['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
-          employeeConfirmPassword: ['', this.isAddMode ? Validators.required : Validators.nullValidator]
-      }, formOptions);
+          // { value: this.employee.userUsername, disabled: true },
+          userUsername: { value: this.employee.userUsername, disabled: true },
+          userPassword: { value: this.employee.userPassword, disabled: true },
+          employeeConfirmPassword: { value: this.employee.employeeConfirmPassword, disabled: true },
+        }, formOptions);
+
       });
-      this.form.get('userUsername').disable();
-      this.form.get('userPassword').disable();
-      this.form.get('employeeConfirmPassword').disable();
     }
   }
 
@@ -87,9 +89,9 @@ export class AddEditEmployeesComponent implements OnInit {
 
     this.loading = true;
     if (this.isAddMode) {
-        this.createEmployee();
+      this.createEmployee();
     } else {
-        this.updateEmployee();
+      this.updateEmployee();
     }
   }
 
@@ -107,8 +109,8 @@ export class AddEditEmployeesComponent implements OnInit {
     employee.employeeId = this.employee.employeeId;
     this.EmployeeService.UpdateEmployee(employee).subscribe(res => {
       console.log(res)
-     // this.form.reset()
-    this.router.navigateByUrl('employees');
+      // this.form.reset()
+      this.router.navigateByUrl('employees');
     });
   }
 

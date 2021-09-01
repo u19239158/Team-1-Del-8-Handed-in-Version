@@ -1,14 +1,14 @@
-<div >
-  <div >
-    <div >
+<div>
+  <div>
+    <div>
 
       <div class="split picture">
-        <img style="margin-top:30px" src="assets/images/NKAP.jpg"/>
+        <img style="margin-top:30px" src="assets/images/NKAP.jpg" />
       </div>
     </div>
 
     <div class="split information">
-      <div >
+      <div>
         <!-- <div fxLayout="row" fxLayoutAlign="end">
           <a routerLink="/home"> 
             <h4><mat-icon>arrow_back</mat-icon>Go back</h4>      
@@ -20,18 +20,18 @@
       </div>
 
       <div fxLayout="column" fxLayoutAlign="center" style="margin-top:100px">
-        
+
         <form [formGroup]="form">
-        <!-- (ngSubmit)="Login(form.value)"> -->
-          
-          <div fxLayoutAlign="center">            
+          <!-- (ngSubmit)="Login(form.value)"> -->
+
+          <div fxLayoutAlign="center">
             <mat-form-field style="width:50%" appearance="outline">
               <mat-label>Enter username</mat-label>
               <input formControlName="userUsername" matInput>
               <mat-error *ngIf="form.controls['userUsername'].invalid">Please enter a valid username</mat-error>
             </mat-form-field>
           </div>
-          
+
           <div fxLayoutAlign="center" style="margin-top:10px">
             <mat-form-field style="width:50%" appearance="outline">
               <mat-label>Enter password</mat-label>
@@ -41,14 +41,14 @@
           </div>
 
           <div fxLayoutAlign="center" style="margin-top:10px">
-            <a routerLink="/home"> 
-              <h5>Forgot password... again?</h5>      
+            <a routerLink="/home">
+              <h5>Forgot password... again?</h5>
             </a>
           </div>
 
 
           <div fxLayoutAlign="center" style="margin-top:20px">
-            <button [disabled]="!form.valid || formSubmitted" (click) = "Login()" mat-raised-button color="primary">Login</button>
+            <!-- <button [disabled]="!form.valid || formSubmitted" (click) = "Login()" mat-raised-button color="primary">Login</button> -->
           </div>
 
           <!-- <div fxLayoutAlign="center" style="margin-top:20px">
@@ -59,5 +59,5 @@
         </form>
       </div>
     </div>
-  </div> 
+  </div>
 </div>
