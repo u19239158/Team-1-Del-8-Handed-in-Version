@@ -101,7 +101,7 @@
         <!-- </mat-card> -->
     </div>
 
-    <div class="contentx" [hidden]="isHidden">
+    <!-- <div class="contentx" [hidden]="isHidden">
 
          <h2>Pack Order</h2>
 
@@ -111,12 +111,12 @@
                     <section class="checkbox" align="left">
 
                         <h3>Select An Option to Pack Order</h3>
-                        <p>
-                            <input type="checkbox" name="test"
+                        <p> -->
+                            <!-- <input type="checkbox" name="test"
                                 [checked]="currentlyChecked === check_box_type.READY_FOR_DELIVERY"
-                                (click)="selectCheckBox(check_box_type.READY_FOR_DELIVERY)"> 
+                                (click)="selectCheckBox(check_box_type.READY_FOR_DELIVERY)">  -->
                             <!-- [ngClass]="{'disable':sale.saleOrderRecieveType ===0}" -->
-                            Ready for Delivery 
+                            <!-- Ready for Delivery 
                          </p>
                         <p>
                             <input type="checkbox" name="test"
@@ -137,7 +137,7 @@
                         <button [routerLink]="['/onlineSales']" (click)="Close()" mat-button>Cancel</button>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <div class="contentx" [hidden]="isHidden">
 
@@ -154,13 +154,13 @@
                                     <input type="checkbox" name="test"
                                         [checked]="currentlyChecked === check_box_type.READY_FOR_DELIVERY"
                                         (click)="selectCheckBox(check_box_type.READY_FOR_DELIVERY)"
-                                        (click)="Delivery()">Ready for Delivery
+                                        (click)="Delivery()">&nbsp;Ready for Delivery
                                 </p>
                                 <p>
                                     <input type="checkbox" name="test"
                                         [checked]="currentlyChecked === check_box_type.READY_FOR_COLLECTION"
                                         (click)="selectCheckBox(check_box_type.READY_FOR_COLLECTION)"
-                                        (click)="Collection()">Ready for Collection
+                                        (click)="Collection()">&nbsp;Ready for Collection
                                 </p>
                             </section>
                         </div>

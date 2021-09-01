@@ -68,7 +68,7 @@ this.OnlineSalesService.GetSaleByID(saleID).subscribe(res=>{
     console.log(res)});
 });
   
-//   window.location.reload();
+   window.location.reload();
 
 }
 

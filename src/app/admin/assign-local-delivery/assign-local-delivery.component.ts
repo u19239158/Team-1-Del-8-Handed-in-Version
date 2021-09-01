@@ -83,7 +83,7 @@ export class AssignLocalDeliveryComponent implements OnInit {
 
   Assign(employeeShiftId :any)
   {
-    this.deliveryshiftService.getDeliveryShiftByID(employeeShiftId).subscribe(res=>{
+    this.deliveryshiftService.GetDeliveryShiftByEmpShiftID(employeeShiftId).subscribe(res=>{
       this.emp =res;
       console.log(this.emp)
       this.deliveryshiftService.AssignDelivery(this.emp).subscribe(data=>{

@@ -64,10 +64,10 @@
             </button>
             <mat-menu #menu="matMenu" xPosition="before">
               <button mat-menu-item  (click)="viewSale(element.saleID)" [routerLink]="['/viewSale', element.saleID]">View</button>
-              <button mat-menu-item
+              <button mat-menu-item (click)="updateToCollected(element.saleID)"
                 [ngClass]="{'disable':element.orderStatusID ===1 || element.orderStatusID ===3}">Collected
               </button>
-              <button mat-menu-item
+              <button mat-menu-item (click)="updateToDelivered(element.saleID)"
                 [ngClass]="{'disable':element.orderStatusID ===1 || element.orderStatusID ===2}">Delivered</button>
             </mat-menu>
           </td>

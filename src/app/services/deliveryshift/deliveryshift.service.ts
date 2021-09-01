@@ -27,7 +27,10 @@ export class DeliveryshiftService {
   getDeliveryShiftByID(employeeShiftId): Observable<Deliveryshift> {
     return this.http.get<Deliveryshift>(`${this.server}Deliveryshift/GetDeliveryShiftByID/${employeeShiftId}`).pipe(map(res => res));
   }
-
+  GetDeliveryShiftByEmpShiftID(employeeShiftId): Observable<Deliveryshift> {
+    return this.http.get<Deliveryshift>(`${this.server}Deliveryshift/GetDeliveryShiftByEmpShiftID/${employeeShiftId}`).pipe(map(res => res));
+  }
+  
   CreateDeliveryShift(Deliveryshift: Deliveryshift): Observable<Deliveryshift[]> {
     return this.http.post<Deliveryshift[]>(`${this.server}Deliveryshift/AddDate`, Deliveryshift, this.httpOptions);
   }
