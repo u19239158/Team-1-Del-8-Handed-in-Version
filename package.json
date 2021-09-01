@@ -22,6 +22,7 @@
     "@angular/platform-browser": "~11.0.1",
     "@angular/platform-browser-dynamic": "~11.0.1",
     "@angular/router": "~11.0.1",
+    "@firebase/storage": "^0.8.1",
     "@syncfusion/ej2-angular-schedule": "^19.2.56",
     "@syncfusion/ej2-grids": "^19.2.56",
     "chart.js": "^2.9.3",
