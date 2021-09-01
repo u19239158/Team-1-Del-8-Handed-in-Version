@@ -217,7 +217,7 @@ namespace NKAP_API_2.Controllers
 
         //[Route("ReadyForCollection/{customerEmail}, {}")]
         [Route("ReadyForCollection/{customerEmail}")] //route
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> GetAsync(string customerEmail)
         {
             var apiKey = "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";

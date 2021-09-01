@@ -147,7 +147,55 @@ namespace NKAP_API_2.Controllers
            
         }
 
-     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        [Route("GetCustomerBySaleID/{SaleId}")] //route
+        [HttpGet]
+        //get Customer by ID (Read)
+        public IActionResult GetCustomerBySaleID(int saleId)
+        {
+            //var Customer = _db.Customers.Find(customerid);
+
+            var Custitle = _db.Customers.Join(_db.Titles,
+              c => c.TitleId,
+              t => t.TitleId,
+              (c, t) => new
+              {
+                  CustomerId = c.CustomerId,
+
+                  TitleID = c.TitleId,
+                  TitleDesc = t.TitleDescription,
+                  CustomerID = c.CustomerId,
+                  CustomerName = c.CustomerName,
+                  CustomerSurname = c.CustomerSurname,
+                  CustomerCellphoneNumber = c.CustomerCellphoneNumber,
+                  CustomerEmailAddress = c.CustomerEmailAddress,
+                  CustomerVATReg = c.CustomerVatreg,
+                  CustomerBusinessName = c.CustomerBusinessName,
+
+              }).Join(_db.Sales,
+              c => c.CustomerID,
+              t => t.CustomerId,
+              (c, t) => new
+              {
+                  CustomerId = c.CustomerId,
+
+                  //TitleID = t.TitleId,
+                  //TitleDesc = t.TitleDescription,
+                  CustomerID = c.CustomerId,
+                  CustomerName = c.CustomerName,
+                  CustomerSurname = c.CustomerSurname,
+                  CustomerCellphoneNumber = c.CustomerCellphoneNumber,
+                  CustomerEmailAddress = c.CustomerEmailAddress,
+                 // CustomerVATReg = c.CustomerVatreg,
+                  CustomerBusinessName = c.CustomerBusinessName,
+                  SaleId = t.SaleId
+
+              }).First(cn => cn.SaleId == saleId);
+
+            return Ok(Custitle);
+        }
+
+        //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("CreateCustomer")] //route
         [HttpPost]
         //Add Customer

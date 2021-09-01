@@ -52,13 +52,55 @@ namespace NKAP_API_2.Controllers
             
         }
 
+        [HttpPost]
+        [Route("CustomerLogin")]
+        public string CustomerLogin(RegisterModel model)
+        {
+            //using var db = new NKAP_BOLTING_DB_4Context();
+
+            var hashedPassword = this.ComputeSha256Hash(model.UserPassword);
+            model.UserRoleName = "Customer";
+            var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
+            if (user == null)
+            {
+                string request = "user not found";
+                return request;
+            }
+            else
+            {
+                return token.GenerateToken(model);
+            }
+
+        }
+
+        [HttpPost]
+        [Route("EmployeeLogin")]
+        public string EmployeeLogin(RegisterModel model)
+        {
+            //using var db = new NKAP_BOLTING_DB_4Context();
+
+            var hashedPassword = this.ComputeSha256Hash(model.UserPassword);
+            model.UserRoleName = "Employee";
+            var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
+            if (user == null)
+            {
+                string request = "user not found";
+                return request;
+            }
+            else
+            {
+                return token.GenerateToken(model);
+            }
+
+        }
+
         ////var newAuditTrail = new AuditTrail
         //      {
-                  
+
         //          AuditTrailDate = DateTime.Today,
         //          AuditTrailTime = DateTime.Now.TimeOfDay,
         //          AuditTrailDescription = "Login"
-                  
+
         //      });
 
 
@@ -114,8 +156,9 @@ namespace NKAP_API_2.Controllers
             try
             {
                 _db.Users.Add(newUser);
-                _db.Customers.Add(newCustomer);
-               // _db.PasswordHistories.Add(newpasshist);
+                //_db.Admins.Add(newAdmin);
+                 _db.Customers.Add(newCustomer);
+                // _db.PasswordHistories.Add(newpasshist);
                 _db.SaveChanges();
 
                 return Ok(newCustomer);
