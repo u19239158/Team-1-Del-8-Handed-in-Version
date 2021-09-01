@@ -3,6 +3,7 @@ import { Component, OnInit,Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {  HttpClient  } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customers',
@@ -11,22 +12,30 @@ import { NgForm } from '@angular/forms';
 })
 
 export class CustomersComponent implements OnInit {
-
+  customer: Customer = {} as Customer;
   isSubmitted = false;
 //customers: Customer[] = [];
 //Customer: Customer;
 customers: Observable<Customer[]>;
 public topCustomers : any = [];
 
-constructor(private customerService: CustomerService, private httpClient: HttpClient) { }
+constructor(
+  private customerService: CustomerService, 
+  private httpClient: HttpClient,
+  private router : Router) { }
 
 ngOnInit(): void {
-    //Home page different categories of products
-    this.customerService.GetCustomer()
+    this.customerService.getCustomerByID(1)
     .subscribe(res=>{
       this.topCustomers=res;
       console.log(this.topCustomers);
     })
+
+    this.customerService.getCustomerByID(1).subscribe(res => {
+      this.customer = res
+      console.log(res)   
+  });
+
 
 }
 
@@ -36,10 +45,8 @@ submitForm(form: NgForm) {
     return false;
   }
   else{
-    //alert(JSON.stringify(form.value))
     document.querySelector('#deliveryModal').classList.add('is-active')
-    // window.location.href='https://checkout.paystack.com/26ho92bd1vjeght'
-  }
+    }
 }
 
 // readCustomers(): void {

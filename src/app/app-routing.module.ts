@@ -37,7 +37,7 @@ const routes: Routes = [
     component: CustomersComponent
   },
   {
-    path: 'editCustProfile',
+    path: 'editProfile',
     component: EditCustProfileComponent
   },
 ];

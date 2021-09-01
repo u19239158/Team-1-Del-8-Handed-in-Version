@@ -14,7 +14,8 @@ export interface Customer {
   customerVATReg: number;
   customerBusinessName: string;
   customerPassword: string;
-  titleId: number;
+  titleID: number;
+  titleDesc: string;
 }
 
 @Injectable({
@@ -28,6 +29,7 @@ export class CustomerService {
         ContentType: 'application/json'
       })
   };
+  collection: any=[];
 
     constructor(private http: HttpClient) { }
 
@@ -38,9 +40,11 @@ export class CustomerService {
       }))
     }
     
-    // getCustomerByID(customerid):  Observable<Customer>  {
-    //   return this.http.get<Customer>(`${this.server}Customer/GetCustomerByID/${customerid}`).pipe(map(res => res));
-    // }
+    getCustomerByID(customerid):  Observable<Customer>  {
+      return this.http.get<Customer>(`${this.server}Customer/GetCustomerByID/${customerid}`)
+      .pipe(map(res => res));
+    }
+
 
     // CreateCustomer(Customer:Customer):  Observable<Customer[]>  {
     //   return this.http.post<Customer[]>(`${this.server}Customer/CreateCustomer`, Customer,this.httpOptions);
