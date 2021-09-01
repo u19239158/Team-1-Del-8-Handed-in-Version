@@ -1,85 +1,86 @@
 <div class="main">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">  
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="box">
-          
-          <div class="field">
-            <label class="label">Title</label>
-            <div class="control">
-              <div class="select">
-                <select formControlName="titleID">
-                  <option *ngFor="let c of collection" [value]="c.titleID">{{c.titleDescription}}</option>    
-                </select>
-              </div>
-            </div>
-          </div> 
 
-        <div class="mat-row">
-          <div class="mat-col-quarter">
-              <mat-form-field appearance="outline" class="control-m-s">
-                  <mat-label>Title</mat-label>
-                  <mat-select formControlName="titleID">
-                    <mat-option *ngFor="let c of collection" [value]="c.titleID">{{c.titleDescription}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
+      <div class="field">
+        <label class="label">Title</label>
+        <div class="control">
+          <div class="select">
+            <select formControlName="titleID">
+              <option *ngFor="let c of collection" [value]="c.titleID">{{c.titleDescription}}</option>
+            </select>
           </div>
         </div>
+      </div>
 
-
-        <div class="field">
-            <label class="label">Name</label>
-            <div class="control" >
-              <input formControlName="customerName" class="input" type="text" placeholder="Name">
-            </div>
+      <div class="mat-row">
+        <div class="mat-col-quarter">
+          <mat-form-field appearance="outline" class="control-m-s">
+            <mat-label>Title</mat-label>
+            <mat-select formControlName="titleID">
+              <mat-option *ngFor="let c of collection" [value]="c.titleID">{{c.titleDescription}}</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
+      </div>
 
-        <div class="field">
-            <label class="label">Surname</label>
-            <div class="control">
-              <input formControlName="customerSurname"  class="input" type="text" placeholder="Surname">
-            </div>
-        </div>
-          
 
-          <div class="field">
-            <label class="label">Business Name</label>
-            <div class="control">
-              <input formControlName="customerBusinessName"  class="input" type="text" placeholder="Business Name">
-            </div>
+      <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <input formControlName="customerName" class="input" type="text" placeholder="Name">
         </div>
-          
-          <div class="field">
-            <label class="label">Cellphone Number</label>
-            <div class="control">
-              <input formControlName="customerCellphoneNumber"  class="input" type="text" placeholder="xxx xxx xxxx">
-            </div>
-        </div>
+      </div>
 
-        <div class="field">
-            <label class="label">VAT Reg</label>
-            <div class="control">
-              <input formControlName="customerVATReg"  class="input" type="text" placeholder="customerVATReg">
-            </div>
+      <div class="field">
+        <label class="label">Surname</label>
+        <div class="control">
+          <input formControlName="customerSurname" class="input" type="text" placeholder="Surname">
         </div>
+      </div>
 
-          <div class="field">
-            <label class="label">Email Address</label>
-            <div class="control has-icons-left has-icons-right">
-              <input formControlName="customerEmailAddress"  class="input" type="email" placeholder="Email input" value="hello@">
-              <span class="icon is-small is-left">
-                <i class="fas fa-envelope"></i>
-              </span>             
-          </div>          
+
+      <div class="field">
+        <label class="label">Business Name</label>
+        <div class="control">
+          <input formControlName="customerBusinessName" class="input" type="text" placeholder="Business Name">
         </div>
+      </div>
 
-          
-          <div class="field is-grouped">
-            <div class="control">
-              <button class="button is-link" (onclick)="onSubmit()">Submit</button>
-            </div>
-            <div class="control">
-              <button class="button is-link is-light">Cancel</button>
-            </div>
-          </div>
+      <div class="field">
+        <label class="label">Cellphone Number</label>
+        <div class="control">
+          <input formControlName="customerCellphoneNumber" class="input" type="text" placeholder="xxx xxx xxxx">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">VAT Reg</label>
+        <div class="control">
+          <input formControlName="customerVATReg" class="input" type="text" placeholder="customerVATReg">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Email Address</label>
+        <div class="control has-icons-left has-icons-right">
+          <input formControlName="customerEmailAddress" class="input" type="email" placeholder="Email input"
+            value="hello@">
+          <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+        </div>
+      </div>
+
+
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-link" (click)="editCustomer()">Submit</button>
+        </div>
+        <div class="control">
+          <button class="button is-link is-light" (click)="Cancel()">Cancel</button>
+        </div>
+      </div>
     </div>
   </form>
 </div>

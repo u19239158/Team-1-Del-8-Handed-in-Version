@@ -1,7 +1,7 @@
 import { Customer, CustomerService } from 'src/app/services/customer/customer.service';
-import { Component, OnInit,Injectable } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {  HttpClient  } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -14,61 +14,67 @@ import { Router } from '@angular/router';
 export class CustomersComponent implements OnInit {
   customer: Customer = {} as Customer;
   isSubmitted = false;
-//customers: Customer[] = [];
-//Customer: Customer;
-customers: Observable<Customer[]>;
-public topCustomers : any = [];
+  //customers: Customer[] = [];
+  //Customer: Customer;
+  customers: Observable<Customer[]>;
+  public topCustomers: any = [];
 
-constructor(
-  private customerService: CustomerService, 
-  private httpClient: HttpClient,
-  private router : Router) { }
+  constructor(
+    private customerService: CustomerService,
+    private httpClient: HttpClient,
+    private router: Router) { }
 
-ngOnInit(): void {
+  ngOnInit(): void {
     this.customerService.getCustomerByID(1)
-    .subscribe(res=>{
-      this.topCustomers=res;
-      console.log(this.topCustomers);
-    })
+      .subscribe(res => {
+        this.topCustomers = res;
+        console.log(this.topCustomers);
+      })
 
     this.customerService.getCustomerByID(1).subscribe(res => {
       this.customer = res
-      console.log(res)   
-  });
+      console.log(res)
+    });
 
 
-}
-
-submitForm(form: NgForm) {
-  this.isSubmitted = true;
-  if(!form.valid) {
-    return false;
   }
-  else{
-    document.querySelector('#deliveryModal').classList.add('is-active')
+
+  submitForm(form: NgForm) {
+    this.isSubmitted = true;
+    if (!form.valid) {
+      return false;
     }
-}
+    else {
+      document.querySelector('#deliveryModal').classList.add('is-active')
+    }
+  }
 
-// readCustomers(): void {
-//    this.customerService.GetCustomer()
-//    .subscribe(res => {
-//     this.topCustomers = res;
-//     console.log(this.topCustomers);
-//    })
-// }
+  editProfile() {
+    this.router.navigateByUrl('/editProfile')
+  }
+
+  
+
+  // readCustomers(): void {
+  //    this.customerService.GetCustomer()
+  //    .subscribe(res => {
+  //     this.topCustomers = res;
+  //     console.log(this.topCustomers);
+  //    })
+  // }
 
 
-// deleteCustomer(Customer: Customer) {
-//   const confirm = this.dialog.open(GlobalConfirmComponent, {
-//            disableClose: true,
-//           });
+  // deleteCustomer(Customer: Customer) {
+  //   const confirm = this.dialog.open(GlobalConfirmComponent, {
+  //            disableClose: true,
+  //           });
 
-//   confirm.afterClosed().subscribe(res => {
-//     if (res){
-//       this.customerService.DeleteCustomer(Customer).subscribe(res =>{
-//         this.readCustomers()
-//       })
-//     }
-//   });
-//}
+  //   confirm.afterClosed().subscribe(res => {
+  //     if (res){
+  //       this.customerService.DeleteCustomer(Customer).subscribe(res =>{
+  //         this.readCustomers()
+  //       })
+  //     }
+  //   });
+  //}
 }

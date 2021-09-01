@@ -24,39 +24,39 @@ export interface Customer {
 export class CustomerService {
   server = "https://localhost:44393/api/";
 
-    httpOptions = {
-      headers: new HttpHeaders({
-        ContentType: 'application/json'
-      })
+  httpOptions = {
+    headers: new HttpHeaders({
+      ContentType: 'application/json'
+    })
   };
-  collection: any=[];
+  collection: any = [];
 
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-    GetCustomer():  Observable<Customer[]>{
-      return this.http.get<Customer[]>(`${this.server}Customer/GetCustomer`)
-      .pipe(map((res :any)=>{
+  GetCustomer(): Observable<Customer[]> {
+    return this.http.get<Customer[]>(`${this.server}Customer/GetCustomer`)
+      .pipe(map((res: any) => {
         return res;
       }))
-    }
-    
-    getCustomerByID(customerid):  Observable<Customer>  {
-      return this.http.get<Customer>(`${this.server}Customer/GetCustomerByID/${customerid}`)
-      .pipe(map(res => res));
-    }
-
-
-    // CreateCustomer(Customer:Customer):  Observable<Customer[]>  {
-    //   return this.http.post<Customer[]>(`${this.server}Customer/CreateCustomer`, Customer,this.httpOptions);
-    // }
-
-    // UpdateCustomer(Customer:Customer):  Observable<Customer[]>  {
-    //   return this.http.put<Customer[]>(`${this.server}Customer/UpdateCustomer`, Customer,this.httpOptions);
-    // }
-
-    //   DeleteCustomer(customerId):  Observable<Customer>  {
-    //   return this.http.delete<Customer>(`${this.server}Customer/DeleteCustomer/${customerId}`).pipe(map(res => res));
-    // }
-
-  
   }
+
+  getCustomerByID(customerid): Observable<Customer> {
+    return this.http.get<Customer>(`${this.server}Customer/GetCustomerByID/${customerid}`)
+      .pipe(map(res => res));
+  }
+
+
+  // CreateCustomer(Customer:Customer):  Observable<Customer[]>  {
+  //   return this.http.post<Customer[]>(`${this.server}Customer/CreateCustomer`, Customer,this.httpOptions);
+  // }
+
+  UpdateCustomer(Customer: Customer): Observable<Customer[]> {
+    return this.http.put<Customer[]>(`${this.server}Customer/UpdateCustomer`, Customer, this.httpOptions);
+  }
+
+  //   DeleteCustomer(customerId):  Observable<Customer>  {
+  //   return this.http.delete<Customer>(`${this.server}Customer/DeleteCustomer/${customerId}`).pipe(map(res => res));
+  // }
+
+
+}

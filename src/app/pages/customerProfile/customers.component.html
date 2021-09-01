@@ -1,85 +1,86 @@
-
 <div class="main">
-        <div class="container emp-profile">
-            <!-- <form method="post" > -->
-                <div class="row">
+    <div class="container emp-profile">
+        <!-- <form method="post" > -->
+        <div class="row">
 
-                    <div class="col-md-8">
-                        <div class="profile-head">
-                            <section class="section">
-                                <h2 class="subtitle">
-                                   {{customer.customerBusinessName}}
-                                </h2>
-                                Owner: {{customer.customerName}} {{customer.customerSurname}}
-                            </section>
+            <div class="col-md-8">
+                <div class="profile-head">
+                    <section class="section">
+                        <h2 class="subtitle">
+                            {{customer.customerBusinessName}}
+                        </h2>
+                        Owner: {{customer.customerName}} {{customer.customerSurname}}
+                    </section>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
+                            <p><button type="submit" align="right" (click)="editProfile()"
+                                    class="button is-rounded">Edit profile</button></p>
+                            <p><button align="right" class="button is-danger is-rounded">Delete profile</button></p>
+
                         </div>
                     </div>
+                </article>
+            </div>
 
-                    <div class="col-md-4">  
-                          <article class="media">                              
-                            <div class="media-content">
-                              <div class="content">  
-                                <p><button type="submit" routerlink="editCustProfile" class="button is-rounded">Edit profile</button></p>
-                                <p><button class="button is-danger is-rounded">Delete profile</button></p>  
-                                  
-                              </div>
-                            </div>
-                          </article>
-                     </div>
-
-                </div>
-                <hr>
-                <div class="row" > 
-                    <div class="col-md-12"><div class="row">
-                            <div class="col-md-6" >
-                                <label>Title</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{customer.titleDesc}}</p>
-                            </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Name</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{customer.customerName}}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Surname</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{customer.customerSurname}}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Email</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{customer.customerEmailAddress}}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Business Name</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>{{customer.customerBusinessName}}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                            <div class="col-md-6">
-                                <label>VAT registration Number</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>{{customer.customerVATReg}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <!-- </form>-->
         </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Title</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{customer.titleDesc}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Name</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{customer.customerName}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Surname</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{customer.customerSurname}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Email</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{customer.customerEmailAddress}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Business Name</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{customer.customerBusinessName}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>VAT registration Number</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{customer.customerVATReg}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- </form>-->
+    </div>
 </div>
