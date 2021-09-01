@@ -43,6 +43,14 @@ GetFullSaleByID(saleID):  Observable<OnlineSales>  {
   return this.http.get<OnlineSales>(`${this.server}Email/GetFullSaleByID/${saleID}`).pipe(map(res => res));
 }
 
+AssignCourier(id: any):  Observable<Courier[]>  {
+const data = {
+  saleID : id
+}
+  return this.http.put<Courier[]>(`${this.server}Delivery/AssignCourier`, data,this.httpOptions);
+}
+
+
 // NotifyCourier():  Observable<OnlineSales>  {
 //   return this.http.get<OnlineSales>(`${this.server}Email/NotifyCourier/${CourierEmail}`).pipe(map(res => res));
 // }

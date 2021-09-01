@@ -7,6 +7,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { OnlineSalesService } from 'src/app/services/online-sales/online-sales.service';
+enum CheckBoxType { READY_FOR_COLLECTION, READY_FOR_DELIVERY, NONE };
+import { AbstractControlOptions, FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-view-sale',
@@ -30,13 +32,21 @@ export class ViewSaleComponent implements OnInit {
   sale: OnlineSales = {} as OnlineSales;
   collection = [];
   selected: string;
+  public sales : any =[];
+  form: FormGroup;
+ // id: number;
+  loading = false;
+  checked = false; labelPosition: 'before' | 'after' = 'after';
+  disabled = false;
+  isHidden: boolean = true;
 
   constructor(private OnlineSalesService: OnlineSalesService,
     private route: ActivatedRoute,
     private snack: MatSnackBar,
     private router: Router,
     private dialog: MatDialog,
-    private http: HttpClient
+    private http: HttpClient,
+    private formBuilder : FormBuilder
   ) { }
 
 
@@ -47,6 +57,10 @@ export class ViewSaleComponent implements OnInit {
     this.OnlineSalesService.ViewSale(this.id).subscribe(res => {
       this.sale = res
       console.log(res)
+
+      const formOptions: AbstractControlOptions = { };
+    this.form = this.formBuilder.group({
+    }, formOptions)
    
   });
   }
@@ -61,6 +75,48 @@ export class ViewSaleComponent implements OnInit {
       }, error => {
         console.log({ error });
       })
+  }
+
+  PackOrder() {
+    //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
+  // this.OnlineSalesService.GetSaleByID(saleID).subscribe(res=>{
+  //   this.sale =res;
+  //   console.log(this.sales)
+  this.isHidden = false;
+
+    this.OnlineSalesService.GetSaleByID(this.id).subscribe(data=>{
+      console.log(data)
+    // this.OnlineSalesService.updateToCollected(this.sale).subscribe(res =>{
+    //   console.log(res)});
+  });}
+
+  // showProducts(){
+  //   this.isHidden = false;
+  //   this.writeOffStockService.getProductByCatType(this.form.value.categoryTypeId).subscribe(res => {
+  //     console.log(res)
+  //    this.dataSource = new MatTableDataSource(res)
+  //   })
+  //  ;
+
+  
+  check_box_type = CheckBoxType;
+  currentlyChecked: CheckBoxType;
+
+  selectCheckBox(targetType: CheckBoxType) {
+    // If the checkbox was already checked, clear the currentlyChecked variable
+    if (this.currentlyChecked === targetType) {
+      this.currentlyChecked = CheckBoxType.NONE;
+      return;
+    }
+
+    this.currentlyChecked = targetType;
+  }
+  
+  onSubmit() {
+
+    if (this.form.invalid) {
+      return;
+    }
   }
 
   Close() {

@@ -3,8 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 //import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
-import { ReportParameters } from 'src/app/interfaces';
+import jsPDF from 'jspdf';
+import { ReportParameters, Reports } from 'src/app/interfaces';
 import { ReportServiceService } from 'src/app/services/Reports/report-service.service';
+import html2canvas from 'html2canvas';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-weekly-sale-orders-report',
@@ -13,7 +16,8 @@ import { ReportServiceService } from 'src/app/services/Reports/report-service.se
 })
 
 export class WeeklySaleOrdersReportComponent implements OnInit {
-
+  dataSource = new MatTableDataSource<Reports>();
+  displayedColumns: string[] = ['saleId', 'saleOrderDate', 'customerId','customerName', 'customerCellphoneNumber', 'customerEmailAddress', 'customerBusinessName','salePaymentAmount'];
   tableData: any;
   ReportParams: ReportParameters = {
     startDate: null,
@@ -24,33 +28,33 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
 
   // ReportParameters: ReportParameters[];
 
-  public barChartOptions: ChartOptions = {
-    responsive: true,
-    // We use these empty structures as placeholders for dynamic theming.
-    scales: { xAxes: [{}], yAxes: [{}] },
-    plugins: {
-      datalabels: {
-        anchor: 'end',
-        align: 'end',
-      }
-    }
-  };
-  public barChartLabels: Label[] = ['Gauteng',
-    'Eastern Cape',
-    'Western Cape',
-    'KZN',
-    'Northern Cape',
-    'Mpumalanga',
-    'North West',
-    'Limpopo'];
-  public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
-  //public barChartPlugins = [pluginDataLabels];
+  // public barChartOptions: ChartOptions = {
+  //   responsive: true,
+  //   // We use these empty structures as placeholders for dynamic theming.
+  //   scales: { xAxes: [{}], yAxes: [{}] },
+  //   plugins: {
+  //     datalabels: {
+  //       anchor: 'end',
+  //       align: 'end',
+  //     }
+  //   }
+  // };
+  // public barChartLabels: Label[] = ['Gauteng',
+  //   'Eastern Cape',
+  //   'Western Cape',
+  //   'KZN',
+  //   'Northern Cape',
+  //   'Mpumalanga',
+  //   'North West',
+  //   'Limpopo'];
+  // public barChartType: ChartType = 'bar';
+  // public barChartLegend = true;
+  // //public barChartPlugins = [pluginDataLabels];
 
-  public barChartData: ChartDataSets[] = [
-    // { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
+  // public barChartData: ChartDataSets[] = [
+  //   // { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
 
-  ];
+  // ];
 
   constructor(
     private serv: ReportServiceService,
@@ -77,39 +81,63 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
     this.serv.SalesReport(this.form.value).subscribe(data => {
       this.created = false;
       console.log(data);
-
-      this.generateChart(data);
+      this.dataSource = new MatTableDataSource(data)
+      this.generateTables(data);
     });
   }
 
-  generateChart(data) {
-    this.barChartData = [];
-    this.barChartData.push({
-      data: data,
-      label: 'Sales'
-    });
-    this.created = true;
-  }
-
-  generatePdf() {
-
-  }
-
-  // generateTables(data) {
-  //   this.tableData = data;
-  //   // this.averages = data.map(avg => avg.AverageQuantityOrdered);
-  //   // this.getGrandAverage();
+  // generateChart(data) {
+  //   this.barChartData = [];
+  //   this.barChartData.push({
+  //     data: data,
+  //     label: 'Sales'
+  //   });
+  //   this.created = true;
   // }
 
-  public randomize(): void {
-    // Only Change 3 values
-    this.barChartData[0].data = [
-      Math.round(Math.random() * 100),
-      59,
-      80,
-      (Math.random() * 100),
-      56,
-      (Math.random() * 100),
-      40];
+  generatePdf(): void {
+    let Data = document.getElementById('htmlData')!;
+
+    // Canvas Options
+    html2canvas(Data).then(canvas => {
+      let fileWidth = 210;
+      let fileHeight = canvas.height * fileWidth / canvas.width;
+
+      const contentDataURL = canvas.toDataURL('image/png')
+
+
+      let PDF = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4', });
+      let topPosition = 10;
+      let leftPosition = 0;
+      PDF.addImage(contentDataURL, 'PNG', leftPosition, topPosition, fileWidth, fileHeight)
+      PDF.save('Weekly Sales Report.pdf');
+    });
   }
+
+  //getGrandAverage() {
+    //const len = this.averages.length;
+  //  let sum = 0;
+
+  //  sum = this.averages.reduce((acc, current) => acc + current);
+  //  this.grandAverage = Math.round(sum / len)  ;
+  //}
+
+  generateTables(data) {
+    this.tableData = data;
+    this.created = true;
+    // this.averages = data.map(avg => avg.AverageQuantityOrdered);
+    // this.getGrandAverage();
+  }
+
+  // public randomize(): void {
+  //   // Only Change 3 values
+  //   this.barChartData[0].data = [
+  //     Math.round(Math.random() * 100),
+  //     59,
+  //     80,
+  //     (Math.random() * 100),
+  //     56,
+  //     (Math.random() * 100),
+  //     40];
+  // }
 }

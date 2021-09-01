@@ -9,19 +9,20 @@ import { Label } from 'ng2-charts';
   styleUrls: ['./popular-location-report.component.scss']
 })
 export class PopularLocationReportComponent implements OnInit {
-  public barChartOptions: ChartOptions = {
-    responsive: true,
-    // We use these empty structures as placeholders for dynamic theming.
-    //scales: { xAxes: [{}], yAxes: [{}] },
-    plugins: {
-      // datalabels: {
-      //   anchor: 'end',
-      //   align: 'end',
-      // }
-    }
-  };
+  // public barChartOptions: ChartOptions
+  //  = {
+  //   responsive: true,
+  //   // We use these empty structures as placeholders for dynamic theming.
+  //   //scales: { xAxes: [{}], yAxes: [{}] },
+  //   plugins: {
+  //     // datalabels: {
+  //     //   anchor: 'end',
+  //     //   align: 'end',
+  //     // }
+  //   }
+  // };
   public barChartLabels: Label[] = ['Gauteng', 'Eastern Cape', 'Western Cape', 'KZN', 'Northern Cape', 'Mpumalanga', 'North West', 'Limpopo'];
-  public barChartType: ChartType = 'bar';
+  //public barChartType: ChartType = 'bar';
   public barChartLegend = true;
 
   //Where our data comes from

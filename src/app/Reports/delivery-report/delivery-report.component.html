@@ -1,8 +1,9 @@
 <div>
   <h2>Delivery Report </h2>
-  <button (click)="generatePdf()">Generate PDF</button>
+  <button (click)="generatePdf()" mat-raised-button color ="primary">Generate PDF</button>
 </div>
-
+<br>
+<br>
 <div id="htmlData" class="mat-elevation-z8 table">
   <table mat-table [dataSource]="dataSource" matSort>
 

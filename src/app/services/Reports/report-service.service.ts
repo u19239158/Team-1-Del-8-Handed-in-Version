@@ -41,6 +41,12 @@ export class ReportServiceService {
     return this.http.post(`${this.server}Report/GenerateSalesReport`, ReportParams).pipe(map(res => res))
   }
 
+  
+  SalesReportSum(ReportParams: ReportParameters): Observable<any> {
+    return this.http.post(`${this.server}Report/GenerateSalesReportSum`, ReportParams).pipe(map(res => res))
+  }
+
+
   StockLevelReport(): Observable<any> {
     return this.http.get(`${this.server}Report/GenerateStockLevel`).pipe(map(res => res))
   }

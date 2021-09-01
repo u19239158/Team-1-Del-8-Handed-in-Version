@@ -91,7 +91,24 @@ export class AssignCourierDeliveryComponent implements OnInit {
     
     this.AssignCourierDeliveryService.NotifyCourier(this.sales,this.couriers.courierEmail).subscribe(res => {
       console.log(res)});
-  // }) ||
+  });
+  }
+
+  Done() {
+    //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
+    // this.AssignCourierDeliveryService.GetFullSaleByID(this.id).subscribe(res=>{
+    //   this.sales =res;
+    //   console.log("Result" ,this.sales)});
+      
+  this.AssignCourierDeliveryService.AssignCourier(this.id).subscribe(data=>{
+    console.log(data)
+
+    
+  });
+
+
+
+   // }) ||
   // this.AssignCourierDeliveryService.GetFullSaleByID(this.id).subscribe(data=>{
   //   this.sales =  data;
     
@@ -104,7 +121,6 @@ export class AssignCourierDeliveryComponent implements OnInit {
   //   //   console.log(res)})
   //   // const EmailData = this.sales + this.couriers
   //   // console.log(EmailData)
-  });
 
   // Close() {
   //   this.form.reset();
