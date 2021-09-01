@@ -4,6 +4,7 @@ import { DeliveryshiftService } from 'src/app/services/deliveryshift/deliveryshi
 import { HttpClient } from '@angular/common/http';
 import { Deliveryshift } from 'src/app/interfaces';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-viewdeliveryshiftschedule',
@@ -17,7 +18,8 @@ export class ViewdeliveryshiftscheduleComponent {
   newData = [];
 
   constructor(private deliveryshiftService: DeliveryshiftService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private router: Router,
   ) {
     this.readDeliveryshifts()
   }
@@ -39,7 +41,7 @@ export class ViewdeliveryshiftscheduleComponent {
           StartTime: moment(moment(item.dayOfTheWeek + ' ' + item.startTime).utc().toDate()).format('DD/MM/YYYY HH:mm:ss'),
 
           EndTime: moment(moment(item.dayOfTheWeek + ' ' + item.endTime).utc().toDate()).format('DD/MM/YYYY HH:mm:ss'),
- 
+
         })
       }
     })
@@ -54,6 +56,10 @@ export class ViewdeliveryshiftscheduleComponent {
     dataSource: this.newData
 
 
+  }
+
+  ToTable() {
+    this.router.navigateByUrl('viewEmployeeDeliveryShifts');
   }
 
 }

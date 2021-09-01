@@ -85,16 +85,6 @@
                     </td>
                 </ng-container>
 
-                <div class="mat-row">
-                    <div class="mat-col-quarter">
-                        <div class="form-group" class="control-m">
-                            <button mat-raised-button color="primary" [disabled]="loading">
-                                Done
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
