@@ -327,20 +327,37 @@ namespace NKAP_API_2.Controllers
         //Update Order Status
         public IActionResult AssignLocalDelivery(DeliveryShiftModel model)
         {
-            var ds = _db.EmployeeShifts.Find(model.EmployeeShiftId);
-            ds.NoOfDeliveries = +1;
-            _db.EmployeeShifts.Attach(ds); //Attach Record
-            _db.SaveChanges();
+            //var ds = _db.EmployeeShifts.Find(model.EmployeeShiftId);
+            //ds.NoOfDeliveries = +1;
+            //_db.EmployeeShifts.Attach(ds); //Attach Record
+            //_db.SaveChanges();
 
             var sd = _db.Sales.Find(model.SaleID);
             sd.SaleOrderAssign = true;
             _db.Sales.Attach(sd); //Attach Record
             _db.SaveChanges();
-            return Ok(ds);
+
+            //var dd = _db.EmployeeShifts.Find(model.EmployeeShiftId);
+            //dd.DeliveryId = model.DeliveryId;
+            //_db.EmployeeShifts.Attach(dd);
+            return Ok(sd);
         }
 
-    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
-        [Route("AssignCourier")] //route
+        //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        [Route("AssignDelivery")] //route
+        [HttpPut]
+        //Update Order Status
+        public IActionResult AssignDelivery(DeliveryShiftModel model)
+        {
+            var dd = _db.EmployeeShifts.Find(model.EmployeeShiftId);
+            dd.DeliveryId = model.DeliveryId;
+            _db.EmployeeShifts.Attach(dd);
+            return Ok(dd);
+        }
+
+
+            //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+            [Route("AssignCourier")] //route
         [HttpPut]
         //Update Order Status
         public IActionResult AssignCourier(DeliveryShiftModel model)

@@ -22,10 +22,10 @@ namespace NKAP_API_2.Controllers
         { _db = db; }
 
 
-      //  [Route("GetDeliveryShiftByID/{shiftid}")] //route
+       [Route("GetDeliveryShiftByID/{employeeshiftID}")] //route
         [HttpGet]
         //get Delivery Shift (Read)
-        public IActionResult get(int shiftid)
+        public IActionResult get(int employeeshiftID)
         {
             //var Admins = _db.Admins.ToList();
 
@@ -83,7 +83,7 @@ namespace NKAP_API_2.Controllers
                      DayOfTheWeek = sor.DayOfTheWeek,
                      StartTime = sor.StartTime,
                      EndTime = sor.EndTime
-                 }).First(an => an.ShiftId == shiftid);
+                 }).First(an => an.EmployeeShiftId == employeeshiftID);
 
             return Ok(DeliveryShift);
 

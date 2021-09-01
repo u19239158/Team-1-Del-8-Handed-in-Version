@@ -66,5 +66,10 @@ namespace NKAP_API_2.Models
         public int SaleID
         { get; set; }
 
+        [JsonProperty("deliveryid")]
+        public int DeliveryId
+        { get; set; }
+
+
     }
 }

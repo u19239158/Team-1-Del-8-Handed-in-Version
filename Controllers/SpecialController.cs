@@ -238,12 +238,12 @@ namespace NKAP_API_2.Controllers
             _db.Specials.Attach(special);
             _db.SaveChanges();
 
-
+            var discount = _db.Discounts.FirstOrDefault(zz => zz.DiscountId == model.DiscountId);
             ProductSpecial PSpecial = new ProductSpecial();
             {
                 PSpecial.ProductItemId = model.ProductItemId;
                 PSpecial.SpecialId = special.SpecialId;
-                PSpecial.SpecialPrice = model.ProductItemCost - (model.ProductItemCost * model.DiscountPercentage);
+                PSpecial.SpecialPrice = model.ProductItemCost - (model.ProductItemCost * discount.DiscountPercentage);
             }
 
             _db.ProductSpecials.Attach(PSpecial);
