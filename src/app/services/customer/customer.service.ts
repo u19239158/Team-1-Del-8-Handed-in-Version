@@ -38,6 +38,7 @@ export class CustomerService {
       DeleteCustomer(customerId):  Observable<Customer>  {
       return this.http.delete<Customer>(`${this.server}Customer/DeleteCustomer/${customerId}`).pipe(map(res => res));
     }
+    
   }
 
 //   KEY = 'customers';

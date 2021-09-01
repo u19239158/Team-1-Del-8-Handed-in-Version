@@ -39,6 +39,7 @@ export class ViewSaleComponent implements OnInit {
   checked = false; labelPosition: 'before' | 'after' = 'after';
   disabled = false;
   isHidden: boolean = true;
+  
 
   constructor(private OnlineSalesService: OnlineSalesService,
     private route: ActivatedRoute,
@@ -51,6 +52,10 @@ export class ViewSaleComponent implements OnInit {
 
 
   ngOnInit(): void {
+    const formOptions: AbstractControlOptions = { };
+    this.form = this.formBuilder.group({
+    }, formOptions)
+   
     this.id = this.route.snapshot.params['id'];
     this.getCollection();
     
@@ -58,10 +63,6 @@ export class ViewSaleComponent implements OnInit {
       this.sale = res
       console.log(res)
 
-      const formOptions: AbstractControlOptions = { };
-    this.form = this.formBuilder.group({
-    }, formOptions)
-   
   });
   }
 
@@ -111,7 +112,43 @@ export class ViewSaleComponent implements OnInit {
 
     this.currentlyChecked = targetType;
   }
+
+  Collection()
+  {
+    this.OnlineSalesService.GetSaleByID(this.id).subscribe(res => {
+      this.sale = res;
+      console.log(this.sale)
+      this.OnlineSalesService.Collection(this.sale).subscribe(res => {
+        console.log(res)
+      });
+    });
+
+    this.OnlineSalesService.GetCustomerBySaleID(this.id).subscribe(data=>{
+      this.sales = data
+      console.log(data) 
+      this.OnlineSalesService.NotifyCustomer(this.sales, this.sales.customerEmailAddress).subscribe(res => {
+        console.log(res)
+      });
+   });
+  }
+
+
+  Delivery()
+  {
+    this.OnlineSalesService.GetSaleByID(this.id).subscribe(res=>{
+      this.sale =res;
+      console.log(this.sale)
+      this.OnlineSalesService.Delivery(this.sale).subscribe(res =>{
+        console.log(res)});
+    });
+  }
   
+  
+  Confirm() {
+    //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
+ 
+  }
+
   onSubmit() {
 
     if (this.form.invalid) {
@@ -124,3 +161,4 @@ export class ViewSaleComponent implements OnInit {
   }
 
 }
+

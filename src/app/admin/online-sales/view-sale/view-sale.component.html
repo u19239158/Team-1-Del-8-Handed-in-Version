@@ -114,11 +114,12 @@
           <p>
             <!-- [ngClass]="{'disable':element.saleOrderRecieveType ===0}">Delivered -->
             <input type="checkbox" name="test" [checked]="currentlyChecked === check_box_type.READY_FOR_DELIVERY"
-              (click)="selectCheckBox(check_box_type.READY_FOR_DELIVERY)" [ngClass]="{'disable':sale.saleOrderRecieveType ===0}">Ready for Delivery
+              (click)="selectCheckBox(check_box_type.READY_FOR_DELIVERY)" (click) = "Delivery()"
+              >Ready for Delivery
           </p>
           <p>
             <input type="checkbox" name="test" [checked]="currentlyChecked === check_box_type.READY_FOR_COLLECTION"
-              (click)="selectCheckBox(check_box_type.READY_FOR_COLLECTION)">Ready for Collection
+              (click)="selectCheckBox(check_box_type.READY_FOR_COLLECTION)" (click) = "Collection()">Ready for Collection
           </p>
         </section>
       </div>
@@ -127,7 +128,7 @@
     <div class="mat-row">
       <div class="mat-col-quarter">
         <div class="form-group" class="control-m">
-          <button mat-raised-button color="primary" [disabled]="loading">
+          <button mat-raised-button color="primary"[routerLink]="['/onlineSales']" (click)="Confirm()"[disabled]="loading">
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
             Confirm
           </button>
