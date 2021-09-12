@@ -236,17 +236,27 @@ namespace NKAP_API_2.Controllers
             return Ok(customer);
         }
 
+        string response = "";
      //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin, Customer")]
         [Route("DeleteCustomer/{customerid}")] //route
         [HttpDelete]
         //Delete Customer
         public IActionResult DeleteCustomer(int customerid)
         {
-            var customer = _db.Customers.Find(customerid);
-            _db.Customers.Remove(customer); //Delete Record
-            _db.SaveChanges();
-
-            return Ok(customer);
+            try
+            {
+                var customer = _db.Customers.Find(customerid);
+                _db.Customers.Remove(customer); //Delete Record
+                _db.SaveChanges();
+                return Ok(customer);
+            }
+            catch (Exception)
+            {
+                response = "Customer could not be deleted due to existing dependencies linked to the particular account";
+                return BadRequest(response);
+                throw;
+            }
+           
         }
     }
 }

@@ -146,17 +146,27 @@ namespace NKAP_API_2.Controllers
             return Ok(employee);
         }
 
-    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        string response = "";
+        //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("DeleteEmployee/{employeeid}")] //route
         [HttpDelete]
         //Delete Employee
         public IActionResult DeleteEmployee(int employeeid)
         {
-            var delemployee = _db.Employees.Find(employeeid);
-            _db.Employees.Remove(delemployee); //Delete Record
-            _db.SaveChanges();
-
-            return Ok(delemployee);
+            try
+            {
+                var delemployee = _db.Employees.Find(employeeid);
+                _db.Employees.Remove(delemployee); //Delete Record
+                _db.SaveChanges();
+                return Ok(delemployee);
+            }
+            catch (Exception)
+            {
+                response = "Employee could not be deleted as they are assigned to system functions";
+                return BadRequest(response);
+                throw;
+            }
+          
         }
     }
 }

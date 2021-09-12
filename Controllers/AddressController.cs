@@ -69,17 +69,29 @@ namespace NKAP_API_2.Controllers
 
             return Ok(address);
         }
-
+        string response = "";
         [Route("DeleteAddress/{addressid}")] //route
         [HttpDelete]
         //Delete Address
         public IActionResult DeleteAddress(int addressid)
         {
-            var address = _db.Addresses.Find(addressid);
-            _db.Addresses.Remove(address); //Delete Record
-            _db.SaveChanges();
+            
+            try
+            {
+                var address = _db.Addresses.Find(addressid);
+                _db.Addresses.Remove(address); //Delete Record
+                _db.SaveChanges();
+                return Ok(address);
+            }
+            catch (Exception)
+            {
+                response = "Could not be deleted";
+                return BadRequest(response);
+                throw;
+            }
+           
 
-            return Ok(address);
+            
         }
 
     }

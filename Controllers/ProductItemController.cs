@@ -147,7 +147,7 @@ namespace NKAP_API_2.Controllers
             PItem.ProductItemName = model.ProductItemName; //attributes in table
             PItem.ProductItemCost = model.ProductItemCost;
             PItem.CategoryTypeId = model.CategoryTypeID;
-            PItem.QuantityOnHand = model.QuantityOnHand;
+          //  PItem.QuantityOnHand = model.QuantityOnHand;
             _db.ProductItems.Add(PItem);
             _db.SaveChanges();
 

@@ -86,17 +86,29 @@ namespace NKAP_API_2.Controllers
             return Ok(ProdCat);
         }
 
-     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        string response = "";
+        //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("DeletePC/{productcategoryid}")] //route
         [HttpDelete]
         //Delete Product Categories 
         public IActionResult DeleteProductCategory(int productcategoryid)
         {
-            var ProdCat = _db.ProductCategories.Find(productcategoryid);
-            _db.ProductCategories.Remove(ProdCat); //Delete Record
-            _db.SaveChanges();
+            try
+            {
+                var ProdCat = _db.ProductCategories.Find(productcategoryid);
+                _db.ProductCategories.Remove(ProdCat); //Delete Record
+                _db.SaveChanges();
+                return Ok(ProdCat);
+            }
+            catch (Exception)
+            {
 
-            return Ok(ProdCat);
+                response = "Product Category could not be deleted due to linked Category Type(s)";
+                return BadRequest(response);
+                
+                throw;
+            }
+           
         }
     }
 }

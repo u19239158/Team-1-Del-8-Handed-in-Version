@@ -289,17 +289,43 @@ namespace NKAP_API_2.Controllers
 
         //    return Ok(shiftDate);
         //}
-
-        [Route("DeleteDeliveryShift/{employeeshiftid}")] //route
+        string response = "";
+        [Route("DeleteDeliveryShift/{shiftid}")] //route
         [HttpDelete]
-        //Delete Admin
-        public IActionResult DeleteDeliveryShift(int employeeshiftid)
+        //Delete DeliveryShift
+        public IActionResult DeleteDeliveryShift(int shiftid)
         {
-            var delShift = _db.EmployeeShifts.Find(employeeshiftid);
-            _db.EmployeeShifts.Remove(delShift); //Delete Record
-            _db.SaveChanges();
-
-            return Ok(delShift);
+            var shift1 = _db.EmployeeShifts.FirstOrDefault(zz => zz.ShiftId == shiftid);
+            if (shift1.DeliveryId >= 0)
+            {
+                response = "Delivery Shift could not be deleted as it is has a delivery allocated to it";
+                return BadRequest(response);
+            }
+            else
+            {
+                var shift = _db.Shifts.FirstOrDefault(zz => zz.ShiftId == shiftid);
+                _db.Shifts.Remove(shift);
+                var delShift = _db.EmployeeShifts.FirstOrDefault(zz => zz.ShiftId == shiftid);
+                _db.EmployeeShifts.Remove(delShift); //Delete Record
+                _db.SaveChanges();
+                return Ok(delShift);
+            }
+            //try
+            //{
+            //    var shift = _db.Shifts.FirstOrDefault(zz => zz.ShiftId == shiftid);
+            //    _db.Shifts.Remove(shift);
+            //    var delShift = _db.EmployeeShifts.FirstOrDefault(zz => zz.ShiftId == shiftid);
+            //    _db.EmployeeShifts.Remove(delShift); //Delete Record
+            //    _db.SaveChanges();
+            //    return Ok(delShift);
+            //}
+            //catch (Exception)
+            //{
+            //    response = "Delivery Shift could not be deleted as it is has a delivery allocated to it";
+            //    return BadRequest(response);
+            //    throw;
+            //}
+            
         }
 
       //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]

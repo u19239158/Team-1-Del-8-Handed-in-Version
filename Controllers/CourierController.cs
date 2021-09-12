@@ -125,18 +125,27 @@ namespace NKAP_API_2.Controllers
 
             return Ok(courier);
         }
-
+        string response = "";
       //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("DeleteCourier/{courierid}")] //route
         [HttpDelete]
         //Delete Category Type
         public IActionResult DeleteCourier(int courierid)
         {
-            var courier = _db.Couriers.Find(courierid);
-            _db.Couriers.Remove(courier); //Delete Record
-            _db.SaveChanges();
-
-            return Ok(courier);
+            try
+            {
+                var courier = _db.Couriers.Find(courierid);
+                _db.Couriers.Remove(courier); //Delete Record
+                _db.SaveChanges();
+                return Ok(courier);
+            }
+            catch (Exception)
+            {
+                response = "Courier could not be deleted due to active orders in transit";
+                return BadRequest(response);
+                throw;
+            }
+           
         }
 
     }

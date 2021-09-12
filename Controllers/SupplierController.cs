@@ -94,17 +94,51 @@ namespace NKAP_API_2.Controllers
             return Ok(supplier);
         }
 
+        string response;
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("DeleteSupplier/{supplierid}")] //route
         [HttpDelete]
         //Delete Supplier
         public IActionResult DeleteSupplier(int supplierid)
         {
-            var supplier = _db.Suppliers.Find(supplierid);
-            _db.Suppliers.Remove(supplier); //Delete Record
-            _db.SaveChanges();
+            var supp = _db.Suppliers.Find(supplierid);
+            var supOrder = _db.SupplierOrders.Find(supplierid);
 
-            return Ok(supplier);
+                if (supp.SupplierBalance == 0)
+                {
+                    var supplier = _db.Suppliers.Find(supplierid);
+                    _db.Suppliers.Remove(supplier); //Delete Record
+                    _db.SaveChanges();
+                    return Ok(supplier);
+                }
+               else if (supOrder.SupplierOrderStatusId == 2)
+                {
+                    var supplier = _db.Suppliers.Find(supplierid);
+                    _db.Suppliers.Remove(supplier); //Delete Record
+                    _db.SaveChanges();
+                    return Ok(supplier);
+                }
+                else
+                {
+                    response = "Supplier could not be deleted as there is an active supplier order or an outstanding balance";
+                    return BadRequest(response);
+                }
+            
+           
+            //try
+            //{
+            //    var supplier = _db.Suppliers.Find(supplierid);
+            //    _db.Suppliers.Remove(supplier); //Delete Record
+            //    _db.SaveChanges();
+            //    return Ok(supplier);
+            //}
+            //catch (Exception)
+            //{
+            //    response = "Supplier could not be deleted as there is an active supplier order";
+            //    return BadRequest(response);
+            //    throw;
+           // }
+           
         }
 
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
