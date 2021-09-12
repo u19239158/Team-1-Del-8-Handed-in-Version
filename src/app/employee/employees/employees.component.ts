@@ -8,6 +8,7 @@ import { Employee } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { HttpClient } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-employees',
@@ -73,7 +74,37 @@ export class EmployeesComponent implements OnInit {
           this.readEmployees();
         })
       }
+    },
+    (error: HttpErrorResponse ) => 
+     {
+
+       if (error.status === 400)
+      {
+        this.snack.open('Invalid credentials.', 'OK', 
+        {
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center',
+          duration: 3000
+        });
+       
+        //this.form.reset();
+        return;
+      }
+
+      this.snack.open('An error occured on our servers. Try again later.', 'OK',
+      {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+        duration: 3000
+      });
+//this.form.reset();
     });
+    }
+    
+    
+    ;
   }
 
-}
+  
+
+

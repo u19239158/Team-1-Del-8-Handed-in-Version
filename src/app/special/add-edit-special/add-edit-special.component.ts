@@ -60,7 +60,7 @@ export class AddEditSpecialComponent implements OnInit {
         //this.special = res
        // console.log(res)
         this.form = this.formBuilder.group({
-          id: [this.special.specialID, Validators.required],
+        //  id: [this.special.specialID, Validators.required],
           //specialImage: [this.special.specialImage, [Validators.required]],
           specialDescription: [this.special.specialDescription, [Validators.required]],
           discountId: [this.special.discountId, [Validators.required]],

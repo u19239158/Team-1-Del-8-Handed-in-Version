@@ -1,5 +1,5 @@
 <div>
-  <h2>Delivery Report </h2>
+  <h2>Orders Ready for Delivery Report </h2>
   <button (click)="generatePdf()" mat-raised-button color ="primary">Generate PDF</button>
 </div>
 <br>
@@ -11,6 +11,11 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Sale ID </th>
       <td mat-cell *matCellDef="let element">{{element.saleId}} </td>
     </ng-container>
+
+    <ng-container matColumnDef="orderStatusDescription">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Status </th>
+      <td mat-cell *matCellDef="let element"> {{element.orderStatusDescription}} </td>
+  </ng-container>
 
     <ng-container matColumnDef="saleOrderDate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Placed </th>
@@ -45,6 +50,8 @@
 
       </td>
     </ng-container>
+
+   
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
