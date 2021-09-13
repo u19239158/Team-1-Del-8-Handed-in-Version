@@ -51,20 +51,20 @@ export class ReportServiceService {
     return this.http.get(`${this.server}Report/GenerateStockLevel`).pipe(map(res => res))
   }
 
-  FrequentBuyerReport(Reports: Reports): Observable<any> {
-    return this.http.get(`${this.server}Report/GenerateFrequentBuyerReport`).pipe(map(res => res))
+  FrequentBuyerReport(ReportParams: ReportParameters): Observable<any> {
+    return this.http.post(`${this.server}Report/GenerateFrequentBuyerReport`, ReportParams).pipe(map(res => res))
   }
 
-  FastSellingProductsReport(Reports: Reports): Observable<any> {
-    return this.http.get(`${this.server}Report/GetFastSellingProducts`).pipe(map(res => res))
+  FastSellingProductsReport(ReportParams: ReportParameters): Observable<any> {
+    return this.http.post(`${this.server}Report/GetFastSellingProducts`, ReportParams).pipe(map(res => res))
   }
 
-  SlowSellingProductsReport(Reports: Reports): Observable<any> {
-    return this.http.get(`${this.server}Report/GetSlowSellingProducts`).pipe(map(res => res))
+  SlowSellingProductsReport(ReportParams: ReportParameters): Observable<any> {
+    return this.http.post(`${this.server}Report/GetSlowSellingProducts`, ReportParams).pipe(map(res => res))
   }
 
-  PopularLocationReport(Reports: Reports): Observable<any> {
-    return this.http.get(`${this.server}Report/MostPopularLocation`).pipe(map(res => res))
+  PopularLocationReport(ReportParams: ReportParameters): Observable<any> {
+    return this.http.post(`${this.server}Report/MostPopularLocation`, ReportParams).pipe(map(res => res))
   }
 
 }

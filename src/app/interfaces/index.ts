@@ -206,6 +206,11 @@ export interface Reports {
   addressLine3: string;
   startDate: string;
   endDate: string;
+  productItemId: number;
+  productItemName: string;
+  quantitySold: number;
+  numberOfSales: number;
+  numberOfSalesMade: number;
 }
 
 export interface OnlineSales {

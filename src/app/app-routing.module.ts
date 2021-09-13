@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 import { AddEditSupplierComponent } from './supplier/add-edit-supplier/add-edit-supplier.component';
 import { SuppliersComponent } from './supplier/suppliers/suppliers.component';
+import { QuantityModal } from './supplier/place-supplier-order/quantity-modal.component';
 import { ReceiveSupplierOrderComponent } from './supplier/receive-supplier-order/receive-supplier-order.component';
 import { PlaceSupplierOrderComponent } from './supplier/place-supplier-order/place-supplier-order.component';
 import { MakePaymentComponent } from './supplier/make-payment/make-payment.component';
@@ -77,6 +79,10 @@ const routes: Routes = [
     component: LoginComponent,
   },
   {
+    path: 'login',
+    component: LogoutComponent,
+  },
+  {
     path: 'employees',
     component: EmployeesComponent,
   },
@@ -107,6 +113,10 @@ const routes: Routes = [
   {
     path: 'receiveSupplierOrder',
     component: ReceiveSupplierOrderComponent
+  },
+  {
+    path: 'quantityModal',
+    component: QuantityModal
   },
   {
     path: 'makePayment/:id',

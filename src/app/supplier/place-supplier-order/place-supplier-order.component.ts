@@ -1,4 +1,4 @@
-import { QuantityModal } from './quantity-modal';
+import { QuantityModal } from './quantity-modal.component';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';

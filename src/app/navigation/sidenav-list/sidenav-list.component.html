@@ -82,20 +82,14 @@
   </mat-list-item>
   <mat-menu #menu8="matMenu">
     <button mat-menu-item routerLink="/deliveryReport" (click)="onSidenavClose()">Delivery Report Report</button>
-    <!-- <button mat-menu-item routerLink="/fastSellingProductsReport" (click)="onSidenavClose()">Fast Selling Products
-      Report</button> -->
-    <button mat-menu-item routerLink="/monthlySalesOrderReport" (click)="onSidenavClose()">Monthly Sales 
-      Report</button>
-    <!-- <button mat-menu-item routerLink="/mostFrequentBuyersReport" (click)="onSidenavClose()">Most Frequent Buyers
-      Report</button> -->
+    <button mat-menu-item routerLink="/fastSellingProductsReport" (click)="onSidenavClose()">Fast Selling Products Report</button> 
+    <button mat-menu-item routerLink="/monthlySalesOrderReport" (click)="onSidenavClose()">Monthly Sales Report</button>
+    <button mat-menu-item routerLink="/mostFrequentBuyersReport" (click)="onSidenavClose()">Most Frequent Buyers Report</button>
     <button mat-menu-item routerLink="/packingReport" (click)="onSidenavClose()">Packing Report</button>
-    <!-- <button mat-menu-item routerLink="/popularLocationReport" (click)="onSidenavClose()">Popular Location
-      Report</button> -->
-    <!-- <button mat-menu-item routerLink="/slowSellingProductsReport" (click)="onSidenavClose()">Slow Selling Products
-      Report</button> -->
+    <button mat-menu-item routerLink="/popularLocationReport" (click)="onSidenavClose()">Popular Location Report</button>
+    <button mat-menu-item routerLink="/slowSellingProductsReport" (click)="onSidenavClose()">Slow Selling Products Report</button>
     <button mat-menu-item routerLink="/stockLevelReport" (click)="onSidenavClose()">Stock Level Report</button>
-    <button mat-menu-item routerLink="/weeklySalesOrderReport" (click)="onSidenavClose()">Weekly Sales 
-      Report</button>
+    <button mat-menu-item routerLink="/weeklySalesOrderReport" (click)="onSidenavClose()">Weekly Sales Report</button>
   </mat-menu>
 
   <!-- Suppliers -->
@@ -132,9 +126,10 @@
     <span class="nav-caption">Help</span>
   </a>
 
-  <a mat-list-item routerLink="/login" (click)="onSidenavClose()">
+  <a mat-list-item routerLink="/login" (click)="Logout()">
     <!-- <mat-icon>exit_to_app</mat-icon>  -->
     <img src="assets/images/Logout.png" class="w3-margin-right" width=20px height=20px>
     <span class="nav-caption">Logout</span>
   </a>
+
 </mat-nav-list>

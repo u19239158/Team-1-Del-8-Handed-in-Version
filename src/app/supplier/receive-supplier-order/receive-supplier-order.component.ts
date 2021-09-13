@@ -7,7 +7,7 @@ import { ReceiveSupplierOrder } from 'src/app/interfaces';
 import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { QuantityModal } from '../place-supplier-order/quantity-modal';
+import { QuantityModal } from '../place-supplier-order/quantity-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

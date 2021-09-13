@@ -1,44 +1,9 @@
-
-
-.tableContainer {
-  .grand {
-      margin-left: 400px;
+.column {
+    float: left;
+    padding: 10px;
+    text-align: center;
   }
-  .tables {
-      margin-left: 400px;
-      border-radius: 5px;
-      table {
-          width: 100%;
-          border-collapse: collapse;
-          border-spacing: 0;
-          margin-bottom: 30px;
-          td, th {
-              border: 1px solid #CCC;
-          }
-
-          th {
-              background: #F3F3F3;
-              font-weight: bold;
-          }
-          td {
-              background: #FAFAFA;
-              text-align: center;
-              margin: 30px;
-          }
-
-          tr:nth-child(even) td {
-               background: #F1F1F1;
-          }
-
-          tr:nth-child(odd) td {
-              background: #FEFEFE;
-          }
-
-          tr td:hover {
-              background: #666; color: #FFF;
-          }
-
-      }
+  
+  .left, .right{
+    width: 40%;
   }
-
-}

@@ -21,6 +21,7 @@ import { ChartsModule } from 'ng2-charts';
 import { GlobalErrorComponent } from './modals/globals/global-error/global-error.component';
 import { GlobalConfirmComponent } from './modals/globals/global-confirm/global-confirm.component';
 import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 import { EmployeesComponent } from './employee/employees/employees.component';
 import { AddEditEmployeesComponent } from './employee/add-edit-employees/add-edit-employees.component';
 import { MatListModule } from '@angular/material/list';
@@ -142,6 +143,7 @@ const firebaseConfig = {
     // ReportsComponent,
     ViewdeliveryshiftscheduleComponent,
     LoginComponent,
+    LogoutComponent,
     ViewDeliveryDetailsComponent,
     ViewEmployeeDeliveryShiftsComponent,
   ],

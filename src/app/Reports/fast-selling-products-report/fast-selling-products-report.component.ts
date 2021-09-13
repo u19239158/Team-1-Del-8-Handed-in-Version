@@ -1,10 +1,13 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
+//import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
-import jsPDF from 'jspdf' ;
-import 'jspdf-autotable' ;
-import { Observable } from 'rxjs';
+import jsPDF from 'jspdf';
+import { ReportParameters, Reports } from 'src/app/interfaces';
 import { ReportServiceService } from 'src/app/services/Reports/report-service.service';
+import html2canvas from 'html2canvas';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-fast-selling-products-report',
@@ -12,119 +15,91 @@ import { ReportServiceService } from 'src/app/services/Reports/report-service.se
   styleUrls: ['./fast-selling-products-report.component.scss']
 })
 export class FastSellingProductsReportComponent implements OnInit {
-  fastSellingProductsData: any;
+  dataSource = new MatTableDataSource<Reports>();
+  displayedColumns: string[] = ['productItemId', 'productItemName', 'quantitySold', 'numberOfSales'];
+  tableData: any;
+  Sales: any ;
+  ReportParams: ReportParameters = {
+    startDate: null,
+    endDate: null
+  };
+  form: FormGroup
   created = false;
 
-  constructor(private reportService: ReportServiceService) { }
+
+  constructor(
+    private serv : ReportServiceService,
+    private formBuilder: FormBuilder,
+  ) { }
 
   ngOnInit(): void {
-  }
-
-  // generateReport() {
-  //   let products: any[] =  [];
-  //   //let averages: number[] =  [];
-  //   const counts: any[] =  [];
-  //   this.reportService.FastSellingProductsReport().subscribe(data => {
-  //     this.created = false;
-  //     // Restructure data for chart
-  //     products = data.map(x => x.ProductName);
-  //     //averages = data.map(x => x.AverageQuantityOrdered)
-
-  //     // Generate Chart
-  //     //this.generateChart(products, averages)
-
-  //     // Call table data method
-  //     this.generateTables(data);
-  //   });
-  // }
-
-  generateTables(data) {
-    this.fastSellingProductsData = data;
-  }
-
-  header = [['Product Item ID',
-            'Product Item Name',
-            'Quantity Sold',
-            'Number of Sales']]
-
-    tableData = [
-        [1, 'John', 'john@yahoo.com', 'HR'],
-        [2, 'Angel', 'angel@yahoo.com', 'Marketing'],
-        [3, 'Harry', 'harry@yahoo.com', 'Finance'],
-        [4, 'Anne', 'anne@yahoo.com', 'Sales'],
-        [5, 'Hardy', 'hardy@yahoo.com', 'IT'],
-        [6, 'Nikole', 'nikole@yahoo.com', 'Admin'],
-        [7, 'Sandra', 'Sandra@yahoo.com', 'Sales'],
-        [8, 'Lil', 'lil@yahoo.com', 'Sales']
-    ]
-
-  generatePdf() {
-    var pdf = new jsPDF();
-
-    pdf.setFontSize(2);
-    pdf.text('Fast Selling Products Report', 11, 8);
-    pdf.setFontSize(12);
-    pdf.setTextColor(99);
-
-
-    (pdf as any).autoTable({
-    head: this.header,
-    body: this.tableData,
-    theme: 'plain',
-    didDrawCell: data => {
-        console.log(data.column.index)
-    }
+    this.form = this.formBuilder.group({
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
     })
+  }
 
-    // Open PDF document in browser's new tab
-    pdf.output('dataurlnewwindow')
+   // events
+   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
+  }
 
-    // Download PDF doc
-    pdf.save('table.pdf');
+  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
+  }
+
+  generateReport(){
+    this.serv.SalesReport(this.form.value).subscribe(data => {
+      this.created = true;
+      //this.Sales = true;
+      console.log(data);
+     
+      this.serv.SalesReportSum(this.form.value).subscribe(res =>{
+        console.log(res)
+        this.dataSource = new MatTableDataSource(data)
+     // this.generateTables(data);
+      
+  
+    })
+    });
+
+  }
+      // Restructure data for chart
+      // products = data.map(x => x.ProductName);
+      // averages = data.map(x => x.AverageQuantityOrdered)
+
+      
+      // Generate Chart
+      // this.generateChart(products, averages)
+
+      // Call table data method
+      //this.generateTables(data);
+   
+
+generatePdf(): void {
+  let Data = document.getElementById('htmlData')!;
+
+  // Canvas Options
+  html2canvas(Data).then(canvas => {
+    let fileWidth = 210;
+    let fileHeight = canvas.height * fileWidth / canvas.width;
+
+    const contentDataURL = canvas.toDataURL('image/png')
+
+
+    let PDF = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4', });
+    let topPosition = 10;
+    let leftPosition = 0;
+    PDF.addImage(contentDataURL, 'PNG', leftPosition, topPosition, fileWidth, fileHeight)
+    PDF.save('Monthly Sales Report.pdf');
+  });
 }
 
-
-  // downloadPDF() {
-  //   const doc = new jsPDF();
-
-  //   const pageHeight = doc.internal.pageSize.height || doc.internal.pageSize.getHeight();
-  //   const pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
-
-  //   const length = this.fastSellingProductsData.length;
-  //   //const names = this.fastSellingProductsData.map(tit => tit.ProductName);
-  //   //const averages = this.fastSellingProductsData.map(avg => avg.AverageQuantityOrdered);
-
-  //   let finalY = 160;
-  //   //const newCanvas =   document.querySelector('#avgChart') as HTMLCanvasElement;
-
-  //   //const newCanvasImg = newCanvas.toDataURL('image/png', 1.0);
-
-  //   // Creates pdf
-
-  //   doc.setFontSize(30);
-
-  //   doc.text('Fast Selling Products Report', (pageWidth / 2) - 60, 15);
-  //   //doc.addImage(newCanvasImg, 'PNG', 25, 25, 160, 150);
-  //   doc.setFontSize(14);
-
-  //   for (let i = 0; i < length; i++) {
-  //     //doc.text(`${names[i]} (Average: ${averages[i]})`, (pageWidth / 3) - 25, finalY + 23);
-
-  //     doc.autoTable({
-  //       startY: finalY + 25,
-  //       html: `#testing${i}`,
-  //       useCss: true,
-  //       head: [
-  //         [
-  //           'Product Item ID',
-  //           'Product Item Name',
-  //           'Quantity Sold',
-  //           'Number of Sales'
-  //         ]
-  //       ]
-  //     });
-  //     finalY = doc.autoTable.previous.finalY;
-  //   }
-  //   doc.save('table.pdf');
+  // generateTables(data) {
+  //   this.tableData = data;
+  //   this.created = true;
+  //   // this.averages = data.map(avg => avg.AverageQuantityOrdered);
+  //   // this.getGrandAverage();
   // }
+
 }
