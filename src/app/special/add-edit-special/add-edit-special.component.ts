@@ -20,10 +20,11 @@ export class AddEditSpecialComponent implements OnInit {
     loading = false;
     submitted = false;
     special: Special;
-    productItem :Productitem;
+    //productItem :Productitem;
     specials: Observable<Special[]>;
     collection = [];
     selected : string;
+    productItem: Productitem = {} as Productitem;
 
   constructor(
         private formBuilder: FormBuilder,
