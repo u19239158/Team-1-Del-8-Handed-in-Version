@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { OnlineSalesService } from 'src/app/services/online-sales/online-sales.service';
 enum CheckBoxType { READY_FOR_COLLECTION, READY_FOR_DELIVERY, NONE };
 import { AbstractControlOptions, FormGroup, FormBuilder } from '@angular/forms';
+import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 
 @Component({
   selector: 'app-view-sale',
@@ -88,12 +89,17 @@ export class ViewSaleComponent implements OnInit {
     // this.OnlineSalesService.GetSaleByID(saleID).subscribe(res=>{
     //   this.sale =res;
     //   console.log(this.sales)
+    const confirm = this.dialog.open(GlobalConfirmComponent, {
+      disableClose: true,
+     });
+
     this.isHidden = false;
 
+    confirm.afterClosed().subscribe(res => {
+      if (res){
     this.OnlineSalesService.GetSaleByID(this.id).subscribe(data => {
       console.log(data)
     
-
     if (data.saleOrderRecieveType = "true")
   {
     //Collection()
@@ -128,6 +134,8 @@ export class ViewSaleComponent implements OnInit {
   });
 };
 
+})
+}
 
   check_box_type = CheckBoxType;
   currentlyChecked: CheckBoxType;

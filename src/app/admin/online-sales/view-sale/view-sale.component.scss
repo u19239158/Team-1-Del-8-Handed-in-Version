@@ -2,7 +2,17 @@
     background-color: rgba(0,0,0,.12);
     box-shadow: 0 0 0 0 rgb(0 0 0 / 20%), 0 0 0 0 rgb(0 0 0 / 14%), 0 0 0 0 rgb(0 0 0 / 12%);
   }
+.example-card {
+  max-width: 400px;
+  text-align: center;
+  left: 35%;
+}
 
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+  text-align: center;
+}
   .contentx,.content1 {
     // align-content: center;
     flex: 50%;

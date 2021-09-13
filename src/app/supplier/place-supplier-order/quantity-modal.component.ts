@@ -1,14 +1,16 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { PlaceSupplierOrderComponent } from './place-supplier-order.component';
 
 @Component({
-  selector: 'quantity-modal',
-  templateUrl: 'quantity-modal.html',
+  selector: 'app-supplier',
+  templateUrl: 'quantity-modal.component.html',
 })
-export class QuantityModal {
+export class QuantityModalComponent {
+  focus(): void {
+    throw new Error('Method not implemented.');
+  }
 
-  constructor(private dialogRef: MatDialogRef<PlaceSupplierOrderComponent>) { }
+  constructor(private dialogRef: MatDialogRef<QuantityModalComponent>) { }
 
   ngOnInit(): void {
   }

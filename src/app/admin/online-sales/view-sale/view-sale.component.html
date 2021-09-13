@@ -1,105 +1,58 @@
-<div class="content">
-
-    <h1 align="center">View Sale</h1>
-
-    <div class="content1">
-        <!-- <mat-card> -->
-        <!-- <mat-card-content> -->
-        <div>
-            <div>
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>View Sale</mat-card-title>
+  </mat-card-header>
+  
+  <mat-card-content>
+    
                 <label for="saleID">Sale Number: </label>
                 <span> &nbsp;{{sale.saleID}}</span>
-            </div>
-        </div>
-        <!-- </mat-card-content> -->
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
+            
+    
+            
                 <p><label for="SaleOrderDescription">Items ordered: </label>
                     <span> &nbsp;{{sale.saleOrderDescription}}</span>
 
-            </div>
-        </div>
+                <p><label for="SaleOrderDescription">Items ordered: </label>
+                    <span> &nbsp;{{sale.saleOrderDescription}}</span>
 
-        <div class="mat-row">
-            <div class="mat-col-quarter">
+       
                 <p><label for="saleOrderDate">Sale Date: </label>
                     <span> &nbsp;{{sale.saleOrderDate | date:"dd/MM/yyyy"}}</span>
-            </div>
-        </div>
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
+         
                 <p><label for="orderStatusDescription">Order Status: </label>
                     <span> &nbsp;{{sale.orderStatusDescription}}</span>
 
-            </div>
-        </div>
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
                 <p><label for="customerName">Customer: </label>
                     <span> &nbsp;{{sale.customerName}} &nbsp;{{sale.customerSurname}}</span>
-            </div>
-        </div>
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
+           
                 <p><label for="customerBusinessname">Business Name: </label>
                     <span> &nbsp;{{sale.customerBusinessName}}</span>
-            </div>
-        </div>
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
+          
                 <p><label for="paymentType">Payment Type: </label>
                     <span> &nbsp;{{sale.paymentTypeDescription}}</span>
 
-            </div>
-        </div>
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
                 <p><label for="paymentDate">Payment Date: </label>
                     <span> &nbsp;{{sale.salePaymentDate | date:"dd/MM/yyyy"}}</span>
-            </div>
-        </div>
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
+          
                 <p><label for="SalePaymentAmount">Payment Amount: </label>
                     <span> &nbsp;{{sale.salePaymentAmount}}</span>
-            </div>
-        </div>
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
+          
                 <p><label for="receiveType">Receive Type: </label>
-                    <span> &nbsp;{{sale.saleOrderRecieveType}}</span>
-            </div>
-        </div>
-
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
-                <div class="form-group" class="control-m">
+      
+  </mat-card-content>
+  <mat-card-actions>
+    
                     <button mat-raised-button color="primary" type="submit" (click)="PackOrder()" [disabled]="loading">
                         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                         Pack Order
                     </button>
-                    <!-- <button (click)="PackOrder()" mat-raised-button color="primary"> -->
-                    <!-- [disabled]="loading"> -->
-                    <!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> -->
-                    <!-- Pack Order
-                        </button> -->
-
-                    <!-- (click)="Close()"  -->
+                 
                     <a (click)="Close()" mat-button>Cancel</a>
-                </div>
-            </div>
-        </div>
-        <!-- </mat-card> -->
-    </div>
+
+  </mat-card-actions>
+</mat-card>
 
     <!-- <div class="contentx" [hidden]="isHidden">
 
