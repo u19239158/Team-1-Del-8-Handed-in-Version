@@ -91,15 +91,8 @@ generatePdf(): void {
     let topPosition = 10;
     let leftPosition = 0;
     PDF.addImage(contentDataURL, 'PNG', leftPosition, topPosition, fileWidth, fileHeight)
-    PDF.save('Monthly Sales Report.pdf');
+    PDF.save('Fast Selling Products Report.pdf');
   });
 }
-
-  // generateTables(data) {
-  //   this.tableData = data;
-  //   this.created = true;
-  //   // this.averages = data.map(avg => avg.AverageQuantityOrdered);
-  //   // this.getGrandAverage();
-  // }
 
 }
