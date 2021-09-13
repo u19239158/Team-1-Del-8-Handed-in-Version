@@ -10,6 +10,7 @@
                 <mat-form-field appearance="outline" class="control-m">
                     <mat-label>First Name</mat-label>
                     <input type="text" matInput placeholder="First Name" formControlName="employeeName">
+                    <mat-hint>Enter employee first name</mat-hint>
                 </mat-form-field>
             </div>
 
@@ -18,6 +19,7 @@
                 <mat-form-field appearance="outline" class="control-m">
                     <mat-label>Last Name</mat-label>
                     <input type="text" matInput placeholder="Last Name" formControlName="employeeSurname">
+                    <mat-hint>Enter employee surname</mat-hint>
                 </mat-form-field>
             </div>
         </div>
@@ -28,6 +30,7 @@
                 <mat-form-field appearance="outline" class="control-m">
                     <mat-label>Username</mat-label>
                     <input type="text" matInput placeholder="Username" formControlName="userUsername">
+                    <mat-hint>Enter employee username</mat-hint>
                 </mat-form-field>
             </div>
 
@@ -36,6 +39,7 @@
                 <mat-form-field appearance="outline" class="control-m">
                     <mat-label>Contact Number</mat-label>
                     <input type="text" matInput placeholder="contactNumber" formControlName="employeeCellphoneNumber">
+                    <mat-hint>Enter employee contact number</mat-hint>
                 </mat-form-field>
             </div>
         </div>
@@ -46,6 +50,7 @@
                 <mat-form-field appearance="outline" class="control-m">
                     <mat-label>ID Number</mat-label>
                     <input type="text" matInput placeholder="idNumber" formControlName="employeeIdnumber">
+                    <mat-hint>Enter employee ID number</mat-hint>
                 </mat-form-field>
             </div>
 
@@ -56,6 +61,7 @@
                         formControlName="employeeDob">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
+                    <mat-hint>Choose employee date of birth</mat-hint>
                 </mat-form-field>
             </div>
         </div>
@@ -66,6 +72,7 @@
                 <mat-form-field appearance="outline" class="control-m">
                     <mat-label>Address Line 1</mat-label>
                     <input type="text" matInput placeholder="addressLine1" formControlName="employeeAddressLine1">
+                    <mat-hint>Enter employee address line 1</mat-hint>
                 </mat-form-field>
             </div>
 
@@ -74,6 +81,7 @@
                 <mat-form-field appearance="outline" class="control-m">
                     <mat-label>Address Line 2</mat-label>
                     <input type="text" matInput placeholder="addressLine2" formControlName="employeeAddressLine2">
+                    <mat-hint>Enter employee address line 2</mat-hint>
                 </mat-form-field>
             </div>
         </div>
@@ -108,6 +116,7 @@
                 <mat-form-field appearance="outline" class="control-m">
                     <mat-label>Password</mat-label>
                     <input type="text" matInput placeholder="Password" formControlName="userPassword">
+                    <mat-hint>Enter employee password</mat-hint>
                 </mat-form-field>
             </div>
 
@@ -115,8 +124,8 @@
             <div class="mat-col-quarter">
                 <mat-form-field appearance="outline" class="control-m">
                     <mat-label>Confirm Password</mat-label>
-                    <input type="text" matInput placeholder="Confirm Password"
-                        formControlName="employeeConfirmPassword">
+                    <input type="text" matInput placeholder="Confirm Password" formControlName="employeeConfirmPassword">
+                    <mat-hint>Confirm employee password</mat-hint>
                 </mat-form-field>
             </div>
         </div>

@@ -9,6 +9,7 @@
             <mat-form-field appearance="outline" class="control-m">
                 <mat-label>Courier Name</mat-label>
                 <input type="text" matInput placeholder="Courier Name" formControlName="courierName">
+                <mat-hint>Enter courier name</mat-hint>
             </mat-form-field>
         </div>
       </div>
@@ -20,6 +21,7 @@
                 <mat-select formControlName="courierTypeID">
                    <mat-option *ngFor="let c of collection" [value]="c.courierTypeId">{{c.courierTypeDescription}}</mat-option>
                 </mat-select>
+                <mat-hint>Select courier type</mat-hint>
               </mat-form-field>
         </div>
       </div>
@@ -29,6 +31,7 @@
           <mat-form-field appearance="outline" class="control-m">
               <mat-label>Courier Email Address</mat-label>
               <input type="text" matInput placeholder="email" formControlName="courierEmail">
+              <mat-hint>Enter courier email address</mat-hint>
           </mat-form-field>
       </div>
     </div>
@@ -38,6 +41,7 @@
             <mat-form-field appearance="outline" class="control-m">
                 <mat-label>Courier Contact Number</mat-label>
                 <input type="text" matInput placeholder="contactNumber" formControlName="courierNumber">
+                <mat-hint>Enter courier contact number</mat-hint>
             </mat-form-field>
         </div>
     </div>

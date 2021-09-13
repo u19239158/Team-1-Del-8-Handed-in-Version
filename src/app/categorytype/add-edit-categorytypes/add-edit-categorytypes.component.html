@@ -10,6 +10,8 @@
         <label class="image-upload-container btn btn-bwm">
           <span>Select Image</span>
           <input #fileInput type="file" accept=".png,.jpg,.jpeg" (change)="upload($event)">
+          <br>
+          <mat-hint>Select category type image</mat-hint>
         </label>
       </div>
     </div>
@@ -23,6 +25,7 @@
               {{ProductCategory.productCategoryDescription}}
             </mat-option>
           </mat-select>
+          <mat-hint>Select product category name</mat-hint>
         </mat-form-field>
       </div>
     </div>
@@ -32,6 +35,7 @@
         <mat-form-field appearance="outline" class="control-m">
           <mat-label>Category Type Name</mat-label>
           <input type="text" matInput placeholder="Category Type Name" formControlName="categoryTypeDescription">
+          <mat-hint>Enter category type name</mat-hint>
         </mat-form-field>
       </div>
     </div>
@@ -41,6 +45,7 @@
         <mat-form-field appearance="outline" class="control-m">
           <mat-label>Category Type Description</mat-label>
           <input type="text" matInput placeholder="Category Type Name" formControlName="itemDescription">
+          <mat-hint>Enter category type description</mat-hint>
         </mat-form-field>
       </div>
     </div>
