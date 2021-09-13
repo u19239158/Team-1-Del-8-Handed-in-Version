@@ -24,12 +24,15 @@ export class AssignLocalDeliveryComponent implements OnInit {
   searchValue: number;
   searchWord: string;
   dataNotFound: boolean;
-
+  id: number;
   deliveryshift: Deliveryshift[] = [];
+  public sales : any =[];
+  public delivery : any =[];
+  public emp : any =[];
   // DeliveryShift: Deliveryshift;
   deliveryShift: Observable<Deliveryshift[]>;
   dataSource = new MatTableDataSource<Deliveryshift>();
-  displayedColumns: string[] = ['startTime', 'endTime', 'dayOfTheWeek', 'employeeName', 'noOfDeliveries', 'SelectOrderDeliveryShift'];
+  displayedColumns: string[] = ['startTime', 'endTime', 'dayOfTheWeek', 'employeeName', 'SelectOrderDeliveryShift'];
   displayedColumn: string[] = ['saleId', 'customerName', 'customerBusinessName', 'deliverydistance', 'orderAddress', 'deliverycourier'];
 
 
@@ -37,11 +40,18 @@ export class AssignLocalDeliveryComponent implements OnInit {
     private snack: MatSnackBar,
     private router: Router,
     private dialog: MatDialog,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
+    this.id = +this.route.snapshot.params['id'];
     this.readDeliveryshifts();
+
+    
+    this.deliveryshiftService.GetSaleByID(this.id).subscribe(res=>{
+      this.sales =res;
+      console.log("Result" ,this.sales)});
 
     this.deliveryshiftService.GetDeliveryShift().subscribe((result: Deliveryshift[]) => {
       this.DeliveryShifts = result;
@@ -69,6 +79,18 @@ export class AssignLocalDeliveryComponent implements OnInit {
       console.log("resss", res)
       this.dataSource = new MatTableDataSource(res)
     })
+  }
+
+  Assign(employeeShiftId :any)
+  {
+    this.deliveryshiftService.GetDeliveryShiftByEmpShiftID(employeeShiftId).subscribe(res=>{
+      this.emp =res;
+      console.log(this.emp)
+      this.deliveryshiftService.AssignDelivery(this.emp).subscribe(data=>{
+        console.log(data)});
+    });
+    // this.deliveryshiftService.AssignLocalDelivery(this.sales).subscribe(data=>{
+    //   console.log(data)});
   }
 
   filter() {

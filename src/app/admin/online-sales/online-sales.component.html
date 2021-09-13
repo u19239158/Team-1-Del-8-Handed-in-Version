@@ -51,6 +51,11 @@
           <td mat-cell *matCellDef="let element"> {{element.orderStatusDescription}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="saleOrderRecieveType">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Receive Type  </th>
+          <td mat-cell *matCellDef="let element"> {{element.saleOrderRecieveType}} </td>
+        </ng-container>
+
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef>
@@ -64,10 +69,10 @@
             </button>
             <mat-menu #menu="matMenu" xPosition="before">
               <button mat-menu-item  (click)="viewSale(element.saleID)" [routerLink]="['/viewSale', element.saleID]">View</button>
-              <button mat-menu-item
+              <button mat-menu-item (click)="updateToCollected(element.saleID)"
                 [ngClass]="{'disable':element.orderStatusID ===1 || element.orderStatusID ===3}">Collected
               </button>
-              <button mat-menu-item
+              <button mat-menu-item (click)="updateToDelivered(element.saleID)"
                 [ngClass]="{'disable':element.orderStatusID ===1 || element.orderStatusID ===2}">Delivered</button>
             </mat-menu>
           </td>

@@ -44,7 +44,7 @@ export class AddEditProductitemsComponent implements OnInit {
       categoryTypeId: ['', [Validators.required]],
       //description: ['', [Validators.required]],
       productItemCost: ['', [Validators.required]],
-      quantityOnHand: ['', [Validators.required]],
+     // quantityOnHand: ['', [Validators.required]],
     }, formOptions);
 
     if (!this.isAddMode) {

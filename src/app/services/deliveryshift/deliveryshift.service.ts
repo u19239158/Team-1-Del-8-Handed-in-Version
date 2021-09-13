@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { last, map } from 'rxjs/operators';
-import { Deliveryshift } from 'src/app/interfaces';
+import { Deliveryshift, OnlineSales } from 'src/app/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -24,10 +24,13 @@ export class DeliveryshiftService {
   }
 
   // Should it be get by employeeShiftId?
-  getDeliveryShiftByID(shiftId): Observable<Deliveryshift> {
-    return this.http.get<Deliveryshift>(`${this.server}Deliveryshift/GetDeliveryShiftByID/${shiftId}`).pipe(map(res => res));
+  getDeliveryShiftByID(employeeShiftId): Observable<Deliveryshift> {
+    return this.http.get<Deliveryshift>(`${this.server}Deliveryshift/GetDeliveryShiftByID/${employeeShiftId}`).pipe(map(res => res));
   }
-
+  GetDeliveryShiftByEmpShiftID(employeeShiftId): Observable<Deliveryshift> {
+    return this.http.get<Deliveryshift>(`${this.server}Deliveryshift/GetDeliveryShiftByEmpShiftID/${employeeShiftId}`).pipe(map(res => res));
+  }
+  
   CreateDeliveryShift(Deliveryshift: Deliveryshift): Observable<Deliveryshift[]> {
     return this.http.post<Deliveryshift[]>(`${this.server}Deliveryshift/AddDate`, Deliveryshift, this.httpOptions);
   }
@@ -52,9 +55,20 @@ export class DeliveryshiftService {
     return this.http.get<Deliveryshift[]>(`${this.server}Delivery/GetUnassignedDeliveries`).pipe(map(res => res));
   }
 
+  AssignLocalDelivery(OnlineSales: OnlineSales): Observable<OnlineSales[]> {
+    return this.http.put<OnlineSales[]>(`${this.server}Delivery/AssignLocalDelivery`, OnlineSales, this.httpOptions);
+  }
 
+  AssignDelivery(Deliveryshift: Deliveryshift): Observable<Deliveryshift[]> {
+    return this.http.put<Deliveryshift[]>(`${this.server}Delivery/AssignDelivery`, Deliveryshift, this.httpOptions);
+  }
+
+  GetSaleByID(saleID):  Observable<OnlineSales>  {
+    return this.http.get<OnlineSales>(`${this.server}Sale/GetSaleByID/${saleID}`).pipe(map(res => res));
+  }
 }
 
+//GetDeliveryShiftByID
 //   getAll(): Deliveryshift[] {
 //     const deliveryshifts = JSON.parse(localStorage.getItem(this.KEY));
 

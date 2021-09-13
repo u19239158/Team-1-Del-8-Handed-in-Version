@@ -19,7 +19,7 @@ export class OnlineSalesComponent implements OnInit {
   onlineSale: OnlineSales;
   onlineSales: Observable<OnlineSales[]>;
   dataSource = new MatTableDataSource<OnlineSales>();
-  displayedColumns: string[] = ['saleNumber', 'customer', 'business', 'saleDate', 'orderStatus', 'actions'];
+  displayedColumns: string[] = ['saleNumber', 'customer', 'business', 'saleDate', 'orderStatus','saleOrderRecieveType', 'actions'];
   OnlineSales: OnlineSales[];
   searchValue: number;
   searchWord: string;
@@ -68,7 +68,7 @@ this.OnlineSalesService.GetSaleByID(saleID).subscribe(res=>{
     console.log(res)});
 });
   
-//   window.location.reload();
+   window.location.reload();
 
 }
 

@@ -50,11 +50,18 @@ export class AddEditCategorytypesComponent implements OnInit {
     const filePath = 'test';
     const task = this.storage.upload('/images'+Math.random()+filePath, this.path);
     const ref = this.storage.ref(filePath);
+    console.log(ref);
     // upload image, save url
     await task;
     console.log('Image uploaded!');
-    this.image = await ref.getDownloadURL().toPromise();
-    console.log( this.image)
+
+
+
+
+
+
+    this.image = await this.ref.getDownloadURL().toPromise()
+    console.log(this.image)
 
     const formOptions: AbstractControlOptions = {};
     this.form = this.formBuilder.group({
@@ -64,6 +71,8 @@ export class AddEditCategorytypesComponent implements OnInit {
       productCategoryID: ['', [Validators.required, Validators.maxLength(50)]],
 
     }, formOptions);
+
+   
     
   }
  

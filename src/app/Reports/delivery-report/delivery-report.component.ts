@@ -21,7 +21,7 @@ export class DeliveryReportComponent implements OnInit {
 
 
   dataSource = new MatTableDataSource<Reports>();
-  displayedColumns: string[] = ['saleId', 'saleOrderDate', 'customerName', 'customerCellphoneNumber', 'customerEmailAddress', 'customerAddress'];
+  displayedColumns: string[] = ['saleId', 'orderStatusDescription', 'saleOrderDate', 'customerName', 'customerCellphoneNumber', 'customerEmailAddress', 'customerAddress'];
 
 
   ngOnInit(): void {

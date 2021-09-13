@@ -27,7 +27,7 @@
 
                 <ng-container matColumnDef="employeeName">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </th>
-                    <td mat-cell *matCellDef="let element">{{element.employeeName}} </td>
+                    <td mat-cell *matCellDef="let element">{{element.employeeName}} {{element.employeeSurame}} </td>
                 </ng-container>
 
                 <!-- Start Time Column -->
@@ -80,7 +80,8 @@
                     </th>
                     <td mat-header-cell *matCellDef="let element">
                         <input type="checkbox" name="assign" [checked]="currentlyChecked === element.employeeShiftId"
-                            (click)="selectCheckBox(element.employeeShiftId)">
+                            (click)="selectCheckBox(element.employeeShiftId)"
+                            (click)="Assign(element.employeeShiftId)">
 
                     </td>
                 </ng-container>
@@ -88,4 +89,7 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
+
+           
         </div>
+        <button  mat-raised-button color ="primary" [routerLink]="['/assigndeliveryorder']"  mat-button>Cancel</button>

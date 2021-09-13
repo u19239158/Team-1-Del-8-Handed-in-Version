@@ -5,7 +5,7 @@ import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@ang
 import { ActivatedRoute, Router } from '@angular/router';
 import { Special, Productitem } from 'src/app/interfaces';
 import { HttpClient } from '@angular/common/http';
-import * as moment from 'moment';
+import * as moment from 'moment'
 
 @Component({
   selector: 'app-edit-special',
