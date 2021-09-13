@@ -104,20 +104,20 @@ namespace NKAP_API_2.Controllers
             var supp = _db.Suppliers.Find(supplierid);
             var supOrder = _db.SupplierOrders.Find(supplierid);
 
-                if (supp.SupplierBalance == 0)
+                if (supp.SupplierBalance == 0 && supOrder.SupplierOrderStatusId == 2)
                 {
                     var supplier = _db.Suppliers.Find(supplierid);
                     _db.Suppliers.Remove(supplier); //Delete Record
                     _db.SaveChanges();
                     return Ok(supplier);
                 }
-               else if (supOrder.SupplierOrderStatusId == 2)
-                {
-                    var supplier = _db.Suppliers.Find(supplierid);
-                    _db.Suppliers.Remove(supplier); //Delete Record
-                    _db.SaveChanges();
-                    return Ok(supplier);
-                }
+               //else if (supOrder.SupplierOrderStatusId == 2)
+               // {
+               //     var supplier = _db.Suppliers.Find(supplierid);
+               //     _db.Suppliers.Remove(supplier); //Delete Record
+               //     _db.SaveChanges();
+               //     return Ok(supplier);
+               // }
                 else
                 {
                     response = "Supplier could not be deleted as there is an active supplier order or an outstanding balance";
