@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Courier } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { CourierService } from 'src/app/services/courier/courier.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-couriers',
@@ -72,7 +72,24 @@ export class CouriersComponent implements OnInit {
       if (res) {
         this.CourierService.DeleteCourier(Courier).subscribe(res => {
           this.readCouriers()
-        })
+        },(error: HttpErrorResponse) =>
+        {
+          console.log(error.error,"test")
+         if (error.status === 400)
+        {
+          this.snack.open(error.error, 'OK', 
+          {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 3000
+          });
+         
+          
+          return;
+        }
+  
+        
+      })
       }
     });
   }

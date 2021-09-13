@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Categorytype } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { CategorytypeService } from 'src/app/services/categorytype/categorytype.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-categorytypes',
@@ -71,7 +71,24 @@ export class CategorytypesComponent implements OnInit {
       if (res) {
         this.categorytypeService.DeleteCategoryType(Categorytype).subscribe(res => {
           this.readCategorytypes();
-        });
+        },(error: HttpErrorResponse) =>
+        {
+          console.log(error.error,"test")
+         if (error.status === 400)
+        {
+          this.snack.open(error.error, 'OK', 
+          {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 3000
+          });
+         
+          
+          return;
+        }
+  
+        
+      });
 
       }
     });

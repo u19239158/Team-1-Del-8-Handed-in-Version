@@ -84,20 +84,14 @@ export class EmployeesComponent implements OnInit {
             duration: 3000
           });
          
-          //this.form.reset();
+          
           return;
         }
   
-        this.snack.open('An error occured on our servers. Try again later.', 'OK',
-        {
-          verticalPosition: 'bottom',
-          horizontalPosition: 'center',
-          duration: 3000
-        });
-  //this.form.reset();
+        
       })}
     
-//this.form.reset();
+
     });
     }
     

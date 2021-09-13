@@ -59,7 +59,7 @@ export class FastSellingProductsReportComponent implements OnInit {
         this.dataSource = new MatTableDataSource(data)
      // this.generateTables(data);
       
-  
+
     })
     });
 

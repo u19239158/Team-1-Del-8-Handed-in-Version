@@ -4,16 +4,16 @@
   <div class="parameters">
       <h2>Report Parameters</h2>
       <h3>Date Range</h3>
-     <form [formGroup]="form" class="main">
+     <!-- <form [formGroup]="form" class="main"> -->
       <div>
        <!-- <div class="mat-row"> -->
         <!-- Start Date -->
        <!-- <div class="mat-col-quarter"> -->
-        <mat-form-field class="control-m">
+        <!-- <mat-form-field class="control-m">
           <input matInput [matDatepicker]="picker" placeholder="Choose Start Date"formControlName="startDate">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
+        </mat-form-field> -->
         <!-- </div>
       </div>
 
@@ -22,11 +22,11 @@
           <br>
        <!-- End Date -->
        <!-- <div class="mat-col-quarter"> -->
-        <mat-form-field class="control-m">
+        <!-- <mat-form-field class="control-m">
           <input matInput [matDatepicker]="picker1" placeholder="Choose End Date" formControlName="endDate">
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
-        </mat-form-field>
+        </mat-form-field> -->
        <!-- </div>
       </div> -->
 
@@ -41,7 +41,7 @@
       <br>
       <br>
       <button type="submit" mat-raised-button color ="primary" (click)="generatePdf()">Download Report PDF</button>
-    </form>
+    <!-- </form> -->
     </div>
   </div>
 

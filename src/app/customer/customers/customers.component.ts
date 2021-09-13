@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
-import {  HttpClient  } from '@angular/common/http';
+import {  HttpClient, HttpErrorResponse  } from '@angular/common/http';
 
 @Component({
   selector: 'app-customers',
@@ -78,7 +78,24 @@ deleteCustomer(Customer: Customer) {
     if (res){
       this.customerService.DeleteCustomer(Customer).subscribe(res =>{
         this.readCustomers()
-      })
+      },(error: HttpErrorResponse) =>
+      {
+        console.log(error.error,"test")
+       if (error.status === 400)
+      {
+        this.snack.open(error.error, 'OK', 
+        {
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center',
+          duration: 3000
+        });
+       
+        
+        return;
+      }
+
+      
+    })
     }
   });
 }

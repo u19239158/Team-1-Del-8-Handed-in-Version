@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { SupplierService } from 'src/app/services/supplier/supplier.service.component';
-import {  HttpClient  } from '@angular/common/http';
+import {  HttpClient, HttpErrorResponse  } from '@angular/common/http';
 
 @Component({
   selector: 'app-suppliers',
@@ -68,7 +68,24 @@ dataNotFound: boolean;
       if(res) {
         this.supplierService.DeleteSupplier(Supplier).subscribe(res => {
           this.readSuppliers();
-        });
+        },(error: HttpErrorResponse) =>
+        {
+          console.log(error.error,"test")
+         if (error.status === 400)
+        {
+          this.snack.open(error.error, 'OK', 
+          {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 3000
+          });
+         
+          
+          return;
+        }
+  
+        
+      });
       }
     });
   }
