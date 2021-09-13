@@ -9,6 +9,7 @@
             <mat-form-field appearance="outline" class="control-m">
                 <mat-label>Description</mat-label>
                 <input type="text" matInput placeholder="Description" formControlName="specialDescription">
+                   <mat-hint>Enter special description</mat-hint>
             </mat-form-field>
           </div>
         </div>
@@ -21,6 +22,7 @@
           <input matInput [matDatepicker]="picker" placeholder="Special Start Date"formControlName="specialStartDate">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
+             <mat-hint>Enter special name start date </mat-hint>
         </mat-form-field>
         </div>
       </div>
@@ -32,6 +34,7 @@
           <input matInput [matDatepicker]="picker1" placeholder="Special End Date" formControlName="specialEndDate">
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
+             <mat-hint>Enter special end date</mat-hint>
         </mat-form-field>
        </div>
       </div>
@@ -46,6 +49,7 @@
                   {{Discount.discountPercentage}}
                 </mat-option>
               </mat-select>
+            <mat-hint>Choose special discount</mat-hint>
             </mat-form-field>
           </div>
       </div>

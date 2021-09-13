@@ -16,6 +16,7 @@
                 <mat-select formControlName="titleId">
                    <mat-option *ngFor="let c of collection" [value]="c.titleId">{{c.titleDescription}}</mat-option>
                 </mat-select>
+                <mat-hint>Select customer title</mat-hint>
               </mat-form-field>
         </div>
 
@@ -24,6 +25,7 @@
         <mat-form-field appearance="outline" class="control-m-s">
             <mat-label>Customer Name</mat-label>
             <input type="text" matInput placeholder="Customer Name" formControlName="customerName">
+            <mat-hint>Enter customer name</mat-hint>
         </mat-form-field>
     </div>
 
@@ -32,6 +34,7 @@
       <mat-form-field appearance="outline" class="control-m-s">
           <mat-label>Customer Surname</mat-label>
           <input type="text" matInput placeholder="Customer surname" formControlName="customerSurname">
+          <mat-hint>Enter customer surname</mat-hint>
       </mat-form-field>
   </div>
 
@@ -43,6 +46,7 @@
         <mat-form-field appearance="outline" class="control-m">
             <mat-label>Customer Email Address</mat-label>
             <input type="text" matInput placeholder="Customer Email Address" formControlName="customerEmailAddress">
+            <mat-hint>Enter customer email address</mat-hint>
         </mat-form-field>
     </div>
 
@@ -51,6 +55,7 @@
           <mat-form-field appearance="outline" class="control-m">
               <mat-label>Customer Number</mat-label>
               <input type="text" matInput placeholder="Customer Contact Number" formControlName="customerCellphoneNumber">
+              <mat-hint>Enter customer contact number</mat-hint>
           </mat-form-field>
       </div>
 
@@ -62,6 +67,7 @@
         <mat-form-field appearance="outline" class="control-m">
             <mat-label>Customer Business Name </mat-label>
             <input type="text" matInput placeholder="Customer Business Name " formControlName="customerBusinessName">
+            <mat-hint>Enter customer business name</mat-hint>
         </mat-form-field>
     </div>
 
@@ -70,6 +76,7 @@
           <mat-form-field appearance="outline" class="control-m">
               <mat-label>Customer VAT Number</mat-label>
               <input type="text" matInput placeholder="Customer VAT Number" formControlName="customerVATReg">
+              <mat-hint>Enter customer VAT number</mat-hint>
           </mat-form-field>
       </div>
     </div>

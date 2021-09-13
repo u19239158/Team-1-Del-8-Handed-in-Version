@@ -13,6 +13,7 @@
             <mat-option *ngFor="let ds of collections" [value]="ds.timeId">{{ds.startTime}} - {{ds.endTime}}
             </mat-option>
           </mat-select>
+          <mat-hint>Select time interval of the delivery shift</mat-hint>
         </mat-form-field>
       </div>
     </div>
@@ -23,6 +24,7 @@
           <input matInput [matDatepicker]="picker" placeholder="dd/mm/yyyy" formControlName="dayOfTheWeek">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
+          <mat-hint>Select the date of delivery shift</mat-hint>
         </mat-form-field>
       </div>
     </div>
@@ -35,6 +37,7 @@
             <mat-option *ngFor="let Employees of employees" [value]="Employees.employeeId">{{Employees.employeeName}}
             </mat-option>
           </mat-select>
+          <mat-hint>Select employee to assign delivery shift</mat-hint>
         </mat-form-field>
       </div>
     </div>

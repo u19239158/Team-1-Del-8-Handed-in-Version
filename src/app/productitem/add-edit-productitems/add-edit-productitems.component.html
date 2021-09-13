@@ -10,7 +10,8 @@
                 <mat-label> Category Type</mat-label>
                 <mat-select [(value)]="selected" formControlName="categoryTypeId">
                   <mat-option *ngFor="let CategoryType of collection" [value]="CategoryType.categoryTypeId">{{CategoryType.categoryTypeDescription}}</mat-option>
-                </mat-select>
+                </mat-select>   
+                <mat-hint>Select category type</mat-hint>
               </mat-form-field>
         </div>
   </div>
@@ -20,6 +21,7 @@
             <mat-form-field appearance="outline" class="control-m">
                 <mat-label>Product Item Name</mat-label>
                 <input type="text" matInput placeholder="Product Item Name" formControlName="productItemName">
+                <mat-hint>Enter product item name</mat-hint>
             </mat-form-field>
         </div>
   </div>
@@ -28,7 +30,9 @@
         <div class="mat-col-quarter">
           <mat-form-field appearance="outline" class="control-m">
               <mat-label>Item Cost</mat-label>
+              <span matPrefix>R &nbsp;</span>
               <input type="text" matInput placeholder="Cost" formControlName="productItemCost">
+              <mat-hint>Enter product item cost</mat-hint>
           </mat-form-field>
       </div>
     </div>
