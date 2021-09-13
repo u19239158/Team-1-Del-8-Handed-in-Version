@@ -2,6 +2,29 @@
   <h2>Add Special</h2>
   <!-- <h2 *ngIf="!isAddMode">Edit Special</h2> -->
 
+ <div>
+            <div>
+                <label for="productItemName">Product Item Name: </label>
+                <span> &nbsp;{{productItem.productItemName}}</span>
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <label for="productItemName">Product Item Cost: </label>
+                <span> &nbsp;R{{productItem.productItemCost}}</span>
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <label for="productItemName">Product Item Quantity: </label>
+                <span> &nbsp;{{productItem.quantityOnHand}}</span>
+            </div>
+        </div>
+
+
+
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="main">
 
 

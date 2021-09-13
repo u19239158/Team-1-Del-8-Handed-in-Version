@@ -39,6 +39,7 @@ export class ViewSaleComponent implements OnInit {
   checked = false; labelPosition: 'before' | 'after' = 'after';
   disabled = false;
   isHidden: boolean = true;
+  saleOrderRecieveType: number;
   
 
   constructor(private OnlineSalesService: OnlineSalesService,
@@ -91,18 +92,41 @@ export class ViewSaleComponent implements OnInit {
 
     this.OnlineSalesService.GetSaleByID(this.id).subscribe(data => {
       console.log(data)
-      // this.OnlineSalesService.updateToCollected(this.sale).subscribe(res =>{
-      //   console.log(res)});
-    });
-  }
+    
 
-  // showProducts(){
-  //   this.isHidden = false;
-  //   this.writeOffStockService.getProductByCatType(this.form.value.categoryTypeId).subscribe(res => {
-  //     console.log(res)
-  //    this.dataSource = new MatTableDataSource(res)
-  //   })
-  //  ;
+    if (data.saleOrderRecieveType = "true")
+  {
+    //Collection()
+    {
+      this.OnlineSalesService.GetSaleByID(this.id).subscribe(res => {
+        this.sale = res;
+        console.log(this.sale)
+        this.OnlineSalesService.Collection(this.sale).subscribe(res => {
+          console.log(res)
+        });
+      });
+  
+      this.OnlineSalesService.GetCustomerBySaleID(this.id).subscribe(data=>{
+        this.sales = data
+        console.log(data) 
+        this.OnlineSalesService.NotifyCustomer(this.sales, this.sales.customerEmailAddress).subscribe(res => {
+          console.log(res)
+        });
+     });
+    }
+  }
+  else 
+   // Delivery()
+    {
+      this.OnlineSalesService.GetSaleByID(this.id).subscribe(res=>{
+        this.sale =res;
+        //console.log(this.sale)
+        this.OnlineSalesService.Delivery(this.sale).subscribe(res =>{
+          console.log(res)});
+      });
+    }
+  });
+};
 
 
   check_box_type = CheckBoxType;
@@ -118,36 +142,13 @@ export class ViewSaleComponent implements OnInit {
     this.currentlyChecked = targetType;
   }
 
-  Collection()
-  {
-    this.OnlineSalesService.GetSaleByID(this.id).subscribe(res => {
-      this.sale = res;
-      console.log(this.sale)
-      this.OnlineSalesService.Collection(this.sale).subscribe(res => {
-        console.log(res)
-      });
-    });
-
-    this.OnlineSalesService.GetCustomerBySaleID(this.id).subscribe(data=>{
-      this.sales = data
-      console.log(data) 
-      this.OnlineSalesService.NotifyCustomer(this.sales, this.sales.customerEmailAddress).subscribe(res => {
-        console.log(res)
-      });
-   });
-  }
-
-
-  Delivery()
-  {
-    this.OnlineSalesService.GetSaleByID(this.id).subscribe(res=>{
-      this.sale =res;
-      console.log(this.sale)
-      this.OnlineSalesService.Delivery(this.sale).subscribe(res =>{
-        console.log(res)});
-    });
-  }
   
+    
+  
+  
+
+
+ 
   
   Confirm() {
     //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30

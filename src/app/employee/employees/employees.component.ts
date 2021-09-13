@@ -70,33 +70,33 @@ export class EmployeesComponent implements OnInit {
 
     confirm.afterClosed().subscribe(res => {
       if (res) {
-        this.EmployeeService.DeleteEmployee(Employee).subscribe(res => {
+        this.EmployeeService.DeleteEmployee(Employee).subscribe(data => {
           this.readEmployees();
-        })
-      }
-    },
-    (error: HttpErrorResponse ) => 
-     {
-
-       if (error.status === 400)
-      {
-        this.snack.open('Invalid credentials.', 'OK', 
+        },(error: HttpErrorResponse) =>
+        {
+          console.log(error.error,"test")
+         if (error.status === 400)
+        {
+          this.snack.open(error.error, 'OK', 
+          {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 3000
+          });
+         
+          //this.form.reset();
+          return;
+        }
+  
+        this.snack.open('An error occured on our servers. Try again later.', 'OK',
         {
           verticalPosition: 'bottom',
           horizontalPosition: 'center',
           duration: 3000
         });
-       
-        //this.form.reset();
-        return;
-      }
-
-      this.snack.open('An error occured on our servers. Try again later.', 'OK',
-      {
-        verticalPosition: 'bottom',
-        horizontalPosition: 'center',
-        duration: 3000
-      });
+  //this.form.reset();
+      })}
+    
 //this.form.reset();
     });
     }
