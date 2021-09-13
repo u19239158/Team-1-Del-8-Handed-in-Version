@@ -1,4 +1,4 @@
-{% comment %} <h2>Fast Selling Products Report</h2>
+<h2>Fast Selling Products Report</h2>
 
 <div class="column left">
   <div class="parameters">
@@ -45,8 +45,6 @@
     </div>
   </div>
 
- 
-
 <div id="htmlData" class="mat-elevation-z8 table column right" *ngIf="created">
  
   <table mat-table [dataSource]="dataSource" matSort>
@@ -88,20 +86,3 @@
 
   <h1 *ngIf="Sales" class="grand">Grand Total : {{Sales}}</h1>
 </div>
-
-<!-- <div class="column right">
-  <div *ngIf="created">
-    <div style="align-content: center;">
-      <canvas baseChart
-        [datasets]="barChartData"
-        [labels]="barChartLabels"
-        [options]="barChartOptions"
-        [plugins]="barChartPlugins"
-        [legend]="barChartLegend"
-        [chartType]="barChartType">
-      </canvas>
-    </div>
-    <button mat-button mat-raised-button color="primary" (click)="randomize()">Update</button>
-
-  </div>
-</div> --> {% endcomment %}
