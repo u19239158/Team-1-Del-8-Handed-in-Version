@@ -86,10 +86,13 @@ export class CategorytypesComponent implements OnInit {
           
           return;
         }
-  
-        
       });
-
+      this.snack.open('Category Type Successfully Deleted! ', 'OK', 
+      {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+        duration: 1000
+      });
       }
     });
   }

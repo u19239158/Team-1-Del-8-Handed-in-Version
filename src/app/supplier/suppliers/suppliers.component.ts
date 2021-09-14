@@ -79,14 +79,17 @@ dataNotFound: boolean;
             horizontalPosition: 'center',
             duration: 3000
           });
-         
-          
           return;
         }
-  
-        
+      });
+      this.snack.open('Successfully Deleted Supplier! ', 'OK', 
+      {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+        duration: 2000
       });
       }
+     
     });
   }
 

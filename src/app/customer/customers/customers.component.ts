@@ -89,14 +89,19 @@ deleteCustomer(Customer: Customer) {
           horizontalPosition: 'center',
           duration: 3000
         });
-       
-        
         return;
       }
-
-      
     })
+    this.snack.open('Successfully Deleted Customer! ', 'OK', 
+    {
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      duration: 2000
+    });
     }
+   
   });
+ 
+  
 }
 }

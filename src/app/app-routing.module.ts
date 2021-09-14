@@ -17,6 +17,7 @@ import { EmployeesComponent } from './employee/employees/employees.component';
 import { SpecialsComponent } from './special/specials/specials.component';
 import { AddEditSpecialComponent } from './special/add-edit-special/add-edit-special.component';
 import { EditSpecialComponent } from './special/add-edit-special/edit-special.component';
+import { AddSpecialComponent } from './special/add-edit-special/add-special.component';
 
 import { UserRoleComponent } from './userRole/user-role/user-role.component';
 import { AddEditUserRoleComponent } from './userRole/add-edit-user-role/add-edit-user-role.component';
@@ -133,6 +134,10 @@ const routes: Routes = [
   {
     path: 'specialEdit/:id',
     component: EditSpecialComponent
+  },
+  {
+    path: 'specialAdd',
+    component: AddSpecialComponent
   },
   {
     path: 'userRole',

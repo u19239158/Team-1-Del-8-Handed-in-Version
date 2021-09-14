@@ -5,6 +5,7 @@ import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@ang
 import { ActivatedRoute, Router } from '@angular/router';
 import { Productcategory } from 'src/app/interfaces';
 import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-edit-productcategorys',
@@ -21,7 +22,7 @@ export class AddEditProductcategorysComponent implements OnInit {
     submitted = false;
     productcategory: Productcategory;
     productcategorys: Observable<Productcategory[]>
-    path: string;
+    path: File;
     selectedImage: File;
     url : string;
     image : string = null;
@@ -30,6 +31,7 @@ export class AddEditProductcategorysComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
+        private snack: MatSnackBar,
         private router: Router,
         private ProductcategoryService: ProductcategoryService,
         private storage : AngularFireStorage
@@ -38,23 +40,6 @@ export class AddEditProductcategorysComponent implements OnInit {
 
     async upload(event) {    
       this.path = event.target.files[0]
-      const filePath = 'test';
-      const task = this.storage.upload('/images'+Math.random()+filePath, this.path);
-      const ref = this.storage.ref(filePath);
-      // upload image, save url
-      await task;
-      console.log('Image uploaded!');
-      this.image = await ref.getDownloadURL().toPromise();
-      console.log( this.image)
-  
-      const formOptions: AbstractControlOptions = {};
-      this.form = this.formBuilder.group({
-        productCategoryImage : this.image,
-
-        productCategoryDescription: ['', [Validators.required, Validators.maxLength(50)]],
-  
-      }, formOptions);
-      
     }
     
   ngOnInit(): void {
@@ -66,7 +51,7 @@ export class AddEditProductcategorysComponent implements OnInit {
       {
         //id: ['', [Validators.required]],
         productCategoryDescription: ['', [Validators.required, Validators.maxLength(50)]],
-        productCategoryImage : this.image,
+        //productCategoryImage : this.image,
        }, formOptions);
 
     if (!this.isAddMode) {
@@ -75,7 +60,7 @@ export class AddEditProductcategorysComponent implements OnInit {
         console.log(res)
         this.form = this.formBuilder.group({
           id: [this.productcategory.productCategoryId, Validators.required],
-          productCategoryImage : this.image,
+         // productCategoryImage : this.image,
           productCategoryDescription: [this.productcategory.productCategoryDescription, [Validators.required, Validators.maxLength(50)]],
          // productCategoryImage: [this.productcategory.productCategoryImage, []]
           }, formOptions);
@@ -97,22 +82,59 @@ export class AddEditProductcategorysComponent implements OnInit {
     }
   }
 
-  createProductcategory() {
-    const productcategory: Productcategory = this.form.value;
+  async uploadImage(){
+    const key = `/files${Math.random()}${this.path.name}`;
+    console.log(this.path)
+     await this.storage.upload(key, this.path);
+  
+    const fileref = this.storage.ref(key);
+
+    const downloadUrl = fileref.getDownloadURL();
+    return downloadUrl;
+
+  }
+
+ async createProductcategory() {
+  const img = await this.uploadImage();
+  img.subscribe(imgpath =>{
+   const productcategory: Productcategory = {
+     ...this.form.value,
+     productCategoryImage: imgpath
+   };
+   
     this.ProductcategoryService.CreateProductCategory(productcategory).subscribe(res => {
       console.log(res)
       this.loading = false
       this.router.navigateByUrl('productCategory');
-    });
+    });})
+
+    this.snack.open('Product Category Successfully Added! ', 'OK', 
+          {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 2000
+          });
   }
 
-  updateProductcategory() {
-    const productcategory: Productcategory = this.form.value;
+  async updateProductcategory() {
+    const img = await this.uploadImage();
+  img.subscribe(imgpath =>{
+   const productcategory: Productcategory = {
+     ...this.form.value,
+     productCategoryImage: imgpath
+   };
     productcategory.productCategoryId = this.productcategory.productCategoryId;
     this.ProductcategoryService.UpdateProductCategory(productcategory).subscribe(res => {
       console.log(res)
       this.form.reset();
       this.router.navigateByUrl('productCategory');
+    });})
+
+    this.snack.open('Product Category Successfully Updated! ', 'OK', 
+    {
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      duration: 2000
     });
   }
 

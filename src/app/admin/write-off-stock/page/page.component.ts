@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Productitem } from './../../../interfaces/index';
 //import { WriteOffStock } from './../../../interfaces/index';
 import { Component, OnInit } from '@angular/core';
@@ -24,10 +25,10 @@ export class PageComponent implements OnInit {
 
   // formBuilder: any;
 
-
   constructor(
     private router: Router,
     private route : ActivatedRoute,
+    private snack : MatSnackBar,
     private WriteOffStockService : WriteOffStockService,
     private formBuilder : FormBuilder,
   ) { }
@@ -67,6 +68,12 @@ export class PageComponent implements OnInit {
       console.log(res)
       this.loading = false
       this.router.navigateByUrl('writeOffStock');
+    });
+    this.snack.open('Successfully Performed Write-Off! ', 'OK', 
+    {
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      duration: 2000
     });
   }
 

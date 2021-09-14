@@ -5,6 +5,7 @@ import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@ang
 import { ActivatedRoute, Router } from '@angular/router';
 import { Productitem } from 'src/app/interfaces';
 import { HttpClient } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-edit-productitems',
@@ -28,6 +29,7 @@ export class AddEditProductitemsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private snack: MatSnackBar,
     private ProductitemService: ProductitemService,
     private http: HttpClient
   ) { }
@@ -94,6 +96,13 @@ export class AddEditProductitemsComponent implements OnInit {
       this.loading = false
       this.router.navigateByUrl('productItem');
     });
+
+    this.snack.open('Product Item Successfully Added! ', 'OK', 
+          {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 2000
+          });
   }
 
   updateProductitem() {
@@ -103,6 +112,12 @@ export class AddEditProductitemsComponent implements OnInit {
       console.log(res)
       //this.form.reset();
       this.router.navigateByUrl('productItem');
+    });
+    this.snack.open('Product Item Successfully Updated! ', 'OK', 
+    {
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      duration: 2000
     });
   }
 
