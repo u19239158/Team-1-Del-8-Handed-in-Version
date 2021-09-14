@@ -489,7 +489,7 @@ namespace NKAP_API_2.Controllers
 
             return Ok(Sale);
         }
-
+        string response;
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("Collection")] //route
         [HttpPut]
@@ -497,11 +497,22 @@ namespace NKAP_API_2.Controllers
         public IActionResult Collection(SaleModel model)
         {
             var PackOrder = _db.Sales.Find(model.SaleID);
-            PackOrder.OrderStatusId = 2;
-            _db.Sales.Attach(PackOrder); //Attach Record
-            _db.SaveChanges();
+            if (PackOrder.OrderStatusId ==1 && PackOrder.SaleOrderRecieveType == true)
+            {
+                PackOrder.OrderStatusId = 2;
+                _db.Sales.Attach(PackOrder); //Attach Record
+                _db.SaveChanges();
+                return Ok(PackOrder);
 
-            return Ok(PackOrder);
+            }
+            else
+            {
+                response = "Order has already been packed ";
+                return BadRequest(response);
+            }
+
+
+
         }
 
       //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
@@ -511,11 +522,19 @@ namespace NKAP_API_2.Controllers
         public IActionResult Delivery(SaleModel model)
         {
             var PackOrder = _db.Sales.Find(model.SaleID);
-            PackOrder.OrderStatusId = 3;
-            _db.Sales.Attach(PackOrder); //Attach Record
-            _db.SaveChanges();
-
-            return Ok(PackOrder);
+            if (PackOrder.OrderStatusId == 1 && PackOrder.SaleOrderRecieveType == false)
+            {
+                PackOrder.OrderStatusId = 3;
+                _db.Sales.Attach(PackOrder); //Attach Record
+                _db.SaveChanges();
+                return Ok(PackOrder);
+            }
+            else
+            {
+                response = "Order has already been packed ";
+                return BadRequest(response);
+            }
+          
         }
 
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]

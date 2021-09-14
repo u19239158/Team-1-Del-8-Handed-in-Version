@@ -272,7 +272,7 @@ namespace NKAP_API_2.Controllers
                      ProvinceId = sd.ProvinceId,
                      ProvinceDescription = sd.ProvinceDescription,
 
-                 }).Where(ss => ss.SaleOrderRecieveType == true).Join(_db.Provinces,
+                 }).Where(ss => ss.SaleOrderRecieveType == false).Join(_db.Provinces,
                  sor => sor.ProvinceId,
                  sd => sd.ProvinceId,
                     (sor, sd) => new

@@ -31,7 +31,7 @@ namespace NKAP_API_2.Controllers
             expires : new DateTimeOffset(DateTime.Now.AddMinutes(60)).DateTime,
             signingCredentials : new SigningCredentials(SIGNING_KEY,SecurityAlgorithms.HmacSha256)
             );
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return new JwtSecurityTokenHandler().WriteToken(token).ToString();
         }
     }
 }

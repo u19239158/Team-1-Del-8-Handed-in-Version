@@ -30,6 +30,7 @@ namespace NKAP_API_2.Controllers
         private NKAP_BOLTING_DB_4Context _db; //dependency injection for db
         public LoginController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
+        string request;
 
         [HttpPost]
         [Route("Login")]
@@ -42,12 +43,12 @@ namespace NKAP_API_2.Controllers
             var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
             if (user == null)
             {
-               string request = "user not found";
-               return request;
+                request = "user not found" ;
+                return request;
             }
             else
             {
-                return token.GenerateToken(model);
+                return  token.GenerateToken(model);
             }
             
         }
