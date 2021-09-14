@@ -109,8 +109,9 @@ export class PlaceSupplierOrderComponent implements OnInit {
   }
 
   placeOrder() {
-    const dialogRef = this.dialog.open(QuantityModalComponent, {restoreFocus: false});
-    dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
-    this.router.navigateByUrl('login');
-    }
+    // const dialogRef = this.dialog.open(QuantityModalComponent, {restoreFocus: false});
+    // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
+    // this.router.navigateByUrl('login');
+    
+  }
 }
