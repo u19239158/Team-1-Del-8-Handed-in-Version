@@ -30,6 +30,12 @@
     <button mat-menu-item routerLink="/couriers" (click)="onSidenavClose()">View Couriers</button>
   </mat-menu>
 
+<!-- Dashboard -->
+  <a mat-list-item routerLink="/dashboard" (click)="onSidenavClose()">
+    <!-- <mat-icon>home</mat-icon>  -->
+    <img src="assets/images/Report.png" class="w3-margin-right" width=20px height=20px>
+    <span class="nav-caption"> Dashboard</span>
+  </a>
 
   <!-- Delivery Shift -->
   <mat-list-item [matMenuTriggerFor]="menu6">

@@ -78,6 +78,7 @@ import { ScheduleModule, AgendaService, DragAndDropService, ResizeService, WeekS
 import { ViewSaleComponent } from './admin/online-sales/view-sale/view-sale.component';
 import { ViewDeliveryDetailsComponent } from './deliveryshift/view-delivery-details/view-delivery-details.component';
 import { ViewEmployeeDeliveryShiftsComponent } from './deliveryshift/view-employee-delivery-shifts/view-employee-delivery-shifts.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 const firebaseConfig = {
@@ -148,6 +149,7 @@ const firebaseConfig = {
     LogoutComponent,
     ViewDeliveryDetailsComponent,
     ViewEmployeeDeliveryShiftsComponent,
+    DashboardComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
