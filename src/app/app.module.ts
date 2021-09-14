@@ -45,6 +45,7 @@ import { AddEditProductcategorysComponent } from './productcategory/add-edit-pro
 import { CustomersComponent } from './customer/customers/customers.component';
 import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
 import {EditSpecialComponent} from './special/add-edit-special/edit-special.component';
+import { AddSpecialComponent } from './special/add-edit-special/add-special.component';
 
 import { MaterialModule } from './material/material/material.module';
 import { HeaderComponent } from './navigation/header/header.component';
@@ -100,6 +101,7 @@ const firebaseConfig = {
     SpecialsComponent,
     AddEditSpecialComponent,
     EditSpecialComponent,
+    AddSpecialComponent,
     UserRoleComponent,
     AddEditUserRoleComponent,
     HeaderComponent,

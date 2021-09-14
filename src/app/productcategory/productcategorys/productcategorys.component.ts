@@ -79,15 +79,16 @@ dataNotFound: boolean;
             verticalPosition: 'bottom',
             horizontalPosition: 'center',
             duration: 3000
-          });
-         
-          
+          });   
           return;
         }
-  
-        
       });
-
+      this.snack.open('Product Category Successfully Deleted! ', 'OK', 
+      {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+        duration: 1000
+      });
       }
     });
   }

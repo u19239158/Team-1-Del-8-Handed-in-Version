@@ -58,8 +58,6 @@ dataNotFound: boolean;
     console.log(this.pItem)
    
   });
-  
-  
   }
 
   filter(){
@@ -84,9 +82,16 @@ dataNotFound: boolean;
         this.productitemService.DeleteProductitem(Productitem).subscribe( res =>{
           this.readProductitems();
         });
-
+        this.snack.open('Product Item Successfully Deleted! ', 'OK', 
+        {
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center',
+          duration: 2000
+        });
       }
     });
+
+   
   }
 
 }

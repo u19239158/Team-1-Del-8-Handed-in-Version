@@ -72,7 +72,14 @@ deleteUserRole(UserRole: UserRole) {
         this.readUserRoles()
       })
     }
+    this.snack.open('Successfully Deleted UserRole! ', 'OK', 
+    {
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      duration: 2000
+    });
   });
+ 
  }
 }
 

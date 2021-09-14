@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Supplier } from 'src/app/interfaces';
 import { Observable } from 'rxjs';
 import { SupplierService } from 'src/app/services/supplier/supplier.service.component';
@@ -23,6 +24,7 @@ export class AddEditSupplierComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
+        private snack : MatSnackBar,
         private SupplierService: SupplierService
   ) { }
 
@@ -82,6 +84,12 @@ createSupplier(){
     this.loading = false;
     this.router.navigateByUrl('supplier')
   })
+  this.snack.open('Successfully Added Supplier! ', 'OK', 
+  {
+    verticalPosition: 'bottom',
+    horizontalPosition: 'center',
+    duration: 2000
+  });
 }
 
   updateSupplier() {
@@ -91,6 +99,12 @@ createSupplier(){
       console.log(res)
       //this.loading = false
       this.router.navigateByUrl('supplier');
+    });
+    this.snack.open('Successfully Updated Supplier! ', 'OK', 
+    {
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      duration: 2000
     });
   }
 

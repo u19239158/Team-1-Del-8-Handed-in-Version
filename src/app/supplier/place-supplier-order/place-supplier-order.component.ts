@@ -21,7 +21,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
   Productitems: Productitem[];
   searchValue: string;
   dataNotFound: boolean;
-
+  
   form: FormGroup;
   loading = false;
   submitted = false;

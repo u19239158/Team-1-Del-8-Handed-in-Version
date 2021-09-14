@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login/login-service';
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-login',
@@ -60,13 +61,29 @@ export class LoginComponent implements OnInit {
         {
           this.Loginservice.Login(this.form.value).subscribe(res => {
             // route to home
-            
-            localStorage.setItem('user', JSON.stringify(res));
-            this.router.navigateByUrl('/');
-          }
-          )}
+            //localStorage.setItem('user', res);
+             localStorage.setItem('user',JSON.stringify(res) );
+             console.log(res);
+            //localStorage.setItem('user', JSON.stringify({ token: res }));
+          })
+           // this.router.navigateByUrl('/');
+        //   },(error: HttpErrorResponse)=>
+        //   {
+        //     if (error.status ===200)
+        //     {
+        //       localStorage.setItem('user', error.error.text);
+        //       console.log(error)
+        //       this.router.navigateByUrl('/');
+        //   };
+        // })
+         // )};
           // (error: HttpErrorResponse) => 
           // {
+          //   if (error.status ===200)
+          //   {
+          //     localStorage.setItem('user', error.error.text);
+          //     this.router.navigateByUrl('/');
+          //   }
       
           //   if (error.status === 404)
           //   {
@@ -81,13 +98,13 @@ export class LoginComponent implements OnInit {
           //     return;
           //   }
 
-            // this.snack.open('An error occured on our servers. Try again later.', 'OK',
-            // {
-            //   verticalPosition: 'bottom',
-            //   horizontalPosition: 'center',
-            //   duration: 3000
-            // });
+          //   this.snack.open('An error occured on our servers. Try again later.', 'OK',
+          //   {
+          //     verticalPosition: 'bottom',
+          //     horizontalPosition: 'center',
+          //     duration: 3000
+          //   });
           //   this.form.reset();
           // });
-        //}
+        }
 }

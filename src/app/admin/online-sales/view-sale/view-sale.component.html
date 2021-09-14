@@ -13,10 +13,6 @@
             
                 <p><label for="SaleOrderDescription">Items ordered: </label>
                     <span> &nbsp;{{sale.saleOrderDescription}}</span>
-
-                <p><label for="SaleOrderDescription">Items ordered: </label>
-                    <span> &nbsp;{{sale.saleOrderDescription}}</span>
-
        
                 <p><label for="saleOrderDate">Sale Date: </label>
                     <span> &nbsp;{{sale.saleOrderDate | date:"dd/MM/yyyy"}}</span>
@@ -40,6 +36,7 @@
                     <span> &nbsp;{{sale.salePaymentAmount}}</span>
           
                 <p><label for="receiveType">Receive Type: </label>
+                    <span> &nbsp;{{sale.saleOrderRecieveType}}</span>
       
   </mat-card-content>
   <mat-card-actions>

@@ -12,13 +12,13 @@ export class LoginService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      ContentType: 'application/json'
+      'Content-Type': 'application/json'
     })
 };
 
   constructor(private http: HttpClient) { }
 
   Login(user: Login) {
-    return this.http.post<Login>(`${this.server}Login/Login`, user, this.httpOptions);
+    return this.http.post(`${this.server}Login/Login`, user);
   }
 }

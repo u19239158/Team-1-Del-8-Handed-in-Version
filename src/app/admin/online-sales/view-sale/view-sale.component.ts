@@ -1,5 +1,5 @@
 import { OnlineSales } from 'src/app/interfaces';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,6 +10,7 @@ import { OnlineSalesService } from 'src/app/services/online-sales/online-sales.s
 enum CheckBoxType { READY_FOR_COLLECTION, READY_FOR_DELIVERY, NONE };
 import { AbstractControlOptions, FormGroup, FormBuilder } from '@angular/forms';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Component({
   selector: 'app-view-sale',
@@ -85,22 +86,17 @@ export class ViewSaleComponent implements OnInit {
   }
 
   PackOrder() {
-    //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
-    // this.OnlineSalesService.GetSaleByID(saleID).subscribe(res=>{
-    //   this.sale =res;
-    //   console.log(this.sales)
     const confirm = this.dialog.open(GlobalConfirmComponent, {
       disableClose: true,
      });
-
     this.isHidden = false;
 
     confirm.afterClosed().subscribe(res => {
       if (res){
+        this.router.navigateByUrl('onlineSales');
     this.OnlineSalesService.GetSaleByID(this.id).subscribe(data => {
       console.log(data)
-    
-    if (data.saleOrderRecieveType = "true")
+    if (data.saleOrderRecieveType = "Collection" )
   {
     //Collection()
     {
@@ -111,7 +107,6 @@ export class ViewSaleComponent implements OnInit {
           console.log(res)
         });
       });
-  
       this.OnlineSalesService.GetCustomerBySaleID(this.id).subscribe(data=>{
         this.sales = data
         console.log(data) 
@@ -129,11 +124,34 @@ export class ViewSaleComponent implements OnInit {
         //console.log(this.sale)
         this.OnlineSalesService.Delivery(this.sale).subscribe(res =>{
           console.log(res)});
-      });
+      })
     }
+    if(data.orderStatusId != "1"){
+    (error: HttpErrorResponse) =>
+    {
+      console.log(error.error,"test")
+     if (error.status === 400)
+    {
+      this.snack.open(error.error, 'OK', 
+      {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+        duration: 3000
+      });
+      return;
+    }
+    }
+    
+  };
   });
-};
-
+  };
+ 
+this.snack.open('Order Successfully packed ', 'OK', 
+          {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 2500
+          });
 })
 }
 

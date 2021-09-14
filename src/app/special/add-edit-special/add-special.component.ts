@@ -1,0 +1,121 @@
+import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { Productitem, WriteOffStock,Categorytype } from 'src/app/interfaces';
+import { WriteOffStockService } from 'src/app/services/admin/write-off-stock/write-off-stock.service';
+import { Observable } from 'rxjs';
+import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { ProductitemService } from 'src/app/services/productitem/productitem.service';
+
+
+@Component({
+  selector: 'app-add-special',
+  templateUrl: './add-special.component.html',
+  styleUrls: ['./add-special.component.scss']
+})
+
+export class AddSpecialComponent implements OnInit {
+  //search code
+ProductItems: Productitem[];
+searchItem: string;
+  
+  loading = false;
+  submitted = false;
+  isHidden: boolean = true;
+  collection = [];
+  selected: string;
+  writeOffStocks: WriteOffStock[] = [];
+  writeOffStock: Observable<WriteOffStock[]>;
+  productitems: Productitem[] = [];
+  productitem: Observable<Productitem[]>;
+  dataSource = new MatTableDataSource<Productitem>();
+  displayedColumns: string[] = ['productItem', 'quantity', 'actions'];
+  productItemService: any;
+  public pItem : any =[];
+  form = this.FB.group({
+    writtenOffStockDate: ['',Validators.required],
+    categoryTypeId: ['',Validators.required]
+  }) 
+  Tableform;
+ 
+
+  constructor(
+    productItemService: ProductitemService,
+    private writeOffStockService: WriteOffStockService,
+    private http: HttpClient,
+    private router: Router,
+    private FB:FormBuilder,
+  ) { }
+
+  
+  ngOnInit(): void {
+    this.getCollection();
+    
+    const formOptions: AbstractControlOptions = { };
+    // this.Tableform = this.FB.group({
+    //   categoryTypeDescription: ['', [Validators.required]],
+    //   writeOffReason: ['', [Validators.required]],
+    //   writtenOffStockDate: ['', [Validators.required]],
+    //   writeOffQuantity: ['', [Validators.required]],
+      
+    //   }, formOptions);
+  }
+
+  // getProductItemByCategoryType() : void {
+  //   this.isHidden = false;
+
+  //   this.productItemService.GetProductItem().subscribe(res => {
+  //   console.log(res)
+    
+  //   this.dataSource = new MatTableDataSource(res.filter(e=>e.productItemName.toLowerCase().includes(this.searchItem.toLowerCase())))
+  //    })
+
+  //   this.dataSource = new MatTableDataSource (this.ProductItems.filter(e=>e.productItemName.toLowerCase().includes(this.searchItem.toLowerCase())))
+  // }
+
+  getCollection() {
+    this.http
+      .get<any>('https://localhost:44393/api/CategoryType/GetCategoryType').subscribe((res: any) => {
+        this.collection = res;
+        //console.log = res;
+      }, error => {
+        console.log({ error });
+      })
+  }
+
+//   SendID(productItemId: any) {
+//     //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
+//   this.productItemService.getProductItemByID(productItemId).subscribe(res=>{
+//     this.pItem =res;
+//     console.log(this.pItem)
+   
+//   });
+//   }
+
+//   readWriteOff(): void {
+//     this.WriteOffStockService.getWriteOff().subscribe(res => {
+//       console.log(res)
+//       //this.dataSource = new MatTableDataSource(res)
+//     })
+//    //this.dataSource = new MatTableDataSource<Categorytype>(this.categorytypeService.getAll());
+//  }
+
+onClick(){
+
+}
+
+  showProducts(){
+    this.isHidden = false;
+    this.writeOffStockService.getProductByCatType(this.form.value.categoryTypeId).subscribe(res => {
+      console.log(res)
+     this.dataSource = new MatTableDataSource(res)
+    })
+   ;
+
+    // this.productItemService.getProductByCatType(this.ProductItems).subscribe((result => {
+      
+    // }));
+  }
+
+}

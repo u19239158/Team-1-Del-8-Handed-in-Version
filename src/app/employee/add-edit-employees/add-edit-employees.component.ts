@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 // import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
@@ -25,6 +26,7 @@ export class AddEditEmployeesComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private snack : MatSnackBar,
     private route: ActivatedRoute,
     private router: Router,
     private EmployeeService: EmployeeService,
@@ -102,6 +104,12 @@ export class AddEditEmployeesComponent implements OnInit {
       this.loading = false
       this.router.navigateByUrl('employees');
     })
+    this.snack.open('Successfully Added Employee! ', 'OK', 
+    {
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      duration: 2000
+    });
   }
 
   updateEmployee() {
@@ -111,6 +119,12 @@ export class AddEditEmployeesComponent implements OnInit {
       console.log(res)
       // this.form.reset()
       this.router.navigateByUrl('employees');
+    });
+    this.snack.open('Successfully Updated Employee! ', 'OK', 
+    {
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      duration: 2000
     });
   }
 

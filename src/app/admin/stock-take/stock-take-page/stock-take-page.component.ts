@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 //import { StockTakeService } from './../../../services/admin/stock-take/stock-take.service';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -26,6 +27,7 @@ export class StockTakePageComponent implements OnInit {
   constructor(
     private router: Router,
     private route : ActivatedRoute,
+    private snack : MatSnackBar,
     private StockTakeService : StockTakeService,
     private FormBuilder : FormBuilder
   ) { }
@@ -64,6 +66,12 @@ export class StockTakePageComponent implements OnInit {
       console.log(res)
       this.loading = false
       this.router.navigateByUrl('/stockTake');
+    });
+    this.snack.open('Successfully Performed Stock Take! ', 'OK', 
+    {
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      duration: 2000
     });
   }
 
