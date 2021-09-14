@@ -109,3 +109,38 @@ a
 a:active {
   color: #4400ff;
 }
+
+table {
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+  column-gap: 40px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+tr:hover {background-color: rgba(34, 34, 235, 0.76);}
+
+th {
+  // background-color: #2326caa6;
+  background-color: rgba(34, 34, 235, 0.76);
+  color: black;
+  font-weight: 40;
+  font-size: 20px;
+}
+
+.content {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h2 {
+  text-align: center;
+  font-weight: 40;
+  font-size: 45px;
+}
