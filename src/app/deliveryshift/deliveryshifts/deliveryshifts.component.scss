@@ -12,8 +12,9 @@ h2 {
 
   table {
     border-collapse: collapse;
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%;
+    // margin-left: auto;
+    // margin-right: auto;
   }
   
   th, td {
@@ -23,8 +24,6 @@ h2 {
   
   tr:nth-child(even){background-color: #f2f2f2}
 
-  tr:hover {background-color: rgba(34, 34, 235, 0.76);}
-  
   th {
     // background-color: #2326caa6;
     background-color: rgba(34, 34, 235, 0.76);
