@@ -78,6 +78,8 @@ namespace NKAP_API_2.Controllers
         //get Sales by Date (Read)
         public IActionResult getProducts()
         {
+            var markup = _db.Markups.FirstOrDefault(zz => zz.MarkupId == 3);
+            var VAT = _db.Vats.FirstOrDefault(zz => zz.VatId == 2);
             var Stocklevel = _db.ProductItems.Join(_db.CategoryTypes,
                  su => su.CategoryTypeId,
                  so => so.CategoryTypeId,
@@ -101,6 +103,8 @@ namespace NKAP_API_2.Controllers
                   {
                       ProductItemId = su.ProductItemId,
                       ProductItemCost = su.ProductItemCost,
+                      sellingPrice = su.ProductItemCost + (su.ProductItemCost * markup.MarkupPercentage), //VAT Exclusive
+                     // VATInclusive = (su.ProductItemCost + (su.ProductItemCost * markup.MarkupPercentage))  
                       ProductItemName = su.ProductItemName, //attributes in table
                       CategoryTypeImage = su.CategoryTypeImage,
                       CategoryTypeId = su.CategoryTypeId,
@@ -108,7 +112,24 @@ namespace NKAP_API_2.Controllers
                       ItemDescription = su.ItemDescription,
                       ProductCategoryId = so.ProductCategoryId,
                       ProductCategoryDescription = so.ProductCategoryDescription
-                  });
+                  }).Join(_db.ProductCategories,
+                 su => su.ProductCategoryId,
+                 so => so.ProductCategoryId,
+                  (su, so) => new
+                  {
+                      ProductItemId = su.ProductItemId,
+                      ProductItemCost = su.ProductItemCost,
+                      sellingPrice = su.sellingPrice, //VAT Exclusive
+                      VATInclusive = su.sellingPrice + (su.sellingPrice * VAT.VatPercentage), //VAT Inclusive
+                      VATAmount = su.sellingPrice + (su.sellingPrice * VAT.VatPercentage) - su.sellingPrice, //VAT Amount
+                      ProductItemName = su.ProductItemName, 
+                      CategoryTypeImage = su.CategoryTypeImage,
+                      CategoryTypeId = su.CategoryTypeId,
+                      CategoryTypeDescription = su.CategoryTypeDescription,
+                      ItemDescription = su.ItemDescription,
+                      ProductCategoryId = so.ProductCategoryId,
+                      ProductCategoryDescription = so.ProductCategoryDescription
+                  }); 
 
             return Ok(Stocklevel);
 
