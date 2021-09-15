@@ -65,12 +65,12 @@
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu" xPosition="after">
-                    <button mat-menu-item *ngIf="parseInteger(element.deliveryDistance.slice(0, -2)) >50"
-                        [ngClass]="{'disable':parseInteger(element.deliveryDistance.slice(0, -2)) >50}"
+                    <button mat-menu-item *ngIf="parseInteger(element.deliveryDistance.slice(0, -2)) <=50"
+                       
                         [routerLink]="parseInteger(element.deliveryDistance.slice(0, -2)) >50? []: ['/assignlocaldelivery', element.saleId]">Assign
                         Delivery</button>
-                    <button mat-menu-item *ngIf="parseInteger(element.deliveryDistance.slice(0, -2)) <=50"
-                        [ngClass]="{'disable':parseInteger(element.deliveryDistance.slice(0, -2)) <=50}"
+                    <button mat-menu-item *ngIf="parseInteger(element.deliveryDistance.slice(0, -2)) >50"
+                       
                         [routerLink]="parseInteger(element.deliveryDistance.slice(0, -2)) <=50? []: ['/assigncourierdelivery' , element.saleId]">Assign
                         Courier</button>
                 </mat-menu>

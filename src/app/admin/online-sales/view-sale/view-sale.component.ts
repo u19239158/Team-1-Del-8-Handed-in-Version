@@ -96,7 +96,7 @@ export class ViewSaleComponent implements OnInit {
         this.router.navigateByUrl('onlineSales');
     this.OnlineSalesService.GetSaleByID(this.id).subscribe(data => {
       console.log(data)
-    if (data.saleOrderRecieveType === "Collection" )
+    if (data.saleOrderRecieveType == true )
   {
     {
       this.OnlineSalesService.GetSaleByID(this.id).subscribe(res => {
@@ -115,7 +115,7 @@ export class ViewSaleComponent implements OnInit {
      });
     }
   }
-  else 
+  else
     {
       this.OnlineSalesService.GetSaleByID(this.id).subscribe(res=>{
         this.sale =res;
@@ -139,7 +139,7 @@ export class ViewSaleComponent implements OnInit {
       return;
     }
     }
-    window.location.reload();
+    //window.location.reload();
   };
   });
   };
