@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { DeliveryshiftService } from 'src/app/services/deliveryshift/deliveryshift.service';
 import { Component, OnInit } from '@angular/core';
@@ -38,6 +39,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private snack :MatSnackBar,
     private DeliveryShiftService: DeliveryshiftService,
     private http: HttpClient
   ) { }
@@ -153,6 +155,12 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
       this.loading = false
       this.router.navigateByUrl('deliveryShift');
     });
+    this.snack.open('Successfully Added Delivery Shift! ', 'OK', 
+    {
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      duration: 2000
+    });
   }
 
   updateDeliveryshift() {
@@ -166,6 +174,12 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
       console.log(res)
       this.form.reset();
       this.router.navigateByUrl('deliveryShift');
+    });
+    this.snack.open('Successfully Updated Delivery Shift! ', 'OK', 
+    {
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      duration: 2000
     });
   }
 

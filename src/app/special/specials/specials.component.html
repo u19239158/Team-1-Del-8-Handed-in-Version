@@ -20,8 +20,10 @@
   </div>
 
   <app-global-error *ngIf="dataNotFound"></app-global-error>
+<br>
+<br>
 
-<div class="mat-elevation-z8 table">
+<div>
     <table mat-table [dataSource]="dataSource" matSort  *ngIf="!dataNotFound">
 
           <ng-container matColumnDef="productItemName">

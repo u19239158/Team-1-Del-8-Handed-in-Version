@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { AddEditSupplierComponent } from './supplier/add-edit-supplier/add-edit-supplier.component';
 import { SuppliersComponent } from './supplier/suppliers/suppliers.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { ReceiveSupplierOrderComponent } from './supplier/receive-supplier-order/receive-supplier-order.component';
 import { PlaceSupplierOrderComponent } from './supplier/place-supplier-order/place-supplier-order.component';
@@ -17,6 +18,7 @@ import { EmployeesComponent } from './employee/employees/employees.component';
 import { SpecialsComponent } from './special/specials/specials.component';
 import { AddEditSpecialComponent } from './special/add-edit-special/add-edit-special.component';
 import { EditSpecialComponent } from './special/add-edit-special/edit-special.component';
+import { AddSpecialComponent } from './special/add-edit-special/add-special.component';
 
 import { UserRoleComponent } from './userRole/user-role/user-role.component';
 import { AddEditUserRoleComponent } from './userRole/add-edit-user-role/add-edit-user-role.component';
@@ -79,8 +81,12 @@ const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: 'login',
+    path: '',
     component: LogoutComponent,
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
   },
   {
     path: 'employees',
@@ -133,6 +139,10 @@ const routes: Routes = [
   {
     path: 'specialEdit/:id',
     component: EditSpecialComponent
+  },
+  {
+    path: 'specialAdd',
+    component: AddSpecialComponent
   },
   {
     path: 'userRole',

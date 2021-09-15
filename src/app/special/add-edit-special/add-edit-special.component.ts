@@ -5,6 +5,7 @@ import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@ang
 import { ActivatedRoute, Router } from '@angular/router';
 import { Special, Productitem } from 'src/app/interfaces';
 import { HttpClient } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-edit-special',
@@ -30,6 +31,7 @@ export class AddEditSpecialComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
+private snack : MatSnackBar,
         private SpecialService: SpecialService,
         private http : HttpClient
 
@@ -56,21 +58,21 @@ export class AddEditSpecialComponent implements OnInit {
       specialEndDate: ['', [Validators.required]],
     }, formOptions);
 
-    if (!this.isAddMode) {
-      //this.SpecialService.getSpecialByID(this.id).subscribe(res => {
-        //this.special = res
-       // console.log(res)
-        this.form = this.formBuilder.group({
-        //  id: [this.special.specialID, Validators.required],
-          //specialImage: [this.special.specialImage, [Validators.required]],
-          specialDescription: [this.special.specialDescription, [Validators.required]],
-          discountId: [this.special.discountId, [Validators.required]],
-          //productItemId: [this.special.productItemId,[Validators.required] ],
-          specialStartDate: [this.special.specialStartDate, [Validators.required]],
-          specialEndDate: [this.special.specialEndDate,[Validators.required]],
-    }, formOptions);
-      ;
-    }
+    // if (!this.isAddMode) {
+    //   //this.SpecialService.getSpecialByID(this.id).subscribe(res => {
+    //     //this.special = res
+    //    // console.log(res)
+    //     this.form = this.formBuilder.group({
+    //     //  id: [this.special.specialID, Validators.required],
+    //       //specialImage: [this.special.specialImage, [Validators.required]],
+    //      // specialDescription: [this.special.specialDescription, [Validators.required]],
+    //       discountId: [this.special.discountId, [Validators.required]],
+    //       //productItemId: [this.special.productItemId,[Validators.required] ],
+    //       specialStartDate: [this.special.specialStartDate, [Validators.required]],
+    //       specialEndDate: [this.special.specialEndDate,[Validators.required]],
+    // }, formOptions);
+    //   ;
+    // }
   }
 
 
@@ -110,6 +112,13 @@ export class AddEditSpecialComponent implements OnInit {
       console.log(res)
       this.loading = false
       this.router.navigateByUrl('special');
+    });
+
+    this.snack.open('Special Successfully Added! ', 'OK', 
+    {
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      duration: 2000
     });
   }
 

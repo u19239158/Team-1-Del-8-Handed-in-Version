@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomerService } from './../../services/customer/customer.service';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -28,6 +29,7 @@ constructor(
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
       private router: Router,
+    private snack : MatSnackBar,
       private customerService: CustomerService,
       private http: HttpClient    
 ) { }
@@ -117,7 +119,12 @@ if (!this.isAddMode) {
       //this.form.reset();
       this.router.navigateByUrl('customer');
     });
-
+    this.snack.open('Successfully Updated Customer! ', 'OK', 
+    {
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      duration: 2000
+    });
   }
 
   Close() {

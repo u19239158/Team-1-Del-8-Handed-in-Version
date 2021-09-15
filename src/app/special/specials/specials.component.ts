@@ -75,6 +75,13 @@ public specspeiial : any = [];
           this.readSpecials();
         });
 
+        this.snack.open('Special Successfully Deleted! ', 'OK', 
+        {
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center',
+          duration: 1000
+        });
+
       }
     });
   })

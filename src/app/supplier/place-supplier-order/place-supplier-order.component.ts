@@ -1,4 +1,3 @@
-import { QuantityModalComponent } from './quantity-modal.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -21,7 +20,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
   Productitems: Productitem[];
   searchValue: string;
   dataNotFound: boolean;
-
+  
   form: FormGroup;
   loading = false;
   submitted = false;
@@ -39,8 +38,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
   highlight(element: PlaceSupplierOrder) {
     element.highlighted = !element.highlighted;
   }
-  @ViewChild('quantity') menuTrigger: QuantityModalComponent;
-
+  
   constructor(
     private productitemService: ProductitemService,
     private placeSupplierOrderService: PlaceSupplierOrderService,
@@ -109,8 +107,9 @@ export class PlaceSupplierOrderComponent implements OnInit {
   }
 
   placeOrder() {
-    const dialogRef = this.dialog.open(QuantityModalComponent, {restoreFocus: false});
-    dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
-    this.router.navigateByUrl('login');
-    }
+    // const dialogRef = this.dialog.open(QuantityModalComponent, {restoreFocus: false});
+    // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
+    // this.router.navigateByUrl('login');
+    
+  }
 }

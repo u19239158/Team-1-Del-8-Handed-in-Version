@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserRoleService } from '../../services/user-role/user-role.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -22,6 +23,7 @@ export class AddEditUserRoleComponent implements OnInit {
   constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
+        private snack: MatSnackBar,
         private router: Router,
         private UserRoleService: UserRoleService,
   ) { }
@@ -69,8 +71,14 @@ export class AddEditUserRoleComponent implements OnInit {
       this.loading = false
       this.router.navigateByUrl('userRole');
     })
-
+    this.snack.open('Successfully Added User Role! ', 'OK', 
+    {
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      duration: 2000
+    });
   }
+
   updateUserRole() {
     const userRole: UserRole = this.form.value;
     userRole.userRoleId = this.UserRole.userRoleId;
@@ -79,7 +87,12 @@ export class AddEditUserRoleComponent implements OnInit {
       //this.form.reset();
       this.router.navigateByUrl('userRole');
     });
-
+    this.snack.open('Successfully Updated User Role! ', 'OK', 
+    {
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      duration: 2000
+    });
   }
 
   Close() {

@@ -45,6 +45,7 @@ import { AddEditProductcategorysComponent } from './productcategory/add-edit-pro
 import { CustomersComponent } from './customer/customers/customers.component';
 import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
 import {EditSpecialComponent} from './special/add-edit-special/edit-special.component';
+import { AddSpecialComponent } from './special/add-edit-special/add-special.component';
 
 import { MaterialModule } from './material/material/material.module';
 import { HeaderComponent } from './navigation/header/header.component';
@@ -78,6 +79,7 @@ import { ViewSaleComponent } from './admin/online-sales/view-sale/view-sale.comp
 import { ViewDeliveryDetailsComponent } from './deliveryshift/view-delivery-details/view-delivery-details.component';
 import { ViewEmployeeDeliveryShiftsComponent } from './deliveryshift/view-employee-delivery-shifts/view-employee-delivery-shifts.component';
 import { DeliveryAssignedComponent } from './modals/globals/delivery-assigned/delivery-assigned.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 const firebaseConfig = {
@@ -101,6 +103,7 @@ const firebaseConfig = {
     SpecialsComponent,
     AddEditSpecialComponent,
     EditSpecialComponent,
+    AddSpecialComponent,
     UserRoleComponent,
     AddEditUserRoleComponent,
     HeaderComponent,
@@ -148,6 +151,7 @@ const firebaseConfig = {
     ViewDeliveryDetailsComponent,
     ViewEmployeeDeliveryShiftsComponent,
     DeliveryAssignedComponent,
+    DashboardComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),

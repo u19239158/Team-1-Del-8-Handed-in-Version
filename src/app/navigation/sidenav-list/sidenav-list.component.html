@@ -30,6 +30,12 @@
     <button mat-menu-item routerLink="/couriers" (click)="onSidenavClose()">View Couriers</button>
   </mat-menu>
 
+<!-- Dashboard -->
+  <a mat-list-item routerLink="/dashboard" (click)="onSidenavClose()">
+    <!-- <mat-icon>home</mat-icon>  -->
+    <img src="assets/images/Report.png" class="w3-margin-right" width=20px height=20px>
+    <span class="nav-caption"> Dashboard</span>
+  </a>
 
   <!-- Delivery Shift -->
   <mat-list-item [matMenuTriggerFor]="menu6">
@@ -70,7 +76,7 @@
     <a matline> Promotions</a>
   </mat-list-item>
   <mat-menu #menu5="matMenu">
-    <!-- <button mat-menu-item routerLink="/specialAdd" (click)="onSidenavClose()">Add Special</button> -->
+     <button mat-menu-item routerLink="/specialAdd" (click)="onSidenavClose()">Add Special</button> 
     <button mat-menu-item routerLink="/special" (click)="onSidenavClose()">View Specials</button>
   </mat-menu>
 
@@ -81,7 +87,7 @@
     <a matline> Reports</a>
   </mat-list-item>
   <mat-menu #menu8="matMenu">
-    <button mat-menu-item routerLink="/deliveryReport" (click)="onSidenavClose()">Delivery Report Report</button>
+    <button mat-menu-item routerLink="/deliveryReport" (click)="onSidenavClose()">Delivery Report</button>
     <button mat-menu-item routerLink="/fastSellingProductsReport" (click)="onSidenavClose()">Fast Selling Products Report</button> 
     <button mat-menu-item routerLink="/monthlySalesOrderReport" (click)="onSidenavClose()">Monthly Sales Report</button>
     <button mat-menu-item routerLink="/mostFrequentBuyersReport" (click)="onSidenavClose()">Most Frequent Buyers Report</button>
@@ -115,10 +121,6 @@
     <button mat-menu-item routerLink="/customer" (click)="onSidenavClose()">Customer</button>
     <button mat-menu-item routerLink="/userRole" (click)="onSidenavClose()">User Role</button>
   </mat-menu>
-
-  <br>
-  <br>
-  <br>
 
   <a mat-list-item routerLink="/" (click)="onSidenavClose()">
     <!-- <mat-icon>help_outline</mat-icon>  -->

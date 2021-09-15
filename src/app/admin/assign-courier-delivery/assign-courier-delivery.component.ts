@@ -91,6 +91,12 @@ export class AssignCourierDeliveryComponent implements OnInit {
     
     this.AssignCourierDeliveryService.NotifyCourier(this.sales,this.couriers.courierEmail).subscribe(res => {
       console.log(res)});
+      this.snack.open('Courier Succesfully Assigned!', 'OK', 
+      {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+        duration: 2000
+      });
   });
   }
 
@@ -102,7 +108,7 @@ export class AssignCourierDeliveryComponent implements OnInit {
       
   this.AssignCourierDeliveryService.AssignCourier(this.id).subscribe(data=>{
     console.log(data)
-
+   
     
   });
 

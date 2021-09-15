@@ -1,8 +1,7 @@
 h2 {
-  //text-align: left;
-  font-weight: 400;
+  text-align: center;
+  font-weight: 40;
   font-size: 45px;
-  left: 40px;
 }
   .content {
   margin: 0;
@@ -11,19 +10,30 @@ h2 {
   left: 25%;
   }
 
-  table {
-      margin-top: 20px;
-      width: 100%;
-      background-color: white;
+  mat-icon {
+    color: black;
   }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    // margin-left: auto;
+    // margin-right: auto;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even){background-color: #f2f2f2}
 
   th {
-    top: 10px;
-    text-align: center;
-    font-size: medium;
-  }
-  td {
-    border-bottom: 1px solid #ddd;
+    // background-color: #2326caa6;
+    background-color: rgba(22, 101,  216, 100%);
+    color: black;
+    font-weight: 40;
+    font-size: 20px;
   }
 
   #addBtn {

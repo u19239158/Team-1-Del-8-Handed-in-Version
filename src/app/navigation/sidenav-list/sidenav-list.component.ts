@@ -25,10 +25,21 @@ export class SidenavListComponent implements OnInit {
   }
 
 
+  // Logout() {
+  //   const dialogRef = this.dialog.open(LogoutComponent, {restoreFocus: false});
+  //   dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
+  //   this.router.navigateByUrl('login');
+  //   this.onSidenavClose();
+  // }
+
   Logout() {
-    const dialogRef = this.dialog.open(LogoutComponent, {restoreFocus: false});
-    dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
-    this.router.navigateByUrl('login');
-    this.onSidenavClose();
-  }
+    const confirm = this.dialog.open(LogoutComponent, {
+             disableClose: true,
+            });
+  
+    confirm.afterClosed().subscribe(res => {
+      this.router.navigateByUrl('login');
+      this.onSidenavClose();
+        })
+      }
 }

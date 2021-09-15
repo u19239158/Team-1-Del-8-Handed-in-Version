@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Categorytype } from 'src/app/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class AddEditCategorytypesComponent implements OnInit {
   categorytypes: Observable<Categorytype[]>;
   collection = [];
   selected: string;
-  path: string;
+  path: File;
   selectedImage: File;
   url : string;
   image : string = null;
@@ -39,6 +40,7 @@ export class AddEditCategorytypesComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private snack: MatSnackBar,
     private CategorytypeService: CategorytypeService,
     private http: HttpClient,
     private storage : AngularFireStorage
@@ -47,36 +49,8 @@ export class AddEditCategorytypesComponent implements OnInit {
 
   async upload(event) {    
     this.path = event.target.files[0]
-    const filePath = 'test';
-    const task = this.storage.upload('/images'+Math.random()+filePath, this.path);
-    const ref = this.storage.ref(filePath);
-    console.log(ref);
-    // upload image, save url
-    await task;
-    console.log('Image uploaded!');
-
-
-
-
-
-
-    this.image = await this.ref.getDownloadURL().toPromise()
-    console.log(this.image)
-
-    const formOptions: AbstractControlOptions = {};
-    this.form = this.formBuilder.group({
-      categoryTypeDescription: ['', [Validators.required, Validators.maxLength(50)]],
-      categoryTypeImage : this.image,
-      itemDescription: ['', [Validators.required, Validators.maxLength(50)]],
-      productCategoryID: ['', [Validators.required, Validators.maxLength(50)]],
-
-    }, formOptions);
-
-   
-    
   }
  
-
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
@@ -86,7 +60,7 @@ export class AddEditCategorytypesComponent implements OnInit {
     const formOptions: AbstractControlOptions = {};
     this.form = this.formBuilder.group({
       categoryTypeDescription: ['', [Validators.required, Validators.maxLength(50)]],
-      categoryTypeImage : this.image,
+     // categoryTypeImage : this.image,
      // categoryTypeImage: ['', [Validators.required]],
       itemDescription: ['', [Validators.required, Validators.maxLength(50)]],
       productCategoryID: ['', [Validators.required, Validators.maxLength(50)]],
@@ -97,7 +71,7 @@ export class AddEditCategorytypesComponent implements OnInit {
         this.categorytype = res
         console.log(res)
         this.form = this.formBuilder.group({
-          categoryTypeImage : this.image,
+          //categoryTypeImage : this.image,
           categoryTypeDescription: [this.categorytype.categoryTypeDescription, [Validators.required, Validators.maxLength(50)]],
           //categoryTypeImage: [this.image, [Validators.required]],
           itemDescription: [this.categorytype.itemDescription, [Validators.required, Validators.maxLength(50)]],
@@ -108,16 +82,19 @@ export class AddEditCategorytypesComponent implements OnInit {
     }
   }
 
-  
+ 
    
-  // uploadImage(){
-  //   console.log(this.path)
-  //    const img =this.storage.upload('/images'+Math.random()+this.path, this.path);
-  //   const fileref = this.storage.ref(this.path);
+  async uploadImage(){
+    const key = `/files${Math.random()}${this.path.name}`;
+    console.log(this.path)
+     await this.storage.upload(key, this.path);
+  
+    const fileref = this.storage.ref(key);
 
-  //   //const downloadUrl = img.getDownloadURL();
+    const downloadUrl = fileref.getDownloadURL();
+    return downloadUrl;
 
-  // }
+  }
 
     
   // chooseFile(event){
@@ -150,13 +127,26 @@ export class AddEditCategorytypesComponent implements OnInit {
 console.log(this.path)
   }
 
-  createCategorytype() {
-    const categorytype: Categorytype = this.form.value;
+  async createCategorytype() {
    
+   const img = await this.uploadImage();
+   img.subscribe(imgpath =>{
+    const categorytype: Categorytype = {
+      ...this.form.value,
+      categoryTypeImage: imgpath
+    };
     this.CategorytypeService.CreateCategoryType(categorytype).subscribe(res => {
       console.log(res)
       this.loading = false
       this.router.navigateByUrl('categoryType');
+    });
+   }
+    )
+    this.snack.open('Category Type Successfully Added! ', 'OK', 
+    {
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      duration: 2000
     });
   }
 
@@ -171,15 +161,27 @@ console.log(this.path)
 
   }
 
-  updateCategorytype() {
-    const categorytype: Categorytype = this.form.value;
+  async updateCategorytype() {
+    const img = await this.uploadImage();
+    img.subscribe(imgpath =>{
+     const categorytype: Categorytype = {
+       ...this.form.value,
+       categoryTypeImage: imgpath
+     };
 
     categorytype.categoryTypeId = this.categorytype.categoryTypeId;
     this.CategorytypeService.UpdateCategoryType(categorytype).subscribe(res => {
       console.log(res)
       this.form.reset();
       this.router.navigateByUrl('categoryType');
-    });
+    });})
+
+    this.snack.open('Category Type Successfully Updated! ', 'OK', 
+          {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 2000
+          });
   }
 
   Close() {

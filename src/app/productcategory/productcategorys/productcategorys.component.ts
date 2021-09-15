@@ -24,7 +24,7 @@ dataNotFound: boolean;
   productcategorys: Productcategory[] = [];
   productcategory: Observable<Productcategory[]>;
   dataSource = new MatTableDataSource<Productcategory>();
-  displayedColumns: string[] = ['productCategoryName', 'actions'];
+  displayedColumns: string[] = ['productCategoryImage', 'productCategoryName','actions'];
 
   constructor(private productcategoryService: ProductcategoryService,
               private snack: MatSnackBar,
@@ -79,15 +79,16 @@ dataNotFound: boolean;
             verticalPosition: 'bottom',
             horizontalPosition: 'center',
             duration: 3000
-          });
-         
-          
+          });   
           return;
         }
-  
-        
       });
-
+      this.snack.open('Product Category Successfully Deleted! ', 'OK', 
+      {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+        duration: 1000
+      });
       }
     });
   }

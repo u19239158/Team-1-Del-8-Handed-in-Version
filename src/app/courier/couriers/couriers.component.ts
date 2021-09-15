@@ -83,14 +83,16 @@ export class CouriersComponent implements OnInit {
             horizontalPosition: 'center',
             duration: 3000
           });
-         
-          
           return;
         }
-  
-        
       })
       }
+      this.snack.open('Successfully Deleted Courier! ', 'OK', 
+      {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+        duration: 2000
+      });
     });
   }
 }

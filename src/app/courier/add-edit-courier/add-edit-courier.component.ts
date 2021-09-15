@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { CourierService } from 'src/app/services/courier/courier.service';
 import { Component, OnInit } from '@angular/core';
@@ -28,6 +29,7 @@ export class AddEditCourierComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private snack: MatSnackBar,
     private CourierService: CourierService,
     private http: HttpClient
   ) { }
@@ -80,6 +82,13 @@ export class AddEditCourierComponent implements OnInit {
       this.loading = false;
       this.router.navigateByUrl('couriers');
     });
+
+    this.snack.open('Successfully Added Courier! ', 'OK', 
+    {
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      duration: 2000
+    });
   }
 
   getCollection() {
@@ -101,6 +110,12 @@ export class AddEditCourierComponent implements OnInit {
       console.log(res)
       this.form.reset();
       this.router.navigateByUrl('couriers');
+    });
+    this.snack.open('Successfully Updated Courier! ', 'OK', 
+    {
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      duration: 2000
     });
   }
 

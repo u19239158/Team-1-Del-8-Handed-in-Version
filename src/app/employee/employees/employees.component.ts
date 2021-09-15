@@ -67,7 +67,6 @@ export class EmployeesComponent implements OnInit {
     const confirm = this.dialog.open(GlobalConfirmComponent, {
       disableClose: true,
     });
-
     confirm.afterClosed().subscribe(res => {
       if (res) {
         this.EmployeeService.DeleteEmployee(Employee).subscribe(data => {
@@ -82,17 +81,19 @@ export class EmployeesComponent implements OnInit {
             verticalPosition: 'bottom',
             horizontalPosition: 'center',
             duration: 3000
-          });
-         
-          
+          }); 
           return;
-        }
-  
-        
-      })}
-    
-
+        };
+      })
+      this.snack.open('Successfully Deleted Employee! ', 'OK', 
+      {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+        duration: 1500
+      });
+    }
     });
+   
     }
     
     
