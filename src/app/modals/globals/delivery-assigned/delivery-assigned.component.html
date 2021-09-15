@@ -1,0 +1,10 @@
+  
+<h2 mat-dialog-title>Success!</h2>
+<mat-dialog-content class="mat-typography">
+    <p>
+        Order has been assigned for delivery. 
+    </p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button type="submit" color="primary" cdkFocusInitial [routerLink]="['/assigndeliveryorder']" (click)="Confirm()">OK</button>
+</mat-dialog-actions>

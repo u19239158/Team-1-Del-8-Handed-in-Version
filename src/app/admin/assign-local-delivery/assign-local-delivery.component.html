@@ -80,8 +80,7 @@
                     </th>
                     <td mat-header-cell *matCellDef="let element">
                         <input type="checkbox" name="assign" [checked]="currentlyChecked === element.employeeShiftId"
-                            (click)="selectCheckBox(element.employeeShiftId)"
-                            (click)="Assign(element.employeeShiftId)">
+                            (click)="selectCheckBox(element.employeeShiftId)" (click)="Assign(element.employeeShiftId)">
 
                     </td>
                 </ng-container>
@@ -90,6 +89,8 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
 
-           
+
         </div>
-        <button  mat-raised-button color ="primary" [routerLink]="['/assigndeliveryorder']"  mat-button>Cancel</button>
+        <!-- Done button must show the delivery assigned modal(the delivery assigned modal is not in the ts) -->
+        <button mat-raised-button color="primary" (click)="showModal()" mat-button>Done</button>
+        <!-- <button [routerLink]="['/assigndeliveryorder']" mat-button>Cancel</button> -->
