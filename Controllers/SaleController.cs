@@ -540,7 +540,7 @@ namespace NKAP_API_2.Controllers
                     AddressPostalCode = sor.AddressPostalCode,
                     ProductItemId = sd.ProductItemId,
                     ProductItemName = sd.ProductItemName
-                }).First(ss => ss.SaleID == saleid);
+                }).Where(ss => ss.SaleID == saleid);
 
             return Ok(Sale);
         }

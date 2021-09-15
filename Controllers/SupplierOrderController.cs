@@ -47,15 +47,35 @@ namespace NKAP_API_2.Controllers
                 (sor,sd) => new
                 {
                     SupplierOrderID = sor.SupplierOrderID,
-                    Order_Status = sd.SupplierOrderStatusDesc,
+                    SupplierOrderStatusDesc = sd.SupplierOrderStatusDesc,
                     SupplierName = sor.SupplierName,
-                    OrderStatusID = sor.SupplierOrderStatusId,
+                    SupplierOrderStatusId = sor.SupplierOrderStatusId,
                     SupplierID = sor.SupplierID,
                     OrderDatePlaced = sor.OrderDatePlaced,
                     OrderDateReceived = sor.OrderDateReceived,
                     SupplierOrderTotal = sor.SupplierOrderTotal,
                     SupplierOrderSubTotal = sor.SupplierOrderTotal,
                     SupplierOrderVat = sor.SupplierOrderVat
+
+                }).Join(_db.SupplierOrderLines,
+                sor => sor.SupplierOrderID,
+                sd => sd.SupplierOrderId,
+                (sor, sd) => new
+                {
+                    SupplierOrderID = sor.SupplierOrderID,
+                    SupplierOrderStatusDesc = sor.SupplierOrderStatusDesc,
+                    SupplierName = sor.SupplierName,
+                    SupplierOrderStatusId = sor.SupplierOrderStatusId,
+                    SupplierID = sor.SupplierID,
+                    OrderDatePlaced = sor.OrderDatePlaced,
+                    OrderDateReceived = sor.OrderDateReceived,
+                    SupplierOrderTotal = sor.SupplierOrderTotal,
+                    SupplierOrderSubTotal = sor.SupplierOrderSubTotal,
+                    SupplierOrderVat = sor.SupplierOrderVat,
+                    SupplierProducts = sd.SupplierProducts,
+                    SupplierQuantityOrdered = sd.SupplierQuantityOrdered,
+                    SupplierOrderLineCost = sd.SupplierOrderLineCost,
+                    ProductItemId = sd.ProductItemId
 
                 });
 
