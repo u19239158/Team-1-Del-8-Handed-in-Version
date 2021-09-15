@@ -24,7 +24,7 @@ dataNotFound: boolean;
   productcategorys: Productcategory[] = [];
   productcategory: Observable<Productcategory[]>;
   dataSource = new MatTableDataSource<Productcategory>();
-  displayedColumns: string[] = ['productCategoryName', 'actions'];
+  displayedColumns: string[] = ['productCategoryImage', 'productCategoryName','actions'];
 
   constructor(private productcategoryService: ProductcategoryService,
               private snack: MatSnackBar,

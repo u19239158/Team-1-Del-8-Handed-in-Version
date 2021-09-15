@@ -2,7 +2,6 @@
   background-color: rgba(0,0,0,.12);
   box-shadow: 0 0 0 0 rgb(0 0 0 / 20%), 0 0 0 0 rgb(0 0 0 / 14%), 0 0 0 0 rgb(0 0 0 / 12%);
 }
-
 h2 {
   text-align: center;
   font-weight: 40;
@@ -15,6 +14,10 @@ h2 {
   left: 25%;
   }
 
+  mat-icon {
+    color: black;
+  }
+  
   table {
     border-collapse: collapse;
     width: 100%;
@@ -31,7 +34,7 @@ h2 {
 
   th {
     // background-color: #2326caa6;
-    background-color: rgba(34, 34, 235, 0.76);
+    background-color: rgba(22, 101,  216, 100%);
     color: black;
     font-weight: 40;
     font-size: 20px;
