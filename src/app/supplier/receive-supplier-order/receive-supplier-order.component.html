@@ -41,16 +41,24 @@
       <td mat-cell *matCellDef="let element"> {{element.supplierName}} </td>
   </ng-container>
 
-      <!-- Product Item -->
-      <ng-container matColumnDef="productItem">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Item </th>
-          <td mat-cell *matCellDef="let element"> {{element.productItemName}} </td>
+    <!-- Order Status -->
+      <ng-container matColumnDef="order_Status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Order Status </th>
+          <td mat-cell *matCellDef="let element"> {{element.order_Status}} </td>
       </ng-container>
 
-      <!-- Quantity -->
-      <ng-container matColumnDef="quantity">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity On Hand </th>
-          <td mat-cell *matCellDef="let element"> {{element.quantityOnHand}} </td>
+      <!-- Supplier Order Total -->
+      <ng-container matColumnDef="supplierOrderTotal">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Order Total </th>
+          <td mat-cell *matCellDef="let element"> {{element.supplierOrderTotal}} </td>
+      </ng-container>
+
+      <!-- Product Item -->
+      <ng-container matColumnDef="viewOrder">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> View Order </th>
+          <td mat-cell *matCellDef="let element"> 
+          <button mat-raised-button color ="primary" (click)="viewOrder()">View Order</button>
+          </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

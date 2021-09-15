@@ -1,3 +1,4 @@
+import { QuantityModalComponent } from './quantity-modal/quantity-modal.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -106,10 +107,20 @@ export class PlaceSupplierOrderComponent implements OnInit {
     this.dataSource = new MatTableDataSource(data);
   }
 
-  placeOrder() {
-    // const dialogRef = this.dialog.open(QuantityModalComponent, {restoreFocus: false});
-    // dialogRef.afterClosed().subscribe(() => this.menuTrigger.focus());
-    // this.router.navigateByUrl('login');
-    
+  PlaceOrder() {
+    const confirm = this.dialog.open(QuantityModalComponent, {
+      disableClose: true,
+     });
+
+     confirm.afterClosed().subscribe(res => {
+      const placeOrder: PlaceSupplierOrder = this.form.value;
+      this.placeSupplierOrderService.CreateSupplierOrder(placeOrder).subscribe(res =>{
+        console.log(res)
+        this.loading = false
+        this.router.navigateByUrl('placeSupplierOrder');
+      })
+        
+      })
+    }
   }
-}
+
