@@ -24,7 +24,7 @@ export class CategorytypesComponent implements OnInit {
   categorytypes: Categorytype[] = [];
   categorytype: Observable<Categorytype[]>;
   dataSource = new MatTableDataSource<Categorytype>();
-  displayedColumns: string[] = ['productCategoryName', 'categoryType', 'actions'];
+  displayedColumns: string[] = ['productCategoryName', 'categoryTypeImage','categoryType', 'actions'];
 
   constructor(private categorytypeService: CategorytypeService,
     private snack: MatSnackBar,

@@ -81,7 +81,7 @@ const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: 'login',
+    path: '',
     component: LogoutComponent,
   },
   {
