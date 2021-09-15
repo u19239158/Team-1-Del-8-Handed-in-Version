@@ -48,6 +48,10 @@ namespace NKAP_API_2.Models
         public decimal DiscountPercentage
         { get; set; }
 
+        [JsonProperty("pricedescription")]
+        public decimal PriceDescription
+        { get; set; }
+
 
     }
 

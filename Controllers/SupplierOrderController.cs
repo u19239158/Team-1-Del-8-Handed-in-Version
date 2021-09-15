@@ -87,19 +87,40 @@ namespace NKAP_API_2.Controllers
                     SupplierOrderStatusId = su.SupplierOrderStatusId
 
                 }).Join(_db.SupplierOrderStatuses,
-                sor => sor.SupplierOrderStatusId, sd => sd.SupplierOrderStatusId,
+                sor => sor.SupplierOrderStatusId,
+                sd => sd.SupplierOrderStatusId,
                 (sor, sd) => new
                 {
                     SupplierOrderID = sor.SupplierOrderID,
-                    Order_Status = sd.SupplierOrderStatusDesc,
+                    SupplierOrderStatusDesc = sd.SupplierOrderStatusDesc,
                     SupplierName = sor.SupplierName,
-                    OrderStatusID = sor.SupplierOrderStatusId,
+                    SupplierOrderStatusId = sor.SupplierOrderStatusId,
                     SupplierID = sor.SupplierID,
                     OrderDatePlaced = sor.OrderDatePlaced,
                     OrderDateReceived = sor.OrderDateReceived,
                     SupplierOrderTotal = sor.SupplierOrderTotal,
-                    SupplierOrderSubTotal = sor.SupplierOrderTotal,
+                    SupplierOrderSubTotal = sor.SupplierOrderSubTotal,
                     SupplierOrderVat = sor.SupplierOrderVat
+
+                }).Join(_db.SupplierOrderLines,
+                sor => sor.SupplierOrderID,
+                sd => sd.SupplierOrderId,
+                (sor, sd) => new
+                {
+                    SupplierOrderID = sor.SupplierOrderID,
+                    SupplierOrderStatusDesc = sor.SupplierOrderStatusDesc,
+                    SupplierName = sor.SupplierName,
+                    SupplierOrderStatusId = sor.SupplierOrderStatusId,
+                    SupplierID = sor.SupplierID,
+                    OrderDatePlaced = sor.OrderDatePlaced,
+                    OrderDateReceived = sor.OrderDateReceived,
+                    SupplierOrderTotal = sor.SupplierOrderTotal,
+                    SupplierOrderSubTotal = sor.SupplierOrderSubTotal,
+                    SupplierOrderVat = sor.SupplierOrderVat,
+                    SupplierProducts = sd.SupplierProducts,
+                    SupplierQuantityOrdered = sd.SupplierQuantityOrdered,
+                    SupplierOrderLineCost = sd.SupplierOrderLineCost,
+                    ProductItemId = sd.ProductItemId
 
                 }).First(aa => aa.SupplierOrderID == supplierorderid);
 
