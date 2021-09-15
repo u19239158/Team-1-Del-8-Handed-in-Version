@@ -1,6 +1,6 @@
 //import { Supplier } from './../../interfaces/index';
 import {Supplier} from 'src/app/interfaces';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,7 +8,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { SupplierService } from 'src/app/services/supplier/supplier.service.component';
-import {  HttpClient, HttpErrorResponse  } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse  } from '@angular/common/http';
+import { MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-suppliers',
@@ -26,6 +27,12 @@ dataNotFound: boolean;
   dataSource = new MatTableDataSource<Supplier>();
   displayedColumns: string[] = ['name', 'contactNumber', 'email','supplierBalance', 'actions'];
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+  
   constructor(private supplierService: SupplierService,
     private snack: MatSnackBar,
     private router: Router,
