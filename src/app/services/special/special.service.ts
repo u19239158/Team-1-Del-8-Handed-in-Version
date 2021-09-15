@@ -55,6 +55,10 @@ export class SpecialService {
     DeleteSpecial(specialId):  Observable<Special[]>  {
     return this.http.delete<Special[]>(`${this.server}Special/DeleteSpecials/${specialId}`).pipe(map(res => res));
   }
+
+  getItemByID(ProductItemid):  Observable<Productitem>  {
+    return this.http.get<Productitem>(`${this.server}Productitem/GetProdItemsByID/${ProductItemid}`).pipe(map(res => res));
+  }
 }
   // getAll(): Special[] {
   //   const specials = JSON.parse(localStorage.getItem(this.KEY));

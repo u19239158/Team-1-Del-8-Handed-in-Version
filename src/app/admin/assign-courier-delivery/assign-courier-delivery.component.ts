@@ -25,7 +25,7 @@ export class AssignCourierDeliveryComponent implements OnInit {
   Courier: Courier;
   courier: Observable<Courier[]>;
   dataSource = new MatTableDataSource<Courier>();
-  displayedColumns: string[] = ['name', 'type', 'contactNumber', 'email', 'actions'];
+  displayedColumns: string[] = ['name', 'type', 'contactNumber', 'actions'];
   CourierService: any;
   sale: any;
   OnlineSalesService: any;

@@ -43,7 +43,7 @@ private snack : MatSnackBar,
     this.getCollection();
     this.collection
 
-    this.SpecialService.getProductItemByID(this.id).subscribe(res => {
+    this.SpecialService.getItemByID(this.id).subscribe(res => {
       this.productItem = res
       console.log(res)
   });
@@ -106,7 +106,7 @@ private snack : MatSnackBar,
   createSpecial() {
     const special: Special = this.form.value;
     special.productItemId = this.productItem.productItemId;
-    special.productItemCost = this.productItem.productItemCost;
+    special.productItemCost = this.productItem.priceDescription;
    // special.discountPercentage = this.collection.find(this.discountPercentage);
     this.SpecialService.CreateSpecial(special).subscribe(res => {
       console.log(res)

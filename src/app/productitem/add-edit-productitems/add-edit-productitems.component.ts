@@ -3,7 +3,7 @@ import { ProductitemService } from 'src/app/services/productitem/productitem.ser
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Productitem } from 'src/app/interfaces';
+import { Productitem, MarkUp} from 'src/app/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -23,7 +23,10 @@ export class AddEditProductitemsComponent implements OnInit {
   Productitem: Productitem;
   productitem: Observable<Productitem[]>;
   collection = [];
+  MarkUps = [];
   selected: string;
+  mselected: string;
+  MarkUp: MarkUp;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,13 +34,15 @@ export class AddEditProductitemsComponent implements OnInit {
     private router: Router,
     private snack: MatSnackBar,
     private ProductitemService: ProductitemService,
-    private http: HttpClient
+    private http: HttpClient,
+    
   ) { }
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
     this.getCollection();
+    this.getMarkUp();
 
     const formOptions: AbstractControlOptions = {};
     this.form = this.formBuilder.group({
@@ -47,6 +52,7 @@ export class AddEditProductitemsComponent implements OnInit {
       //description: ['', [Validators.required]],
       productItemCost: ['', [Validators.required]],
      // quantityOnHand: ['', [Validators.required]],
+     markupId: ['', [Validators.required]]
     }, formOptions);
 
     if (!this.isAddMode) {
@@ -58,6 +64,7 @@ export class AddEditProductitemsComponent implements OnInit {
           categoryTypeId: [this.Productitem.categoryTypeId, [Validators.required]],
           productItemCost: [this.Productitem.productItemCost, [Validators.required]],
           quantityOnHand: [{ value: this.Productitem.quantityOnHand, disabled: true }, [Validators.required, Validators.maxLength(13)]],
+          markupId: [this.MarkUp.markupPercentage, [Validators.required]],
         }, formOptions);
       });
       this.form.get('categoryTypeId').disable();
@@ -84,6 +91,16 @@ export class AddEditProductitemsComponent implements OnInit {
       .get<any>('https://localhost:44393/api/CategoryType/GetCategoryType').subscribe((res: any) => {
         this.collection = res;
         //console.log = res;
+      }, error => {
+        console.log({ error });
+      })
+  }
+
+  getMarkUp() {
+    this.http
+      .get<any>('https://localhost:44393/api/MarkUp/GetMarkUp').subscribe((res: any) => {
+        this.MarkUp = res;
+        console.log (res);
       }, error => {
         console.log({ error });
       })
