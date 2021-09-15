@@ -120,6 +120,7 @@ namespace NKAP_API_2.Controllers
                     (a, t) => new
                     {
                         CategoryTypeId = a.CategoryTypeId,
+                        CategoryTypeImage = t.CategoryTypeImage,
                         CategoryTypeName = t.CategoryTypeDescription,
                         ProductItemId = a.ProductItemId,
                         CategoryTypeDescription = t.ItemDescription,
