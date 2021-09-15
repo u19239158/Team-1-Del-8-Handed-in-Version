@@ -5,9 +5,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Deliveryshift } from 'src/app/interfaces';
-import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
+import { DeliveryAssignedComponent } from 'src/app/modals/globals/delivery-assigned/delivery-assigned.component';
 import { DeliveryshiftService } from 'src/app/services/deliveryshift/deliveryshift.service';
 import { HttpClient } from '@angular/common/http';
+import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
+
 enum CheckBoxType { ASSIGN_SHIFT, NONE };
 
 // import { GlobalErrorComponent } from 'src/app/modals/globals/global-error/global-error.component';
@@ -26,9 +28,9 @@ export class AssignLocalDeliveryComponent implements OnInit {
   dataNotFound: boolean;
   id: number;
   deliveryshift: Deliveryshift[] = [];
-  public sales : any =[];
-  public delivery : any =[];
-  public emp : any =[];
+  public sales: any = [];
+  public delivery: any = [];
+  public emp: any = [];
   // DeliveryShift: Deliveryshift;
   deliveryShift: Observable<Deliveryshift[]>;
   dataSource = new MatTableDataSource<Deliveryshift>();
@@ -48,10 +50,11 @@ export class AssignLocalDeliveryComponent implements OnInit {
     this.id = +this.route.snapshot.params['id'];
     this.readDeliveryshifts();
 
-    
-    this.deliveryshiftService.GetSaleByID(this.id).subscribe(res=>{
-      this.sales =res;
-      console.log("Result" ,this.sales)});
+
+    this.deliveryshiftService.GetSaleByID(this.id).subscribe(res => {
+      this.sales = res;
+      console.log("Result", this.sales)
+    });
 
     this.deliveryshiftService.GetDeliveryShift().subscribe((result: Deliveryshift[]) => {
       this.DeliveryShifts = result;
@@ -81,13 +84,13 @@ export class AssignLocalDeliveryComponent implements OnInit {
     })
   }
 
-  Assign(employeeShiftId :any)
-  {
-    this.deliveryshiftService.GetDeliveryShiftByEmpShiftID(employeeShiftId).subscribe(res=>{
-      this.emp =res;
+  Assign(employeeShiftId: any) {
+    this.deliveryshiftService.GetDeliveryShiftByEmpShiftID(employeeShiftId).subscribe(res => {
+      this.emp = res;
       console.log(this.emp)
-      this.deliveryshiftService.AssignDelivery(this.emp).subscribe(data=>{
-        console.log(data)});
+      this.deliveryshiftService.AssignDelivery(this.emp).subscribe(data => {
+        console.log(data)
+      });
     });
     // this.deliveryshiftService.AssignLocalDelivery(this.sales).subscribe(data=>{
     //   console.log(data)});
@@ -124,19 +127,13 @@ export class AssignLocalDeliveryComponent implements OnInit {
   //   });
   // }
 
-  deleteDeliveryshift(Deliveryshift: Deliveryshift) {
-    const confirm = this.dialog.open(GlobalConfirmComponent, {
-      disableClose: true,
-    });
-
-    confirm.afterClosed().subscribe(res => {
-      if (res) {
-        this.deliveryshiftService.DeleteDeliveryShift(Deliveryshift).subscribe(res => {
-          this.readDeliveryshifts();
-        });
-      }
+  showModal() {
+    this.dialog.open(DeliveryAssignedComponent, {
+      // height: '400px',
+      // width: '600px',
     });
   }
+
 
 
 }

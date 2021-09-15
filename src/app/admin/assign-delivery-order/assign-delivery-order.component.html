@@ -38,7 +38,7 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Business Name </th>
             <td mat-cell *matCellDef="let element"> {{element.customerBusinessName}} </td>
         </ng-container>
-        
+
         <ng-container matColumnDef="deliverydistance">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Distance </th>
             <td mat-cell *matCellDef="let element"> {{element.deliveryDistance}} </td>
@@ -55,21 +55,21 @@
             </td>
         </ng-container>
 
-       
+
 
         <!-- Delivery/Courier Column -->
         <ng-container matColumnDef="deliverycourier">
-            <th mat-header-cell *matHeaderCellDef> </th> 
+            <th mat-header-cell *matHeaderCellDef> </th>
             <td mat-cell *matCellDef="let element">
                 <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu" xPosition="after">
-                    <button mat-menu-item
+                    <button mat-menu-item *ngIf="parseInteger(element.deliveryDistance.slice(0, -2)) >50"
                         [ngClass]="{'disable':parseInteger(element.deliveryDistance.slice(0, -2)) >50}"
                         [routerLink]="parseInteger(element.deliveryDistance.slice(0, -2)) >50? []: ['/assignlocaldelivery', element.saleId]">Assign
                         Delivery</button>
-                    <button mat-menu-item
+                    <button mat-menu-item *ngIf="parseInteger(element.deliveryDistance.slice(0, -2)) <=50"
                         [ngClass]="{'disable':parseInteger(element.deliveryDistance.slice(0, -2)) <=50}"
                         [routerLink]="parseInteger(element.deliveryDistance.slice(0, -2)) <=50? []: ['/assigncourierdelivery' , element.saleId]">Assign
                         Courier</button>
