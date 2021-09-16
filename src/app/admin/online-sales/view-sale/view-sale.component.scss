@@ -4,7 +4,7 @@
   }
 .example-card {
   max-width: 400px;
-  text-align: center;
+  
   left: 35%;
 }
 
@@ -37,4 +37,35 @@
     text-align : left;
   }
   
+  table {
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+  }
   
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even){background-color: #f2f2f2}
+  
+  th {
+    // background-color: #2326caa6;
+    background-color: rgba(34, 34, 235, 0.76);
+    color: White;
+    font-weight: 40;
+    font-size: 16px;
+    text-align: justify;
+    
+  }
+
+  label{
+    font-weight: bold;
+
+    left:20px;
+  }
+
+  span{
+    right:20px;
+  }

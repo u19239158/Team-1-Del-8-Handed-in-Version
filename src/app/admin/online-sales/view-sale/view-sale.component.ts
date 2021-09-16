@@ -7,10 +7,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { OnlineSalesService } from 'src/app/services/online-sales/online-sales.service';
-enum CheckBoxType { READY_FOR_COLLECTION, READY_FOR_DELIVERY, NONE };
+// enum CheckBoxType { READY_FOR_COLLECTION, READY_FOR_DELIVERY, NONE };
 import { AbstractControlOptions, FormGroup, FormBuilder } from '@angular/forms';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-view-sale',
@@ -42,7 +43,12 @@ export class ViewSaleComponent implements OnInit {
   disabled = false;
   isHidden: boolean = true;
   saleOrderRecieveType: number;
-  
+  dataSource = new MatTableDataSource<OnlineSales>();
+  // displayedColumns: string[] = ['itemsOrdered'];
+  onlineSale: OnlineSales;
+  onlineSales: Observable<OnlineSales[]>;
+  OnlineSales: OnlineSales[];
+
 
   constructor(private OnlineSalesService: OnlineSalesService,
     private route: ActivatedRoute,
@@ -55,10 +61,10 @@ export class ViewSaleComponent implements OnInit {
 
 
   ngOnInit(): void {
-    const formOptions: AbstractControlOptions = { };
+    const formOptions: AbstractControlOptions = {};
     this.form = this.formBuilder.group({
     }, formOptions)
-   
+
     this.id = this.route.snapshot.params['id'];
     this.getCollection();
 
@@ -88,95 +94,92 @@ export class ViewSaleComponent implements OnInit {
   PackOrder() {
     const confirm = this.dialog.open(GlobalConfirmComponent, {
       disableClose: true,
-     });
+    });
     this.isHidden = false;
 
     confirm.afterClosed().subscribe(res => {
-      if (res){
+      if (res) {
         this.router.navigateByUrl('onlineSales');
-    this.OnlineSalesService.GetSaleByID(this.id).subscribe(data => {
-      console.log(data)
-    if (data.saleOrderRecieveType === "Collection" )
-  {
-    {
-      this.OnlineSalesService.GetSaleByID(this.id).subscribe(res => {
-        this.sale = res;
-        console.log(this.sale)
-        this.OnlineSalesService.Collection(this.sale).subscribe(res => {
-          console.log(res)
+        this.OnlineSalesService.GetSaleByID(this.id).subscribe(data => {
+          console.log(data)
+          if (data.saleOrderRecieveType === "Collection") {
+            {
+              this.OnlineSalesService.GetSaleByID(this.id).subscribe(res => {
+                this.sale = res;
+                console.log(this.sale)
+                this.OnlineSalesService.Collection(this.sale).subscribe(res => {
+                  console.log(res)
+                });
+              });
+              this.OnlineSalesService.GetCustomerBySaleID(this.id).subscribe(data => {
+                this.sales = data
+                console.log(data)
+                this.OnlineSalesService.NotifyCustomer(this.sales, this.sales.customerEmailAddress).subscribe(res => {
+                  console.log(res)
+                });
+              });
+            }
+          }
+          else {
+            this.OnlineSalesService.GetSaleByID(this.id).subscribe(res => {
+              this.sale = res;
+              //console.log(this.sale)
+              this.OnlineSalesService.Delivery(this.sale).subscribe(res => {
+                console.log(res)
+              });
+            })
+          }
+          if (data.orderStatusId != "1") {
+            (error: HttpErrorResponse) => {
+              console.log(error.error, "test")
+              if (error.status === 400) {
+                this.snack.open(error.error, 'OK',
+                  {
+                    verticalPosition: 'bottom',
+                    horizontalPosition: 'center',
+                    duration: 3000
+                  });
+                return;
+              }
+            }
+            window.location.reload();
+          };
         });
-      });
-      this.OnlineSalesService.GetCustomerBySaleID(this.id).subscribe(data=>{
-        this.sales = data
-        console.log(data) 
-        this.OnlineSalesService.NotifyCustomer(this.sales, this.sales.customerEmailAddress).subscribe(res => {
-          console.log(res)
+      };
+
+      this.snack.open('Order Successfully packed ', 'OK',
+        {
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center',
+          duration: 4000
         });
-     });
-    }
-  }
-  else 
-    {
-      this.OnlineSalesService.GetSaleByID(this.id).subscribe(res=>{
-        this.sale =res;
-        //console.log(this.sale)
-        this.OnlineSalesService.Delivery(this.sale).subscribe(res =>{
-          console.log(res)});
-      })
-    }
-    if(data.orderStatusId != "1"){
-    (error: HttpErrorResponse) =>
-    {
-      console.log(error.error,"test")
-     if (error.status === 400)
-    {
-      this.snack.open(error.error, 'OK', 
-      {
-        verticalPosition: 'bottom',
-        horizontalPosition: 'center',
-        duration: 3000
-      });
-      return;
-    }
-    }
-    window.location.reload();
-  };
-  });
-  };
- 
-this.snack.open('Order Successfully packed ', 'OK', 
-          {
-            verticalPosition: 'bottom',
-            horizontalPosition: 'center',
-            duration: 4000
-          });
-})
-}
-
-  check_box_type = CheckBoxType;
-  currentlyChecked: CheckBoxType;
-
-  selectCheckBox(targetType: CheckBoxType) {
-    // If the checkbox was already checked, clear the currentlyChecked variable
-    if (this.currentlyChecked === targetType) {
-      this.currentlyChecked = CheckBoxType.NONE;
-      return;
-    }
-
-    this.currentlyChecked = targetType;
+    })
   }
 
-  
-    
-  
-  
+  // check_box_type = CheckBoxType;
+  // currentlyChecked: CheckBoxType;
+
+  // selectCheckBox(targetType: CheckBoxType) {
+  //   // If the checkbox was already checked, clear the currentlyChecked variable
+  //   if (this.currentlyChecked === targetType) {
+  //     this.currentlyChecked = CheckBoxType.NONE;
+  //     return;
+  //   }
+
+  //   this.currentlyChecked = targetType;
+  // }
 
 
- 
-  
+
+
+
+
+
+
+
   Confirm() {
     //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
- 
+
   }
 
   onSubmit() {
