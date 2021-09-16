@@ -30,8 +30,8 @@
         <mat-grid-tile for="paymentTypeDescription">Payment Type: </mat-grid-tile>
         <mat-grid-tile>{{sale.paymentTypeDescription}}</mat-grid-tile>
 
-        <mat-grid-tile for="SaleOrderDescription">Payment Date:</mat-grid-tile>
-        <mat-grid-tile>{{sale.saleOrderDescription| date:"dd/MM/yyyy"}}</mat-grid-tile>
+        <mat-grid-tile for="paymentDate">Payment Date:</mat-grid-tile>
+        <mat-grid-tile>{{sale.salePaymentDate| date:"dd/MM/yyyy"}}</mat-grid-tile>
 
         <mat-grid-tile for="salePaymentAmount">Payment Amount:</mat-grid-tile>
         <mat-grid-tile>{{sale.salePaymentAmount}}</mat-grid-tile>
