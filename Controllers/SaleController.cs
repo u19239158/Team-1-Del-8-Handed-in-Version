@@ -393,10 +393,10 @@ namespace NKAP_API_2.Controllers
         }
 
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
-        [Route("ViewSale/{saleid}")] //route
+        [Route("ViewSales/{saleid}")] //route
         [HttpGet]
         //get Sales by ID (Read)
-        public IActionResult Get(int saleid)
+        public IActionResult ViewSales(int saleid)
         {
             var Sale = _db.Sales.Join(_db.OrderStatuses,
                 su => su.OrderStatusId,
@@ -541,6 +541,105 @@ namespace NKAP_API_2.Controllers
                     ProductItemId = sd.ProductItemId,
                     ProductItemName = sd.ProductItemName
                 }).Where(ss => ss.SaleID == saleid);
+
+            return Ok(Sale);
+        }
+
+
+        //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
+        [Route("ViewSale/{saleid}")] //route
+        [HttpGet]
+        //get Sales by ID (Read)
+        public IActionResult ViewSale(int saleid)
+        {
+            var Sale = _db.Sales.Join(_db.OrderStatuses,
+                su => su.OrderStatusId,
+                so => so.OrderStatusId,
+
+                (su, so) => new
+                {
+                    SaleID = su.SaleId,
+                    SaleOrderDescription = su.SaleOrderDescription,
+                    SaleOrderDate = su.SaleOrderDate,
+                    SaleOrderAssign = su.SaleOrderAssign,
+                    SaleOrderRecieveType = su.SaleOrderRecieveType,
+                    SalePaymentDate = su.PaymentDate,
+                    SalePaymentAmount = su.PaymentAmount,
+                    OrderStatusID = so.OrderStatusId,
+                    OrderStatusDescription = so.OrderStatusDescription,
+                    PaymentTypeID = su.PaymentTypeId,
+                    CustomerID = su.CustomerId
+
+                    //attributes in table
+                }).Join(_db.PaymentTypes,
+                sor => sor.PaymentTypeID,
+                sd => sd.PaymentTypeId,
+                (sor, sd) => new
+                {
+                    SaleID = sor.SaleID,
+                    SaleOrderDescription = sor.SaleOrderDescription,
+                    SaleOrderDate = sor.SaleOrderDate,
+                    SaleOrderAssign = sor.SaleOrderAssign,
+                    SaleOrderRecieveType = sor.SaleOrderRecieveType,
+                    SalePaymentDate = sor.SalePaymentDate,
+                    SalePaymentAmount = sor.SalePaymentAmount,
+                    OrderStatusID = sor.OrderStatusID,
+                    OrderStatusDescription = sor.OrderStatusDescription,
+                    PaymentTypeID = sor.PaymentTypeID,
+                    PaymentTypeDescription = sd.PaymentTypeDescription,
+                    CustomerID = sor.CustomerID
+
+
+                }).Join(_db.Customers,
+                sor => sor.CustomerID,
+                sd => sd.CustomerId,
+                (sor, sd) => new
+                {
+                    CustomerID = sor.CustomerID,
+                    SaleOrderDescription = sor.SaleOrderDescription,
+                    SaleOrderDate = sor.SaleOrderDate,
+                    SaleOrderAssign = sor.SaleOrderAssign,
+                    SaleOrderRecieveType = sor.SaleOrderRecieveType,
+                    SalePaymentDate = sor.SalePaymentDate,
+                    SalePaymentAmount = sor.SalePaymentAmount,
+                    OrderStatusID = sor.OrderStatusID,
+                    OrderStatusDescription = sor.OrderStatusDescription,
+                    PaymentTypeID = sor.PaymentTypeID,
+                    PaymentTypeDescription = sor.PaymentTypeDescription,
+                    CustomerName = sd.CustomerName,
+                    CustomerCellphoneNumber = sd.CustomerCellphoneNumber,
+                    CustomerSurname = sd.CustomerSurname,
+                    CustomerBusinessName = sd.CustomerBusinessName,
+                    SaleID = sor.SaleID
+
+                }).Join(_db.Addresses,
+                sor => sor.CustomerID,
+                sd => sd.CustomerId,
+                (sor, sd) => new
+                {
+                    CustomerId = sor.CustomerID,
+                    SaleOrderDescription = sor.SaleOrderDescription,
+                    SaleOrderDate = sor.SaleOrderDate,
+                    SaleOrderAssign = sor.SaleOrderAssign,
+                    // SaleReceiveType = sor.SaleReceiveType,
+                    SalePaymentDate = sor.SalePaymentDate,
+                    SaleOrderRecieveType = sor.SaleOrderRecieveType == true ? "Collection" : "Delivery",
+                    SalePaymentAmount = sor.SalePaymentAmount,
+                    OrderStatusID = sor.OrderStatusID,
+                    OrderStatusDescription = sor.OrderStatusDescription,
+                    PaymentTypeID = sor.PaymentTypeID,
+                    PaymentTypeDescription = sor.PaymentTypeDescription,
+                    CustomerName = sor.CustomerName,
+                    CustomerSurname = sor.CustomerSurname,
+                    CustomerBusinessName = sor.CustomerBusinessName,
+                    CustomerCellphoneNumber = sor.CustomerCellphoneNumber,
+                    SaleID = sor.SaleID,
+                    AddressLine1 = sd.AddressLine1,
+                    AddressLine2 = sd.AddressLine2,
+                    AddressLine3 = sd.AddressLine3,
+                    AddressPostalCode = sd.AddressPostalCode
+
+                }).First(ss => ss.SaleID == saleid);
 
             return Ok(Sale);
         }

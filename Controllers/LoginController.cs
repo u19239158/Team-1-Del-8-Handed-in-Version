@@ -34,7 +34,7 @@ namespace NKAP_API_2.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public string Login(RegisterModel model)
+        public IActionResult Login(RegisterModel model)
         {
             //using var db = new NKAP_BOLTING_DB_4Context();
 
@@ -43,12 +43,14 @@ namespace NKAP_API_2.Controllers
             var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
             if (user == null)
             {
-                request = "user not found" ;
-                return request;
+                request = "Invalid Credentials" ;
+                return BadRequest(request);
+               // return ;
             }
             else
             {
-                return  token.GenerateToken(model);
+                return Ok(token.GenerateToken(model));
+                //return ;
             }
             
         }
