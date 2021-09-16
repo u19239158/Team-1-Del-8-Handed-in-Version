@@ -116,6 +116,7 @@ export interface Productitem {
   categoryTypeId: number;
   categoryTypeName: string;
   categoryTypeDescription: string;
+  priceDescription: number;
 }
 
 export interface Customer {
@@ -228,7 +229,7 @@ export interface OnlineSales {
   saleOrderDescription: string;
   salePaymentAmount: number;
   salePaymentDate: string;
-  saleOrderRecieveType: string;
+  saleOrderRecieveType: boolean;
   saleDate: string;
   paymentTypeDescription: string;
   addressId: number;
@@ -242,5 +243,11 @@ export interface OnlineSales {
   courierNumber: string;
 }
 
+export interface MarkUp
+{
+  markupId : number;
+  markupPercentage : number;
+}
 
 
+ 

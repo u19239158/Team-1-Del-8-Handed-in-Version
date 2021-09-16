@@ -53,7 +53,6 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 import { PlaceSupplierOrderComponent } from './supplier/place-supplier-order/place-supplier-order.component';
 import { ReceiveSupplierOrderComponent } from './supplier/receive-supplier-order/receive-supplier-order.component';
 import { MakePaymentComponent } from './supplier/make-payment/make-payment.component';
-import { AddItemsComponent } from './supplier/receive-supplier-order/add-items/add-items.component';
 import { WriteOffStockComponent } from './admin/write-off-stock/write-off-stock.component';
 import { StockTakeComponent } from './admin/stock-take/stock-take.component';
 import { AssignDeliveryOrderComponent } from './admin/assign-delivery-order/assign-delivery-order.component';
@@ -80,6 +79,8 @@ import { ViewDeliveryDetailsComponent } from './deliveryshift/view-delivery-deta
 import { ViewEmployeeDeliveryShiftsComponent } from './deliveryshift/view-employee-delivery-shifts/view-employee-delivery-shifts.component';
 import { DeliveryAssignedComponent } from './modals/globals/delivery-assigned/delivery-assigned.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { QuantityModalComponent } from './supplier/place-supplier-order/quantity-modal/quantity-modal.component';
+import { CaptureOrderComponent } from './supplier/receive-supplier-order/capture-order/capture-order.component';
 
 
 const firebaseConfig = {
@@ -123,7 +124,6 @@ const firebaseConfig = {
     PlaceSupplierOrderComponent,
     ReceiveSupplierOrderComponent,
     MakePaymentComponent,
-    AddItemsComponent,
     WriteOffStockComponent,
     StockTakeComponent,
     AssignDeliveryOrderComponent,
@@ -152,6 +152,8 @@ const firebaseConfig = {
     ViewEmployeeDeliveryShiftsComponent,
     DeliveryAssignedComponent,
     DashboardComponent,
+    QuantityModalComponent,
+    CaptureOrderComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),

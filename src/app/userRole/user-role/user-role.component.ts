@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialog}from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,13 +8,14 @@ import { UserRole } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { UserRoleService } from 'src/app/services/user-role/user-role.service';
 import {  HttpClient  } from '@angular/common/http';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-user-role',
   templateUrl: './user-role.component.html',
   styleUrls: ['./user-role.component.scss']
 })
-export class UserRoleComponent implements OnInit {
+export class UserRoleComponent implements OnInit ,AfterViewInit {
 
 //search code
 UserRoles: UserRole[];
@@ -27,13 +28,18 @@ userRoles: Observable<UserRole[]>;
 dataSource = new MatTableDataSource<UserRole>();
 displayedColumns: string[] = ['name', 'description','actions'];
 
+@ViewChild(MatPaginator) paginator: MatPaginator;
+  
 constructor(private UserRoleService: UserRoleService,
             private snack: MatSnackBar,
             private router: Router,
             private dialog: MatDialog,
             private httpClient: HttpClient
             ) {}
-
+            
+            ngAfterViewInit() {
+              this.dataSource.paginator = this.paginator;
+            }
 ngOnInit(): void {
   this.readUserRoles();
 
@@ -79,7 +85,6 @@ deleteUserRole(UserRole: UserRole) {
       duration: 2000
     });
   });
- 
  }
 }
 

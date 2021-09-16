@@ -10,7 +10,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ReceiveSupplierOrderComponent } from './supplier/receive-supplier-order/receive-supplier-order.component';
 import { PlaceSupplierOrderComponent } from './supplier/place-supplier-order/place-supplier-order.component';
 import { MakePaymentComponent } from './supplier/make-payment/make-payment.component';
-import { AddItemsComponent } from './supplier/receive-supplier-order/add-items/add-items.component';
 
 import { AddEditEmployeesComponent } from './employee/add-edit-employees/add-edit-employees.component';
 import { EmployeesComponent } from './employee/employees/employees.component';
@@ -123,10 +122,6 @@ const routes: Routes = [
   {
     path: 'makePayment/:id',
     component: MakePaymentComponent
-  },
-  {
-    path: 'addItems',
-    component: AddItemsComponent
   },
   {
     path: 'special',
@@ -268,10 +263,6 @@ const routes: Routes = [
     path: 'stockTakePage/:id',
     component: StockTakePageComponent,
   },
-  // {
-  //   path: 'receiveOrder',
-  //   component: ReceiveOrderComponent,
-  // },
   {
     path: 'onlineSales',
     component: OnlineSalesComponent,
@@ -287,10 +278,6 @@ const routes: Routes = [
   {
     path: 'packOrder',
     component: PackOrderComponent,
-  },
-  {
-    path: 'addItems',
-    component: AddItemsComponent,
   },
   {
     path: 'fastSellingProductsReport',

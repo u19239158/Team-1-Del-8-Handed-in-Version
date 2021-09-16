@@ -43,6 +43,7 @@ export class ProductitemService {
     DeleteProductitem(ProductItemId):  Observable<Productitem>  {
     return this.http.delete<Productitem>(`${this.server}Productitem/DeleteProductItem/${ProductItemId}`).pipe(map(res => res));
   }
+
 }
 
 //   getAll(): Productitem[] {

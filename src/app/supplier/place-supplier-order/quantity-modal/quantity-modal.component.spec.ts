@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddItemsComponent } from './add-items.component';
+import { QuantityModalComponent } from './quantity-modal.component';
 
-describe('AddItemsComponent', () => {
-  let component: AddItemsComponent;
-  let fixture: ComponentFixture<AddItemsComponent>;
+describe('QuantityModalComponent', () => {
+  let component: QuantityModalComponent;
+  let fixture: ComponentFixture<QuantityModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddItemsComponent ]
+      declarations: [ QuantityModalComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddItemsComponent);
+    fixture = TestBed.createComponent(QuantityModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

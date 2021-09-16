@@ -102,7 +102,7 @@ export class ViewSaleComponent implements OnInit {
         this.router.navigateByUrl('onlineSales');
         this.OnlineSalesService.GetSaleByID(this.id).subscribe(data => {
           console.log(data)
-          if (data.saleOrderRecieveType === "Collection") {
+          if (data.saleOrderRecieveType == true) {
             {
               this.OnlineSalesService.GetSaleByID(this.id).subscribe(res => {
                 this.sale = res;
@@ -111,13 +111,13 @@ export class ViewSaleComponent implements OnInit {
                   console.log(res)
                 });
               });
-              this.OnlineSalesService.GetCustomerBySaleID(this.id).subscribe(data => {
-                this.sales = data
-                console.log(data)
-                this.OnlineSalesService.NotifyCustomer(this.sales, this.sales.customerEmailAddress).subscribe(res => {
-                  console.log(res)
+
+              this.snack.open('Order Successfully packed ', 'OK',
+                {
+                  verticalPosition: 'bottom',
+                  horizontalPosition: 'center',
+                  duration: 4000
                 });
-              });
             }
           }
           else {
@@ -142,7 +142,7 @@ export class ViewSaleComponent implements OnInit {
                 return;
               }
             }
-            window.location.reload();
+            //window.location.reload();
           };
         });
       };

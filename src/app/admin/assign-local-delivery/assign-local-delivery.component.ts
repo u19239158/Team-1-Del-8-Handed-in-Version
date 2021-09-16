@@ -94,6 +94,12 @@ export class AssignLocalDeliveryComponent implements OnInit {
     });
     // this.deliveryshiftService.AssignLocalDelivery(this.sales).subscribe(data=>{
     //   console.log(data)});
+    this.snack.open('Delivery Succesfully Assigned!', 'OK', 
+    {
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      duration: 2000
+    });
   }
 
   filter() {
@@ -127,12 +133,7 @@ export class AssignLocalDeliveryComponent implements OnInit {
   //   });
   // }
 
-  showModal() {
-    this.dialog.open(DeliveryAssignedComponent, {
-      // height: '400px',
-      // width: '600px',
-    });
-  }
+ 
 
 
 
