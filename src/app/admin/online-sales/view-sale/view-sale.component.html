@@ -5,12 +5,46 @@
   </mat-card-header>
   
   <mat-card-content>
+    <mat-grid-list cols="2" rowHeight="3:1">
+        <mat-grid-tile for="saleID">Sale Number:</mat-grid-tile>
+        <mat-grid-tile>{{sale.saleID}}</mat-grid-tile>
+
+        <mat-grid-tile for="SaleOrderDescription">Items ordered:</mat-grid-tile>
+        <mat-grid-tile>
+            {{sale.saleOrderDescription}}
+        </mat-grid-tile>
+
+        <mat-grid-tile for="saleOrderDate">Sale Date:</mat-grid-tile>
+        <mat-grid-tile>{{sale.saleOrderDate | date:"dd/MM/yyyy"}}</mat-grid-tile>
+
+        <mat-grid-tile for="orderStatusDescription">Order Status:</mat-grid-tile>
+        <mat-grid-tile>{{sale.orderStatusDescription}}</mat-grid-tile>
+
+        
+        <mat-grid-tile for="customerName">Customer:</mat-grid-tile>
+        <mat-grid-tile>{{sale.customerName}}</mat-grid-tile>
+
+        <mat-grid-tile for="customerBusinessName">Business Name:</mat-grid-tile>
+        <mat-grid-tile>{{sale.customerBusinessName}}</mat-grid-tile>
+
+        <mat-grid-tile for="paymentTypeDescription">Payment Type: </mat-grid-tile>
+        <mat-grid-tile>{{sale.paymentTypeDescription}}</mat-grid-tile>
+
+        <mat-grid-tile for="SaleOrderDescription">Payment Date:</mat-grid-tile>
+        <mat-grid-tile>{{sale.saleOrderDescription| date:"dd/MM/yyyy"}}</mat-grid-tile>
+
+        <mat-grid-tile for="salePaymentAmount">Payment Amount:</mat-grid-tile>
+        <mat-grid-tile>{{sale.salePaymentAmount}}</mat-grid-tile>
+
+        <mat-grid-tile for="saleOrderRecieveType">Receive Type:</mat-grid-tile>
+        <mat-grid-tile>{{sale.saleOrderRecieveType}}</mat-grid-tile>
+
+
+   </mat-grid-list>
     
-                <label for="saleID">Sale Number: </label>
+                <!-- <label for="saleID">Sale Number: </label>
                 <span> &nbsp;{{sale.saleID}}</span>
-            
-    
-            
+                    
                 <p><label for="SaleOrderDescription">Items ordered: </label>
                     <span> &nbsp;{{sale.saleOrderDescription}}</span>
        
@@ -37,7 +71,7 @@
           
                 <p><label for="receiveType">Receive Type: </label>
                     <span> &nbsp;{{sale.saleOrderRecieveType}}</span>
-      
+       -->
   </mat-card-content>
   <mat-card-actions>
     
