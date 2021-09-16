@@ -15,7 +15,7 @@ import { stringify } from '@angular/compiler/src/util';
     styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  
+
   form : FormGroup = this.fb.group({
     'userUsername': ['', Validators.compose([Validators.required])],
     'userPassword': ['', Validators.compose([Validators.required])]
@@ -23,20 +23,20 @@ export class LoginComponent implements OnInit {
 
    // form: FormGroup;
    // formSubmitted: boolean = false;
-  
+
     constructor(
-      private fb: FormBuilder, 
-      private router: Router, 
+      private fb: FormBuilder,
+      private router: Router,
       private dialog: MatDialog,
-      private Loginservice: LoginService, 
+      private Loginservice: LoginService,
       private snack: MatSnackBar,
       private InterceptorServiceService: InterceptorServiceService
       ) { }
 
-      
+
 
     ngOnInit() : void {
-       
+
     }
 
   //  onSubmit(loginForm) {
@@ -57,43 +57,54 @@ export class LoginComponent implements OnInit {
         //     this.formSubmitted = false;
         // }
 
-        Login(): void 
+        Login(): void
         {
           this.Loginservice.Login(this.form.value).subscribe(res => {
-            // route to home
+           // const token = (<any>res).token
             //localStorage.setItem('user', res);
-             localStorage.setItem('user',JSON.stringify(res) );
-             console.log(res);
+             //localStorage.setItem('user',JSON.stringify(token) );
+            // console.log(res);
             //localStorage.setItem('user', JSON.stringify({ token: res }));
-          })
-           // this.router.navigateByUrl('/');
-        //   },(error: HttpErrorResponse)=>
-        //   {
-        //     if (error.status ===200)
-        //     {
-        //       localStorage.setItem('user', error.error.text);
-        //       console.log(error)
-        //       this.router.navigateByUrl('/');
-        //   };
+
+           //this.router.navigateByUrl('/');
+          },(error: HttpErrorResponse)=>
+          {
+            if (error.status ===200)
+            {
+              localStorage.setItem('user', error.error.text);
+              console.log(error)
+              this.router.navigateByUrl('/');
+          }
+
+          if (error.status === 400)
+            {
+              this.snack.open(error.error, 'OK',
+              {
+                verticalPosition: 'bottom',
+                horizontalPosition: 'center',
+                duration: 3000
+              });
+          }});
+          
         // })
          // )};
-          // (error: HttpErrorResponse) => 
+          // (error: HttpErrorResponse) =>
           // {
           //   if (error.status ===200)
           //   {
           //     localStorage.setItem('user', error.error.text);
           //     this.router.navigateByUrl('/');
           //   }
-      
+
           //   if (error.status === 404)
           //   {
-          //     this.snack.open('Invalid credentials.', 'OK', 
+          //     this.snack.open('Invalid credentials.', 'OK',
           //     {
           //       verticalPosition: 'bottom',
           //       horizontalPosition: 'center',
           //       duration: 3000
           //     });
-             
+
           //     this.form.reset();
           //     return;
           //   }

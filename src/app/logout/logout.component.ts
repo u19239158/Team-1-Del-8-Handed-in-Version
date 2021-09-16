@@ -21,6 +21,7 @@ export class LogoutComponent implements OnInit {
   }
 
   Confirm(): void {
+    window.localStorage.removeItem("user"); 
     this.dialogRef.close(true);
   }
 

@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,6 +8,7 @@ import { Special } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { SpecialService } from 'src/app/services/special/special.service';
 import { HttpClient } from '@angular/common/http';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-specials',
@@ -25,6 +26,8 @@ public specspeiial : any = [];
   dataSource = new MatTableDataSource<Special>();
   displayedColumns: string[] = ['productItemName','description','specialPrice', 'startDate', 'endDate', 'actions'];
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  
   constructor(
     private specialService: SpecialService,
     private snack: MatSnackBar,
@@ -33,6 +36,10 @@ public specspeiial : any = [];
     private httpClient: HttpClient
   ) { }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+  
   ngOnInit(): void {
     this.readSpecials();
 
