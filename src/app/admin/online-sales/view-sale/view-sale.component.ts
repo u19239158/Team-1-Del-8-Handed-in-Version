@@ -1,6 +1,6 @@
 import { OnlineSales } from 'src/app/interfaces';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, VERSION, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -48,6 +48,8 @@ export class ViewSaleComponent implements OnInit {
   onlineSale: OnlineSales;
   onlineSales: Observable<OnlineSales[]>;
   OnlineSales: OnlineSales[];
+  matVersion: string = '5.1.0';
+  breakpoint: number;
 
 
   constructor(private OnlineSalesService: OnlineSalesService,
@@ -61,6 +63,9 @@ export class ViewSaleComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.breakpoint = (window.innerWidth <= 600) ? 1 : 2;
+
+
     const formOptions: AbstractControlOptions = {};
     this.form = this.formBuilder.group({
     }, formOptions)
@@ -77,6 +82,10 @@ export class ViewSaleComponent implements OnInit {
       }, formOptions)
 
     });
+  }
+
+  onResize(event) {
+    this.breakpoint = (event.target.innerWidth <= 600) ? 1 : 2;
   }
 
   getCollection() {

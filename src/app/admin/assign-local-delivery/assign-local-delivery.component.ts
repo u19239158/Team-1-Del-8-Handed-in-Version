@@ -34,7 +34,7 @@ export class AssignLocalDeliveryComponent implements OnInit {
   // DeliveryShift: Deliveryshift;
   deliveryShift: Observable<Deliveryshift[]>;
   dataSource = new MatTableDataSource<Deliveryshift>();
-  displayedColumns: string[] = ['startTime', 'endTime', 'dayOfTheWeek', 'employeeName', 'SelectOrderDeliveryShift'];
+  displayedColumns: string[] = ['startTime', 'endTime', 'dayOfTheWeek', 'employeeName', 'noOfDeliveries', 'SelectOrderDeliveryShift'];
   displayedColumn: string[] = ['saleId', 'customerName', 'customerBusinessName', 'deliverydistance', 'orderAddress', 'deliverycourier'];
 
 
@@ -94,12 +94,12 @@ export class AssignLocalDeliveryComponent implements OnInit {
     });
     // this.deliveryshiftService.AssignLocalDelivery(this.sales).subscribe(data=>{
     //   console.log(data)});
-    this.snack.open('Delivery Succesfully Assigned!', 'OK', 
-    {
-      verticalPosition: 'bottom',
-      horizontalPosition: 'center',
-      duration: 2000
-    });
+    this.snack.open('Delivery Succesfully Assigned!', 'OK',
+      {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+        duration: 2000
+      });
   }
 
   filter() {
@@ -133,7 +133,7 @@ export class AssignLocalDeliveryComponent implements OnInit {
   //   });
   // }
 
- 
+
 
 
 

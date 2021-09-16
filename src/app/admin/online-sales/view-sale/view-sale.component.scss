@@ -3,15 +3,13 @@
     box-shadow: 0 0 0 0 rgb(0 0 0 / 20%), 0 0 0 0 rgb(0 0 0 / 14%), 0 0 0 0 rgb(0 0 0 / 12%);
   }
 .example-card {
-  max-width: 90%;
-  
-  left: 5%;
+  max-width: 50%;
 }
 
 .example-header-image {
   //background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
   background-size: cover;
-  text-align: center;
+  // text-align: center;
 }
   .contentx,.content1 {
     // align-content: center;
@@ -29,43 +27,50 @@
   .content {
     flex: 50%;
     width: 50%;
-    float: left;
+    float: center;
     padding: 10px;
+    
+  }
+
+  .title {
+    text-align: center;
+    font-weight: 5px;
+    font-size: 35px;
   }
 
   .content1 {
     text-align : left;
   }
   
-  table {
-    border-collapse: collapse;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  th, td {
-    text-align: left;
-    padding: 8px;
-  }
-  
-  tr:nth-child(even){background-color: #f2f2f2}
-  
-  th {
-    // background-color: #2326caa6;
-    background-color: rgba(34, 34, 235, 0.76);
-    color: White;
-    font-weight: 40;
-    font-size: 16px;
-    text-align: justify;
-    
-  }
 
   label{
+    text-align: end;
     font-weight: bold;
-
+    font-size: 16px;
     left:20px;
+  }
+
+  .info{
+    
+    font-size: 15px;
+    text-align: start;
   }
 
   span{
     right:20px;
   }
+
+  .mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
+    background-color: #3f51b5;
+    left: 40%;
+}
+
+.mat-button, .mat-icon-button, .mat-stroked-button {
+    color: inherit;
+    background: #F9F9F9 ;
+    left: 40%;
+    border-color: black;
+}
+
+
+  
