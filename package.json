@@ -24,7 +24,11 @@
     "@angular/platform-browser": "~11.0.1",
     "@angular/platform-browser-dynamic": "~11.0.1",
     "@angular/router": "~11.0.1",
+<<<<<<< HEAD
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
+=======
+    "@types/googlemaps": "^3.43.3",
+>>>>>>> 10dd594120c6ad3c5f55f32ee5d02305975a7c34
     "angular-paystack": "^1.0.0",
     "bulma": "^0.9.3",
     "core-js": "^2.5.4",
@@ -33,6 +37,7 @@
     "express": "^4.17.1",
     "firebase": "^8.4.2",
     "material": "^0.4.3",
+    "moment": "^2.29.1",
     "rxjs": "~6.6.0",
     "stripe": "^8.169.0",
     "tslib": "^2.0.0",
