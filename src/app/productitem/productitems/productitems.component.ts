@@ -26,7 +26,7 @@ dataNotFound: boolean;
   public pItem : any =[];
   productitem: Observable<Productitem[]>;
   dataSource = new MatTableDataSource<Productitem>();
-  displayedColumns: string[] = ['categorytype','name', 'description', 'cost','quantity', 'actions'];
+  displayedColumns: string[] = ['categorytype','name', 'description','priceDescription', 'cost','quantity', 'actions'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   
