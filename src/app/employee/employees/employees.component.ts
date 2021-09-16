@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Employee } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponseBase } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -71,7 +71,8 @@ export class EmployeesComponent implements OnInit {
       if (res) {
         this.EmployeeService.DeleteEmployee(Employee).subscribe(data => {
           this.readEmployees();
-        },(error: HttpErrorResponse) =>
+        },
+         (error: HttpErrorResponse) =>
         {
           console.log(error.error,"test")
          if (error.status === 400)
@@ -83,14 +84,21 @@ export class EmployeesComponent implements OnInit {
             duration: 3000
           }); 
           return;
-        };
+        }
+        ( resp :Response )=>
+        {
+          if (resp.status === 200) {
+           this.snack.open('Successfully Deleted Employee! ', 'OK', 
+           {
+             verticalPosition: 'bottom',
+             horizontalPosition: 'center',
+             duration: 3000
+           });
+          }
+        }
       })
-      this.snack.open('Successfully Deleted Employee! ', 'OK', 
-      {
-        verticalPosition: 'bottom',
-        horizontalPosition: 'center',
-        duration: 1500
-      });
+     
+    
     }
     });
    

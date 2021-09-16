@@ -80,7 +80,7 @@ const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: '',
+    path: 'logout',
     component: LogoutComponent,
   },
   {
