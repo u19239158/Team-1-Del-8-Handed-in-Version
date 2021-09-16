@@ -75,6 +75,11 @@ export interface Courier {
 }
 
 export interface Deliveryshift {
+  customerBusinessName: string;
+  customerSurname: string;
+  addressLine2: string;
+  addressLine3: number;
+  addressLine1: any;
   id: number;
   startTime: string;
   endTime: string;

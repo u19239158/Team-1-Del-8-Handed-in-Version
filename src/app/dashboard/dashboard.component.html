@@ -1,13 +1,8 @@
 <div class="column right">
   <div class="barchart">
     <div style="display: block">
-      <canvas baseChart
-        [datasets]="barChartData"
-        [labels]="barChartLabels"
-        [options]="barChartOptions"
-        [plugins]="barChartPlugins" 
-        [legend]="barChartLegend"
-        [chartType]="barChartType">
+      <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+        [legend]="barChartLegend" [chartType]="barChartType">
       </canvas>
     </div>
     <button mat-button mat-raised-button color="primary" (click)="randomize()">Update</button>
@@ -15,119 +10,113 @@
 
   <div class="piechart">
     <div class="chart">
-      <canvas baseChart
-        [data]="pieChartData"
-        [labels]="pieChartLabels"
-        [chartType]="pieChartType"
-        [options]="pieChartOptions"
-        [plugins]="pieChartPlugins"
-        [colors]="pieChartColors"
-        [legend]="pieChartLegend">
+      <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+        [options]="pieChartOptions" [colors]="pieChartColors" [legend]="pieChartLegend">
       </canvas>
     </div>
   </div>
 </div>
 
 <div class="column left">
-    <div>
-                <mat-card class="example-card">
-            <mat-card-header>
-                <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title>Total Sales</mat-card-title>
-                
-            </mat-card-header>
-            <mat-card-content>
-                <p>
-                This is the total sales for the day:
-                </p>
-            </mat-card-content>
-            <mat-card-actions>
-                
-            </mat-card-actions>
-            </mat-card>
-    </div>
+  <div>
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Total Sales</mat-card-title>
 
-    <br>
-    <br>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          This is the total sales for the day:
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
 
-      <div>
-                <mat-card class="example-card">
-            <mat-card-header>
-                <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title>Total Sales</mat-card-title>
-                
-            </mat-card-header>
-            <mat-card-content>
-                <p>
-                This is the total sales for the day:
-                </p>
-            </mat-card-content>
-            <mat-card-actions>
-                
-            </mat-card-actions>
-            </mat-card>
-    </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 
-    <br>
-    <br>
+  <br>
+  <br>
 
-      <div>
-                <mat-card class="example-card">
-            <mat-card-header>
-                <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title>Total Sales</mat-card-title>
-                
-            </mat-card-header>
-            <mat-card-content>
-                <p>
-                This is the total sales for the day:
-                </p>
-            </mat-card-content>
-            <mat-card-actions>
-                
-            </mat-card-actions>
-            </mat-card>
-    </div>
+  <div>
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Total Sales</mat-card-title>
 
-    <br>
-    <br>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          This is the total sales for the day:
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
 
-      <div>
-                <mat-card class="example-card">
-            <mat-card-header>
-                <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title>Total Sales</mat-card-title>
-                
-            </mat-card-header>
-            <mat-card-content>
-                <p>
-                This is the total sales for the day:
-                </p>
-            </mat-card-content>
-            <mat-card-actions>
-                
-            </mat-card-actions>
-            </mat-card>
-    </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 
-    <br>
-    <br>
+  <br>
+  <br>
 
-      <div>
-                <mat-card class="example-card">
-            <mat-card-header>
-                <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title>Total Sales</mat-card-title>
-                
-            </mat-card-header>
-            <mat-card-content>
-                <p>
-                This is the total sales for the day:
-                </p>
-            </mat-card-content>
-            <mat-card-actions>
-                
-            </mat-card-actions>
-            </mat-card>
-    </div>
+  <div>
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Total Sales</mat-card-title>
+
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          This is the total sales for the day:
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <br>
+  <br>
+
+  <div>
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Total Sales</mat-card-title>
+
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          This is the total sales for the day:
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <br>
+  <br>
+
+  <div>
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Total Sales</mat-card-title>
+
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          This is the total sales for the day:
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EventSettingsModel, View } from '@syncfusion/ej2-angular-schedule';
 import { DeliveryshiftService } from 'src/app/services/deliveryshift/deliveryshift.service';
 import { HttpClient } from '@angular/common/http';
-import { Deliveryshift } from 'src/app/interfaces';
+import { Deliveryshift, OnlineSales } from 'src/app/interfaces';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
 
@@ -41,6 +41,11 @@ export class ViewdeliveryshiftscheduleComponent {
           StartTime: moment(moment(item.dayOfTheWeek + ' ' + item.startTime).utc().toDate()).format('DD/MM/YYYY HH:mm:ss'),
 
           EndTime: moment(moment(item.dayOfTheWeek + ' ' + item.endTime).utc().toDate()).format('DD/MM/YYYY HH:mm:ss'),
+
+          Location: moment(item.addressLine1 + ' ' + item.addressLine2 + ' ' + item.addressLine3),
+
+          // Description: 'deliveries',
+          Description: moment(item.customerName + '' + item.customerSurname+''+item.customerBusinessName)
 
         })
       }
