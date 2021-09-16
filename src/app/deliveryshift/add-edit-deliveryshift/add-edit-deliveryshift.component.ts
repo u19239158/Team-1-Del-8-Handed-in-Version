@@ -54,10 +54,14 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     this.form = this.formBuilder.group({
       // startTime: ['', [Validators.required]],
       // endTime: ['', [Validators.required]],
+
+      //date > Now() or Today()
       dayOfTheWeek: ['', [Validators.required]],
       employeeID: ['', [Validators.required]],
       // employeeName: ['', [Validators.required]],
       // dateId: ['', [Validators.required]],
+
+      //time > CurrentTime() 
       timeId: ['', [Validators.required]],
     }, formOptions);
 
