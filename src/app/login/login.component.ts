@@ -60,9 +60,9 @@ export class LoginComponent implements OnInit {
         Login(): void 
         {
           this.Loginservice.Login(this.form.value).subscribe(res => {
-            // route to home
+            const token = (<any>res).token
             //localStorage.setItem('user', res);
-             localStorage.setItem('user',JSON.stringify(res) );
+             localStorage.setItem('user',JSON.stringify(token) );
              console.log(res);
             //localStorage.setItem('user', JSON.stringify({ token: res }));
           })
