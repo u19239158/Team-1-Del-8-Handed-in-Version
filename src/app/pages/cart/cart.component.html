@@ -9,41 +9,44 @@
                             <th>Product Name</th>
                             <th>Product Image</th>
                             <th>Description</th>
+                            <th>quantity</th>
                             <th>Price</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- <tr *ngFor="let item of products; let i = index">
-                            <td>{{i+1}}</td>
-                            <td>{{item.title}}</td>
-                            <td><img style="width: 120px;" src="{{item.image}}" alt=""></td>
-                            <td style="width: 25%;">{{item.description}}</td>
-                            <th style="width: 12%;">{{item.price}}</th>
-                            <td style="width: 12%;">{{item.quantity}}</td>
-                            <td style="width: 12%;">{{item.total}}</td>
-                            <td>
-                                <button (click)="removeItem(item)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                            </td>
-                        </tr> -->
+
                         <tr *ngFor="let item of products;let i = index">
                                 <td>{{i+1}}</td>
                                 <td style="width: 25%;">{{item.productItemName}}</td>
                                 <td><img style="width: 120px;" src="{{item.categoryTypeImage}}" alt=""></td>
-                                <th style="width: 12%;">{{item.itemDescription}}</th>
+                                <td style="width: 12%;">{{item.itemDescription}}</td>
+                                <!--if quantity value greater than 1 += ... Google this-->
+                                <td style="width: 12%;">{{item.quantity}}</td>
                                 <td style="width: 12%;">R{{item.productItemCost}}</td>
                                 <td>
                                     <button (click)="removeItem(item)" class="button is-rounded is-danger is-outlined"><i class="fas fa-trash-alt"></i></button>
                                 </td>
                         </tr>
                         <tr>
-                            <td colspan="3"></td>
+                            <td colspan="3">
+
+                            </td>
+                            <!--google maps btn-->
+                            <p>
+                              <button class="btn btn-primary" (click)="openGoogelMapsModal()">Open Google Map</button>
+                          </p>
                             <td><button (click)="emptycart()" class="button is-rounded is-danger is-outlined">Empty Cart</button></td>
                             <td><button routerLink="/products" class="button is-info is-rounded is-outlined">Shop More</button></td>
                             <td>
                               <button class="button is-success is-rounded is-outlined" (click)=openmodal() id="launchModal">Checkout</button>
                             </td>
                             <td>
+                        
+                              <div class="box">
+                                VAT : {{grandTotal}}% <br/>
+                                VAT total: R {{grandTotal}}<br/>
+                              </div>
                                 <span class="tag is-large is-success is-rounded"><strong>Grand Total : R{{grandTotal}}</strong></span>
                             </td>
                         </tr>
@@ -117,6 +120,27 @@
     </div>
   </div>
 </div>
+
+
+<!--Open Google Maps Modal-->
+<div class="text-center">
+
+
+  <h1>
+      <p *ngIf="coordinates.address">
+          Address: {{coordinates.address}}
+      </p>
+  </h1>
+  <h3>
+      <p *ngIf="coordinates.latitude">
+          Latitude: {{coordinates.latitude}}
+      </p>
+      <p *ngIf="coordinates.longitude">
+          Longitude: {{coordinates.longitude}}
+      </p>
+  </h3>
+</div>
+<!--Close Google Maps Modal-->
 
 
 

@@ -19,7 +19,7 @@
         <ul>
           <ng-container *ngFor="let prodcat of productCategories">
           <li>
-            <a>
+            <a (click)="loadbyCat(prodcat)">
             <span>{{prodcat.productCategoryDescription}}</span>
             </a>
           </li>
@@ -43,7 +43,8 @@
               <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.itemDescription}}</p>
               <!-- <strong>Price:</strong><p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.productItemName}}</p> -->
               <!-- <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.productItemCost}}</p> -->
-              <h2><strong>Price:</strong> R{{category.productItemCost}}</h2> 
+              <h2><strong>Price:</strong> R{{category.vatInclusive | number:'0.1-2'}}</h2> 
+              <!--VATInclusive-->
               <!-- <button class="button is-info is-rounded"  (click)=openmodal(category) id="launchModal">More Info</button> -->
               <button class="button is-info is-rounded" (click)=addtocart(category)>Add to Cart</button>
             </div>

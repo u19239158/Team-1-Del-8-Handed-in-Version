@@ -1,4 +1,5 @@
 import { Component, Injectable, OnInit, ViewEncapsulation  } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { of } from 'rxjs/internal/observable/of';
 import { ApiService, CategoryType} from 'src/app/services/service/api.service';
 import { CartService } from 'src/app/services/service/cart.service';
@@ -20,9 +21,11 @@ export class ProductsComponent implements OnInit {
   public productItems : any = [];
   public products : any = [];
   modalItems: any = [];
-  constructor(private api : ApiService, private cartService : CartService) { }
+
+  constructor(private api : ApiService, private cartService : CartService, private snack : MatSnackBar) { }
 
   ngOnInit(): void {
+
 
     //Home page different categories of products
     this.api.getProductCategory()
@@ -31,6 +34,7 @@ export class ProductsComponent implements OnInit {
       console.log(this.productCategories);
 
     })
+
     
     //product page content
     this.api.getCategoryType()
@@ -56,6 +60,22 @@ export class ProductsComponent implements OnInit {
   //outside ng oninit
   addtocart(item: any){
     this.cartService.addtoCart(item);
+
+    this.snack.open('Item added to cart! ', 'OK', 
+    {
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      duration: 1000
+    });
+  }
+
+  loadbyCat(item){
+    this.api.getProductByCategoryTypeID(item.productCategoryId)
+    //productCategory
+    .subscribe(res=>{
+      this.categoryTypes = res;
+      console.log(res);
+    })
   }
 
   // openmodal(item: any){

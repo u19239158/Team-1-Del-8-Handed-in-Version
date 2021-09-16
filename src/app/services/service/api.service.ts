@@ -36,6 +36,7 @@ export interface CategoryType
 
 export interface ProductCategory
 {
+  map(arg0: (y: any) => any): any;
   ProductCategory_Description : string;
   ProductCategory_Image : string;
 }
@@ -69,12 +70,22 @@ export class ApiService {
   //home page(ProductCategory) SEARCH description endpoint route = GetPCByDescription/{ProductCategoryDescription}
 
   //home page(ProductCategory) endpoint route = GetProdCat
-  getProductCategory(): Observable<ProductCategory[]>{
-    return this.http.get<ProductCategory[]>(`${this.server}ProductCategory/GetProdCat`)
-    .pipe(map((res:any)=>{
-      return res;
-    }))
+  getProductCategory(): Observable<any>{
+    return this.http.get(`${this.server}ProductCategory/GetProdCat`)
+    // .pipe(map((res:any)=>{
+    //   return res;
+    // }))
+
   }   
+  getProductByCategoryTypeID(id): Observable<any>{
+    return this.http.get(`${this.server}ProductItem/GetProdByProductCategory/${id}`)
+    // .pipe(map((res:any)=>{
+    //   return res;
+    // }))
+
+  }  
+//
+
 
   //products page(CategoryType) SEARCH description endpoint route = GetCategoryTypeByProdDesc/{productcategorydescription} OR GetCategoryTypeByDescription/{categorytypedescription}
 
@@ -96,7 +107,7 @@ export class ApiService {
 
   //product details modal(CategoryType, productItem) endpoint route = GetProductItems
   getProductItem(){
-    return this.http.get<Product[]>(`${this.server}ProductItem/GetProductItems`)
+    return this.http.get<Product[]>(`${this.server}ProductItem/getProducts`)
     .pipe(map((res:any)=>{
       return res;
     }))

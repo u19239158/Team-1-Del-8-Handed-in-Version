@@ -6,6 +6,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AgmCoreModule } from '@agm/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from './material/material/material.module';
 import { GlobalErrorComponent } from './modals/globals/global-error/global-error.component';
@@ -18,6 +20,7 @@ import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { FilterPipe } from './services/service/filter.pipe';
 import { EditCustProfileComponent } from './pages/edit-cust-profile/edit-cust-profile.component';
+import { GoogleMapsComponent } from './pages/google-maps/google-maps.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,7 @@ import { EditCustProfileComponent } from './pages/edit-cust-profile/edit-cust-pr
       PromotionsComponent,
       FilterPipe,
       EditCustProfileComponent,
+      GoogleMapsComponent,
       
   ],
   imports: [
@@ -42,7 +46,12 @@ import { EditCustProfileComponent } from './pages/edit-cust-profile/edit-cust-pr
     BrowserAnimationsModule,
     FlexLayoutModule,
     AppRoutingModule,
-    MaterialModule
+    MaterialModule,
+    NgbModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDqVP00cbOxrgdmqsSZ591CfwyjRZstNfM',
+      libraries: ['places']
+    })
     
   ],
   bootstrap: [AppComponent],
@@ -58,3 +67,22 @@ export class AppModule {
     });
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

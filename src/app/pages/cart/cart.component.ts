@@ -5,6 +5,18 @@ import { AbstractControlOptions ,FormBuilder, FormGroup, NgForm, Validators, For
 import { SafeMethodCall } from '@angular/compiler';
 import { Observable } from 'rxjs';
 import { stringify } from '@angular/compiler/src/util';
+import { GoogleMapsComponent } from '../google-maps/google-maps.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AgmCoreModule } from '@agm/core'; 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+
+export interface Coordinates {
+  address: string;
+  latitude: number;
+  longitude: number;
+}
+
 
 @Component({
   selector: 'app-cart',
@@ -20,11 +32,36 @@ export class CartComponent implements OnInit {
   public products : any = [];
   public transaction : any =[];
   public grandTotal !: number;
+  public  coordinates: Coordinates;
 
   constructor(
     private cartService : CartService,
     private formBuilder: FormBuilder,
-    ) { }
+    private modalService: NgbModal
+  ) {
+    this.coordinates = {} as Coordinates;
+  }
+
+  openGoogelMapsModal() {
+    const modalRef = this.modalService.open(GoogleMapsComponent,
+      {
+        scrollable: true,
+        // windowClass: 'myCustomModalClass',
+        // keyboard: false,
+        // backdrop: 'static'
+      });
+    let data = {
+      prop1: 'Some Data',
+      prop2: 'From Parent Component',
+      prop3: 'This Can be anything'
+    }
+
+    modalRef.componentInstance.fromParent = data;
+    modalRef.result.then((result) => {
+      this.coordinates = result;
+    }, (reason) => {
+    });
+  }
 
   ngOnInit() {
     const formOptions: AbstractControlOptions = { };
