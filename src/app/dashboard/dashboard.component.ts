@@ -9,7 +9,6 @@ import { Label } from 'ng2-charts';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
   //Barchart
   public barChartOptions: ChartOptions = {
     responsive: true,

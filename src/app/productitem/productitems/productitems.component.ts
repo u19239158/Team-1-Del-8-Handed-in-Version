@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,6 +8,7 @@ import { Productitem, Categorytype } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { ProductitemService } from 'src/app/services/productitem/productitem.service';
 import {  HttpClient  } from '@angular/common/http';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-productitems',
@@ -27,12 +28,19 @@ dataNotFound: boolean;
   dataSource = new MatTableDataSource<Productitem>();
   displayedColumns: string[] = ['categorytype','name', 'description', 'cost','quantity', 'actions'];
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  
   constructor(private productitemService: ProductitemService,
               private snack: MatSnackBar,
               private router: Router,
               private dialog: MatDialog,
               private httpClient: HttpClient
               ) {}
+
+              
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 
   ngOnInit(): void {
     this.readProductitems();
