@@ -161,9 +161,9 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     });
     this.snack.open('Successfully Added Delivery Shift! ', 'OK', 
     {
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       horizontalPosition: 'center',
-      duration: 2000
+      duration: 4000
     });
   }
 
@@ -181,9 +181,9 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     });
     this.snack.open('Successfully Updated Delivery Shift! ', 'OK', 
     {
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       horizontalPosition: 'center',
-      duration: 2000
+      duration: 4000
     });
   }
 

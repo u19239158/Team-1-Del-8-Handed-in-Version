@@ -87,10 +87,13 @@
       </table>
     </div>
 
-    <div class="mat-row">
+    <!-- <div class="mat-row">
       <div class="mat-col-quarter">
         <a (click)="Close()" mat-button>Cancel</a>
       </div>
-    </div>
-
+    </div> -->
+ <mat-paginator [pageSizeOptions]="[5, 8, 15, 35]"
+                 showFirstLastButtons 
+                 aria-label="Select page">
+      </mat-paginator>
   </div>

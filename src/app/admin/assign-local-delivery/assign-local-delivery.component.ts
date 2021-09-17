@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -9,6 +9,7 @@ import { DeliveryAssignedComponent } from 'src/app/modals/globals/delivery-assig
 import { DeliveryshiftService } from 'src/app/services/deliveryshift/deliveryshift.service';
 import { HttpClient } from '@angular/common/http';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
+import {MatPaginator} from '@angular/material/paginator';
 
 enum CheckBoxType { ASSIGN_SHIFT, NONE };
 
@@ -34,6 +35,7 @@ export class AssignLocalDeliveryComponent implements OnInit {
   // DeliveryShift: Deliveryshift;
   deliveryShift: Observable<Deliveryshift[]>;
   dataSource = new MatTableDataSource<Deliveryshift>();
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['startTime', 'endTime', 'dayOfTheWeek', 'employeeName', 'noOfDeliveries', 'SelectOrderDeliveryShift'];
   displayedColumn: string[] = ['saleId', 'customerName', 'customerBusinessName', 'deliverydistance', 'orderAddress', 'deliverycourier'];
 
@@ -47,6 +49,7 @@ export class AssignLocalDeliveryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     this.id = +this.route.snapshot.params['id'];
     this.readDeliveryshifts();
 
@@ -78,6 +81,7 @@ export class AssignLocalDeliveryComponent implements OnInit {
   }
 
   readDeliveryshifts(): void {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     this.deliveryshiftService.GetDeliveryShift().subscribe(res => {
       console.log("resss", res)
       this.dataSource = new MatTableDataSource(res)
@@ -85,6 +89,7 @@ export class AssignLocalDeliveryComponent implements OnInit {
   }
 
   Assign(employeeShiftId: any) {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     this.deliveryshiftService.GetDeliveryShiftByEmpShiftID(employeeShiftId).subscribe(res => {
       this.emp = res;
       console.log(this.emp)
@@ -96,9 +101,9 @@ export class AssignLocalDeliveryComponent implements OnInit {
     //   console.log(data)});
     this.snack.open('Delivery Succesfully Assigned!', 'OK',
       {
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         horizontalPosition: 'center',
-        duration: 2000
+        duration: 4000
       });
   }
 
@@ -106,9 +111,9 @@ export class AssignLocalDeliveryComponent implements OnInit {
     // this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.startTime.includes(this.searchValue)))
     // // this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.endTime.includes(this.searchValue)))
     // this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.dayOfTheWeek.includes(this.searchValue)))
-
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     const filter = (e) => {
-
+    
       return e.employeeName && e.employeeName.toLowerCase().includes(this.searchWord.toLowerCase()) ||
         e.startTime && e.startTime.toLowerCase().includes(this.searchWord.toLowerCase()) ||
         e.endTime && e.endTime.toLowerCase().includes(this.searchWord.toLowerCase()) ||

@@ -88,7 +88,10 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-
+<mat-paginator [pageSizeOptions]="[5, 8, 15, 35]"
+                 showFirstLastButtons 
+                 aria-label="Select page">
+      </mat-paginator>
 
         </div>
         <!-- Done button must show the delivery assigned modal(the delivery assigned modal is not in the ts) -->

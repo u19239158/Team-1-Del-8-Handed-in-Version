@@ -106,9 +106,9 @@ export class AddEditEmployeesComponent implements OnInit {
     })
     this.snack.open('Successfully Added Employee! ', 'OK', 
     {
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       horizontalPosition: 'center',
-      duration: 2000
+      duration: 4000
     });
   }
 
@@ -122,9 +122,9 @@ export class AddEditEmployeesComponent implements OnInit {
     });
     this.snack.open('Successfully Updated Employee! ', 'OK', 
     {
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       horizontalPosition: 'center',
-      duration: 2000
+      duration: 4000
     });
   }
 

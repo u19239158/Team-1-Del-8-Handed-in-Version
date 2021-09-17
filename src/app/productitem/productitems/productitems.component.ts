@@ -7,7 +7,7 @@ import { Router, ActivatedRoute  } from '@angular/router';
 import { Productitem, Categorytype } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { ProductitemService } from 'src/app/services/productitem/productitem.service';
-import {  HttpClient  } from '@angular/common/http';
+import {  HttpClient, HttpErrorResponse  } from '@angular/common/http';
 import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
@@ -16,7 +16,7 @@ import {MatPaginator} from '@angular/material/paginator';
   styleUrls: ['./productitems.component.scss']
 })
 export class ProductitemsComponent implements OnInit {
-
+ 
 //search code
 Productitems: Productitem[];
 searchValue: string;
@@ -26,9 +26,10 @@ dataNotFound: boolean;
   public pItem : any =[];
   productitem: Observable<Productitem[]>;
   dataSource = new MatTableDataSource<Productitem>();
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['categorytype','name', 'description','priceDescription', 'cost','quantity', 'actions'];
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+ 
   
   constructor(private productitemService: ProductitemService,
               private snack: MatSnackBar,
@@ -38,11 +39,16 @@ dataNotFound: boolean;
               ) {}
 
               
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
+              
+  // ngAfterViewInit() {
+  //   this.dataSource.paginator = this.paginator;
+  // }
 
+  
+  
   ngOnInit(): void {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
+    //this.dataSource.paginator = this.paginator;
     this.readProductitems();
 
     this.productitemService.GetProductItem().subscribe((result:Productitem[]) => {
@@ -89,12 +95,27 @@ dataNotFound: boolean;
       if(res) {
         this.productitemService.DeleteProductitem(Productitem).subscribe( res =>{
           this.readProductitems();
-        });
+        },(error: HttpErrorResponse) =>
+        {
+          console.log(error.error,"test")
+         if (error.status === 400)
+        {
+          this.snack.open(error.error, 'OK', 
+          {
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            duration: 4000
+          });
+         
+          
+          return;
+        }
+      });
         this.snack.open('Product Item Successfully Deleted! ', 'OK', 
         {
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           horizontalPosition: 'center',
-          duration: 2000
+          duration: 4000
         });
       }
     });

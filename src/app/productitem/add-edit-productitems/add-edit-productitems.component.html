@@ -42,7 +42,7 @@
             <mat-form-field appearance="outline" class="control-m">
                 <mat-label> Mark-Up Percentage</mat-label>
                 <mat-select [(value)]="mselected" formControlName="markupId">
-                  <mat-option *ngFor="let markup of MarkUp" [value]="markup.markupId">{{markup.markupPercentage}}</mat-option>
+                  <mat-option *ngFor="let markup of MarkUp" [value]="markup.markupId">{{markup.markupPercentage | percent}}</mat-option>
                 </mat-select>   
                 <mat-hint>Select Markup Percentage</mat-hint>
               </mat-form-field>

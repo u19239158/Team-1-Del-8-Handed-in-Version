@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,6 +8,7 @@ import { Courier } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { CourierService } from 'src/app/services/courier/courier.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-couriers',
@@ -25,6 +26,7 @@ export class CouriersComponent implements OnInit {
   Courier: Courier;
   courier: Observable<Courier[]>;
   dataSource = new MatTableDataSource<Courier>();
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['name', 'type', 'contactNumber', 'email', 'actions'];
 
   constructor(private CourierService: CourierService,
@@ -34,9 +36,10 @@ export class CouriersComponent implements OnInit {
     private httpClient: HttpClient
   ) { }
 
+
   ngOnInit(): void {
     this.readCouriers();
-
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     this.CourierService.GeCourier().subscribe((result: Courier[]) => {
       this.Couriers = result;
     });
@@ -79,9 +82,9 @@ export class CouriersComponent implements OnInit {
         {
           this.snack.open(error.error, 'OK', 
           {
-            verticalPosition: 'bottom',
+            verticalPosition: 'top',
             horizontalPosition: 'center',
-            duration: 3000
+            duration: 4000
           });
           return;
         }
@@ -89,9 +92,9 @@ export class CouriersComponent implements OnInit {
       }
       this.snack.open('Successfully Deleted Courier! ', 'OK', 
       {
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         horizontalPosition: 'center',
-        duration: 2000
+        duration: 4000
       });
     });
   }

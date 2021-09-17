@@ -56,9 +56,9 @@ export class UpdateDeliveriesLimitComponent implements OnInit {
     });
     this.snack.open('Successfully Updated Delivery Shift Limit! ', 'OK',
       {
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         horizontalPosition: 'center',
-        duration: 2000
+        duration: 4000
       });
   }
 

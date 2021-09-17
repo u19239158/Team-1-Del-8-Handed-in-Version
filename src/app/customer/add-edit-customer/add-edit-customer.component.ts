@@ -121,9 +121,9 @@ if (!this.isAddMode) {
     });
     this.snack.open('Successfully Updated Customer! ', 'OK', 
     {
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       horizontalPosition: 'center',
-      duration: 2000
+      duration: 4000
     });
   }
 

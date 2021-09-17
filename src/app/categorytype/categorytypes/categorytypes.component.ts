@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,6 +8,7 @@ import { Categorytype } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { CategorytypeService } from 'src/app/services/categorytype/categorytype.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-categorytypes',
@@ -24,6 +25,7 @@ export class CategorytypesComponent implements OnInit {
   categorytypes: Categorytype[] = [];
   categorytype: Observable<Categorytype[]>;
   dataSource = new MatTableDataSource<Categorytype>();
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['productCategoryName', 'categoryTypeImage','categoryType', 'actions'];
 
   constructor(private categorytypeService: CategorytypeService,
@@ -33,6 +35,7 @@ export class CategorytypesComponent implements OnInit {
     private httpClient: HttpClient) { }
 
   ngOnInit(): void {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     this.readCategorytypes();
 
     this.categorytypeService.GetCategoryType().subscribe((result: Categorytype[]) => {
@@ -42,7 +45,7 @@ export class CategorytypesComponent implements OnInit {
   }
 
   filter() {
-
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     const filter = (e) => {
       return e.productCategoryDesc && e.productCategoryDesc.toLowerCase().includes(this.searchValue.toLowerCase()) ||
         e.categoryTypeDescription && e.categoryTypeDescription.toLowerCase().includes(this.searchValue.toLowerCase())
@@ -55,6 +58,7 @@ export class CategorytypesComponent implements OnInit {
   }
 
   readCategorytypes(): void {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     this.categorytypeService.GetCategoryType().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
@@ -68,6 +72,7 @@ export class CategorytypesComponent implements OnInit {
     });
 
     confirm.afterClosed().subscribe(res => {
+      setTimeout(() => this.dataSource.paginator = this.paginator);
       if (res) {
         this.categorytypeService.DeleteCategoryType(Categorytype).subscribe(res => {
           this.readCategorytypes();
@@ -78,9 +83,9 @@ export class CategorytypesComponent implements OnInit {
         {
           this.snack.open(error.error, 'OK', 
           {
-            verticalPosition: 'bottom',
+            verticalPosition: 'top',
             horizontalPosition: 'center',
-            duration: 3000
+            duration: 4000
           });
          
           
@@ -89,9 +94,9 @@ export class CategorytypesComponent implements OnInit {
       });
       this.snack.open('Category Type Successfully Deleted! ', 'OK', 
       {
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         horizontalPosition: 'center',
-        duration: 1000
+        duration: 4000
       });
       }
     });

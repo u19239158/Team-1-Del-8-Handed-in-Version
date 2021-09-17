@@ -73,9 +73,9 @@ export class AddEditUserRoleComponent implements OnInit {
     })
     this.snack.open('Successfully Added User Role! ', 'OK', 
     {
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       horizontalPosition: 'center',
-      duration: 2000
+      duration: 4000
     });
   }
 
@@ -89,9 +89,9 @@ export class AddEditUserRoleComponent implements OnInit {
     });
     this.snack.open('Successfully Updated User Role! ', 'OK', 
     {
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       horizontalPosition: 'center',
-      duration: 2000
+      duration: 4000
     });
   }
 
