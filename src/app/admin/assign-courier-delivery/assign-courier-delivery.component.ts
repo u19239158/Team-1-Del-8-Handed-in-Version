@@ -93,9 +93,9 @@ export class AssignCourierDeliveryComponent implements OnInit {
       console.log(res)});
       this.snack.open('Courier Succesfully Assigned!', 'OK', 
       {
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         horizontalPosition: 'center',
-        duration: 2000
+        duration: 4000
       });
   });
   }

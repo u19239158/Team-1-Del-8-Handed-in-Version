@@ -11,9 +11,13 @@
 
                 <br>
           
-                <label for="productItemName">Product Item Cost: </label>
-                <span> &nbsp;R{{productItem.productItemCost}}</span>
+                <label for="productItemName">Product Item Cost Price: </label>
+                <span> &nbsp;R{{productItem.productItemCost | number:'1.1-2'}}</span>
               
+                <br>
+                <label for="productItemName">Product Item Selling Price: </label>
+                <span> &nbsp;R{{productItem.priceDescription | number:'1.1-2'}}</span>
+
                 <br>
 
                 <label for="productItemName">Product Item Quantity: </label>
@@ -76,7 +80,7 @@
               <mat-label>Discount Percentage</mat-label>
               <mat-select [(value)]="selected" formControlName="discountId">
                 <mat-option *ngFor="let Discount of collection" [value]="Discount.discountId">
-                  {{Discount.discountPercentage}}
+                  {{Discount.discountPercentage | percent}}
                 </mat-option>
               </mat-select>
           <mat-hint>Choose special discount</mat-hint>

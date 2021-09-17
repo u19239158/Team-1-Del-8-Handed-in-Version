@@ -1,3 +1,4 @@
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -17,6 +18,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ChartsModule } from 'ng2-charts';
+//import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { GlobalErrorComponent } from './modals/globals/global-error/global-error.component';
 import { GlobalConfirmComponent } from './modals/globals/global-confirm/global-confirm.component';
@@ -44,7 +46,7 @@ import { ProductcategorysComponent } from './productcategory/productcategorys/pr
 import { AddEditProductcategorysComponent } from './productcategory/add-edit-productcategorys/add-edit-productcategorys.component';
 import { CustomersComponent } from './customer/customers/customers.component';
 import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
-import {EditSpecialComponent} from './special/add-edit-special/edit-special.component';
+import { EditSpecialComponent } from './special/add-edit-special/edit-special.component';
 import { AddSpecialComponent } from './special/add-edit-special/add-special.component';
 
 import { MaterialModule } from './material/material/material.module';
@@ -81,6 +83,7 @@ import { DeliveryAssignedComponent } from './modals/globals/delivery-assigned/de
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { QuantityModalComponent } from './supplier/place-supplier-order/quantity-modal/quantity-modal.component';
 import { CaptureOrderComponent } from './supplier/receive-supplier-order/capture-order/capture-order.component';
+import { UpdateDeliveriesLimitComponent } from './deliveryshift/update-deliveries-limit/update-deliveries-limit.component';
 
 
 const firebaseConfig = {
@@ -154,6 +157,7 @@ const firebaseConfig = {
     DashboardComponent,
     QuantityModalComponent,
     CaptureOrderComponent,
+    UpdateDeliveriesLimitComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
@@ -180,6 +184,7 @@ const firebaseConfig = {
     BrowserModule,
     MatDatepickerModule,
     ChartsModule,
+    MatPaginatorModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [AgendaService, DayService, WeekService, WorkWeekService, MonthService, DragAndDropService, ResizeService],

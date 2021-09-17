@@ -86,9 +86,9 @@ createSupplier(){
   })
   this.snack.open('Successfully Added Supplier! ', 'OK', 
   {
-    verticalPosition: 'bottom',
+    verticalPosition: 'top',
     horizontalPosition: 'center',
-    duration: 2000
+    duration: 4000
   });
 }
 
@@ -102,9 +102,9 @@ createSupplier(){
     });
     this.snack.open('Successfully Updated Supplier! ', 'OK', 
     {
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       horizontalPosition: 'center',
-      duration: 2000
+      duration: 4000
     });
   }
 

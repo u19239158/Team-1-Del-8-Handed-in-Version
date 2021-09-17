@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Productitem, WriteOffStock,Categorytype } from 'src/app/interfaces';
 import { WriteOffStockService } from 'src/app/services/admin/write-off-stock/write-off-stock.service';
@@ -7,6 +7,7 @@ import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@ang
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ProductitemService } from 'src/app/services/productitem/productitem.service';
+import {MatPaginator} from '@angular/material/paginator';
 
 
 @Component({
@@ -30,6 +31,7 @@ searchItem: string;
   productitems: Productitem[] = [];
   productitem: Observable<Productitem[]>;
   dataSource = new MatTableDataSource<Productitem>();
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['productItem', 'quantity', 'actions'];
   productItemService: any;
 
@@ -101,6 +103,7 @@ onClick(){
 }
 
   showProducts(){
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     this.isHidden = false;
     this.writeOffStockService.getProductByCatType(this.form.value.categoryTypeId).subscribe(res => {
       console.log(res)

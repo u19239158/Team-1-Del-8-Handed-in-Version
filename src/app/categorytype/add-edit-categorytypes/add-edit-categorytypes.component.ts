@@ -128,7 +128,7 @@ console.log(this.path)
   }
 
   async createCategorytype() {
-   
+    setTimeout(() => this.dataSource.paginator = this.paginator);
    const img = await this.uploadImage();
    img.subscribe(imgpath =>{
     const categorytype: Categorytype = {
@@ -144,9 +144,9 @@ console.log(this.path)
     )
     this.snack.open('Category Type Successfully Added! ', 'OK', 
     {
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       horizontalPosition: 'center',
-      duration: 2000
+      duration: 4000
     });
   }
 
@@ -162,6 +162,7 @@ console.log(this.path)
   }
 
   async updateCategorytype() {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     const img = await this.uploadImage();
     img.subscribe(imgpath =>{
      const categorytype: Categorytype = {
@@ -178,9 +179,9 @@ console.log(this.path)
 
     this.snack.open('Category Type Successfully Updated! ', 'OK', 
           {
-            verticalPosition: 'bottom',
+            verticalPosition: 'top',
             horizontalPosition: 'center',
-            duration: 2000
+            duration: 4000
           });
   }
 

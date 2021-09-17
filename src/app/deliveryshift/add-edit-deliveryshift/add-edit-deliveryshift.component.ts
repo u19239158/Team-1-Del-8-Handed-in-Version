@@ -54,10 +54,14 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     this.form = this.formBuilder.group({
       // startTime: ['', [Validators.required]],
       // endTime: ['', [Validators.required]],
+
+      //date > Now() or Today()
       dayOfTheWeek: ['', [Validators.required]],
       employeeID: ['', [Validators.required]],
       // employeeName: ['', [Validators.required]],
       // dateId: ['', [Validators.required]],
+
+      //time > CurrentTime() 
       timeId: ['', [Validators.required]],
     }, formOptions);
 
@@ -157,9 +161,9 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     });
     this.snack.open('Successfully Added Delivery Shift! ', 'OK', 
     {
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       horizontalPosition: 'center',
-      duration: 2000
+      duration: 4000
     });
   }
 
@@ -177,9 +181,9 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     });
     this.snack.open('Successfully Updated Delivery Shift! ', 'OK', 
     {
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       horizontalPosition: 'center',
-      duration: 2000
+      duration: 4000
     });
   }
 

@@ -1,19 +1,19 @@
-<div class="content">
+<!-- <div class="content"> -->
 
-    <h1 align="center">View Delivery Details</h1>
+<!-- <h1 align="center">View Delivery Details</h1> -->
 
-    <div class="content1">
-        <!-- <mat-card> -->
-        <!-- <mat-card-content> -->
-        <div>
+<!-- <div class="content1"> -->
+<!-- <mat-card> -->
+<!-- <mat-card-content> -->
+<!-- <div>
             <div>
                 <label for="saleID">Sale_ID: </label>
                 <span> &nbsp;{{sale.saleID}}</span>
             </div>
-        </div>
-        <!-- </mat-card-content> -->
+        </div> -->
+<!-- </mat-card-content> -->
 
-        <div class="mat-row">
+<!-- <div class="mat-row">
             <div class="mat-col-quarter">
                 <p><label for="customerName">Customer Name:
                     </label>
@@ -52,16 +52,53 @@
 
                     <span> &nbsp;{{sale.addressPostalCode}}</span>
             </div>
-        </div>
+        </div> -->
 
 
-        <div class="mat-row">
+<!-- <div class="mat-row">
             <div class="mat-col-quarter">
                 <div class="form-group" class="control-m">
                     <button mat-raised-button [routerLink]="['/viewEmployeeDeliveryShifts']"><a
                             mat-button>Back</a></button>
                 </div>
             </div>
-        </div>
-        <!-- </mat-card> -->
-    </div>
+        </div> -->
+<!-- </mat-card> -->
+<!-- </div> -->
+
+<mat-card class="example-card">
+    <h1 mat-dialog-title mat-card-header class="title">
+        View Delivery Details
+    </h1>
+
+    <mat-dialog-content mat-card-content>
+        <mat-grid-list [cols]="breakpoint" rowHeight="45px" (window:resize)="onResize($event)">
+            <mat-grid-tile class="label" for="saleID">SALE NUMBER:</mat-grid-tile>
+            <mat-grid-tile class="info">{{sale.saleID}}</mat-grid-tile>
+
+            <mat-grid-tile class="label" for="customerName">CUSTOMER:</mat-grid-tile>
+            <mat-grid-tile class="info">{{sale.customerName}}</mat-grid-tile>
+
+            <mat-grid-tile class="label" for="customerBusinessName">BUSINESS NAME:</mat-grid-tile>
+            <mat-grid-tile class="info">{{sale.customerBusinessName}}</mat-grid-tile>
+
+            <mat-grid-tile class="label" for="customerCellphoneNumber">CUSTOMER CONTACT NUMBER: </mat-grid-tile>
+            <mat-grid-tile class="info">{{sale.customerCellphoneNumber}}</mat-grid-tile>
+
+            <mat-grid-tile class="label" for="address">ADDRESS:</mat-grid-tile>
+            <mat-grid-tile class="info">{{sale.addressLine1}} &nbsp;{{sale.addressLine2}} &nbsp;{{sale.addressLine3}}
+            </mat-grid-tile>
+
+            <mat-grid-tile class="label" for="addressPostalCode">POSTAL CODE:</mat-grid-tile>
+            <mat-grid-tile class="info">{{sale.addressPostalCode}}</mat-grid-tile>
+
+        </mat-grid-list>
+
+
+    </mat-dialog-content>
+    <mat-dialog-actions mat-card-actions class="actionbuttons">
+
+        <button mat-raised-button [routerLink]="['/viewEmployeeDeliveryShifts']"><a mat-button>Back</a></button>
+
+    </mat-dialog-actions>
+</mat-card>

@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,6 +8,7 @@ import { Deliveryshift } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { DeliveryshiftService } from 'src/app/services/deliveryshift/deliveryshift.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-deliveryshifts',
@@ -26,7 +27,8 @@ export class DeliveryshiftsComponent implements OnInit {
   // DeliveryShift: Deliveryshift;
   deliveryShift: Observable<Deliveryshift[]>;
   dataSource = new MatTableDataSource<Deliveryshift>();
-  displayedColumns: string[] = ['startTime', 'endTime', 'dayOfTheWeek', 'employeeName', 'actions'];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  displayedColumns: string[] = ['startTime', 'endTime', 'dayOfTheWeek', 'employeeName', 'noOfDeliveries', 'actions'];
 
   constructor(private deliveryshiftService: DeliveryshiftService,
     private snack: MatSnackBar,
@@ -36,6 +38,7 @@ export class DeliveryshiftsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     this.readDeliveryshifts();
 
     this.deliveryshiftService.GetDeliveryShift().subscribe((result: Deliveryshift[]) => {
@@ -86,9 +89,9 @@ export class DeliveryshiftsComponent implements OnInit {
         {
           this.snack.open(error.error, 'OK', 
           {
-            verticalPosition: 'bottom',
+            verticalPosition: 'top',
             horizontalPosition: 'center',
-            duration: 3000
+            duration: 4000
           });
           return;
         } 
@@ -97,9 +100,9 @@ export class DeliveryshiftsComponent implements OnInit {
       }
       this.snack.open('Successfully Deleted Delivery Shift! ', 'OK',
       {
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         horizontalPosition: 'center',
-        duration: 2000
+        duration: 4000
       });
     });
     

@@ -54,7 +54,7 @@
             <td mat-cell *matCellDef="let element"> {{element.employeeName}} </td>
         </ng-container> -->
 
-                <!-- Actions Column -->
+                <!-- Number of Deliveries Column -->
                 <ng-container matColumnDef="noOfDeliveries">
                     <th mat-header-cell *matHeaderCellDef>
                         <!-- <button color="primary" aria-label="Example icon button with a home icon"
@@ -88,7 +88,10 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-
+<mat-paginator [pageSizeOptions]="[5, 8, 15, 35]"
+                 showFirstLastButtons 
+                 aria-label="Select page">
+      </mat-paginator>
 
         </div>
         <!-- Done button must show the delivery assigned modal(the delivery assigned modal is not in the ts) -->

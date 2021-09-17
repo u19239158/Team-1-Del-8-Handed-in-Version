@@ -80,9 +80,9 @@ export class LoginComponent implements OnInit {
             {
               this.snack.open(error.error, 'OK',
               {
-                verticalPosition: 'bottom',
-                horizontalPosition: 'center',
-                duration: 3000
+                verticalPosition: 'top',
+      horizontalPosition: 'center',
+      duration: 4000
               });
           }});
           

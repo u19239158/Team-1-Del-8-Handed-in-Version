@@ -30,7 +30,7 @@
     <button mat-menu-item routerLink="/couriers" (click)="onSidenavClose()">View Couriers</button>
   </mat-menu>
 
-<!-- Dashboard -->
+  <!-- Dashboard -->
   <a mat-list-item routerLink="/dashboard" (click)="onSidenavClose()">
     <!-- <mat-icon>home</mat-icon>  -->
     <img src="assets/images/Report.png" class="w3-margin-right" width=20px height=20px>
@@ -44,9 +44,12 @@
   </mat-list-item>
   <mat-menu #menu6="matMenu">
     <button mat-menu-item routerLink="/addDeliveryShift" (click)="onSidenavClose()">Add Delivery Shift</button>
-    <button mat-menu-item routerLink="/deliveryShift" (click)="onSidenavClose()">View Delivery Shift</button>
+    <button mat-menu-item routerLink="/deliveryShift" (click)="onSidenavClose()">View Delivery Shifts</button>
     <button mat-menu-item routerLink="/viewdeliveryshiftschedule" (click)="onSidenavClose()">View Delivery Shift
       Schedule</button>
+    <button mat-menu-item routerLink="/updateDeliveriesLimit" (click)="onSidenavClose()">Update Number of Shift
+      Deliveries</button>
+
   </mat-menu>
 
 
@@ -76,7 +79,7 @@
     <a matline> Promotions</a>
   </mat-list-item>
   <mat-menu #menu5="matMenu">
-     <button mat-menu-item routerLink="/specialAdd" (click)="onSidenavClose()">Add Special</button> 
+    <button mat-menu-item routerLink="/specialAdd" (click)="onSidenavClose()">Add Special</button>
     <button mat-menu-item routerLink="/special" (click)="onSidenavClose()">View Specials</button>
   </mat-menu>
 
@@ -88,12 +91,16 @@
   </mat-list-item>
   <mat-menu #menu8="matMenu">
     <button mat-menu-item routerLink="/deliveryReport" (click)="onSidenavClose()">Delivery Report</button>
-    <button mat-menu-item routerLink="/fastSellingProductsReport" (click)="onSidenavClose()">Fast Selling Products Report</button> 
+    <!-- <button mat-menu-item routerLink="/fastSellingProductsReport" (click)="onSidenavClose()">Fast Selling Products
+      Report</button> -->
     <button mat-menu-item routerLink="/monthlySalesOrderReport" (click)="onSidenavClose()">Monthly Sales Report</button>
-    <button mat-menu-item routerLink="/mostFrequentBuyersReport" (click)="onSidenavClose()">Most Frequent Buyers Report</button>
+    <!-- <button mat-menu-item routerLink="/mostFrequentBuyersReport" (click)="onSidenavClose()">Most Frequent Buyers
+      Report</button> -->
     <button mat-menu-item routerLink="/packingReport" (click)="onSidenavClose()">Packing Report</button>
-    <button mat-menu-item routerLink="/popularLocationReport" (click)="onSidenavClose()">Popular Location Report</button>
-    <button mat-menu-item routerLink="/slowSellingProductsReport" (click)="onSidenavClose()">Slow Selling Products Report</button>
+    <button mat-menu-item routerLink="/popularLocationReport" (click)="onSidenavClose()">Popular Location
+      Report</button>
+    <!-- <button mat-menu-item routerLink="/slowSellingProductsReport" (click)="onSidenavClose()">Slow Selling Products
+      Report</button> -->
     <button mat-menu-item routerLink="/stockLevelReport" (click)="onSidenavClose()">Stock Level Report</button>
     <button mat-menu-item routerLink="/weeklySalesOrderReport" (click)="onSidenavClose()">Weekly Sales Report</button>
   </mat-menu>

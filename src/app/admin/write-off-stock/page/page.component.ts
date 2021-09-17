@@ -71,9 +71,9 @@ export class PageComponent implements OnInit {
     });
     this.snack.open('Successfully Performed Write-Off! ', 'OK', 
     {
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       horizontalPosition: 'center',
-      duration: 2000
+      duration: 4000
     });
   }
 

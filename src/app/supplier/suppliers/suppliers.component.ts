@@ -39,6 +39,7 @@ dataNotFound: boolean;
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     this.readSuppliers();
 
     this.supplierService.GetSupplier().subscribe((result:Supplier[]) => {

@@ -1,5 +1,5 @@
 import { StockTakeService } from './../../services/admin/stock-take/stock-take.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { StockTake , Productitem} from 'src/app/interfaces';
 import { Observable } from 'rxjs';
@@ -7,6 +7,7 @@ import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@ang
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ProductitemService } from 'src/app/services/productitem/productitem.service';
+import {MatPaginator} from '@angular/material/paginator';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class StockTakeComponent implements OnInit {
   productitems: Productitem[] = [];
   productitem: Observable<Productitem[]>;
   dataSource = new MatTableDataSource<Productitem>();
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['productItem', 'quantity', 'actions'];
   productItemService: any;
  // StockTakeService: any;
@@ -48,7 +50,12 @@ export class StockTakeComponent implements OnInit {
     private FB:FormBuilder,
   ) { }
 
+  // ngAfterViewInit(): void{
+  //   setTimeout(() => this.dataSource.paginator = this.paginator);
+  // }
+
   ngOnInit(): void {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     this.getCollection();
 
     const formOptions: AbstractControlOptions = { };
@@ -90,6 +97,7 @@ export class StockTakeComponent implements OnInit {
   }
   
     showProducts(){
+      setTimeout(() => this.dataSource.paginator = this.paginator);
       this.isHidden = false;
       this.stockTakeService.getProductByCatType(this.form.value.categoryTypeId).subscribe(res => {
         console.log(res)

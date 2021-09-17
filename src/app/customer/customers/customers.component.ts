@@ -1,5 +1,5 @@
 import { CustomerService } from './../../services/customer/customer.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { Customer } from 'src/app/interfaces';
@@ -8,6 +8,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import {  HttpClient, HttpErrorResponse  } from '@angular/common/http';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-customers',
@@ -25,6 +26,7 @@ dataNotFound: boolean;
 Customer: Customer;
 customers: Observable<Customer[]>;
 dataSource = new MatTableDataSource<Customer>();
+@ViewChild(MatPaginator) paginator: MatPaginator;
 displayedColumns: string[] = ['name', 'customerCellphoneNumber', 'email', 'businessName', 'vat', 'actions'];
 
 constructor(private customerService: CustomerService,
@@ -34,6 +36,7 @@ constructor(private customerService: CustomerService,
   private httpClient: HttpClient) { }
 
 ngOnInit(): void {
+  setTimeout(() => this.dataSource.paginator = this.paginator);
   this.readCustomers();
 
   this.customerService.GetCustomer().subscribe((result:Customer[]) => {
@@ -85,18 +88,18 @@ deleteCustomer(Customer: Customer) {
       {
         this.snack.open(error.error, 'OK', 
         {
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           horizontalPosition: 'center',
-          duration: 3000
+          duration: 4000
         });
         return;
       }
     })
     this.snack.open('Successfully Deleted Customer! ', 'OK', 
     {
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       horizontalPosition: 'center',
-      duration: 2000
+      duration: 4000
     });
     }
    
