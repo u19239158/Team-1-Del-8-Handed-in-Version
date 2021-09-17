@@ -32,6 +32,7 @@ export class CartComponent implements OnInit {
   isSubmitted = false;
   public products : any = [];
   public transaction : any =[];
+  public vatTotals !: number;
   public grandTotal !: number;
   public  coordinates: Coordinates;
 
@@ -72,7 +73,8 @@ export class CartComponent implements OnInit {
     this.cartService.getProducts()
     .subscribe(res=>{
       this.products = res;
-      this.grandTotal = this.cartService.getTotalPrice();
+      this.grandTotal = this.cartService.getTotalPrice();      
+      this.vatTotals = this.cartService.getVATPrice();
     })
     
 

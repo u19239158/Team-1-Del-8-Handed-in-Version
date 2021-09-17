@@ -82,9 +82,18 @@ export class CartService {
   getTotalPrice() : number{
     let grandTotal = 0;
     this.cartItemList.map((a:any)=>{
-      grandTotal += a.productItemCost;
+      grandTotal += a.sellingPrice;
     })
     return grandTotal;
+  }
+
+  getVATPrice() : number{
+    let vatTotals = 0;
+    this.cartItemList.map((a:any)=>{
+      vatTotals += a.vatTotal;
+    })
+    console.log(vatTotals);
+    return vatTotals;
   }
 
   removeCartItem(product: any){

@@ -8,9 +8,16 @@
 .tile {
     margin: 0px 15px;
     text-align: center;
+    margin-left: 250px;
+    margin-right: 100px;
+    align-content: center;
 }
 
 .tile button:hover {
     transition: 0.3s ease-in-out;
     transform: scale(1.1);
 }
+
+
+
+
