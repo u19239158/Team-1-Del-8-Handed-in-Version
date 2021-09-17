@@ -22,8 +22,8 @@
 
         <app-global-error *ngIf="dataNotFound"></app-global-error>
 
-<br>
-<br>
+        <br>
+        <br>
 
         <div class="mat-elevation-z8 table">
             <table mat-table [dataSource]="dataSource" matSort *ngIf="!dataNotFound">
@@ -49,6 +49,18 @@
                 <ng-container matColumnDef="dayOfTheWeek">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
                     <td mat-cell *matCellDef="let element"> {{element.dayOfTheWeek}} </td>
+                </ng-container>
+
+                <!-- Number of Deliveries Column -->
+                <ng-container matColumnDef="noOfDeliveries">
+                    <th mat-header-cell *matHeaderCellDef>
+                        <!-- <button color="primary" aria-label="Example icon button with a home icon"
+                    routerLink="/addDeliveryShift"> -->
+                        Number of Deliveries
+                    </th>
+                    <td mat-header-cell *matCellDef="let element">
+                        {{element.noOfDeliveries}}
+                    </td>
                 </ng-container>
 
                 <!-- Actions Column -->

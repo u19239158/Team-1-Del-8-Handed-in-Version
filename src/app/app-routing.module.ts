@@ -69,6 +69,7 @@ import { ViewdeliveryshiftscheduleComponent } from './deliveryshift/viewdelivery
 import { ViewSaleComponent } from './admin/online-sales/view-sale/view-sale.component';
 import { ViewDeliveryDetailsComponent } from './deliveryshift/view-delivery-details/view-delivery-details.component'
 import { ViewEmployeeDeliveryShiftsComponent } from './deliveryshift/view-employee-delivery-shifts/view-employee-delivery-shifts.component'
+import { UpdateDeliveriesLimitComponent } from './deliveryshift/update-deliveries-limit/update-deliveries-limit.component';
 
 const routes: Routes = [
   {
@@ -162,6 +163,10 @@ const routes: Routes = [
   {
     path: 'editCourier/:id',
     component: AddEditCourierComponent
+  },
+  {
+    path: 'updateDeliveriesLimit',
+    component: UpdateDeliveriesLimitComponent
   },
   {
     path: 'viewDeliveryDetails/:id',

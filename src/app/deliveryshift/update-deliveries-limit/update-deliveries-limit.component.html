@@ -1,0 +1,30 @@
+<div class="content">
+
+    <h2>Update Number of Shift Deliveries </h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <div class="mat-row">
+            <div class="mat-col-quarter">
+                <mat-form-field appearance="outline" class="control-m">
+                    <mat-label>Enter Shift Limit</mat-label>
+                    <input type="number" min="1" matInput placeholder="Enter Shift Limit" formControlName="shiftLimit">
+                </mat-form-field>
+                <mat-hint>Enter the maximum number of deliveries that can be allocated to an employee</mat-hint>
+            </div>
+        </div>
+
+        <div class="mat-row">
+            <div class="mat-col-quarter">
+                <div class="form-group" class="control-m">
+                    <button mat-raised-button color="primary" [disabled]="loading">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Save
+                    </button>
+                    <a (click)="Close()" mat-button>Cancel</a>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>

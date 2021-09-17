@@ -97,6 +97,10 @@ export class OnlineSalesComponent implements OnInit {
       // this.OnlineSalesService.updateToCollected(this.sale).subscribe(res =>{
       //   console.log(res)});
     });
+
+    // const dialogRef = this.dialog.open(ViewSaleComponent, {
+    //   width: '50%',
+    // });
   }
 
 

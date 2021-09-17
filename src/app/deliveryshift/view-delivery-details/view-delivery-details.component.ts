@@ -22,6 +22,8 @@ export class ViewDeliveryDetailsComponent implements OnInit {
   public sales: any = [];
   // id: number;
   loading = false;
+  matVersion: string = '5.1.0';
+  breakpoint: number;
 
   constructor(private OnlineSalesService: OnlineSalesService,
     private route: ActivatedRoute,
@@ -31,6 +33,7 @@ export class ViewDeliveryDetailsComponent implements OnInit {
     private http: HttpClient,) { }
 
   ngOnInit(): void {
+    this.breakpoint = (window.innerWidth <= 600) ? 1 : 2;
 
     this.id = this.route.snapshot.params['id'];
     this.getCollection();
@@ -52,6 +55,10 @@ export class ViewDeliveryDetailsComponent implements OnInit {
       }, error => {
         console.log({ error });
       })
+  }
+
+  onResize(event) {
+    this.breakpoint = (event.target.innerWidth <= 600) ? 1 : 2;
   }
 
   Close() {

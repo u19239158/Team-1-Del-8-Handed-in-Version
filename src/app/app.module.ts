@@ -44,7 +44,7 @@ import { ProductcategorysComponent } from './productcategory/productcategorys/pr
 import { AddEditProductcategorysComponent } from './productcategory/add-edit-productcategorys/add-edit-productcategorys.component';
 import { CustomersComponent } from './customer/customers/customers.component';
 import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
-import {EditSpecialComponent} from './special/add-edit-special/edit-special.component';
+import { EditSpecialComponent } from './special/add-edit-special/edit-special.component';
 import { AddSpecialComponent } from './special/add-edit-special/add-special.component';
 
 import { MaterialModule } from './material/material/material.module';
@@ -81,6 +81,7 @@ import { DeliveryAssignedComponent } from './modals/globals/delivery-assigned/de
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { QuantityModalComponent } from './supplier/place-supplier-order/quantity-modal/quantity-modal.component';
 import { CaptureOrderComponent } from './supplier/receive-supplier-order/capture-order/capture-order.component';
+import { UpdateDeliveriesLimitComponent } from './deliveryshift/update-deliveries-limit/update-deliveries-limit.component';
 
 
 const firebaseConfig = {
@@ -154,6 +155,7 @@ const firebaseConfig = {
     DashboardComponent,
     QuantityModalComponent,
     CaptureOrderComponent,
+    UpdateDeliveriesLimitComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
