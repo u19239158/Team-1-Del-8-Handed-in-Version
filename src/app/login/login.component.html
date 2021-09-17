@@ -1,63 +1,52 @@
-<div>
-  <div>
-    <div>
+<div class="back-ground">
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>Member Login</mat-card-title>
 
-      <div class="split picture">
-        <img style="margin-top:30px" src="assets/images/NKAP.jpg" />
-      </div>
-    </div>
-
-    <div class="split information">
-      <div>
-        <!-- <div fxLayout="row" fxLayoutAlign="end">
-          <a routerLink="/home"> 
-            <h4><mat-icon>arrow_back</mat-icon>Go back</h4>      
-          </a>
-        </div> -->
-        <div fxLayout="row" fxLayoutAlign="center">
-          <h1>Log in to Nkap Bolting</h1>
-        </div>
-      </div>
-
-      <div fxLayout="column" fxLayoutAlign="center" style="margin-top:100px">
-
-        <form [formGroup]="form">
+  </mat-card-header>
+   <mat-card-content>
+     <form [formGroup]="form">
           <!-- (ngSubmit)="Login(form.value)"> -->
 
-          <div fxLayoutAlign="center">
+          <div >
             <mat-form-field style="width:50%" appearance="outline">
-              <mat-label>Enter username</mat-label>
-              <input formControlName="userUsername" matInput>
+              <mat-label>Username</mat-label>
+              <input formControlName="userUsername" matInput class="info">
               <mat-error *ngIf="form.controls['userUsername'].invalid">Please enter a valid username</mat-error>
             </mat-form-field>
           </div>
 
-          <div fxLayoutAlign="center" style="margin-top:10px">
+          <div >
             <mat-form-field style="width:50%" appearance="outline">
-              <mat-label>Enter password</mat-label>
+              <mat-label>Password</mat-label>
               <input type="password" formControlName="userPassword" matInput>
               <mat-error *ngIf="form.controls['userPassword'].invalid">Please enter a valid password</mat-error>
             </mat-form-field>
           </div>
 
-          <div fxLayoutAlign="center" style="margin-top:10px">
+          <div >
+            <button (click) = "Login()" mat-raised-button style="width:50%">Login</button>
+          </div>
+          <br>
+         
+
+        </form>
+  </mat-card-content>
+
+  <mat-card-actions>
+   <div>
             <a routerLink="/home">
-              <h5>Forgot password... again?</h5>
+              <h5>Forgot Username/Password?</h5>
             </a>
           </div>
-
-
-          <div fxLayoutAlign="center" style="margin-top:20px">
-            <button (click) = "Login()" mat-raised-button color="primary">Login</button>
+          <br>
+          <br>
+          <div >
+            <a routerLink="/home">
+              <h5>Create your account --></h5>
+            </a>
           </div>
-
-          <!-- <div fxLayoutAlign="center" style="margin-top:20px">
-          <a [routerLink]="['/register']">
-          <button mat-raised-button color="primary">Register</button>
-          </a>
-          </div>[disabled]="!form.valid || formSubmitted" -->
-        </form>
-      </div>
-    </div>
-  </div>
+  </mat-card-actions>
+</mat-card>
 </div>
