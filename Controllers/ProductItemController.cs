@@ -239,18 +239,34 @@ namespace NKAP_API_2.Controllers
             return Ok();
         }
 
-
-    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        string response = "";
+        // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("DeleteProductItem/{productitemid}")] //route
         [HttpDelete]
         //Delete Product Item
         public IActionResult DeleteProductItem(int productitemid)
         {
-            var Pitem = _db.ProductItems.Find(productitemid);
-            _db.ProductItems.Remove(Pitem); //Delete Record
-            _db.SaveChanges();
+            var ProdSpec = _db.ProductSpecials.FirstOrDefault(zz => zz.ProductItemId == productitemid);
+            if (ProdSpec == null)
+            {
+                var ItemPrice = _db.Prices.FirstOrDefault(zz => zz.ProductItemId == productitemid);
+                var Pitem = _db.ProductItems.Find(productitemid);
+                _db.Prices.Remove(ItemPrice);
+                _db.SaveChanges();
+                _db.ProductItems.Remove(Pitem);  //Delete Record
+                _db.SaveChanges();
 
-            return Ok(Pitem);
+                return Ok();
+                
+            }
+
+            else 
+                {
+                response = "Product Item could not be deleted as it belongs to a Special";
+                return BadRequest(response);
+                
+            }
+          
         }
     }
 }
