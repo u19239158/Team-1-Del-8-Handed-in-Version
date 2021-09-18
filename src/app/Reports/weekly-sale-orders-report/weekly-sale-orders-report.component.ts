@@ -80,10 +80,15 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
   generateReport() {
     this.serv.SalesReport(this.form.value).subscribe(data => {
       this.created = false;
+      this.serv.SalesReportSum(this.form.value).subscribe(res =>{
+        console.log(res)})
       console.log(data);
       this.dataSource = new MatTableDataSource(data)
       this.generateTables(data);
     });
+
+    this.serv.SalesReportAvg(this.form.value).subscribe(res =>{
+      console.log(res)})
   }
 
   // generateChart(data) {

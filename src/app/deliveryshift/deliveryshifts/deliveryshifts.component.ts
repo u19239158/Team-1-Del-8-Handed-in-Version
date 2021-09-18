@@ -48,6 +48,7 @@ export class DeliveryshiftsComponent implements OnInit {
   }
 
   readDeliveryshifts(): void {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     this.deliveryshiftService.GetDeliveryShift().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
@@ -60,7 +61,7 @@ export class DeliveryshiftsComponent implements OnInit {
     // this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.startTime.includes(this.searchValue)))
     // // this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.endTime.includes(this.searchValue)))
     // this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.dayOfTheWeek.includes(this.searchValue)))
-
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     const filter = (e) => {
 
       return e.employeeName && e.employeeName.toLowerCase().includes(this.searchWord.toLowerCase()) ||
@@ -79,6 +80,7 @@ export class DeliveryshiftsComponent implements OnInit {
     });
 
     confirm.afterClosed().subscribe(res => {
+      setTimeout(() => this.dataSource.paginator = this.paginator);
       if (res) {
         this.deliveryshiftService.DeleteDeliveryShift(Deliveryshift).subscribe(res => {
           this.readDeliveryshifts();
