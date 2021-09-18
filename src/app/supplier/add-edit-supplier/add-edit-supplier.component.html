@@ -12,6 +12,7 @@
           <mat-label>Supplier Name</mat-label>
           <input type="text" matInput placeholder="Supplier Name" formControlName="supplierName">
            <mat-hint>Enter supplier name</mat-hint>
+           <mat-error *ngIf="form.controls['supplierName'].invalid">Please provide a Supplier Name</mat-error>    
       </mat-form-field>
   </div>
 
@@ -20,6 +21,7 @@
         <mat-label>Contact Number</mat-label>
         <input type="text" matInput placeholder="Contact Number" formControlName="supplierNumber">
            <mat-hint>Enter supplier contact number</mat-hint>
+           <mat-error *ngIf="form.controls['supplierNumber'].invalid">Please provide the Supplier's Contact Number</mat-error>    
     </mat-form-field>
   </div>
 </div>
@@ -31,6 +33,7 @@
         <mat-label>Supplier Email Address</mat-label>
         <input type="text" matInput placeholder="Supplier Email Address" formControlName="supplierEmail">
            <mat-hint>Enter supplier email address</mat-hint>
+           <mat-error *ngIf="form.controls['supplierEmail'].invalid">Please provide the Supplier's email address</mat-error>    
     </mat-form-field>
 </div>
 
@@ -46,6 +49,7 @@
           <mat-label>Supplier AddressLine1</mat-label>
           <input type="text" matInput placeholder="Supplier AddressLine1" formControlName="supplierAddressLine1">
           <mat-hint>Enter supplier address line 1</mat-hint>
+          <mat-error *ngIf="form.controls['supplierAddressLine1'].invalid">Please provide the Supplier's address</mat-error>    
       </mat-form-field>
     </div>
 
@@ -55,6 +59,7 @@
           <mat-label>City/Town</mat-label>
           <input type="text" matInput placeholder="City/Town" formControlName="supplierCityTown">
              <mat-hint>Enter supplier city/town</mat-hint>
+             <mat-error *ngIf="form.controls['supplierCityTown'].invalid">Please provide the City or Town of the supplier</mat-error>    
       </mat-form-field>
     </div>
 
@@ -67,6 +72,7 @@
           <mat-label>Supplier AddressLine2</mat-label>
           <input type="text" matInput placeholder="Supplier AddressLine2" formControlName="supplierAddressLine2">
           <mat-hint>Enter supplier address line 2</mat-hint>
+          <mat-error *ngIf="form.controls['supplierAddressLine2'].invalid">Please provide the Supplier's address </mat-error>    
       </mat-form-field>
   </div>
 
@@ -75,6 +81,7 @@
         <mat-label>Postal Code</mat-label>
         <input type="text" matInput placeholder="Postal Code" formControlName="supplierPostalCode">
            <mat-hint>Enter supplier postal code</mat-hint>
+           <mat-error *ngIf="form.controls['supplierPostalCode'].invalid">Please provide the Supplier's postal code</mat-error>    
     </mat-form-field>
   </div>
   </div>
@@ -86,6 +93,7 @@
           <mat-label>Supplier AddressLine3</mat-label>
           <input type="text" matInput placeholder="Supplier AddressLine3" formControlName="supplierAddressLine3">
              <mat-hint>Enter supplier address line 3</mat-hint>
+           
       </mat-form-field>
     </div>
 

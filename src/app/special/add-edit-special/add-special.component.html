@@ -11,6 +11,7 @@
                <mat-option *ngFor="let CategoryType of collection" [value]="CategoryType.categoryTypeId">{{CategoryType.categoryTypeDescription}}</mat-option>
              </mat-select>
              <mat-hint> Select a category type</mat-hint>
+             <mat-error *ngIf="form.controls['categoryTypeId'].invalid">Please selecta category type</mat-error> 
            </mat-form-field>
        </div>
    </div>
@@ -58,6 +59,7 @@
                  </button>
                  <mat-menu #menu="matMenu" xPosition="before">
                     <button mat-menu-item [routerLink]="['/specialAdd', element.productItemId]" >Add Special</button>
+                    
                  </mat-menu>
              </td>
          </ng-container>
