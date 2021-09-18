@@ -9,6 +9,7 @@ import { Employee } from 'src/app/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { AssigndeliveryshiftService } from 'src/app/services/assigndeliveryshift/assigndeliveryshift.service';
 import * as moment from 'moment';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-add-edit-deliveryshift',
@@ -28,21 +29,27 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
   deliveryshifts: Observable<Deliveryshift[]>
   collection = [];
   collections = [];
+  times = [];
   employees = [];
   selected: string;
   selectemp: string;
   selectend: string;
   currentData = 2;
+  minDate: Date;
+  selectedDate = new Date();
 
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private snack :MatSnackBar,
+    private snack: MatSnackBar,
     private DeliveryShiftService: DeliveryshiftService,
     private http: HttpClient
-  ) { }
+  ) {
+    const currentYear = new Date().getFullYear();
+    this.minDate = new Date();
+  }
 
   ngOnInit(): void {
     this.shiftId = +this.route.snapshot.params['id'];
@@ -119,10 +126,32 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     this.http
       .get<any>('https://localhost:44393/api/DeliveryShift/GetShiftTime').subscribe((res: any) => {
         this.collections = res;
+        this.generateTimes();
+        console.log("time", res)
       }, error => {
         console.log({ error });
       });
+  }
 
+  generateTimes() {
+    const now = +moment(moment().format("YYYY-MM-DD HH:mm:ss")).toDate()
+    console.log("NOW", moment().format("YYYY-MM-DD HH:mm:ss"))
+    this.times = JSON.parse(JSON.stringify(this.collections)).filter(ds => {
+      // const time = ds.startTime;
+      const nowDate = moment(this.selectedDate).format("YYYY-MM-DD") + " " + ds.startTime
+      console.log("now Date", nowDate)
+      const time = +moment(moment(nowDate).utc()).toDate()
+      console.log("testing", this.form.value);
+      return time >= now;
+
+    });
+  }
+
+  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+    // this.events.push(`${type}: ${event.value}`);
+    this.selectedDate = event.value;
+    console.log(event.value);
+    this.generateTimes();
   }
 
   getEmployees() {
@@ -159,12 +188,12 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
       this.loading = false
       this.router.navigateByUrl('deliveryShift');
     });
-    this.snack.open('Successfully Added Delivery Shift! ', 'OK', 
-    {
-      verticalPosition: 'bottom',
-      horizontalPosition: 'center',
-      duration: 2000
-    });
+    this.snack.open('Successfully Added Delivery Shift! ', 'OK',
+      {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+        duration: 2000
+      });
   }
 
   updateDeliveryshift() {
@@ -179,12 +208,12 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
       this.form.reset();
       this.router.navigateByUrl('deliveryShift');
     });
-    this.snack.open('Successfully Updated Delivery Shift! ', 'OK', 
-    {
-      verticalPosition: 'bottom',
-      horizontalPosition: 'center',
-      duration: 2000
-    });
+    this.snack.open('Successfully Updated Delivery Shift! ', 'OK',
+      {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+        duration: 2000
+      });
   }
 
   Close() {

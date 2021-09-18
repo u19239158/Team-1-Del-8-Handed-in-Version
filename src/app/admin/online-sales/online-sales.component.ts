@@ -31,6 +31,7 @@ export class OnlineSalesComponent implements OnInit {
   route: any;
   id: number;
   public sale: any = [];
+  dataNotFound: boolean;
 
   constructor(private OnlineSalesService: OnlineSalesService,
     private snack: MatSnackBar,
@@ -113,8 +114,10 @@ export class OnlineSalesComponent implements OnInit {
         e.saleOrderDate && e.saleOrderDate.toLowerCase().includes(this.searchWord.toLowerCase()) ||
         e.orderStatusDescription && e.orderStatusDescription.toString().toLowerCase().includes(this.searchWord.toLowerCase())
     }
-
-    this.dataSource = new MatTableDataSource(this.OnlineSales.filter(filter))
+    const data = (this.OnlineSales.filter(filter))
+    this.dataNotFound = data.length === 0
+    this.dataSource = new MatTableDataSource(data)
+    
   }
 
   parseInteger(value) {

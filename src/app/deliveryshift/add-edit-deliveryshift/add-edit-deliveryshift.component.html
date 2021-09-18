@@ -5,15 +5,16 @@
   <!-- max time for a shift is 1 hour (ADD Validation) -->
 
   <form [formGroup]="form" (ngSubmit)="onSubmits()">
+
     <div class="mat-row">
       <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m">
-          <mat-label>Time Interval</mat-label>
-          <mat-select formControlName="timeId">
-            <mat-option *ngFor="let ds of collections" [value]="ds.timeId">{{ds.startTime}} - {{ds.endTime}}
-            </mat-option>
-          </mat-select>
-          <mat-hint>Select time interval of the delivery shift</mat-hint>
+          <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="dd/mm/yyyy"
+            formControlName="dayOfTheWeek" (dateInput)="addEvent('input', $event)"
+            (dateChange)="addEvent('change', $event)">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-hint>Select the date of delivery shift</mat-hint>
         </mat-form-field>
       </div>
     </div>
@@ -21,13 +22,16 @@
     <div class="mat-row">
       <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m">
-          <input matInput [matDatepicker]="picker" placeholder="dd/mm/yyyy" formControlName="dayOfTheWeek">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-          <mat-hint>Select the date of delivery shift</mat-hint>
+          <mat-label>Time Interval</mat-label>
+          <mat-select formControlName="timeId">
+            <mat-option *ngFor="let ds of times" [value]="ds.timeId">{{ds.startTime}} - {{ds.endTime}}
+            </mat-option>
+          </mat-select>
+          <mat-hint>Select time interval of the delivery shift</mat-hint>
         </mat-form-field>
       </div>
     </div>
+
 
     <div class="mat-row">
       <div class="mat-col-quarter">

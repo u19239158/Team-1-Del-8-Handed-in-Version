@@ -20,10 +20,10 @@
             </ul>
         </div>
 
-        <app-global- error *ngIf="dataNotFound"></app-global->
+        <app-global-error *ngIf="dataNotFound"></app-global-error>
 
-<br>
-<br>
+        <br>
+        <br>
         <div>
             <table mat-table [dataSource]="dataSource" matSort *ngIf="!dataNotFound">
                 <!-- Courier Name Column -->

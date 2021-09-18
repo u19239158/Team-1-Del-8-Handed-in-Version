@@ -19,11 +19,12 @@
       </ul>
     </div>
 
-    <br>
-    <br>
+    <app-global-error *ngIf="dataNotFound"></app-global-error>
 
+    <br>
+    <br>
     <div>
-      <table mat-table [dataSource]="dataSource" matSort>
+      <table mat-table [dataSource]="dataSource" *ngIf="!dataNotFound" matSort>
         <!-- Sale Number -->
         <ng-container matColumnDef="saleNumber">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Sale Number </th>
@@ -87,10 +88,10 @@
       </table>
     </div>
 
-    <div class="mat-row">
+    <!-- <div class="mat-row">
       <div class="mat-col-quarter">
         <a (click)="Close()" mat-button>Cancel</a>
       </div>
-    </div>
+    </div> -->
 
   </div>
