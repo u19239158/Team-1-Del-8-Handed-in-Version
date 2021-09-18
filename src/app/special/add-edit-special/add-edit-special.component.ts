@@ -116,9 +116,9 @@ private snack : MatSnackBar,
 
     this.snack.open('Special Successfully Added! ', 'OK', 
     {
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       horizontalPosition: 'center',
-      duration: 2000
+      duration: 4000
     });
   }
 

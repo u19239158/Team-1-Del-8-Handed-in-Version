@@ -110,9 +110,9 @@ export class AddEditProductcategorysComponent implements OnInit {
 
     this.snack.open('Product Category Successfully Added! ', 'OK', 
           {
-            verticalPosition: 'bottom',
+            verticalPosition: 'top',
             horizontalPosition: 'center',
-            duration: 2000
+            duration: 4000
           });
   }
 
@@ -132,9 +132,9 @@ export class AddEditProductcategorysComponent implements OnInit {
 
     this.snack.open('Product Category Successfully Updated! ', 'OK', 
     {
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       horizontalPosition: 'center',
-      duration: 2000
+      duration: 4000
     });
   }
 

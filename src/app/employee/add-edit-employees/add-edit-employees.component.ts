@@ -50,7 +50,7 @@ export class AddEditEmployeesComponent implements OnInit {
       employeeIdnumber: ['', [Validators.required, Validators.maxLength(13)]],
       employeeDob: ['', [Validators.required]],
       employeeAddressLine1: ['', [Validators.required]],
-      employeeAddressLine2: ['', [Validators.required]],
+      employeeAddressLine2: ['',],
       userUsername: ['', [Validators.required]],
       userPassword: ['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
       employeeConfirmPassword: ['', this.isAddMode ? Validators.required : Validators.nullValidator]
@@ -72,7 +72,7 @@ export class AddEditEmployeesComponent implements OnInit {
           employeeIdnumber: [this.employee.employeeIdnumber, [Validators.required, Validators.maxLength(13)]],
           employeeDob: [this.employee.employeeDob, [Validators.required]],
           employeeAddressLine1: [this.employee.employeeAddressLine1, [Validators.required]],
-          employeeAddressLine2: [this.employee.employeeAddressLine2, [Validators.required]],
+          employeeAddressLine2: [this.employee.employeeAddressLine2, ],
           // { value: this.employee.userUsername, disabled: true },
           userUsername: { value: this.employee.userUsername, disabled: true },
           userPassword: { value: this.employee.userPassword, disabled: true },
@@ -106,9 +106,9 @@ export class AddEditEmployeesComponent implements OnInit {
     })
     this.snack.open('Successfully Added Employee! ', 'OK', 
     {
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       horizontalPosition: 'center',
-      duration: 2000
+      duration: 4000
     });
   }
 
@@ -122,9 +122,9 @@ export class AddEditEmployeesComponent implements OnInit {
     });
     this.snack.open('Successfully Updated Employee! ', 'OK', 
     {
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       horizontalPosition: 'center',
-      duration: 2000
+      duration: 4000
     });
   }
 

@@ -12,6 +12,7 @@ import { AbstractControlOptions, FormGroup, FormBuilder } from '@angular/forms';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { ViewSaleComponent } from './view-sale/view-sale.component';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-online-sales',
@@ -23,6 +24,7 @@ export class OnlineSalesComponent implements OnInit {
   onlineSale: OnlineSales;
   onlineSales: Observable<OnlineSales[]>;
   dataSource = new MatTableDataSource<OnlineSales>();
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['saleNumber', 'customer', 'business', 'saleDate', 'orderStatus', 'saleOrderRecieveType', 'actions'];
   OnlineSales: OnlineSales[];
   searchValue: number;
@@ -41,6 +43,7 @@ export class OnlineSalesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     this.readOnlineSales();
 
     this.OnlineSalesService.ViewAllSales().subscribe((result: OnlineSales[]) => {
@@ -57,6 +60,7 @@ export class OnlineSalesComponent implements OnInit {
   }
 
   readOnlineSales(): void {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     //this.dataSource = new MatTableDataSource<UserRole[]>(this.UserRoleService.GetUserRole());
     this.OnlineSalesService.ViewAllSales().subscribe(res => {
       console.log(res)
@@ -65,6 +69,7 @@ export class OnlineSalesComponent implements OnInit {
   }
 
   updateToCollected(saleID: any) {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
     this.OnlineSalesService.GetSaleByID(saleID).subscribe(res => {
       this.sale = res;
@@ -79,6 +84,7 @@ export class OnlineSalesComponent implements OnInit {
   }
 
   updateToDelivered(saleID: any) {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     this.OnlineSalesService.GetSaleByID(saleID).subscribe(res => {
       this.sale = res;
       console.log(this.sale)
@@ -91,6 +97,7 @@ export class OnlineSalesComponent implements OnInit {
   }
 
   viewSale(saleID: any) {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
     this.OnlineSalesService.GetSaleByID(saleID).subscribe(res => {
       this.sale = res;
@@ -106,6 +113,7 @@ export class OnlineSalesComponent implements OnInit {
 
 
   filter() {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     const filter = (e) => {
 
       return e.customerName && e.customerName.toLowerCase().includes(this.searchWord.toLowerCase()) ||

@@ -26,7 +26,7 @@ export class LogoutComponent implements OnInit {
   }
 
   Cancel(): void {
-    this.dialogRef.close(false);
+    this.dialogRef.close();
   }
 
 }

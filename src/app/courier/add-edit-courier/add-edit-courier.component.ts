@@ -85,9 +85,9 @@ export class AddEditCourierComponent implements OnInit {
 
     this.snack.open('Successfully Added Courier! ', 'OK', 
     {
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       horizontalPosition: 'center',
-      duration: 2000
+      duration: 4000
     });
   }
 
@@ -113,9 +113,9 @@ export class AddEditCourierComponent implements OnInit {
     });
     this.snack.open('Successfully Updated Courier! ', 'OK', 
     {
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       horizontalPosition: 'center',
-      duration: 2000
+      duration: 4000
     });
   }
 

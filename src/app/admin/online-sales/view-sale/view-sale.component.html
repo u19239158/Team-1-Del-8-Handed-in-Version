@@ -32,7 +32,7 @@
             <mat-grid-tile class="info">{{sale.salePaymentDate| date:"dd/MM/yyyy"}}</mat-grid-tile>
 
             <mat-grid-tile class="label" for="salePaymentAmount">PAYMENT AMOUNT:</mat-grid-tile>
-            <mat-grid-tile class="info">R {{sale.salePaymentAmount}}</mat-grid-tile>
+            <mat-grid-tile class="info">R {{sale.salePaymentAmount | number:'1.1-2'}}</mat-grid-tile>
 
             <mat-grid-tile class="label" for="saleOrderRecieveType">RECEIVE TYPE:</mat-grid-tile>
             <mat-grid-tile class="info">{{sale.saleOrderRecieveType}}</mat-grid-tile>

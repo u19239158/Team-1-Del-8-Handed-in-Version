@@ -11,6 +11,7 @@
                     <mat-label>First Name</mat-label>
                     <input type="text" matInput placeholder="First Name" formControlName="employeeName">
                     <mat-hint>Enter employee first name</mat-hint>
+                    <mat-error *ngIf="form.controls['employeeName'].invalid">Please enter the Employee's Name</mat-error> 
                 </mat-form-field>
             </div>
 
@@ -20,6 +21,7 @@
                     <mat-label>Last Name</mat-label>
                     <input type="text" matInput placeholder="Last Name" formControlName="employeeSurname">
                     <mat-hint>Enter employee surname</mat-hint>
+                    <mat-error *ngIf="form.controls['employeeSurname'].invalid">Please enter the Employee's Surname</mat-error> 
                 </mat-form-field>
             </div>
         </div>
@@ -31,6 +33,7 @@
                     <mat-label>Username</mat-label>
                     <input type="text" matInput placeholder="Username" formControlName="userUsername">
                     <mat-hint>Enter employee username</mat-hint>
+                    <mat-error *ngIf="form.controls['userUsername'].invalid">Please enter the Employee's Username</mat-error> 
                 </mat-form-field>
             </div>
 
@@ -40,6 +43,7 @@
                     <mat-label>Contact Number</mat-label>
                     <input type="text" matInput placeholder="contactNumber" formControlName="employeeCellphoneNumber">
                     <mat-hint>Enter employee contact number</mat-hint>
+                    <mat-error *ngIf="form.controls['employeeCellphoneNumber'].invalid">Please enter the Employee's Contact Number</mat-error> 
                 </mat-form-field>
             </div>
         </div>
@@ -51,6 +55,7 @@
                     <mat-label>ID Number</mat-label>
                     <input type="text" matInput placeholder="idNumber" formControlName="employeeIdnumber">
                     <mat-hint>Enter employee ID number</mat-hint>
+                    <mat-error *ngIf="form.controls['employeeIdnumber'].invalid">Please enter the Employee's ID Number</mat-error> 
                 </mat-form-field>
             </div>
 
@@ -62,6 +67,7 @@
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                     <mat-hint>Choose employee date of birth</mat-hint>
+                    <mat-error *ngIf="form.controls['employeeDob'].invalid">Please select the Employee's date of birth</mat-error> 
                 </mat-form-field>
             </div>
         </div>
@@ -73,6 +79,7 @@
                     <mat-label>Address Line 1</mat-label>
                     <input type="text" matInput placeholder="addressLine1" formControlName="employeeAddressLine1">
                     <mat-hint>Enter employee address line 1</mat-hint>
+                    <mat-error *ngIf="form.controls['employeeAddressLine1'].invalid">Please enter the Employee's first Address line</mat-error> 
                 </mat-form-field>
             </div>
 
@@ -117,6 +124,7 @@
                     <mat-label>Password</mat-label>
                     <input type="text" matInput placeholder="Password" formControlName="userPassword">
                     <mat-hint>Enter employee password</mat-hint>
+                    <mat-error *ngIf="form.controls['userPassword'].invalid">Please enter the Employee's Password</mat-error> 
                 </mat-form-field>
             </div>
 
@@ -126,6 +134,7 @@
                     <mat-label>Confirm Password</mat-label>
                     <input type="text" matInput placeholder="Confirm Password" formControlName="employeeConfirmPassword">
                     <mat-hint>Confirm employee password</mat-hint>
+                    <mat-error *ngIf="form.controls['employeeConfirmPassword'].invalid">Please confirm the  Employee's Password</mat-error> 
                 </mat-form-field>
             </div>
         </div>

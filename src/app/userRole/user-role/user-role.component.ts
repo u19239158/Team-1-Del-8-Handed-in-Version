@@ -43,7 +43,8 @@ export class UserRoleComponent implements OnInit {
   //   this.dataSource.paginator = this.paginator;
   // }
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
+    setTimeout(() => this.dataSource.paginator = this.paginator);
+   // this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
     this.readUserRoles();
@@ -91,9 +92,9 @@ export class UserRoleComponent implements OnInit {
       }
       this.snack.open('Successfully Deleted UserRole! ', 'OK',
         {
-          verticalPosition: 'bottom',
+          verticalPosition: 'top',
           horizontalPosition: 'center',
-          duration: 2000
+          duration: 4000
         });
     });
   }

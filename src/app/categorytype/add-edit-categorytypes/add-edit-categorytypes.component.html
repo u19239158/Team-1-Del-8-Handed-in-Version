@@ -26,6 +26,7 @@
             </mat-option>
           </mat-select>
           <mat-hint>Select product category name</mat-hint>
+          <mat-error *ngIf="form.controls['productCategoryID'].invalid">Please Select a Category Type</mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -36,6 +37,7 @@
           <mat-label>Category Type Name</mat-label>
           <input type="text" matInput placeholder="Category Type Name" formControlName="categoryTypeDescription">
           <mat-hint>Enter category type name</mat-hint>
+           <mat-error *ngIf="form.controls['categoryTypeDescription'].invalid">Please Enter a Category Type Name</mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -46,6 +48,7 @@
           <mat-label>Category Type Description</mat-label>
           <input type="text" matInput placeholder="Category Type Name" formControlName="itemDescription">
           <mat-hint>Enter category type description</mat-hint>
+          <mat-error *ngIf="form.controls['itemDescription'].invalid">Please Enter a Category Type Description</mat-error>
         </mat-form-field>
       </div>
     </div>

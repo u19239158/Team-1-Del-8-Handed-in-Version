@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,8 +8,10 @@ import { Productcategory } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { ProductcategoryService } from 'src/app/services/productcategory/productcategory.service';
 import {  HttpClient, HttpErrorResponse  } from '@angular/common/http';
+import {MatPaginator} from '@angular/material/paginator';
 
-@Component({
+  
+  @Component({
   selector: 'app-productcategorys',
   templateUrl: './productcategorys.component.html',
   styleUrls: ['./productcategorys.component.scss']
@@ -24,6 +26,7 @@ dataNotFound: boolean;
   productcategorys: Productcategory[] = [];
   productcategory: Observable<Productcategory[]>;
   dataSource = new MatTableDataSource<Productcategory>();
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['productCategoryImage', 'productCategoryName','actions'];
 
   constructor(private productcategoryService: ProductcategoryService,
@@ -34,6 +37,7 @@ dataNotFound: boolean;
               ) {}
 
   ngOnInit(): void {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     this.readProductcategorys();
 
     this.productcategoryService.GetProductCategory().subscribe((result:Productcategory[]) => {
@@ -76,18 +80,18 @@ dataNotFound: boolean;
         {
           this.snack.open(error.error, 'OK', 
           {
-            verticalPosition: 'bottom',
+            verticalPosition: 'top',
             horizontalPosition: 'center',
-            duration: 3000
+            duration: 4000
           });   
           return;
         }
       });
       this.snack.open('Product Category Successfully Deleted! ', 'OK', 
       {
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         horizontalPosition: 'center',
-        duration: 1000
+        duration: 4000
       });
       }
     });

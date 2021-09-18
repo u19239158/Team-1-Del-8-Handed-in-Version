@@ -9,12 +9,22 @@
     <div class="mat-row">
       <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m">
+<<<<<<< HEAD
           <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="dd/mm/yyyy"
             formControlName="dayOfTheWeek" (dateInput)="addEvent('input', $event)"
             (dateChange)="addEvent('change', $event)">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
           <mat-hint>Select the date of delivery shift</mat-hint>
+=======
+          <mat-label>Time Interval</mat-label>
+          <mat-select formControlName="timeId">
+            <mat-option *ngFor="let ds of collections" [value]="ds.timeId">{{ds.startTime}} - {{ds.endTime}}
+            </mat-option>
+          </mat-select>
+          <mat-hint>Select time interval of the delivery shift</mat-hint>
+           <mat-error *ngIf="form.controls['timeId'].invalid">Please select a Time Interval</mat-error>
+>>>>>>> 3235826d8bf147a4bc5acd10c0802dfe37f46126
         </mat-form-field>
       </div>
     </div>
@@ -22,12 +32,20 @@
     <div class="mat-row">
       <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m">
+<<<<<<< HEAD
           <mat-label>Time Interval</mat-label>
           <mat-select formControlName="timeId">
             <mat-option *ngFor="let ds of times" [value]="ds.timeId">{{ds.startTime}} - {{ds.endTime}}
             </mat-option>
           </mat-select>
           <mat-hint>Select time interval of the delivery shift</mat-hint>
+=======
+          <input matInput [matDatepicker]="picker" placeholder="dd/mm/yyyy" formControlName="dayOfTheWeek">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-hint>Select the date of delivery shift</mat-hint>
+           <mat-error *ngIf="form.controls['dayOfTheWeek'].invalid">Please choose a Shift Date</mat-error>
+>>>>>>> 3235826d8bf147a4bc5acd10c0802dfe37f46126
         </mat-form-field>
       </div>
     </div>
@@ -42,6 +60,7 @@
             </mat-option>
           </mat-select>
           <mat-hint>Select employee to assign delivery shift</mat-hint>
+            <mat-error *ngIf="form.controls['employeeID'].invalid">Please select an Employee</mat-error>
         </mat-form-field>
       </div>
     </div>

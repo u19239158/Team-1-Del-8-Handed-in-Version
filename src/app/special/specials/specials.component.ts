@@ -41,6 +41,7 @@ public specspeiial : any = [];
   }
   
   ngOnInit(): void {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     this.readSpecials();
 
     this.specialService.GetSpecial().subscribe((result: Special[]) => {
@@ -61,7 +62,8 @@ public specspeiial : any = [];
 
     const filter = (e) => {
 
-      return e.specialDescription && e.specialDescription.toLowerCase().includes(this.searchValue.toLowerCase())
+      return e.specialDescription && e.specialDescription.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+       e.productItemName && e.productItemName.toLowerCase().includes(this.searchValue.toLowerCase())
     }
     const data = (this.Specials.filter(filter))
     this.dataNotFound = data.length === 0
@@ -84,9 +86,9 @@ public specspeiial : any = [];
 
         this.snack.open('Special Successfully Deleted! ', 'OK', 
         {
-          verticalPosition: 'bottom',
-          horizontalPosition: 'center',
-          duration: 1000
+          verticalPosition: 'top',
+      horizontalPosition: 'center',
+      duration: 4000
         });
 
       }

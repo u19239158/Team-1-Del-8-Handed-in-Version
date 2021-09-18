@@ -6,10 +6,11 @@
 <!-- User role name -->
   <div class="mat-row">
     <div class="mat-col-quarter">
-        <mat-form-field appearance="outline" class="control-m">
-            <mat-label>User Role Name</mat-label>
-            <input type="text" matInput placeholder="User Role Name" formControlName="userRoleName">
-            <mat-hint>Enter user role name</mat-hint>
+        <mat-form-field appearance="outline" class="control-m" >
+             <mat-label  >User Role Name</mat-label> 
+            <input type="text" matInput placeholder="User Role Name" formControlName="userRoleName" ngModel required>
+            <mat-hint >Enter user role name</mat-hint>
+            <mat-error *ngIf="form.controls['userRoleName'].invalid" >Please provide a  user role name</mat-error>
         </mat-form-field>
     </div>
   </div>
@@ -19,8 +20,9 @@
     <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m">
             <mat-label>User Role Description</mat-label>
-            <input type="text" matInput placeholder="User Role Description" formControlName="userRoleDescription">
+            <input type="text" matInput placeholder="User Role Description" formControlName="userRoleDescription"  ngModel required>
              <mat-hint>Enter user role description</mat-hint>
+             <mat-error *ngIf="form.controls['userRoleDescription'].invalid">Please provide a  user role description</mat-error>
         </mat-form-field>
     </div>
   </div>

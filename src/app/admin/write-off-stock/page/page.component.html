@@ -9,8 +9,10 @@
       <mat-form-field appearance="outline" class="control-m">
           <mat-label>Quantity</mat-label>
           <input type="number" matInput placeholder="Quantity" formControlName="writeOffQuantity">
+           <mat-hint>Enter Write-Off quantity</mat-hint>
+       <mat-error *ngIf="form.controls['writeOffQuantity'].invalid">Please provide Write-Off Quantity</mat-error>
       </mat-form-field>
-      <mat-hint>Enter quantity</mat-hint>
+     
     </div>
   </div>
 
@@ -19,8 +21,10 @@
         <mat-form-field appearance="outline" class="control-m">
             <mat-label>Reason</mat-label>
             <input type="text" matInput placeholder="Reason" formControlName="writeOffReason">
+            <mat-hint>Enter Write-Off reason</mat-hint>
+        <mat-error *ngIf="form.controls['writeOffReason'].invalid">Please provide Write-Off Reason</mat-error>
         </mat-form-field>
-        <mat-hint>Enter reason</mat-hint>
+        
     </div>
   </div>
 

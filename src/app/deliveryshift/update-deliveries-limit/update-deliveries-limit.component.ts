@@ -31,7 +31,7 @@ export class UpdateDeliveriesLimitComponent implements OnInit {
   ngOnInit(): void {
     const formOptions: AbstractControlOptions = {};
     this.form = this.formBuilder.group({
-      noOfDeliveries: ['', [Validators.required]],
+      shiftLimit: ['', [Validators.required]],
     }, formOptions);
   }
 
@@ -56,9 +56,9 @@ export class UpdateDeliveriesLimitComponent implements OnInit {
     });
     this.snack.open('Successfully Updated Delivery Shift Limit! ', 'OK',
       {
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         horizontalPosition: 'center',
-        duration: 2000
+        duration: 4000
       });
   }
 

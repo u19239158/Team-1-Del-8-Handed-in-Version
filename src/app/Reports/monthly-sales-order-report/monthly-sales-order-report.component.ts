@@ -57,12 +57,16 @@ export class MonthlySalesOrderReportComponent implements OnInit {
      
       this.serv.SalesReportSum(this.form.value).subscribe(res =>{
         console.log(res)
+        
         this.dataSource = new MatTableDataSource(data)
      // this.generateTables(data);
       
   
     })
     });
+    this.serv.SalesReportAvg(this.form.value).subscribe(res =>{
+      console.log(res)
+  })
 
   }
       // Restructure data for chart

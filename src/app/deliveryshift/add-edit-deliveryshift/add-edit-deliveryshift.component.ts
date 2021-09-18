@@ -188,12 +188,12 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
       this.loading = false
       this.router.navigateByUrl('deliveryShift');
     });
-    this.snack.open('Successfully Added Delivery Shift! ', 'OK',
-      {
-        verticalPosition: 'bottom',
-        horizontalPosition: 'center',
-        duration: 2000
-      });
+    this.snack.open('Successfully Added Delivery Shift! ', 'OK', 
+    {
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      duration: 4000
+    });
   }
 
   updateDeliveryshift() {
@@ -208,12 +208,12 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
       this.form.reset();
       this.router.navigateByUrl('deliveryShift');
     });
-    this.snack.open('Successfully Updated Delivery Shift! ', 'OK',
-      {
-        verticalPosition: 'bottom',
-        horizontalPosition: 'center',
-        duration: 2000
-      });
+    this.snack.open('Successfully Updated Delivery Shift! ', 'OK', 
+    {
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      duration: 4000
+    });
   }
 
   Close() {

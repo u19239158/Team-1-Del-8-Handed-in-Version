@@ -116,9 +116,9 @@ export class AddEditProductitemsComponent implements OnInit {
 
     this.snack.open('Product Item Successfully Added! ', 'OK', 
           {
-            verticalPosition: 'bottom',
+            verticalPosition: 'top',
             horizontalPosition: 'center',
-            duration: 2000
+            duration: 4000
           });
   }
 
@@ -132,9 +132,9 @@ export class AddEditProductitemsComponent implements OnInit {
     });
     this.snack.open('Product Item Successfully Updated! ', 'OK', 
     {
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
       horizontalPosition: 'center',
-      duration: 2000
+      duration: 4000
     });
   }
 

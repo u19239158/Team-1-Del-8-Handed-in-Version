@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -9,6 +9,7 @@ import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/gl
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { HttpClient, HttpResponseBase } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-employees',
@@ -26,6 +27,7 @@ export class EmployeesComponent implements OnInit {
   Employee: Employee;
   employee: Observable<Employee[]>;
   dataSource = new MatTableDataSource<Employee>();
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['name', 'employeePhoneNumber', 'dateOfBirth', 'actions'];
 
   constructor(private EmployeeService: EmployeeService,
@@ -36,6 +38,7 @@ export class EmployeesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     this.readEmployees();
 
     this.EmployeeService.GetEmployee().subscribe((result: Employee[]) => {

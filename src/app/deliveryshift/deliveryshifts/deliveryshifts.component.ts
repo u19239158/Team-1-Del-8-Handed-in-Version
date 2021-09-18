@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,6 +8,7 @@ import { Deliveryshift } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { DeliveryshiftService } from 'src/app/services/deliveryshift/deliveryshift.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-deliveryshifts',
@@ -26,6 +27,7 @@ export class DeliveryshiftsComponent implements OnInit {
   // DeliveryShift: Deliveryshift;
   deliveryShift: Observable<Deliveryshift[]>;
   dataSource = new MatTableDataSource<Deliveryshift>();
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['startTime', 'endTime', 'dayOfTheWeek', 'employeeName', 'noOfDeliveries', 'actions'];
 
   constructor(private deliveryshiftService: DeliveryshiftService,
@@ -36,6 +38,7 @@ export class DeliveryshiftsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     this.readDeliveryshifts();
 
     this.deliveryshiftService.GetDeliveryShift().subscribe((result: Deliveryshift[]) => {
@@ -45,6 +48,7 @@ export class DeliveryshiftsComponent implements OnInit {
   }
 
   readDeliveryshifts(): void {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     this.deliveryshiftService.GetDeliveryShift().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
@@ -57,7 +61,7 @@ export class DeliveryshiftsComponent implements OnInit {
     // this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.startTime.includes(this.searchValue)))
     // // this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.endTime.includes(this.searchValue)))
     // this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.dayOfTheWeek.includes(this.searchValue)))
-
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     const filter = (e) => {
 
       return e.employeeName && e.employeeName.toLowerCase().includes(this.searchWord.toLowerCase()) ||
@@ -76,6 +80,7 @@ export class DeliveryshiftsComponent implements OnInit {
     });
 
     confirm.afterClosed().subscribe(res => {
+      setTimeout(() => this.dataSource.paginator = this.paginator);
       if (res) {
         this.deliveryshiftService.DeleteDeliveryShift(Deliveryshift).subscribe(res => {
           this.readDeliveryshifts();
@@ -86,9 +91,9 @@ export class DeliveryshiftsComponent implements OnInit {
         {
           this.snack.open(error.error, 'OK', 
           {
-            verticalPosition: 'bottom',
+            verticalPosition: 'top',
             horizontalPosition: 'center',
-            duration: 3000
+            duration: 4000
           });
           return;
         } 
@@ -97,9 +102,9 @@ export class DeliveryshiftsComponent implements OnInit {
       }
       this.snack.open('Successfully Deleted Delivery Shift! ', 'OK',
       {
-        verticalPosition: 'bottom',
+        verticalPosition: 'top',
         horizontalPosition: 'center',
-        duration: 2000
+        duration: 4000
       });
     });
     
