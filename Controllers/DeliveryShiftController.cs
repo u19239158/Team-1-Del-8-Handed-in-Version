@@ -503,6 +503,8 @@ namespace NKAP_API_2.Controllers
                 }).Where(zz => zz.EmployeeShiftId == employeeshiftId);
 
             return Ok(DeliveryShift);
+
+        }
         //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         //[Route("UpdateMaxDeliveries")] //route
         //[HttpPut]
@@ -514,7 +516,7 @@ namespace NKAP_API_2.Controllers
         //    _db.MaxDeliveries.Attach(newMax); //Attach Record
         //    _db.SaveChanges();
 
-        }
+
         //    return Ok(newMax);
         //}
 
