@@ -6,6 +6,6 @@
     </p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button (click)="Cancel()">No</button>
+    <button mat-button [routerLink]="['/']"  (click)="Cancel()">No</button>
     <button mat-raised-button type="submit" color="primary" cdkFocusInitial (click)="Confirm()">Yes</button>
 </mat-dialog-actions>
