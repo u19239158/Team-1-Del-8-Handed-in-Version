@@ -31,7 +31,7 @@ export class UpdateDeliveriesLimitComponent implements OnInit {
   ngOnInit(): void {
     const formOptions: AbstractControlOptions = {};
     this.form = this.formBuilder.group({
-      noOfDeliveries: ['', [Validators.required]],
+      shiftLimit: ['', [Validators.required]],
     }, formOptions);
   }
 
