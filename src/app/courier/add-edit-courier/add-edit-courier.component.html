@@ -10,6 +10,7 @@
                 <mat-label>Courier Name</mat-label>
                 <input type="text" matInput placeholder="Courier Name" formControlName="courierName">
                 <mat-hint>Enter courier name</mat-hint>
+                 <mat-error *ngIf="form.controls['courierName'].invalid">Please enter a Courier Name</mat-error>
             </mat-form-field>
         </div>
       </div>
@@ -22,6 +23,7 @@
                    <mat-option *ngFor="let c of collection" [value]="c.courierTypeId">{{c.courierTypeDescription}}</mat-option>
                 </mat-select>
                 <mat-hint>Select courier type</mat-hint>
+                <mat-error *ngIf="form.controls['courierTypeID'].invalid">Please Select a Courier Type</mat-error>
               </mat-form-field>
         </div>
       </div>
@@ -32,6 +34,7 @@
               <mat-label>Courier Email Address</mat-label>
               <input type="text" matInput placeholder="email" formControlName="courierEmail">
               <mat-hint>Enter courier email address</mat-hint>
+               <mat-error *ngIf="form.controls['courierEmail'].invalid">Please enter Courier Email Address</mat-error>
           </mat-form-field>
       </div>
     </div>
@@ -42,6 +45,7 @@
                 <mat-label>Courier Contact Number</mat-label>
                 <input type="text" matInput placeholder="contactNumber" formControlName="courierNumber">
                 <mat-hint>Enter courier contact number</mat-hint>
+                 <mat-error *ngIf="form.controls['courierNumber'].invalid">Please enter Courier Contact Number</mat-error>
             </mat-form-field>
         </div>
     </div>

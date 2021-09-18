@@ -17,6 +17,7 @@
                    <mat-option *ngFor="let c of collection" [value]="c.titleId">{{c.titleDescription}}</mat-option>
                 </mat-select>
                 <mat-hint>Select customer title</mat-hint>
+                 <mat-error *ngIf="form.controls['titleId'].invalid">Please Select a Title</mat-error>
               </mat-form-field>
         </div>
 
@@ -26,6 +27,7 @@
             <mat-label>Customer Name</mat-label>
             <input type="text" matInput placeholder="Customer Name" formControlName="customerName">
             <mat-hint>Enter customer name</mat-hint>
+              <mat-error *ngIf="form.controls['customerName'].invalid">Please enter Customer Name</mat-error>
         </mat-form-field>
     </div>
 
@@ -35,6 +37,7 @@
           <mat-label>Customer Surname</mat-label>
           <input type="text" matInput placeholder="Customer surname" formControlName="customerSurname">
           <mat-hint>Enter customer surname</mat-hint>
+          <mat-error *ngIf="form.controls['customerSurname'].invalid">Please enter Customer Surname</mat-error>
       </mat-form-field>
   </div>
 
@@ -47,6 +50,7 @@
             <mat-label>Customer Email Address</mat-label>
             <input type="text" matInput placeholder="Customer Email Address" formControlName="customerEmailAddress">
             <mat-hint>Enter customer email address</mat-hint>
+             <mat-error *ngIf="form.controls['customerEmailAddress'].invalid">Please enter Customer Email Address</mat-error>
         </mat-form-field>
     </div>
 
@@ -56,6 +60,7 @@
               <mat-label>Customer Number</mat-label>
               <input type="text" matInput placeholder="Customer Contact Number" formControlName="customerCellphoneNumber">
               <mat-hint>Enter customer contact number</mat-hint>
+              <mat-error *ngIf="form.controls['customerCellphoneNumber'].invalid">Please enter Customer Contact Number</mat-error>
           </mat-form-field>
       </div>
 
