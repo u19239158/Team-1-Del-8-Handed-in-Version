@@ -70,6 +70,13 @@ namespace NKAP_API_2.Models
         public int DeliveryId
         { get; set; }
 
+        [JsonProperty("maxid")]
+        public int MaxID
+        { get; set; }
+
+        [JsonProperty("maxnumber")]
+        public int MaxNumber
+        { get; set; }
 
     }
 }

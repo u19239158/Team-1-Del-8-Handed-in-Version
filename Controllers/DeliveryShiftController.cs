@@ -420,7 +420,19 @@ namespace NKAP_API_2.Controllers
             return Ok();
         }
 
+        //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        //[Route("UpdateMaxDeliveries")] //route
+        //[HttpPut]
+        ////Update UpdateMaxDeliveries
+        //public IActionResult UpdateMaxDeliveries(DeliveryShiftModel model)
+        //{
+        //    var newMax = _db.MaxDeliveries.Find( zz => zz.MaxID = 1);
+        //    newMax.MaxNumber = model.MaxNumber; //attributes in table
+        //    _db.MaxDeliveries.Attach(newMax); //Attach Record
+        //    _db.SaveChanges();
 
+        //    return Ok(newMax);
+        //}
 
     }
 }

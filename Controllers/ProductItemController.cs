@@ -48,6 +48,48 @@ namespace NKAP_API_2.Controllers
             }
         }
 
+        [Route("GetProductItemsWPrice")] //route
+        [HttpGet]
+        //get Product Items (Read)
+        public IActionResult GetProductItemsWPrice()
+        {
+            //var productItems = _db.ProductItems.ToList();
+            {
+
+                var productItems = _db.ProductItems.Join(_db.CategoryTypes,
+                    a => a.CategoryTypeId,
+                    t => t.CategoryTypeId,
+                    (a, t) => new
+                    {
+                        CategoryTypeId = a.CategoryTypeId,
+                        CategoryTypeName = t.CategoryTypeDescription,
+                        ProductItemId = a.ProductItemId,
+                        CategoryTypeDescription = t.ItemDescription,
+                        ProductItemName = a.ProductItemName,
+                        ProductItemCost = a.ProductItemCost,
+                        QuantityOnHand = a.QuantityOnHand
+                    }).Join(_db.Prices,
+                    a => a.ProductItemId,
+                    t => t.ProductItemId,
+                    (a, t) => new
+                    {
+                        CategoryTypeId = a.CategoryTypeId,
+                        CategoryTypeName = a.CategoryTypeName,
+                        ProductItemId = a.ProductItemId,
+                        CategoryTypeDescription = a.CategoryTypeDescription,
+                        ProductItemName = a.ProductItemName,
+                        ProductItemCost = a.ProductItemCost,
+                        QuantityOnHand = a.QuantityOnHand,
+                        PriceDescription = t.PriceDescription
+
+
+                    });
+
+                return Ok(productItems);
+
+            }
+        }
+
         [Route("GetProdItemsByID/{productitemid}")] //route
         [HttpGet]
         //get Product Items by ID (Read)

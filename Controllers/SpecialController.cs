@@ -231,7 +231,7 @@ namespace NKAP_API_2.Controllers
             {
                 PSpecial.ProductItemId = model.ProductItemId;
                 PSpecial.SpecialId = special.SpecialId;
-                PSpecial.SpecialPrice = Convert.ToInt32(model.ProductItemCost) - (Convert.ToInt32(model.ProductItemCost) *  discount.DiscountPercentage);
+                PSpecial.SpecialPrice = model.ProductItemCost - (model.ProductItemCost *  discount.DiscountPercentage);
             }
 
             _db.ProductSpecials.Add(PSpecial);
@@ -260,7 +260,7 @@ namespace NKAP_API_2.Controllers
             {
                 PSpecial.ProductItemId = model.ProductItemId;
                 PSpecial.SpecialId = special.SpecialId;
-                PSpecial.SpecialPrice =  Convert.ToInt32(model.ProductItemCost) - (Convert.ToInt32(model.ProductItemCost) * discount.DiscountPercentage);
+                PSpecial.SpecialPrice =  model.ProductItemCost - Convert.ToInt32(model.ProductItemCost) * discount.DiscountPercentage;
             }
 
             _db.ProductSpecials.Attach(PSpecial);
