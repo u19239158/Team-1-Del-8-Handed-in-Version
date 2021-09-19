@@ -5,8 +5,7 @@
                     <mat-label>Enter email address</mat-label>
                     <input type="text" matInput placeholder="Email Address" formControlName="emailAddress">
                     <mat-hint>User email address</mat-hint>
-                    <mat-error *ngIf="form.controls['employeeName'].invalid">Please enter the users email address</mat-error> 
-                </mat-form-field>
+                    </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button [routerLink]="['/login']"  (click)="Cancel()">Cancel</button>
