@@ -16,6 +16,21 @@
       </mat-form-field>
   </div>
 
+  <!-- Supplier Addressline 1 -->
+    <div class="mat-col-quarter">
+      <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Supplier AddressLine1</mat-label>
+          <input type="text" matInput placeholder="Supplier AddressLine1" formControlName="supplierAddressLine1">
+          <mat-hint>Enter supplier address line 1</mat-hint>
+          <mat-error *ngIf="form.controls['supplierAddressLine1'].invalid">Please provide the Supplier's address</mat-error>    
+      </mat-form-field>
+    </div>
+
+</div>
+
+<div class="mat-row">
+
+<!-- Contact Number -->
   <div class="mat-col-quarter">
     <mat-form-field appearance="outline" class="control-m">
         <mat-label>Contact Number</mat-label>
@@ -24,9 +39,21 @@
            <mat-error *ngIf="form.controls['supplierNumber'].invalid">Please provide the Supplier's Contact Number</mat-error>    
     </mat-form-field>
   </div>
+
+    <!-- Supplier Address Line 2 -->
+    <div class="mat-col-quarter">
+      <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Supplier AddressLine2</mat-label>
+          <input type="text" matInput placeholder="Supplier AddressLine2" formControlName="supplierAddressLine2">
+          <mat-hint>Enter supplier address line 2</mat-hint>
+          <mat-error *ngIf="form.controls['supplierAddressLine2'].invalid">Please provide the Supplier's address </mat-error>    
+      </mat-form-field>
+  </div>
+  
 </div>
 
-<div class="mat-row">
+  <div class="mat-row">
+
   <!-- Supplier email address -->
   <div class="mat-col-quarter">
     <mat-form-field appearance="outline" class="control-m">
@@ -37,22 +64,20 @@
     </mat-form-field>
 </div>
 
-  <div class="mat-col-quarter">
-
-  </div>
-</div>
-
-  <div class="mat-row">
-    <!-- Supplier Addressline 1 -->
+ <!-- Supplier adressline 3 -->
     <div class="mat-col-quarter">
       <mat-form-field appearance="outline" class="control-m">
-          <mat-label>Supplier AddressLine1</mat-label>
-          <input type="text" matInput placeholder="Supplier AddressLine1" formControlName="supplierAddressLine1">
-          <mat-hint>Enter supplier address line 1</mat-hint>
-          <mat-error *ngIf="form.controls['supplierAddressLine1'].invalid">Please provide the Supplier's address</mat-error>    
+          <mat-label>Supplier AddressLine3</mat-label>
+          <input type="text" matInput placeholder="Supplier AddressLine3" formControlName="supplierAddressLine3">
+             <mat-hint>Enter supplier address line 3</mat-hint>
+           
       </mat-form-field>
     </div>
 
+  </div>
+
+  <div class="mat-row">
+    
     <!-- City/Town -->
     <div class="mat-col-quarter">
       <mat-form-field appearance="outline" class="control-m">
@@ -62,19 +87,6 @@
              <mat-error *ngIf="form.controls['supplierCityTown'].invalid">Please provide the City or Town of the supplier</mat-error>    
       </mat-form-field>
     </div>
-
-  </div>
-
-  <div class="mat-row">
-      <!-- Supplier Address Line 2 -->
-    <div class="mat-col-quarter">
-      <mat-form-field appearance="outline" class="control-m">
-          <mat-label>Supplier AddressLine2</mat-label>
-          <input type="text" matInput placeholder="Supplier AddressLine2" formControlName="supplierAddressLine2">
-          <mat-hint>Enter supplier address line 2</mat-hint>
-          <mat-error *ngIf="form.controls['supplierAddressLine2'].invalid">Please provide the Supplier's address </mat-error>    
-      </mat-form-field>
-  </div>
 
   <div class="mat-col-quarter">
     <mat-form-field appearance="outline" class="control-m">
@@ -87,15 +99,7 @@
   </div>
 
   <div class="mat-row">
-    <!-- Supplier adressline 3 -->
-    <div class="mat-col-quarter">
-      <mat-form-field appearance="outline" class="control-m">
-          <mat-label>Supplier AddressLine3</mat-label>
-          <input type="text" matInput placeholder="Supplier AddressLine3" formControlName="supplierAddressLine3">
-             <mat-hint>Enter supplier address line 3</mat-hint>
-           
-      </mat-form-field>
-    </div>
+   
 
      <!-- Supplier save and cancel button -->
      <div class="mat-col-quarter">
