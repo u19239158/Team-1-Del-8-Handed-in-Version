@@ -11,7 +11,7 @@
       <!-- Title -->
       <div class="mat-row">
         <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-m-s">
+            <mat-form-field appearance="outline" class="control-m">
                 <mat-label>Title </mat-label>
                 <mat-select formControlName="titleId">
                    <mat-option *ngFor="let c of collection" [value]="c.titleId">{{c.titleDescription}}</mat-option>
@@ -21,30 +21,7 @@
               </mat-form-field>
         </div>
 
-      <!-- Customer Name -->
-      <div class="mat-col-quarter">
-        <mat-form-field appearance="outline" class="control-m-s">
-            <mat-label>Customer Name</mat-label>
-            <input type="text" matInput placeholder="Customer Name" formControlName="customerName">
-            <mat-hint>Enter customer name</mat-hint>
-              <mat-error *ngIf="form.controls['customerName'].invalid">Please enter Customer Name</mat-error>
-        </mat-form-field>
-    </div>
-
-    <!-- Customer Surname -->
-    <div class="mat-col-quarter">
-      <mat-form-field appearance="outline" class="control-m-s">
-          <mat-label>Customer Surname</mat-label>
-          <input type="text" matInput placeholder="Customer surname" formControlName="customerSurname">
-          <mat-hint>Enter customer surname</mat-hint>
-          <mat-error *ngIf="form.controls['customerSurname'].invalid">Please enter Customer Surname</mat-error>
-      </mat-form-field>
-  </div>
-
-</div>
-
-  <div class="mat-row">
-      <!-- Customer email address -->
+         <!-- Customer email address -->
       <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m">
             <mat-label>Customer Email Address</mat-label>
@@ -54,20 +31,21 @@
         </mat-form-field>
     </div>
 
-    <!-- Customer Contact Number -->
-      <div class="mat-col-quarter">
-          <mat-form-field appearance="outline" class="control-m">
-              <mat-label>Customer Number</mat-label>
-              <input type="text" matInput placeholder="Customer Contact Number" formControlName="customerCellphoneNumber">
-              <mat-hint>Enter customer contact number</mat-hint>
-              <mat-error *ngIf="form.controls['customerCellphoneNumber'].invalid">Please enter Customer Contact Number</mat-error>
-          </mat-form-field>
-      </div>
+</div>
 
+  <div class="mat-row">
+     
+   <!-- Customer Name -->
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+            <mat-label>Customer Name</mat-label>
+            <input type="text" matInput placeholder="Customer Name" formControlName="customerName">
+            <mat-hint>Enter customer name</mat-hint>
+              <mat-error *ngIf="form.controls['customerName'].invalid">Please enter Customer Name</mat-error>
+        </mat-form-field>
     </div>
 
-    <div class="mat-row">
-      <!-- Customer Business Name -->
+     <!-- Customer Business Name -->
       <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m">
             <mat-label>Customer Business Name </mat-label>
@@ -75,6 +53,20 @@
             <mat-hint>Enter customer business name</mat-hint>
         </mat-form-field>
     </div>
+
+    </div>
+
+    <div class="mat-row">
+     <!-- Customer Surname -->
+    <div class="mat-col-quarter">
+      <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Customer Surname</mat-label>
+          <input type="text" matInput placeholder="Customer surname" formControlName="customerSurname">
+          <mat-hint>Enter customer surname</mat-hint>
+          <mat-error *ngIf="form.controls['customerSurname'].invalid">Please enter Customer Surname</mat-error>
+      </mat-form-field>
+  </div>
+    
 
     <!-- Customer VAT Number -->
       <div class="mat-col-quarter">
@@ -113,10 +105,22 @@
       </mat-form-field>
       </div> -->
 
-      <div class="mat-row">
-    <!-- Supplier save and cancel button -->
-    <div class="buttons">
-    <div class="form-group" class="control-m">
+<div class="mat-row">
+
+<!-- Customer Contact Number -->
+      <div class="mat-col-quarter">
+          <mat-form-field appearance="outline" class="control-m">
+              <mat-label>Customer Number</mat-label>
+              <input type="text" matInput placeholder="Customer Contact Number" formControlName="customerCellphoneNumber">
+              <mat-hint>Enter customer contact number</mat-hint>
+              <mat-error *ngIf="form.controls['customerCellphoneNumber'].invalid">Please enter Customer Contact Number</mat-error>
+          </mat-form-field>
+      </div>
+
+      <!-- Customer buttons -->
+      <div class="mat-col-quarter">
+        <div class="control-m">
+    <div class="form-group" >
       <button mat-raised-button color ="primary" [disabled]="loading">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Save
@@ -124,6 +128,7 @@
       <a (click)="Close()" mat-button>Cancel</a>
   </div>
   </div>
+</div>
 </div>
 
     </form>
