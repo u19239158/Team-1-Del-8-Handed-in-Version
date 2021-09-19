@@ -84,7 +84,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { QuantityModalComponent } from './supplier/place-supplier-order/quantity-modal/quantity-modal.component';
 import { CaptureOrderComponent } from './supplier/receive-supplier-order/capture-order/capture-order.component';
 import { UpdateDeliveriesLimitComponent } from './deliveryshift/update-deliveries-limit/update-deliveries-limit.component';
-
+import { MatSortModule } from '@angular/material/sort';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDF8jZluZQu1iARJPootZqStlIMNnQ6OFA",
@@ -184,11 +184,15 @@ const firebaseConfig = {
     BrowserModule,
     MatDatepickerModule,
     ChartsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule,
   ],
+  exports: [
+    MatSortModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [AgendaService, DayService, WeekService, WorkWeekService, MonthService, DragAndDropService, ResizeService],
   bootstrap: [AppComponent],
 
 })
+
 export class AppModule { }
