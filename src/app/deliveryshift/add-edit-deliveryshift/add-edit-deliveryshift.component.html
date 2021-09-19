@@ -44,7 +44,8 @@
             </mat-option>
           </mat-select>
           <mat-hint>Select employee to assign delivery shift</mat-hint>
-            <mat-error *ngIf="form.controls['employeeID'].invalid">Please select an Employee</mat-error>
+          <!-- validation -->
+          <mat-error *ngIf="form.controls['employeeID'].invalid">Please select an Employee</mat-error>
         </mat-form-field>
       </div>
     </div>
