@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,13 +10,19 @@ import { UserRoleService } from 'src/app/services/user-role/user-role.service';
 import { HttpClient } from '@angular/common/http';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { direction } from 'html2canvas/dist/types/css/property-descriptors/direction';
+// {active: "name", direction: "asc"}
+
+// 1. active:"name"
+// 2. direction:"asc"
+// 3. __proto__:Object
 
 @Component({
   selector: 'app-user-role',
   templateUrl: './user-role.component.html',
   styleUrls: ['./user-role.component.scss']
 })
-export class UserRoleComponent implements OnInit {
+export class UserRoleComponent implements OnInit, AfterViewInit {
 
   //search code
   UserRoles: UserRole[];
@@ -39,13 +45,14 @@ export class UserRoleComponent implements OnInit {
     private httpClient: HttpClient
   ) { }
 
-  // ngAfterViewInit() {
-  //   this.dataSource.paginator = this.paginator;
-  // }
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
   ngOnInit(): void {
     setTimeout(() => this.dataSource.paginator = this.paginator);
-   // this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator;
 
     this.readUserRoles();
 
@@ -54,6 +61,14 @@ export class UserRoleComponent implements OnInit {
     });
 
   }
+
+  // sortColumn() {
+  //   const sortColumn = (s) => {
+  //     return s.userRoleName && s.userRoleName.MatSort()
+  //     this.dataSource.sort = this.sort;
+  //   }
+
+  // }
 
   filter() {
 

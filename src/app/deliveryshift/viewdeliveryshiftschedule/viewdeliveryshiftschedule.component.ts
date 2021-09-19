@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Deliveryshift, OnlineSales } from 'src/app/interfaces';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
+import { OnlineSalesService } from 'src/app/services/online-sales/online-sales.service'
 
 @Component({
   selector: 'app-viewdeliveryshiftschedule',
@@ -18,6 +19,7 @@ export class ViewdeliveryshiftscheduleComponent {
   newData = [];
 
   constructor(private deliveryshiftService: DeliveryshiftService,
+    private OnlineSalesService: OnlineSalesService,
     private httpClient: HttpClient,
     private router: Router,
   ) {
@@ -27,7 +29,6 @@ export class ViewdeliveryshiftscheduleComponent {
   readDeliveryshifts(): void {
     this.deliveryshiftService.GetDeliveryShift().subscribe(res => {
       console.log("res4", res)
-
 
       for (let i = 0; i < res.length; i++) {
         const item = res[i]
@@ -44,13 +45,30 @@ export class ViewdeliveryshiftscheduleComponent {
 
           Location: (item.addressLine1 + ' ' + item.addressLine2 + ' ' + item.addressLine3),
 
-          Description: item.saleId,
-          // Description: moment(item.customerName + '' + item.customerSurname+''+item.customerBusinessName)
+          Description: (item.saleId + ' ' + item.customerName + ' ' + item.customerSurname + ' ' + item.customerBusinessName)
 
         })
       }
-    })
+    });
+
+    // this.OnlineSalesService.ViewAllSales().subscribe(res => {
+    //   console.log("res5", res)
+
+    //   for (let i = 0; i < res.length; i++) {
+    //     const item = res[i]
+    //     this.newData.push({
+
+    //       Location: (item.addressLine1 + ' ' + item.addressLine2 + ' ' + item.addressLine3),
+
+    //       Description: (item.saleID + ' ' + item.customerName + ' ' + item.customerSurname + ' ' + item.customerBusinessName)
+
+    //     })
+    //   }
+    // })
+
   }
+
+
 
   public eventData: EventSettingsModel = {
 

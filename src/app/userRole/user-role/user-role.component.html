@@ -25,7 +25,9 @@
         <br>
         <br>
         <div>
-            <table mat-table [dataSource]="dataSource" *ngIf="!dataNotFound" matSort class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" *ngIf="!dataNotFound" matSort
+            matSortStart="desc"   
+            (matSortChange)="customSort($event)">
                 <!-- User Role Name Column -->
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> User Role Name </th>
