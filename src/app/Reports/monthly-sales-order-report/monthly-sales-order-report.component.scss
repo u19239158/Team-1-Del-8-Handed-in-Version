@@ -8,4 +8,33 @@
   .left, .right{
     width: 40%;
   }
+
+    
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    // margin-left: auto;
+    // margin-right: auto;
+  }
+
+  
+th.mat-sort-header-sorted {
+  color: black;
+}
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even){background-color: #f2f2f2}
+
+  th {
+    // background-color: #2326caa6;
+    background-color: #3273DC;
+    color: black;
+    font-weight: 40;
+    font-size: 20px;
+  }
+
   

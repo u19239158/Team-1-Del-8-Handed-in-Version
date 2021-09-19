@@ -1,9 +1,11 @@
 <div>
-  <h2>Stock Level Report </h2>
+  <h1>Stock Level Report </h1>
   <button mat-raised-button color ="primary" (click)="generatePdf()">Generate PDF</button>
+  <br>
+  <br>
 </div>
 
-<div class="mat-elevation-z8 table">
+<div>
   <table mat-table [dataSource]="dataSource" matSort>
        
         <ng-container matColumnDef="productCategory">
