@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Special, Productitem } from 'src/app/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+// import * as moment from 'moment';
+// import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-add-edit-special',
@@ -14,28 +16,33 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AddEditSpecialComponent implements OnInit {
 
-    form: FormGroup;
-    id: number;
-    discountPercentage : number;
-    isAddMode: boolean;
-    loading = false;
-    submitted = false;
-    special: Special;
-    //productItem :Productitem;
-    specials: Observable<Special[]>;
-    collection = [];
-    selected : string;
-    productItem: Productitem = {} as Productitem;
+  form: FormGroup;
+  id: number;
+  discountPercentage: number;
+  isAddMode: boolean;
+  loading = false;
+  submitted = false;
+  special: Special;
+  //productItem :Productitem;
+  specials: Observable<Special[]>;
+  collection = [];
+  selected: string;
+  productItem: Productitem = {} as Productitem;
+  minDate: Date;
+  selectedDate = new Date();
 
   constructor(
-        private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
-        private router: Router,
-private snack : MatSnackBar,
-        private SpecialService: SpecialService,
-        private http : HttpClient
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private snack: MatSnackBar,
+    private SpecialService: SpecialService,
+    private http: HttpClient
 
-  ) { }
+  ) {
+    const currentYear = new Date().getFullYear();
+    this.minDate = new Date();
+  }
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
@@ -46,8 +53,8 @@ private snack : MatSnackBar,
     this.SpecialService.getItemByID(this.id).subscribe(res => {
       this.productItem = res
       console.log(res)
-  });
-    const formOptions: AbstractControlOptions = { };
+    });
+    const formOptions: AbstractControlOptions = {};
     this.form = this.formBuilder.group({
       //specialImage: ['', [Validators.required]],
       specialDescription: ['', [Validators.required]],
@@ -84,7 +91,7 @@ private snack : MatSnackBar,
     this.loading = true;
     this.createSpecial();
 
-  
+
     // if (this.isAddMode) {
     //     this.createSpecial();
     // } else {
@@ -99,7 +106,7 @@ private snack : MatSnackBar,
       }, error => {
         console.log({ error });
       })
-      
+
   }
 
 
@@ -107,19 +114,19 @@ private snack : MatSnackBar,
     const special: Special = this.form.value;
     special.productItemId = this.productItem.productItemId;
     special.productItemCost = this.productItem.priceDescription;
-   // special.discountPercentage = this.collection.find(this.discountPercentage);
+    // special.discountPercentage = this.collection.find(this.discountPercentage);
     this.SpecialService.CreateSpecial(special).subscribe(res => {
       console.log(res)
       this.loading = false
       this.router.navigateByUrl('special');
     });
 
-    this.snack.open('Special Successfully Added! ', 'OK', 
-    {
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-      duration: 4000
-    });
+    this.snack.open('Special Successfully Added! ', 'OK',
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        duration: 4000
+      });
   }
 
   // updateSpecial() {
