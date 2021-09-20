@@ -94,6 +94,9 @@ export interface Deliveryshift {
   dateId: number;
   timeId: number;
   employeeShiftId: number;
+  saleID: number;
+  customerCellphoneNumber : string;
+  addressPostalCode : number;
 
 }
 
