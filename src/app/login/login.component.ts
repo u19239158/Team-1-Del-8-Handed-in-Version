@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login/login-service';
 import { stringify } from '@angular/compiler/src/util';
+import { ForgotUsernameComponent } from '../forgot-username/forgot-username.component';
 
 @Component({
   selector: 'app-login',
@@ -117,5 +118,16 @@ export class LoginComponent implements OnInit {
           //   });
           //   this.form.reset();
           // });
+        }
+
+        forgotPassword(){
+          const confirm = this.dialog.open(ForgotUsernameComponent, {
+            disableClose: true,
+           });
+ 
+          confirm.afterClosed().subscribe(res => {
+            this.router.navigateByUrl('login');
+      
+              })
         }
 }

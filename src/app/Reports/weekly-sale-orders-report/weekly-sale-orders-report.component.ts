@@ -58,8 +58,10 @@ export class WeekSelectionStrategy<D>
 
 export class WeeklySaleOrdersReportComponent implements OnInit {
   dataSource = new MatTableDataSource<Reports>();
-  displayedColumns: string[] = ['saleId', 'saleOrderDate', 'customerId', 'customerName', 'customerCellphoneNumber', 'customerEmailAddress', 'customerBusinessName', 'salePaymentAmount'];
+  displayedColumns: string[] = ['saleId', 'saleOrderDate', 'customerId','customerName', 'customerCellphoneNumber', 'customerBusinessName','salePaymentAmount'];
   tableData: any;
+  aveg: any;
+  total : any;
   ReportParams: ReportParameters = {
     startDate: null,
     endDate: null
@@ -121,16 +123,19 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
   generateReport() {
     this.serv.SalesReport(this.form.value).subscribe(data => {
       this.created = false;
-      this.serv.SalesReportSum(this.form.value).subscribe(res => {
+      this.serv.SalesReportSum(this.form.value).subscribe(res =>{
         console.log(res)
-      })
+          this.total = res
+          })
+        
       console.log(data);
       this.dataSource = new MatTableDataSource(data)
       this.generateTables(data);
     });
 
-    this.serv.SalesReportAvg(this.form.value).subscribe(res => {
+    this.serv.SalesReportAvg(this.form.value).subscribe(res =>{
       console.log(res)
+      this.aveg = res;
     })
   }
 

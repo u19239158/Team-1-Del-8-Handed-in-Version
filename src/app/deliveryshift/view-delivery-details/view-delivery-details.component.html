@@ -74,23 +74,23 @@
     <mat-dialog-content mat-card-content>
         <mat-grid-list [cols]="breakpoint" rowHeight="45px" (window:resize)="onResize($event)">
             <mat-grid-tile class="label" for="saleID">SALE NUMBER:</mat-grid-tile>
-            <mat-grid-tile class="info">{{sale.saleID}}</mat-grid-tile>
+            <mat-grid-tile class="info">{{dshift.saleID}}</mat-grid-tile>
 
             <mat-grid-tile class="label" for="customerName">CUSTOMER:</mat-grid-tile>
-            <mat-grid-tile class="info">{{sale.customerName}}</mat-grid-tile>
+            <mat-grid-tile class="info">{{dshift.customerName}}  {{dshift.customerSurname}}</mat-grid-tile>
 
             <mat-grid-tile class="label" for="customerBusinessName">BUSINESS NAME:</mat-grid-tile>
-            <mat-grid-tile class="info">{{sale.customerBusinessName}}</mat-grid-tile>
+            <mat-grid-tile class="info">{{dshift.customerBusinessName}}</mat-grid-tile>
 
             <mat-grid-tile class="label" for="customerCellphoneNumber">CUSTOMER CONTACT NUMBER: </mat-grid-tile>
-            <mat-grid-tile class="info">{{sale.customerCellphoneNumber}}</mat-grid-tile>
+            <mat-grid-tile class="info">{{dshift.customerCellphoneNumber}}</mat-grid-tile>
 
             <mat-grid-tile class="label" for="address">ADDRESS:</mat-grid-tile>
-            <mat-grid-tile class="info">{{sale.addressLine1}} &nbsp;{{sale.addressLine2}} &nbsp;{{sale.addressLine3}}
+            <mat-grid-tile class="info">{{dshift.addressLine1}} &nbsp;{{dshift.addressLine2}} &nbsp;{{dshift.addressLine3}}
             </mat-grid-tile>
 
             <mat-grid-tile class="label" for="addressPostalCode">POSTAL CODE:</mat-grid-tile>
-            <mat-grid-tile class="info">{{sale.addressPostalCode}}</mat-grid-tile>
+            <mat-grid-tile class="info">{{dshift.addressPostalCode}}</mat-grid-tile>
 
         </mat-grid-list>
 

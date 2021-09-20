@@ -22,7 +22,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
   searchValue: string;
   dataNotFound: boolean;
   
-  form: FormGroup;
+  //form: FormGroup;
   loading = false;
   submitted = false;
   collection = [];
@@ -34,11 +34,15 @@ export class PlaceSupplierOrderComponent implements OnInit {
   placeSupplierOrders: PlaceSupplierOrder[] = [];
   placeSupplierOrder: Observable<PlaceSupplierOrder[]>;
   //dataSource = new MatTableDataSource<PlaceSupplierOrder>();
-  displayedColumns: string[] = ['checked', 'productItem', 'quantity'];
+  displayedColumns: string[] = ['checkbox', 'productItem', 'quantity'];
 
   highlight(element: PlaceSupplierOrder) {
     element.highlighted = !element.highlighted;
   }
+
+  form = this.FB.group({
+    supplierID: ['',Validators.required]
+  }) 
   
   constructor(
     private productitemService: ProductitemService,
@@ -47,6 +51,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router,
     private FormGroup: FormBuilder,
+    private FB:FormBuilder,
     // public dialogRef: MatDialogRef<PlaceSupplierOrder>
   ) { }
 
@@ -113,6 +118,11 @@ export class PlaceSupplierOrderComponent implements OnInit {
      });
 
      confirm.afterClosed().subscribe(res => {
+      this.router.navigateByUrl('placeSupplierOrder');
+      })
+    }
+
+    finalOrder(){
       const placeOrder: PlaceSupplierOrder = this.form.value;
       this.placeSupplierOrderService.CreateSupplierOrder(placeOrder).subscribe(res =>{
         console.log(res)
@@ -120,7 +130,6 @@ export class PlaceSupplierOrderComponent implements OnInit {
         this.router.navigateByUrl('placeSupplierOrder');
       })
         
-      })
     }
   }
 

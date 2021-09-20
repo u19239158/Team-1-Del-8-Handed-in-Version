@@ -85,6 +85,7 @@ import { QuantityModalComponent } from './supplier/place-supplier-order/quantity
 import { CaptureOrderComponent } from './supplier/receive-supplier-order/capture-order/capture-order.component';
 import { UpdateDeliveriesLimitComponent } from './deliveryshift/update-deliveries-limit/update-deliveries-limit.component';
 import { MatSortModule } from '@angular/material/sort';
+import { ForgotUsernameComponent } from './forgot-username/forgot-username.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDF8jZluZQu1iARJPootZqStlIMNnQ6OFA",
@@ -158,6 +159,7 @@ const firebaseConfig = {
     QuantityModalComponent,
     CaptureOrderComponent,
     UpdateDeliveriesLimitComponent,
+    ForgotUsernameComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),

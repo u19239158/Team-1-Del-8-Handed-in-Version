@@ -66,5 +66,7 @@ GetCustomerBySaleID(saleID):  Observable<Customer>  {
 NotifyCustomer(Customer:Customer,customerEmail: string):  Observable<Customer[]>  {
   return this.http.post<Customer[]>(`${this.server}Email/ReadyForCollection/${customerEmail}`,Customer,this.httpOptions);
 }
+
+
 }
 

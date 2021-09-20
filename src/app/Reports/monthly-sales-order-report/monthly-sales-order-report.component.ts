@@ -46,9 +46,11 @@ export const MY_FORMATS = {
 })
 export class MonthlySalesOrderReportComponent implements OnInit {
   dataSource = new MatTableDataSource<Reports>();
-  displayedColumns: string[] = ['saleId', 'saleOrderDate', 'customerName', 'customerCellphoneNumber', 'customerEmailAddress', 'customerBusinessName', 'salePaymentAmount'];
+  displayedColumns: string[] = ['saleId', 'saleOrderDate', 'customerName', 'customerCellphoneNumber',  'customerBusinessName','salePaymentAmount'];
   tableData: any;
-  Sales: any;
+  Sales: any ;
+  aveg: any;
+  total : any;
   ReportParams: ReportParameters = {
     startDate: null,
     endDate: null
@@ -100,7 +102,7 @@ export class MonthlySalesOrderReportComponent implements OnInit {
 
       this.serv.SalesReportSum(this.form.value).subscribe(res => {
         console.log(res)
-
+        this.total = res
         this.dataSource = new MatTableDataSource(data)
         // this.generateTables(data);
 
@@ -109,7 +111,8 @@ export class MonthlySalesOrderReportComponent implements OnInit {
     });
     this.serv.SalesReportAvg(this.form.value).subscribe(res => {
       console.log(res)
-    })
+      this.aveg= res;
+  })
 
   }
   // Restructure data for chart

@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
-//import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+// import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
+import { ReportParameters, Reports } from 'src/app/interfaces';
+import { ReportServiceService } from 'src/app/services/Reports/report-service.service';
+import html2canvas from 'html2canvas';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import jsPDF from 'jspdf';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-popular-location-report',
@@ -9,33 +15,44 @@ import { Label } from 'ng2-charts';
   styleUrls: ['./popular-location-report.component.scss']
 })
 export class PopularLocationReportComponent implements OnInit {
-  // public barChartOptions: ChartOptions
-  //  = {
-  //   responsive: true,
-  //   // We use these empty structures as placeholders for dynamic theming.
-  //   //scales: { xAxes: [{}], yAxes: [{}] },
-  //   plugins: {
-  //     // datalabels: {
-  //     //   anchor: 'end',
-  //     //   align: 'end',
-  //     // }
-  //   }
-  // };
-  public barChartLabels: Label[] = ['Gauteng', 'Eastern Cape', 'Western Cape', 'KZN', 'Northern Cape', 'Mpumalanga', 'North West', 'Limpopo'];
-  //public barChartType: ChartType = 'bar';
+  dataSource = new MatTableDataSource<Reports>();
+  tableData: any;
+  ReportParams: ReportParameters = {
+    startDate: null,
+    endDate: null
+  };
+  form: FormGroup
+  created = false;
+  
+  public barChartOptions: ChartOptions = {
+    responsive: true,
+    // We use these empty structures as placeholders for dynamic theming.
+    scales: { xAxes: [{}], yAxes: [{}] },
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+      }
+    }
+  };
+  public barChartLabels: Label[] = ['Gauteng', 'KZN', 'Limpopo', 'Northern Cape', 'Eastern Cape', 'Western Cape', 'Mpumalanga', 'North West'];
+  public barChartType: ChartType = 'bar';
   public barChartLegend = true;
+  // public barChartPlugins = [pluginDataLabels];
 
-  //Where our data comes from
   public barChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
+    //{ data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
+    // { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
   ];
 
-
-
-  constructor() { }
+  constructor(private serv: ReportServiceService,
+    private formBuilder: FormBuilder,) { }
 
   ngOnInit(): void {
+    this.form = this.formBuilder.group({
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+    })
   }
 
   // events
@@ -47,15 +64,54 @@ export class PopularLocationReportComponent implements OnInit {
     console.log(event, active);
   }
 
-  // public randomize(): void {
-  // Only Change 3 values
-  //   this.barChartData[0].data = [
-  //     Math.round(Math.random() * 100),
-  //     59,
-  //     80,
-  //     (Math.random() * 100),
-  //     56,
-  //     (Math.random() * 100),
-  //     40 ];
-  // }
+  public randomize(): void {
+    // Only Change 3 values
+    this.barChartData[0].data = [
+      Math.round(Math.random() * 100),
+      59,
+      80,
+      (Math.random() * 100),
+      56,
+      (Math.random() * 100),
+      40 ];
+  }
+
+  generateReport() {
+    this.serv.PopularLocationReport(this.form.value).subscribe(data => {
+      this.created = false;
+      this.serv.SalesReportSum(this.form.value).subscribe(res =>{
+        console.log(res)})
+      console.log(data);
+      this.dataSource = new MatTableDataSource(data)
+      this.generateTables(data);
+    });
+
+    this.serv.SalesReportAvg(this.form.value).subscribe(res =>{
+      console.log(res)})
+  }
+
+  generatePdf(): void {
+    let Data = document.getElementById('htmlData')!;
+
+    // Canvas Options
+    html2canvas(Data).then(canvas => {
+      let fileWidth = 210;
+      let fileHeight = canvas.height * fileWidth / canvas.width;
+
+      const contentDataURL = canvas.toDataURL('image/png')
+
+
+      let PDF = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4', });
+      let topPosition = 10;
+      let leftPosition = 0;
+      PDF.addImage(contentDataURL, 'PNG', leftPosition, topPosition, fileWidth, fileHeight)
+      PDF.save('Popular Location Report.pdf');
+    });
+  }
+  generateTables(data) {
+    this.tableData = data;
+    this.created = true;
+    // this.averages = data.map(avg => avg.AverageQuantityOrdered);
+    // this.getGrandAverage();
+  }
 }
