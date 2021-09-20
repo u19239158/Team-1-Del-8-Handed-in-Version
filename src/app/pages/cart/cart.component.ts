@@ -9,6 +9,7 @@ import { GoogleMapsComponent } from '../google-maps/google-maps.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgmCoreModule } from '@agm/core'; 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 export interface Coordinates {
@@ -38,6 +39,7 @@ export class CartComponent implements OnInit {
 
   constructor(
     private cartService : CartService,
+    private snack : MatSnackBar,
     private formBuilder: FormBuilder,
     private modalService: NgbModal
   ) {
@@ -87,9 +89,23 @@ export class CartComponent implements OnInit {
 //CART METHODS - Remove, clear items
   removeItem(item: any){
     this.cartService.removeCartItem(item);
+
+    this.snack.open('Item removed from cart', 'OK', 
+    {
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      duration: 2000
+    });
   }
   emptycart(){
     this.cartService.removeAllCart();
+
+    this.snack.open('Cart emptied', 'OK', 
+    {
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      duration: 2000
+    });
   }
 
 

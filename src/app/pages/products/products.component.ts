@@ -65,7 +65,7 @@ export class ProductsComponent implements OnInit {
     {
       verticalPosition: 'top',
       horizontalPosition: 'center',
-      duration: 1000
+      duration: 2000
     });
   }
 

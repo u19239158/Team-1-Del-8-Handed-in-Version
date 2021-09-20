@@ -84,7 +84,8 @@ export class ApiService {
     // }))
 
   }  
-//
+
+  
 
 
   //products page(CategoryType) SEARCH description endpoint route = GetCategoryTypeByProdDesc/{productcategorydescription} OR GetCategoryTypeByDescription/{categorytypedescription}
@@ -106,8 +107,14 @@ export class ApiService {
   //product details modal(CategoryType, productItem) SEARCH CategoryTypeName endpoint route = GetPItemsByCatType/{CategoryTypeName}
 
   //product details modal(CategoryType, productItem) endpoint route = GetProductItems
+  // getProductItem(){
+  //   return this.http.get<Product[]>(`${this.server}ProductItem/getProducts`)
+  //   .pipe(map((res:any)=>{
+  //     return res;
+  //   }))
+  // }
   getProductItem(){
-    return this.http.get<Product[]>(`${this.server}ProductItem/getProducts`)
+    return this.http.get<Product[]>(`${this.server}Checkout/getProductWPrice`)
     .pipe(map((res:any)=>{
       return res;
     }))

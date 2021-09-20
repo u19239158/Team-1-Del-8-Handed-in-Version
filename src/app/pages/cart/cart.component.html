@@ -23,7 +23,7 @@
                                 <td style="width: 12%;">{{item.itemDescription}}</td>
                                 <!--if quantity value greater than 1 += ... Google this-->
                                 <td style="width: 12%;">{{item.quantity}}</td>
-                                <td style="width: 12%;">R{{item.productItemCost}}</td>
+                                <td style="width: 12%;">R{{item.sellingPrice | number:'0.1-2'}}</td>
                                 <td>
                                     <button (click)="removeItem(item)" class="button is-rounded is-danger is-outlined"><i class="fas fa-trash-alt"></i></button>
                                 </td>
@@ -44,9 +44,10 @@
                             <td>
                         
                               <div class="box">
-                                VAT total: R {{vatTotals}}<br/>
+                                VAT total: R {{vatTotalsv | number:'0.1-2'}}<br/>
                               </div>
-                                <span class="tag is-large is-success is-rounded"><strong>Grand Total : R{{grandTotal}}</strong></span>
+                                <span class="tag is-large is-success is-rounded"><strong>Grand Total : R{{grandTotal | number:'0.1-2'}}</strong></span>
+                                <!-- vatInclusive -->
                             </td>
                         </tr>
                     </tbody>
