@@ -16,6 +16,8 @@ import {
   DateRange,
   MAT_DATE_RANGE_SELECTION_STRATEGY,
 } from '@angular/material/datepicker';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class WeekSelectionStrategy<D>
@@ -102,6 +104,7 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
   constructor(
     private serv: ReportServiceService,
     private formBuilder: FormBuilder,
+    private snack: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -136,7 +139,20 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
     this.serv.SalesReportAvg(this.form.value).subscribe(res =>{
       console.log(res)
       this.aveg = res;
-    })
+    },(error: HttpErrorResponse) =>
+    {
+      console.log(error.error,"test")
+     if (error.status === 400)
+    {
+      this.snack.open(error.error, 'OK', 
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        duration: 3000
+      });
+      return;
+    }
+  })
   }
 
   // generateChart(data) {

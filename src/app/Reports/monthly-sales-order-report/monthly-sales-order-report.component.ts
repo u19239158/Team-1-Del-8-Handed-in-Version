@@ -134,7 +134,6 @@ export class MonthlySalesOrderReportComponent implements OnInit {
       this.created = true;
       //this.Sales = true;
       console.log(data);
-
       this.serv.SalesReportSum(this.form.value).subscribe(res => {
         console.log(res)
         this.total = res
@@ -143,24 +142,24 @@ export class MonthlySalesOrderReportComponent implements OnInit {
      this.serv.SalesReportAvg(this.form.value).subscribe(res =>{
       console.log(res)
       this.aveg= res;
-    })
+    },(error: HttpErrorResponse) =>
+    {
+      console.log(error.error,"test")
+     if (error.status === 400)
+    {
+      this.snack.open(error.error, 'OK', 
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        duration: 3000
+      });
+      return;
+    }
+  })
 
     });
     
-  },(error: HttpErrorResponse) =>
-  {
-    console.log(error.error,"test")
-   if (error.status === 400)
-  {
-    this.snack.open(error.error, 'OK', 
-    {
-      verticalPosition: 'bottom',
-      horizontalPosition: 'center',
-      duration: 3000
-    });
-    return;
   }
-}
   )
 
   }
