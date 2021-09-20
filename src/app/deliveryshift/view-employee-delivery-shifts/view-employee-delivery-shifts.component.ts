@@ -45,7 +45,7 @@ export class ViewEmployeeDeliveryShiftsComponent implements OnInit {
   }
 
   readDeliveryshifts(): void {
-    this.deliveryshiftService.GetDeliveryShift().subscribe(res => {
+    this.deliveryshiftService.GetDeliveryShiftDelivery().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
     })

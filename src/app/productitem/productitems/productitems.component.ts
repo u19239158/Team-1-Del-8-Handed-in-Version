@@ -47,14 +47,15 @@ dataNotFound: boolean;
   
   
   ngOnInit(): void {
-    setTimeout(() => this.dataSource.paginator = this.paginator);
+   
     //this.dataSource.paginator = this.paginator;
     this.readProductitems();
 
     this.productitemService.GetProductItem().subscribe((result:Productitem[]) => {
       this.Productitems = result;
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     });
-
+   
   }
 
    readProductitems(): void {

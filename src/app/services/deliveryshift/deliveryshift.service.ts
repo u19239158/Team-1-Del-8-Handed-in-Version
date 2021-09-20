@@ -23,6 +23,10 @@ export class DeliveryshiftService {
     return this.http.get<Deliveryshift[]>(`${this.server}Deliveryshift/GetDeliveryShift`).pipe(map(res => res));
   }
 
+  GetDeliveryShiftDelivery(): Observable<Deliveryshift[]> {
+    return this.http.get<Deliveryshift[]>(`${this.server}Deliveryshift/GetDeliveryShiftDelivery`).pipe(map(res => res));
+  }
+  
   // Should it be get by employeeShiftId?
   getDeliveryShiftByID(employeeShiftId): Observable<Deliveryshift> {
     return this.http.get<Deliveryshift>(`${this.server}Deliveryshift/GetDeliveryShiftByID/${employeeShiftId}`).pipe(map(res => res));
@@ -53,6 +57,10 @@ export class DeliveryshiftService {
 
   GetUnscheduledDeliveries():  Observable<Deliveryshift[]>  {
     return this.http.get<Deliveryshift[]>(`${this.server}Delivery/GetUnassignedDeliveries`).pipe(map(res => res));
+  }
+
+  GetAssigned(employeeShiftId): Observable<Deliveryshift> {
+    return this.http.get<Deliveryshift>(`${this.server}Deliveryshift/GetAssigned/${employeeShiftId}`).pipe(map(res => res));
   }
 
   AssignLocalDelivery(OnlineSales: OnlineSales): Observable<OnlineSales[]> {

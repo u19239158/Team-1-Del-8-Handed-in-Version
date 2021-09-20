@@ -76,6 +76,12 @@ dataNotFound: boolean;
       if(res) {
         this.supplierService.DeleteSupplier(Supplier).subscribe(res => {
           this.readSuppliers();
+          this.snack.open('Successfully Deleted Supplier! ', 'OK', 
+          {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 2000
+          });
         },(error: HttpErrorResponse) =>
         {
           console.log(error.error,"test")
@@ -90,12 +96,7 @@ dataNotFound: boolean;
           return;
         }
       });
-      this.snack.open('Successfully Deleted Supplier! ', 'OK', 
-      {
-        verticalPosition: 'bottom',
-        horizontalPosition: 'center',
-        duration: 2000
-      });
+     
       }
      
     });
