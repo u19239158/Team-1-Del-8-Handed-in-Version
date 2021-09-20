@@ -21,6 +21,71 @@ namespace NKAP_API_2.Controllers
         private NKAP_BOLTING_DB_4Context _db; //dependency injection for db
         public ProductItemController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
+
+
+        [Route("getProducts")] //route
+        [HttpGet]
+        //get Sales by Date (Read)
+        public IActionResult getProducts()
+        {
+            var markup = _db.Markups.FirstOrDefault(zz => zz.MarkupId == 3);
+            var VAT = _db.Vats.FirstOrDefault(zz => zz.VatId == 2);
+            var Stocklevel = _db.ProductItems.Join(_db.CategoryTypes,
+                 su => su.CategoryTypeId,
+                 so => so.CategoryTypeId,
+
+                 (su, so) => new
+                 {
+                     ProductItemId = su.ProductItemId,
+                     ProductItemName = su.ProductItemName, //attributes in table
+                     ProductItemCost = su.ProductItemCost,
+                     CategoryTypeId = su.CategoryTypeId,
+                     CategoryTypeDescription = so.CategoryTypeDescription,
+                     ItemDescription = so.ItemDescription,
+                     CategoryTypeImage = so.CategoryTypeImage,
+                     ProductCategoryId = so.ProductCategoryId
+
+
+                 }).Join(_db.ProductCategories,
+                 su => su.ProductCategoryId,
+                 so => so.ProductCategoryId,
+                  (su, so) => new
+                  {
+                      ProductItemId = su.ProductItemId,
+                      ProductItemCost = su.ProductItemCost,
+                      sellingPrice = su.ProductItemCost + (su.ProductItemCost * markup.MarkupPercentage), //VAT Exclusive
+                                                                                                          // VATInclusive = (su.ProductItemCost + (su.ProductItemCost * markup.MarkupPercentage))  
+                      ProductItemName = su.ProductItemName, //attributes in table
+                      CategoryTypeImage = su.CategoryTypeImage,
+                      CategoryTypeId = su.CategoryTypeId,
+                      CategoryTypeDescription = su.CategoryTypeDescription,
+                      ItemDescription = su.ItemDescription,
+                      ProductCategoryId = so.ProductCategoryId,
+                      ProductCategoryDescription = so.ProductCategoryDescription
+                  }).Join(_db.ProductCategories,
+                 su => su.ProductCategoryId,
+                 so => so.ProductCategoryId,
+                  (su, so) => new
+                  {
+                      ProductItemId = su.ProductItemId,
+                      ProductItemCost = su.ProductItemCost,
+                      sellingPrice = su.sellingPrice, //VAT Exclusive
+                      VATInclusive = su.sellingPrice + (su.sellingPrice * VAT.VatPercentage), //VAT Inclusive
+                      VATAmount = su.sellingPrice + (su.sellingPrice * VAT.VatPercentage) - su.sellingPrice, //VAT Amount
+                      ProductItemName = su.ProductItemName,
+                      CategoryTypeImage = su.CategoryTypeImage,
+                      CategoryTypeId = su.CategoryTypeId,
+                      CategoryTypeDescription = su.CategoryTypeDescription,
+                      ItemDescription = su.ItemDescription,
+                      ProductCategoryId = so.ProductCategoryId,
+                      ProductCategoryDescription = so.ProductCategoryDescription
+                  });
+
+            return Ok(Stocklevel);
+
+        }
+
+
         [Route("GetProductItems")] //route
         [HttpGet]
         //get Product Items (Read)
@@ -221,7 +286,63 @@ namespace NKAP_API_2.Controllers
         }
 
 
-    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        //I am adding this to display productItems by filtering through the 7 product Categories
+        [Route("GetProdByProductCategory/{productcategoryid}")] //route
+        [HttpGet]
+        //get Product Items by category (Read)
+        public IActionResult GetP(int productcategoryid)
+        {
+            //var productItem = _db.ProductItems.FirstOrDefault(pn => pn.ProductItemName == ProductItemname);
+
+            {
+                var markup = _db.Markups.FirstOrDefault(zz => zz.MarkupId == 3);
+                var VAT = _db.Vats.FirstOrDefault(zz => zz.VatId == 2);
+                var productItems = _db.ProductItems.Join(_db.CategoryTypes,
+                    a => a.CategoryTypeId,
+                    t => t.CategoryTypeId,
+                    (a, t) => new
+                    {
+                        CategoryTypeId = a.CategoryTypeId,
+                        CategoryTypeImage = t.CategoryTypeImage,
+                        CategoryTypeDescription = t.CategoryTypeDescription,
+                        sellingPrice = a.ProductItemCost + (a.ProductItemCost * markup.MarkupPercentage), //VAT Exclusive
+                        ProductItemId = a.ProductItemId,
+                        ItemDescription = t.ItemDescription,
+                        ProductItemName = a.ProductItemName,
+                        ProductItemCost = a.ProductItemCost,
+                        QuantityOnHand = a.QuantityOnHand,
+                        ProductCategoryId = t.ProductCategoryId,
+
+
+                    }).Join(_db.ProductCategories,
+                    a => a.ProductCategoryId,
+                    t => t.ProductCategoryId,
+                    (a, t) => new
+                    {
+                        CategoryTypeId = a.CategoryTypeId,
+                        CategoryTypeImage = a.CategoryTypeImage,
+                        CategoryTypeName = a.CategoryTypeDescription,
+                        ProductItemId = a.ProductItemId,
+                        sellingPrice = a.sellingPrice, //VAT Exclusive
+                        VATInclusive = a.sellingPrice + (a.sellingPrice * VAT.VatPercentage), //VAT Inclusive
+                        VATAmount = a.sellingPrice + (a.sellingPrice * VAT.VatPercentage) - a.sellingPrice, //VAT Amount
+                        CategoryTypeDescription = a.ItemDescription,
+                        ProductItemName = a.ProductItemName,
+                        ProductItemCost = a.ProductItemCost,
+                        QuantityOnHand = a.QuantityOnHand,
+                        ProductCategoryDescription = t.ProductCategoryDescription,
+                        ProductCategoryId = t.ProductCategoryId,
+
+
+
+                    }).Where(pp => pp.ProductCategoryId == productcategoryid);
+
+                return Ok(productItems);
+            }
+        }
+
+
+        //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("CreateProductItem")] //route
         [HttpPost]
         //Add Product Item
