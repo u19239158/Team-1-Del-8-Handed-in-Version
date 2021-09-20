@@ -49,6 +49,7 @@ readCustomers(): void {
    this.customerService.GetCustomer().subscribe(res => {
      console.log(res)
      this.dataSource = new MatTableDataSource(res)
+     setTimeout(() => this.dataSource.paginator = this.paginator);
    })
 }
 

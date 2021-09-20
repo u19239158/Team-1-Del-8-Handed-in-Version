@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -9,6 +9,7 @@ import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/gl
 import { AssignCourierDeliveryService } from 'src/app/services/assigncourierdelivery/assigncourierdelivery.service';
 import { CourierService } from 'src/app/services/courier/courier.service';
 import { HttpClient } from '@angular/common/http';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-assign-courier-delivery',
@@ -25,6 +26,7 @@ export class AssignCourierDeliveryComponent implements OnInit {
   Courier: Courier;
   courier: Observable<Courier[]>;
   dataSource = new MatTableDataSource<Courier>();
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['name', 'type', 'contactNumber', 'actions'];
   CourierService: any;
   sale: any;
@@ -56,6 +58,7 @@ export class AssignCourierDeliveryComponent implements OnInit {
     this.AssignCourierDeliveryService.GeCourier().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }
 
