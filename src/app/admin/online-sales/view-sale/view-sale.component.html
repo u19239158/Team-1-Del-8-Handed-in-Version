@@ -2,53 +2,54 @@
 
 
 
-<mat-card class="example-card">
+<mat-card>
     <h1 mat-dialog-title mat-card-header class="title">
         View Sale
     </h1>
 
     <mat-dialog-content mat-card-content>
-        <mat-grid-list [cols]="breakpoint" rowHeight="45px" (window:resize)="onResize($event)">
-            <mat-grid-tile class="label" for="saleID">SALE NUMBER:</mat-grid-tile>
-            <mat-grid-tile class="info">{{sale.saleID}}</mat-grid-tile>
 
-            <mat-grid-tile class="label" for="saleOrderDate">SALE DATE:</mat-grid-tile>
-            <mat-grid-tile class="info">{{sale.saleOrderDate | date:"dd/MM/yyyy"}}</mat-grid-tile>
+        <div class="row">
+            <div class="label" for="saleID">SALE NUMBER:</div>
+            <div class="info">{{sale.saleID}}</div>
+        </div>
 
-            <mat-grid-tile class="label" for="orderStatusDescription">ORDER STATUS:</mat-grid-tile>
-            <mat-grid-tile class="info">{{sale.orderStatusDescription}}</mat-grid-tile>
+        <div class="label" for="saleOrderDate">SALE DATE:</div>
+        <div class="info">{{sale.saleOrderDate | date:"dd/MM/yyyy"}}</div>
+
+        <div class="label" for="orderStatusDescription">ORDER STATUS:</div>
+        <div class="info">{{sale.orderStatusDescription}}</div>
 
 
-            <mat-grid-tile class="label" for="customerName">CUSTOMER:</mat-grid-tile>
-            <mat-grid-tile class="info">{{sale.customerName}}</mat-grid-tile>
+        <div class="label" for="customerName">CUSTOMER:</div>
+        <div class="info">{{sale.customerName}}</div>
 
-            <mat-grid-tile class="label" for="customerBusinessName">BUSINESS NAME:</mat-grid-tile>
-            <mat-grid-tile class="info">{{sale.customerBusinessName}}</mat-grid-tile>
+        <div class="label" for="customerBusinessName">BUSINESS NAME:</div>
+        <div class="info">{{sale.customerBusinessName}}</div>
 
-            <mat-grid-tile class="label" for="paymentTypeDescription">PAYMENT TYPE: </mat-grid-tile>
-            <mat-grid-tile class="info">{{sale.paymentTypeDescription}}</mat-grid-tile>
+        <div class="label" for="paymentTypeDescription">PAYMENT TYPE: </div>
+        <div class="info">{{sale.paymentTypeDescription}}</div>
 
-            <mat-grid-tile class="label" for="paymentDate">PAYMENT DATE:</mat-grid-tile>
-            <mat-grid-tile class="info">{{sale.salePaymentDate| date:"dd/MM/yyyy"}}</mat-grid-tile>
+        <div class="label" for="paymentDate">PAYMENT DATE:</div>
+        <div class="info">{{sale.salePaymentDate| date:"dd/MM/yyyy"}}</div>
 
-            <mat-grid-tile class="label" for="salePaymentAmount">PAYMENT AMOUNT:</mat-grid-tile>
-            <mat-grid-tile class="info">R {{sale.salePaymentAmount | number:'1.1-2'}}</mat-grid-tile>
+        <div class="label" for="salePaymentAmount">PAYMENT AMOUNT:</div>
+        <div class="info">R {{sale.salePaymentAmount | number:'1.1-2'}}</div>
 
-            <mat-grid-tile class="label" for="saleOrderRecieveType">RECEIVE TYPE:</mat-grid-tile>
-            <mat-grid-tile class="info">{{sale.saleOrderRecieveType}}</mat-grid-tile>
+        <div class="label" for="saleOrderRecieveType">RECEIVE TYPE:</div>
+        <div class="info">{{sale.saleOrderRecieveType}}</div>
 
-            <mat-grid-tile rowHeight="60px" class="label" for="SaleOrderDescription">ITEMS ORDERED:</mat-grid-tile>
-            <mat-grid-tile rowHeight="60px" class="info">
-                <ol>
-                    <li>{{sale.saleOrderDescription}}</li>
-                </ol>
-            </mat-grid-tile>
-
-        </mat-grid-list>
-
+        <div rowHeight="80px" class="label" for="SaleOrderDescription">ITEMS ORDERED:</div>
+        <div class="items">
+            <ol>
+                <li *ngFor="let name of sale.saleOrderDescription.split(',')">
+                    {{name}}
+                </li>
+            </ol>
+        </div>
 
     </mat-dialog-content>
-    <mat-dialog-actions mat-card-actions class="actionbuttons">
+    <mat-dialog-actions mat-card-actions class=" actionbuttons">
 
         <button mat-raised-button *ngIf="sale.orderStatusDescription ==='Needs Packing'" color="primary" type="submit"
             (click)="PackOrder()">
@@ -56,7 +57,7 @@
             Pack Order
         </button> &nbsp;
 
-        <a (click)="Close()" mat-button>Back</a>
+        <a (click)="closeDialog()" mat-button>Back</a>
 
     </mat-dialog-actions>
 </mat-card>

@@ -1,7 +1,7 @@
 import { OnlineSales } from 'src/app/interfaces';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, VERSION, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject, OnInit, VERSION, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -58,7 +58,11 @@ export class ViewSaleComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private http: HttpClient,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private dialogRef: MatDialogRef<ViewSaleComponent>,
+
+    @Inject(MAT_DIALOG_DATA) public data: any
+
   ) { }
 
 
@@ -70,7 +74,7 @@ export class ViewSaleComponent implements OnInit {
     this.form = this.formBuilder.group({
     }, formOptions)
 
-    this.id = this.route.snapshot.params['id'];
+    this.id = this.data.id;
     this.getCollection();
 
     this.OnlineSalesService.ViewSale(this.id).subscribe(res => {
@@ -163,6 +167,10 @@ export class ViewSaleComponent implements OnInit {
           duration: 4000
         });
     })
+  }
+
+  closeDialog = () => {
+    this.dialogRef.close();
   }
 
   // check_box_type = CheckBoxType;

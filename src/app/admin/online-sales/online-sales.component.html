@@ -72,8 +72,8 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item (click)="viewSale(element.saleID)"
-                [routerLink]="['/viewSale', element.saleID]">View</button>
+              <button mat-menu-item (click)="viewSale(element.saleID)">View</button>
+
               <button mat-menu-item (click)="updateToCollected(element.saleID)"
                 *ngIf="element.orderStatusID !==1 && element.orderStatusID !==3 && element.orderStatusID !==7">Collected
               </button>
@@ -93,8 +93,6 @@
         <a (click)="Close()" mat-button>Cancel</a>
       </div>
     </div> -->
- <mat-paginator [pageSizeOptions]="[5, 8, 15, 35]"
-                 showFirstLastButtons 
-                 aria-label="Select page">
-      </mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 8, 15, 35]" showFirstLastButtons aria-label="Select page">
+    </mat-paginator>
   </div>

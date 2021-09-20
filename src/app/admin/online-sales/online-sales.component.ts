@@ -12,7 +12,7 @@ import { AbstractControlOptions, FormGroup, FormBuilder } from '@angular/forms';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { ViewSaleComponent } from './view-sale/view-sale.component';
-import {MatPaginator} from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-online-sales',
@@ -106,9 +106,10 @@ export class OnlineSalesComponent implements OnInit {
       //   console.log(res)});
     });
 
-    // const dialogRef = this.dialog.open(ViewSaleComponent, {
-    //   width: '50%',
-    // });
+    const dialogRef = this.dialog.open(ViewSaleComponent, {
+      data: { id: saleID },
+      width: '400px',
+    });
   }
 
 
@@ -125,7 +126,7 @@ export class OnlineSalesComponent implements OnInit {
     const data = (this.OnlineSales.filter(filter))
     this.dataNotFound = data.length === 0
     this.dataSource = new MatTableDataSource(data)
-    
+
   }
 
   parseInteger(value) {
@@ -137,7 +138,8 @@ export class OnlineSalesComponent implements OnInit {
   }
 
 
-  // openDialog(): void {
+  // openDialog(saleId): void {
+  //   this.viewSale(saleId)
   //   const dialogRef = this.dialog.open(ViewSaleComponent, {
   //     width: '50%',
   //   });

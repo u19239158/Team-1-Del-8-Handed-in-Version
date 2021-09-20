@@ -55,9 +55,9 @@
       <div class="mat-col-quarter">
         <mat-form-field class="control-m">
           <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="Special Start Date"
-            formControlName="specialStartDate">
+            formControlName="specialStartDate" disabled>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
+          <mat-datepicker #picker disabled="false"></mat-datepicker>
           <mat-hint>Enter special start date</mat-hint>
           <mat-error *ngIf="form.controls['specialStartDate'].invalid">Please enter the special's start date
           </mat-error>
@@ -70,9 +70,9 @@
       <div class="mat-col-quarter">
         <mat-form-field class="control-m">
           <input matInput [min]="minDate" [matDatepicker]="picker1" placeholder="Special End Date"
-            formControlName="specialEndDate">
+            formControlName="specialEndDate" disabled>
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-          <mat-datepicker #picker1></mat-datepicker>
+          <mat-datepicker #picker1 disabled="false"></mat-datepicker>
           <mat-hint>Enter special end date</mat-hint>
           <mat-error *ngIf="form.controls['specialEndDate'].invalid">Please enter the special's start date</mat-error>
         </mat-form-field>

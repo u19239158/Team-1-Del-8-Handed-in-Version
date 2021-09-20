@@ -11,9 +11,9 @@
         <mat-form-field appearance="outline" class="control-m">
           <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="dd/mm/yyyy"
             formControlName="dayOfTheWeek" (dateInput)="addEvent('input', $event)"
-            (dateChange)="addEvent('change', $event)">
+            (dateChange)="addEvent('change', $event)" disabled>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
+          <mat-datepicker #picker disabled="false"></mat-datepicker>
           <mat-hint>Select the date of delivery shift</mat-hint>
           <mat-error *ngIf="form.controls['dayOfTheWeek'].invalid">Please choose a Shift Date</mat-error>
         </mat-form-field>

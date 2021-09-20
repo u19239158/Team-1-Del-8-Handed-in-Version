@@ -2,37 +2,52 @@
 
 <div class="column left">
   <div class="parameters">
-      <h2>Report Parameters</h2>
-      <h3>Date Range</h3>
-     <form [formGroup]="form" class="main">
+    <h2>Report Parameters</h2>
+    <h3>Date Range</h3>
+    <form [formGroup]="form" class="main">
       <div>
-       <!-- <div class="mat-row"> -->
+        <!-- <div class="mat-row"> -->
         <!-- Start Date -->
-       <!-- <div class="mat-col-quarter"> -->
+        <!-- <div class="mat-col-quarter"> -->
         <mat-form-field class="control-m">
-          <input matInput [matDatepicker]="picker" placeholder="Choose Start Date"formControlName="startDate">
+          <input matInput [matDatepicker]="picker" placeholder="Choose Start Date" formControlName="startDate" disabled>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
+          <mat-datepicker #picker disabled="false"></mat-datepicker>
           <mat-hint>Enter Report start date</mat-hint>
-          <mat-error *ngIf="form.controls['startDate'].invalid">Please select the report's start date</mat-error> 
+          <mat-error *ngIf="form.controls['startDate'].invalid">Please select the report's start date</mat-error>
         </mat-form-field>
         <!-- </div>
       </div>
 
       <div class="mat-row">  -->
-          <br>
-          <br>
-       <!-- End Date -->
-       <!-- <div class="mat-col-quarter"> -->
+        <br>
+        <br>
+        <!-- End Date -->
+        <!-- <div class="mat-col-quarter"> -->
         <mat-form-field class="control-m">
-          <input matInput [matDatepicker]="picker1" placeholder="Choose End Date" formControlName="endDate">
+          <input matInput [matDatepicker]="picker1" placeholder="Choose End Date" formControlName="endDate" disabled>
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-          <mat-datepicker #picker1></mat-datepicker>
+          <mat-datepicker #picker1 disabled="false"></mat-datepicker>
           <mat-hint>Enter Report end date</mat-hint>
-          <mat-error *ngIf="form.controls['endDate'].invalid">Please select the report's end date</mat-error> 
+          <mat-error *ngIf="form.controls['endDate'].invalid">Please select the report's end date</mat-error>
         </mat-form-field>
-       <!-- </div>
+        <!-- </div>
       </div> -->
+
+        <br>
+        <br>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Month and Year</mat-label>
+          <input matInput [matDatepicker]="dp" [formControl]="date">
+          <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-datepicker #dp
+                          startView="multi-year"
+                          (yearSelected)="chosenYearHandler($event)"
+                          (monthSelected)="chosenMonthHandler($event, dp)"
+                          panelClass="example-month-picker">
+          </mat-datepicker>
+        </mat-form-field>
 
       </div>
 
@@ -41,21 +56,21 @@
       <br>
       <br>
 
-      <button type="submit" mat-raised-button color ="primary" (click)="generateReport()">Generate Report</button>
+      <button type="submit" mat-raised-button color="primary" (click)="generateReport()">Generate Report</button>
       <br>
       <br>
-      <button type="submit" mat-raised-button color ="primary" (click)="generatePdf()">Download Report PDF</button>
+      <button type="submit" mat-raised-button color="primary" (click)="generatePdf()">Download Report PDF</button>
     </form>
-    </div>
   </div>
+</div>
 
- 
+
 
 <div id="htmlData" class="mat-elevation-z8 table column right" *ngIf="created">
- 
+
   <table mat-table [dataSource]="dataSource" matSort>
 
-   
+
     <!-- <ng-container matColumnDef="customerId">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer ID </th>
       <td mat-cell *matCellDef="let element">{{element.customerId}} </td>
@@ -64,7 +79,7 @@
     <ng-container matColumnDef="customerName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer Name </th>
       <td mat-cell *matCellDef="let element"> {{element.customerName}} {{element.customerSurname}}
-       
+
       </td>
     </ng-container>
 
@@ -83,7 +98,7 @@
       <td mat-cell *matCellDef="let element"> {{element.customerEmailAddress}} </td>
     </ng-container>
 
-    
+
     <ng-container matColumnDef="saleId">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Sale ID </th>
       <td mat-cell *matCellDef="let element">{{element.saleID}} </td>
@@ -100,7 +115,7 @@
     </ng-container>
 
 
-    
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
