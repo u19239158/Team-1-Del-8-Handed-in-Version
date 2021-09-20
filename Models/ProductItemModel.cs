@@ -29,8 +29,12 @@ namespace NKAP_API_2.Models
         public int CategoryTypeID
         { get; set; }
 
-        //[JsonProperty("productcategoryid")]
-        //public int ProductCategoryID
-        //{ get; set; }
+        [JsonProperty("markupID")]
+        public int MarkupId
+        { get; set; }
+
+        [JsonProperty("priceID")]
+        public int PriceId
+        { get; set; }
     }
 }

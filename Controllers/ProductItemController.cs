@@ -113,12 +113,12 @@ namespace NKAP_API_2.Controllers
             }
         }
 
-        [Route("GetPItemsByID/{productitemid}")] //route
+        [Route("GetProductItemsWPrice")] //route
         [HttpGet]
-        //get Product Items by ID (Read)
-        public IActionResult get(int productitemid)
+        //get Product Items (Read)
+        public IActionResult GetProductItemsWPrice()
         {
-            //var productItem = _db.ProductItems.Find(productitemid);
+            //var productItems = _db.ProductItems.ToList();
             {
 
                 var productItems = _db.ProductItems.Join(_db.CategoryTypes,
@@ -132,8 +132,92 @@ namespace NKAP_API_2.Controllers
                         CategoryTypeDescription = t.ItemDescription,
                         ProductItemName = a.ProductItemName,
                         ProductItemCost = a.ProductItemCost,
+                        QuantityOnHand = a.QuantityOnHand
+                    }).Join(_db.Prices,
+                    a => a.ProductItemId,
+                    t => t.ProductItemId,
+                    (a, t) => new
+                    {
+                        CategoryTypeId = a.CategoryTypeId,
+                        CategoryTypeName = a.CategoryTypeName,
+                        ProductItemId = a.ProductItemId,
+                        CategoryTypeDescription = a.CategoryTypeDescription,
+                        ProductItemName = a.ProductItemName,
+                        ProductItemCost = a.ProductItemCost,
                         QuantityOnHand = a.QuantityOnHand,
+                        PriceDescription = t.PriceDescription
 
+
+                    });
+
+                return Ok(productItems);
+
+            }
+        }
+
+        [Route("GetProdItemsByID/{productitemid}")] //route
+        [HttpGet]
+        //get Product Items by ID (Read)
+        public IActionResult get(int productitemid)
+        {
+            //var productItem = _db.ProductItems.Find(productitemid);
+            {
+
+                var productItems = _db.ProductItems.Join(_db.CategoryTypes,
+                    a => a.CategoryTypeId,
+                    t => t.CategoryTypeId,
+                    (a, t) => new
+                    {
+                        CategoryTypeId = a.CategoryTypeId,
+                        CategoryTypeDescription = t.CategoryTypeDescription,
+                        ProductItemId = a.ProductItemId,
+                        ItemDescription = t.ItemDescription,
+                        ProductItemName = a.ProductItemName,
+                        ProductItemCost = a.ProductItemCost,
+                        QuantityOnHand = a.QuantityOnHand,
+                
+
+                    }).Join(_db.Prices,
+                    a => a.ProductItemId,
+                    t => t.ProductItemId,
+                    (a, t) => new
+                    {
+                        CategoryTypeId = a.CategoryTypeId,
+                        CategoryTypeDescription = a.CategoryTypeDescription,
+                        ProductItemId = a.ProductItemId,
+                        ItemDescription = a.ItemDescription,
+                        ProductItemName = a.ProductItemName,
+                        ProductItemCost = a.ProductItemCost,
+                        QuantityOnHand = a.QuantityOnHand,
+                        PriceDescription = t.PriceDescription
+
+
+                    }).First(pp => pp.ProductItemId == productitemid);
+
+                return Ok(productItems);
+            }
+        }
+
+        [Route("GetPItemsByID/{productitemid}")] //route
+        [HttpGet]
+        //get Product Items by ID (Read)
+        public IActionResult GetPItems(int productitemid)
+        {
+            //var productItem = _db.ProductItems.Find(productitemid);
+            {
+
+                var productItems = _db.ProductItems.Join(_db.CategoryTypes,
+                    a => a.CategoryTypeId,
+                    t => t.CategoryTypeId,
+                    (a, t) => new
+                    {
+                        CategoryTypeId = a.CategoryTypeId,
+                        CategoryTypeDescription = t.CategoryTypeDescription,
+                        ProductItemId = a.ProductItemId,
+                        ItemDescription = t.ItemDescription,
+                        ProductItemName = a.ProductItemName,
+                        ProductItemCost = a.ProductItemCost,
+                        QuantityOnHand = a.QuantityOnHand,
 
 
                     }).First(pp => pp.ProductItemId == productitemid);
@@ -266,14 +350,27 @@ namespace NKAP_API_2.Controllers
         public IActionResult CreateProductItem(ProductItemModel model) //reference the model
         {
             ProductItem PItem = new ProductItem();
-            PItem.ProductItemName = model.ProductItemName; //attributes in table
-            PItem.ProductItemCost = model.ProductItemCost;
-            PItem.CategoryTypeId = model.CategoryTypeID;
+            {
+                PItem.ProductItemName = model.ProductItemName; //attributes in table
+                PItem.ProductItemCost = model.ProductItemCost;
+                PItem.CategoryTypeId = model.CategoryTypeID;
+            }
           //  PItem.QuantityOnHand = model.QuantityOnHand;
             _db.ProductItems.Add(PItem);
             _db.SaveChanges();
 
-            return Ok(PItem);
+            var markup = _db.Markups.FirstOrDefault(zz => zz.MarkupId == model.MarkupId);
+            Price ProdPrice = new Price();
+            {
+                ProdPrice.ProductItemId = PItem.ProductItemId;
+                ProdPrice.PriceDate = System.DateTime.Now;
+                ProdPrice.PriceDescription = model.ProductItemCost + (model.ProductItemCost * markup.MarkupPercentage);
+            }
+
+            _db.Prices.Add(ProdPrice);
+            _db.SaveChanges();
+
+            return Ok();
         }
 
 
@@ -291,21 +388,48 @@ namespace NKAP_API_2.Controllers
             _db.ProductItems.Attach(PItem); //Attach Record
             _db.SaveChanges();
 
-            return Ok(PItem);
+            var markup = _db.Markups.FirstOrDefault(zz => zz.MarkupId == model.MarkupId);
+            var Product = _db.Prices.FirstOrDefault(cc => cc.ProductItemId == model.ProductItemId);
+            {
+                //Product.ProductItemId = PItem.ProductItemId;
+                Product.PriceDate = System.DateTime.Now;
+                Product.PriceDescription = model.ProductItemCost + (model.ProductItemCost * markup.MarkupPercentage);
+            }
+
+            _db.Prices.Attach(Product);
+            _db.SaveChanges();
+
+            return Ok();
         }
 
-
-    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        string response = "";
+        // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("DeleteProductItem/{productitemid}")] //route
         [HttpDelete]
         //Delete Product Item
         public IActionResult DeleteProductItem(int productitemid)
         {
-            var Pitem = _db.ProductItems.Find(productitemid);
-            _db.ProductItems.Remove(Pitem); //Delete Record
-            _db.SaveChanges();
+            var ProdSpec = _db.ProductSpecials.FirstOrDefault(zz => zz.ProductItemId == productitemid);
+            if (ProdSpec == null)
+            {
+                var ItemPrice = _db.Prices.FirstOrDefault(zz => zz.ProductItemId == productitemid);
+                var Pitem = _db.ProductItems.Find(productitemid);
+                _db.Prices.Remove(ItemPrice);
+                _db.SaveChanges();
+                _db.ProductItems.Remove(Pitem);  //Delete Record
+                _db.SaveChanges();
 
-            return Ok(Pitem);
+                return Ok();
+                
+            }
+
+            else 
+                {
+                response = "Product Item could not be deleted as it belongs to a Special";
+                return BadRequest(response);
+                
+            }
+          
         }
     }
 }

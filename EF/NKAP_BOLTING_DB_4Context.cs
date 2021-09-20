@@ -580,9 +580,7 @@ namespace NKAP_API_2.EF
                     .HasColumnName("Price_Date");
 
                 entity.Property(e => e.PriceDescription)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
+                    .HasColumnType("money")
                     .HasColumnName("Price_Description");
 
                 entity.Property(e => e.ProductItemId).HasColumnName("ProductItem_ID");

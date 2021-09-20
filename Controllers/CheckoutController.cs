@@ -135,6 +135,83 @@ namespace NKAP_API_2.Controllers
 
         }
 
+        [Route("getProductWPrice")] //route
+        [HttpGet]
+        //get Sales by Date (Read)
+        public IActionResult getProductWPrice()
+        {
+            var markup = _db.Markups.FirstOrDefault(zz => zz.MarkupId == 3);
+            var VAT = _db.Vats.FirstOrDefault(zz => zz.VatId == 2);
+            var Stocklevel = _db.ProductItems.Join(_db.CategoryTypes,
+                 su => su.CategoryTypeId,
+                 so => so.CategoryTypeId,
+
+                 (su, so) => new
+                 {
+                     ProductItemId = su.ProductItemId,
+                     ProductItemName = su.ProductItemName, //attributes in table
+                     ProductItemCost = su.ProductItemCost,
+                     CategoryTypeId = su.CategoryTypeId,
+                     CategoryTypeDescription = so.CategoryTypeDescription,
+                     ItemDescription = so.ItemDescription,
+                     CategoryTypeImage = so.CategoryTypeImage,
+                     ProductCategoryId = so.ProductCategoryId
+
+
+                 }).Join(_db.ProductCategories,
+                 su => su.ProductCategoryId,
+                 so => so.ProductCategoryId,
+                  (su, so) => new
+                  {
+                      ProductItemId = su.ProductItemId,
+                      ProductItemCost = su.ProductItemCost,
+                      //sellingPrice = su.ProductItemCost + (su.ProductItemCost * markup.MarkupPercentage), //VAT Exclusive
+                      // VATInclusive = (su.ProductItemCost + (su.ProductItemCost * markup.MarkupPercentage))  
+                      ProductItemName = su.ProductItemName, //attributes in table
+                      CategoryTypeImage = su.CategoryTypeImage,
+                      CategoryTypeId = su.CategoryTypeId,
+                      CategoryTypeDescription = su.CategoryTypeDescription,
+                      ItemDescription = su.ItemDescription,
+                      ProductCategoryId = so.ProductCategoryId,
+                      ProductCategoryDescription = so.ProductCategoryDescription
+                  }).Join(_db.Prices,
+                    a => a.ProductItemId,
+                    t => t.ProductItemId,
+                    (a, t) => new
+                    {
+                        CategoryTypeId = a.CategoryTypeId,
+                        CategoryTypeDescription = a.CategoryTypeDescription,
+                        ProductItemId = a.ProductItemId,
+                        ItemDescription = a.ItemDescription,
+                        ProductItemName = a.ProductItemName,
+                        ProductItemCost = a.ProductItemCost,
+                        //QuantityOnHand = t.QuantityOnHand,
+                        PriceDescription = t.PriceDescription,
+                        ProductCategoryId = a.ProductCategoryId,
+                        CategoryTypeImage = a.CategoryTypeImage,
+                    }).Join(_db.ProductCategories,
+                 su => su.ProductCategoryId,
+                 so => so.ProductCategoryId,
+                  (su, so) => new
+                  {
+                      ProductItemId = su.ProductItemId,
+                      ProductItemCost = su.ProductItemCost,
+                      PriceDescription = su.PriceDescription, //VAT Exclusive
+                      VATInclusive = su.PriceDescription + (su.PriceDescription * VAT.VatPercentage), //VAT Inclusive
+                      VATAmount = su.PriceDescription + (su.PriceDescription * VAT.VatPercentage) - su.PriceDescription, //VAT Amount
+                      ProductItemName = su.ProductItemName,
+                      CategoryTypeImage = su.CategoryTypeImage,
+                      CategoryTypeId = su.CategoryTypeId,
+                      CategoryTypeDescription = su.CategoryTypeDescription,
+                      ItemDescription = su.ItemDescription,
+                      ProductCategoryId = so.ProductCategoryId,
+                      ProductCategoryDescription = so.ProductCategoryDescription
+                  });
+
+            return Ok(Stocklevel);
+
+        }
+
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("Collection")] //route
         [HttpPut]
@@ -181,5 +258,7 @@ namespace NKAP_API_2.Controllers
 
             return Ok(address);
         }
+
+      
     }
 }

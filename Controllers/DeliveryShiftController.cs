@@ -420,7 +420,105 @@ namespace NKAP_API_2.Controllers
             return Ok();
         }
 
+        //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin, Employee")]
+        [Route("GetAssigned/{employeeshiftId}")] //route
+        [HttpGet]
+        //get Delivery Shift (Read)
+        public IActionResult GetAssigned(int employeeshiftId)
+        {
+            //var Admins = _db.Admins.ToList();
 
+            var DeliveryShift = _db.Shifts.Join(_db.EmployeeShifts,
+                a => a.ShiftId,
+                t => t.ShiftId,
+                (a, t) => new
+                {
+                    ShiftId = a.ShiftId,
+                    EmployeeId = t.EmployeeId,
+                    DateId = a.DateId,
+                    TimeId = a.TimeId,
+                    EmployeeShiftId = t.EmployeeShiftId,
+                    NoOfDeliveries = t.NoOfDeliveries,
+                    DeliveryId = t.DeliveryId
+
+                }).Join(_db.Deliveries,
+                 sor => sor.DeliveryId,
+                 sd => sd.DeliveryId,
+                 (sor, sd) => new
+                 {
+                     DateId = sor.DateId,
+                     EmployeeId = sor.EmployeeId,
+                     TimeId = sor.TimeId,
+                     ShiftId = sor.ShiftId,
+                     EmployeeShiftId = sor.EmployeeShiftId,
+                     NoOfDeliveries = sor.NoOfDeliveries,
+                     SaleId = sd.SaleId
+
+
+                 }).Join(_db.Sales,
+                 sor => sor.SaleId,
+                 sd => sd.SaleId,
+                 (sor, sd) => new
+                 {
+                     TimeId = sor.TimeId,
+                     EmployeeID = sor.EmployeeId,
+                     DateId = sor.DateId,
+                     ShiftId = sor.ShiftId,
+                     EmployeeShiftId = sor.EmployeeShiftId,
+                     NoOfDeliveries = sor.NoOfDeliveries,
+                     SaleId = sd.SaleId,
+                     CustomerID = sd.CustomerId
+
+
+                 }).Join(_db.Customers,
+                sor => sor.CustomerID,
+                sd => sd.CustomerId,
+                (sor, sd) => new
+                {
+                    CustomerID = sor.CustomerID,
+                    CustomerName = sd.CustomerName,
+                    CustomerCellphoneNumber = sd.CustomerCellphoneNumber,
+                    CustomerSurname = sd.CustomerSurname,
+                    CustomerBusinessName = sd.CustomerBusinessName,
+                    SaleID = sor.SaleId,
+                    EmployeeShiftId = sor.EmployeeShiftId
+
+                }).Join(_db.Addresses,
+                sor => sor.CustomerID,
+                sd => sd.CustomerId,
+                (sor, sd) => new
+                {
+                    CustomerId = sor.CustomerID,
+                    CustomerName = sor.CustomerName,
+                    CustomerSurname = sor.CustomerSurname,
+                    CustomerBusinessName = sor.CustomerBusinessName,
+                    CustomerCellphoneNumber = sor.CustomerCellphoneNumber,
+                    SaleID = sor.SaleID,
+                    AddressLine1 = sd.AddressLine1,
+                    AddressLine2 = sd.AddressLine2,
+                    AddressLine3 = sd.AddressLine3,
+                    AddressPostalCode = sd.AddressPostalCode,
+                    EmployeeShiftId = sor.EmployeeShiftId
+
+                }).Where(zz => zz.EmployeeShiftId == employeeshiftId);
+
+            return Ok(DeliveryShift);
+
+        }
+        //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        //[Route("UpdateMaxDeliveries")] //route
+        //[HttpPut]
+        ////Update UpdateMaxDeliveries
+        //public IActionResult UpdateMaxDeliveries(DeliveryShiftModel model)
+        //{
+        //    var newMax = _db.MaxDeliveries.Find( zz => zz.MaxID = 1);
+        //    newMax.MaxNumber = model.MaxNumber; //attributes in table
+        //    _db.MaxDeliveries.Attach(newMax); //Attach Record
+        //    _db.SaveChanges();
+
+
+        //    return Ok(newMax);
+        //}
 
     }
 }

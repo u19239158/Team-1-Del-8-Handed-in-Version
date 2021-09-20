@@ -54,7 +54,24 @@ namespace NKAP_API_2.Controllers
                    SpecialEndDate = a.SpecialEndDate,
                    SpecialImage = a.SpecialImage,
                    ProductItemName = t.ProductItemName,
-                   ProductItemId = t.ProductItemId
+                   ProductItemId = t.ProductItemId,
+                   CategoryTypeId = t.CategoryTypeId
+
+               }).Join(_db.CategoryTypes,
+               a => a.CategoryTypeId,
+               t => t.CategoryTypeId,
+               (a, t) => new
+               {
+                   SpecialId = a.SpecialId,
+                   SpecialPrice = a.SpecialPrice,
+                   ProductSpecialId = a.ProductSpecialId,
+                   SpecialDescription = a.SpecialDescription,
+                   SpecialStartDate = a.SpecialStartDate,
+                   SpecialEndDate = a.SpecialEndDate,
+                   SpecialImage = a.SpecialImage,
+                   ProductItemName = a.ProductItemName,
+                   ProductItemId = a.ProductItemId,
+                   CategoryTypeImage = t.CategoryTypeImage
 
                });
             return Ok(special);
@@ -243,7 +260,7 @@ namespace NKAP_API_2.Controllers
             {
                 PSpecial.ProductItemId = model.ProductItemId;
                 PSpecial.SpecialId = special.SpecialId;
-                PSpecial.SpecialPrice = model.ProductItemCost - (model.ProductItemCost * discount.DiscountPercentage);
+                PSpecial.SpecialPrice =  model.ProductItemCost - Convert.ToInt32(model.ProductItemCost) * discount.DiscountPercentage;
             }
 
             _db.ProductSpecials.Attach(PSpecial);

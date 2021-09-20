@@ -13,7 +13,7 @@ namespace NKAP_API_2.Models
         { get; set; }
 
         [JsonProperty("pricedescription")]
-        public string PriceDescription
+        public decimal PriceDescription
         { get; set; }
 
         [JsonProperty("pricedate")]

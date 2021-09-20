@@ -328,7 +328,19 @@ namespace NKAP_API_2.Controllers
         //Update Order Status
         public IActionResult AssignLocalDelivery(DeliveryShiftModel model)
         {
+            //string response;
             //var ds = _db.EmployeeShifts.Find(model.EmployeeShiftId);
+            //var md = _db.MaxDeliveries.First(zz => zz.MaxID = 1);
+            //if (ds.NoOfDeliveries < md.MaxNumber)
+            //{
+
+            //}
+            //else
+            //{
+            //    response = "Shift has reached the maximum delivery capacity";
+            //    return BadRequest(response);
+            //}
+          
             //ds.NoOfDeliveries = +1;
             //_db.EmployeeShifts.Attach(ds); //Attach Record
             //_db.SaveChanges();

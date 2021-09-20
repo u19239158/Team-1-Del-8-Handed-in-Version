@@ -216,8 +216,39 @@ namespace NKAP_API_2.Controllers
 
         }
 
+        [Route("GenerateSalesReportAvg")] //route
+        [HttpPost]
+        //get Sales by Date (Read)
+        public IActionResult getSalesReportAvg(ReportModel model)
+        {
+            decimal Total = 0;
+            var Sales = _db.Sales.Join(_db.Customers,
+                 su => su.CustomerId,
+                 so => so.CustomerId,
 
-    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+                 (su, so) => new
+                 {
+                     SaleID = su.SaleId,
+                     SaleDescription = su.SaleOrderDescription, //attributes in table
+                     SaleOrderDate = su.SaleOrderDate,
+                     SalePaymentDate = su.PaymentDate,
+                     SalePaymentAmount = su.PaymentAmount,
+                     CustomerId = so.CustomerId,
+                     CustomerName = so.CustomerName,
+                     CustomerCellphoneNumber = so.CustomerCellphoneNumber,
+                     CustomerBusinessName = so.CustomerBusinessName,
+                     CustomerEmailAddress = so.CustomerEmailAddress,
+                     StartDate = model.StartDate,
+                     EndDate = model.EndDate,
+
+                 }).Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).Average(zz => zz.SalePaymentAmount);
+            Total = Sales;
+            return Ok(Total);
+
+        }
+
+
+        //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GenerateSalesReport")] //route
         [HttpPost]
         public IActionResult getSalesReport([FromBody]ReportModel model)

@@ -34,28 +34,98 @@ namespace NKAP_API_2.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public string Login(RegisterModel model)
+        public IActionResult Login(RegisterModel model)
         {
             //using var db = new NKAP_BOLTING_DB_4Context();
-
+           
             var hashedPassword = this.ComputeSha256Hash(model.UserPassword);
             model.UserRoleName = "Admin";
             var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
             if (user == null)
             {
-                request = "user not found" ;
-                return request;
+                request = "Invalid Credentials" ;
+                return BadRequest(request);
+               // return ;
             }
             else
             {
-                return  token.GenerateToken(model);
+                return Ok(token.GenerateToken(model));
+                //return ;
             }
             
         }
 
+        //Login Admin/Emp SIDE after new db
+        //[HttpPost]
+        //[Route("Logins")]
+        //public IActionResult Logins(RegisterModel model)
+        //{
+        //    //using var db = new NKAP_BOLTING_DB_4Context();
+
+        //    var hashedPassword = this.ComputeSha256Hash(model.UserPassword);
+        //   // model.UserRoleName = "Admin";
+        //    var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
+        //    var log = _db.Users.FirstOrDefault(zz => zz.UserUsername == model.UserUsername);
+            
+        //    if (_db.Admins.FirstOrDefault(zz=> zz.UsersId == log.UsersId) )
+        //    {
+        //        model.UserRoleName = "Admin";
+        //        if (user == null)
+        //        {
+        //            request = "Invalid Credentials";
+        //            return BadRequest(request);
+        //            // return ;
+        //        }
+        //        else
+        //        {
+        //            return Ok(token.GenerateToken(model));
+        //            //return ;
+        //        }
+               
+        //    }
+        //    else if (_db.Employees.FirstOrDefault(zz => zz.UsersId == log.UsersId))
+        //    {
+        //        model.UserRoleName = "Employee";
+        //        if (user == null)
+        //        {
+        //            request = "Invalid Credentials";
+        //            return BadRequest(request);
+        //            // return ;
+        //        }
+        //        else
+        //        {
+        //            return Ok(token.GenerateToken(model));
+        //            //return ;
+        //        }
+        //    }
+        //     return Forbid(request);
+
+        //}
+
+        //[HttpPost]
+        //[Route("CustomerLogin")]
+        //public string CustomerLogin(RegisterModel model)
+        //{
+        //    //using var db = new NKAP_BOLTING_DB_4Context();
+
+        //    var hashedPassword = this.ComputeSha256Hash(model.UserPassword);
+        //    model.UserRoleName = "Customer";
+        //    var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
+        //    if (user == null)
+        //    {
+        //       return BadRequest(request);
+        //        return request;
+        //    }
+        //    else
+        //    {
+        //        return token.GenerateToken(model);
+        //    }
+
+        //}
+
         [HttpPost]
         [Route("CustomerLogin")]
-        public string CustomerLogin(RegisterModel model)
+        public IActionResult CustomerLogin(RegisterModel model)
         {
             //using var db = new NKAP_BOLTING_DB_4Context();
 
@@ -64,33 +134,12 @@ namespace NKAP_API_2.Controllers
             var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
             if (user == null)
             {
-                string request = "user not found";
-                return request;
+                string request = "Invalid Credentials";
+                return BadRequest(request);
             }
             else
             {
-                return token.GenerateToken(model);
-            }
-
-        }
-
-        [HttpPost]
-        [Route("EmployeeLogin")]
-        public string EmployeeLogin(RegisterModel model)
-        {
-            //using var db = new NKAP_BOLTING_DB_4Context();
-
-            var hashedPassword = this.ComputeSha256Hash(model.UserPassword);
-            model.UserRoleName = "Employee";
-            var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
-            if (user == null)
-            {
-                string request = "user not found";
-                return request;
-            }
-            else
-            {
-                return token.GenerateToken(model);
+                return Ok(token.GenerateToken(model));
             }
 
         }
