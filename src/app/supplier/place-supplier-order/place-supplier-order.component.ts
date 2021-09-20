@@ -54,7 +54,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
 
     const formOptions: AbstractControlOptions = {};
     this.form = this.FormGroup.group({
-      supplierName: ['', [Validators.required, Validators.maxLength(50)]],
+      supplierID: ['', [Validators.required, Validators.maxLength(50)]],
     }
       , formOptions)
 

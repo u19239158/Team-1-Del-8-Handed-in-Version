@@ -8,6 +8,8 @@ import { ReportParameters, Reports } from 'src/app/interfaces';
 import { ReportServiceService } from 'src/app/services/Reports/report-service.service';
 import html2canvas from 'html2canvas';
 import { MatTableDataSource } from '@angular/material/table';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -33,6 +35,7 @@ export class MonthlySalesOrderReportComponent implements OnInit {
   constructor(
     private serv : ReportServiceService,
     private formBuilder: FormBuilder,
+    private snack: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -62,14 +65,28 @@ export class MonthlySalesOrderReportComponent implements OnInit {
         this.total = res
         this.dataSource = new MatTableDataSource(data)
      // this.generateTables(data);
-      
-  
-    })
-    });
-    this.serv.SalesReportAvg(this.form.value).subscribe(res =>{
+     this.serv.SalesReportAvg(this.form.value).subscribe(res =>{
       console.log(res)
       this.aveg= res;
-  })
+    })
+
+    });
+    
+  },(error: HttpErrorResponse) =>
+  {
+    console.log(error.error,"test")
+   if (error.status === 400)
+  {
+    this.snack.open(error.error, 'OK', 
+    {
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      duration: 3000
+    });
+    return;
+  }
+}
+  )
 
   }
       // Restructure data for chart
