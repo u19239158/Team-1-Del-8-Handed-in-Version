@@ -26,6 +26,7 @@ namespace NKAP_API_2.Controllers
         //get Specials (Read)
         public IActionResult get()
         {
+            var VAT = _db.Vats.FirstOrDefault(zz => zz.VatId == 2);
             //var special = _db.Specials.ToList();
             var special = _db.Specials.Join(_db.ProductSpecials,
                a => a.SpecialId,
@@ -71,7 +72,9 @@ namespace NKAP_API_2.Controllers
                    SpecialImage = a.SpecialImage,
                    ProductItemName = a.ProductItemName,
                    ProductItemId = a.ProductItemId,
-                   CategoryTypeImage = t.CategoryTypeImage
+                   CategoryTypeImage = t.CategoryTypeImage,
+                   VATInclusive = a.SpecialPrice + (a.SpecialPrice * VAT.VatPercentage), //VAT Inclusive
+                   VATAmount = a.SpecialPrice + (a.SpecialPrice * VAT.VatPercentage) - a.SpecialPrice, //VAT Amount
 
                });
             return Ok(special);
@@ -216,28 +219,42 @@ namespace NKAP_API_2.Controllers
         //Create a Model for table
         public IActionResult CreateSpecials(SpecialModel model) //reference the model
         {
-            Special special = new Special();
+            string resp;
+            var urmom = _db.ProductSpecials.FirstOrDefault(ss => ss.ProductItemId == model.ProductItemId);
+
+            if (urmom.ProductItemId == null)
             {
-                special.SpecialDescription = model.SpecialDescription;
-                special.SpecialStartDate = model.SpecialStartDate;
-                special.SpecialEndDate = model.SpecialEndDate;
+                Special special = new Special();
+                {
+                    special.SpecialDescription = model.SpecialDescription;
+                    special.SpecialStartDate = model.SpecialStartDate;
+                    special.SpecialEndDate = model.SpecialEndDate;
+                }
+
+                _db.Specials.Add(special);
+                _db.SaveChanges();
+
+                var discount = _db.Discounts.FirstOrDefault(zz => zz.DiscountId == model.DiscountId);
+                ProductSpecial PSpecial = new ProductSpecial();
+                {
+                    PSpecial.ProductItemId = model.ProductItemId;
+                    PSpecial.SpecialId = special.SpecialId;
+                    PSpecial.SpecialPrice = model.ProductItemCost - (model.ProductItemCost * discount.DiscountPercentage);
+                }
+
+                _db.ProductSpecials.Add(PSpecial);
+                _db.SaveChanges();
+
+                return Ok();
+            }
+            else
+            {
+                resp = "Product item is already on special ";
+                return BadRequest(resp);
+
             }
 
-            _db.Specials.Add(special);
-            _db.SaveChanges();
-
-            var discount = _db.Discounts.FirstOrDefault(zz => zz.DiscountId == model.DiscountId);
-            ProductSpecial PSpecial = new ProductSpecial();
-            {
-                PSpecial.ProductItemId = model.ProductItemId;
-                PSpecial.SpecialId = special.SpecialId;
-                PSpecial.SpecialPrice = model.ProductItemCost - (model.ProductItemCost *  discount.DiscountPercentage);
-            }
-
-            _db.ProductSpecials.Add(PSpecial);
-            _db.SaveChanges();
-
-            return Ok();
+          
         }
 
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]

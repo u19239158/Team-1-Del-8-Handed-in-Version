@@ -222,28 +222,39 @@ namespace NKAP_API_2.Controllers
         public IActionResult getSalesReportAvg(ReportModel model)
         {
             decimal Total = 0;
-            var Sales = _db.Sales.Join(_db.Customers,
-                 su => su.CustomerId,
-                 so => so.CustomerId,
+            string bad = "";
+            try
+            {
+                var Sales = _db.Sales.Join(_db.Customers,
+               su => su.CustomerId,
+               so => so.CustomerId,
 
-                 (su, so) => new
-                 {
-                     SaleID = su.SaleId,
-                     SaleDescription = su.SaleOrderDescription, //attributes in table
+               (su, so) => new
+               {
+                   SaleID = su.SaleId,
+                   SaleDescription = su.SaleOrderDescription, //attributes in table
                      SaleOrderDate = su.SaleOrderDate,
-                     SalePaymentDate = su.PaymentDate,
-                     SalePaymentAmount = su.PaymentAmount,
-                     CustomerId = so.CustomerId,
-                     CustomerName = so.CustomerName,
-                     CustomerCellphoneNumber = so.CustomerCellphoneNumber,
-                     CustomerBusinessName = so.CustomerBusinessName,
-                     CustomerEmailAddress = so.CustomerEmailAddress,
-                     StartDate = model.StartDate,
-                     EndDate = model.EndDate,
+                   SalePaymentDate = su.PaymentDate,
+                   SalePaymentAmount = su.PaymentAmount,
+                   CustomerId = so.CustomerId,
+                   CustomerName = so.CustomerName,
+                   CustomerCellphoneNumber = so.CustomerCellphoneNumber,
+                   CustomerBusinessName = so.CustomerBusinessName,
+                   CustomerEmailAddress = so.CustomerEmailAddress,
+                   StartDate = model.StartDate,
+                   EndDate = model.EndDate,
 
-                 }).Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).Average(zz => zz.SalePaymentAmount);
-            Total = Sales;
-            return Ok(Total);
+               }).Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).Average(zz => zz.SalePaymentAmount);
+                Total = Sales;
+                return Ok(Sales);
+            }
+            catch (Exception)
+            {
+                bad = ("No sales have occured during the selected period");
+                return BadRequest(bad);
+                throw;
+            }
+          
 
         }
 
@@ -535,7 +546,7 @@ namespace NKAP_API_2.Controllers
                 t => t.CustomerId,
                 (a, t) => new
                 {
-                    
+
                     SaleId = a.SaleId,
                     CustomerId = t.CustomerId
 
@@ -557,19 +568,87 @@ namespace NKAP_API_2.Controllers
                     ProvinceID = a.ProvinceID,
                     ProvinceDescription = t.ProvinceDescription,
 
-                }).Join(_db.Cities,
+                });
+                //.Join(_db.Cities,
+                //a => a.ProvinceID,
+                //t => t.ProvinceId,
+                //(a, t) => new
+                //{
+                //    SaleId = a.SaleId,
+                //    ProvinceID = a.ProvinceID,
+                //    ProvinceDescription = a.ProvinceDescription,
+                //    CityID = t.CityId,
+                //    CityDescription = t.CityDescription
+
+                //});
+            
+            return Ok(PopularLocation);
+
+        }
+
+        //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        [Route("MostPopularLocationcount")] //route
+        [HttpPost]
+        public IActionResult getMostPopularLocationcount()
+        {
+
+            var PopularLocation = _db.Sales.Join(_db.Customers,
+                a => a.CustomerId,
+                t => t.CustomerId,
+                (a, t) => new
+                {
+
+                    SaleId = a.SaleId,
+                    CustomerId = t.CustomerId
+
+                }).Join(_db.Addresses,
+                a => a.CustomerId,
+                t => t.CustomerId,
+                (a, t) => new
+                {
+                    SaleId = a.SaleId,
+                    AddressID = t.AddressId,
+                    ProvinceID = t.ProvinceId
+
+                }).Join(_db.Provinces,
                 a => a.ProvinceID,
                 t => t.ProvinceId,
                 (a, t) => new
                 {
                     SaleId = a.SaleId,
                     ProvinceID = a.ProvinceID,
-                    ProvinceDescription = a.ProvinceDescription,
-                    CityID = t.CityId,
-                    CityDescription = t.CityDescription
+                    ProvinceDescription = t.ProvinceDescription,
 
-                });
-            
+                }).AsEnumerable().GroupBy(zz => zz.ProvinceID);
+
+            foreach (var item in PopularLocation)
+            {
+                var saleid = item.Select(ss => ss.SaleId);
+                var count = saleid.Count();
+                // var count = PopularLocation.Count();
+                return Ok(count);    
+                
+            }
+
+            //for (int i = 0; i < PopularLocation; i++)
+            //{
+            //    dynamic province = new ExpandoObject();
+            //    province = PopularLocation;
+            //    return Ok(province);
+            //}
+            //.Join(_db.Cities,
+            //a => a.ProvinceID,
+            //t => t.ProvinceId,
+            //(a, t) => new
+            //{
+            //    SaleId = a.SaleId,
+            //    ProvinceID = a.ProvinceID,
+            //    ProvinceDescription = a.ProvinceDescription,
+            //    CityID = t.CityId,
+            //    CityDescription = t.CityDescription
+
+            //}).Where(zz => zz.ProvinceID == 3).Count();
+
             return Ok(PopularLocation);
 
         }

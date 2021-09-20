@@ -175,7 +175,6 @@ namespace NKAP_API_2.Controllers
                     TimeId = a.TimeId,
                     EmployeeShiftId = t.EmployeeShiftId,
                     NoOfDeliveries = t.NoOfDeliveries
-
                 }).Join(_db.Dates,
                  sor => sor.DateId,
                  sd => sd.DateId,
@@ -188,8 +187,6 @@ namespace NKAP_API_2.Controllers
                      DayOfTheWeek = sd.DayOfTheWeek.ToString("dd/MM/yyyy"),
                      EmployeeShiftId = sor.EmployeeShiftId,
                      NoOfDeliveries = sor.NoOfDeliveries
-
-
                  }).Join(_db.Times,
                  sor => sor.TimeId,
                  sd => sd.TimeId,
@@ -204,8 +201,6 @@ namespace NKAP_API_2.Controllers
                      EndTime = sd.EndTime,
                      EmployeeShiftId = sor.EmployeeShiftId,
                      NoOfDeliveries = sor.NoOfDeliveries
-
-
                  }).Join(_db.Employees,
                  sor => sor.EmployeeID,
                  sd => sd.EmployeeId,
@@ -228,7 +223,169 @@ namespace NKAP_API_2.Controllers
 
         }
 
-     //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin, Employee")]
+        [Route("GetDeliveryShiftWSale")] //route
+        [HttpGet]
+        //get Delivery Shift (Read)
+        public IActionResult GetDeliveryShiftWSale()
+        {
+            //var Admins = _db.Admins.ToList();
+
+            var DeliveryShift = _db.Shifts.Join(_db.EmployeeShifts,
+                a => a.ShiftId,
+                t => t.ShiftId,
+                (a, t) => new
+                {
+                    ShiftId = a.ShiftId,
+                    EmployeeId = t.EmployeeId,
+                    DateId = a.DateId,
+                    TimeId = a.TimeId,
+                    EmployeeShiftId = t.EmployeeShiftId,
+                    NoOfDeliveries = t.NoOfDeliveries,
+                    DeliveryId = t.DeliveryId,
+                }).Join(_db.Dates,
+                 sor => sor.DateId,
+                 sd => sd.DateId,
+                 (sor, sd) => new
+                 {
+                     DateId = sor.DateId,
+                     EmployeeID = sor.EmployeeId,
+                     TimeId = sor.TimeId,
+                     ShiftId = sor.ShiftId,
+                     DayOfTheWeek = sd.DayOfTheWeek.ToString("dd/MM/yyyy"),
+                     EmployeeShiftId = sor.EmployeeShiftId,
+                     NoOfDeliveries = sor.NoOfDeliveries,
+                     DeliveryId = sor.DeliveryId
+                 }).Join(_db.Times,
+                 sor => sor.TimeId,
+                 sd => sd.TimeId,
+                 (sor, sd) => new
+                 {
+                     TimeId = sor.TimeId,
+                     EmployeeID = sor.EmployeeID,
+                     DateId = sor.DateId,
+                     ShiftId = sor.ShiftId,
+                     DayOfTheWeek = sor.DayOfTheWeek,
+                     StartTime = sd.StartTime,
+                     EndTime = sd.EndTime,
+                     EmployeeShiftId = sor.EmployeeShiftId,
+                     NoOfDeliveries = sor.NoOfDeliveries,
+                     DeliveryId = sor.DeliveryId
+                 }).Join(_db.Employees,
+                 sor => sor.EmployeeID,
+                 sd => sd.EmployeeId,
+                 (sor, sd) => new
+                 {
+                     ShiftId = sor.ShiftId,
+                     EmployeeID = sd.EmployeeId,
+                     EmployeeName = sd.EmployeeName,
+                     EmployeeSurname = sd.EmployeeSurname,
+                     TimeId = sor.TimeId,
+                     DateId = sor.DateId,
+                     DayOfTheWeek = sor.DayOfTheWeek,
+                     StartTime = sor.StartTime,
+                     EndTime = sor.EndTime,
+                     EmployeeShiftId = sor.EmployeeShiftId,
+                     NoOfDeliveries = sor.NoOfDeliveries,
+                     DeliveryId = sor.DeliveryId
+                 }).Join(_db.Deliveries,
+                 sor => sor.DeliveryId,
+                 sd => sd.DeliveryId,
+                 (sor, sd) => new
+                 {
+                     ShiftId = sor.ShiftId,
+                     EmployeeID = sor.EmployeeID,
+                     EmployeeName = sor.EmployeeName,
+                     EmployeeSurname = sor.EmployeeSurname,
+                     TimeId = sor.TimeId,
+                     DateId = sor.DateId,
+                     DayOfTheWeek = sor.DayOfTheWeek,
+                     StartTime = sor.StartTime,
+                     EndTime = sor.EndTime,
+                     EmployeeShiftId = sor.EmployeeShiftId,
+                     NoOfDeliveries = sor.NoOfDeliveries,
+                     DeliveryId = sor.DeliveryId,
+                     SaleId = sd.SaleId, 
+                 });
+
+            return Ok(DeliveryShift);
+
+        }
+
+
+        [Route("GetDeliveryShiftDelivery")] //route
+        [HttpGet]
+        //get Delivery Shift (Read)
+        public IActionResult GetDeliveryShiftDelivery()
+        {
+            //var Admins = _db.Admins.ToList();
+
+            var DeliveryShift = _db.Shifts.Join(_db.EmployeeShifts,
+                a => a.ShiftId,
+                t => t.ShiftId,
+                (a, t) => new
+                {
+                    ShiftId = a.ShiftId,
+                    EmployeeId = t.EmployeeId,
+                    DateId = a.DateId,
+                    TimeId = a.TimeId,
+                    EmployeeShiftId = t.EmployeeShiftId,
+                    NoOfDeliveries = t.NoOfDeliveries,
+                    DeliveryId = t.DeliveryId
+
+                }).Join(_db.Dates,
+                 sor => sor.DateId,
+                 sd => sd.DateId,
+                 (sor, sd) => new
+                 {
+                     DateId = sor.DateId,
+                     EmployeeID = sor.EmployeeId,
+                     TimeId = sor.TimeId,
+                     ShiftId = sor.ShiftId,
+                     DayOfTheWeek = sd.DayOfTheWeek.ToString("dd/MM/yyyy"),
+                     EmployeeShiftId = sor.EmployeeShiftId,
+                     NoOfDeliveries = sor.NoOfDeliveries,
+                     DeliveryId = sor.DeliveryId
+
+                 }).Join(_db.Times,
+                 sor => sor.TimeId,
+                 sd => sd.TimeId,
+                 (sor, sd) => new
+                 {
+                     TimeId = sor.TimeId,
+                     EmployeeID = sor.EmployeeID,
+                     DateId = sor.DateId,
+                     ShiftId = sor.ShiftId,
+                     DayOfTheWeek = sor.DayOfTheWeek,
+                     StartTime = sd.StartTime,
+                     EndTime = sd.EndTime,
+                     EmployeeShiftId = sor.EmployeeShiftId,
+                     NoOfDeliveries = sor.NoOfDeliveries,
+                     DeliveryId = sor.DeliveryId
+
+                 }).Join(_db.Employees,
+                 sor => sor.EmployeeID,
+                 sd => sd.EmployeeId,
+                 (sor, sd) => new
+                 {
+                     ShiftId = sor.ShiftId,
+                     EmployeeID = sd.EmployeeId,
+                     EmployeeName = sd.EmployeeName,
+                     EmployeeSurame = sd.EmployeeSurname,
+                     TimeId = sor.TimeId,
+                     DateId = sor.DateId,
+                     DayOfTheWeek = sor.DayOfTheWeek,
+                     StartTime = sor.StartTime,
+                     EndTime = sor.EndTime,
+                     EmployeeShiftId = sor.EmployeeShiftId,
+                     NoOfDeliveries = sor.NoOfDeliveries,
+                     DeliveryId = sor.DeliveryId
+                 }).Where( zz => zz.DeliveryId != null);
+
+            return Ok(DeliveryShift);
+
+        }
+
+        //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin, Employee")]
         [Route("GetShiftTime")] //route
         [HttpGet]
         //Get Shift Time
@@ -500,7 +657,7 @@ namespace NKAP_API_2.Controllers
                     AddressPostalCode = sd.AddressPostalCode,
                     EmployeeShiftId = sor.EmployeeShiftId
 
-                }).Where(zz => zz.EmployeeShiftId == employeeshiftId);
+                }).FirstOrDefault(zz => zz.EmployeeShiftId == employeeshiftId);
 
             return Ok(DeliveryShift);
 
