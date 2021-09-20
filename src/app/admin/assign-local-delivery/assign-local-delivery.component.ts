@@ -81,10 +81,11 @@ export class AssignLocalDeliveryComponent implements OnInit {
   }
 
   readDeliveryshifts(): void {
-    setTimeout(() => this.dataSource.paginator = this.paginator);
+    
     this.deliveryshiftService.GetDeliveryShift().subscribe(res => {
       console.log("resss", res)
       this.dataSource = new MatTableDataSource(res)
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }
 

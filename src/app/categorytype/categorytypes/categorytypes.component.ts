@@ -58,10 +58,11 @@ export class CategorytypesComponent implements OnInit {
   }
 
   readCategorytypes(): void {
-    setTimeout(() => this.dataSource.paginator = this.paginator);
+    
     this.categorytypeService.GetCategoryType().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     })
     //this.dataSource = new MatTableDataSource<Categorytype>(this.categorytypeService.getAll());
   }

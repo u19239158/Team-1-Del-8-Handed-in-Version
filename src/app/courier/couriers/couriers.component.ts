@@ -50,6 +50,7 @@ export class CouriersComponent implements OnInit {
     this.CourierService.GeCourier().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }
 

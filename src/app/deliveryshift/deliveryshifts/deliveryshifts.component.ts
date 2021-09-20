@@ -48,10 +48,11 @@ export class DeliveryshiftsComponent implements OnInit {
   }
 
   readDeliveryshifts(): void {
-    setTimeout(() => this.dataSource.paginator = this.paginator);
+    
     this.deliveryshiftService.GetDeliveryShift().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }
 
