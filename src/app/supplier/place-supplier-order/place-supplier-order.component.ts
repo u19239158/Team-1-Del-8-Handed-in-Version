@@ -22,7 +22,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
   searchValue: string;
   dataNotFound: boolean;
   
-  form: FormGroup;
+  //form: FormGroup;
   loading = false;
   submitted = false;
   collection = [];
@@ -39,6 +39,10 @@ export class PlaceSupplierOrderComponent implements OnInit {
   highlight(element: PlaceSupplierOrder) {
     element.highlighted = !element.highlighted;
   }
+
+  form = this.FB.group({
+    supplierID: ['',Validators.required]
+  }) 
   
   constructor(
     private productitemService: ProductitemService,
@@ -47,6 +51,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router,
     private FormGroup: FormBuilder,
+    private FB:FormBuilder,
     // public dialogRef: MatDialogRef<PlaceSupplierOrder>
   ) { }
 
