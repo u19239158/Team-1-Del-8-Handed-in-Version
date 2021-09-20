@@ -36,13 +36,13 @@ constructor(private customerService: CustomerService,
   private httpClient: HttpClient) { }
 
 ngOnInit(): void {
-  setTimeout(() => this.dataSource.paginator = this.paginator);
+ 
   this.readCustomers();
 
   this.customerService.GetCustomer().subscribe((result:Customer[]) => {
     this.Customers = result;
   });
-
+  setTimeout(() => this.dataSource.paginator = this.paginator);
 }
 
 readCustomers(): void {

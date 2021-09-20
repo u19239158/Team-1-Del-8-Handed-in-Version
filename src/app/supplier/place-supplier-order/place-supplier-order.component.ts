@@ -10,6 +10,7 @@ import { PlaceSupplierOrderService } from 'src/app/services/place-supplier-order
 import { PlaceSupplierOrder, Productitem } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-place-supplier-order',
@@ -30,7 +31,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
   selected: string;
   productitems: Productitem[] = [];
   dataSource = new MatTableDataSource<Productitem>();
-
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   placeSupplierOrders: PlaceSupplierOrder[] = [];
   placeSupplierOrder: Observable<PlaceSupplierOrder[]>;
   //dataSource = new MatTableDataSource<PlaceSupplierOrder>();
@@ -52,6 +53,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
     private router: Router,
     private FormGroup: FormBuilder,
     private FB:FormBuilder,
+    
     // public dialogRef: MatDialogRef<PlaceSupplierOrder>
   ) { }
 
@@ -69,12 +71,14 @@ export class PlaceSupplierOrderComponent implements OnInit {
     this.productitemService.GetProductItem().subscribe((result: Productitem[]) => {
       this.productitems = result;
     });
+    setTimeout(() => this.dataSource.paginator = this.paginator);
   }
 
   readProductitems(): void {
     this.productitemService.GetProductItem().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }
 

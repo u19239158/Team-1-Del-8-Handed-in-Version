@@ -60,11 +60,12 @@ export class OnlineSalesComponent implements OnInit {
   }
 
   readOnlineSales(): void {
-    setTimeout(() => this.dataSource.paginator = this.paginator);
+   
     //this.dataSource = new MatTableDataSource<UserRole[]>(this.UserRoleService.GetUserRole());
     this.OnlineSalesService.ViewAllSales().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }
 

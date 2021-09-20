@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 //import * as pluginDataLabels from 'chartjs-plugin-datalabels';
@@ -14,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl } from '@angular/forms';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MatDatepicker } from '@angular/material/datepicker';
+import { DateRange, MatDatepicker, MatDateRangeSelectionStrategy, MAT_DATE_RANGE_SELECTION_STRATEGY } from '@angular/material/datepicker';
 import * as _moment from 'moment';
 import * as moment from 'moment';
 
@@ -30,22 +30,53 @@ export const MY_FORMATS = {
   },
 };
 
+@Injectable()
+export class WeekSelectionStrategy<D>
+  implements MatDateRangeSelectionStrategy<D>
+{
+  constructor(private _dateAdapter: DateAdapter<D>) { }
+
+  selectionFinished(date: D | null): DateRange<D> {
+    return this._createSevenDayRange(date);
+  }
+
+  createPreview(activeDate: D | null): DateRange<D> {
+    return this._createSevenDayRange(activeDate);
+  }
+
+  private _createSevenDayRange(date: D | null): DateRange<D> {
+    if (date) {
+      const startDate = this._dateAdapter.addCalendarDays(date, 0);
+      const endDate = this._dateAdapter.addCalendarDays(date, 30);
+      return new DateRange<D>(startDate, endDate);
+    }
+
+    return new DateRange<D>(null, null);
+  }
+}
+
 @Component({
   selector: 'app-monthly-sales-order-report',
   templateUrl: './monthly-sales-order-report.component.html',
   styleUrls: ['./monthly-sales-order-report.component.scss'],
-  providers: [
-    // `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
-    // application's root module. We provide it at the component level here, due to limitations of
-    // our example generation script.
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
-    },
+  // providers: [
+  //   // `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
+  //   // application's root module. We provide it at the component level here, due to limitations of
+  //   // our example generation script.
+  //   {
+  //     provide: DateAdapter,
+  //     useClass: MomentDateAdapter,
+  //     deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+  //   },
 
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-  ],
+  //   { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  // ],
+   // Start Date Range Code
+   providers: [{
+    provide: MAT_DATE_RANGE_SELECTION_STRATEGY,
+    useClass: WeekSelectionStrategy
+  }]
+  // End Date Range Code
 })
 export class MonthlySalesOrderReportComponent implements OnInit {
   dataSource = new MatTableDataSource<Reports>();
