@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CaptureOrderComponent } from './capture-order/capture-order.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-receive-supplier-order',
@@ -22,6 +23,7 @@ export class ReceiveSupplierOrderComponent implements OnInit {
   dataSource = new MatTableDataSource<ReceiveSupplierOrder>();
   form: FormGroup;
   id: any;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   supplier = [];
   //selected: string;
   recievesupplierorder: ReceiveSupplierOrder;
@@ -62,6 +64,7 @@ export class ReceiveSupplierOrderComponent implements OnInit {
     this.receiveSupplierService.ReceiveSupplierOrder().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }
 

@@ -50,6 +50,7 @@ dataNotFound: boolean;
      this.productcategoryService.GetProductCategory().subscribe(res => {
        console.log(res)
        this.dataSource = new MatTableDataSource(res)
+       setTimeout(() => this.dataSource.paginator = this.paginator);
      })
   }
 
@@ -73,6 +74,12 @@ dataNotFound: boolean;
       if(res) {
         this.productcategoryService.DeleteProductCategory(Productcategory).subscribe(res => {
           this.readProductcategorys();
+          this.snack.open('Product Category Successfully Deleted! ', 'OK', 
+          {
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            duration: 4000
+          });
         },(error: HttpErrorResponse) =>
         {
           console.log(error.error,"test")
@@ -87,12 +94,7 @@ dataNotFound: boolean;
           return;
         }
       });
-      this.snack.open('Product Category Successfully Deleted! ', 'OK', 
-      {
-        verticalPosition: 'top',
-        horizontalPosition: 'center',
-        duration: 4000
-      });
+    
       }
     });
   }
