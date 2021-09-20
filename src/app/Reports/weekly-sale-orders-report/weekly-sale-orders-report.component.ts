@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 //import * as pluginDataLabels from 'chartjs-plugin-datalabels';
@@ -9,10 +9,51 @@ import { ReportServiceService } from 'src/app/services/Reports/report-service.se
 import html2canvas from 'html2canvas';
 import { MatTableDataSource } from '@angular/material/table';
 
+// Start Date Range Code
+import { DateAdapter } from '@angular/material/core';
+import {
+  MatDateRangeSelectionStrategy,
+  DateRange,
+  MAT_DATE_RANGE_SELECTION_STRATEGY,
+} from '@angular/material/datepicker';
+
+@Injectable()
+export class WeekSelectionStrategy<D>
+  implements MatDateRangeSelectionStrategy<D>
+{
+  constructor(private _dateAdapter: DateAdapter<D>) { }
+
+  selectionFinished(date: D | null): DateRange<D> {
+    return this._createSevenDayRange(date);
+  }
+
+  createPreview(activeDate: D | null): DateRange<D> {
+    return this._createSevenDayRange(activeDate);
+  }
+
+  private _createSevenDayRange(date: D | null): DateRange<D> {
+    if (date) {
+      const startDate = this._dateAdapter.addCalendarDays(date, 0);
+      const endDate = this._dateAdapter.addCalendarDays(date, 6);
+      return new DateRange<D>(startDate, endDate);
+    }
+
+    return new DateRange<D>(null, null);
+  }
+}
+// End Date Range Code
+
 @Component({
   selector: 'app-weekly-sale-orders-report',
   templateUrl: './weekly-sale-orders-report.component.html',
-  styleUrls: ['./weekly-sale-orders-report.component.scss']
+  styleUrls: ['./weekly-sale-orders-report.component.scss'],
+
+  // Start Date Range Code
+  providers: [{
+    provide: MAT_DATE_RANGE_SELECTION_STRATEGY,
+    useClass: WeekSelectionStrategy
+  }]
+  // End Date Range Code
 })
 
 export class WeeklySaleOrdersReportComponent implements OnInit {
@@ -127,7 +168,7 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
   }
 
   //getGrandAverage() {
-    //const len = this.averages.length;
+  //const len = this.averages.length;
   //  let sum = 0;
 
   //  sum = this.averages.reduce((acc, current) => acc + current);

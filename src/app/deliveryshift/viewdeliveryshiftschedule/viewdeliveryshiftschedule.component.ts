@@ -43,11 +43,12 @@ export class ViewdeliveryshiftscheduleComponent {
 
           EndTime: moment(moment(item.dayOfTheWeek + ' ' + item.endTime).utc().toDate()).format('DD/MM/YYYY HH:mm:ss'),
 
-          Location: (item.addressLine1 + ' ' + item.addressLine2 + ' ' + item.addressLine3),
+          // Location: item.addressLine1 + ' ' + item.addressLine2 + ' ' + item.addressLine3,
 
-          Description: (item.saleId + ' ' + item.customerName + ' ' + item.customerSurname + ' ' + item.customerBusinessName)
+          Description: item.saleId,
 
         })
+        console.log("try", item)
       }
     });
 

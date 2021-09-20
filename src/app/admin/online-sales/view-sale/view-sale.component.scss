@@ -56,6 +56,13 @@
     text-align: start;
   }
 
+  .items{
+    
+    font-size: 15px;
+    text-align: start;
+    height:auto;
+  }
+
   span{
     right:20px;
   }
@@ -72,5 +79,8 @@
     border-color: black;
 }
 
-
+.row{
+  display:flex;
+  flex-direction: row;
+}
   
