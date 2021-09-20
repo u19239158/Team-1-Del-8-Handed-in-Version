@@ -62,6 +62,7 @@ dataNotFound: boolean;
     this.productitemService.GetProductItem().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     })
     //this.dataSource = new MatTableDataSource<Productitem>(this.productitemService.getAll());
   }
@@ -96,6 +97,12 @@ dataNotFound: boolean;
       if(res) {
         this.productitemService.DeleteProductitem(Productitem).subscribe( res =>{
           this.readProductitems();
+          this.snack.open('Product Item Successfully Deleted! ', 'OK', 
+          {
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            duration: 4000
+          });
         },(error: HttpErrorResponse) =>
         {
           console.log(error.error,"test")
@@ -112,12 +119,7 @@ dataNotFound: boolean;
           return;
         }
       });
-        this.snack.open('Product Item Successfully Deleted! ', 'OK', 
-        {
-          verticalPosition: 'top',
-          horizontalPosition: 'center',
-          duration: 4000
-        });
+       
       }
     });
 

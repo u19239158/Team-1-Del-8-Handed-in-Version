@@ -44,6 +44,7 @@ dataNotFound: boolean;
 
     this.supplierService.GetSupplier().subscribe((result:Supplier[]) => {
       this.Suppliers = result;
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     });
   }
 
@@ -63,6 +64,7 @@ dataNotFound: boolean;
     this.supplierService.GetSupplier().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     })
     //this.dataSource = new MatTableDataSource<Supplier>(this.supplierService.getAll());
   }
@@ -78,7 +80,7 @@ dataNotFound: boolean;
           this.readSuppliers();
           this.snack.open('Successfully Deleted Supplier! ', 'OK', 
           {
-            verticalPosition: 'bottom',
+            verticalPosition: 'top',
             horizontalPosition: 'center',
             duration: 2000
           });
@@ -89,7 +91,7 @@ dataNotFound: boolean;
         {
           this.snack.open(error.error, 'OK', 
           {
-            verticalPosition: 'bottom',
+            verticalPosition: 'top',
             horizontalPosition: 'center',
             duration: 3000
           });

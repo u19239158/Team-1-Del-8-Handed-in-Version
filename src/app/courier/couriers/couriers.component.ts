@@ -76,6 +76,12 @@ export class CouriersComponent implements OnInit {
       if (res) {
         this.CourierService.DeleteCourier(Courier).subscribe(res => {
           this.readCouriers()
+          this.snack.open('Successfully Deleted Courier! ', 'OK', 
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        duration: 4000
+      });
         },(error: HttpErrorResponse) =>
         {
           console.log(error.error,"test")
@@ -91,12 +97,7 @@ export class CouriersComponent implements OnInit {
         }
       })
       }
-      this.snack.open('Successfully Deleted Courier! ', 'OK', 
-      {
-        verticalPosition: 'top',
-        horizontalPosition: 'center',
-        duration: 4000
-      });
+      
     });
   }
 }

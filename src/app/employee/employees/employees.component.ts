@@ -51,6 +51,7 @@ export class EmployeesComponent implements OnInit {
     this.EmployeeService.GetEmployee().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }
 
@@ -74,6 +75,12 @@ export class EmployeesComponent implements OnInit {
       if (res) {
         this.EmployeeService.DeleteEmployee(Employee).subscribe(data => {
           this.readEmployees();
+          this.snack.open('Successfully Deleted Employee! ', 'OK', 
+          {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 3000
+          });
         },
          (error: HttpErrorResponse) =>
         {
@@ -88,20 +95,9 @@ export class EmployeesComponent implements OnInit {
           }); 
           return;
         }
-        ( resp :Response )=>
-        {
-          if (resp.status === 200) {
-           this.snack.open('Successfully Deleted Employee! ', 'OK', 
-           {
-             verticalPosition: 'bottom',
-             horizontalPosition: 'center',
-             duration: 3000
-           });
-          }
-        }
+      
       })
      
-    
     }
     });
    

@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,6 +8,7 @@ import { Deliveryshift } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { DeliveryshiftService } from 'src/app/services/deliveryshift/deliveryshift.service';
 import { HttpClient } from '@angular/common/http';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-view-employee-delivery-shifts',
@@ -21,7 +22,7 @@ export class ViewEmployeeDeliveryShiftsComponent implements OnInit {
   searchValue: number;
   searchWord: string;
   dataNotFound: boolean;
-
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   deliveryshift: Deliveryshift[] = [];
   // DeliveryShift: Deliveryshift;
   deliveryShift: Observable<Deliveryshift[]>;
@@ -48,6 +49,7 @@ export class ViewEmployeeDeliveryShiftsComponent implements OnInit {
     this.deliveryshiftService.GetDeliveryShiftDelivery().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }
 
