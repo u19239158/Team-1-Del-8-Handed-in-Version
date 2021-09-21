@@ -425,6 +425,16 @@ namespace NKAP_API_2.Controllers
             _db.Shifts.Add(shift);
             _db.SaveChanges();
 
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + "created a Delivery Shift";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
+
             return Ok(shift);
         }
 
@@ -482,10 +492,19 @@ namespace NKAP_API_2.Controllers
             //    return BadRequest(response);
             //    throw;
             //}
-            
+
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + "deleted a Delivery Shift";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
         }
 
-      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("AssignDeliveryShift")] //route
         [HttpPost]
         //Add Product Item Write-of
@@ -525,6 +544,16 @@ namespace NKAP_API_2.Controllers
             };
             _db.EmployeeShifts.Add(EmpShifts);
             _db.SaveChanges();
+
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + "assigned a Delivery Shift";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
 
             return Ok();
         }
@@ -573,6 +602,16 @@ namespace NKAP_API_2.Controllers
             };
             _db.EmployeeShifts.Attach(EmpShifts);
             _db.SaveChanges();
+
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + "updated a Delivery Shift";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
 
             return Ok();
         }

@@ -621,35 +621,17 @@ namespace NKAP_API_2.Controllers
 
                 }).AsEnumerable().GroupBy(zz => zz.ProvinceID);
 
+            List<dynamic> provincedata = new List<dynamic>();           
+
             foreach (var item in PopularLocation)
             {
-                var saleid = item.Select(ss => ss.SaleId);
-                var count = saleid.Count();
-                // var count = PopularLocation.Count();
-                return Ok(count);    
-                
+                dynamic province = new ExpandoObject();
+                province.provincesales = item.Count();
+                province.provinceDescription = item.Select(zz => zz.ProvinceDescription).FirstOrDefault();
+                provincedata.Add(province);
             }
 
-            //for (int i = 0; i < PopularLocation; i++)
-            //{
-            //    dynamic province = new ExpandoObject();
-            //    province = PopularLocation;
-            //    return Ok(province);
-            //}
-            //.Join(_db.Cities,
-            //a => a.ProvinceID,
-            //t => t.ProvinceId,
-            //(a, t) => new
-            //{
-            //    SaleId = a.SaleId,
-            //    ProvinceID = a.ProvinceID,
-            //    ProvinceDescription = a.ProvinceDescription,
-            //    CityID = t.CityId,
-            //    CityDescription = t.CityDescription
-
-            //}).Where(zz => zz.ProvinceID == 3).Count();
-
-            return Ok(PopularLocation);
+            return Ok(provincedata);
 
         }
     }

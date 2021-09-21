@@ -52,7 +52,16 @@ namespace NKAP_API_2.Controllers
                 return Ok(token.GenerateToken(model));
                 //return ;
             }
-            
+
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + "logged In";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
         }
 
         //Login Admin/Emp SIDE after new db
@@ -66,7 +75,7 @@ namespace NKAP_API_2.Controllers
         //   // model.UserRoleName = "Admin";
         //    var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
         //    var log = _db.Users.FirstOrDefault(zz => zz.UserUsername == model.UserUsername);
-            
+
         //    if (_db.Admins.FirstOrDefault(zz=> zz.UsersId == log.UsersId) )
         //    {
         //        model.UserRoleName = "Admin";
@@ -81,7 +90,7 @@ namespace NKAP_API_2.Controllers
         //            return Ok(token.GenerateToken(model));
         //            //return ;
         //        }
-               
+
         //    }
         //    else if (_db.Employees.FirstOrDefault(zz => zz.UsersId == log.UsersId))
         //    {

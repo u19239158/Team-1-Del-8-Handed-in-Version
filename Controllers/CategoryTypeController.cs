@@ -131,6 +131,16 @@ namespace NKAP_API_2.Controllers
             _db.CategoryTypes.Add(catType);
             _db.SaveChanges();
 
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + "created a Category Type";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
+
             return Ok(catType);
         }
 
@@ -147,6 +157,16 @@ namespace NKAP_API_2.Controllers
             catType.CategoryTypeImage = model.CategoryTypeImage;
             _db.CategoryTypes.Attach(catType); //Attach Record
             _db.SaveChanges();
+
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + "updated a Category Type";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
 
             return Ok(catType);
         }
@@ -170,7 +190,17 @@ namespace NKAP_API_2.Controllers
                 return BadRequest(response);
                 throw;
             }
-           
+
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + "deleted a Category Type";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
+
         }
 
     }
