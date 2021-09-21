@@ -6,8 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Special, Productitem } from 'src/app/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-// import * as moment from 'moment';
-// import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import * as moment from 'moment';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-add-edit-special',
@@ -30,6 +30,8 @@ export class AddEditSpecialComponent implements OnInit {
   productItem: Productitem = {} as Productitem;
   minDate: Date;
   selectedDate = new Date();
+  selectedStartDate = new Date();
+  endDateEnabled: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -80,6 +82,11 @@ export class AddEditSpecialComponent implements OnInit {
     // }, formOptions);
     //   ;
     // }
+  }
+
+  onStartDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.selectedStartDate = moment(event.value).toDate();
+    this.endDateEnabled = true;
   }
 
 

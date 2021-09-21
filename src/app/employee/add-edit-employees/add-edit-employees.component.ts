@@ -7,6 +7,8 @@ import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@ang
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from 'src/app/interfaces';
 import { MustMatch } from './must-match.validators';
+import * as moment from 'moment';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-add-edit-employees',
@@ -23,14 +25,21 @@ export class AddEditEmployeesComponent implements OnInit {
   submitted = false;
   employee: Employee;
   employees: Observable<Employee[]>;
+  maxDate: Date;
+  selectedDate = new Date();
+  collections = [];
+  times = [];
 
   constructor(
     private formBuilder: FormBuilder,
-    private snack : MatSnackBar,
+    private snack: MatSnackBar,
     private route: ActivatedRoute,
     private router: Router,
     private EmployeeService: EmployeeService,
-  ) { }
+  ) {
+    const currentYear = new Date().getFullYear();
+    this.maxDate = moment().subtract(16, "years").toDate();
+  }
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
@@ -72,7 +81,7 @@ export class AddEditEmployeesComponent implements OnInit {
           employeeIdnumber: [this.employee.employeeIdnumber, [Validators.required, Validators.maxLength(13)]],
           employeeDob: [this.employee.employeeDob, [Validators.required]],
           employeeAddressLine1: [this.employee.employeeAddressLine1, [Validators.required]],
-          employeeAddressLine2: [this.employee.employeeAddressLine2, ],
+          employeeAddressLine2: [this.employee.employeeAddressLine2,],
           // { value: this.employee.userUsername, disabled: true },
           userUsername: { value: this.employee.userUsername, disabled: true },
           userPassword: { value: this.employee.userPassword, disabled: true },
@@ -104,12 +113,12 @@ export class AddEditEmployeesComponent implements OnInit {
       this.loading = false
       this.router.navigateByUrl('employees');
     })
-    this.snack.open('Successfully Added Employee! ', 'OK', 
-    {
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-      duration: 4000
-    });
+    this.snack.open('Successfully Added Employee! ', 'OK',
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        duration: 4000
+      });
   }
 
   updateEmployee() {
@@ -120,12 +129,12 @@ export class AddEditEmployeesComponent implements OnInit {
       // this.form.reset()
       this.router.navigateByUrl('employees');
     });
-    this.snack.open('Successfully Updated Employee! ', 'OK', 
-    {
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-      duration: 4000
-    });
+    this.snack.open('Successfully Updated Employee! ', 'OK',
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        duration: 4000
+      });
   }
 
   Close() {

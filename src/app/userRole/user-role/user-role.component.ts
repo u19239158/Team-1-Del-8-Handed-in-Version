@@ -33,7 +33,7 @@ export class UserRoleComponent implements OnInit, AfterViewInit {
   UserRole: UserRole;
   userRoles: Observable<UserRole[]>;
   dataSource = new MatTableDataSource<UserRole>();
-  displayedColumns: string[] = ['name', 'description', 'actions'];
+  displayedColumns: string[] = ['userRoleName', 'userRoleDescription', 'actions'];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -91,6 +91,7 @@ export class UserRoleComponent implements OnInit, AfterViewInit {
     this.UserRoleService.GetUserRole().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      this.dataSource.sort = this.sort;
     })
   }
 
