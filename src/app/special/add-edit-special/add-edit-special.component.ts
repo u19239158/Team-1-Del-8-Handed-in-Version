@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Special, Productitem } from 'src/app/interfaces';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as moment from 'moment';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
@@ -126,14 +126,30 @@ export class AddEditSpecialComponent implements OnInit {
       console.log(res)
       this.loading = false
       this.router.navigateByUrl('special');
-    });
-
-    this.snack.open('Special Successfully Added! ', 'OK',
+      this.snack.open('Special Successfully Added! ', 'OK',
       {
         verticalPosition: 'top',
         horizontalPosition: 'center',
         duration: 4000
       });
+    },(error: HttpErrorResponse) =>
+    {
+      console.log(error.error,"test")
+     if (error.status === 400)
+    {
+      this.snack.open(error.error, 'OK', 
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        duration: 3000
+      });
+      return;
+    }
+  });
+ 
+  
+
+    
   }
 
   // updateSpecial() {
