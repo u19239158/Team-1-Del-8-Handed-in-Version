@@ -22,7 +22,10 @@ export class DeliveryshiftService {
   GetDeliveryShift(): Observable<Deliveryshift[]> {
     return this.http.get<Deliveryshift[]>(`${this.server}Deliveryshift/GetDeliveryShift`).pipe(map(res => res));
   }
-
+  GetDeliveryShiftWSale(): Observable<Deliveryshift[]> {
+    return this.http.get<Deliveryshift[]>(`${this.server}Deliveryshift/GetDeliveryShiftWSale`).pipe(map(res => res));
+  }
+  
   GetDeliveryShiftDelivery(): Observable<Deliveryshift[]> {
     return this.http.get<Deliveryshift[]>(`${this.server}Deliveryshift/GetDeliveryShiftDelivery`).pipe(map(res => res));
   }

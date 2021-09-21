@@ -103,11 +103,12 @@ onClick(){
 }
 
   showProducts(){
-    setTimeout(() => this.dataSource.paginator = this.paginator);
+    
     this.isHidden = false;
     this.writeOffStockService.getProductByCatType(this.form.value.categoryTypeId).subscribe(res => {
       console.log(res)
      this.dataSource = new MatTableDataSource(res)
+     setTimeout(() => this.dataSource.paginator = this.paginator);
     })
    ;
 

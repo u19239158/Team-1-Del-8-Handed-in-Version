@@ -27,7 +27,7 @@ export class ViewdeliveryshiftscheduleComponent {
   }
 
   readDeliveryshifts(): void {
-    this.deliveryshiftService.GetDeliveryShift().subscribe(res => {
+    this.deliveryshiftService.GetDeliveryShiftWSale().subscribe(res => {
       console.log("res4", res)
 
       for (let i = 0; i < res.length; i++) {

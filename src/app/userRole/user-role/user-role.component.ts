@@ -58,6 +58,7 @@ export class UserRoleComponent implements OnInit, AfterViewInit {
 
     this.UserRoleService.GetUserRole().subscribe((result: UserRole[]) => {
       this.UserRoles = result;
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     });
 
   }
@@ -92,6 +93,7 @@ export class UserRoleComponent implements OnInit, AfterViewInit {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
       this.dataSource.sort = this.sort;
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }
 

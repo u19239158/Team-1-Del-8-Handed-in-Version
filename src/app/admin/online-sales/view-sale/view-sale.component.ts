@@ -122,15 +122,15 @@ export class ViewSaleComponent implements OnInit {
                 console.log(this.sale)
                 this.OnlineSalesService.Collection(this.sale).subscribe(res => {
                   console.log(res)
+                  this.snack.open('Order Successfully packed ', 'OK',
+                  {
+                    verticalPosition: 'top',
+                    horizontalPosition: 'center',
+                    duration: 4000
+                  });
                 });
               });
 
-              this.snack.open('Order Successfully packed ', 'OK',
-                {
-                  verticalPosition: 'bottom',
-                  horizontalPosition: 'center',
-                  duration: 4000
-                });
             }
           }
           else {
@@ -139,6 +139,12 @@ export class ViewSaleComponent implements OnInit {
               //console.log(this.sale)
               this.OnlineSalesService.Delivery(this.sale).subscribe(res => {
                 console.log(res)
+                this.snack.open('Order Successfully packed ', 'OK',
+                {
+                  verticalPosition: 'top',
+                  horizontalPosition: 'center',
+                  duration: 4000
+                });
               });
             })
           }
@@ -148,7 +154,7 @@ export class ViewSaleComponent implements OnInit {
               if (error.status === 400) {
                 this.snack.open(error.error, 'OK',
                   {
-                    verticalPosition: 'bottom',
+                    verticalPosition: 'top',
                     horizontalPosition: 'center',
                     duration: 3000
                   });
@@ -160,12 +166,7 @@ export class ViewSaleComponent implements OnInit {
         });
       };
 
-      this.snack.open('Order Successfully packed ', 'OK',
-        {
-          verticalPosition: 'bottom',
-          horizontalPosition: 'center',
-          duration: 4000
-        });
+    
     })
   }
 

@@ -58,10 +58,11 @@ export class CategorytypesComponent implements OnInit {
   }
 
   readCategorytypes(): void {
-    setTimeout(() => this.dataSource.paginator = this.paginator);
+    
     this.categorytypeService.GetCategoryType().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     })
     //this.dataSource = new MatTableDataSource<Categorytype>(this.categorytypeService.getAll());
   }
@@ -76,6 +77,12 @@ export class CategorytypesComponent implements OnInit {
       if (res) {
         this.categorytypeService.DeleteCategoryType(Categorytype).subscribe(res => {
           this.readCategorytypes();
+          this.snack.open('Category Type Successfully Deleted! ', 'OK', 
+          {
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            duration: 4000
+          });
         },(error: HttpErrorResponse) =>
         {
           console.log(error.error,"test")
@@ -92,12 +99,7 @@ export class CategorytypesComponent implements OnInit {
           return;
         }
       });
-      this.snack.open('Category Type Successfully Deleted! ', 'OK', 
-      {
-        verticalPosition: 'top',
-        horizontalPosition: 'center',
-        duration: 4000
-      });
+     
       }
     });
   }

@@ -106,7 +106,7 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      startDate: ['', Validators.required],
+      startDate: ['' , Validators.required],
       endDate: ['', Validators.required],
     })
   }

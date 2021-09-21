@@ -97,11 +97,12 @@ export class StockTakeComponent implements OnInit {
   }
   
     showProducts(){
-      setTimeout(() => this.dataSource.paginator = this.paginator);
+      
       this.isHidden = false;
       this.stockTakeService.getProductByCatType(this.form.value.categoryTypeId).subscribe(res => {
         console.log(res)
        this.dataSource = new MatTableDataSource(res)
+       setTimeout(() => this.dataSource.paginator = this.paginator);
       })
      ;
   

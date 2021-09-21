@@ -48,10 +48,11 @@ export class DeliveryshiftsComponent implements OnInit {
   }
 
   readDeliveryshifts(): void {
-    setTimeout(() => this.dataSource.paginator = this.paginator);
+    
     this.deliveryshiftService.GetDeliveryShift().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }
 
@@ -84,6 +85,12 @@ export class DeliveryshiftsComponent implements OnInit {
       if (res) {
         this.deliveryshiftService.DeleteDeliveryShift(Deliveryshift).subscribe(res => {
           this.readDeliveryshifts();
+          this.snack.open('Successfully Deleted Delivery Shift! ', 'OK',
+          {
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            duration: 4000
+          });
         },(error: HttpErrorResponse) =>
         {
           console.log(error.error,"test")
@@ -100,12 +107,7 @@ export class DeliveryshiftsComponent implements OnInit {
          
       });
       }
-      this.snack.open('Successfully Deleted Delivery Shift! ', 'OK',
-      {
-        verticalPosition: 'top',
-        horizontalPosition: 'center',
-        duration: 4000
-      });
+     
     });
     
   }

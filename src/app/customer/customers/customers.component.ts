@@ -36,19 +36,20 @@ constructor(private customerService: CustomerService,
   private httpClient: HttpClient) { }
 
 ngOnInit(): void {
-  setTimeout(() => this.dataSource.paginator = this.paginator);
+ 
   this.readCustomers();
 
   this.customerService.GetCustomer().subscribe((result:Customer[]) => {
     this.Customers = result;
   });
-
+  setTimeout(() => this.dataSource.paginator = this.paginator);
 }
 
 readCustomers(): void {
    this.customerService.GetCustomer().subscribe(res => {
      console.log(res)
      this.dataSource = new MatTableDataSource(res)
+     setTimeout(() => this.dataSource.paginator = this.paginator);
    })
 }
 
@@ -80,7 +81,13 @@ deleteCustomer(Customer: Customer) {
   confirm.afterClosed().subscribe(res => {
     if (res){
       this.customerService.DeleteCustomer(Customer).subscribe(res =>{
-        this.readCustomers()
+        this.readCustomers();
+        this.snack.open('Successfully Deleted Customer! ', 'OK', 
+        {
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          duration: 4000
+        });
       },(error: HttpErrorResponse) =>
       {
         console.log(error.error,"test")
@@ -95,12 +102,7 @@ deleteCustomer(Customer: Customer) {
         return;
       }
     })
-    this.snack.open('Successfully Deleted Customer! ', 'OK', 
-    {
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-      duration: 4000
-    });
+  
     }
    
   });

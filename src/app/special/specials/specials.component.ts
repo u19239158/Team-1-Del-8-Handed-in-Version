@@ -55,6 +55,7 @@ public specspeiial : any = [];
     this.specialService.GetSpecial().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }
 
