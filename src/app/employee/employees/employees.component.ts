@@ -9,7 +9,9 @@ import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/gl
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { HttpClient, HttpResponseBase } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
-import {MatPaginator} from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { direction } from 'html2canvas/dist/types/css/property-descriptors/direction';
 
 @Component({
   selector: 'app-employees',
@@ -28,7 +30,8 @@ export class EmployeesComponent implements OnInit {
   employee: Observable<Employee[]>;
   dataSource = new MatTableDataSource<Employee>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['name', 'employeePhoneNumber', 'dateOfBirth', 'actions'];
+  displayedColumns: string[] = ['employeeSurname', 'employeeCellphoneNumber', 'employeeDob', 'actions'];
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private EmployeeService: EmployeeService,
     private snack: MatSnackBar,
@@ -51,6 +54,7 @@ export class EmployeesComponent implements OnInit {
     this.EmployeeService.GetEmployee().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      this.dataSource.sort = this.sort;
       setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }
@@ -75,38 +79,36 @@ export class EmployeesComponent implements OnInit {
       if (res) {
         this.EmployeeService.DeleteEmployee(Employee).subscribe(data => {
           this.readEmployees();
-          this.snack.open('Successfully Deleted Employee! ', 'OK', 
-          {
-            verticalPosition: 'bottom',
-            horizontalPosition: 'center',
-            duration: 3000
-          });
+          this.snack.open('Successfully Deleted Employee! ', 'OK',
+            {
+              verticalPosition: 'bottom',
+              horizontalPosition: 'center',
+              duration: 3000
+            });
         },
-         (error: HttpErrorResponse) =>
-        {
-          console.log(error.error,"test")
-         if (error.status === 400)
-        {
-          this.snack.open(error.error, 'OK', 
-          {
-            verticalPosition: 'bottom',
-            horizontalPosition: 'center',
-            duration: 3000
-          }); 
-          return;
-        }
-      
-      })
-     
-    }
+          (error: HttpErrorResponse) => {
+            console.log(error.error, "test")
+            if (error.status === 400) {
+              this.snack.open(error.error, 'OK',
+                {
+                  verticalPosition: 'bottom',
+                  horizontalPosition: 'center',
+                  duration: 3000
+                });
+              return;
+            }
+
+          })
+
+      }
     });
-   
-    }
-    
-    
-    ;
+
   }
 
-  
+
+  ;
+}
+
+
 
 

@@ -8,7 +8,9 @@ import { Deliveryshift } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { DeliveryshiftService } from 'src/app/services/deliveryshift/deliveryshift.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import {MatPaginator} from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { direction } from 'html2canvas/dist/types/css/property-descriptors/direction';
 
 @Component({
   selector: 'app-deliveryshifts',
@@ -29,6 +31,7 @@ export class DeliveryshiftsComponent implements OnInit {
   dataSource = new MatTableDataSource<Deliveryshift>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['startTime', 'endTime', 'dayOfTheWeek', 'employeeName', 'noOfDeliveries', 'actions'];
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private deliveryshiftService: DeliveryshiftService,
     private snack: MatSnackBar,
@@ -48,10 +51,11 @@ export class DeliveryshiftsComponent implements OnInit {
   }
 
   readDeliveryshifts(): void {
-    
+
     this.deliveryshiftService.GetDeliveryShift().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      this.dataSource.sort = this.sort;
       setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }
@@ -86,30 +90,28 @@ export class DeliveryshiftsComponent implements OnInit {
         this.deliveryshiftService.DeleteDeliveryShift(Deliveryshift).subscribe(res => {
           this.readDeliveryshifts();
           this.snack.open('Successfully Deleted Delivery Shift! ', 'OK',
-          {
-            verticalPosition: 'top',
-            horizontalPosition: 'center',
-            duration: 4000
-          });
-        },(error: HttpErrorResponse) =>
-        {
-          console.log(error.error,"test")
-         if (error.status === 400)
-        {
-          this.snack.open(error.error, 'OK', 
-          {
-            verticalPosition: 'top',
-            horizontalPosition: 'center',
-            duration: 4000
-          });
-          return;
-        } 
-         
-      });
+            {
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
+              duration: 4000
+            });
+        }, (error: HttpErrorResponse) => {
+          console.log(error.error, "test")
+          if (error.status === 400) {
+            this.snack.open(error.error, 'OK',
+              {
+                verticalPosition: 'top',
+                horizontalPosition: 'center',
+                duration: 4000
+              });
+            return;
+          }
+
+        });
       }
-     
+
     });
-    
+
   }
 
 

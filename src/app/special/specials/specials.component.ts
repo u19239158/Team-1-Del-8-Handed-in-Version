@@ -8,7 +8,10 @@ import { Special } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { SpecialService } from 'src/app/services/special/special.service';
 import { HttpClient } from '@angular/common/http';
-import {MatPaginator} from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { direction } from 'html2canvas/dist/types/css/property-descriptors/direction';
+
 
 @Component({
   selector: 'app-specials',
@@ -20,14 +23,15 @@ export class SpecialsComponent implements OnInit {
   Specials: Special[];
   searchValue: string;
   dataNotFound: boolean;
-public specspeiial : any = [];
+  public specspeiial: any = [];
   specials: Special[] = [];
   special: Observable<Special[]>;
   dataSource = new MatTableDataSource<Special>();
-  displayedColumns: string[] = ['productItemName','description','specialPrice', 'startDate', 'endDate', 'actions'];
+  displayedColumns: string[] = ['productItemName', 'specialDescription', 'specialPrice', 'specialStartDate', 'specialEndDate', 'actions'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  
+  @ViewChild(MatSort) sort: MatSort;
+
   constructor(
     private specialService: SpecialService,
     private snack: MatSnackBar,
@@ -39,7 +43,7 @@ public specspeiial : any = [];
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
-  
+
   ngOnInit(): void {
     setTimeout(() => this.dataSource.paginator = this.paginator);
     this.readSpecials();
@@ -55,6 +59,7 @@ public specspeiial : any = [];
     this.specialService.GetSpecial().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      this.dataSource.sort = this.sort;
       setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }
@@ -64,38 +69,38 @@ public specspeiial : any = [];
     const filter = (e) => {
 
       return e.specialDescription && e.specialDescription.toLowerCase().includes(this.searchValue.toLowerCase()) ||
-       e.productItemName && e.productItemName.toLowerCase().includes(this.searchValue.toLowerCase())
+        e.productItemName && e.productItemName.toLowerCase().includes(this.searchValue.toLowerCase())
     }
     const data = (this.Specials.filter(filter))
     this.dataNotFound = data.length === 0
     this.dataSource = new MatTableDataSource(data)
   }
 
-  deleteSpecial(special:Special) {
-    this.specialService.getSpecialByID(special).subscribe(res=>{
-      this.specspeiial =res;
+  deleteSpecial(special: Special) {
+    this.specialService.getSpecialByID(special).subscribe(res => {
+      this.specspeiial = res;
       console.log(this.specspeiial)
-    const confirm = this.dialog.open(GlobalConfirmComponent, {
-      disableClose: true,
-    });
+      const confirm = this.dialog.open(GlobalConfirmComponent, {
+        disableClose: true,
+      });
 
-    confirm.afterClosed().subscribe(res => {
-      if (res) {
-        this.specialService.DeleteSpecial(special).subscribe(res => {
-          this.readSpecials();
-        });
+      confirm.afterClosed().subscribe(res => {
+        if (res) {
+          this.specialService.DeleteSpecial(special).subscribe(res => {
+            this.readSpecials();
+          });
 
-        this.snack.open('Special Successfully Deleted! ', 'OK', 
-        {
-          verticalPosition: 'top',
-      horizontalPosition: 'center',
-      duration: 4000
-        });
+          this.snack.open('Special Successfully Deleted! ', 'OK',
+            {
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
+              duration: 4000
+            });
 
-      }
-    });
-  })
-}
+        }
+      });
+    })
+  }
 
 
 }

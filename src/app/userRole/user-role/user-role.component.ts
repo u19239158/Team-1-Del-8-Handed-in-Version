@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,18 +11,13 @@ import { HttpClient } from '@angular/common/http';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { direction } from 'html2canvas/dist/types/css/property-descriptors/direction';
-// {active: "name", direction: "asc"}
-
-// 1. active:"name"
-// 2. direction:"asc"
-// 3. __proto__:Object
 
 @Component({
   selector: 'app-user-role',
   templateUrl: './user-role.component.html',
   styleUrls: ['./user-role.component.scss']
 })
-export class UserRoleComponent implements OnInit, AfterViewInit {
+export class UserRoleComponent implements OnInit {
 
   //search code
   UserRoles: UserRole[];
@@ -44,11 +39,6 @@ export class UserRoleComponent implements OnInit, AfterViewInit {
     private dialog: MatDialog,
     private httpClient: HttpClient
   ) { }
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
 
   ngOnInit(): void {
     setTimeout(() => this.dataSource.paginator = this.paginator);

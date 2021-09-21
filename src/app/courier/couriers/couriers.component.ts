@@ -8,7 +8,9 @@ import { Courier } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { CourierService } from 'src/app/services/courier/courier.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import {MatPaginator} from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { direction } from 'html2canvas/dist/types/css/property-descriptors/direction';
 
 @Component({
   selector: 'app-couriers',
@@ -27,7 +29,8 @@ export class CouriersComponent implements OnInit {
   courier: Observable<Courier[]>;
   dataSource = new MatTableDataSource<Courier>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['name', 'type', 'contactNumber', 'email', 'actions'];
+  displayedColumns: string[] = ['courierName', 'courierTypeDescription', 'courierNumber', 'courierEmail', 'actions'];
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private CourierService: CourierService,
     private snack: MatSnackBar,
@@ -50,6 +53,7 @@ export class CouriersComponent implements OnInit {
     this.CourierService.GeCourier().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      this.dataSource.sort = this.sort;
       setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }
@@ -76,28 +80,26 @@ export class CouriersComponent implements OnInit {
       if (res) {
         this.CourierService.DeleteCourier(Courier).subscribe(res => {
           this.readCouriers()
-          this.snack.open('Successfully Deleted Courier! ', 'OK', 
-      {
-        verticalPosition: 'top',
-        horizontalPosition: 'center',
-        duration: 4000
-      });
-        },(error: HttpErrorResponse) =>
-        {
-          console.log(error.error,"test")
-         if (error.status === 400)
-        {
-          this.snack.open(error.error, 'OK', 
-          {
-            verticalPosition: 'top',
-            horizontalPosition: 'center',
-            duration: 4000
-          });
-          return;
-        }
-      })
+          this.snack.open('Successfully Deleted Courier! ', 'OK',
+            {
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
+              duration: 4000
+            });
+        }, (error: HttpErrorResponse) => {
+          console.log(error.error, "test")
+          if (error.status === 400) {
+            this.snack.open(error.error, 'OK',
+              {
+                verticalPosition: 'top',
+                horizontalPosition: 'center',
+                duration: 4000
+              });
+            return;
+          }
+        })
       }
-      
+
     });
   }
 }
