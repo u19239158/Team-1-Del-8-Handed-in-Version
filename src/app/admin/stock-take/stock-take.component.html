@@ -1,30 +1,31 @@
-  <h2>Stock Take</h2>
-  <div class="content">
-  <form [formGroup] = "form">
+<h2>Stock Take</h2>
+<div class="content">
+  <form [formGroup]="form">
 
-<div class="mat-row">
-  <div class="mat-col-quarter">
-      <mat-form-field appearance="outline" class="control-m">
+    <div class="mat-row">
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
           <mat-label> Category Type</mat-label>
           <mat-select [(value)]="selected" formControlName="categoryTypeId">
-            <mat-option *ngFor="let CategoryType of collection" [value]="CategoryType.categoryTypeId">{{CategoryType.categoryTypeDescription}}</mat-option>
+            <mat-option *ngFor="let CategoryType of collection" [value]="CategoryType.categoryTypeId">
+              {{CategoryType.categoryTypeDescription}}</mat-option>
           </mat-select>
           <mat-hint> Select a category type </mat-hint>
         </mat-form-field>
-  </div>
-</div>
+      </div>
+    </div>
 
-<div class="mat-row">
-  <div class="mat-col-quarter">
-  <div class="form-group" class="control-m">
-    <button mat-raised-button color ="primary" [disabled]="loading" type = "submit"(click)="showProducts()">
-        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-        Show Products
-    </button>
+    <div class="mat-row">
+      <div class="mat-col-quarter">
+        <div class="form-group" class="control-m">
+          <button mat-raised-button color="primary" [disabled]="loading" type="submit" (click)="showProducts()">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Show Products
+          </button>
+        </div>
+      </div>
     </div>
-    </div>
-</div>
-</form>
+  </form>
 
   <br>
   <br>
@@ -32,40 +33,37 @@
   <div [hidden]="isHidden" class="tablecontent">
     <table mat-table [dataSource]="dataSource" matSort>
 
-        <!-- Product Item -->
-        <ng-container matColumnDef="productItem">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Item </th>
-            <td mat-cell *matCellDef="let element"> {{element.productItemName}} </td>
-        </ng-container>
-
-        <!-- Quantity -->
-        <ng-container matColumnDef="quantity">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
-            <td mat-cell *matCellDef="let element" > {{element.quantityOnHand}} </td>
-        </ng-container>
-
-         <!-- Actions Column -->
-         <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef>
-
-          </th>
-          <td mat-cell *matCellDef="let element">
-              <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-                  <mat-icon>more_vert</mat-icon>
-              </button>
-              <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item [routerLink]="['/stockTakePage', element.productItemId]" >Do Stock Take</button>
-              </mat-menu>
-          </td>
+      <!-- Product Item -->
+      <ng-container matColumnDef="productItemName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Item </th>
+        <td mat-cell *matCellDef="let element"> {{element.productItemName}} </td>
       </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <mat-paginator [pageSizeOptions]="[5, 8, 15, 35]"
-                 showFirstLastButtons 
-                 aria-label="Select page">
-      </mat-paginator>
-</div>
-</div>
+      <!-- Quantity -->
+      <ng-container matColumnDef="quantityOnHand">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
+        <td mat-cell *matCellDef="let element"> {{element.quantityOnHand}} </td>
+      </ng-container>
 
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>
+
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" xPosition="before">
+            <button mat-menu-item [routerLink]="['/stockTakePage', element.productItemId]">Do Stock Take</button>
+          </mat-menu>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 8, 15, 35]" showFirstLastButtons aria-label="Select page">
+    </mat-paginator>
+  </div>
+</div>

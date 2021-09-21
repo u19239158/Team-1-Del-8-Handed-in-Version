@@ -8,7 +8,9 @@ import { Categorytype } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { CategorytypeService } from 'src/app/services/categorytype/categorytype.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import {MatPaginator} from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { direction } from 'html2canvas/dist/types/css/property-descriptors/direction';
 
 @Component({
   selector: 'app-categorytypes',
@@ -26,7 +28,8 @@ export class CategorytypesComponent implements OnInit {
   categorytype: Observable<Categorytype[]>;
   dataSource = new MatTableDataSource<Categorytype>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['productCategoryName', 'categoryTypeImage','categoryType', 'actions'];
+  displayedColumns: string[] = ['productCategoryDesc', 'categoryTypeImage', 'categoryTypeDescription', 'actions'];
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private categorytypeService: CategorytypeService,
     private snack: MatSnackBar,
@@ -58,10 +61,11 @@ export class CategorytypesComponent implements OnInit {
   }
 
   readCategorytypes(): void {
-    
+
     this.categorytypeService.GetCategoryType().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      this.dataSource.sort = this.sort;
       setTimeout(() => this.dataSource.paginator = this.paginator);
     })
     //this.dataSource = new MatTableDataSource<Categorytype>(this.categorytypeService.getAll());
@@ -77,29 +81,27 @@ export class CategorytypesComponent implements OnInit {
       if (res) {
         this.categorytypeService.DeleteCategoryType(Categorytype).subscribe(res => {
           this.readCategorytypes();
-          this.snack.open('Category Type Successfully Deleted! ', 'OK', 
-          {
-            verticalPosition: 'top',
-            horizontalPosition: 'center',
-            duration: 4000
-          });
-        },(error: HttpErrorResponse) =>
-        {
-          console.log(error.error,"test")
-         if (error.status === 400)
-        {
-          this.snack.open(error.error, 'OK', 
-          {
-            verticalPosition: 'top',
-            horizontalPosition: 'center',
-            duration: 4000
-          });
-         
-          
-          return;
-        }
-      });
-     
+          this.snack.open('Category Type Successfully Deleted! ', 'OK',
+            {
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
+              duration: 4000
+            });
+        }, (error: HttpErrorResponse) => {
+          console.log(error.error, "test")
+          if (error.status === 400) {
+            this.snack.open(error.error, 'OK',
+              {
+                verticalPosition: 'top',
+                horizontalPosition: 'center',
+                duration: 4000
+              });
+
+
+            return;
+          }
+        });
+
       }
     });
   }

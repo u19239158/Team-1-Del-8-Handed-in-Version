@@ -1,14 +1,15 @@
 import { StockTakeService } from './../../services/admin/stock-take/stock-take.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { StockTake , Productitem} from 'src/app/interfaces';
+import { StockTake, Productitem } from 'src/app/interfaces';
 import { Observable } from 'rxjs';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ProductitemService } from 'src/app/services/productitem/productitem.service';
-import {MatPaginator} from '@angular/material/paginator';
-
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { direction } from 'html2canvas/dist/types/css/property-descriptors/direction';
 
 @Component({
   selector: 'app-stock-take',
@@ -31,14 +32,15 @@ export class StockTakeComponent implements OnInit {
   productitem: Observable<Productitem[]>;
   dataSource = new MatTableDataSource<Productitem>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['productItem', 'quantity', 'actions'];
+  displayedColumns: string[] = ['productItemName', 'quantityOnHand', 'actions'];
   productItemService: any;
- // StockTakeService: any;
+  // StockTakeService: any;
+  @ViewChild(MatSort) sort: MatSort;
 
   form = this.FB.group({
-   // writtenOffStockDate: ['',Validators.required],
-    categoryTypeId: ['',Validators.required]
-  }) 
+    // writtenOffStockDate: ['',Validators.required],
+    categoryTypeId: ['', Validators.required]
+  })
   Tableform;
 
 
@@ -47,7 +49,7 @@ export class StockTakeComponent implements OnInit {
     private stockTakeService: StockTakeService,
     private http: HttpClient,
     private router: Router,
-    private FB:FormBuilder,
+    private FB: FormBuilder,
   ) { }
 
   // ngAfterViewInit(): void{
@@ -58,13 +60,13 @@ export class StockTakeComponent implements OnInit {
     setTimeout(() => this.dataSource.paginator = this.paginator);
     this.getCollection();
 
-    const formOptions: AbstractControlOptions = { };
+    const formOptions: AbstractControlOptions = {};
     this.Tableform = this.FB.group({
       categoryTypeDescription: ['', [Validators.required]],
       stockTakeDate: ['', [Validators.required]],
       stockTakeQuantity: ['', [Validators.required]],
-      
-      }, formOptions);
+
+    }, formOptions);
   }
 
   getCollection() {
@@ -78,7 +80,7 @@ export class StockTakeComponent implements OnInit {
   }
 
   getProductByCatType(id) {
-   
+
   }
 
 
@@ -92,22 +94,23 @@ export class StockTakeComponent implements OnInit {
   //   this.isHidden = false;
   //}
 
-  onClick(){
+  onClick() {
 
   }
-  
-    showProducts(){
-      
-      this.isHidden = false;
-      this.stockTakeService.getProductByCatType(this.form.value.categoryTypeId).subscribe(res => {
-        console.log(res)
-       this.dataSource = new MatTableDataSource(res)
-       setTimeout(() => this.dataSource.paginator = this.paginator);
-      })
-     ;
-  
-      // this.productItemService.getProductByCatType(this.ProductItems).subscribe((result => {
-        
-      // }));
-    }
+
+  showProducts() {
+
+    this.isHidden = false;
+    this.stockTakeService.getProductByCatType(this.form.value.categoryTypeId).subscribe(res => {
+      console.log(res)
+      this.dataSource = new MatTableDataSource(res)
+      this.dataSource.sort = this.sort;
+      setTimeout(() => this.dataSource.paginator = this.paginator);
+    })
+      ;
+
+    // this.productItemService.getProductByCatType(this.ProductItems).subscribe((result => {
+
+    // }));
+  }
 }

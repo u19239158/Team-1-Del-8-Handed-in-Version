@@ -150,7 +150,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     // this.events.push(`${type}: ${event.value}`);
     this.selectedDate = event.value;
-    console.log(event.value);
+    console.log("add event", event.value);
     this.generateTimes();
   }
 
@@ -188,12 +188,12 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
       this.loading = false
       this.router.navigateByUrl('deliveryShift');
     });
-    this.snack.open('Successfully Added Delivery Shift! ', 'OK', 
-    {
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-      duration: 4000
-    });
+    this.snack.open('Successfully Added Delivery Shift! ', 'OK',
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        duration: 4000
+      });
   }
 
   updateDeliveryshift() {
@@ -208,12 +208,12 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
       this.form.reset();
       this.router.navigateByUrl('deliveryShift');
     });
-    this.snack.open('Successfully Updated Delivery Shift! ', 'OK', 
-    {
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-      duration: 4000
-    });
+    this.snack.open('Successfully Updated Delivery Shift! ', 'OK',
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        duration: 4000
+      });
   }
 
   Close() {

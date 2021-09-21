@@ -9,7 +9,9 @@ import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/gl
 import { AssignCourierDeliveryService } from 'src/app/services/assigncourierdelivery/assigncourierdelivery.service';
 import { CourierService } from 'src/app/services/courier/courier.service';
 import { HttpClient } from '@angular/common/http';
-import {MatPaginator} from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { direction } from 'html2canvas/dist/types/css/property-descriptors/direction';
 
 @Component({
   selector: 'app-assign-courier-delivery',
@@ -27,15 +29,17 @@ export class AssignCourierDeliveryComponent implements OnInit {
   courier: Observable<Courier[]>;
   dataSource = new MatTableDataSource<Courier>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['name', 'type', 'contactNumber', 'actions'];
+  displayedColumns: string[] = ['courierName', 'courierTypeDescription', 'courierNumber', 'actions'];
   CourierService: any;
   sale: any;
   OnlineSalesService: any;
-  public couriers : any =[];
-  public sales : any =[];
+  public couriers: any = [];
+  public sales: any = [];
   id: number;
-  public EmailData : any = [];
-  
+  public EmailData: any = [];
+
+  @ViewChild(MatSort) sort: MatSort;
+
   constructor(private AssignCourierDeliveryService: AssignCourierDeliveryService,
     private snack: MatSnackBar,
     private router: Router,
@@ -58,6 +62,7 @@ export class AssignCourierDeliveryComponent implements OnInit {
     this.AssignCourierDeliveryService.GeCourier().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      this.dataSource.sort = this.sort;
       setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }
@@ -81,26 +86,28 @@ export class AssignCourierDeliveryComponent implements OnInit {
     });
   }
 
-  getEmail(courierID: any, saleId : any) {
+  getEmail(courierID: any, saleId: any) {
     //CODE USED TO GET ID THROUGH BUTTON 64-67 & 30
-  this.AssignCourierDeliveryService.getCourierByID(courierID).subscribe(data=>{
-    this.couriers = data
-    console.log(data)
+    this.AssignCourierDeliveryService.getCourierByID(courierID).subscribe(data => {
+      this.couriers = data
+      console.log(data)
 
-    this.AssignCourierDeliveryService.GetFullSaleByID(this.id).subscribe(res=>{
-      this.sales =res;
-      console.log("Result" ,this.sales)});
-
-    
-    this.AssignCourierDeliveryService.NotifyCourier(this.sales,this.couriers.courierEmail).subscribe(res => {
-      console.log(res)});
-      this.snack.open('Courier Succesfully Assigned!', 'OK', 
-      {
-        verticalPosition: 'top',
-        horizontalPosition: 'center',
-        duration: 4000
+      this.AssignCourierDeliveryService.GetFullSaleByID(this.id).subscribe(res => {
+        this.sales = res;
+        console.log("Result", this.sales)
       });
-  });
+
+
+      this.AssignCourierDeliveryService.NotifyCourier(this.sales, this.couriers.courierEmail).subscribe(res => {
+        console.log(res)
+      });
+      this.snack.open('Courier Succesfully Assigned!', 'OK',
+        {
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          duration: 4000
+        });
+    });
   }
 
   Done() {
@@ -108,31 +115,32 @@ export class AssignCourierDeliveryComponent implements OnInit {
     // this.AssignCourierDeliveryService.GetFullSaleByID(this.id).subscribe(res=>{
     //   this.sales =res;
     //   console.log("Result" ,this.sales)});
-      
-  this.AssignCourierDeliveryService.AssignCourier(this.id).subscribe(data=>{
-    console.log(data)
-   
-    
-  });
+
+    this.AssignCourierDeliveryService.AssignCourier(this.id).subscribe(data => {
+      console.log(data)
+
+
+    });
 
 
 
-   // }) ||
-  // this.AssignCourierDeliveryService.GetFullSaleByID(this.id).subscribe(data=>{
-  //   this.sales =  data;
-    
-  // });console.log(this.couriers + this.sales)
-  //   this.AssignCourierDeliveryService.GetFullSaleByID(this.id).subscribe(res=>{
-  //     this.sales =res;
-  //     console.log("Result" ,this.sales) 
+    // }) ||
+    // this.AssignCourierDeliveryService.GetFullSaleByID(this.id).subscribe(data=>{
+    //   this.sales =  data;
 
-  //   // this.AssignCourierDeliveryService.getCourierByID(this.couriers).subscribe(res =>{
-  //   //   console.log(res)})
-  //   // const EmailData = this.sales + this.couriers
-  //   // console.log(EmailData)
+    // });console.log(this.couriers + this.sales)
+    //   this.AssignCourierDeliveryService.GetFullSaleByID(this.id).subscribe(res=>{
+    //     this.sales =res;
+    //     console.log("Result" ,this.sales) 
 
-  // Close() {
-  //   this.form.reset();
-  //   this.router.navigateByUrl('couriers');
-  // }
-}}
+    //   // this.AssignCourierDeliveryService.getCourierByID(this.couriers).subscribe(res =>{
+    //   //   console.log(res)})
+    //   // const EmailData = this.sales + this.couriers
+    //   // console.log(EmailData)
+
+    // Close() {
+    //   this.form.reset();
+    //   this.router.navigateByUrl('couriers');
+    // }
+  }
+}

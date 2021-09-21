@@ -8,7 +8,9 @@ import { Deliveryshift } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { DeliveryshiftService } from 'src/app/services/deliveryshift/deliveryshift.service';
 import { HttpClient } from '@angular/common/http';
-import {MatPaginator} from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { direction } from 'html2canvas/dist/types/css/property-descriptors/direction';
 
 @Component({
   selector: 'app-assign-delivery-order',
@@ -29,7 +31,8 @@ export class AssignDeliveryOrderComponent implements OnInit {
   unscheduleddelivery: Observable<Deliveryshift[]>;
   dataSource = new MatTableDataSource<Deliveryshift>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['saleId', 'customerName', 'customerBusinessName', 'deliverydistance', 'orderAddress', 'deliverycourier' ];
+  displayedColumns: string[] = ['saleId', 'customerName', 'customerBusinessName', 'deliveryDistance', 'provinceDescription', 'deliverycourier'];
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private DeliveryshiftService: DeliveryshiftService,
     private snack: MatSnackBar,
@@ -66,11 +69,12 @@ export class AssignDeliveryOrderComponent implements OnInit {
   }
 
   readUnscheduledDeliveries(): void {
-    
+
     //this.dataSource = new MatTableDataSource<UserRole[]>(this.UserRoleService.GetUserRole());
     this.DeliveryshiftService.GetUnscheduledDeliveries().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      this.dataSource.sort = this.sort;
       setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }

@@ -1,14 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Productitem, WriteOffStock,Categorytype } from 'src/app/interfaces';
+import { Productitem, WriteOffStock, Categorytype } from 'src/app/interfaces';
 import { WriteOffStockService } from 'src/app/services/admin/write-off-stock/write-off-stock.service';
 import { Observable } from 'rxjs';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ProductitemService } from 'src/app/services/productitem/productitem.service';
-import {MatPaginator} from '@angular/material/paginator';
-
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { direction } from 'html2canvas/dist/types/css/property-descriptors/direction';
 
 @Component({
   selector: 'app-write-off-stock',
@@ -18,9 +19,9 @@ import {MatPaginator} from '@angular/material/paginator';
 
 export class WriteOffStockComponent implements OnInit {
   //search code
-ProductItems: Productitem[];
-searchItem: string;
-  
+  ProductItems: Productitem[];
+  searchItem: string;
+
   loading = false;
   submitted = false;
   isHidden: boolean = true;
@@ -32,36 +33,37 @@ searchItem: string;
   productitem: Observable<Productitem[]>;
   dataSource = new MatTableDataSource<Productitem>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['productItem', 'quantity', 'actions'];
+  displayedColumns: string[] = ['productItemName', 'quantityOnHand', 'actions'];
   productItemService: any;
+  @ViewChild(MatSort) sort: MatSort;
 
   form = this.FB.group({
-    writtenOffStockDate: ['',Validators.required],
-    categoryTypeId: ['',Validators.required]
-  }) 
+    writtenOffStockDate: ['', Validators.required],
+    categoryTypeId: ['', Validators.required]
+  })
   Tableform;
- 
+
 
   constructor(
     productItemService: ProductitemService,
     private writeOffStockService: WriteOffStockService,
     private http: HttpClient,
     private router: Router,
-    private FB:FormBuilder,
+    private FB: FormBuilder,
   ) { }
 
-  
+
   ngOnInit(): void {
     this.getCollection();
-    
-    const formOptions: AbstractControlOptions = { };
+
+    const formOptions: AbstractControlOptions = {};
     this.Tableform = this.FB.group({
       categoryTypeDescription: ['', [Validators.required]],
       writeOffReason: ['', [Validators.required]],
       writtenOffStockDate: ['', [Validators.required]],
       writeOffQuantity: ['', [Validators.required]],
-      
-      }, formOptions);
+
+    }, formOptions);
   }
 
   // getProductItemByCategoryType() : void {
@@ -69,7 +71,7 @@ searchItem: string;
 
   //   this.productItemService.GetProductItem().subscribe(res => {
   //   console.log(res)
-    
+
   //   this.dataSource = new MatTableDataSource(res.filter(e=>e.productItemName.toLowerCase().includes(this.searchItem.toLowerCase())))
   //    })
 
@@ -87,33 +89,34 @@ searchItem: string;
   }
 
   getProductByCatType(id) {
-   
+
   }
 
-//   readWriteOff(): void {
-//     this.WriteOffStockService.getWriteOff().subscribe(res => {
-//       console.log(res)
-//       //this.dataSource = new MatTableDataSource(res)
-//     })
-//    //this.dataSource = new MatTableDataSource<Categorytype>(this.categorytypeService.getAll());
-//  }
+  //   readWriteOff(): void {
+  //     this.WriteOffStockService.getWriteOff().subscribe(res => {
+  //       console.log(res)
+  //       //this.dataSource = new MatTableDataSource(res)
+  //     })
+  //    //this.dataSource = new MatTableDataSource<Categorytype>(this.categorytypeService.getAll());
+  //  }
 
-onClick(){
+  onClick() {
 
-}
+  }
 
-  showProducts(){
-    
+  showProducts() {
+
     this.isHidden = false;
     this.writeOffStockService.getProductByCatType(this.form.value.categoryTypeId).subscribe(res => {
       console.log(res)
-     this.dataSource = new MatTableDataSource(res)
-     setTimeout(() => this.dataSource.paginator = this.paginator);
+      this.dataSource = new MatTableDataSource(res)
+      this.dataSource.sort = this.sort;
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     })
-   ;
+      ;
 
     // this.productItemService.getProductByCatType(this.ProductItems).subscribe((result => {
-      
+
     // }));
   }
 

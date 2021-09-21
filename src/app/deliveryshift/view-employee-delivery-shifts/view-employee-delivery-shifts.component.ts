@@ -9,6 +9,8 @@ import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/gl
 import { DeliveryshiftService } from 'src/app/services/deliveryshift/deliveryshift.service';
 import { HttpClient } from '@angular/common/http';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { direction } from 'html2canvas/dist/types/css/property-descriptors/direction';
 
 @Component({
   selector: 'app-view-employee-delivery-shifts',
@@ -27,7 +29,8 @@ export class ViewEmployeeDeliveryShiftsComponent implements OnInit {
   // DeliveryShift: Deliveryshift;
   deliveryShift: Observable<Deliveryshift[]>;
   dataSource = new MatTableDataSource<Deliveryshift>();
-  displayedColumns: string[] = ['startTime', 'endTime', 'dayOfTheWeek', 'employeeName', 'noOfDeliveries', 'actions'];
+  displayedColumns: string[] = ['employeeName', 'startTime', 'endTime', 'dayOfTheWeek', 'noOfDeliveries', 'actions'];
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private deliveryshiftService: DeliveryshiftService,
     private snack: MatSnackBar,
@@ -49,6 +52,7 @@ export class ViewEmployeeDeliveryShiftsComponent implements OnInit {
     this.deliveryshiftService.GetDeliveryShiftDelivery().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      this.dataSource.sort = this.sort;
       setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }

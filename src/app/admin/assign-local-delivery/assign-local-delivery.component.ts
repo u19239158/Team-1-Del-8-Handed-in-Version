@@ -9,9 +9,12 @@ import { DeliveryAssignedComponent } from 'src/app/modals/globals/delivery-assig
 import { DeliveryshiftService } from 'src/app/services/deliveryshift/deliveryshift.service';
 import { HttpClient } from '@angular/common/http';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
-import {MatPaginator} from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { direction } from 'html2canvas/dist/types/css/property-descriptors/direction';
 
 enum CheckBoxType { ASSIGN_SHIFT, NONE };
+
 
 // import { GlobalErrorComponent } from 'src/app/modals/globals/global-error/global-error.component';
 
@@ -38,7 +41,7 @@ export class AssignLocalDeliveryComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['startTime', 'endTime', 'dayOfTheWeek', 'employeeName', 'noOfDeliveries', 'SelectOrderDeliveryShift'];
   displayedColumn: string[] = ['saleId', 'customerName', 'customerBusinessName', 'deliverydistance', 'orderAddress', 'deliverycourier'];
-
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private deliveryshiftService: DeliveryshiftService,
     private snack: MatSnackBar,
@@ -81,10 +84,11 @@ export class AssignLocalDeliveryComponent implements OnInit {
   }
 
   readDeliveryshifts(): void {
-    
+
     this.deliveryshiftService.GetDeliveryShift().subscribe(res => {
       console.log("resss", res)
       this.dataSource = new MatTableDataSource(res)
+      this.dataSource.sort = this.sort;
       setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }
@@ -114,7 +118,7 @@ export class AssignLocalDeliveryComponent implements OnInit {
     // this.dataSource = new MatTableDataSource (this.DeliveryShifts.filter(e=>e.dayOfTheWeek.includes(this.searchValue)))
     setTimeout(() => this.dataSource.paginator = this.paginator);
     const filter = (e) => {
-    
+
       return e.employeeName && e.employeeName.toLowerCase().includes(this.searchWord.toLowerCase()) ||
         e.startTime && e.startTime.toLowerCase().includes(this.searchWord.toLowerCase()) ||
         e.endTime && e.endTime.toLowerCase().includes(this.searchWord.toLowerCase()) ||

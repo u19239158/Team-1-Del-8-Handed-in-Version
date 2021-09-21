@@ -39,12 +39,12 @@
             <td mat-cell *matCellDef="let element"> {{element.customerBusinessName}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="deliverydistance">
+        <ng-container matColumnDef="deliveryDistance">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Distance </th>
             <td mat-cell *matCellDef="let element"> {{element.deliveryDistance}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="orderAddress">
+        <ng-container matColumnDef="provinceDescription">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
             <td mat-cell *matCellDef="let element">
                 {{element.addressLine1}} <br>
@@ -66,11 +66,9 @@
                 </button>
                 <mat-menu #menu="matMenu" xPosition="after">
                     <button mat-menu-item *ngIf="parseInteger(element.deliveryDistance.slice(0, -2)) <=50"
-                       
                         [routerLink]="parseInteger(element.deliveryDistance.slice(0, -2)) >50? []: ['/assignlocaldelivery', element.saleId]">Assign
                         Delivery</button>
                     <button mat-menu-item *ngIf="parseInteger(element.deliveryDistance.slice(0, -2)) >50"
-                       
                         [routerLink]="parseInteger(element.deliveryDistance.slice(0, -2)) <=50? []: ['/assigncourierdelivery' , element.saleId]">Assign
                         Courier</button>
                 </mat-menu>
@@ -80,8 +78,6 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <mat-paginator [pageSizeOptions]="[5, 8, 15, 35]"
-                 showFirstLastButtons 
-                 aria-label="Select page">
-      </mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 8, 15, 35]" showFirstLastButtons aria-label="Select page">
+    </mat-paginator>
 </div>

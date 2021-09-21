@@ -13,6 +13,8 @@ import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/gl
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { ViewSaleComponent } from './view-sale/view-sale.component';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { direction } from 'html2canvas/dist/types/css/property-descriptors/direction';
 
 @Component({
   selector: 'app-online-sales',
@@ -25,7 +27,7 @@ export class OnlineSalesComponent implements OnInit {
   onlineSales: Observable<OnlineSales[]>;
   dataSource = new MatTableDataSource<OnlineSales>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['saleNumber', 'customer', 'business', 'saleDate', 'orderStatus', 'saleOrderRecieveType', 'actions'];
+  displayedColumns: string[] = ['saleID', 'customerName', 'customerBusinessName', 'saleOrderDate', 'orderStatusDescription', 'saleOrderRecieveType', 'actions'];
   OnlineSales: OnlineSales[];
   searchValue: number;
   searchWord: string;
@@ -34,6 +36,7 @@ export class OnlineSalesComponent implements OnInit {
   id: number;
   public sale: any = [];
   dataNotFound: boolean;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private OnlineSalesService: OnlineSalesService,
     private snack: MatSnackBar,
@@ -60,11 +63,12 @@ export class OnlineSalesComponent implements OnInit {
   }
 
   readOnlineSales(): void {
-   
+
     //this.dataSource = new MatTableDataSource<UserRole[]>(this.UserRoleService.GetUserRole());
     this.OnlineSalesService.ViewAllSales().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      this.dataSource.sort = this.sort;
       setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }
