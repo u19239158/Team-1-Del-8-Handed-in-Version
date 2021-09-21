@@ -23,11 +23,15 @@ export class PopularLocationReportComponent implements OnInit {
   };
   form: FormGroup
   created = false;
-  
+  salegraph : Chart;
   public barChartOptions: ChartOptions = {
     responsive: true,
     // We use these empty structures as placeholders for dynamic theming.
-    scales: { xAxes: [{}], yAxes: [{}] },
+    scales: { xAxes: [{}], yAxes: [{
+      ticks: {
+          beginAtZero: true
+      }
+  }]},
     plugins: {
       datalabels: {
         anchor: 'end',
@@ -40,10 +44,7 @@ export class PopularLocationReportComponent implements OnInit {
   public barChartLegend = true;
   // public barChartPlugins = [pluginDataLabels];
 
-  public barChartData: ChartDataSets[] = [
-    //{ data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-    // { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
-  ];
+
 
   constructor(private serv: ReportServiceService,
     private formBuilder: FormBuilder,) { }
@@ -77,18 +78,30 @@ export class PopularLocationReportComponent implements OnInit {
   }
 
   generateReport() {
+
+      let provinceDescription: any[] =  [];
+      let provincesales: number[] =  [];
+      const counts: any[] =  [];
+  
     this.serv.PopularLocationReport(this.form.value).subscribe(data => {
       this.created = false;
-      this.serv.SalesReportSum(this.form.value).subscribe(res =>{
-        console.log(res)})
-      console.log(data);
-      this.dataSource = new MatTableDataSource(data)
-      this.generateTables(data);
-    });
+      // Restructure data for chart
+       provinceDescription = data.map(x => x.provinceDescription);
+       provincesales = data.map(x => x.provincesales)
 
-    this.serv.SalesReportAvg(this.form.value).subscribe(res =>{
-      console.log(res)})
+      // Generate Chart
+      this.generateChart(provinceDescription, provincesales)
+
+      // Call table data method
+     // this.generateTables(data);
+    });
   }
+
+  public barChartData: ChartDataSets[] = [
+    //{ data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
+    // { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
+    //{ data : [this.tableData.provinceDescription]}
+  ];
 
   generatePdf(): void {
     let Data = document.getElementById('htmlData')!;
@@ -108,10 +121,24 @@ export class PopularLocationReportComponent implements OnInit {
       PDF.save('Popular Location Report.pdf');
     });
   }
-  generateTables(data) {
-    this.tableData = data;
-    this.created = true;
+  // generateTables(data) {
+  //   this.tableData = data;
+  //   this.created = true;
     // this.averages = data.map(avg => avg.AverageQuantityOrdered);
     // this.getGrandAverage();
-  }
+ // }
+
+ generateChart(provinceDescription, provincesales) {
+  console.log(provinceDescription, provincesales);
+  if (this.salegraph) {this.salegraph.destroy(); }
+  this.barChartData = [];
+  this.barChartData.push({
+    data: provincesales,
+    label: 'Sales Per Province'
+  });
+
+  this.barChartLabels = provinceDescription;
+  this.created = true;
+}
+
 }

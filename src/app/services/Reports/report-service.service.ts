@@ -68,7 +68,7 @@ export class ReportServiceService {
   }
 
   PopularLocationReport(ReportParams: ReportParameters): Observable<any> {
-    return this.http.post(`${this.server}Report/MostPopularLocation`, ReportParams).pipe(map(res => res))
+    return this.http.post(`${this.server}Report/MostPopularLocationcount`, ReportParams).pipe(map(res => res))
   }
 
 }
