@@ -41,6 +41,9 @@ namespace NKAP_API_2.Models
         public decimal SpecialPrice
         { get; set; }
 
+        [JsonProperty("productspecialid")]
+        public int ProductSpecialID
+        { get; set; }
 
         [JsonProperty("categorytypedescription")]
         public string CategoryTypeDescription

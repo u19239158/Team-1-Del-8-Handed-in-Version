@@ -21,7 +21,7 @@ namespace NKAP_API_2.Controllers
         public CheckoutController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
 
-      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Customer")]
+        //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Customer")]
         [Route("Checkout")] //route
         [HttpPost]
         //Add Sales
@@ -50,7 +50,7 @@ namespace NKAP_API_2.Controllers
             return Ok();
         }
 
-     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Customer")]
+        //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Customer")]
         [Route("AddSaleLine")] //route
         [HttpPost]
         //Add Sales
@@ -66,7 +66,7 @@ namespace NKAP_API_2.Controllers
             _db.SaveChanges();
 
             var sd = _db.Sales.Find(model.SaleID);
-            sd.SaleOrderDescription +=  model.SaleLineQuantity + "x " + model.ProductItemName + ",";
+            sd.SaleOrderDescription += model.SaleLineQuantity + "x " + model.ProductItemName + ",";
             _db.Sales.Attach(sd); //Attach Record
             _db.SaveChanges();
 
@@ -105,7 +105,7 @@ namespace NKAP_API_2.Controllers
                       ProductItemId = su.ProductItemId,
                       ProductItemCost = su.ProductItemCost,
                       sellingPrice = su.ProductItemCost + (su.ProductItemCost * markup.MarkupPercentage), //VAT Exclusive
-                     // VATInclusive = (su.ProductItemCost + (su.ProductItemCost * markup.MarkupPercentage))  
+                                                                                                          // VATInclusive = (su.ProductItemCost + (su.ProductItemCost * markup.MarkupPercentage))  
                       ProductItemName = su.ProductItemName, //attributes in table
                       CategoryTypeImage = su.CategoryTypeImage,
                       CategoryTypeId = su.CategoryTypeId,
@@ -123,14 +123,14 @@ namespace NKAP_API_2.Controllers
                       sellingPrice = su.sellingPrice, //VAT Exclusive
                       VATInclusive = su.sellingPrice + (su.sellingPrice * VAT.VatPercentage), //VAT Inclusive
                       VATAmount = su.sellingPrice + (su.sellingPrice * VAT.VatPercentage) - su.sellingPrice, //VAT Amount
-                      ProductItemName = su.ProductItemName, 
+                      ProductItemName = su.ProductItemName,
                       CategoryTypeImage = su.CategoryTypeImage,
                       CategoryTypeId = su.CategoryTypeId,
                       CategoryTypeDescription = su.CategoryTypeDescription,
                       ItemDescription = su.ItemDescription,
                       ProductCategoryId = so.ProductCategoryId,
                       ProductCategoryDescription = so.ProductCategoryDescription
-                  }); 
+                  });
 
             return Ok(Stocklevel);
 
@@ -152,38 +152,153 @@ namespace NKAP_API_2.Controllers
             //var spec = _db.ProductSpecials.Where(ss => ss.SpecialId = pd);
             //foreach (var item in pro)
 
-                if (ActiveSpec == null)
-                {
-                    var items = _db.ProductItems.Join(_db.CategoryTypes,
-                   su => su.CategoryTypeId,
-                   so => so.CategoryTypeId,
+            if (ActiveSpec == null)
+            {
+                var items = _db.ProductItems.Join(_db.CategoryTypes,
+               su => su.CategoryTypeId,
+               so => so.CategoryTypeId,
 
-                   (su, so) => new
-                   {
-                       ProductItemId = su.ProductItemId,
-                       ProductItemName = su.ProductItemName, //attributes in table
+               (su, so) => new
+               {
+                   ProductItemId = su.ProductItemId,
+                   ProductItemName = su.ProductItemName, //attributes in table
                        ProductItemCost = su.ProductItemCost,
-                       CategoryTypeId = su.CategoryTypeId,
-                       CategoryTypeDescription = so.CategoryTypeDescription,
-                       ItemDescription = so.ItemDescription,
-                       CategoryTypeImage = so.CategoryTypeImage,
-                       ProductCategoryId = so.ProductCategoryId
-
-            var frontside = new FrontsideModel();
-            frontside.withspecial = productspecial;
-            frontside.withoutspecial = products;
+                   CategoryTypeId = su.CategoryTypeId,
+                   CategoryTypeDescription = so.CategoryTypeDescription,
+                   ItemDescription = so.ItemDescription,
+                   CategoryTypeImage = so.CategoryTypeImage,
+                   ProductCategoryId = so.ProductCategoryId
 
 
+               }).Join(_db.ProductCategories,
+               su => su.ProductCategoryId,
+               so => so.ProductCategoryId,
+                (su, so) => new
+                {
+                    ProductItemId = su.ProductItemId,
+                    ProductItemCost = su.ProductItemCost,
+                        //sellingPrice = su.ProductItemCost + (su.ProductItemCost * markup.MarkupPercentage), //VAT Exclusive
+                        // VATInclusive = (su.ProductItemCost + (su.ProductItemCost * markup.MarkupPercentage))  
+                        ProductItemName = su.ProductItemName, //attributes in table
+                        CategoryTypeImage = su.CategoryTypeImage,
+                    CategoryTypeId = su.CategoryTypeId,
+                    CategoryTypeDescription = su.CategoryTypeDescription,
+                    ItemDescription = su.ItemDescription,
+                    ProductCategoryId = so.ProductCategoryId,
+                    ProductCategoryDescription = so.ProductCategoryDescription
+                }).Join(_db.Prices,
+                  a => a.ProductItemId,
+                  t => t.ProductItemId,
+                  (a, t) => new
+                  {
+                      CategoryTypeId = a.CategoryTypeId,
+                      CategoryTypeDescription = a.CategoryTypeDescription,
+                      ProductItemId = a.ProductItemId,
+                      ItemDescription = a.ItemDescription,
+                      ProductItemName = a.ProductItemName,
+                      ProductItemCost = a.ProductItemCost,
+                          //QuantityOnHand = t.QuantityOnHand,
+                          PriceDescription = t.PriceDescription,
+                      ProductCategoryId = a.ProductCategoryId,
+                      CategoryTypeImage = a.CategoryTypeImage,
+                  }).Join(_db.ProductCategories,
+               su => su.ProductCategoryId,
+               so => so.ProductCategoryId,
+                (su, so) => new
+                {
+                    ProductItemId = su.ProductItemId,
+                    ProductItemCost = su.ProductItemCost,
+                    PriceDescription = su.PriceDescription, //VAT Exclusive
+                        VATInclusive = su.PriceDescription + (su.PriceDescription * VAT.VatPercentage), //VAT Inclusive
+                        VATAmount = su.PriceDescription + (su.PriceDescription * VAT.VatPercentage) - su.PriceDescription, //VAT Amount
+                        ProductItemName = su.ProductItemName,
+                    CategoryTypeImage = su.CategoryTypeImage,
+                    CategoryTypeId = su.CategoryTypeId,
+                    CategoryTypeDescription = su.CategoryTypeDescription,
+                    ItemDescription = su.ItemDescription,
+                    ProductCategoryId = so.ProductCategoryId,
+                    ProductCategoryDescription = so.ProductCategoryDescription,
+                });
 
-            return Ok(frontside);
+                return Ok(items);
+            }
+            else
+            {
+
+                var items = _db.ProductItems.Join(_db.CategoryTypes,
+                              su => su.CategoryTypeId,
+                              so => so.CategoryTypeId,
+
+                              (su, so) => new
+                              {
+                                  ProductItemId = su.ProductItemId,
+                                  ProductItemName = su.ProductItemName, //attributes in table
+                                      ProductItemCost = su.ProductItemCost,
+                                  CategoryTypeId = su.CategoryTypeId,
+                                  CategoryTypeDescription = so.CategoryTypeDescription,
+                                  ItemDescription = so.ItemDescription,
+                                  CategoryTypeImage = so.CategoryTypeImage,
+                                  ProductCategoryId = so.ProductCategoryId
 
 
+                              }).Join(_db.ProductCategories,
+                              su => su.ProductCategoryId,
+                              so => so.ProductCategoryId,
+                               (su, so) => new
+                               {
+                                   ProductItemId = su.ProductItemId,
+                                   ProductItemCost = su.ProductItemCost,
+                                       //sellingPrice = su.ProductItemCost + (su.ProductItemCost * markup.MarkupPercentage), //VAT Exclusive
+                                       // VATInclusive = (su.ProductItemCost + (su.ProductItemCost * markup.MarkupPercentage))  
+                                       ProductItemName = su.ProductItemName, //attributes in table
+                                       CategoryTypeImage = su.CategoryTypeImage,
+                                   CategoryTypeId = su.CategoryTypeId,
+                                   CategoryTypeDescription = su.CategoryTypeDescription,
+                                   ItemDescription = su.ItemDescription,
+                                   ProductCategoryId = so.ProductCategoryId,
+                                   ProductCategoryDescription = so.ProductCategoryDescription
+                               }).Join(_db.ProductSpecials,
+                                 a => a.ProductItemId,
+                                 t => t.ProductItemId,
+                                 (a, t) => new
+                                 {
+                                     CategoryTypeId = a.CategoryTypeId,
+                                     CategoryTypeDescription = a.CategoryTypeDescription,
+                                     ProductItemId = a.ProductItemId,
+                                     ItemDescription = a.ItemDescription,
+                                     ProductItemName = a.ProductItemName,
+                                     ProductItemCost = a.ProductItemCost,
+                                         //QuantityOnHand = t.QuantityOnHand,
+                                         PriceDescription = t.SpecialPrice,
+                                     ProductCategoryId = a.ProductCategoryId,
+                                     CategoryTypeImage = a.CategoryTypeImage,
+                                 }).Join(_db.ProductCategories,
+                              su => su.ProductCategoryId,
+                              so => so.ProductCategoryId,
+                               (su, so) => new
+                               {
+                                   ProductItemId = su.ProductItemId,
+                                   ProductItemCost = su.ProductItemCost,
+                                   PriceDescription = su.PriceDescription, //VAT Exclusive
+                                       VATInclusive = su.PriceDescription + (su.PriceDescription * VAT.VatPercentage), //VAT Inclusive
+                                       VATAmount = su.PriceDescription + (su.PriceDescription * VAT.VatPercentage) - su.PriceDescription, //VAT Amount
+                                       ProductItemName = su.ProductItemName,
+                                   CategoryTypeImage = su.CategoryTypeImage,
+                                   CategoryTypeId = su.CategoryTypeId,
+                                   CategoryTypeDescription = su.CategoryTypeDescription,
+                                   ItemDescription = su.ItemDescription,
+                                   ProductCategoryId = so.ProductCategoryId,
+                                   ProductCategoryDescription = so.ProductCategoryDescription,
+                               });
+                return Ok(items);
+            }
+            //return Ok(ActiveSpec);
         }
 
         [Route("getProductWPrices")] //route
         [HttpGet]
         //get Sales by Date (Read)
-        public IActionResult getProductWPrice()
+        public IActionResult getProductWPrices()
         {
 
             var markup = _db.Markups.FirstOrDefault(zz => zz.MarkupId == 3);
@@ -202,6 +317,7 @@ namespace NKAP_API_2.Controllers
                     // PriceDescription = zz.ProductItem.pr
                 }).
                 ToList();
+
             //var products = _db.ProductSpecials.Include(zz => zz.Special).Include(zz => zz.ProductItem).ThenInclude(zz => zz.CategoryType).Include(zz => zz.ProductItem.Prices)
             // .Where(ss => ss.Special.SpecialStartDate > System.DateTime.Now || ss.Special.SpecialEndDate < System.DateTime.Now).Select(zz => new ProductItemModel
             var products = _db.ProductSpecials.Include(zz => zz.Special).Include(zz => zz.ProductItem).ThenInclude(zz => zz.CategoryType).Include(zz => zz.ProductItem.Prices)
@@ -215,131 +331,10 @@ namespace NKAP_API_2.Controllers
                      PriceDescription = zz.ProductItem.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault()
                  }).
                  ToList();
-                   }).Join(_db.ProductCategories,
-                   su => su.ProductCategoryId,
-                   so => so.ProductCategoryId,
-                    (su, so) => new
-                    {
-                        ProductItemId = su.ProductItemId,
-                        ProductItemCost = su.ProductItemCost,
-                        //sellingPrice = su.ProductItemCost + (su.ProductItemCost * markup.MarkupPercentage), //VAT Exclusive
-                        // VATInclusive = (su.ProductItemCost + (su.ProductItemCost * markup.MarkupPercentage))  
-                        ProductItemName = su.ProductItemName, //attributes in table
-                        CategoryTypeImage = su.CategoryTypeImage,
-                        CategoryTypeId = su.CategoryTypeId,
-                        CategoryTypeDescription = su.CategoryTypeDescription,
-                        ItemDescription = su.ItemDescription,
-                        ProductCategoryId = so.ProductCategoryId,
-                        ProductCategoryDescription = so.ProductCategoryDescription
-                    }).Join(_db.Prices,
-                      a => a.ProductItemId,
-                      t => t.ProductItemId,
-                      (a, t) => new
-                      {
-                          CategoryTypeId = a.CategoryTypeId,
-                          CategoryTypeDescription = a.CategoryTypeDescription,
-                          ProductItemId = a.ProductItemId,
-                          ItemDescription = a.ItemDescription,
-                          ProductItemName = a.ProductItemName,
-                          ProductItemCost = a.ProductItemCost,
-                          //QuantityOnHand = t.QuantityOnHand,
-                          PriceDescription = t.PriceDescription,
-                          ProductCategoryId = a.ProductCategoryId,
-                          CategoryTypeImage = a.CategoryTypeImage,
-                      }).Join(_db.ProductCategories,
-                   su => su.ProductCategoryId,
-                   so => so.ProductCategoryId,
-                    (su, so) => new
-                    {
-                        ProductItemId = su.ProductItemId,
-                        ProductItemCost = su.ProductItemCost,
-                        PriceDescription = su.PriceDescription, //VAT Exclusive
-                        VATInclusive = su.PriceDescription + (su.PriceDescription * VAT.VatPercentage), //VAT Inclusive
-                        VATAmount = su.PriceDescription + (su.PriceDescription * VAT.VatPercentage) - su.PriceDescription, //VAT Amount
-                        ProductItemName = su.ProductItemName,
-                        CategoryTypeImage = su.CategoryTypeImage,
-                        CategoryTypeId = su.CategoryTypeId,
-                        CategoryTypeDescription = su.CategoryTypeDescription,
-                        ItemDescription = su.ItemDescription,
-                        ProductCategoryId = so.ProductCategoryId,
-                        ProductCategoryDescription = so.ProductCategoryDescription,
-                    });
 
-                    return Ok(items);
-                }
-                else
-                {
-
-                    var items = _db.ProductItems.Join(_db.CategoryTypes,
-                                  su => su.CategoryTypeId,
-                                  so => so.CategoryTypeId,
-
-                                  (su, so) => new
-                                  {
-                                      ProductItemId = su.ProductItemId,
-                                      ProductItemName = su.ProductItemName, //attributes in table
-                                      ProductItemCost = su.ProductItemCost,
-                                      CategoryTypeId = su.CategoryTypeId,
-                                      CategoryTypeDescription = so.CategoryTypeDescription,
-                                      ItemDescription = so.ItemDescription,
-                                      CategoryTypeImage = so.CategoryTypeImage,
-                                      ProductCategoryId = so.ProductCategoryId
             var frontside = new FrontsideModel();
             frontside.withspecial = productspecial;
             frontside.withoutspecial = products;
-
-
-                                  }).Join(_db.ProductCategories,
-                                  su => su.ProductCategoryId,
-                                  so => so.ProductCategoryId,
-                                   (su, so) => new
-                                   {
-                                       ProductItemId = su.ProductItemId,
-                                       ProductItemCost = su.ProductItemCost,
-                                       //sellingPrice = su.ProductItemCost + (su.ProductItemCost * markup.MarkupPercentage), //VAT Exclusive
-                                       // VATInclusive = (su.ProductItemCost + (su.ProductItemCost * markup.MarkupPercentage))  
-                                       ProductItemName = su.ProductItemName, //attributes in table
-                                       CategoryTypeImage = su.CategoryTypeImage,
-                                       CategoryTypeId = su.CategoryTypeId,
-                                       CategoryTypeDescription = su.CategoryTypeDescription,
-                                       ItemDescription = su.ItemDescription,
-                                       ProductCategoryId = so.ProductCategoryId,
-                                       ProductCategoryDescription = so.ProductCategoryDescription
-                                   }).Join(_db.ProductSpecials,
-                                     a => a.ProductItemId,
-                                     t => t.ProductItemId,
-                                     (a, t) => new
-                                     {
-                                         CategoryTypeId = a.CategoryTypeId,
-                                         CategoryTypeDescription = a.CategoryTypeDescription,
-                                         ProductItemId = a.ProductItemId,
-                                         ItemDescription = a.ItemDescription,
-                                         ProductItemName = a.ProductItemName,
-                                         ProductItemCost = a.ProductItemCost,
-                                         //QuantityOnHand = t.QuantityOnHand,
-                                         PriceDescription = t.SpecialPrice,
-                                         ProductCategoryId = a.ProductCategoryId,
-                                         CategoryTypeImage = a.CategoryTypeImage,
-                                     }).Join(_db.ProductCategories,
-                                  su => su.ProductCategoryId,
-                                  so => so.ProductCategoryId,
-                                   (su, so) => new
-                                   {
-                                       ProductItemId = su.ProductItemId,
-                                       ProductItemCost = su.ProductItemCost,
-                                       PriceDescription = su.PriceDescription, //VAT Exclusive
-                                       VATInclusive = su.PriceDescription + (su.PriceDescription * VAT.VatPercentage), //VAT Inclusive
-                                       VATAmount = su.PriceDescription + (su.PriceDescription * VAT.VatPercentage) - su.PriceDescription, //VAT Amount
-                                       ProductItemName = su.ProductItemName,
-                                       CategoryTypeImage = su.CategoryTypeImage,
-                                       CategoryTypeId = su.CategoryTypeId,
-                                       CategoryTypeDescription = su.CategoryTypeDescription,
-                                       ItemDescription = su.ItemDescription,
-                                       ProductCategoryId = so.ProductCategoryId,
-                                       ProductCategoryDescription = so.ProductCategoryDescription,
-                                   });
-                    return Ok(items);
-                }
 
             //return Ok(ActiveSpec);
             return Ok(frontside);

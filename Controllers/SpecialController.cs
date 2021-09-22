@@ -129,7 +129,7 @@ namespace NKAP_API_2.Controllers
         //get Specials by ID (Read)
         public IActionResult get(int speciaid)
         {
-           // var special = _db.Specials.Find(speciaid);
+            // var special = _db.Specials.Find(speciaid);
             var special = _db.Specials.Join(_db.ProductSpecials,
                a => a.SpecialId,
                t => t.SpecialId,
@@ -220,39 +220,31 @@ namespace NKAP_API_2.Controllers
         public IActionResult CreateSpecials(SpecialModel model) //reference the model
         {
             string resp;
-            var urmom = _db.ProductSpecials.FirstOrDefault(ss => ss.ProductItemId == model.ProductItemId);
+            var special1 = _db.ProductSpecials.FirstOrDefault(ss => ss.ProductItemId == model.ProductItemId);
 
-            if (urmom.ProductItemId == null)
+
+            Special special = new Special();
             {
-                Special special = new Special();
-                {
-                    special.SpecialDescription = model.SpecialDescription;
-                    special.SpecialStartDate = model.SpecialStartDate;
-                    special.SpecialEndDate = model.SpecialEndDate;
-                }
-
-                _db.Specials.Add(special);
-                _db.SaveChanges();
-
-                var discount = _db.Discounts.FirstOrDefault(zz => zz.DiscountId == model.DiscountId);
-                ProductSpecial PSpecial = new ProductSpecial();
-                {
-                    PSpecial.ProductItemId = model.ProductItemId;
-                    PSpecial.SpecialId = special.SpecialId;
-                    PSpecial.SpecialPrice = model.ProductItemCost - (model.ProductItemCost * discount.DiscountPercentage);
-                }
-
-                _db.ProductSpecials.Add(PSpecial);
-                _db.SaveChanges();
-
-                return Ok();
+                special.SpecialDescription = model.SpecialDescription;
+                special.SpecialStartDate = model.SpecialStartDate;
+                special.SpecialEndDate = model.SpecialEndDate;
             }
-            else
+
+            _db.Specials.Add(special);
+            _db.SaveChanges();
+
+            var discount = _db.Discounts.FirstOrDefault(zz => zz.DiscountId == model.DiscountId);
+            ProductSpecial PSpecial = new ProductSpecial();
             {
-                resp = "Product item is already on special ";
-                return BadRequest(resp);
-
+                PSpecial.ProductItemId = model.ProductItemId;
+                PSpecial.SpecialId = special.SpecialId;
+                PSpecial.SpecialPrice = model.ProductItemCost - (model.ProductItemCost * discount.DiscountPercentage);
             }
+
+            _db.ProductSpecials.Add(PSpecial);
+            _db.SaveChanges();
+
+            return Ok();
 
             //var user = _db.Users.Find(model.UsersID);
             //AuditTrail audit = new AuditTrail();
@@ -262,8 +254,13 @@ namespace NKAP_API_2.Controllers
             //audit.UsersId = user.UsersId;
             //_db.AuditTrails.Add(audit);
             //_db.SaveChanges();
-
         }
+
+
+
+
+
+
 
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("UpdateSpecials")] //route
@@ -310,7 +307,7 @@ namespace NKAP_API_2.Controllers
         [Route("DeleteSpecials/{specialid}")] //route
         [HttpDelete]
         //Delete Specialss
-        public IActionResult DeleteSpecials(int specialid)
+        public IActionResult DeleteSpecials( int specialid)
         {
             var spec = _db.ProductSpecials.FirstOrDefault(zz => zz.SpecialId == specialid);
             
