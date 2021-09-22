@@ -254,7 +254,15 @@ namespace NKAP_API_2.Controllers
 
             }
 
-          
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " Created a special";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
+
         }
 
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
@@ -287,6 +295,15 @@ namespace NKAP_API_2.Controllers
             _db.SaveChanges();
 
             return Ok(special);
+
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " Updated a special";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
         }
 
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
@@ -311,6 +328,15 @@ namespace NKAP_API_2.Controllers
             
 
             return Ok(special);
+
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " Deleted a special";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
         }
     }
 }

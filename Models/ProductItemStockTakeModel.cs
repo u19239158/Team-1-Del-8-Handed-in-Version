@@ -29,5 +29,9 @@ namespace NKAP_API_2.Models
         public DateTime StockTakeDate
         { get; set; }
 
+        [JsonProperty("usersid")]
+        public int UsersID
+        { get; set; }
+
     }
 }

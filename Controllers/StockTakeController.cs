@@ -92,6 +92,15 @@ namespace NKAP_API_2.Controllers
             _db.SaveChanges();
 
             return Ok();
+
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " Performed a stock take";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
         }
 
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]

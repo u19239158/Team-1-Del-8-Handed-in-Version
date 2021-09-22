@@ -70,6 +70,15 @@ namespace NKAP_API_2.Controllers
             _db.SaveChanges();
 
             return Ok(supplier);
+
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " Added a new Supplier to the system";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
         }
 
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
@@ -92,6 +101,15 @@ namespace NKAP_API_2.Controllers
             _db.SaveChanges();
 
             return Ok(supplier);
+
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " Added a new Supplier to the system";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
         }
 
         string response;
@@ -123,8 +141,16 @@ namespace NKAP_API_2.Controllers
                 return Ok(supplier);
 
                 }
-            
-           
+
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " Deleted a new Supplier to the system";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
+
             //try
             //{
             //    var supplier = _db.Suppliers.Find(supplierid);
@@ -137,8 +163,8 @@ namespace NKAP_API_2.Controllers
             //    response = "Supplier could not be deleted as there is an active supplier order";
             //    return BadRequest(response);
             //    throw;
-           // }
-           
+            // }
+
         }
 
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]

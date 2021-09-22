@@ -621,20 +621,21 @@ namespace NKAP_API_2.Controllers
 
                 }).AsEnumerable().GroupBy(zz => zz.ProvinceID);
 
-            foreach (var item in PopularLocation)
-            {
-                var saleid = item.Select(ss => ss.SaleId);
-                var count = saleid.Count();
-                // var count = PopularLocation.Count();
-                return Ok(count);    
-                
-            }
+            int itemcount;
+            //List
 
+            foreach (var items in PopularLocation)
+            {
+                 itemcount = items.Count();
+                var itemId = items.Key;
+              
+             
+
+            }
+            //var something = PopularLocation.ToArray();
             //for (int i = 0; i < PopularLocation; i++)
             //{
-            //    dynamic province = new ExpandoObject();
-            //    province = PopularLocation;
-            //    return Ok(province);
+
             //}
             //.Join(_db.Cities,
             //a => a.ProvinceID,
@@ -648,8 +649,13 @@ namespace NKAP_API_2.Controllers
             //    CityDescription = t.CityDescription
 
             //}).Where(zz => zz.ProvinceID == 3).Count();
-
-            return Ok(PopularLocation);
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    dynamic province = new ExpandoObject();
+            //    province = PopularLocation;
+            //    return Ok(province);
+            //}
+            return Ok();
 
         }
     }
