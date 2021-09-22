@@ -8,6 +8,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 
 export class LogoutComponent implements OnInit {
+  router: any;
   focus(): void {
     throw new Error('Method not implemented.');
   }
@@ -21,12 +22,12 @@ export class LogoutComponent implements OnInit {
   }
 
   Confirm(): void {
-    window.localStorage.removeItem("user"); 
+    window.localStorage.removeItem("user");
     this.dialogRef.close(true);
   }
 
-  Cancel(): void {
-    this.dialogRef.close();
-  }
+  // onNoClick(): void {
+  //   this.dialogRef.close();
+  // }
 
 }

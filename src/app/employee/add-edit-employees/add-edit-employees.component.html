@@ -129,9 +129,9 @@
             <div class="mat-col-quarter">
                 <mat-form-field appearance="outline" class="control-m">
                     <mat-label>Password</mat-label>
-                    <input type="text" matInput placeholder="Password" formControlName="userPassword">
+                    <input type="password" matInput placeholder="Password" formControlName="userPassword">
                     <mat-hint>Enter employee password</mat-hint>
-                    <mat-error *ngIf="form.controls['userPassword'].invalid">Please enter the Employee's Password
+                    <mat-error *ngIf="form.controls['userPassword'].invalid">Password has to be 6 characters long
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -140,7 +140,7 @@
             <div class="mat-col-quarter">
                 <mat-form-field appearance="outline" class="control-m">
                     <mat-label>Confirm Password</mat-label>
-                    <input type="text" matInput placeholder="Confirm Password"
+                    <input type="password" matInput placeholder="Confirm Password"
                         formControlName="employeeConfirmPassword">
                     <mat-hint>Confirm employee password</mat-hint>
                     <mat-error *ngIf="form.controls['employeeConfirmPassword'].invalid">Please confirm the Employee's

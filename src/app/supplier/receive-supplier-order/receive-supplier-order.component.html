@@ -1,49 +1,55 @@
-<div class="content">
-<div>
-  <h2>Capture Supplier Order</h2>
+<div class="main">
+  <div>
+    <h2>Receive Supplier Order</h2>
 
     <div class="search">
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search "/>
-            <div class="input-group-append">
-              <button
-                class="btn btn-outline-secondary"
-                type="button">
-                Search
+      <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+        <li>
+          <div class="field has-addons">
+            <div class="control">
+              <input type="text" [(ngModel)]="searchValue" class="input" id="search" placeholder="Type here...">
+            </div>
+            <div class="control">
+              <a class="button is-info" (click)="filter()">
                 <span class="fas fa-search search-icon"></span>
-              </button>
+              </a>
+            </div>
           </div>
-          </div>
-        </div>
-</div>
+        </li>
+      </ul>
+    </div>
 
-<div>
-  <table mat-table [dataSource]="dataSource" matSort>
-    <!-- Supplier Column -->
-    <ng-container matColumnDef="supplierName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Supplier </th>
-      <td mat-cell *matCellDef="let element"> {{element.supplierName}} </td>
-  </ng-container>
+    <app-global-error *ngIf="dataNotFound"></app-global-error>
 
-    <!-- Order Status -->
-      <ng-container matColumnDef="order_Status">
+    <br>
+    <br>
+    <div>
+      <table mat-table [dataSource]="dataSource" *ngIf="!dataNotFound" matSort>
+        <!-- Supplier Column -->
+        <ng-container matColumnDef="supplierName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Supplier </th>
+          <td mat-cell *matCellDef="let element"> {{element.supplierName}} </td>
+        </ng-container>
+
+        <!-- Order Status -->
+        <ng-container matColumnDef="supplierOrderStatusDesc">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Order Status </th>
           <td mat-cell *matCellDef="let element"> {{element.supplierOrderStatusDesc}} </td>
-      </ng-container>
+        </ng-container>
 
-      <!-- Supplier Order Total -->
-      <ng-container matColumnDef="supplierOrderTotal">
+        <!-- Supplier Order Total -->
+        <ng-container matColumnDef="supplierOrderTotal">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Order Total </th>
           <td mat-cell *matCellDef="let element"> R{{element.supplierOrderTotal}} </td>
-      </ng-container>
+        </ng-container>
 
-      <!-- Product Item -->
-      <ng-container matColumnDef="viewOrder">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> View Order </th>
-          <td mat-cell *matCellDef="let element"> 
-          <button mat-raised-button color ="primary" (click)="viewOrder()">View Order</button>
+        <!-- Product Item -->
+        <ng-container matColumnDef="viewOrder">
+          <th mat-header-cell *matHeaderCellDef> View Order </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-raised-button color="primary" (click)="viewOrder()">View Order</button>
           </td>
-      </ng-container>
+        </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

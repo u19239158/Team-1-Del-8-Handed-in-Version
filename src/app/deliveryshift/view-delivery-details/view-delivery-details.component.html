@@ -1,104 +1,70 @@
-<!-- <div class="content"> -->
+<div class="main">
+    <div>
+        <h2>View Delivery Details</h2>
 
-<!-- <h1 align="center">View Delivery Details</h1> -->
-
-<!-- <div class="content1"> -->
-<!-- <mat-card> -->
-<!-- <mat-card-content> -->
-<!-- <div>
-            <div>
-                <label for="saleID">Sale_ID: </label>
-                <span> &nbsp;{{sale.saleID}}</span>
-            </div>
-        </div> -->
-<!-- </mat-card-content> -->
-
-<!-- <div class="mat-row">
-            <div class="mat-col-quarter">
-                <p><label for="customerName">Customer Name:
-                    </label>
-                    <span> &nbsp;{{sale.customerName}} &nbsp; {{sale.customerSurname}}</span>
-            </div>
+        <div class="search">
+            <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+                <li>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input type="text" [(ngModel)]="searchWord" class="input" id="search"
+                                placeholder="Type here...">
+                        </div>
+                        <div class="control">
+                            <a class="button is-info" (click)="filter()">
+                                <span class="fas fa-search search-icon"></span>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
 
-        <div class="mat-row">
-            <div class="mat-col-quarter">
-                <p><label for="customerBusinessName">Business Name:
-                    </label>
-                    <span> &nbsp;{{sale.customerBusinessName}}</span>
-            </div>
+        <app-global-error *ngIf="dataNotFound"></app-global-error>
+
+        <br>
+        <br>
+
+        <div class="mat-elevation-z8 table">
+            <table mat-table [dataSource]="dataSource" matSort *ngIf="!dataNotFound">
+
+                <ng-container matColumnDef="saleID">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Sale Number</th>
+                    <td mat-cell *matCellDef="let element">{{element.saleID}} </td>
+                </ng-container>
+
+                <!-- Customer Name Column -->
+                <ng-container matColumnDef="customerName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer</th>
+                    <td mat-cell *matCellDef="let element">{{element.customerName}} </td>
+                </ng-container>
+
+                <!-- Customer Business Name Column -->
+                <ng-container matColumnDef="customerBusinessName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Business Name</th>
+                    <td mat-cell *matCellDef="let element"> {{element.customerBusinessName}} </td>
+                </ng-container>
+
+                <!-- Customer Contact Number Column -->
+                <ng-container matColumnDef="customerCellphoneNumber">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer Contact Number</th>
+                    <td mat-cell *matCellDef="let element"> {{element.customerCellphoneNumber}} </td>
+                </ng-container>
+
+                <!-- Address Column -->
+                <ng-container matColumnDef="addressPostalCode">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.addressLine1}} <br>
+                        {{element.addressLine2}} <br>
+                        {{element.addressLine3}} <br>
+                        {{element.addressPostalCode}}
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
         </div>
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
-                <p><label for="customerCellphoneNumber">Customer Number</label>
-                    <span> &nbsp;{{sale.customerCellphoneNumber}}</span>
-            </div>
-        </div>
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
-                <p><label for="addressLine1"> Address:
-                    </label>
-
-                    <span> &nbsp;{{sale.addressLine1}} &nbsp;{{sale.addressLine2}} &nbsp;{{sale.addressLine3}}</span>
-            </div>
-        </div>
-
-        <div class="mat-row">
-            <div class="mat-col-quarter">
-                <p><label for="addressPostalCode"> Postal Code:
-                    </label>
-
-                    <span> &nbsp;{{sale.addressPostalCode}}</span>
-            </div>
-        </div> -->
-
-
-<!-- <div class="mat-row">
-            <div class="mat-col-quarter">
-                <div class="form-group" class="control-m">
-                    <button mat-raised-button [routerLink]="['/viewEmployeeDeliveryShifts']"><a
-                            mat-button>Back</a></button>
-                </div>
-            </div>
-        </div> -->
-<!-- </mat-card> -->
-<!-- </div> -->
-
-<mat-card class="example-card">
-    <h1 mat-dialog-title mat-card-header class="title">
-        View Delivery Details
-    </h1>
-
-    <mat-dialog-content mat-card-content>
-        <mat-grid-list [cols]="breakpoint" rowHeight="45px" (window:resize)="onResize($event)">
-            <mat-grid-tile class="label" for="saleID">SALE NUMBER:</mat-grid-tile>
-            <mat-grid-tile class="info">{{dshift.saleID}}</mat-grid-tile>
-
-            <mat-grid-tile class="label" for="customerName">CUSTOMER:</mat-grid-tile>
-            <mat-grid-tile class="info">{{dshift.customerName}}  {{dshift.customerSurname}}</mat-grid-tile>
-
-            <mat-grid-tile class="label" for="customerBusinessName">BUSINESS NAME:</mat-grid-tile>
-            <mat-grid-tile class="info">{{dshift.customerBusinessName}}</mat-grid-tile>
-
-            <mat-grid-tile class="label" for="customerCellphoneNumber">CUSTOMER CONTACT NUMBER: </mat-grid-tile>
-            <mat-grid-tile class="info">{{dshift.customerCellphoneNumber}}</mat-grid-tile>
-
-            <mat-grid-tile class="label" for="address">ADDRESS:</mat-grid-tile>
-            <mat-grid-tile class="info">{{dshift.addressLine1}} &nbsp;{{dshift.addressLine2}} &nbsp;{{dshift.addressLine3}}
-            </mat-grid-tile>
-
-            <mat-grid-tile class="label" for="addressPostalCode">POSTAL CODE:</mat-grid-tile>
-            <mat-grid-tile class="info">{{dshift.addressPostalCode}}</mat-grid-tile>
-
-        </mat-grid-list>
-
-
-    </mat-dialog-content>
-    <mat-dialog-actions mat-card-actions class="actionbuttons">
 
         <button mat-raised-button [routerLink]="['/viewEmployeeDeliveryShifts']"><a mat-button>Back</a></button>
-
-    </mat-dialog-actions>
-</mat-card>

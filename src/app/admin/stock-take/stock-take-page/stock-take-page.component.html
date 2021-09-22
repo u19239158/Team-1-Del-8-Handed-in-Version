@@ -1,31 +1,31 @@
 <div class="content">
 
-    <h2 >Stock Take</h2>
+  <h2>Stock Take</h2>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
     <div class="mat-row">
       <div class="mat-col-quarter">
-          <mat-form-field appearance="outline" class="control-m">
-              <mat-label>Quantity</mat-label>
-              <input type="number" matInput placeholder="Quantity" formControlName="stockTakeQuantity">
-              <mat-hint>Enter Stock Take quantity</mat-hint>
-               <mat-error *ngIf="form.controls['stockTakeQuantity'].invalid">Please provide Stock Take Quantity</mat-error>
-          </mat-form-field>
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Quantity</mat-label>
+          <input type="number" min="1" matInput placeholder="Quantity" formControlName="stockTakeQuantity">
+          <mat-hint>Enter Stock Take quantity</mat-hint>
+          <mat-error *ngIf="form.controls['stockTakeQuantity'].invalid">Please provide Stock Take Quantity</mat-error>
+        </mat-form-field>
       </div>
     </div>
 
     <div class="mat-row">
       <div class="mat-col-quarter">
-      <div class="form-group" class="control-m">
-        <button mat-raised-button color ="primary" [disabled]="loading">
+        <div class="form-group" class="control-m">
+          <button mat-raised-button color="primary" [disabled]="loading">
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
             Save
-        </button>
-        <a (click)="Close()" mat-button>Cancel</a>
+          </button>
+          <a (click)="Close()" mat-button>Cancel</a>
+        </div>
       </div>
-    </div>
     </div>
 
   </form>
-  </div>
+</div>
