@@ -1,73 +1,62 @@
-.disable {
-  background-color: rgba(0,0,0,.12);
-  box-shadow: 0 0 0 0 rgb(0 0 0 / 20%), 0 0 0 0 rgb(0 0 0 / 14%), 0 0 0 0 rgb(0 0 0 / 12%);
-}
-
-
-.example-header-image {
-//background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-background-size: cover;
-// text-align: center;
-}
-.contentx,.content1 {
-  // align-content: center;
-  flex: 50%;
-  width: 50%;
-  float: left;
-  padding: 10px;
-  margin: 0;
-  //position: absolute;
-  top: 15%;
-  right: 25%;
-  width: 50%;
-}
-
-.content {
-  flex: 50%;
-  width: 50%;
-  float: center;
-  padding: 10px;
-  
-}
-
-.title {
+h2 {
   text-align: center;
-  font-weight: 5px;
-  font-size: 35px;
+  font-weight: 40;
+  font-size: 45px;
 }
+  .content {
+  margin: 0;
+  position:inherit;
+  top: 25%;
+  left: 25%;
+  }
 
-.content1 {
-  text-align : left;
-}
-
-
-label{
-  text-align: end;
-  font-weight: bold;
-  font-size: 16px;
-  left:20px;
-}
-
-.info{
+  mat-icon {
+    color: black;
+  }
   
-  font-size: 15px;
-  text-align: start;
-}
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    // margin-left: auto;
+    // margin-right: auto;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even){background-color: #f2f2f2}
 
-span{
-  right:20px;
-}
+  th {
+    // background-color: #2326caa6;
+    background-color: #3273DC;
+    color: black;
+    font-weight: 40;
+    font-size: 20px;
+  }
 
-.mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
-  background-color: #3f51b5;
-  left: 40%;
-}
+  #addBtn {
+      margin-top: 30px;
+      margin-left: auto;
+      display: inline-block;
+  }
+  button {
+      float: right;
+  }
 
-.mat-button, .mat-icon-button, .mat-stroked-button {
-  color: inherit;
-  background: #F9F9F9 ;
-  left: 40%;
-  border-color: black;
-}
+  .more-button {
+      text-align: center;
+  }
 
+  .example-container {
 
+      margin-left: 100px;
+      margin-right: 100px;
+  }
+
+  .search {
+    position: absolute;
+    right: 20px;
+    top: 75px;
+  }
