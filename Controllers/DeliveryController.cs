@@ -365,6 +365,17 @@ namespace NKAP_API_2.Controllers
             var dd = _db.EmployeeShifts.Find(model.EmployeeShiftId);
             dd.DeliveryId = model.DeliveryId;
             _db.EmployeeShifts.Attach(dd);
+
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + "assigned a Delivery";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
+
             return Ok(dd);
         }
 
@@ -379,6 +390,17 @@ namespace NKAP_API_2.Controllers
             sd.SaleOrderAssign = true;
             _db.Sales.Attach(sd); //Attach Record
             _db.SaveChanges();
+
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + "assigned a Courier";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
+
             return Ok(sd);
         }
 

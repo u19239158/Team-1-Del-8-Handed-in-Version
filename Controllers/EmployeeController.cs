@@ -93,7 +93,17 @@ namespace NKAP_API_2.Controllers
                 _db.SaveChanges();
 
             }
-           
+
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + "created an Employee";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
+
 
             return Ok(employee);
         }
@@ -143,6 +153,16 @@ namespace NKAP_API_2.Controllers
             _db.Employees.Attach(employee); //Attach Record
             _db.SaveChanges();
 
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + "updated an Employee";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
+
             return Ok(employee);
         }
 
@@ -166,7 +186,16 @@ namespace NKAP_API_2.Controllers
                 return BadRequest(response);
                 throw;
             }
-          
+
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + "deleted an Employee";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
         }
     }
 }

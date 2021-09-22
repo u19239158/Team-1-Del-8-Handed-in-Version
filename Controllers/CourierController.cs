@@ -106,6 +106,16 @@ namespace NKAP_API_2.Controllers
             _db.Couriers.Add(courier);
             _db.SaveChanges();
 
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + "created a Courier";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
+
             return Ok(courier);
         }
 
@@ -122,6 +132,16 @@ namespace NKAP_API_2.Controllers
             courier.CourierTypeId = model.CourierTypeID;
             _db.Couriers.Attach(courier); //Attach Record
             _db.SaveChanges();
+
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + "updated a Courier";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
 
             return Ok(courier);
         }
@@ -145,7 +165,17 @@ namespace NKAP_API_2.Controllers
                 return BadRequest(response);
                 throw;
             }
-           
+
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + "deleted a Courier";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
+
         }
 
     }
