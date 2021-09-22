@@ -1,7 +1,14 @@
+import { Productcategory, Categorytype } from 'src/app/interfaces';
 import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
-//import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
+import { ReportServiceService } from '../services/Reports/report-service.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpErrorResponse } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -10,10 +17,18 @@ import { Label } from 'ng2-charts';
 })
 export class DashboardComponent implements OnInit {
   //Barchart
+  created = false;
+  Productcategory: Productcategory = {} as Productcategory;
+  salegraph : Chart;
+  pie : Chart;
   public barChartOptions: ChartOptions = {
     responsive: true,
     // We use these empty structures as placeholders for dynamic theming.
-    scales: { xAxes: [{}], yAxes: [{}] },
+    scales: { xAxes: [{}], yAxes: [{
+      ticks: {
+          beginAtZero: true
+      }
+  }]},
     plugins: {
       datalabels: {
         anchor: 'end',
@@ -24,6 +39,7 @@ export class DashboardComponent implements OnInit {
   public barChartLabels: Label[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
+  
   //public barChartPlugins = [pluginDataLabels];
 
   public barChartData: ChartDataSets[] = [
@@ -58,9 +74,13 @@ export class DashboardComponent implements OnInit {
   ];
 
 
-  constructor() { }
+  constructor(private serv: ReportServiceService,
+    private snack : MatSnackBar,
+    ) { }
 
   ngOnInit(): void {
+    this.generateReport();
+    this.readDeliveryReport()
   }
   // events
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
@@ -82,4 +102,73 @@ export class DashboardComponent implements OnInit {
       (Math.random() * 100),
       40 ];
   }
+
+  readDeliveryReport(): void {
+    this.serv.DashboardSales().subscribe(res => {
+      console.log(res)
+      //this.dataSource = new MatTableDataSource(res)
+    })
+  }
+
+
+  generateReport() {
+
+    let ProductCategory: any[] =  [];
+    let CategoryType: any[] =  [];
+    let NumberOfSales: number[] =  [];
+    let pieSales: number[] =  [];
+    const counts: any[] =  [];
+
+  this.serv.DashboardSales().subscribe(data => {
+    console.log(data)
+    this.created = false;
+    // Restructure data for chart
+    ProductCategory = data.map(x => x.ProductCategory);
+     NumberOfSales = data.map(x => x.NumberOfSales)
+    // Generate Chart
+    this.generateChart(ProductCategory, NumberOfSales)
+    // Call table data method
+   // this.generateTables(data);
+  })
+
+  this.serv.DashboardPieSales().subscribe(data => {
+    console.log(data)
+    this.created = false;
+    // Restructure data for chart
+    CategoryType = data.map(x => x.CategoryType);
+    pieSales = data.map(x => x.NumberOfSales)
+    // Generate Chart
+    this.generatePie(CategoryType, pieSales)
+    // Call table data method
+   // this.generateTables(data);
+  })
+
+;
+}
+
+generateChart(ProductCategory, NumberOfSales) {
+  console.log(ProductCategory, NumberOfSales);
+  if (this.salegraph) {this.salegraph.destroy(); }
+  this.barChartData = [];
+  this.barChartData.push({
+    data: NumberOfSales,
+    label: 'Sales Per Product Category'
+  });
+
+  this.barChartLabels = ProductCategory;
+  this.created = true;
+}
+
+generatePie(CategoryType, pieSales) {
+  console.log(CategoryType, pieSales);
+  if (this.pie) {this.pie.destroy(); }
+  this.pieChartData = [];
+  this.pieChartData.push(
+     pieSales
+ 
+  );
+
+  this.pieChartLabels = CategoryType;
+  this.created = true;
+}
 }

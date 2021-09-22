@@ -8,9 +8,10 @@
             <div class="mat-col-quarter">
                 <mat-form-field appearance="outline" class="control-m">
                     <mat-label>Enter Number of Deliveries Limit</mat-label>
-                    <input type="number" min="1" matInput placeholder="Enter Number of Deliveries Limit" formControlName="shiftLimit">
+                    <input type="number" min="1" matInput placeholder="Enter Number of Deliveries Limit"
+                        formControlName="shiftLimit">
                     <mat-hint>Enter the maximum number of deliveries that can be allocated to a Shift</mat-hint>
-                 <mat-error *ngIf="form.controls['shiftLimit'].invalid">Please enter Delivery Limit</mat-error>
+                    <mat-error *ngIf="form.controls['shiftLimit'].invalid">Please enter Delivery Limit</mat-error>
                 </mat-form-field>
             </div>
         </div>

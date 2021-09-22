@@ -43,6 +43,11 @@ export interface UserRole {
   id: number;
   userRoleName: string;
   userRoleDescription: string;
+  userID: number;
+  auditTrailID: number;
+  auditTrailDescription: string;
+  auditTrailDate :string;
+  auditTrailTime: string
 }
 
 export class UserRole {

@@ -7,39 +7,79 @@
         View Sale
     </h1>
 
-    <mat-dialog-content mat-card-content>
+    <mat-dialog-content>
 
-        <div class="row">
-            <div class="label" for="saleID">SALE NUMBER:</div>
-            <div class="info">{{sale.saleID}}</div>
-        </div>
+        <mat-grid-list cols="2" rowHeight="50px">
+            <mat-grid-tile>
+                <div class="label" for="saleID">SALE NUMBER:</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="info">{{sale.saleID}}</div>
+            </mat-grid-tile>
 
-        <div class="label" for="saleOrderDate">SALE DATE:</div>
-        <div class="info">{{sale.saleOrderDate | date:"dd/MM/yyyy"}}</div>
+            <mat-grid-tile>
+                <div class="label" for="saleOrderDate">SALE DATE:</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="info">{{sale.saleOrderDate | date:"dd/MM/yyyy"}}</div>
+            </mat-grid-tile>
 
-        <div class="label" for="orderStatusDescription">ORDER STATUS:</div>
-        <div class="info">{{sale.orderStatusDescription}}</div>
+            <mat-grid-tile>
+                <div class="label" for="orderStatusDescription">ORDER STATUS:</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="info">{{sale.orderStatusDescription}}</div>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <div class="label" for="customerName">CUSTOMER:</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="info">{{sale.customerName}} {{sale.customerSurname}}</div>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <div class="label" for="customerBusinessName">BUSINESS NAME:</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="info">{{sale.customerBusinessName}}</div>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <div class="label" for="paymentTypeDescription">PAYMENT TYPE: </div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="info">{{sale.paymentTypeDescription}}</div>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <div class="label" for="paymentDate">PAYMENT DATE:</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="info">{{sale.salePaymentDate| date:"dd/MM/yyyy"}}</div>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <div class="label" for="salePaymentAmount">PAYMENT AMOUNT:</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="info">R {{sale.salePaymentAmount | number:'1.1-2'}}</div>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <div class="label" for="saleOrderRecieveType">RECEIVE TYPE:</div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="info">{{sale.saleOrderRecieveType}}</div>
+            </mat-grid-tile>
 
 
-        <div class="label" for="customerName">CUSTOMER:</div>
-        <div class="info">{{sale.customerName}} {{sale.customerSurname}}</div>
+        </mat-grid-list>
 
-        <div class="label" for="customerBusinessName">BUSINESS NAME:</div>
-        <div class="info">{{sale.customerBusinessName}}</div>
+        <br>
+        <br>
 
-        <div class="label" for="paymentTypeDescription">PAYMENT TYPE: </div>
-        <div class="info">{{sale.paymentTypeDescription}}</div>
-
-        <div class="label" for="paymentDate">PAYMENT DATE:</div>
-        <div class="info">{{sale.salePaymentDate| date:"dd/MM/yyyy"}}</div>
-
-        <div class="label" for="salePaymentAmount">PAYMENT AMOUNT:</div>
-        <div class="info">R {{sale.salePaymentAmount | number:'1.1-2'}}</div>
-
-        <div class="label" for="saleOrderRecieveType">RECEIVE TYPE:</div>
-        <div class="info">{{sale.saleOrderRecieveType}}</div>
-
-        <div rowHeight="80px" class="label" for="SaleOrderDescription">ITEMS ORDERED:</div>
+        <div rowHeight="700px" class="label" for="SaleOrderDescription">ITEMS ORDERED:</div>
         <div class="items">
             <ol>
                 <li *ngFor="let name of sale.saleOrderDescription.split(',')">

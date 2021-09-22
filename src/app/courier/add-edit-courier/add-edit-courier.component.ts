@@ -44,7 +44,7 @@ export class AddEditCourierComponent implements OnInit {
       courierName: ['', [Validators.required]],
       courierTypeID: ['', [Validators.required]],
       courierEmail: ['', [Validators.required, Validators.email]],
-      courierNumber: ['', [Validators.required, Validators.maxLength(10)]],
+      courierNumber: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.minLength(10), Validators.maxLength(10)]],
     }, formOptions);
 
     if (!this.isAddMode) {
@@ -55,7 +55,7 @@ export class AddEditCourierComponent implements OnInit {
           courierName: [this.courier.courierName, [Validators.required]],
           courierTypeID: [this.courier.courierTypeID, [Validators.required]],
           courierEmail: [this.courier.courierEmail, [Validators.required, Validators.email]],
-          courierNumber: [this.courier.courierNumber, [Validators.required, Validators.maxLength(10)]],
+          courierNumber: [this.courier.courierNumber, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.minLength(10), Validators.maxLength(10)]],
         }, formOptions);
       });
     }
@@ -83,12 +83,12 @@ export class AddEditCourierComponent implements OnInit {
       this.router.navigateByUrl('couriers');
     });
 
-    this.snack.open('Successfully Added Courier! ', 'OK', 
-    {
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-      duration: 4000
-    });
+    this.snack.open('Successfully Added Courier! ', 'OK',
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        duration: 4000
+      });
   }
 
   getCollection() {
@@ -111,12 +111,12 @@ export class AddEditCourierComponent implements OnInit {
       this.form.reset();
       this.router.navigateByUrl('couriers');
     });
-    this.snack.open('Successfully Updated Courier! ', 'OK', 
-    {
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-      duration: 4000
-    });
+    this.snack.open('Successfully Updated Courier! ', 'OK',
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        duration: 4000
+      });
   }
 
   Close() {

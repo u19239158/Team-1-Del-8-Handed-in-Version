@@ -71,6 +71,16 @@ export class ReportServiceService {
     return this.http.post(`${this.server}Report/MostPopularLocationcount`, ReportParams).pipe(map(res => res))
   }
 
+  // DashboardSales(ReportParams: ReportParameters): Observable<any> {
+  //   return this.http.post(`${this.server}Report/DashboardSales`, ReportParams).pipe(map(res => res))
+  // }
+  DashboardSales(): Observable<any> {
+    return this.http.get(`${this.server}Report/DashboardSales`).pipe(map(res => res))
+  }
+
+  DashboardPieSales(): Observable<any> {
+    return this.http.get(`${this.server}Report/DashboardPieSales`).pipe(map(res => res))
+  }
 }
 
 

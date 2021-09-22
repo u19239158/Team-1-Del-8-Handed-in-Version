@@ -86,6 +86,7 @@ import { CaptureOrderComponent } from './supplier/receive-supplier-order/capture
 import { UpdateDeliveriesLimitComponent } from './deliveryshift/update-deliveries-limit/update-deliveries-limit.component';
 import { MatSortModule } from '@angular/material/sort';
 import { ForgotUsernameComponent } from './forgot-username/forgot-username.component';
+import { AudittrailComponent } from './audittrail/audittrail.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDF8jZluZQu1iARJPootZqStlIMNnQ6OFA",
@@ -160,6 +161,7 @@ const firebaseConfig = {
     CaptureOrderComponent,
     UpdateDeliveriesLimitComponent,
     ForgotUsernameComponent,
+    AudittrailComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),

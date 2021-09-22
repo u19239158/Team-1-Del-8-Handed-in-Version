@@ -1,57 +1,62 @@
 <div class="content">
-<h2 *ngIf="isAddMode">Add Product Item</h2>
-<h2 *ngIf="!isAddMode">Edit Product Item</h2>
+  <h2 *ngIf="isAddMode">Add Product Item</h2>
+  <h2 *ngIf="!isAddMode">Edit Product Item</h2>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-
-  <div class="mat-row">
-        <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-m">
-                <mat-label> Category Type</mat-label>
-                <mat-select [(value)]="selected" formControlName="categoryTypeId">
-                  <mat-option *ngFor="let CategoryType of collection" [value]="CategoryType.categoryTypeId">{{CategoryType.categoryTypeDescription}}</mat-option>
-                </mat-select>   
-                <mat-hint>Select category type</mat-hint>
-                <mat-error *ngIf="form.controls['categoryTypeId'].invalid">Please select a Category Type</mat-error> 
-              </mat-form-field>
-        </div>
-  </div>
-
-  <div class="mat-row">
-        <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-m">
-                <mat-label>Product Item Name</mat-label>
-                <input type="text" matInput placeholder="Product Item Name" formControlName="productItemName">
-                <mat-hint>Enter product item name</mat-hint>
-                <mat-error *ngIf="form.controls['productItemName'].invalid">Please enter a Product Item Name</mat-error> 
-            </mat-form-field>
-        </div>
-  </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
     <div class="mat-row">
-        <div class="mat-col-quarter">
-          <mat-form-field appearance="outline" class="control-m">
-              <mat-label>Item Cost</mat-label>
-              <span matPrefix>R &nbsp;</span>
-              <input type="text" matInput placeholder="Cost" formControlName="productItemCost">
-              <mat-hint>Enter product item cost</mat-hint>
-              <mat-error *ngIf="form.controls['productItemCost'].invalid">Please enter the cost of the Product Item</mat-error> 
-          </mat-form-field>
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label> Category Type</mat-label>
+          <mat-select [(value)]="selected" formControlName="categoryTypeId">
+            <mat-option *ngFor="let CategoryType of collection" [value]="CategoryType.categoryTypeId">
+              {{CategoryType.categoryTypeDescription}}
+            </mat-option>
+          </mat-select>
+          <mat-hint>Select category type</mat-hint>
+          <mat-error *ngIf="form.controls['categoryTypeId'].invalid">Please select a Category Type</mat-error>
+        </mat-form-field>
       </div>
     </div>
 
     <div class="mat-row">
-        <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-m">
-                <mat-label> Mark-Up Percentage</mat-label>
-                <mat-select [(value)]="mselected" formControlName="markupId">
-                  <mat-option *ngFor="let markup of MarkUp" [value]="markup.markupId">{{markup.markupPercentage | percent}}</mat-option>
-                </mat-select>   
-                <mat-hint>Select Markup Percentage</mat-hint>
-                <mat-error *ngIf="form.controls['markupId'].invalid">Please select the Productitem's Markup Percentage</mat-error> 
-              </mat-form-field>
-        </div>
-  </div>
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Product Item Name</mat-label>
+          <input type="text" matInput placeholder="Product Item Name" formControlName="productItemName">
+          <mat-hint>Enter product item name</mat-hint>
+          <mat-error *ngIf="form.controls['productItemName'].invalid">Please enter a Product Item Name</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="mat-row">
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Item Cost</mat-label>
+          <span matPrefix>R &nbsp;</span>
+          <input type="text" matInput placeholder="e.g. 25.50" formControlName="productItemCost">
+          <mat-hint>Enter product item cost</mat-hint>
+          <mat-error *ngIf="form.controls['productItemCost'].invalid">Please enter the cost of the Product Item
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="mat-row">
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label> Mark-Up Percentage</mat-label>
+          <mat-select [(value)]="mselected" formControlName="markupId">
+            <mat-option *ngFor="let markup of MarkUp" [value]="markup.markupId">{{markup.markupPercentage | percent}}
+            </mat-option>
+          </mat-select>
+          <mat-hint>Select Markup Percentage</mat-hint>
+          <mat-error *ngIf="form.controls['markupId'].invalid">Please select the Productitem's Markup Percentage
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
 
     <!-- <div class="mat-row">
         <div class="mat-col-quarter">
@@ -62,16 +67,16 @@
         </div>
     </div> -->
 
-  <div class="mat-row">
-    <div class="form-group" class="control-w">
-      <button mat-raised-button color ="primary" [disabled]="loading">
+    <div class="mat-row">
+      <div class="form-group" class="control-w">
+        <button mat-raised-button color="primary" [disabled]="loading">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Save
-      </button>
-      <a (click)="Close()" mat-button>Cancel</a>
+        </button>
+        <a (click)="Close()" mat-button>Cancel</a>
+      </div>
+
     </div>
 
-  </div>
-
-</form>
+  </form>
 </div>
