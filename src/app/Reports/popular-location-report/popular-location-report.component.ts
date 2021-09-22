@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 // import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
@@ -8,12 +9,50 @@ import html2canvas from 'html2canvas';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import jsPDF from 'jspdf';
 import { MatTableDataSource } from '@angular/material/table';
+import { DateAdapter } from '@angular/material/core';
+import { MatDateRangeSelectionStrategy, DateRange, MAT_DATE_RANGE_SELECTION_STRATEGY } from '@angular/material/datepicker';
+import { HttpErrorResponse } from '@angular/common/http';
+
+
+@Injectable()
+export class WeekSelectionStrategy<D>
+  implements MatDateRangeSelectionStrategy<D>
+{
+  constructor(private _dateAdapter: DateAdapter<D>) { }
+
+  selectionFinished(date: D | null): DateRange<D> {
+    return this._createSevenDayRange(date);
+  }
+
+  createPreview(activeDate: D | null): DateRange<D> {
+    return this._createSevenDayRange(activeDate);
+  }
+
+  private _createSevenDayRange(date: D | null): DateRange<D> {
+    if (date) {
+      const startDate = this._dateAdapter.addCalendarDays(date, 0);
+      const endDate = this._dateAdapter.addCalendarDays(date, 30);
+      return new DateRange<D>(startDate, endDate);
+    }
+
+    return new DateRange<D>(null, null);
+  }
+}
+
 
 @Component({
   selector: 'app-popular-location-report',
   templateUrl: './popular-location-report.component.html',
-  styleUrls: ['./popular-location-report.component.scss']
+  styleUrls: ['./popular-location-report.component.scss'],
+
+  providers: [{
+    provide: MAT_DATE_RANGE_SELECTION_STRATEGY,
+    useClass: WeekSelectionStrategy
+  }]
 })
+
+
+
 export class PopularLocationReportComponent implements OnInit {
   dataSource = new MatTableDataSource<Reports>();
   tableData: any;
@@ -47,7 +86,9 @@ export class PopularLocationReportComponent implements OnInit {
 
 
   constructor(private serv: ReportServiceService,
-    private formBuilder: FormBuilder,) { }
+    private formBuilder: FormBuilder,
+    private snack : MatSnackBar,
+    ) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -91,10 +132,24 @@ export class PopularLocationReportComponent implements OnInit {
 
       // Generate Chart
       this.generateChart(provinceDescription, provincesales)
+      
 
       // Call table data method
      // this.generateTables(data);
-    });
+    },(error: HttpErrorResponse) =>
+    {
+      console.log(error.error,"test")
+     if (error.status === 400)
+    {
+      this.snack.open(error.error, 'OK', 
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        duration: 3000
+      });
+      return;
+    }
+  });
   }
 
   public barChartData: ChartDataSets[] = [

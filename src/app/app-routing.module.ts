@@ -21,6 +21,7 @@ import { AddSpecialComponent } from './special/add-edit-special/add-special.comp
 
 import { UserRoleComponent } from './userRole/user-role/user-role.component';
 import { AddEditUserRoleComponent } from './userRole/add-edit-user-role/add-edit-user-role.component';
+import { AudittrailComponent } from './audittrail/audittrail.component';
 
 import { HomeComponent } from './home/home.component';
 
@@ -70,6 +71,7 @@ import { ViewSaleComponent } from './admin/online-sales/view-sale/view-sale.comp
 import { ViewDeliveryDetailsComponent } from './deliveryshift/view-delivery-details/view-delivery-details.component'
 import { ViewEmployeeDeliveryShiftsComponent } from './deliveryshift/view-employee-delivery-shifts/view-employee-delivery-shifts.component'
 import { UpdateDeliveriesLimitComponent } from './deliveryshift/update-deliveries-limit/update-deliveries-limit.component';
+
 
 const routes: Routes = [
   {
@@ -151,6 +153,10 @@ const routes: Routes = [
   {
     path: 'userRoleEdit/:id',
     component: AddEditUserRoleComponent
+  },
+  {
+    path: 'audittrail',
+    component: AudittrailComponent
   },
   {
     path: 'couriers',

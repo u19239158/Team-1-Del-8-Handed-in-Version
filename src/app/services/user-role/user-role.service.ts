@@ -45,6 +45,11 @@ export class UserRoleService {
     DeleteUserRole(userRoleId):  Observable<UserRole>  {
     return this.http.delete<UserRole>(`${this.server}UserRole/DeleteUserRole/${userRoleId}`).pipe(map(res => res));
   }
+
+  GetAuditTrail():  Observable<UserRole[]>  {
+    return this.http.get<UserRole[]>(`${this.server}AuditTrail/GetAuditTrail`).pipe(map(res => res));
+  }
+
 }
 
   // getAll(): UserRole[] {
