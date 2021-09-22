@@ -38,7 +38,7 @@ export class AddEditEmployeesComponent implements OnInit {
     private EmployeeService: EmployeeService,
   ) {
     const currentYear = new Date().getFullYear();
-    this.maxDate = moment().subtract(16, "years").toDate();
+    this.maxDate = moment().subtract(16, 'years').toDate();
   }
 
   ngOnInit(): void {
@@ -55,8 +55,8 @@ export class AddEditEmployeesComponent implements OnInit {
       //title: ['', Validators.required],
       employeeName: ['', [Validators.required]],
       employeeSurname: ['', [Validators.required]],
-      employeeCellphoneNumber: ['', [Validators.required, Validators.maxLength(10)]],
-      employeeIdnumber: ['', [Validators.required, Validators.maxLength(13)]],
+      employeeCellphoneNumber: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.minLength(10), Validators.maxLength(10)]],
+      employeeIdnumber: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
       employeeDob: ['', [Validators.required]],
       employeeAddressLine1: ['', [Validators.required]],
       employeeAddressLine2: ['',],
@@ -77,8 +77,8 @@ export class AddEditEmployeesComponent implements OnInit {
           id: [this.employee.employeeId, Validators.required],
           employeeName: [this.employee.employeeName, [Validators.required]],
           employeeSurname: [this.employee.employeeSurname, [Validators.required]],
-          employeeCellphoneNumber: [this.employee.employeeCellphoneNumber, [Validators.required, Validators.maxLength(10)]],
-          employeeIdnumber: [this.employee.employeeIdnumber, [Validators.required, Validators.maxLength(13)]],
+          employeeCellphoneNumber: [this.employee.employeeCellphoneNumber, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.minLength(10), Validators.maxLength(10)]],
+          employeeIdnumber: [this.employee.employeeIdnumber, [Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
           employeeDob: [this.employee.employeeDob, [Validators.required]],
           employeeAddressLine1: [this.employee.employeeAddressLine1, [Validators.required]],
           employeeAddressLine2: [this.employee.employeeAddressLine2,],

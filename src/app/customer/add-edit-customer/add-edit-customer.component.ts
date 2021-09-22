@@ -25,59 +25,59 @@ export class AddEditCustomerComponent implements OnInit {
   collection = [];
   selected: string;
 
-constructor(
-      private formBuilder: FormBuilder,
-      private route: ActivatedRoute,
-      private router: Router,
-    private snack : MatSnackBar,
-      private customerService: CustomerService,
-      private http: HttpClient    
-) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private snack: MatSnackBar,
+    private customerService: CustomerService,
+    private http: HttpClient
+  ) { }
 
-ngOnInit(): void {
-  this.id = +this.route.snapshot.params['id'];
-  this.isAddMode = !this.id;
-  this.getCollection();
+  ngOnInit(): void {
+    this.id = +this.route.snapshot.params['id'];
+    this.isAddMode = !this.id;
+    this.getCollection();
 
-  const passwordValidators = [Validators.minLength(6)];
-  if (this.isAddMode) {
+    const passwordValidators = [Validators.minLength(6)];
+    if (this.isAddMode) {
       passwordValidators.push(Validators.required);
-  }
+    }
 
-  const formOptions: AbstractControlOptions = { };
-  this.form = this.formBuilder.group({
+    const formOptions: AbstractControlOptions = {};
+    this.form = this.formBuilder.group({
       titleId: ['', [Validators.required]],
       customerName: ['', [Validators.required]],
       customerSurname: ['', [Validators.required]],
       customerEmailAddress: ['', [Validators.required, Validators.email]],
-      customerCellphoneNumber: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-     // customerUsername: ['', [Validators.required]],
+      customerCellphoneNumber: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.minLength(10), Validators.maxLength(10)]],
+      // customerUsername: ['', [Validators.required]],
       customerBusinessName: ['', [Validators.maxLength(50)]],
-      customerVATReg: ['', [Validators.maxLength(10)]],
+      customerVATReg: ['', [Validators.minLength(10), Validators.maxLength(10)]],
       // customerPassword: ['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
       // customerConfirmPassword: ['', this.isAddMode ? Validators.required : Validators.nullValidator]
-  }, formOptions);
+    }, formOptions);
 
 
-if (!this.isAddMode) {
-  this.customerService.getCustomerByID(this.id).subscribe(res => {
-    this.Customer = res
-    console.log(res)
-    this.form = this.formBuilder.group({
-      titleId: [this.Customer.titleId, [Validators.required]],
-      customerName:[this.Customer.customerName, [Validators.required]],
-      customerSurname: [this.Customer.customerSurname, [Validators.required]],
-      customerEmailAddress: [this.Customer.customerEmailAddress, [Validators.required, Validators.email]],
-      customerCellphoneNumber: [this.Customer.customerCellphoneNumber, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-      //customerUsername: [this.Customer.customerUserName, [Validators.required]],
-      customerBusinessName: [this.Customer.customerBusinessName, [Validators.maxLength(50)]],
-      customerVATReg: [this.Customer.customerVATReg, [Validators.maxLength(10)]],
-      // customerPassword: ['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
-      // customerConfirmPassword: ['', this.isAddMode ? Validators.required : Validators.nullValidator]
-},  formOptions);
-  })
-}
-}
+    if (!this.isAddMode) {
+      this.customerService.getCustomerByID(this.id).subscribe(res => {
+        this.Customer = res
+        console.log(res)
+        this.form = this.formBuilder.group({
+          titleId: [this.Customer.titleId, [Validators.required]],
+          customerName: [this.Customer.customerName, [Validators.required]],
+          customerSurname: [this.Customer.customerSurname, [Validators.required]],
+          customerEmailAddress: [this.Customer.customerEmailAddress, [Validators.required, Validators.email]],
+          customerCellphoneNumber: [this.Customer.customerCellphoneNumber, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.minLength(10), Validators.maxLength(10)]],
+          //customerUsername: [this.Customer.customerUserName, [Validators.required]],
+          customerBusinessName: [this.Customer.customerBusinessName, [Validators.maxLength(50)]],
+          customerVATReg: [this.Customer.customerVATReg, [Validators.minLength(10), Validators.maxLength(10)]],
+          // customerPassword: ['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
+          // customerConfirmPassword: ['', this.isAddMode ? Validators.required : Validators.nullValidator]
+        }, formOptions);
+      })
+    }
+  }
   onSubmit() {
     if (this.form.invalid) {
       return;
@@ -85,15 +85,15 @@ if (!this.isAddMode) {
 
     this.loading = true;
     if (this.isAddMode) {
-        this.createCustomer();
+      this.createCustomer();
     } else {
-        this.updateCustomer();
+      this.updateCustomer();
     }
   }
 
   createCustomer() {
     const customer: Customer = this.form.value;
-    this.customerService.CreateCustomer(customer).subscribe(res =>{
+    this.customerService.CreateCustomer(customer).subscribe(res => {
       console.log(res)
       this.loading = false
       this.router.navigateByUrl('customer');
@@ -114,17 +114,17 @@ if (!this.isAddMode) {
   updateCustomer() {
     const customer: Customer = this.form.value;
     customer.customerId = this.Customer.customerId;
-    this.customerService.UpdateCustomer(customer).subscribe(res =>{
+    this.customerService.UpdateCustomer(customer).subscribe(res => {
       console.log(res)
       //this.form.reset();
       this.router.navigateByUrl('customer');
     });
-    this.snack.open('Successfully Updated Customer! ', 'OK', 
-    {
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-      duration: 4000
-    });
+    this.snack.open('Successfully Updated Customer! ', 'OK',
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        duration: 4000
+      });
   }
 
   Close() {

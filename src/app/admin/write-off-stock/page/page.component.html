@@ -1,44 +1,45 @@
 <div class="content">
 
-  <h2 >Write Off Stock</h2>
+  <h2>Write Off Stock</h2>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-  <div class="mat-row">
-    <div class="mat-col-quarter">
-      <mat-form-field appearance="outline" class="control-m">
-          <mat-label>Quantity</mat-label>
-          <input type="number" matInput placeholder="Quantity" formControlName="writeOffQuantity">
-           <mat-hint>Enter Write-Off quantity</mat-hint>
-       <mat-error *ngIf="form.controls['writeOffQuantity'].invalid">Please provide Write-Off Quantity</mat-error>
-      </mat-form-field>
-     
-    </div>
-  </div>
-
-  <div class="mat-row">
-    <div class="mat-col-quarter">
+    <div class="mat-row">
+      <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m">
-            <mat-label>Reason</mat-label>
-            <input type="text" matInput placeholder="Reason" formControlName="writeOffReason">
-            <mat-hint>Enter Write-Off reason</mat-hint>
-        <mat-error *ngIf="form.controls['writeOffReason'].invalid">Please provide Write-Off Reason</mat-error>
+          <mat-label>Quantity</mat-label>
+          <input type="number" min="1" matInput placeholder="Quantity" formControlName="writeOffQuantity"
+            disabled="false">
+          <mat-hint>Enter Write-Off quantity</mat-hint>
+          <mat-error *ngIf="form.controls['writeOffQuantity'].invalid">Please provide Write-Off Quantity</mat-error>
         </mat-form-field>
-        
-    </div>
-  </div>
 
-  <div class="mat-row">
-    <div class="mat-col-quarter">
-      <div class="form-group" class="control-m">
-        <button mat-raised-button color ="primary" [disabled]="loading">
-          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-          Save
-        </button>
-        <a (click)="Close()" mat-button>Cancel</a>
       </div>
     </div>
-  </div>
 
-</form>
+    <div class="mat-row">
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Reason</mat-label>
+          <input type="text" matInput placeholder="Reason" formControlName="writeOffReason">
+          <mat-hint>Enter Write-Off reason</mat-hint>
+          <mat-error *ngIf="form.controls['writeOffReason'].invalid">Please provide Write-Off Reason</mat-error>
+        </mat-form-field>
+
+      </div>
+    </div>
+
+    <div class="mat-row">
+      <div class="mat-col-quarter">
+        <div class="form-group" class="control-m">
+          <button mat-raised-button color="primary" [disabled]="loading">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Save
+          </button>
+          <a (click)="Close()" mat-button>Cancel</a>
+        </div>
+      </div>
+    </div>
+
+  </form>
 </div>
