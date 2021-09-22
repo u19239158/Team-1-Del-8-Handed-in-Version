@@ -8,8 +8,7 @@
       <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m">
           <mat-label>Quantity</mat-label>
-          <input type="number" min="1" matInput placeholder="Quantity" formControlName="writeOffQuantity"
-            disabled="false">
+          <input type="number" min="1" matInput placeholder="Quantity" formControlName="writeOffQuantity">
           <mat-hint>Enter Write-Off quantity</mat-hint>
           <mat-error *ngIf="form.controls['writeOffQuantity'].invalid">Please provide Write-Off Quantity</mat-error>
         </mat-form-field>

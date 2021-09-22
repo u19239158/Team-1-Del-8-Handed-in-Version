@@ -8,8 +8,7 @@
       <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m">
           <mat-label>Quantity</mat-label>
-          <input type="number" min="1" matInput placeholder="Quantity" formControlName="stockTakeQuantity"
-            disabled="false">
+          <input type="number" min="1" matInput placeholder="Quantity" formControlName="stockTakeQuantity">
           <mat-hint>Enter Stock Take quantity</mat-hint>
           <mat-error *ngIf="form.controls['stockTakeQuantity'].invalid">Please provide Stock Take Quantity</mat-error>
         </mat-form-field>

@@ -41,7 +41,7 @@ export class AddEditSupplierComponent implements OnInit {
       supplierAddressLine2: ['', [Validators.required]],
       supplierAddressLine3: [''],
       supplierCityTown: ['', [Validators.required]],
-      supplierPostalCode: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      supplierPostalCode: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
     }, formOptions);
 
     if (!this.isAddMode) {
@@ -56,7 +56,7 @@ export class AddEditSupplierComponent implements OnInit {
           supplierAddressLine2: [this.supplier.supplierAddressLine2, [Validators.required]],
           supplierAddressLine3: [this.supplier.supplierAddressLine3],
           supplierCityTown: [this.supplier.supplierCityTown, [Validators.required]],
-          supplierPostalCode: [this.supplier.supplierPostalCode, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+          supplierPostalCode: [this.supplier.supplierPostalCode, [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
         }, formOptions);
       });
     }
