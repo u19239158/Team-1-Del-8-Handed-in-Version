@@ -11,6 +11,8 @@ import { PlaceSupplierOrder, Productitem } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { direction } from 'html2canvas/dist/types/css/property-descriptors/direction';
 
 @Component({
   selector: 'app-place-supplier-order',
@@ -22,7 +24,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
   Productitems: Productitem[];
   searchValue: string;
   dataNotFound: boolean;
-  
+
   //form: FormGroup;
   loading = false;
   submitted = false;
@@ -35,16 +37,17 @@ export class PlaceSupplierOrderComponent implements OnInit {
   placeSupplierOrders: PlaceSupplierOrder[] = [];
   placeSupplierOrder: Observable<PlaceSupplierOrder[]>;
   //dataSource = new MatTableDataSource<PlaceSupplierOrder>();
-  displayedColumns: string[] = ['checkbox', 'productItem', 'quantity'];
+  displayedColumns: string[] = ['checkbox', 'productItemName', 'quantityOnHand'];
+  @ViewChild(MatSort) sort: MatSort;
 
   highlight(element: PlaceSupplierOrder) {
     element.highlighted = !element.highlighted;
   }
 
   form = this.FB.group({
-    supplierID: ['',Validators.required]
-  }) 
-  
+    supplierID: ['', Validators.required]
+  })
+
   constructor(
     private productitemService: ProductitemService,
     private placeSupplierOrderService: PlaceSupplierOrderService,
@@ -52,8 +55,8 @@ export class PlaceSupplierOrderComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router,
     private FormGroup: FormBuilder,
-    private FB:FormBuilder,
-    
+    private FB: FormBuilder,
+
     // public dialogRef: MatDialogRef<PlaceSupplierOrder>
   ) { }
 
@@ -66,18 +69,39 @@ export class PlaceSupplierOrderComponent implements OnInit {
       , formOptions)
 
     this.getSupplier();
+
+    setTimeout(() => this.dataSource.paginator = this.paginator);
+    // this.dataSource.paginator = this.paginator;
+
     this.readProductitems();
 
     this.productitemService.GetProductItem().subscribe((result: Productitem[]) => {
       this.productitems = result;
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     });
-    setTimeout(() => this.dataSource.paginator = this.paginator);
+
+  }
+
+  filter() {
+
+    const filter = (e) => {
+
+      return e.productItemName && e.productItemName.toLowerCase().includes(this.searchValue.toLowerCase())
+    }
+    const data = (this.productitems.filter(filter))
+    this.dataNotFound = data.length === 0
+    this.dataSource = new MatTableDataSource(data);
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   readProductitems(): void {
     this.productitemService.GetProductItem().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
+      this.dataSource.sort = this.sort;
       setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }
@@ -105,35 +129,24 @@ export class PlaceSupplierOrderComponent implements OnInit {
   // }
 
 
-  filter() {
-
-    const filter = (e) => {
-
-      return e.productItemName && e.productItemName.toLowerCase().includes(this.searchValue.toLowerCase())
-    }
-    const data = (this.Productitems.filter(filter))
-    this.dataNotFound = data.length === 0
-    this.dataSource = new MatTableDataSource(data);
-  }
-
   PlaceOrder() {
     const confirm = this.dialog.open(QuantityModalComponent, {
       disableClose: true,
-     });
+    });
 
-     confirm.afterClosed().subscribe(res => {
+    confirm.afterClosed().subscribe(res => {
       this.router.navigateByUrl('placeSupplierOrder');
-      })
-    }
-
-    finalOrder(){
-      const placeOrder: PlaceSupplierOrder = this.form.value;
-      this.placeSupplierOrderService.CreateSupplierOrder(placeOrder).subscribe(res =>{
-        console.log(res)
-        this.loading = false
-        this.router.navigateByUrl('placeSupplierOrder');
-      })
-        
-    }
+    })
   }
+
+  finalOrder() {
+    const placeOrder: PlaceSupplierOrder = this.form.value;
+    this.placeSupplierOrderService.CreateSupplierOrder(placeOrder).subscribe(res => {
+      console.log(res)
+      this.loading = false
+      this.router.navigateByUrl('placeSupplierOrder');
+    })
+
+  }
+}
 

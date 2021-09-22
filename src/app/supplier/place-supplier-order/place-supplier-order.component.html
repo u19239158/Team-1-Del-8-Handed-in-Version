@@ -18,6 +18,11 @@
 
   </form>
 
+  <br>
+  <br>
+
+  <button mat-raised-button type="submit" color="primary" (click)="finalOrder()">Place Order</button>
+
   <div class="search">
     <ul fxLayout fxLayoutGap="15px" class="navigation-items">
       <li>
@@ -35,18 +40,12 @@
     </ul>
   </div>
 
-  <br>
-  <br>
-
-  <button mat-raised-button type="submit" color="primary" (click)="finalOrder()">Place Order</button>
+  <app-global-error *ngIf="dataNotFound"></app-global-error>
 
   <br>
   <br>
-
-  <app-global- error *ngIf="dataNotFound"></app-global->
-
   <div>
-    <table mat-table [dataSource]="dataSource" matSort *ngIf="!dataNotFound">
+    <table mat-table [dataSource]="dataSource" *ngIf="!dataNotFound" matSort>
       <!-- Position Column -->
 
       <ng-container matColumnDef="checkbox">
@@ -57,13 +56,13 @@
       </ng-container>
 
       <!-- Product Item -->
-      <ng-container matColumnDef="productItem">
+      <ng-container matColumnDef="productItemName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Item </th>
         <td mat-cell *matCellDef="let element"> {{element.productItemName}} </td>
       </ng-container>
 
       <!-- Quantity -->
-      <ng-container matColumnDef="quantity">
+      <ng-container matColumnDef="quantityOnHand">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity On Hand </th>
         <td mat-cell *matCellDef="let element"> {{element.quantityOnHand}} </td>
       </ng-container>
@@ -73,6 +72,7 @@
     </table>
 
   </div>
-  <mat-paginator [pageSizeOptions]="[5, 8, 15, 35]" showFirstLastButtons aria-label="Select page">
-  </mat-paginator>
-</div>
+  <div>
+    <mat-paginator [pageSizeOptions]="[5, 8, 15, 35]" showFirstLastButtons aria-label="Select page">
+    </mat-paginator>
+  </div>
