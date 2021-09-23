@@ -29,6 +29,7 @@ export class AddEditEmployeesComponent implements OnInit {
   selectedDate = new Date();
   collections = [];
   times = [];
+  userid : number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,6 +45,12 @@ export class AddEditEmployeesComponent implements OnInit {
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
+
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   console.log(obj.userId) 
+   this.userid = obj.userId
+    console.log(obj)
 
     const passwordValidators = [Validators.minLength(6)];
     if (this.isAddMode) {
@@ -108,6 +115,7 @@ export class AddEditEmployeesComponent implements OnInit {
 
   createEmployee() {
     const employee: Employee = this.form.value;
+    employee.usersId = this.userid
     this.EmployeeService.CreateEmployee(employee).subscribe(res => {
       console.log(res)
       this.loading = false
@@ -123,6 +131,7 @@ export class AddEditEmployeesComponent implements OnInit {
 
   updateEmployee() {
     const employee: Employee = this.form.value;
+    employee.usersId = this.userid
     employee.employeeId = this.employee.employeeId;
     this.EmployeeService.UpdateEmployee(employee).subscribe(res => {
       console.log(res)

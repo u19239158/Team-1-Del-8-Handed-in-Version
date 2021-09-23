@@ -19,6 +19,7 @@ export class AddEditUserRoleComponent implements OnInit {
   submitted = false;
   UserRole: UserRole;
   userRoles: Observable<UserRole[]>;
+  userid : number;
 
   constructor(
         private formBuilder: FormBuilder,
@@ -31,6 +32,12 @@ export class AddEditUserRoleComponent implements OnInit {
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
+
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   console.log(obj.userId) 
+   this.userid = obj.userId
+    console.log(obj)
 
     const formOptions: AbstractControlOptions = { };
     this.form = this.formBuilder.group({
@@ -66,6 +73,7 @@ export class AddEditUserRoleComponent implements OnInit {
 
   createUserRole() {
     const userRole: UserRole = this.form.value;
+    userRole.usersId = this.userid
     this.UserRoleService.CreateUserRole(userRole).subscribe(res =>{
       console.log(res)
       this.loading = false
@@ -81,6 +89,7 @@ export class AddEditUserRoleComponent implements OnInit {
 
   updateUserRole() {
     const userRole: UserRole = this.form.value;
+    userRole.usersId = this.userid
     userRole.userRoleId = this.UserRole.userRoleId;
     this.UserRoleService.UpdateUserRole(userRole).subscribe(res =>{
       console.log(res)

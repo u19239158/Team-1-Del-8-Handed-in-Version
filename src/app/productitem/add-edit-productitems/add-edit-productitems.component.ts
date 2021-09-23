@@ -27,6 +27,7 @@ export class AddEditProductitemsComponent implements OnInit {
   selected: string;
   mselected: string;
   MarkUp: MarkUp;
+  userid : number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -43,6 +44,12 @@ export class AddEditProductitemsComponent implements OnInit {
     this.isAddMode = !this.id;
     this.getCollection();
     this.getMarkUp();
+
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   console.log(obj.userId) 
+   this.userid = obj.userId
+    console.log(obj)
 
     const formOptions: AbstractControlOptions = {};
     this.form = this.formBuilder.group({
@@ -108,6 +115,7 @@ export class AddEditProductitemsComponent implements OnInit {
 
   createProductitem() {
     const productitem: Productitem = this.form.value;
+    productitem.usersId = this.userid
     this.ProductitemService.CreateProductItem(productitem).subscribe(res => {
       console.log(res)
       this.loading = false
@@ -124,6 +132,7 @@ export class AddEditProductitemsComponent implements OnInit {
 
   updateProductitem() {
     const productitem: Productitem = this.form.value;
+    productitem.usersId = this.userid
     productitem.productItemId = this.Productitem.productItemId;
     this.ProductitemService.UpdateProductItem(productitem).subscribe(res => {
       console.log(res)

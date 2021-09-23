@@ -32,6 +32,8 @@ export class AddEditSpecialComponent implements OnInit {
   selectedDate = new Date();
   selectedStartDate = new Date();
   endDateEnabled: boolean = false;
+  userid : number;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -50,6 +52,12 @@ export class AddEditSpecialComponent implements OnInit {
     this.id = +this.route.snapshot.params['id'];
     //this.isAddMode = !this.id;
     this.getCollection();
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   console.log(obj.userId) 
+   this.userid = obj.userId
+    console.log(obj)
+
     this.collection
 
     this.SpecialService.getItemByID(this.id).subscribe(res => {
@@ -119,6 +127,7 @@ export class AddEditSpecialComponent implements OnInit {
 
   createSpecial() {
     const special: Special = this.form.value;
+    special.usersId = this.userid
     special.productItemId = this.productItem.productItemId;
     special.productItemCost = this.productItem.priceDescription;
     // special.discountPercentage = this.collection.find(this.discountPercentage);

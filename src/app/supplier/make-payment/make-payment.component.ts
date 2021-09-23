@@ -18,6 +18,7 @@ export class MakePaymentComponent implements OnInit {
   submitted = false;
   supplier: Supplier;
   suppliers: Observable<Supplier[]>;
+  userid : number;
  
   constructor(
     private formBuilder: FormBuilder,
@@ -37,6 +38,12 @@ export class MakePaymentComponent implements OnInit {
       this.supplier = res
       console.log(res)
    })
+
+   var ids = localStorage.getItem('user')
+   const obj = JSON.parse(ids)
+  console.log(obj.userId) 
+  this.userid = obj.userId
+   console.log(obj)
 }
 
   onSubmit(){
@@ -51,6 +58,7 @@ export class MakePaymentComponent implements OnInit {
 
   CaptureSupplierPayment(){
     const supplier: Supplier = this.form.value;
+    supplier.usersId = this.userid
     supplier.supplierId = this.supplier.supplierId;
     this.SupplierService.CaptureSupplierPayment(supplier).subscribe(res => {
       console.log(res)

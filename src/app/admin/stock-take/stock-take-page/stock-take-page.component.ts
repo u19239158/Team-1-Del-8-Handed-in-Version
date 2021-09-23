@@ -23,6 +23,7 @@ export class StockTakePageComponent implements OnInit {
   //form: FormGroup;
   productitems: Observable<Productitem[]>;
   submitted = false;
+  userid : number;
 
   constructor(
     private router: Router,
@@ -45,6 +46,12 @@ export class StockTakePageComponent implements OnInit {
    
   });
 
+  var ids = localStorage.getItem('user')
+  const obj = JSON.parse(ids)
+ console.log(obj.userId) 
+ this.userid = obj.userId
+  console.log(obj)
+
   }
 
   onSubmit() {
@@ -61,6 +68,7 @@ export class StockTakePageComponent implements OnInit {
 
   doStockTake() {
     const stockTake: StockTake = this.form.value;
+    stockTake.usersId = this.userid
     stockTake.productItemId = this.productitem.productItemId;
     this.StockTakeService.StockTake(stockTake).subscribe(res => {
       console.log(res)

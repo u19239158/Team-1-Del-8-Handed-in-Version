@@ -24,6 +24,7 @@ export class AddEditCustomerComponent implements OnInit {
   customers: Observable<Customer[]>;
   collection = [];
   selected: string;
+  userid : number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,6 +39,12 @@ export class AddEditCustomerComponent implements OnInit {
     this.id = +this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
     this.getCollection();
+
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   console.log(obj.userId) 
+   this.userid = obj.userId
+    console.log(obj)
 
     const passwordValidators = [Validators.minLength(6)];
     if (this.isAddMode) {
@@ -113,6 +120,7 @@ export class AddEditCustomerComponent implements OnInit {
 
   updateCustomer() {
     const customer: Customer = this.form.value;
+    customer.usersId = this.userid
     customer.customerId = this.Customer.customerId;
     this.customerService.UpdateCustomer(customer).subscribe(res => {
       console.log(res)

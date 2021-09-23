@@ -23,6 +23,7 @@ export class AssignCourierDeliveryComponent implements OnInit {
   //search code
   Couriers: Courier[];
   searchValue: string;
+  userid : number;
 
   // couriers: Courier[] = [];
   Courier: Courier;
@@ -55,6 +56,12 @@ export class AssignCourierDeliveryComponent implements OnInit {
     this.AssignCourierDeliveryService.GeCourier().subscribe((result: Courier[]) => {
       this.Couriers = result;
     });
+
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   console.log(obj.userId) 
+   this.userid = obj.userId
+    console.log(obj)
 
   }
 
@@ -118,7 +125,7 @@ export class AssignCourierDeliveryComponent implements OnInit {
 
     this.AssignCourierDeliveryService.AssignCourier(this.id).subscribe(data => {
       console.log(data)
-
+      usersId : this.userid
 
     });
 

@@ -27,6 +27,7 @@ export class AddEditProductcategorysComponent implements OnInit {
     url : string;
     image : string = null;
     downloadURL: Observable<string>;
+    userid : number;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -45,6 +46,12 @@ export class AddEditProductcategorysComponent implements OnInit {
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
+
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   console.log(obj.userId) 
+   this.userid = obj.userId
+    console.log(obj)
   
     const formOptions: AbstractControlOptions = { };
     this.form = this.formBuilder.group(
@@ -99,7 +106,8 @@ export class AddEditProductcategorysComponent implements OnInit {
   img.subscribe(imgpath =>{
    const productcategory: Productcategory = {
      ...this.form.value,
-     productCategoryImage: imgpath
+     productCategoryImage: imgpath,
+     usersId : this.userid
    };
    
     this.ProductcategoryService.CreateProductCategory(productcategory).subscribe(res => {
@@ -121,7 +129,8 @@ export class AddEditProductcategorysComponent implements OnInit {
   img.subscribe(imgpath =>{
    const productcategory: Productcategory = {
      ...this.form.value,
-     productCategoryImage: imgpath
+     productCategoryImage: imgpath,
+     usersId : this.userid
    };
     productcategory.productCategoryId = this.productcategory.productCategoryId;
     this.ProductcategoryService.UpdateProductCategory(productcategory).subscribe(res => {

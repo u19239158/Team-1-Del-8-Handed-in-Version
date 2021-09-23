@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
 
 
     ngOnInit() : void {
-
+     
     }
 
   //  onSubmit(loginForm) {
@@ -61,21 +61,22 @@ export class LoginComponent implements OnInit {
         Login(): void
         {
           this.Loginservice.Login(this.form.value).subscribe(res => {
+            
            // const token = (<any>res).token
-            //localStorage.setItem('user', res);
+            localStorage.setItem('user', JSON.stringify(res));
              //localStorage.setItem('user',JSON.stringify(token) );
-            // console.log(res);
+            console.log(res);
             //localStorage.setItem('user', JSON.stringify({ token: res }));
 
-           //this.router.navigateByUrl('/');
+           this.router.navigateByUrl('/');
           },(error: HttpErrorResponse)=>
           {
-            if (error.status ===200)
-            {
-              localStorage.setItem('user', error.error.text);
-              console.log(error)
-              this.router.navigateByUrl('/');
-          }
+          //   if (error.status ===200)
+          //   {
+          //     localStorage.setItem('user', error.error.text);
+          //     console.log(error)
+          //     this.router.navigateByUrl('/');
+          // }
 
           if (error.status === 400)
             {

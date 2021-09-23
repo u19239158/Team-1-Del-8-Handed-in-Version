@@ -17,6 +17,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { DateRange, MatDatepicker, MatDateRangeSelectionStrategy, MAT_DATE_RANGE_SELECTION_STRATEGY } from '@angular/material/datepicker';
 import * as _moment from 'moment';
 import * as moment from 'moment';
+import * as XLSX from 'xlsx';
 
 export const MY_FORMATS = {
   parse: {
@@ -85,6 +86,7 @@ export class MonthlySalesOrderReportComponent implements OnInit {
   Sales: any ;
   aveg: any;
   total : any;
+  fileName= 'MonthlySales.xlsx'; 
   ReportParams: ReportParameters = {
     startDate: null,
     endDate: null
@@ -194,6 +196,22 @@ export class MonthlySalesOrderReportComponent implements OnInit {
     });
   }
 
+  exportexcel(): void 
+    {
+       /* table id is passed over here */   
+       let element = document.getElementById('saleTable'); 
+       const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+       /* generate workbook and add the worksheet */
+       const wb: XLSX.WorkBook = XLSX.utils.book_new();
+       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+       /* save to file */
+       XLSX.writeFile(wb, this.fileName);
+			
+    }
+}
+
   // generateTables(data) {
   //   this.tableData = data;
   //   this.created = true;
@@ -201,4 +219,4 @@ export class MonthlySalesOrderReportComponent implements OnInit {
   //   // this.getGrandAverage();
   // }
 
-}
+

@@ -71,6 +71,9 @@
       <br>
       <br>
       <button type="submit" mat-raised-button color="primary" (click)="generatePdf()">Download Report PDF</button>
+      <br>
+      <br>
+      <button type="submit" class="btn btn-success" (click)="exportexcel()" >Export to Excel</button>
     </form>
   </div>
 </div>
@@ -82,7 +85,7 @@
 <h2>Total Sales For the Month: R{{total | number:'1.1-2'}}</h2> 
 <h2>Average Sale Amount : R{{aveg | number:'1.1-2'}}</h2>
 
-  <table mat-table [dataSource]="dataSource" matSort>
+  <table mat-table [dataSource]="dataSource" matSort id="saleTable">
 
 
     <!-- <ng-container matColumnDef="customerId">

@@ -27,6 +27,7 @@ export class EditSpecialComponent implements OnInit {
   specials: Observable<Special[]>;
   collection = [];
   selected: string;
+  userid : number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -43,6 +44,12 @@ export class EditSpecialComponent implements OnInit {
     const formOptions: AbstractControlOptions = { };
     this.getCollection();
     
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   console.log(obj.userId) 
+   this.userid = obj.userId
+    console.log(obj)
+
     this.id = +this.route.snapshot.params['id'];
     this.SpecialService.getSpecialByID(this.id).subscribe(res =>{
        this.special = res
@@ -128,6 +135,7 @@ export class EditSpecialComponent implements OnInit {
 
   updateSpecial() {
     const special: Special = this.form.value;
+    special.usersId = this.userid
     special.productItemId = this.productItem.productItemId;
     special.productItemCost = this.productItem.productItemCost;
     this.SpecialService.UpdateSpecial(special).subscribe(res => {
