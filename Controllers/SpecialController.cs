@@ -249,7 +249,8 @@ namespace NKAP_API_2.Controllers
             //AuditTrail audit = new AuditTrail();
             //audit.AuditTrailDescription = user.UserUsername + " Added a special on " +prod.ProductItemName +" at " + discount.DiscountPercentage;
             //audit.AuditTrailDate = System.DateTime.Now;
-            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
             //audit.UsersId = user.UsersId;
             //_db.AuditTrails.Add(audit);
             //_db.SaveChanges();
@@ -299,7 +300,8 @@ namespace NKAP_API_2.Controllers
             //AuditTrail audit = new AuditTrail();
             //audit.AuditTrailDescription = user.UserUsername + " Updated the special on " + prod.ProductItemName + " to " + discount.DiscountPercentage;
             //audit.AuditTrailDate = System.DateTime.Now;
-            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
             //audit.UsersId = user.UsersId;
             //_db.AuditTrails.Add(audit);
             //_db.SaveChanges();
@@ -336,7 +338,8 @@ namespace NKAP_API_2.Controllers
             //AuditTrail audit = new AuditTrail();
             //audit.AuditTrailDescription = user.UserUsername + " Deleted a special";
             //audit.AuditTrailDate = System.DateTime.Now;
-            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
             //audit.UsersId = user.UsersId;
             //_db.AuditTrails.Add(audit);
             //_db.SaveChanges();

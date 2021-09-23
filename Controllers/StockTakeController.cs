@@ -95,7 +95,8 @@ namespace NKAP_API_2.Controllers
             //AuditTrail audit = new AuditTrail();
             //audit.AuditTrailDescription = user.UserUsername + " took stock of the " + NewPQuantity.ProductItemName+ " to the amount of"+ model.StockTakeQuantity + " items on hand";
             //audit.AuditTrailDate = System.DateTime.Now;
-            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
             //audit.UsersId = user.UsersId;
             //_db.AuditTrails.Add(audit);
             //_db.SaveChanges();
