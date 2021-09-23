@@ -2,8 +2,8 @@ import { Productcategory, Categorytype } from 'src/app/interfaces';
 import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 
-import ChartDataLabels from 'chartjs-plugin-datalabels';
-import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+//import ChartDataLabels from 'chartjs-plugin-datalabels';
+//import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
 import { ReportServiceService } from '../services/Reports/report-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
