@@ -41,6 +41,7 @@ namespace NKAP_API_2.Controllers
             var hashedPassword = this.ComputeSha256Hash(model.UserPassword);
             model.UserRoleName = "Admin";
             var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
+
             if (user == null)
             {
                 request = "Invalid Credentials" ;
@@ -49,7 +50,14 @@ namespace NKAP_API_2.Controllers
             }
             else
             {
-                return Ok(token.GenerateToken(model));
+                var tokens = token.GenerateToken(model);
+                var username = user.UserUsername;
+                
+                var x = new helperclass();
+                x.token = tokens;
+                x.userUsername = username;
+                x.userId = user.UsersId;
+                return Ok(x);
                 //return ;
             }
 
@@ -62,6 +70,13 @@ namespace NKAP_API_2.Controllers
             //audit.UsersId = user.UsersId;
             //_db.AuditTrails.Add(audit);
             //_db.SaveChanges();
+        }
+
+        private class helperclass
+        {
+            public string token;
+            public string userUsername;
+            public int userId;
         }
 
         //Login Admin/Emp SIDE after new db

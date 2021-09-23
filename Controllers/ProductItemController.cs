@@ -94,16 +94,16 @@ namespace NKAP_API_2.Controllers
         {
             //var productItems = _db.ProductItems.ToList();
             {
-                var pitem = _db.ProductSpecials.Include(zz => zz.ProductItem).ThenInclude(zz => zz.CategoryType).Select(zz => new ProductItemModel
-                {
-                    CategoryTypeID = (int)zz.ProductItem.CategoryTypeId,
-                    // CategoryTypeImage = zz.ProductItem.CategoryTypeImage,
-                    ProductItemId = (int)zz.ProductItemId,
-                    ProductItemName = zz.ProductItem.ProductItemName,
-                    ProductSpecialID = zz.ProductSpecialId
+                //var pitem = _db.ProductSpecials.Include(zz => zz.ProductItem).ThenInclude(zz => zz.CategoryType).Select(zz => new ProductItemModel
+                //{
+                //    CategoryTypeID = (int)zz.ProductItem.CategoryTypeId,
+                //    // CategoryTypeImage = zz.ProductItem.CategoryTypeImage,
+                //    ProductItemId = (int)zz.ProductItemId,
+                //    ProductItemName = zz.ProductItem.ProductItemName,
+                //    ProductSpecialID = zz.ProductSpecialId
 
-                }
-                    );
+                //}
+                //    );
 
                 var productItems = _db.ProductItems.Join(_db.CategoryTypes,
                     a => a.CategoryTypeId,

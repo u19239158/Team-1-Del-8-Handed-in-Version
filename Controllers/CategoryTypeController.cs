@@ -132,19 +132,19 @@ namespace NKAP_API_2.Controllers
             _db.SaveChanges();
 
             //add to audit trail
-            //var user = _db.Users.Find(model.UsersID);
-            //AuditTrail audit = new AuditTrail();
-            //audit.AuditTrailDescription = user.UserUsername + "created a Category Type";
-            //audit.AuditTrailDate = System.DateTime.Now;
-            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
-            //audit.UsersId = user.UsersId;
-            //_db.AuditTrails.Add(audit);
-            //_db.SaveChanges();
+            var user = _db.Users.Find(model.UsersID);
+            AuditTrail audit = new AuditTrail();
+            audit.AuditTrailDescription = "User: "+ user.UserUsername + " added the Category Type: '" + model.CategoryTypeDescription + "'";
+            audit.AuditTrailDate = System.DateTime.Now;
+            audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            audit.UsersId = user.UsersId;
+            _db.AuditTrails.Add(audit);
+            _db.SaveChanges();
 
             return Ok(catType);
         }
 
-       // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+       // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")] 
         [Route("UpdateCategoryType")] //route
         [HttpPut]
         //Update CategoryType
@@ -159,14 +159,14 @@ namespace NKAP_API_2.Controllers
             _db.SaveChanges();
 
             //add to audit trail
-            //var user = _db.Users.Find(model.UsersID);
-            //AuditTrail audit = new AuditTrail();
-            //audit.AuditTrailDescription = user.UserUsername + "updated a Category Type";
-            //audit.AuditTrailDate = System.DateTime.Now;
-            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
-            //audit.UsersId = user.UsersId;
-            //_db.AuditTrails.Add(audit);
-            //_db.SaveChanges();
+            var user = _db.Users.Find(model.UsersID);
+            AuditTrail audit = new AuditTrail();
+            audit.AuditTrailDescription = user.UserUsername + "updated a Category Type";
+            audit.AuditTrailDate = System.DateTime.Now;
+            audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            audit.UsersId = user.UsersId;
+            _db.AuditTrails.Add(audit);
+            _db.SaveChanges();
 
             return Ok(catType);
         }
