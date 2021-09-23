@@ -59,11 +59,12 @@ namespace NKAP_API_2.Controllers
                 x.userId = user.UsersId;
 
                 //add to audit trail
-                TimeSpan timeNow = DateTime.Now.TimeOfDay;
+              
                 var users = _db.Users.Find(user.UsersId);
                 AuditTrail audit = new AuditTrail();
                 audit.AuditTrailDescription = users.UserUsername + " logged In";
                 audit.AuditTrailDate = System.DateTime.Now;
+                TimeSpan timeNow = DateTime.Now.TimeOfDay;
                 audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds); 
                 audit.UsersId = users.UsersId;
                 _db.AuditTrails.Add(audit);
