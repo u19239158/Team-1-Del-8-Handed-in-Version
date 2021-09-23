@@ -134,7 +134,7 @@ namespace NKAP_API_2.Controllers
             //add to audit trail
             var user = _db.Users.Find(model.UsersID);
             AuditTrail audit = new AuditTrail();
-            audit.AuditTrailDescription = "User: "+ user.UserUsername + " added the Category Type: '" + model.CategoryTypeDescription + "'";
+            audit.AuditTrailDescription = user.UserUsername + " added the Category Type: '" + model.CategoryTypeDescription + "'";
             audit.AuditTrailDate = System.DateTime.Now;
             audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
             audit.UsersId = user.UsersId;
@@ -161,7 +161,7 @@ namespace NKAP_API_2.Controllers
             //add to audit trail
             var user = _db.Users.Find(model.UsersID);
             AuditTrail audit = new AuditTrail();
-            audit.AuditTrailDescription = user.UserUsername + "updated a Category Type";
+            audit.AuditTrailDescription = user.UserUsername + " updated the Category Type: '" + model.CategoryTypeDescription + "'";
             audit.AuditTrailDate = System.DateTime.Now;
             audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
             audit.UsersId = user.UsersId;

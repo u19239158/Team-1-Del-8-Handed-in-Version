@@ -57,19 +57,23 @@ namespace NKAP_API_2.Controllers
                 x.token = tokens;
                 x.userUsername = username;
                 x.userId = user.UsersId;
+
+                //add to audit trail
+                var users = _db.Users.Find(model.UsersID);
+                AuditTrail audit = new AuditTrail();
+                audit.AuditTrailDescription = user.UserUsername + "logged In";
+                audit.AuditTrailDate = System.DateTime.Now;
+                audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+                audit.UsersId = user.UsersId;
+                _db.AuditTrails.Add(audit);
+                _db.SaveChanges();
+
                 return Ok(x);
                 //return ;
+
+               
             }
 
-            //add to audit trail
-            //var user = _db.Users.Find(model.UsersID);
-            //AuditTrail audit = new AuditTrail();
-            //audit.AuditTrailDescription = user.UserUsername + "logged In";
-            //audit.AuditTrailDate = System.DateTime.Now;
-            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
-            //audit.UsersId = user.UsersId;
-            //_db.AuditTrails.Add(audit);
-            //_db.SaveChanges();
         }
 
         private class helperclass
@@ -233,6 +237,16 @@ namespace NKAP_API_2.Controllers
                 //_db.Admins.Add(newAdmin);
                  _db.Customers.Add(newCustomer);
                 // _db.PasswordHistories.Add(newpasshist);
+                _db.SaveChanges();
+
+                //add to audit trail
+                var user = _db.Users.Find(model.UsersID);
+                AuditTrail audit = new AuditTrail();
+                audit.AuditTrailDescription = user.UserUsername + "Registered a new Account";
+                audit.AuditTrailDate = System.DateTime.Now;
+                audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+                audit.UsersId = user.UsersId;
+                _db.AuditTrails.Add(audit);
                 _db.SaveChanges();
 
                 return Ok(newCustomer);
