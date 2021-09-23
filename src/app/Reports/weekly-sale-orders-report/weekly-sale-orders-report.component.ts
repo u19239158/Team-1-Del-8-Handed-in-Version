@@ -8,6 +8,7 @@ import { ReportParameters, Reports } from 'src/app/interfaces';
 import { ReportServiceService } from 'src/app/services/Reports/report-service.service';
 import html2canvas from 'html2canvas';
 import { MatTableDataSource } from '@angular/material/table';
+import * as XLSX from 'xlsx';
 
 // Start Date Range Code
 import { DateAdapter } from '@angular/material/core';
@@ -64,6 +65,7 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
   tableData: any;
   aveg: any;
   total : any;
+  fileName= 'WeeklySales.xlsx'; 
   ReportParams: ReportParameters = {
     startDate: null,
     endDate: null
@@ -197,7 +199,20 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
     // this.averages = data.map(avg => avg.AverageQuantityOrdered);
     // this.getGrandAverage();
   }
+  exportexcel(): void 
+  {
+     /* table id is passed over here */   
+     let element = document.getElementById('WsaleTable'); 
+     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
 
+     /* generate workbook and add the worksheet */
+     const wb: XLSX.WorkBook = XLSX.utils.book_new();
+     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+     /* save to file */
+     XLSX.writeFile(wb, this.fileName);
+    
+  }
   // public randomize(): void {
   //   // Only Change 3 values
   //   this.barChartData[0].data = [
