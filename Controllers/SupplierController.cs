@@ -70,14 +70,14 @@ namespace NKAP_API_2.Controllers
             _db.SaveChanges();
 
 
-            var user = _db.Users.Find(model.UsersID);
-            AuditTrail audit = new AuditTrail();
-            audit.AuditTrailDescription = user.UserUsername + " Added Supplier:" +model.SupplierName ;
-            audit.AuditTrailDate = System.DateTime.Now;
-            audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
-            audit.UsersId = user.UsersId;
-            _db.AuditTrails.Add(audit);
-            _db.SaveChanges();
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " Added Supplier:" +model.SupplierName ;
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
 
             return Ok(supplier);
 
@@ -90,15 +90,17 @@ namespace NKAP_API_2.Controllers
         //Update Supplier
         public IActionResult UpdateSupplier(SupplierModel model)
         {
-            var user = _db.Users.Find(model.UsersID);
             var supplier = _db.Suppliers.Find(model.SupplierId);
-            AuditTrail audit = new AuditTrail();
-            audit.AuditTrailDescription = user.UserUsername + " Updated Supplier:" + supplier.SupplierName  ;
-            audit.AuditTrailDate = System.DateTime.Now;
-            audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
-            audit.UsersId = user.UsersId;
-            _db.AuditTrails.Add(audit);
-            _db.SaveChanges();
+
+            //var user = _db.Users.Find(model.UsersID);
+            
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " Updated Supplier:" + supplier.SupplierName  ;
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
 
             
             supplier.SupplierName = model.SupplierName; //attributes in table
@@ -201,14 +203,14 @@ namespace NKAP_API_2.Controllers
             _db.Suppliers.Attach(Suppayment);
             _db.SaveChanges();
 
-            var user = _db.Users.Find(model.UsersID);
-            AuditTrail audit = new AuditTrail();
-            audit.AuditTrailDescription = user.UserUsername + " captured the payment to the value of R" + model.SupplierAmount+ " to" + Suppayment.SupplierName;
-            audit.AuditTrailDate = System.DateTime.Now;
-            audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
-            audit.UsersId = user.UsersId;
-            _db.AuditTrails.Add(audit);
-            _db.SaveChanges();
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " captured payment to the value of R" + model.SupplierAmount+ " to supplier: " + Suppayment.SupplierName;
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
 
             return Ok();
         }

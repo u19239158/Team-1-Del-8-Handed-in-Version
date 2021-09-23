@@ -59,12 +59,12 @@ namespace NKAP_API_2.Controllers
                 x.userId = user.UsersId;
 
                 //add to audit trail
-                var users = _db.Users.Find(model.UsersID);
+                var users = _db.Users.Find(user.UsersId);
                 AuditTrail audit = new AuditTrail();
-                audit.AuditTrailDescription = user.UserUsername + "logged In";
+                audit.AuditTrailDescription = users.UserUsername + " logged In";
                 audit.AuditTrailDate = System.DateTime.Now;
                 audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
-                audit.UsersId = user.UsersId;
+                audit.UsersId = users.UsersId;
                 _db.AuditTrails.Add(audit);
                 _db.SaveChanges();
 

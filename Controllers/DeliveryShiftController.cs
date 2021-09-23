@@ -426,14 +426,14 @@ namespace NKAP_API_2.Controllers
             _db.SaveChanges();
 
             //add to audit trail
-            var user = _db.Users.Find(model.UsersID);
-            AuditTrail audit = new AuditTrail();
-            audit.AuditTrailDescription = user.UserUsername + "added a Delivery Shift";
-            audit.AuditTrailDate = System.DateTime.Now;
-            audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
-            audit.UsersId = user.UsersId;
-            _db.AuditTrails.Add(audit);
-            _db.SaveChanges();
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " added a Delivery Shift";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
 
             return Ok(shift);
         }
@@ -545,15 +545,16 @@ namespace NKAP_API_2.Controllers
             _db.EmployeeShifts.Add(EmpShifts);
             _db.SaveChanges();
 
+            var emp = _db.Employees.Find(model.EmployeeID);
             //add to audit trail
-            var user = _db.Users.Find(model.UsersID);
-            AuditTrail audit = new AuditTrail();
-            audit.AuditTrailDescription = user.UserUsername + "assigned a Delivery Shift to an employee";
-            audit.AuditTrailDate = System.DateTime.Now;
-            audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
-            audit.UsersId = user.UsersId;
-            _db.AuditTrails.Add(audit);
-            _db.SaveChanges();
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " assigned a Delivery Shift to " + emp.EmployeeName + " " + emp.EmployeeSurname;
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
 
             return Ok();
         }
@@ -604,14 +605,14 @@ namespace NKAP_API_2.Controllers
             _db.SaveChanges();
 
             //add to audit trail
-            var user = _db.Users.Find(model.UsersID);
-            AuditTrail audit = new AuditTrail();
-            audit.AuditTrailDescription = user.UserUsername + "updated a Delivery Shift";
-            audit.AuditTrailDate = System.DateTime.Now;
-            audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
-            audit.UsersId = user.UsersId;
-            _db.AuditTrails.Add(audit);
-            _db.SaveChanges();
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " updated a Delivery Shift";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
 
             return Ok();
         }

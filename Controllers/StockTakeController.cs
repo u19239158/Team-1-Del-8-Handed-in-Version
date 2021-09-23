@@ -91,14 +91,14 @@ namespace NKAP_API_2.Controllers
             //Attach Record
             _db.SaveChanges();
 
-            var user = _db.Users.Find(model.UsersID);
-            AuditTrail audit = new AuditTrail();
-            audit.AuditTrailDescription = user.UserUsername + "wrote off " + model.StockTakeQuantity + " items of the '" + NewPQuantity.ProductItemName + "' Product Item";
-            audit.AuditTrailDate = System.DateTime.Now;
-            audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
-            audit.UsersId = user.UsersId;
-            _db.AuditTrails.Add(audit);
-            _db.SaveChanges();
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " took stock of the " + NewPQuantity.ProductItemName+ " to the amount of"+ model.StockTakeQuantity + " items on hand";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
 
             return Ok();
 
