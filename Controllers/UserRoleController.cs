@@ -63,16 +63,18 @@ namespace NKAP_API_2.Controllers
             _db.UserRoles.Add(userrole);
             _db.SaveChanges();
 
+            var user = _db.Users.Find(model.UsersID);
+            AuditTrail audit = new AuditTrail();
+            audit.AuditTrailDescription = user.UserUsername + " Added the new user role: " + model.UserRoleName;
+            audit.AuditTrailDate = System.DateTime.Now;
+            audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            audit.UsersId = user.UsersId;
+            _db.AuditTrails.Add(audit);
+            _db.SaveChanges();
+
             return Ok(userrole);
 
-            //var user = _db.Users.Find(model.UsersID);
-            //AuditTrail audit = new AuditTrail();
-            //audit.AuditTrailDescription = user.UserUsername + " Created a new user role ";
-            //audit.AuditTrailDate = System.DateTime.Now;
-            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
-            //audit.UsersId = user.UsersId;
-            //_db.AuditTrails.Add(audit);
-            //_db.SaveChanges();
+           
         }
 
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
@@ -82,7 +84,19 @@ namespace NKAP_API_2.Controllers
         public IActionResult UpdateUserRole(UserRoleModel model)
         
         {
+
             var userrole = _db.UserRoles.Find(model.UserRoleID);
+
+            var user = _db.Users.Find(model.UsersID);
+            AuditTrail audit = new AuditTrail();
+            audit.AuditTrailDescription = user.UserUsername + " Updated the user role: " + userrole.UserRoleName ;
+            audit.AuditTrailDate = System.DateTime.Now;
+            audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            audit.UsersId = user.UsersId;
+            _db.AuditTrails.Add(audit);
+            _db.SaveChanges();
+
+           
             userrole.UserRoleName = model.UserRoleName;
             userrole.UserRoleDescription = model.UserRoleDescription;
             _db.UserRoles.Attach(userrole); //Attach Record
@@ -90,14 +104,7 @@ namespace NKAP_API_2.Controllers
 
             return Ok(userrole);
 
-            //var user = _db.Users.Find(model.UsersID);
-            //AuditTrail audit = new AuditTrail();
-            //audit.AuditTrailDescription = user.UserUsername + " Updated a new user role";
-            //audit.AuditTrailDate = System.DateTime.Now;
-            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
-            //audit.UsersId = user.UsersId;
-            //_db.AuditTrails.Add(audit);
-            //_db.SaveChanges();
+         
         }
 
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]

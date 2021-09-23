@@ -219,9 +219,9 @@ namespace NKAP_API_2.Controllers
         //Create a Model for table
         public IActionResult CreateSpecials(SpecialModel model) //reference the model
         {
-            string resp;
+           // string resp;
             var special1 = _db.ProductSpecials.FirstOrDefault(ss => ss.ProductItemId == model.ProductItemId);
-
+            var prod = _db.ProductItems.Find(model.ProductItemId);
 
             Special special = new Special();
             {
@@ -244,16 +244,20 @@ namespace NKAP_API_2.Controllers
             _db.ProductSpecials.Add(PSpecial);
             _db.SaveChanges();
 
+
+            var user = _db.Users.Find(model.UsersID);
+            AuditTrail audit = new AuditTrail();
+            audit.AuditTrailDescription = user.UserUsername + " Added a special on" +prod.ProductItemName +" at" + discount.DiscountPercentage;
+            audit.AuditTrailDate = System.DateTime.Now;
+            audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            audit.UsersId = user.UsersId;
+            _db.AuditTrails.Add(audit);
+            _db.SaveChanges();
+
+
             return Ok();
 
-            //var user = _db.Users.Find(model.UsersID);
-            //AuditTrail audit = new AuditTrail();
-            //audit.AuditTrailDescription = user.UserUsername + " Created a special";
-            //audit.AuditTrailDate = System.DateTime.Now;
-            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
-            //audit.UsersId = user.UsersId;
-            //_db.AuditTrails.Add(audit);
-            //_db.SaveChanges();
+
         }
 
 
@@ -276,7 +280,7 @@ namespace NKAP_API_2.Controllers
             }
             _db.Specials.Attach(special);
             _db.SaveChanges();
-
+            var prod = _db.ProductItems.Find(model.ProductItemId);
             var discount = _db.Discounts.FirstOrDefault(zz => zz.DiscountId == model.DiscountId);
             ProductSpecial PSpecial = new ProductSpecial();
             {
@@ -291,16 +295,18 @@ namespace NKAP_API_2.Controllers
             _db.Specials.Attach(special); //Attach Record
             _db.SaveChanges();
 
+            var user = _db.Users.Find(model.UsersID);
+            AuditTrail audit = new AuditTrail();
+            audit.AuditTrailDescription = user.UserUsername + " Updated the special on" + prod.ProductItemName + " to" + discount.DiscountPercentage;
+            audit.AuditTrailDate = System.DateTime.Now;
+            audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            audit.UsersId = user.UsersId;
+            _db.AuditTrails.Add(audit);
+            _db.SaveChanges();
+
             return Ok(special);
 
-            //var user = _db.Users.Find(model.UsersID);
-            //AuditTrail audit = new AuditTrail();
-            //audit.AuditTrailDescription = user.UserUsername + " Updated a special";
-            //audit.AuditTrailDate = System.DateTime.Now;
-            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
-            //audit.UsersId = user.UsersId;
-            //_db.AuditTrails.Add(audit);
-            //_db.SaveChanges();
+
         }
 
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]

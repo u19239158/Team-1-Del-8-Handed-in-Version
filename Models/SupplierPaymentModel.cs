@@ -23,6 +23,10 @@ namespace NKAP_API_2.Models
         [JsonProperty("supplierid")]
         public int SupplierId
         { get; set; }
+
+        [JsonProperty("usersid")]
+        public int UsersID
+        { get; set; }
     }
 }
 
