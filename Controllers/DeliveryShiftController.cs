@@ -430,7 +430,8 @@ namespace NKAP_API_2.Controllers
             //AuditTrail audit = new AuditTrail();
             //audit.AuditTrailDescription = user.UserUsername + " added a Delivery Shift";
             //audit.AuditTrailDate = System.DateTime.Now;
-            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
             //audit.UsersId = user.UsersId;
             //_db.AuditTrails.Add(audit);
             //_db.SaveChanges();
@@ -498,7 +499,8 @@ namespace NKAP_API_2.Controllers
             //AuditTrail audit = new AuditTrail();
             //audit.AuditTrailDescription = user.UserUsername + "deleted a Delivery Shift";
             //audit.AuditTrailDate = System.DateTime.Now;
-            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
             //audit.UsersId = user.UsersId;
             //_db.AuditTrails.Add(audit);
             //_db.SaveChanges();
@@ -551,7 +553,8 @@ namespace NKAP_API_2.Controllers
             //AuditTrail audit = new AuditTrail();
             //audit.AuditTrailDescription = user.UserUsername + " assigned a Delivery Shift to " + emp.EmployeeName + " " + emp.EmployeeSurname;
             //audit.AuditTrailDate = System.DateTime.Now;
-            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
             //audit.UsersId = user.UsersId;
             //_db.AuditTrails.Add(audit);
             //_db.SaveChanges();
@@ -609,7 +612,8 @@ namespace NKAP_API_2.Controllers
             //AuditTrail audit = new AuditTrail();
             //audit.AuditTrailDescription = user.UserUsername + " updated a Delivery Shift";
             //audit.AuditTrailDate = System.DateTime.Now;
-            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
             //audit.UsersId = user.UsersId;
             //_db.AuditTrails.Add(audit);
             //_db.SaveChanges();

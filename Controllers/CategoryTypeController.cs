@@ -134,9 +134,10 @@ namespace NKAP_API_2.Controllers
             //add to audit trail
             //var user = _db.Users.Find(model.UsersID);
             //AuditTrail audit = new AuditTrail();
-            //audit.AuditTrailDescription = user.UserUsername + " added the Category Type: " + model.CategoryTypeDescription ;
+            //audit.AuditTrailDescription = user.UserUsername + " added the Category Type: " + model.CategoryTypeDescription;
             //audit.AuditTrailDate = System.DateTime.Now;
-            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
             //audit.UsersId = user.UsersId;
             //_db.AuditTrails.Add(audit);
             //_db.SaveChanges();
@@ -163,7 +164,8 @@ namespace NKAP_API_2.Controllers
             //AuditTrail audit = new AuditTrail();
             //audit.AuditTrailDescription = user.UserUsername + " updated the Category Type: " + model.CategoryTypeDescription ;
             //audit.AuditTrailDate = System.DateTime.Now;
-            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
             //audit.UsersId = user.UsersId;
             //_db.AuditTrails.Add(audit);
             //_db.SaveChanges();
