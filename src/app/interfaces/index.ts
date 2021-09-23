@@ -6,6 +6,8 @@ import { Identifiers } from "@angular/compiler";
 export interface Login {
   userUsername: string;
   userPassword: string;
+  token : string;
+  userId: number;
 }
 
 export interface Employee {
@@ -21,6 +23,7 @@ export interface Employee {
   userUsername: string;
   userPassword: string;
   employeeConfirmPassword: string;
+  usersId: number;
 }
 
 export interface Supplier {
@@ -37,6 +40,7 @@ export interface Supplier {
   supplierBalance: number;
   supplierTypeId: number;
   supplierAmount: number;
+  usersId: number;
 }
 
 export interface UserRole {
@@ -48,6 +52,7 @@ export interface UserRole {
   auditTrailDescription: string;
   auditTrailDate :string;
   auditTrailTime: string
+  usersId: number;
 }
 
 export class UserRole {
@@ -68,6 +73,7 @@ export interface Special {
   productItemId: number;
   productItemCost: number;
   discountPercentage:number;
+  usersId: number;
 }
 
 export interface Courier {
@@ -77,6 +83,7 @@ export interface Courier {
   courierEmail: string;
   courierNumber: string;
   courierTypeID: number;
+  usersId: number;
 }
 
 export interface Deliveryshift {
@@ -102,13 +109,14 @@ export interface Deliveryshift {
   saleID: number;
   customerCellphoneNumber : string;
   addressPostalCode : number;
-
+  usersId: number;
 }
 
 export interface Productcategory {
   productCategoryId: number;
   productCategoryDescription: string;
   productCategoryImage: string;
+  usersId: number;
 }
 
 export interface Categorytype {
@@ -118,6 +126,7 @@ export interface Categorytype {
   itemDescription: string;
   productCategoryDesc: string;
   productCategoryID: number;
+  usersId: number;
 }
 
 export interface Productitem {
@@ -130,6 +139,7 @@ export interface Productitem {
   categoryTypeName: string;
   categoryTypeDescription: string;
   priceDescription: number;
+  usersId: number;
 }
 
 export interface Customer {
@@ -143,6 +153,7 @@ export interface Customer {
   customerBusinessName: string;
   customerPassword: string;
   titleId: number;
+  usersId: number;
 }
 
 export interface ReceiveSupplierOrder {
@@ -156,6 +167,7 @@ export interface ReceiveSupplierOrder {
   // invoiceDate: string;
   // invoiceTotal: number;
   // price: string;
+  usersId: number;
 }
 
 export interface PlaceSupplierOrder {
@@ -166,6 +178,7 @@ export interface PlaceSupplierOrder {
   quantity: number;
   highlighted?: boolean;
   hovered?: boolean;
+  usersId: number;
 }
 
 export interface StockTake {
@@ -175,6 +188,7 @@ export interface StockTake {
   quantityOnHand: number;
   stockTakeQuantity: number;
   productItemId: number;
+  usersId: number;
 }
 
 export interface WriteOffStock {
@@ -185,6 +199,7 @@ export interface WriteOffStock {
   writeOffQuantity: number;
   writeOffReason: string;
   productItemWrittenOffStockId: number;
+  usersId: number;
 }
 
 export interface AssignUnscheduledDelivery { //should be in delivery shift. we don't create interfaces for each individual requirement.
@@ -254,6 +269,7 @@ export interface OnlineSales {
   courierTypeDescription: string;
   courierEmail: string;
   courierNumber: string;
+  usersId: number;
 }
 
 export interface MarkUp

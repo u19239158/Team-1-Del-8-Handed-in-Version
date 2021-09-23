@@ -30,9 +30,12 @@ export class AddEditCategorytypesComponent implements OnInit {
   path: File;
   selectedImage: File;
   url : string;
+  userid : number;
   image : string = null;
   downloadURL: Observable<string>;
   taskRef: AngularFireStorageReference;
+  
+
 
   
 
@@ -44,6 +47,7 @@ export class AddEditCategorytypesComponent implements OnInit {
     private CategorytypeService: CategorytypeService,
     private http: HttpClient,
     private storage : AngularFireStorage
+    
      
   ) { }
 
@@ -55,7 +59,14 @@ export class AddEditCategorytypesComponent implements OnInit {
     this.id = +this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
     this.getCollection();
-
+    
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   console.log(obj.userId) 
+   this.userid = obj.userId
+    console.log(obj)
+    //this.userid = localStorage.getItem('user').valueOf('userId')
+    //localStorage.key()
     
     const formOptions: AbstractControlOptions = {};
     this.form = this.formBuilder.group({
@@ -128,14 +139,16 @@ console.log(this.path)
   }
 
   async createCategorytype() {
-    setTimeout(() => this.dataSource.paginator = this.paginator);
    const img = await this.uploadImage();
+
    img.subscribe(imgpath =>{
     const categorytype: Categorytype = {
       ...this.form.value,
-      categoryTypeImage: imgpath
+      categoryTypeImage: imgpath,
+      usersId : this.userid
     };
     this.CategorytypeService.CreateCategoryType(categorytype).subscribe(res => {
+      
       console.log(res)
       this.loading = false
       this.router.navigateByUrl('categoryType');
@@ -162,12 +175,13 @@ console.log(this.path)
   }
 
   async updateCategorytype() {
-    setTimeout(() => this.dataSource.paginator = this.paginator);
+    
     const img = await this.uploadImage();
     img.subscribe(imgpath =>{
      const categorytype: Categorytype = {
        ...this.form.value,
-       categoryTypeImage: imgpath
+       categoryTypeImage: imgpath,
+       usersId : this.userid
      };
 
     categorytype.categoryTypeId = this.categorytype.categoryTypeId;
