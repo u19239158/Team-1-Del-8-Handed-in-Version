@@ -24,6 +24,8 @@ export class AddEditCourierComponent implements OnInit {
   couriers: Observable<Courier[]>;
   collection = [];
   selected: string;
+  userid : number;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,6 +40,12 @@ export class AddEditCourierComponent implements OnInit {
     this.id = +this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
     this.getCollection();
+
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   console.log(obj.userId) 
+   this.userid = obj.userId
+    console.log(obj)
 
     const formOptions: AbstractControlOptions = {};
     this.form = this.formBuilder.group({
@@ -59,6 +67,7 @@ export class AddEditCourierComponent implements OnInit {
         }, formOptions);
       });
     }
+
   }
 
   onSubmit() {
@@ -77,6 +86,7 @@ export class AddEditCourierComponent implements OnInit {
 
   createCourier() {
     const courier: Courier = this.form.value;
+    courier.usersId = this.userid
     this.CourierService.CreateCourier(courier).subscribe(res => {
       console.log(res)
       this.loading = false;
@@ -105,6 +115,7 @@ export class AddEditCourierComponent implements OnInit {
 
   updateCourier() {
     const courier: Courier = this.form.value;
+    courier.usersId = this.userid
     courier.courierID = this.courier.courierID;
     this.CourierService.UpdateCouriere(courier).subscribe(res => {
       console.log(res)

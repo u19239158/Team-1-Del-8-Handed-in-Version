@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
 
 
     ngOnInit() : void {
-
+     
     }
 
   //  onSubmit(loginForm) {
@@ -61,6 +61,7 @@ export class LoginComponent implements OnInit {
         Login(): void
         {
           this.Loginservice.Login(this.form.value).subscribe(res => {
+            
            // const token = (<any>res).token
             localStorage.setItem('user', JSON.stringify(res));
              //localStorage.setItem('user',JSON.stringify(token) );

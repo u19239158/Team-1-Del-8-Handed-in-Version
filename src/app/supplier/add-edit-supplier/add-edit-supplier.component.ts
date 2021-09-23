@@ -19,6 +19,7 @@ export class AddEditSupplierComponent implements OnInit {
   submitted = false;
   supplier: Supplier;
   suppliers: Observable<Supplier[]>;
+  userid : number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,6 +32,12 @@ export class AddEditSupplierComponent implements OnInit {
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
+
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   console.log(obj.userId) 
+   this.userid = obj.userId
+    console.log(obj)
 
     const formOptions: AbstractControlOptions = {};
     this.form = this.formBuilder.group({
@@ -79,6 +86,7 @@ export class AddEditSupplierComponent implements OnInit {
 
   createSupplier() {
     const supplier: Supplier = this.form.value;
+    supplier.usersId = this.userid
     this.SupplierService.CreateSupplier(supplier).subscribe(res => {
       console.log(res)
       this.loading = false;
@@ -94,6 +102,7 @@ export class AddEditSupplierComponent implements OnInit {
 
   updateSupplier() {
     const supplier: Supplier = this.form.value;
+    supplier.usersId = this.userid
     supplier.supplierId = this.supplier.supplierId;
     this.SupplierService.UpdateSupplier(supplier).subscribe(res => {
       console.log(res)

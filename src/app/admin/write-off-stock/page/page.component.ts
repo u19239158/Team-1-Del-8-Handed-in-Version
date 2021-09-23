@@ -22,6 +22,7 @@ export class PageComponent implements OnInit {
   productitem: Productitem;
   productitems: Observable<Productitem[]>;
   submitted = false;
+  userid : number;
 
   // formBuilder: any;
 
@@ -48,6 +49,11 @@ export class PageComponent implements OnInit {
 
     
   });
+  var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   console.log(obj.userId) 
+   this.userid = obj.userId
+    console.log(obj)
   }
   
   onSubmit() {
@@ -63,6 +69,7 @@ export class PageComponent implements OnInit {
 
   writeOff() {
     const writeOffStock: WriteOffStock = this.form.value;
+    writeOffStock.usersId = this.userid
     writeOffStock.productItemId = this.productitem.productItemId;
     this.WriteOffStockService.WriteOffStock(writeOffStock).subscribe(res => {
       console.log(res)

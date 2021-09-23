@@ -37,6 +37,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
   currentData = 2;
   minDate: Date;
   selectedDate = new Date();
+  userid : number;
 
 
   constructor(
@@ -56,6 +57,12 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     this.isAddMode = !this.shiftId;
     this.getCollection();
     this.getEmployees();
+
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   console.log(obj.userId) 
+   this.userid = obj.userId
+    console.log(obj)
 
     const formOptions: AbstractControlOptions = {};
     this.form = this.formBuilder.group({
@@ -174,6 +181,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
 
   createDeliveryshift() {
     const deliveryshift: Deliveryshift = this.form.value;
+    deliveryshift.usersId = this.userid
     this.DeliveryShiftService.AssignDeliveryShift(deliveryshift).subscribe(res => {
       console.log(res)
       this.loading = false
@@ -183,6 +191,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
 
   AssignDeliveryShifts() {
     const deliveryshift: Deliveryshift = this.form.value;
+    deliveryshift.usersId = this.userid
     this.DeliveryShiftService.AssignDeliveryShifts(deliveryshift).subscribe(res => {
       console.log(res)
       this.loading = false
@@ -198,6 +207,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
 
   updateDeliveryshift() {
     const deliveryshift: Deliveryshift = this.form.value;
+    deliveryshift.usersId = this.userid
     deliveryshift.shiftId = this.deliveryshift.shiftId;
     const deliveryshiftS: Deliveryshift = this.form.value;
     deliveryshiftS.employeeShiftId = this.deliveryshift.employeeShiftId;
