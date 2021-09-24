@@ -234,15 +234,45 @@ namespace NKAP_API_2.Controllers
             _db.SaveChanges();
 
             //add to audit trail
-            //var user = _db.Users.Find(model.UsersID);
-            //AuditTrail audit = new AuditTrail();
-            //audit.AuditTrailDescription = user.UserUsername + " updated the Customer: " + model.CustomerName+" "+ model.CustomerSurname ;
-            //audit.AuditTrailDate = System.DateTime.Now;
-            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
-            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
-            //audit.UsersId = user.UsersId;
-            //_db.AuditTrails.Add(audit);
-            //_db.SaveChanges();
+            var user = _db.Users.Find(model.UsersID);
+            AuditTrail audit = new AuditTrail();
+            audit.AuditTrailDescription = user.UserUsername + " updated the Customer: " + model.CustomerName + " " + model.CustomerSurname;
+            audit.AuditTrailDate = System.DateTime.Now;
+            TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+            audit.UsersId = user.UsersId;
+            _db.AuditTrails.Add(audit);
+            _db.SaveChanges();
+
+            return Ok(customer);
+        }
+
+        [Route("UpdateProfile")] //route
+        [HttpPut]
+        //Update Customer
+        public IActionResult UpdateProfile(CustomerModel model)
+        {
+            var customer = _db.Customers.Find(model.UsersID);
+            customer.CustomerName = model.CustomerName; //attributes in table
+            customer.CustomerSurname = model.CustomerSurname;
+            customer.CustomerCellphoneNumber = model.CustomerCellphoneNumber;
+            customer.CustomerEmailAddress = model.CustomerEmailAddress;
+            customer.CustomerBusinessName = model.CustomerBusinessName;
+            customer.CustomerVatreg = model.CustomerVatReg;
+            customer.TitleId = model.TitleID;
+            _db.Customers.Attach(customer); //Attach Record
+            _db.SaveChanges();
+
+            //add to audit trail
+            var user = _db.Users.Find(model.UsersID);
+            AuditTrail audit = new AuditTrail();
+            audit.AuditTrailDescription = model.CustomerName +" " +model.CustomerSurname + " updated their profile. " ;
+            audit.AuditTrailDate = System.DateTime.Now;
+            TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+            audit.UsersId = user.UsersId;
+            _db.AuditTrails.Add(audit);
+            _db.SaveChanges();
 
             return Ok(customer);
         }
@@ -253,6 +283,37 @@ namespace NKAP_API_2.Controllers
         [HttpDelete]
         //Delete Customer
         public IActionResult DeleteCustomer(int customerid)
+        {
+            try
+            {
+                var customer = _db.Customers.Find(customerid);
+                _db.Customers.Remove(customer); //Delete Record
+                _db.SaveChanges();
+                return Ok(customer);
+            }
+            catch (Exception)
+            {
+                response = "Customer could not be deleted due to existing dependencies linked to the particular account";
+                return BadRequest(response);
+                throw;
+            }
+
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + "deleted a Customer";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
+
+        }
+
+        [Route("DeleteCustomer/{customerid}")] //route
+        [HttpDelete]
+        //Delete Customer
+        public IActionResult DeleteProfile(int customerid)
         {
             try
             {

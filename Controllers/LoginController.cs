@@ -57,6 +57,7 @@ namespace NKAP_API_2.Controllers
                 x.token = tokens;
                 x.userUsername = username;
                 x.userId = user.UsersId;
+                x.userRoleID = (int)user.UserRoleId;
 
                 //add to audit trail
               
@@ -83,6 +84,7 @@ namespace NKAP_API_2.Controllers
             public string token;
             public string userUsername;
             public int userId;
+            public int userRoleID;
         }
 
         //Login Admin/Emp SIDE after new db
@@ -244,7 +246,7 @@ namespace NKAP_API_2.Controllers
                 //add to audit trail
                 //var user = _db.Users.Find(model.UsersID);
                 //AuditTrail audit = new AuditTrail();
-                //audit.AuditTrailDescription = user.UserUsername + "Registered a new Account";
+                //audit.AuditTrailDescription = user.UserUsername + " Registered a new Account";
                 //audit.AuditTrailDate = System.DateTime.Now;
                 //TimeSpan timeNow = DateTime.Now.TimeOfDay;
                 //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
