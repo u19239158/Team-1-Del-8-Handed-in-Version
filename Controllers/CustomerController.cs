@@ -85,7 +85,36 @@ namespace NKAP_API_2.Controllers
             return Ok(Custitle);
         }
 
-     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        //[Route("GetProfile/{userid}")] //route
+        //[HttpGet]
+        ////get Customer by ID (Read)
+        //public IActionResult GetProfile(int userid)
+        //{
+        //    //var Customer = _db.Customers.Find(customerid);
+
+        //    var Custitle = _db.Customers.Join(_db.Titles,
+        //      c => c.TitleId,
+        //      t => t.TitleId,
+        //      (c, t) => new
+        //      {
+        //          CustomerId = c.CustomerId,
+
+        //          TitleID = c.TitleId,
+        //          TitleDesc = t.TitleDescription,
+        //          CustomerID = c.CustomerId,
+        //          CustomerName = c.CustomerName,
+        //          CustomerSurname = c.CustomerSurname,
+        //          CustomerCellphoneNumber = c.CustomerCellphoneNumber,
+        //          CustomerEmailAddress = c.CustomerEmailAddress,
+        //          CustomerVATReg = c.CustomerVatreg,
+        //          CustomerBusinessName = c.CustomerBusinessName,
+
+        //      }).First(cn => cn.userID == userid);
+
+        //    return Ok(Custitle);
+        //}
+
+        //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetCustomerByName/{customername}")] //route
         [HttpGet]
         //get Customer by Name (Read)

@@ -171,7 +171,17 @@ namespace NKAP_API_2.Controllers
             }
             else
             {
-                return Ok(token.GenerateToken(model));
+
+                var tokens = token.GenerateToken(model);
+                var username = user.UserUsername;
+
+                var x = new helperclass();
+                x.token = tokens;
+                x.userUsername = username;
+                x.userId = user.UsersId;
+                x.userRoleID = (int)user.UserRoleId;
+
+                return Ok(x);
             }
 
         }
@@ -201,7 +211,7 @@ namespace NKAP_API_2.Controllers
             {
                 UserUsername = model.UserUsername,
                 UserPassword = ComputeSha256Hash(model.UserPassword),
-                UserRoleId = 3,
+                UserRoleId = 2,
                 
             };
 
