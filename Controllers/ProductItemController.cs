@@ -272,14 +272,29 @@ namespace NKAP_API_2.Controllers
                         CategoryTypeImage = t.CategoryTypeImage,
                         CategoryTypeName = t.CategoryTypeDescription,
                         ProductItemId = a.ProductItemId,
-                        CategoryTypeDescription = t.ItemDescription,
+                        ItemDescription = t.ItemDescription,
                         ProductItemName = a.ProductItemName,
                         ProductItemCost = a.ProductItemCost,
                         QuantityOnHand = a.QuantityOnHand,
 
 
 
-                    }).Where(pp => pp.CategoryTypeId == categoryTypeId);
+                    }).Join(_db.Prices,
+                    a => a.ProductItemId,
+                    t => t.ProductItemId,
+                    (a, t) => new
+                    {
+                        CategoryTypeId = a.CategoryTypeId,
+                        CategoryTypeName = a.CategoryTypeName,
+                        ProductItemId = a.ProductItemId,
+                        ItemDescription = a.ItemDescription,
+                        ProductItemName = a.ProductItemName,
+                        ProductItemCost = a.ProductItemCost,
+                        QuantityOnHand = a.QuantityOnHand,
+                        PriceDescription = t.PriceDescription
+
+
+                    }).First(pp => pp.CategoryTypeId == categoryTypeId);
 
                 return Ok(productItems);
             }
