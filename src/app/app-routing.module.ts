@@ -75,11 +75,11 @@ import { UpdateDeliveriesLimitComponent } from './deliveryshift/update-deliverie
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: HomeComponent,
   },
   {
-    path: 'login',
+    path: '',
     component: LoginComponent,
   },
   {
