@@ -8,6 +8,7 @@ export interface Login {
   userPassword: string;
   token : string;
   userId: number;
+  userRoleId: number;
 }
 
 export interface Employee {

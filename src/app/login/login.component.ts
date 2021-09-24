@@ -60,15 +60,17 @@ export class LoginComponent implements OnInit {
 
         Login(): void
         {
+         
           this.Loginservice.Login(this.form.value).subscribe(res => {
-            
+            //window.location.reload();
            // const token = (<any>res).token
             localStorage.setItem('user', JSON.stringify(res));
              //localStorage.setItem('user',JSON.stringify(token) );
             console.log(res);
             //localStorage.setItem('user', JSON.stringify({ token: res }));
-
+            
            this.router.navigateByUrl('/');
+          
           },(error: HttpErrorResponse)=>
           {
           //   if (error.status ===200)

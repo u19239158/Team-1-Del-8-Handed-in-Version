@@ -2,6 +2,8 @@ import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/cor
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { LogoutComponent } from 'src/app/logout/logout.component';
+import { Login } from 'src/app/interfaces';
+import { LoginService } from 'src/app/services/login/login-service';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -9,17 +11,30 @@ import { LogoutComponent } from 'src/app/logout/logout.component';
   styleUrls: ['./sidenav-list.component.scss']
 })
 export class SidenavListComponent implements OnInit {
-
+  userid : number;
+  user: Login = {} as Login;
   @Output() sidenavClose = new EventEmitter();
 
   @ViewChild('logout') menuTrigger: LogoutComponent;
 
   constructor(private dialog: MatDialog,
-              private router: Router,) { }
+              private router: Router,
+              private log: LoginService,
+              ) { }
 
   ngOnInit(): void {
-  }
-  
+
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   console.log(obj.userId) 
+   this.userid = obj.userId
+    console.log(obj)
+
+    this.log.GetUserByID(obj.userId).subscribe(res => {
+      this.user = res
+      console.log(res)
+  });
+}
   public onSidenavClose = () => {
     this.sidenavClose.emit();
   }

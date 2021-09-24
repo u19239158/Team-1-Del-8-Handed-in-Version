@@ -21,4 +21,8 @@ export class LoginService {
   Login(user: Login) {
     return this.http.post(`${this.server}Login/Login`, user, this.httpOptions);
   }
+
+  GetUserByID(userid):  Observable<Login>  {
+    return this.http.get<Login>(`${this.server}User/GetUserByID/${userid}`).pipe(map(res => res));
+  } 
 }

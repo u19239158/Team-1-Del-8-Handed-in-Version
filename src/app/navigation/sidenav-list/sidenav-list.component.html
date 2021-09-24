@@ -12,15 +12,15 @@
     <a matline> Admin</a>
   </mat-list-item>
   <mat-menu #menu3="matMenu">
-    <button mat-menu-item routerLink="/assigndeliveryorder" (click)="onSidenavClose()">Assign Delivery Order</button>
+    <button mat-menu-item routerLink="/assigndeliveryorder" *ngIf="user.userRoleId == 1" (click)="onSidenavClose()">Assign Delivery Order</button>
     <button mat-menu-item routerLink="/onlineSales" (click)="onSidenavClose()">Online Sales</button>
     <!-- <button mat-menu-item routerLink="/searchOnlineSales" (click)="onSidenavClose()">Search Online Sales</button> -->
-    <button mat-menu-item routerLink="/stockTake" (click)="onSidenavClose()">Do Stock Take</button>
-    <button mat-menu-item routerLink="/writeOffStock" (click)="onSidenavClose()">Write Off Stock</button>
+    <button mat-menu-item routerLink="/stockTake" *ngIf="user.userRoleId == 1" (click)="onSidenavClose()">Do Stock Take</button>
+    <button mat-menu-item routerLink="/writeOffStock" *ngIf="user.userRoleId == 1" (click)="onSidenavClose()">Write Off Stock</button>
   </mat-menu>
 
   <!-- Courier -->
-  <mat-list-item [matMenuTriggerFor]="menu7">
+  <mat-list-item [matMenuTriggerFor]="menu7"*ngIf="user.userRoleId == 1" >
     <!-- <mat-icon>shopping_cart</mat-icon> -->
     <img src="assets/images/Courier.png" class="w3-margin-right" width=20px height=20px>
     <a matline> Courier</a>
@@ -43,25 +43,25 @@
     <a matline> Delivery Shift</a>
   </mat-list-item>
   <mat-menu #menu6="matMenu">
-    <button mat-menu-item routerLink="/addDeliveryShift" (click)="onSidenavClose()">Add Delivery Shift</button>
-    <button mat-menu-item routerLink="/deliveryShift" (click)="onSidenavClose()">View Delivery Shifts</button>
+    <button mat-menu-item routerLink="/addDeliveryShift" *ngIf="user.userRoleId == 1" (click)="onSidenavClose()">Add Delivery Shift</button>
+    <button mat-menu-item routerLink="/deliveryShift" *ngIf="user.userRoleId == 1" (click)="onSidenavClose()">View Delivery Shifts</button>
     <button mat-menu-item routerLink="/viewdeliveryshiftschedule" (click)="onSidenavClose()">View Delivery Shift
       Schedule</button>
-    <button mat-menu-item routerLink="/updateDeliveriesLimit" (click)="onSidenavClose()">Update Number of Shift
+    <button mat-menu-item routerLink="/updateDeliveriesLimit"*ngIf="user.userRoleId == 1" (click)="onSidenavClose()">Update Number of Shift
       Deliveries</button>
 
   </mat-menu>
 
 
   <!-- Employees -->
-  <a mat-list-item routerLink="/employees" (click)="onSidenavClose()">
+  <a mat-list-item routerLink="/employees" *ngIf="user.userRoleId == 1" (click)="onSidenavClose()">
     <!-- <mat-icon>home</mat-icon>  -->
     <img src="assets/images/employee.png" class="w3-margin-right" width=20px height=20px>
     <span class="nav-caption"> Employees</span>
   </a>
 
   <!-- Products -->
-  <mat-list-item [matMenuTriggerFor]="menu4">
+  <mat-list-item [matMenuTriggerFor]="menu4" *ngIf="user.userRoleId == 1">
     <!-- <mat-icon>shopping_cart</mat-icon> -->
     <img src="assets/images/product.png" class="w3-margin-right" width=20px height=20px>
     <a matline> Products</a>
@@ -73,18 +73,18 @@
   </mat-menu>
 
   <!-- Promotions -->
-  <mat-list-item [matMenuTriggerFor]="menu5">
+  <mat-list-item [matMenuTriggerFor]="menu5" *ngIf="user.userRoleId == 1">
     <!-- <mat-icon>shopping_cart</mat-icon> -->
     <img src="assets/images/promotion.png" class="w3-margin-right" width=20px height=20px>
-    <a matline> Promotions</a>
+    <a matline> Specials</a>
   </mat-list-item>
   <mat-menu #menu5="matMenu">
-    <button mat-menu-item routerLink="/specialAdd" (click)="onSidenavClose()">Add Special</button>
-    <button mat-menu-item routerLink="/special" (click)="onSidenavClose()">View Specials</button>
+    <button mat-menu-item routerLink="/specialAdd" *ngIf="user.userRoleId == 1" (click)="onSidenavClose()">Add Special</button>
+    <button mat-menu-item routerLink="/special" *ngIf="user.userRoleId == 1" (click)="onSidenavClose()">View Specials</button>
   </mat-menu>
 
   <!-- Reports -->
-  <mat-list-item [matMenuTriggerFor]="menu8">
+  <mat-list-item [matMenuTriggerFor]="menu8" *ngIf="user.userRoleId == 1">
     <!-- <mat-icon>shopping_cart</mat-icon> -->
     <img src="assets/images/Report.png" class="w3-margin-right" width=20px height=20px>
     <a matline> Reports</a>
@@ -106,7 +106,7 @@
   </mat-menu>
 
   <!-- Suppliers -->
-  <mat-list-item [matMenuTriggerFor]="menu2">
+  <mat-list-item [matMenuTriggerFor]="menu2" *ngIf="user.userRoleId == 1">
     <!-- <mat-icon>shopping_cart</mat-icon> -->
     <img src="assets/images/supplier.png" class="w3-margin-right" width=20px height=20px>
     <a matline> Suppliers</a>
@@ -120,7 +120,7 @@
   </mat-menu>
 
   <!-- Users -->
-  <mat-list-item [matMenuTriggerFor]="menu">
+  <mat-list-item [matMenuTriggerFor]="menu" *ngIf="user.userRoleId == 1">
     <img src="assets/images/Users.png" class="w3-margin-right" width=20px height=20px>
     <a matline> Users</a>
   </mat-list-item>
