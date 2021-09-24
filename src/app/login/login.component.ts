@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
             console.log(res);
             //localStorage.setItem('user', JSON.stringify({ token: res }));
 
-           this.router.navigateByUrl('/');
+           this.router.navigateByUrl('home');
           },(error: HttpErrorResponse)=>
           {
           //   if (error.status ===200)
