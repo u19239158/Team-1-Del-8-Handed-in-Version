@@ -21,6 +21,7 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 import { FilterPipe } from './services/service/filter.pipe';
 import { EditCustProfileComponent } from './pages/edit-cust-profile/edit-cust-profile.component';
 import { GoogleMapsComponent } from './pages/google-maps/google-maps.component';
+import { NewregisterComponent } from './pages/newregister/newregister.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { GoogleMapsComponent } from './pages/google-maps/google-maps.component';
       FilterPipe,
       EditCustProfileComponent,
       GoogleMapsComponent,
+      NewregisterComponent,
       
   ],
   imports: [
