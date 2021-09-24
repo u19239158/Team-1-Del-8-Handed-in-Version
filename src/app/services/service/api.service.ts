@@ -77,8 +77,10 @@ export class ApiService {
     // }))
 
   }   
-  getProductByCategoryTypeID(id): Observable<any>{
-    return this.http.get(`${this.server}ProductItem/GetProdByProductCategory/${id}`)
+  getProductByCategoryTypeID(categoryTypeid): Observable<any>{
+    return this.http.get(`${this.server}ProductItem/GetProdByProductCategory/${categoryTypeid}`)
+    
+
     // .pipe(map((res:any)=>{
     //   return res;
     // }))
@@ -94,7 +96,7 @@ export class ApiService {
 
   //products page(CategoryType) endpoint route = CategoryType/GetCategoryType
   getCategoryType(): Observable<CategoryType[]>{
-    return this.http.get<CategoryType[]>(`${this.server}Checkout/getProducts`)
+    return this.http.get<CategoryType[]>(`${this.server}Checkout/getProductWPrice`)
     .pipe(map((res:any)=>{
       return res;
     }))
@@ -119,7 +121,12 @@ export class ApiService {
       return res;
     }))
   }
-
+  getAllItems(){
+    return this.http.get<Product[]>(`${this.server}Checkout/getProducts`)
+    .pipe(map((res:any)=>{
+      return res;
+    }))
+  }
   getDiscount(){
     return this.http.get<Product[]>(`${this.server}Discount/GetDiscount`)
     .pipe(map((res:any)=>{

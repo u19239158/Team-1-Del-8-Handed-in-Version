@@ -4,6 +4,7 @@ import { ApiService} from 'src/app/services/service/api.service';
 import { CartService } from 'src/app/services/service/cart.service';
 import { CategoryType } from 'src/app/services/service/api.service';
 import { filter } from 'rxjs/operators';
+
 @Injectable()
 
 @Component({
@@ -22,11 +23,12 @@ export class HomeComponent implements OnInit {
   constructor(private api : ApiService, private cartService : CartService) { }
 
   ngOnInit() {
-    this.api.getCategoryType()
-    .subscribe(res=>{
-      this.categoryTypes=res;
-      console.log(this.categoryTypes);
-    })    
+
+    // this.api.getCategoryType()
+    // .subscribe(res=>{
+    //   this.categoryTypes=res;
+    //   console.log(this.categoryTypes);
+    // })    
     
     //Home page 7 different categories of products
     this.api.getProductCategory()
@@ -37,8 +39,6 @@ export class HomeComponent implements OnInit {
 
       const test1= res.map(y => y.productCategoryDescription)
       console.log(test1) // gives 7 undefined values
-      
-
       //res.forEach((prod) => console.log(prod.ProductCategory_Description))
       //console.log(this.productCategories.ProductCategory_Description)
       //Screws
@@ -51,4 +51,13 @@ export class HomeComponent implements OnInit {
     // })
   }
 
+  //outside ng oninit
+  // loadbyCat(item){
+  //   this.api.getProductByCategoryTypeID(item.productCategoryId)
+  //   //productCategory
+  //   .subscribe(res=>{
+  //     this.categoryTypes = res;
+  //     console.log(res);
+  //   })
+  // }
 }
