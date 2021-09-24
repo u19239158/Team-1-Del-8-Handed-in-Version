@@ -38,7 +38,7 @@ export class SidenavListComponent implements OnInit {
             });
   
     confirm.afterClosed().subscribe(res => {
-      this.router.navigateByUrl('login');
+      this.router.navigateByUrl('');
       this.onSidenavClose();
         })
       }
