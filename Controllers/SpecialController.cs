@@ -129,7 +129,7 @@ namespace NKAP_API_2.Controllers
         //get Specials by ID (Read)
         public IActionResult get(int speciaid)
         {
-           // var special = _db.Specials.Find(speciaid);
+            // var special = _db.Specials.Find(speciaid);
             var special = _db.Specials.Join(_db.ProductSpecials,
                a => a.SpecialId,
                t => t.SpecialId,
@@ -219,43 +219,53 @@ namespace NKAP_API_2.Controllers
         //Create a Model for table
         public IActionResult CreateSpecials(SpecialModel model) //reference the model
         {
-            string resp;
-            var urmom = _db.ProductSpecials.FirstOrDefault(ss => ss.ProductItemId == model.ProductItemId);
+           // string resp;
+            var special1 = _db.ProductSpecials.FirstOrDefault(ss => ss.ProductItemId == model.ProductItemId);
+            var prod = _db.ProductItems.Find(model.ProductItemId);
 
-            if (urmom.ProductItemId == null)
+            Special special = new Special();
             {
-                Special special = new Special();
-                {
-                    special.SpecialDescription = model.SpecialDescription;
-                    special.SpecialStartDate = model.SpecialStartDate;
-                    special.SpecialEndDate = model.SpecialEndDate;
-                }
-
-                _db.Specials.Add(special);
-                _db.SaveChanges();
-
-                var discount = _db.Discounts.FirstOrDefault(zz => zz.DiscountId == model.DiscountId);
-                ProductSpecial PSpecial = new ProductSpecial();
-                {
-                    PSpecial.ProductItemId = model.ProductItemId;
-                    PSpecial.SpecialId = special.SpecialId;
-                    PSpecial.SpecialPrice = model.ProductItemCost - (model.ProductItemCost * discount.DiscountPercentage);
-                }
-
-                _db.ProductSpecials.Add(PSpecial);
-                _db.SaveChanges();
-
-                return Ok();
-            }
-            else
-            {
-                resp = "Product item is already on special ";
-                return BadRequest(resp);
-
+                special.SpecialDescription = model.SpecialDescription;
+                special.SpecialStartDate = model.SpecialStartDate;
+                special.SpecialEndDate = model.SpecialEndDate;
             }
 
-          
+            _db.Specials.Add(special);
+            _db.SaveChanges();
+
+            var discount = _db.Discounts.FirstOrDefault(zz => zz.DiscountId == model.DiscountId);
+            ProductSpecial PSpecial = new ProductSpecial();
+            {
+                PSpecial.ProductItemId = model.ProductItemId;
+                PSpecial.SpecialId = special.SpecialId;
+                PSpecial.SpecialPrice = model.ProductItemCost - (model.ProductItemCost * discount.DiscountPercentage);
+            }
+
+            _db.ProductSpecials.Add(PSpecial);
+            _db.SaveChanges();
+
+
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " Added a special on " +prod.ProductItemName +" at " + discount.DiscountPercentage;
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
+
+
+            return Ok();
+
+
         }
+
+
+
+
+
+
 
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("UpdateSpecials")] //route
@@ -271,7 +281,7 @@ namespace NKAP_API_2.Controllers
             }
             _db.Specials.Attach(special);
             _db.SaveChanges();
-
+            var prod = _db.ProductItems.Find(model.ProductItemId);
             var discount = _db.Discounts.FirstOrDefault(zz => zz.DiscountId == model.DiscountId);
             ProductSpecial PSpecial = new ProductSpecial();
             {
@@ -286,14 +296,26 @@ namespace NKAP_API_2.Controllers
             _db.Specials.Attach(special); //Attach Record
             _db.SaveChanges();
 
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " Updated the special on " + prod.ProductItemName + " to " + discount.DiscountPercentage;
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
+
             return Ok(special);
+
+
         }
 
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("DeleteSpecials/{specialid}")] //route
         [HttpDelete]
         //Delete Specialss
-        public IActionResult DeleteSpecials(int specialid)
+        public IActionResult DeleteSpecials( int specialid)
         {
             var spec = _db.ProductSpecials.FirstOrDefault(zz => zz.SpecialId == specialid);
             
@@ -311,6 +333,16 @@ namespace NKAP_API_2.Controllers
             
 
             return Ok(special);
+
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " Deleted a special";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
         }
     }
 }

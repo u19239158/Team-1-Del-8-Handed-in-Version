@@ -11,6 +11,7 @@ using NKAP_API_2.Models;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace NKAP_API_2.Controllers
 {
@@ -93,6 +94,16 @@ namespace NKAP_API_2.Controllers
         {
             //var productItems = _db.ProductItems.ToList();
             {
+                //var pitem = _db.ProductSpecials.Include(zz => zz.ProductItem).ThenInclude(zz => zz.CategoryType).Select(zz => new ProductItemModel
+                //{
+                //    CategoryTypeID = (int)zz.ProductItem.CategoryTypeId,
+                //    // CategoryTypeImage = zz.ProductItem.CategoryTypeImage,
+                //    ProductItemId = (int)zz.ProductItemId,
+                //    ProductItemName = zz.ProductItem.ProductItemName,
+                //    ProductSpecialID = zz.ProductSpecialId
+
+                //}
+                //    );
 
                 var productItems = _db.ProductItems.Join(_db.CategoryTypes,
                     a => a.CategoryTypeId,
@@ -385,6 +396,17 @@ namespace NKAP_API_2.Controllers
             _db.Prices.Add(ProdPrice);
             _db.SaveChanges();
 
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " added the Product Item: " + model.ProductItemName ;
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
+
             return Ok();
         }
 
@@ -413,6 +435,17 @@ namespace NKAP_API_2.Controllers
 
             _db.Prices.Attach(Product);
             _db.SaveChanges();
+
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " updated the Product Item: " + model.ProductItemName ;
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
 
             return Ok();
         }
@@ -444,7 +477,17 @@ namespace NKAP_API_2.Controllers
                 return BadRequest(response);
                 
             }
-          
+
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + "deleted a Product Item";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
+
         }
     }
 }

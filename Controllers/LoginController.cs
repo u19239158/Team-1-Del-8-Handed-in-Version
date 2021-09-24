@@ -41,6 +41,7 @@ namespace NKAP_API_2.Controllers
             var hashedPassword = this.ComputeSha256Hash(model.UserPassword);
             model.UserRoleName = "Admin";
             var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
+
             if (user == null)
             {
                 request = "Invalid Credentials" ;
@@ -49,10 +50,39 @@ namespace NKAP_API_2.Controllers
             }
             else
             {
-                return Ok(token.GenerateToken(model));
+                var tokens = token.GenerateToken(model);
+                var username = user.UserUsername;
+                
+                var x = new helperclass();
+                x.token = tokens;
+                x.userUsername = username;
+                x.userId = user.UsersId;
+
+                //add to audit trail
+              
+                var users = _db.Users.Find(user.UsersId);
+                AuditTrail audit = new AuditTrail();
+                audit.AuditTrailDescription = users.UserUsername + " logged In";
+                audit.AuditTrailDate = System.DateTime.Now;
+                TimeSpan timeNow = DateTime.Now.TimeOfDay;
+                audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds); 
+                audit.UsersId = users.UsersId;
+                _db.AuditTrails.Add(audit);
+                _db.SaveChanges();
+
+                return Ok(x);
                 //return ;
+
+               
             }
-            
+
+        }
+
+        private class helperclass
+        {
+            public string token;
+            public string userUsername;
+            public int userId;
         }
 
         //Login Admin/Emp SIDE after new db
@@ -66,7 +96,7 @@ namespace NKAP_API_2.Controllers
         //   // model.UserRoleName = "Admin";
         //    var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
         //    var log = _db.Users.FirstOrDefault(zz => zz.UserUsername == model.UserUsername);
-            
+
         //    if (_db.Admins.FirstOrDefault(zz=> zz.UsersId == log.UsersId) )
         //    {
         //        model.UserRoleName = "Admin";
@@ -81,7 +111,7 @@ namespace NKAP_API_2.Controllers
         //            return Ok(token.GenerateToken(model));
         //            //return ;
         //        }
-               
+
         //    }
         //    else if (_db.Employees.FirstOrDefault(zz => zz.UsersId == log.UsersId))
         //    {
@@ -210,6 +240,17 @@ namespace NKAP_API_2.Controllers
                  _db.Customers.Add(newCustomer);
                 // _db.PasswordHistories.Add(newpasshist);
                 _db.SaveChanges();
+
+                //add to audit trail
+                //var user = _db.Users.Find(model.UsersID);
+                //AuditTrail audit = new AuditTrail();
+                //audit.AuditTrailDescription = user.UserUsername + "Registered a new Account";
+                //audit.AuditTrailDate = System.DateTime.Now;
+                //TimeSpan timeNow = DateTime.Now.TimeOfDay;
+                //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+                //audit.UsersId = user.UsersId;
+                //_db.AuditTrails.Add(audit);
+                //_db.SaveChanges();
 
                 return Ok(newCustomer);
             }

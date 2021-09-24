@@ -93,7 +93,18 @@ namespace NKAP_API_2.Controllers
                 _db.SaveChanges();
 
             }
-           
+
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " added the Employee: " + model.EmployeeName +" "+ model.EmployeeSurName;
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
+
 
             return Ok(employee);
         }
@@ -143,6 +154,17 @@ namespace NKAP_API_2.Controllers
             _db.Employees.Attach(employee); //Attach Record
             _db.SaveChanges();
 
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " updated the Employee: " + model.EmployeeName + " " +  model.EmployeeSurName ;
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
+
             return Ok(employee);
         }
 
@@ -166,7 +188,17 @@ namespace NKAP_API_2.Controllers
                 return BadRequest(response);
                 throw;
             }
-          
+
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + "deleted an Employee";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
         }
     }
 }

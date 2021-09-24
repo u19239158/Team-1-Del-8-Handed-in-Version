@@ -589,7 +589,7 @@ namespace NKAP_API_2.Controllers
         //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("MostPopularLocationcount")] //route
         [HttpPost]
-        public IActionResult getMostPopularLocationcount()
+        public IActionResult getMostPopularLocationcount(ReportModel model)
         {
 
             var PopularLocation = _db.Sales.Join(_db.Customers,
@@ -597,7 +597,7 @@ namespace NKAP_API_2.Controllers
                 t => t.CustomerId,
                 (a, t) => new
                 {
-
+                    SaleOrderDate = a.SaleOrderDate,
                     SaleId = a.SaleId,
                     CustomerId = t.CustomerId
 
@@ -606,50 +606,278 @@ namespace NKAP_API_2.Controllers
                 t => t.CustomerId,
                 (a, t) => new
                 {
+                    SaleOrderDate = a.SaleOrderDate,
                     SaleId = a.SaleId,
                     AddressID = t.AddressId,
                     ProvinceID = t.ProvinceId
+
 
                 }).Join(_db.Provinces,
                 a => a.ProvinceID,
                 t => t.ProvinceId,
                 (a, t) => new
                 {
+                    SaleOrderDate = a.SaleOrderDate,
                     SaleId = a.SaleId,
                     ProvinceID = a.ProvinceID,
                     ProvinceDescription = t.ProvinceDescription,
 
-                }).AsEnumerable().GroupBy(zz => zz.ProvinceID);
+                }).AsEnumerable().Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).GroupBy(zz => zz.ProvinceID);
+            string bad;
+            var results = _db.Sales.Where((ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate));
 
-            foreach (var item in PopularLocation)
+            if (results.Count() > 0 )
             {
-                var saleid = item.Select(ss => ss.SaleId);
-                var count = saleid.Count();
-                // var count = PopularLocation.Count();
-                return Ok(count);    
+                List<dynamic> provincedata = new List<dynamic>();
+
+                foreach (var item in PopularLocation)
+                {
+                    dynamic province = new ExpandoObject();
+                    province.provincesales = item.Count();
+                    province.provinceDescription = item.Select(zz => zz.ProvinceDescription).FirstOrDefault();
+                    provincedata.Add(province);
+                }
+
+                return Ok(provincedata);
+            }
+            else
+            {
+                bad = ("No sales have occured during the selected period");
+                return BadRequest(bad);
+               
+            }
+            
+
+        }
+
+        [Route("DashboardSales")] //route
+        [HttpGet]
+        public IActionResult DashboardSales()
+        {
+
+            var dashy = _db.Sales.Join(_db.SaleLines,
+                a => a.SaleId,
+                t => t.SaleId,
+                (a, t) => new
+                {
+                    SaleOrderDate = a.SaleOrderDate,
+                    SaleId = a.SaleId,
+                    ProductItemId = t.ProductItemId,
+
+                }).Join(_db.ProductItems,
+                a => a.ProductItemId,
+                t => t.ProductItemId,
+                (a, t) => new
+                {
+                    SaleOrderDate = a.SaleOrderDate,
+                    SaleId = a.SaleId,
+            
+                    ProductItemId = t.ProductItemId,
+                    CategoryTypeId = t.CategoryTypeId
+
+                })
+                .Join(_db.CategoryTypes,
+                a => a.CategoryTypeId,
+                t => t.CategoryTypeId,
+                (a, t) => new
+                {
+                    SaleOrderDate = a.SaleOrderDate,
+                    SaleId = a.SaleId,
+                   
+                    ProductItemId = a.ProductItemId,
+                    CategoryTypeId = t.CategoryTypeId,
+                    ProductCategoryId = t.ProductCategoryId
+
+                }).Join(_db.ProductCategories,
+                a => a.ProductCategoryId,
+                t => t.ProductCategoryId,
+                (a, t) => new
+                {
+                    SaleOrderDate = a.SaleOrderDate,
+                    SaleId = a.SaleId,
                 
+                    ProductItemId = a.ProductItemId,
+                    CategoryTypeId = a.CategoryTypeId,
+                    ProductCategoryId = t.ProductCategoryId,
+                    ProductCategoryDescription = t.ProductCategoryDescription
+
+                }).AsEnumerable().GroupBy(zz => zz.ProductCategoryId);
+            //.AsEnumerable().Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).GroupBy(zz => zz.ProductCategoryId);
+            //string bad;
+
+           // var results = _db.Sales.Where((ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate));
+
+            List<dynamic> salesdata = new List<dynamic>();
+            
+           // int maxAge = salesdata.Max(t => t.NumberOfSales);
+
+            foreach (var item in dashy)
+            {
+                dynamic province = new ExpandoObject();
+                province.NumberOfSales = item.Count();
+                
+               
+                province.ProductCategory = item.Select(zz => zz.ProductCategoryDescription).FirstOrDefault();
+                salesdata.Add(province);
+
             }
 
-            //for (int i = 0; i < PopularLocation; i++)
-            //{
-            //    dynamic province = new ExpandoObject();
-            //    province = PopularLocation;
-            //    return Ok(province);
-            //}
-            //.Join(_db.Cities,
-            //a => a.ProvinceID,
-            //t => t.ProvinceId,
-            //(a, t) => new
-            //{
-            //    SaleId = a.SaleId,
-            //    ProvinceID = a.ProvinceID,
-            //    ProvinceDescription = a.ProvinceDescription,
-            //    CityID = t.CityId,
-            //    CityDescription = t.CityDescription
+            int max = salesdata.Max(t => t.NumberOfSales);
 
-            //}).Where(zz => zz.ProvinceID == 3).Count();
+            return Ok(salesdata);
 
-            return Ok(PopularLocation);
+        }
+
+        [Route("DashboardSalesMax")] //route
+        [HttpGet]
+        public IActionResult DashboardSalesMax()
+        {
+
+            var dashy = _db.Sales.Join(_db.SaleLines,
+                a => a.SaleId,
+                t => t.SaleId,
+                (a, t) => new
+                {
+                    SaleOrderDate = a.SaleOrderDate,
+                    SaleId = a.SaleId,
+                    ProductItemId = t.ProductItemId,
+
+                }).Join(_db.ProductItems,
+                a => a.ProductItemId,
+                t => t.ProductItemId,
+                (a, t) => new
+                {
+                    SaleOrderDate = a.SaleOrderDate,
+                    SaleId = a.SaleId,
+
+                    ProductItemId = t.ProductItemId,
+                    CategoryTypeId = t.CategoryTypeId
+
+                })
+                .Join(_db.CategoryTypes,
+                a => a.CategoryTypeId,
+                t => t.CategoryTypeId,
+                (a, t) => new
+                {
+                    SaleOrderDate = a.SaleOrderDate,
+                    SaleId = a.SaleId,
+
+                    ProductItemId = a.ProductItemId,
+                    CategoryTypeId = t.CategoryTypeId,
+                    ProductCategoryId = t.ProductCategoryId
+
+                }).Join(_db.ProductCategories,
+                a => a.ProductCategoryId,
+                t => t.ProductCategoryId,
+                (a, t) => new
+                {
+                    SaleOrderDate = a.SaleOrderDate,
+                    SaleId = a.SaleId,
+
+                    ProductItemId = a.ProductItemId,
+                    CategoryTypeId = a.CategoryTypeId,
+                    ProductCategoryId = t.ProductCategoryId,
+                    ProductCategoryDescription = t.ProductCategoryDescription
+
+                }).AsEnumerable().GroupBy(zz => zz.ProductCategoryId);
+            //.AsEnumerable().Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).GroupBy(zz => zz.ProductCategoryId);
+            //string bad;
+
+            // var results = _db.Sales.Where((ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate));
+
+            List<dynamic> salesdata = new List<dynamic>();
+            List<dynamic> maxdata = new List<dynamic>();
+            // int maxAge = salesdata.Max(t => t.NumberOfSales);
+
+            foreach (var item in dashy)
+            {
+                dynamic province = new ExpandoObject();
+                province.NumberOfSales = item.Count();
+                province.ProductCategory = item.Select(zz => zz.ProductCategoryDescription).FirstOrDefault();
+                salesdata.Add(province);
+
+            }
+            foreach (var item in dashy)
+            {
+                dynamic data = new ExpandoObject();
+
+               // data.ProductCategory = item.Select(zz => zz.ProductCategoryDescription).Where(salesdata.Max(t => t.NumberOfSales));
+
+                int max = salesdata.Max(t => t.NumberOfSales);
+                maxdata.Add(data);
+
+            }
+
+           
+         
+
+            return Ok(maxdata);
+
+        }
+
+        [Route("DashboardPieSales")] //route
+        [HttpGet]
+        public IActionResult DashboardPieSales()
+        {
+
+            var dashy = _db.Sales.Join(_db.SaleLines,
+                a => a.SaleId,
+                t => t.SaleId,
+                (a, t) => new
+                {
+                    SaleOrderDate = a.SaleOrderDate,
+                    SaleId = a.SaleId,
+                    ProductItemId = t.ProductItemId,
+
+                }).Join(_db.ProductItems,
+                a => a.ProductItemId,
+                t => t.ProductItemId,
+                (a, t) => new
+                {
+                    SaleOrderDate = a.SaleOrderDate,
+                    SaleId = a.SaleId,
+
+                    ProductItemId = t.ProductItemId,
+                    CategoryTypeId = t.CategoryTypeId
+
+                })
+                .Join(_db.CategoryTypes,
+                a => a.CategoryTypeId,
+                t => t.CategoryTypeId,
+                (a, t) => new
+                {
+                    SaleOrderDate = a.SaleOrderDate,
+                    SaleId = a.SaleId,
+
+                    ProductItemId = a.ProductItemId,
+                    CategoryTypeId = t.CategoryTypeId,
+                    ProductCategoryId = t.ProductCategoryId,
+                    CategoryTypeDescription = t.CategoryTypeDescription
+
+                }).AsEnumerable().GroupBy(zz => zz.CategoryTypeId);
+            //.AsEnumerable().Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).GroupBy(zz => zz.ProductCategoryId);
+            //string bad;
+
+            // var results = _db.Sales.Where((ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate));
+
+            List<dynamic> salesdata = new List<dynamic>();
+
+            // int maxAge = salesdata.Max(t => t.NumberOfSales);
+
+            foreach (var item in dashy)
+            {
+                dynamic province = new ExpandoObject();
+                province.NumberOfSales = item.Count();
+
+
+                province.CategoryType = item.Select(zz => zz.CategoryTypeDescription).FirstOrDefault();
+                salesdata.Add(province);
+
+            }
+
+            int max = salesdata.Max(t => t.NumberOfSales);
+
+            return Ok(salesdata);
 
         }
     }

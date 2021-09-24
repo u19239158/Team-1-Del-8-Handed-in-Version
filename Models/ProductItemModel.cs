@@ -36,5 +36,33 @@ namespace NKAP_API_2.Models
         [JsonProperty("priceID")]
         public int PriceId
         { get; set; }
+
+        [JsonProperty("Specialprice")]
+        public decimal SpecialPrice
+        { get; set; }
+
+        [JsonProperty("productspecialid")]
+        public int ProductSpecialID
+        { get; set; }
+
+        [JsonProperty("categorytypedescription")]
+        public string CategoryTypeDescription
+        { get; set; }
+
+        [JsonProperty("pricedescription")]
+        public decimal PriceDescription
+        { get; set; }
+
+        [JsonProperty("categorytypeimage")]
+        public string CategoryTypeImage
+        { get; set; }
+
+        [JsonProperty("userusername")]
+        public string UserUsername
+        { get; set; }
+
+        [JsonProperty("usersid")]
+        public int UsersID
+        { get; set; }
     }
 }

@@ -365,6 +365,18 @@ namespace NKAP_API_2.Controllers
             var dd = _db.EmployeeShifts.Find(model.EmployeeShiftId);
             dd.DeliveryId = model.DeliveryId;
             _db.EmployeeShifts.Attach(dd);
+
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " assigned a Delivery to a Shift";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
+
             return Ok(dd);
         }
 
@@ -379,6 +391,18 @@ namespace NKAP_API_2.Controllers
             sd.SaleOrderAssign = true;
             _db.Sales.Attach(sd); //Attach Record
             _db.SaveChanges();
+
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " assigned a Courier to a Delivery";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
+
             return Ok(sd);
         }
 

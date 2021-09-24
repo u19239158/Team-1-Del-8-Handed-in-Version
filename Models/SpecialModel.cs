@@ -52,7 +52,9 @@ namespace NKAP_API_2.Models
         public decimal PriceDescription
         { get; set; }
 
-
+        [JsonProperty("usersid")]
+        public int UsersID
+        { get; set; }
     }
 
 }

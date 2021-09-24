@@ -27,5 +27,13 @@ namespace NKAP_API_2.Models
         [JsonProperty("itemdescription")]
         public string ItemDescription
         { get; set; }
+
+        [JsonProperty("userusername")]
+        public string UserUsername
+        { get; set; }
+
+        [JsonProperty("usersid")]
+        public int UsersID
+        { get; set; }
     }
 }

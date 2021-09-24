@@ -79,5 +79,9 @@ namespace NKAP_API_2.Models
         [JsonProperty("passwordhistorydate")]
         public DateTime PasswordHistoryDate
         { get; set; }
+
+        [JsonProperty("token")]
+        public string token
+        { get; set; }
     }
 }

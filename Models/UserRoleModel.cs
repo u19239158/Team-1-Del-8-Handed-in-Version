@@ -19,5 +19,9 @@ namespace NKAP_API_2.Models
         [JsonProperty("userrolename")]
         public string UserRoleName
         { get; set; }
+
+        [JsonProperty("usersid")]
+        public int UsersID
+        { get; set; }
     }
 }

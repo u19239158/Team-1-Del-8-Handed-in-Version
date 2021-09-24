@@ -33,5 +33,7 @@ namespace NKAP_API_2.Controllers
             );
             return new JwtSecurityTokenHandler().WriteToken(token).ToString();
         }
+
+
     }
 }
