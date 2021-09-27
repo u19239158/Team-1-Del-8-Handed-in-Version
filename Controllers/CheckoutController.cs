@@ -394,15 +394,15 @@ namespace NKAP_API_2.Controllers
                     // PriceDescription = zz.ProductItem.pr
                 }).
                 ToList();
-            var products = _db.ProductSpecials.Include(zz => zz.Special).Include(zz => zz.ProductItem).ThenInclude(zz => zz.CategoryType).Include(zz => zz.ProductItem.Prices)
-                .Where(ss => ss.Special.SpecialStartDate! < System.DateTime.Now || ss.Special.SpecialEndDate! > System.DateTime.Now).Select(zz => new ProductItemModel
+            var products = _db.ProductItems.Include(zz => zz.CategoryType).Include(zz => zz.Prices).Include(zz => zz.ProductSpecials).ThenInclude(zz => zz.Special)
+                .Where(zz => zz.ProductSpecials.Any(xx => xx.ProductItemId == zz.ProductItemId && xx.Special.SpecialStartDate <= System.DateTime.Now && xx.Special.SpecialEndDate >= System.DateTime.Now)== false).Select(zz => new ProductItemModel
                 {
-                    CategoryTypeID = (int)zz.ProductItem.CategoryTypeId,
-                    CategoryTypeImage = zz.ProductItem.CategoryType.CategoryTypeImage,
+                    CategoryTypeID = (int)zz.CategoryTypeId,
+                    CategoryTypeImage = zz.CategoryType.CategoryTypeImage,
                     ProductItemId = (int)zz.ProductItemId,
-                    ProductItemName = zz.ProductItem.ProductItemName,
+                    ProductItemName = zz.ProductItemName,
                     // SpecialPrice = (decimal)zz.SpecialPrice,
-                    PriceDescription = zz.ProductItem.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault()
+                    PriceDescription = zz.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault()
                 }).
                  ToList();
             var frontside = new FrontsideModel();

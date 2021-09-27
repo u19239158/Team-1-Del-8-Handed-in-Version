@@ -219,52 +219,56 @@ namespace NKAP_API_2.Controllers
         //Create a Model for table
         public IActionResult CreateSpecials(SpecialModel model) //reference the model
         {
-           // string resp;
+            string resp;
             var special1 = _db.ProductSpecials.FirstOrDefault(ss => ss.ProductItemId == model.ProductItemId);
-            var prod = _db.ProductItems.Find(model.ProductItemId);
-
-            Special special = new Special();
+            if (special1 == null)
             {
-                special.SpecialDescription = model.SpecialDescription;
-                special.SpecialStartDate = model.SpecialStartDate;
-                special.SpecialEndDate = model.SpecialEndDate;
+                var prod = _db.ProductItems.Find(model.ProductItemId);
+
+                Special special = new Special();
+                {
+                    special.SpecialDescription = model.SpecialDescription;
+                    special.SpecialStartDate = model.SpecialStartDate.AddDays(1);
+                    special.SpecialEndDate = model.SpecialEndDate.AddDays(1);
+                }
+
+                _db.Specials.Add(special);
+                _db.SaveChanges();
+
+                var discount = _db.Discounts.FirstOrDefault(zz => zz.DiscountId == model.DiscountId);
+                ProductSpecial PSpecial = new ProductSpecial();
+                {
+                    PSpecial.ProductItemId = model.ProductItemId;
+                    PSpecial.SpecialId = special.SpecialId;
+                    PSpecial.SpecialPrice = model.ProductItemCost - (model.ProductItemCost * discount.DiscountPercentage);
+                }
+
+                _db.ProductSpecials.Add(PSpecial);
+                _db.SaveChanges();
+
+                var user = _db.Users.Find(model.UsersID);
+                AuditTrail audit = new AuditTrail();
+                decimal value = Convert.ToDecimal(discount.DiscountPercentage);
+                string result = value.ToString("#0.##%");
+                audit.AuditTrailDescription = user.UserUsername + " Added a special on " + prod.ProductItemName + " at " + result;
+                audit.AuditTrailDate = System.DateTime.Now;
+                TimeSpan timeNow = DateTime.Now.TimeOfDay;
+                audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+                audit.UsersId = user.UsersId;
+                _db.AuditTrails.Add(audit);
+                _db.SaveChanges();
             }
-
-            _db.Specials.Add(special);
-            _db.SaveChanges();
-
-            var discount = _db.Discounts.FirstOrDefault(zz => zz.DiscountId == model.DiscountId);
-            ProductSpecial PSpecial = new ProductSpecial();
+            else
             {
-                PSpecial.ProductItemId = model.ProductItemId;
-                PSpecial.SpecialId = special.SpecialId;
-                PSpecial.SpecialPrice = model.ProductItemCost - (model.ProductItemCost * discount.DiscountPercentage);
+                resp = "Product Item is already on Special.";
+                return BadRequest(resp);
             }
-
-            _db.ProductSpecials.Add(PSpecial);
-            _db.SaveChanges();
-
-
-            var user = _db.Users.Find(model.UsersID);
-            AuditTrail audit = new AuditTrail();
-            audit.AuditTrailDescription = user.UserUsername + " Added a special on " + prod.ProductItemName + " at " + discount.DiscountPercentage;
-            audit.AuditTrailDate = System.DateTime.Now;
-            TimeSpan timeNow = DateTime.Now.TimeOfDay;
-            audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
-            audit.UsersId = user.UsersId;
-            _db.AuditTrails.Add(audit);
-            _db.SaveChanges();
 
 
             return Ok();
 
 
         }
-
-
-
-
-
 
 
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
@@ -276,8 +280,8 @@ namespace NKAP_API_2.Controllers
             var special = _db.Specials.Find(model.SpecialID);
             {
                 special.SpecialDescription = model.SpecialDescription;
-                special.SpecialStartDate = model.SpecialStartDate;
-                special.SpecialEndDate = model.SpecialEndDate;
+                special.SpecialStartDate = model.SpecialStartDate.AddDays(1);
+                special.SpecialEndDate = model.SpecialEndDate.AddDays(1);
             }
             _db.Specials.Attach(special);
             _db.SaveChanges();
@@ -298,7 +302,9 @@ namespace NKAP_API_2.Controllers
 
             var user = _db.Users.Find(model.UsersID);
             AuditTrail audit = new AuditTrail();
-            audit.AuditTrailDescription = user.UserUsername + " Updated the special on " + prod.ProductItemName + " to " + discount.DiscountPercentage;
+            decimal value = Convert.ToDecimal(discount.DiscountPercentage);
+            string result = value.ToString("#0.##%");
+            audit.AuditTrailDescription = user.UserUsername + " Updated the special on " + prod.ProductItemName + " to " + result;
             audit.AuditTrailDate = System.DateTime.Now;
             TimeSpan timeNow = DateTime.Now.TimeOfDay;
             audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
@@ -330,15 +336,15 @@ namespace NKAP_API_2.Controllers
             _db.Specials.Remove(special);
             _db.SaveChanges();
 
-            var user = _db.Users.Find(userId);
-            AuditTrail audit = new AuditTrail();
-            audit.AuditTrailDescription = user.UserUsername + " Deleted a special";
-            audit.AuditTrailDate = System.DateTime.Now;
-            TimeSpan timeNow = DateTime.Now.TimeOfDay;
-            audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
-            audit.UsersId = user.UsersId;
-            _db.AuditTrails.Add(audit);
-            _db.SaveChanges();
+            //var user = _db.Users.Find(userId);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + " Deleted a special";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
 
             return Ok(special);
 

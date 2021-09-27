@@ -27,7 +27,28 @@ namespace NKAP_API_2.Controllers
         //get Product Item Write-off (Read)
         public IActionResult get()
         {
-            var PItemWriteOffs = _db.ProductItemWrittenOffStocks.ToList();
+            var PItemWriteOffs = _db.WrittenOffStocks.Join(_db.ProductItemWrittenOffStocks,
+                s => s.WrittenOffStockId,
+                p => p.WrittenOffStockId,
+                (s,p) => new
+                {
+                    WrittenOffStockId = s.WrittenOffStockId,
+                    WrittenOffStockDate = s.WrittenOffStockDate,
+                    WriteOffReason = p.WriteOffReason,
+                    WriteOffQuantity = p.WriteOffQuantity,
+                    ProductItemId = p.ProductItemId
+                }).Join(_db.ProductItems,
+                s => s.ProductItemId,
+                p => p.ProductItemId,
+                (s, p) => new
+                {
+                    WrittenOffStockId = s.WrittenOffStockId,
+                    WrittenOffStockDate = s.WrittenOffStockDate,
+                    WriteOffReason = s.WriteOffReason,
+                    WriteOffQuantity = s.WriteOffQuantity,
+                    ProductItemId = p.ProductItemId,
+                    ProductItemName = p.ProductItemName
+                });
             return Ok(PItemWriteOffs);
 
         }

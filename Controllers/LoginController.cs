@@ -186,14 +186,6 @@ namespace NKAP_API_2.Controllers
 
         }
 
-        ////var newAuditTrail = new AuditTrail
-        //      {
-
-        //          AuditTrailDate = DateTime.Today,
-        //          AuditTrailTime = DateTime.Now.TimeOfDay,
-        //          AuditTrailDescription = "Login"
-
-        //      });
 
 
         [HttpPost]
@@ -215,12 +207,13 @@ namespace NKAP_API_2.Controllers
                 
             };
 
-            //var newpasshist = new PasswordHistory
-            //{
-            //    //PasswordHistoryId = model.PasswordHistoryId,
-            //    PasswordHistoryDate = Convert.ToDateTime(DateTime.Today), //trying to save the date that the password was created
-            //    PasswordHistoryText = ComputeSha256Hash(model.UserPassword) //trying to save the hashed password
-            //};
+            //add to passwordHistory
+            //var passH = _db.PasswordHistories.Find(model.UsersID);
+            //PasswordHistory pass = new PasswordHistory();
+            //pass.PasswordHistoryDate = System.DateTime.Now;
+            //pass.PasswordHistoryText = newUser.UserPassword;
+            //_db.PasswordHistories.Add(pass);
+            //_db.SaveChanges();
 
 
             var newCustomer = new Customer
@@ -254,15 +247,16 @@ namespace NKAP_API_2.Controllers
                 _db.SaveChanges();
 
                 //add to audit trail
-                //var user = _db.Users.Find(model.UsersID);
-                //AuditTrail audit = new AuditTrail();
-                //audit.AuditTrailDescription = user.UserUsername + " Registered a new Account";
-                //audit.AuditTrailDate = System.DateTime.Now;
-                //TimeSpan timeNow = DateTime.Now.TimeOfDay;
-                //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
-                //audit.UsersId = user.UsersId;
-                //_db.AuditTrails.Add(audit);
-                //_db.SaveChanges();
+                var user = _db.Users.Find(model.UsersID);
+                AuditTrail audit = new AuditTrail();
+                audit.AuditTrailDescription = user.UserUsername + " Registered a new Account";
+                audit.AuditTrailDate = System.DateTime.Now;
+                TimeSpan timeNow = DateTime.Now.TimeOfDay;
+                audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+                audit.UsersId = user.UsersId;
+                _db.AuditTrails.Add(audit);
+                _db.SaveChanges();
+
 
                 return Ok(newCustomer);
             }

@@ -25,9 +25,28 @@ namespace NKAP_API_2.Controllers
             //get StockTake (Read)
             public IActionResult get()
             {
-                var StockTakes = _db.StockTakes.ToList();
-                return Ok(StockTakes);
-            }
+            var StockTake = _db.StockTakes.Join(_db.ProductItemStockTakes,
+            s => s.StockTakeId,
+            p => p.StockTakeId,
+            (s, p) => new
+            {
+                StockTakeId = s.StockTakeId,
+                StockTakeDate = s.StockTakeDate,
+                StockTakeQuantity = p.StockTakeQuantity,
+                ProductItemId = p.ProductItemId
+            }).Join(_db.ProductItems,
+            s => s.ProductItemId,
+            p => p.ProductItemId,
+            (s, p) => new
+            {
+                StockTakeId = s.StockTakeId,
+                StockTakeDate = s.StockTakeDate,
+                StockTakeQuantity = s.StockTakeQuantity,
+                ProductItemId = p.ProductItemId,
+                ProductItemName = p.ProductItemName
+            });
+            return Ok(StockTake);
+        }
 
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetStockTakeByID/{stocktakeid}")] //route
