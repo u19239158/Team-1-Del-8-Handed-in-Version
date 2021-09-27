@@ -305,7 +305,7 @@ namespace NKAP_API_2.Controllers
                         PriceDescription = t.PriceDescription
 
 
-                    }).First(pp => pp.CategoryTypeId == categoryTypeId);
+                    }).Where(pp => pp.CategoryTypeId == categoryTypeId);
 
                 return Ok(productItems);
             }
