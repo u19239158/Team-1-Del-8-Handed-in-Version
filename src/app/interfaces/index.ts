@@ -190,6 +190,7 @@ export interface StockTake {
   stockTakeQuantity: number;
   productItemId: number;
   usersId: number;
+  productItemName: string;
 }
 
 export interface WriteOffStock {
@@ -201,6 +202,7 @@ export interface WriteOffStock {
   writeOffReason: string;
   productItemWrittenOffStockId: number;
   usersId: number;
+  productItemName: string;
 }
 
 export interface AssignUnscheduledDelivery { //should be in delivery shift. we don't create interfaces for each individual requirement.

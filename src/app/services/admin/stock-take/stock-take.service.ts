@@ -31,4 +31,8 @@ export class StockTakeService {
   getProductItemByID(ProductItemId):  Observable<Productitem>  {
     return this.http.get<Productitem>(`${this.server}Productitem/GetPItemsByID/${ProductItemId}`).pipe(map(res => res));
   }
+
+  getStockTake():  Observable<StockTake[]>  {
+    return this.http.get<StockTake[]>(`${this.server}StockTake/GetStockTake`).pipe(map(res => res));
+  }
 }
