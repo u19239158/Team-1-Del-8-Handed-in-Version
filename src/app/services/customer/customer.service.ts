@@ -18,6 +18,20 @@ export interface Customer {
   titleDesc: string;
 }
 
+export interface User {
+  customerId: number;
+  userUsername: string;
+  customerName: string;
+  customerSurname: string;
+  customerCellphoneNumber: number;
+  customerEmailAddress: string;
+  customerVATReg: number;
+  customerBusinessName: string;
+  userPassword: string;
+  titleID: number;
+  titleDesc: string;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -41,8 +55,13 @@ export class CustomerService {
       }))
   }
 
-  getCustomerByID(customerid): Observable<Customer> {
-    return this.http.get<Customer>(`${this.server}Customer/GetCustomerByID/${customerid}`)
+  getCustomerByID(userid): Observable<Customer> {
+    return this.http.get<Customer>(`${this.server}Customer/GetCustomerByID/${userid}`)
+      .pipe(map(res => res));
+  }
+
+  GetProfile(userid): Observable<Customer> {
+    return this.http.get<Customer>(`${this.server}Customer/GetProfile/${userid}`)
       .pipe(map(res => res));
   }
 
@@ -55,9 +74,16 @@ export class CustomerService {
     return this.http.put<Customer[]>(`${this.server}Customer/UpdateCustomer`, Customer, this.httpOptions);
   }
 
-  //   DeleteCustomer(customerId):  Observable<Customer>  {
-  //   return this.http.delete<Customer>(`${this.server}Customer/DeleteCustomer/${customerId}`).pipe(map(res => res));
-  // }
+  UpdateProfile(Customer: Customer): Observable<Customer[]> {
+    return this.http.put<Customer[]>(`${this.server}Customer/UpdateProfile`, Customer, this.httpOptions);
+  }
+
+    DeleteCustomer(customerId):  Observable<Customer>  {
+    return this.http.delete<Customer>(`${this.server}Customer/DeleteCustomer/${customerId}`).pipe(map(res => res));
+  }
 
 
+  Register(User:User):  Observable<User[]>  {
+    return this.http.post<User[]>(`${this.server}Login/Register`, User,this.httpOptions);
+  }
 }
