@@ -53,6 +53,27 @@ export class ProductsComponent implements OnInit {
 
   addtocart(item: any){
     this.cartService.addtoCart(item);
+    localStorage.setItem(item.productItemId, JSON.stringify(1));
+
+    var itemList = JSON.parse(localStorage.getItem(item.productItemId)) || [];
+    localStorage.setItem(item.productItemId, JSON.stringify(itemList));
+    //list of items - identity with id
+    // var itemList:any = [];
+
+    // itemList[0] = prompt("New member name?");
+    // localStorage.setItem(item.productItemId, JSON.stringify(itemList));
+    
+    
+    // var storedNames = JSON.parse(localStorage.getItem("names"));
+
+    
+    // localstorage.names = JSON.stringify(names);
+    // var storedNames = JSON.parse(localStorage.names);
+    
+
+  // localStorage.setItem('item.productItemId', JSON.stringify(res));
+
+  //JSON.parse(localStorage.getItem('item.productItemId'));
 
     this.snack.open('Item added to cart! ', 'OK', 
     {

@@ -215,7 +215,7 @@ export class CartComponent implements OnInit {
 
   createCustomerAddress(){
     const customerEmail = this.email.value
-    console.log("yessssss")
+    console.log("customerEmail yessssss")
 
     this.makePayment()
   }
@@ -235,21 +235,38 @@ export class CartComponent implements OnInit {
 
 
 
-    //PAYSTACK method
-    invokePaystack(){
-    if (!window.document.getElementById('paystack-script')){
+//     //PAYSTACK method with collection
+//     invokePaystack(cartItemList:any){
+//     if (!window.document.getElementById('paystack-script')){
 
-      const script = window.document.createElement('script');
-      script.id = 'paystack-script';
-      script.type = 'text/html';
-      script.src ="https://checkout.paystack.com/26ho92bd1vjeght";
+//       const script = window.document.createElement('script');
+//       script.id = 'paystack-script';
+//       script.type = 'text/html';
+//       script.src ="https://checkout.paystack.com/26ho92bd1vjeght";
 
-      window.document.body.appendChild(script);
-    }
-  }
+//       window.document.body.appendChild(script);
+//     }
+//     this.cartService.Checkout(cartItemList)
+//     this.cartService.postCollection(cartItemList)
+//     //this.cartService.postDelivery(cartItemList)
+//     //this.createCustomerAddress()
+//   }
 
+// //PAYSTACK with delivery
+// invokePaystackdelivery(cartItemList:any){
+//   if (!window.document.getElementById('paystack-script')){
 
+//     const script = window.document.createElement('script');
+//     script.id = 'paystack-script';
+//     script.type = 'text/html';
+//     script.src ="https://checkout.paystack.com/26ho92bd1vjeght";
 
-
+//     window.document.body.appendChild(script);
+//   }
+//   this.cartService.Checkout(cartItemList)
+//   this.cartService.postCollection(cartItemList)
+//   //this.cartService.postDelivery(cartItemList)
+//   //this.createCustomerAddress()
+// }
 
 }

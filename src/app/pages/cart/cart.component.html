@@ -22,7 +22,7 @@
                                 <td style="width: 25%;">{{item.productItemName}}</td>
                                 <td style="width: 12%;">{{item.categoryTypeDescription}}</td>
                                 <td style="width: 12%;">                                  
-                                  <input id="quantity" type="number" class="no-spinners" value="1" [(ngModel)]="item.num" min="1"/>
+                                  <input id="quantity" type="number" class="no-spinners"  [value]="item.num" [(ngModel)]="item.num" min="1"/>
                                 </td>
                                 <td style="width: 12%;">R{{item.sellingPrice | number:'0.1-2'}}</td> 
                                 <!-- multiply price by the Quantity.value of the numeric up down -->
@@ -91,11 +91,13 @@
 			<form #myForm="ngForm" (submit)="submitForm(myForm)" novalidate>
               <div class="control">
                 <!-- Customer Email -->
-
+                <div>
                   <label class="label">Please enter your email address:</label>
-                  <div class="control">
+                  <!-- <div class="control"> -->
                     <input class="input" type="email" [formControl]="email" placeholder="hello@mymail.com" ngModel required>
-                  </div>
+                  <!-- </div> -->
+                </div>
+
 
                   <!-- ReceiveType -->
                   <div>

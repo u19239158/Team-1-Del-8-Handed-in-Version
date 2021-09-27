@@ -80,7 +80,6 @@ export class ApiService {
   getProductByCategoryTypeID(categoryTypeid): Observable<any>{
     return this.http.get(`${this.server}ProductItem/GetProdByProductCategory/${categoryTypeid}`)
     
-
     // .pipe(map((res:any)=>{
     //   return res;
     // }))
