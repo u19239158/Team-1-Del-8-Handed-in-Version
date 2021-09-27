@@ -21,3 +21,26 @@
     //background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;
   }
+
+  mat-card{
+    max-width: 500px;
+    max-height: 700px;
+  }
+
+  .first{
+    left: 5%;
+  }
+
+  .second{
+    right: 5%;
+  }
+
+  .split {
+    height: 50%;
+    width: 45%;
+    position: fixed;
+    z-index: 1;
+    top: 20%;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }

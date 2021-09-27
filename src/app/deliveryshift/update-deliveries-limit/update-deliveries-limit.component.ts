@@ -64,7 +64,7 @@ export class UpdateDeliveriesLimitComponent implements OnInit {
 
   Close() {
     this.form.reset();
-    this.router.navigateByUrl('');
+    this.router.navigateByUrl('home');
   }
 
 }
