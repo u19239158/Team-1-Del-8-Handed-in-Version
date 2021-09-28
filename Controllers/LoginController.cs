@@ -63,7 +63,7 @@ namespace NKAP_API_2.Controllers
               
                 var users = _db.Users.Find(user.UsersId);
                 AuditTrail audit = new AuditTrail();
-                audit.AuditTrailDescription = users.UserUsername + " logged In";
+                audit.AuditTrailDescription = users.UserUsername + " logged In.";
                 audit.AuditTrailDate = System.DateTime.Now;
                 TimeSpan timeNow = DateTime.Now.TimeOfDay;
                 audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds); 
@@ -249,11 +249,11 @@ namespace NKAP_API_2.Controllers
                 //add to audit trail
                 var user = _db.Users.Find(model.UsersID);
                 AuditTrail audit = new AuditTrail();
-                audit.AuditTrailDescription = user.UserUsername + " Registered a new Account";
+                audit.AuditTrailDescription = newUser.UserUsername + " Registered a new Account";
                 audit.AuditTrailDate = System.DateTime.Now;
                 TimeSpan timeNow = DateTime.Now.TimeOfDay;
                 audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
-                audit.UsersId = user.UsersId;
+                audit.UsersId = newUser.UsersId;
                 _db.AuditTrails.Add(audit);
                 _db.SaveChanges();
 
@@ -291,6 +291,25 @@ namespace NKAP_API_2.Controllers
                 }
                 return builder.ToString();
             }
+        }
+
+        [Route("Logout/{UsersID}")] //route
+        [HttpPost]
+        //Update CategoryType
+        public IActionResult Logout(int UsersID)
+        {
+            //add to audit trail
+            var user = _db.Users.Find(UsersID);
+            AuditTrail audit = new AuditTrail();
+            audit.AuditTrailDescription = user.UserUsername + " logged out.";
+            audit.AuditTrailDate = System.DateTime.Now;
+            TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+            audit.UsersId = user.UsersId;
+            _db.AuditTrails.Add(audit);
+            _db.SaveChanges();
+
+            return Ok();
         }
     }
 }
