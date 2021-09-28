@@ -76,5 +76,9 @@ namespace NKAP_API_2.Models
         [JsonProperty("VATAmount")]
         public decimal VATAmount
         { get; set; }
+
+        [JsonProperty("ProductCategoryId")]
+        public int ProductCategoryId
+        { get; set; }
     }
 }

@@ -476,6 +476,55 @@ namespace NKAP_API_2.Controllers
 
         }
 
+        [Route("getProductWPricesByPcatIDy/{productcategoryid}")] //route
+        [HttpGet]
+        //get Sales by Date (Read)
+        public IActionResult getProductWPricesByPcatID(int productcategoryid) //main screen client side
+        {
+
+            var markup = _db.Markups.FirstOrDefault(zz => zz.MarkupId == 3);
+            var VAT = _db.Vats.FirstOrDefault(zz => zz.VatId == 2);
+            var ActiveSpec = _db.Specials.Where(ss => ss.SpecialStartDate <= System.DateTime.Now && ss.SpecialEndDate >= System.DateTime.Now);
+            var productspecial = _db.ProductSpecials.Include(zz => zz.Special).Include(zz => zz.ProductItem).ThenInclude(zz => zz.CategoryType).Include(zz => zz.ProductItem.Prices)
+                .Where(ss => ss.Special.SpecialStartDate <= System.DateTime.Now && ss.Special.SpecialEndDate >= System.DateTime.Now && ss.ProductItem.CategoryType.ProductCategoryId == productcategoryid).Select(zz => new ProductItemModel
+                {
+                    CategoryTypeID = (int)zz.ProductItem.CategoryTypeId,
+                    CategoryTypeImage = zz.ProductItem.CategoryType.CategoryTypeImage,
+                    CategoryTypeDescription = zz.ProductItem.CategoryType.CategoryTypeDescription,
+                    ItemDescription = zz.ProductItem.CategoryType.ItemDescription,
+                    ProductItemId = (int)zz.ProductItemId,
+                    ProductItemName = zz.ProductItem.ProductItemName,
+                    SpecialPrice = (decimal)zz.SpecialPrice,
+                    PriceDescription = zz.ProductItem.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault(),
+                    VATInc = Math.Round((decimal)(zz.SpecialPrice + (zz.SpecialPrice * VAT.VatPercentage)), 2),
+                    VATAmount = Math.Round((decimal)(zz.SpecialPrice * VAT.VatPercentage), 2)
+                    // PriceDescription = zz.ProductItem.pr
+                }).
+                ToList();
+            var products = _db.ProductItems.Include(zz => zz.CategoryType).Include(zz => zz.Prices).Include(zz => zz.ProductSpecials).ThenInclude(zz => zz.Special)
+                .Where(zz => zz.ProductSpecials.Any(xx => xx.ProductItemId == zz.ProductItemId && xx.Special.SpecialStartDate <= System.DateTime.Now && xx.Special.SpecialEndDate >= System.DateTime.Now ) == false ).Select(zz => new ProductItemModel
+                {
+                    CategoryTypeID = (int)zz.CategoryTypeId,
+                    ProductCategoryId = (int)zz.CategoryType.ProductCategoryId,
+                    CategoryTypeImage = zz.CategoryType.CategoryTypeImage,
+                    CategoryTypeDescription = zz.CategoryType.CategoryTypeDescription,
+                    ItemDescription = zz.CategoryType.ItemDescription,
+                    ProductItemId = (int)zz.ProductItemId,
+                    ProductItemName = zz.ProductItemName,
+                    // SpecialPrice = (decimal)zz.SpecialPrice,
+                    PriceDescription = zz.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault(),
+                    VATInc = Math.Round((decimal)(zz.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault() + (zz.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault() * VAT.VatPercentage)), 2),
+                    VATAmount = Math.Round((decimal)((decimal)zz.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault() * VAT.VatPercentage), 2)
+                }).Where(xx=> xx.ProductCategoryId== productcategoryid).
+                 ToList();
+            var frontside = new FrontsideModel();
+            frontside.withspecial = productspecial;
+            frontside.withoutspecial = products;
+
+            return Ok(frontside);
+
+        }
+
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("Collection")] //route
         [HttpPut]
