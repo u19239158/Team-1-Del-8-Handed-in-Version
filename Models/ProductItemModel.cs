@@ -64,5 +64,9 @@ namespace NKAP_API_2.Models
         [JsonProperty("usersid")]
         public int UsersID
         { get; set; }
+
+        [JsonProperty("VATInc")]
+        public decimal VATInc
+        { get; set; }
     }
 }

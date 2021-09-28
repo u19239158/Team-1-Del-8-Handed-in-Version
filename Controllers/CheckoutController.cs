@@ -47,6 +47,62 @@ namespace NKAP_API_2.Controllers
             _db.Deliveries.Add(Del);
             _db.SaveChanges();
 
+            SaleLine Sline = new SaleLine();
+            Sline.ProductItemId = model.ProductItemId;
+            Sline.SaleLineQuantity = model.SaleLineQuantity;
+            Sline.SaleId = sale.SaleId;
+            _db.SaleLines.Add(Sline);
+            _db.SaveChanges();
+
+            var sd = _db.Sales.Find(sale.SaleId);
+            sd.SaleOrderDescription +=  model.ProductItemName + model.SaleLineQuantity + "x "+ ",";
+            _db.Sales.Attach(sd); //Attach Record
+            _db.SaveChanges();
+
+            var user = _db.Users.Find(model.UsersID);
+            AuditTrail audit = new AuditTrail();
+            audit.AuditTrailDescription = user.UserUsername + " made a sale worth: " + 'R' + model.PaymentAmount;
+            audit.AuditTrailDate = System.DateTime.Now;
+            TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+            audit.UsersId = user.UsersId;
+            _db.AuditTrails.Add(audit);
+            _db.SaveChanges();
+
+            return Ok();
+        }
+
+        [Route("Checkout")] //route
+        [HttpPost]
+        //Add Sales
+        //Create a Model for table
+        public IActionResult CollectionCheckout(SaleModel model) //reference the model
+        {
+            Sale sale = new Sale();
+            sale.SaleOrderDescription = ""; //attributes in table
+            sale.SaleOrderDate = System.DateTime.Now;
+            sale.SaleOrderRecieveType = model.SaleOrderRecieveType;
+            sale.PaymentAmount = model.PaymentAmount;
+            sale.PaymentDate = System.DateTime.Now;
+            sale.OrderStatusId = 1;
+            sale.PaymentTypeId = 1;
+            sale.CustomerId = model.CustomerID;
+            _db.Sales.Add(sale);
+            _db.SaveChanges();
+
+
+            SaleLine Sline = new SaleLine();
+            Sline.ProductItemId = model.ProductItemId;
+            Sline.SaleLineQuantity = model.SaleLineQuantity;
+            Sline.SaleId = sale.SaleId;
+            _db.SaleLines.Add(Sline);
+            _db.SaveChanges();
+
+            var sd = _db.Sales.Find(sale.SaleId);
+            sd.SaleOrderDescription += model.ProductItemName + model.SaleLineQuantity + "x " + ",";
+            _db.Sales.Attach(sd); //Attach Record
+            _db.SaveChanges();
+
             var user = _db.Users.Find(model.UsersID);
             AuditTrail audit = new AuditTrail();
             audit.AuditTrailDescription = user.UserUsername + " made a sale worth: " + 'R' + model.PaymentAmount;
@@ -375,14 +431,13 @@ namespace NKAP_API_2.Controllers
         [Route("getProductWPrices")] //route
         [HttpGet]
         //get Sales by Date (Read)
-        public IActionResult getProductWPrices()
+        public IActionResult getProductWPrices() //main screen client side
         {
 
             var markup = _db.Markups.FirstOrDefault(zz => zz.MarkupId == 3);
             var VAT = _db.Vats.FirstOrDefault(zz => zz.VatId == 2);
             var ActiveSpec = _db.Specials.Where(ss => ss.SpecialStartDate <= System.DateTime.Now && ss.SpecialEndDate >= System.DateTime.Now);
             var productspecial = _db.ProductSpecials.Include(zz => zz.Special).Include(zz => zz.ProductItem).ThenInclude(zz => zz.CategoryType).Include(zz => zz.ProductItem.Prices)
-
                 .Where(ss => ss.Special.SpecialStartDate <= System.DateTime.Now && ss.Special.SpecialEndDate >= System.DateTime.Now).Select(zz => new ProductItemModel
                 {
                     CategoryTypeID = (int)zz.ProductItem.CategoryTypeId,
@@ -390,7 +445,8 @@ namespace NKAP_API_2.Controllers
                     ProductItemId = (int)zz.ProductItemId,
                     ProductItemName = zz.ProductItem.ProductItemName,
                     SpecialPrice = (decimal)zz.SpecialPrice,
-                    PriceDescription = zz.ProductItem.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault()
+                    PriceDescription = zz.ProductItem.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault(),
+                    VATInc = Math.Round( (decimal)(zz.SpecialPrice+ (zz.SpecialPrice * VAT.VatPercentage)) , 2)
                     // PriceDescription = zz.ProductItem.pr
                 }).
                 ToList();
@@ -402,21 +458,16 @@ namespace NKAP_API_2.Controllers
                     ProductItemId = (int)zz.ProductItemId,
                     ProductItemName = zz.ProductItemName,
                     // SpecialPrice = (decimal)zz.SpecialPrice,
-                    PriceDescription = zz.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault()
+                    PriceDescription = zz.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault(),
+                   VATInc = Math.Round( (decimal)(zz.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault() +(zz.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault() * VAT.VatPercentage)) , 2)
+
                 }).
                  ToList();
             var frontside = new FrontsideModel();
             frontside.withspecial = productspecial;
             frontside.withoutspecial = products;
 
-
-
             return Ok(frontside);
-
-            //}
-
-            
-
 
         }
 

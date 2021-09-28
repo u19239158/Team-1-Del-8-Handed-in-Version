@@ -55,7 +55,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Custitle);
         }
 
-    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+    //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetCustomerByID/{customerid}")] //route
         [HttpGet]
         //get Customer by ID (Read)
@@ -339,14 +339,14 @@ namespace NKAP_API_2.Controllers
 
         }
 
-        [Route("DeleteCustomer/{customerid}")] //route
+        [Route("DeleteProfile/{userid}")] //route
         [HttpDelete]
         //Delete Customer
-        public IActionResult DeleteProfile(int customerid)
+        public IActionResult DeleteProfile(int userid)
         {
             try
             {
-                var customer = _db.Customers.Find(customerid);
+                var customer = _db.Customers.Find(userid);
                 _db.Customers.Remove(customer); //Delete Record
                 _db.SaveChanges();
                 return Ok(customer);
