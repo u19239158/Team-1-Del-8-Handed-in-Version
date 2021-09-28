@@ -72,5 +72,9 @@ namespace NKAP_API_2.Models
         [JsonProperty("VATInc")]
         public decimal VATInc
         { get; set; }
+
+        [JsonProperty("VATAmount")]
+        public decimal VATAmount
+        { get; set; }
     }
 }

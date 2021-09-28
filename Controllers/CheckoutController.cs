@@ -448,7 +448,8 @@ namespace NKAP_API_2.Controllers
                     ProductItemName = zz.ProductItem.ProductItemName,
                     SpecialPrice = (decimal)zz.SpecialPrice,
                     PriceDescription = zz.ProductItem.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault(),
-                    VATInc = Math.Round( (decimal)(zz.SpecialPrice+ (zz.SpecialPrice * VAT.VatPercentage)) , 2)
+                    VATInc = Math.Round( (decimal)(zz.SpecialPrice+ (zz.SpecialPrice * VAT.VatPercentage)) , 2),
+                    VATAmount =Math.Round( (decimal)(zz.SpecialPrice * VAT.VatPercentage),2)
                     // PriceDescription = zz.ProductItem.pr
                 }).
                 ToList();
@@ -463,8 +464,8 @@ namespace NKAP_API_2.Controllers
                     ProductItemName = zz.ProductItemName,
                     // SpecialPrice = (decimal)zz.SpecialPrice,
                     PriceDescription = zz.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault(),
-                   VATInc = Math.Round( (decimal)(zz.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault() +(zz.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault() * VAT.VatPercentage)) , 2)
-
+                   VATInc = Math.Round( (decimal)(zz.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault() +(zz.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault() * VAT.VatPercentage)) , 2),
+                   VATAmount = Math.Round((decimal)((decimal)zz.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault() * VAT.VatPercentage),2)
                 }).
                  ToList();
             var frontside = new FrontsideModel();
