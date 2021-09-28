@@ -1,12 +1,33 @@
-<h2 mat-dialog-title>Capture Order</h2>
-<mat-dialog-content class="mat-typography">
-    <p>
-    
-        <!-- {{sale.orderStatusDescription}} -->
+<div class="content">
+  <h2>Capture Order</h2>
 
-    </p>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-    <button mat-button (click)="Cancel()">Cancel</button>
-    <button mat-raised-button type="submit" color="primary" cdkFocusInitial (click)="Confirm()">Capture Order</button>
-</mat-dialog-actions>
+  <div>
+
+    <table mat-table [dataSource]="dataSource" matSort>
+      <!-- Position Column -->
+      <ng-container matColumnDef="checkbox">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Select </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-checkbox (click)="AddQuantity()"></mat-checkbox>
+        </td>
+      </ng-container>
+
+      <!-- Product Item -->
+      <ng-container matColumnDef="productItemName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Item </th>
+        <td mat-cell *matCellDef="let element"> {{element.productItem}} </td>
+      </ng-container>
+
+      <!-- Quantity -->
+      <ng-container matColumnDef="quantityOnHand">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
+        <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+  </div>
+  
+  </div>

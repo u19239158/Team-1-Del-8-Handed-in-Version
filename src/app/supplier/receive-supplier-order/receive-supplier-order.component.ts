@@ -26,7 +26,7 @@ export class ReceiveSupplierOrderComponent implements OnInit {
   searchValue: string;
   dataNotFound: boolean;
 
-  displayedColumns: string[] = ['supplierName', 'supplierOrderStatusDesc', 'supplierOrderTotal', 'viewOrder'];
+  displayedColumns: string[] = ['supplierName', 'supplierOrderStatusDesc', 'supplierOrderTotal', 'viewOrder', 'invoice'];
   receiveSupplierOrders: ReceiveSupplierOrder[] = [];
   receiveSupplierOrder: Observable<ReceiveSupplierOrder[]>;
   dataSource = new MatTableDataSource<ReceiveSupplierOrder>();
@@ -40,9 +40,6 @@ export class ReceiveSupplierOrderComponent implements OnInit {
   recievesupplierorder: ReceiveSupplierOrder;
   // recievesupplierorders: Observable<ReceiveSupplierOrder[]>;
   RecieveSupplierOrder: ReceiveSupplierOrder[];
-
-
-  @ViewChild('captureOrder') menuTrigger: CaptureOrderComponent;
 
   constructor(
     private receiveSupplierService: ReceiveSupplierService,
@@ -98,17 +95,10 @@ export class ReceiveSupplierOrderComponent implements OnInit {
   }
 
   viewOrder() {
-    const confirm = this.dialog.open(CaptureOrderComponent, {
-      disableClose: true,
-    });
+    this.router.navigateByUrl('captureOrder');
+}
 
-    confirm.afterClosed().subscribe(res => {
-      const captureOrder: ReceiveSupplierOrder = this.form.value;
-      this.receiveSupplierService.ReceiveSupplierOrder().subscribe(res => {
-        console.log(res)
-        this.router.navigateByUrl('placeSupplierOrder');
-      })
-
-    })
-  }
+showInvoice(){
+  
+}
 }

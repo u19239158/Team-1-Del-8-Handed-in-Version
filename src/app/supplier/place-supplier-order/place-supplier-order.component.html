@@ -21,8 +21,6 @@
   <br>
   <br>
 
-  <button mat-raised-button type="submit" color="primary" (click)="finalOrder()">Place Order</button>
-
   <div class="search">
     <ul fxLayout fxLayoutGap="15px" class="navigation-items">
       <li>
@@ -42,8 +40,6 @@
 
   <app-global-error *ngIf="dataNotFound"></app-global-error>
 
-  <br>
-  <br>
   <div>
     <table mat-table [dataSource]="dataSource" *ngIf="!dataNotFound" matSort>
       <!-- Position Column -->
@@ -76,3 +72,15 @@
     <mat-paginator [pageSizeOptions]="[5, 8, 15, 35]" showFirstLastButtons aria-label="Select page">
     </mat-paginator>
   </div>
+
+  <mat-card>
+  
+  <div class="col-md-4">
+      <h4>No of Items Placed: {{selectedItemsList.length}} </h4>
+      <ul>
+        <li *ngFor="let item of selectedItemsList">{{item.productItemName}} {{item.productItemName}}</li>
+      </ul>
+    </div>
+  </mat-card>
+
+  <button mat-raised-button type="submit" color="primary" (click)="finalOrder()">Place Order</button>
