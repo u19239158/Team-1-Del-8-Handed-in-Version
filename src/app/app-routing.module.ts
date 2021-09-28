@@ -50,8 +50,10 @@ import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-
 
 import { StockTakeComponent } from './admin/stock-take/stock-take.component';
 import { WriteOffStockComponent } from './admin/write-off-stock/write-off-stock.component';
+import { ViewWriteOffComponent } from './admin/write-off-stock/view-write-off/view-write-off.component';
 import { PageComponent } from './admin/write-off-stock/page/page.component';
 import { StockTakePageComponent } from './admin/stock-take/stock-take-page/stock-take-page.component';
+import { ViewstocktakeComponent } from './admin/stock-take/viewstocktake/viewstocktake.component';
 // import { ReceiveOrderComponent } from './supplier/receive-supplier-order/receive-order/receive-order.component';
 
 import { OnlineSalesComponent } from './admin/online-sales/online-sales.component';
@@ -256,8 +258,16 @@ const routes: Routes = [
     component: StockTakeComponent,
   },
   {
+    path: 'viewstocktake',
+    component: ViewstocktakeComponent,
+  },
+  {
     path: 'writeOffStock',
     component: WriteOffStockComponent,
+  },
+  {
+    path: 'viewwriteoff',
+    component: ViewWriteOffComponent,
   },
   {
     path: 'assigndeliveryorder',
