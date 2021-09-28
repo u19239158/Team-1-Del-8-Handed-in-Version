@@ -22,7 +22,7 @@ namespace NKAP_API_2.Controllers
         public ReportController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
 
-     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetPackingReportData")] //route
         [HttpGet]
         //get Sales with status "needs packing"
@@ -55,7 +55,7 @@ namespace NKAP_API_2.Controllers
 
 
 
-    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetDeliveryReportData")] //route
         [HttpGet]
         //get Sales with status "needs packing"

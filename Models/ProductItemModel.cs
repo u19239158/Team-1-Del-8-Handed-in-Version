@@ -49,6 +49,10 @@ namespace NKAP_API_2.Models
         public string CategoryTypeDescription
         { get; set; }
 
+        [JsonProperty("itemdescription")]
+        public string ItemDescription
+        { get; set; }
+
         [JsonProperty("pricedescription")]
         public decimal PriceDescription
         { get; set; }
@@ -63,6 +67,18 @@ namespace NKAP_API_2.Models
 
         [JsonProperty("usersid")]
         public int UsersID
+        { get; set; }
+
+        [JsonProperty("VATInc")]
+        public decimal VATInc
+        { get; set; }
+
+        [JsonProperty("VATAmount")]
+        public decimal VATAmount
+        { get; set; }
+
+        [JsonProperty("ProductCategoryId")]
+        public int ProductCategoryId
         { get; set; }
     }
 }

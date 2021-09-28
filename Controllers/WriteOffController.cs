@@ -27,7 +27,28 @@ namespace NKAP_API_2.Controllers
         //get Product Item Write-off (Read)
         public IActionResult get()
         {
-            var PItemWriteOffs = _db.ProductItemWrittenOffStocks.ToList();
+            var PItemWriteOffs = _db.WrittenOffStocks.Join(_db.ProductItemWrittenOffStocks,
+                s => s.WrittenOffStockId,
+                p => p.WrittenOffStockId,
+                (s,p) => new
+                {
+                    WrittenOffStockId = s.WrittenOffStockId,
+                    WrittenOffStockDate = s.WrittenOffStockDate,
+                    WriteOffReason = p.WriteOffReason,
+                    WriteOffQuantity = p.WriteOffQuantity,
+                    ProductItemId = p.ProductItemId
+                }).Join(_db.ProductItems,
+                s => s.ProductItemId,
+                p => p.ProductItemId,
+                (s, p) => new
+                {
+                    WrittenOffStockId = s.WrittenOffStockId,
+                    WrittenOffStockDate = s.WrittenOffStockDate,
+                    WriteOffReason = s.WriteOffReason,
+                    WriteOffQuantity = s.WriteOffQuantity,
+                    ProductItemId = p.ProductItemId,
+                    ProductItemName = p.ProductItemName
+                });
             return Ok(PItemWriteOffs);
 
         }
@@ -75,15 +96,15 @@ namespace NKAP_API_2.Controllers
             //Attach Record
             _db.SaveChanges();
 
-            //var user = _db.Users.Find(model.UsersID);
-            //AuditTrail audit = new AuditTrail();
-            //audit.AuditTrailDescription = user.UserUsername + " wrote off " + model.WriteOffQuantity + " items of the " + NewPQuantity.ProductItemName ;
-            //audit.AuditTrailDate = System.DateTime.Now;
-            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
-            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
-            //audit.UsersId = user.UsersId;
-            //_db.AuditTrails.Add(audit);
-            //_db.SaveChanges();
+            var user = _db.Users.Find(model.UsersID);
+            AuditTrail audit = new AuditTrail();
+            audit.AuditTrailDescription = user.UserUsername + " wrote off " + model.WriteOffQuantity + " items of the " + NewPQuantity.ProductItemName;
+            audit.AuditTrailDate = System.DateTime.Now;
+            TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+            audit.UsersId = user.UsersId;
+            _db.AuditTrails.Add(audit);
+            _db.SaveChanges();
 
             return Ok();
         }

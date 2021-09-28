@@ -61,6 +61,7 @@ namespace NKAP_API_2.Controllers
                 x.token = tokens;
                 x.userUsername = username;
                 x.userId = user.UsersId;
+                x.userRoleID = (int)user.UserRoleId;
 
                 //add to audit trail
               
@@ -87,6 +88,7 @@ namespace NKAP_API_2.Controllers
             public string token;
             public string userUsername;
             public int userId;
+            public int userRoleID;
         }
 
         //Login Admin/Emp SIDE after new db
@@ -173,19 +175,21 @@ namespace NKAP_API_2.Controllers
             }
             else
             {
-                return Ok(token.GenerateToken(model));
+
+                var tokens = token.GenerateToken(model);
+                var username = user.UserUsername;
+
+                var x = new helperclass();
+                x.token = tokens;
+                x.userUsername = username;
+                x.userId = user.UsersId;
+                x.userRoleID = (int)user.UserRoleId;
+
+                return Ok(x);
             }
 
         }
 
-        ////var newAuditTrail = new AuditTrail
-        //      {
-
-        //          AuditTrailDate = DateTime.Today,
-        //          AuditTrailTime = DateTime.Now.TimeOfDay,
-        //          AuditTrailDescription = "Login"
-
-        //      });
 
         [HttpPost]
         [Route("ForgotResetPassword")]
@@ -252,16 +256,17 @@ namespace NKAP_API_2.Controllers
             {
                 UserUsername = model.UserUsername,
                 UserPassword = ComputeSha256Hash(model.UserPassword),
-                UserRoleId = 3,
+                UserRoleId = 2,
                 
             };
 
-            //var newpasshist = new PasswordHistory
-            //{
-            //    //PasswordHistoryId = model.PasswordHistoryId,
-            //    PasswordHistoryDate = Convert.ToDateTime(DateTime.Today), //trying to save the date that the password was created
-            //    PasswordHistoryText = ComputeSha256Hash(model.UserPassword) //trying to save the hashed password
-            //};
+            //add to passwordHistory
+            //var passH = _db.PasswordHistories.Find(model.UsersID);
+            //PasswordHistory pass = new PasswordHistory();
+            //pass.PasswordHistoryDate = System.DateTime.Now;
+            //pass.PasswordHistoryText = newUser.UserPassword;
+            //_db.PasswordHistories.Add(pass);
+            //_db.SaveChanges();
 
 
             var newCustomer = new Customer
@@ -295,15 +300,16 @@ namespace NKAP_API_2.Controllers
                 _db.SaveChanges();
 
                 //add to audit trail
-                //var user = _db.Users.Find(model.UsersID);
-                //AuditTrail audit = new AuditTrail();
-                //audit.AuditTrailDescription = user.UserUsername + "Registered a new Account";
-                //audit.AuditTrailDate = System.DateTime.Now;
-                //TimeSpan timeNow = DateTime.Now.TimeOfDay;
-                //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
-                //audit.UsersId = user.UsersId;
-                //_db.AuditTrails.Add(audit);
-                //_db.SaveChanges();
+                var user = _db.Users.Find(model.UsersID);
+                AuditTrail audit = new AuditTrail();
+                audit.AuditTrailDescription = user.UserUsername + " Registered a new Account";
+                audit.AuditTrailDate = System.DateTime.Now;
+                TimeSpan timeNow = DateTime.Now.TimeOfDay;
+                audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+                audit.UsersId = user.UsersId;
+                _db.AuditTrails.Add(audit);
+                _db.SaveChanges();
+
 
                 return Ok(newCustomer);
             }

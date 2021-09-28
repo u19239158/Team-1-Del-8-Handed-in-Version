@@ -55,7 +55,7 @@ namespace NKAP_API_2.Controllers
             return Ok(Custitle);
         }
 
-    //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+    //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetCustomerByID/{customerid}")] //route
         [HttpGet]
         //get Customer by ID (Read)
@@ -85,7 +85,36 @@ namespace NKAP_API_2.Controllers
             return Ok(Custitle);
         }
 
-     //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        //[Route("GetProfile/{userid}")] //route
+        //[HttpGet]
+        ////get Customer by ID (Read)
+        //public IActionResult GetProfile(int userid)
+        //{
+        //    //var Customer = _db.Customers.Find(customerid);
+
+        //    var Custitle = _db.Customers.Join(_db.Titles,
+        //      c => c.TitleId,
+        //      t => t.TitleId,
+        //      (c, t) => new
+        //      {
+        //          CustomerId = c.CustomerId,
+
+        //          TitleID = c.TitleId,
+        //          TitleDesc = t.TitleDescription,
+        //          CustomerID = c.CustomerId,
+        //          CustomerName = c.CustomerName,
+        //          CustomerSurname = c.CustomerSurname,
+        //          CustomerCellphoneNumber = c.CustomerCellphoneNumber,
+        //          CustomerEmailAddress = c.CustomerEmailAddress,
+        //          CustomerVATReg = c.CustomerVatreg,
+        //          CustomerBusinessName = c.CustomerBusinessName,
+
+        //      }).First(cn => cn.userID == userid);
+
+        //    return Ok(Custitle);
+        //}
+
+        //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetCustomerByName/{customername}")] //route
         [HttpGet]
         //get Customer by Name (Read)
@@ -234,15 +263,45 @@ namespace NKAP_API_2.Controllers
             _db.SaveChanges();
 
             //add to audit trail
-            //var user = _db.Users.Find(model.UsersID);
-            //AuditTrail audit = new AuditTrail();
-            //audit.AuditTrailDescription = user.UserUsername + " updated the Customer: " + model.CustomerName+" "+ model.CustomerSurname ;
-            //audit.AuditTrailDate = System.DateTime.Now;
-            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
-            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
-            //audit.UsersId = user.UsersId;
-            //_db.AuditTrails.Add(audit);
-            //_db.SaveChanges();
+            var user = _db.Users.Find(model.UsersID);
+            AuditTrail audit = new AuditTrail();
+            audit.AuditTrailDescription = user.UserUsername + " updated the Customer: " + model.CustomerName + " " + model.CustomerSurname;
+            audit.AuditTrailDate = System.DateTime.Now;
+            TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+            audit.UsersId = user.UsersId;
+            _db.AuditTrails.Add(audit);
+            _db.SaveChanges();
+
+            return Ok(customer);
+        }
+
+        [Route("UpdateProfile")] //route
+        [HttpPut]
+        //Update Customer
+        public IActionResult UpdateProfile(CustomerModel model)
+        {
+            var customer = _db.Customers.Find(model.UsersID);
+            customer.CustomerName = model.CustomerName; //attributes in table
+            customer.CustomerSurname = model.CustomerSurname;
+            customer.CustomerCellphoneNumber = model.CustomerCellphoneNumber;
+            customer.CustomerEmailAddress = model.CustomerEmailAddress;
+            customer.CustomerBusinessName = model.CustomerBusinessName;
+            customer.CustomerVatreg = model.CustomerVatReg;
+            customer.TitleId = model.TitleID;
+            _db.Customers.Attach(customer); //Attach Record
+            _db.SaveChanges();
+
+            //add to audit trail
+            var user = _db.Users.Find(model.UsersID);
+            AuditTrail audit = new AuditTrail();
+            audit.AuditTrailDescription = model.CustomerName +" " +model.CustomerSurname + " updated their profile. " ;
+            audit.AuditTrailDate = System.DateTime.Now;
+            TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+            audit.UsersId = user.UsersId;
+            _db.AuditTrails.Add(audit);
+            _db.SaveChanges();
 
             return Ok(customer);
         }
@@ -257,6 +316,37 @@ namespace NKAP_API_2.Controllers
             try
             {
                 var customer = _db.Customers.Find(customerid);
+                _db.Customers.Remove(customer); //Delete Record
+                _db.SaveChanges();
+                return Ok(customer);
+            }
+            catch (Exception)
+            {
+                response = "Customer could not be deleted due to existing dependencies linked to the particular account";
+                return BadRequest(response);
+                throw;
+            }
+
+            //add to audit trail
+            //var user = _db.Users.Find(model.UsersID);
+            //AuditTrail audit = new AuditTrail();
+            //audit.AuditTrailDescription = user.UserUsername + "deleted a Customer";
+            //audit.AuditTrailDate = System.DateTime.Now;
+            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
+            //audit.UsersId = user.UsersId;
+            //_db.AuditTrails.Add(audit);
+            //_db.SaveChanges();
+
+        }
+
+        [Route("DeleteProfile/{userid}")] //route
+        [HttpDelete]
+        //Delete Customer
+        public IActionResult DeleteProfile(int userid)
+        {
+            try
+            {
+                var customer = _db.Customers.Find(userid);
                 _db.Customers.Remove(customer); //Delete Record
                 _db.SaveChanges();
                 return Ok(customer);
