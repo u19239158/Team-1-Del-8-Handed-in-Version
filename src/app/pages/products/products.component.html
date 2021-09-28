@@ -34,88 +34,40 @@
   
 <!-- These are the cards displaying the category types -->
     <div class="row"> 
-      <ng-container *ngFor="let category of categoryTypes">         
+      <ng-container *ngFor="let category of categoryTypes" ng-controller="check">       
           <div class="card col-md-3">
+
               <center><img src="{{category.categoryTypeImage}}" alt=""></center>
               
               <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.productItemName}}</p>
               <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.categoryTypeName}}</p>
               <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.itemDescription}}</p>
-              <!-- <strong>Price:</strong><p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.productItemName}}</p> -->
-              <!-- <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.productItemCost}}</p> -->
-              <h2><strong>Price:</strong> R{{category.vatInclusive | number:'0.1-2'}}</h2> 
-              <!--VATInclusive-->
-              <!-- <button class="button is-info is-rounded"  (click)=openmodal(category) id="launchModal">More Info</button> -->
-              <button class="button is-info is-rounded" (click)=addtocart(category)>Add to Cart</button>
-            </div>
-      </ng-container>
-      <!-- 
-      categoryTypeDescription: "Self-tapping screws most commonly designed with a single thread that runs all the way from the base of the head to the tip"
-      
-      categoryTypeName: "Chipboard Screws"
-      productItemCost: 2.95
-      
-      productItemName: "2mm Chipboard Screw" -->
-      
-      
-    <!-- <ng-container *ngIf="categoryTypes.productCategoryDesc == 'Screws'">
-      <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">
-        it works!!
-      </p>
-      <div>
-        <center><img src="{{categoryTypes.categoryTypeImage}}" alt="" (click)=modal(category)></center>
-      </div>
-    </ng-container> -->
-
-  </div>
-
-
-
-<div class="modal">
-  <div class="modal-background"></div>
-  <div class="modal-card">
-<!--header of modal -->
-    <header class="modal-card-head">
-      <p class="modal-card-title">Product Details</p>
-        <ng-container *ngFor="let category of products">
-      <button class="delete" id="closetop" aria-label="close" (click)=closemodal(category)></button>
-        </ng-container>
-    </header>
-
-
-    <div class="content">
-    <section class="modal-card-body">
-        <ng-container *ngFor="let item of products">
-        <h1>{{item.productCategoryDesc}}: {{item.categoryTypeDescription}}</h1>        
-        <img src="{{item.categoryTypeImage}}" alt="" width="100" height="100">
-        <p>{{item.itemDescription}}</p>
-<!-- 
-        <div *ngFor="let productitem of productItems" [value]= "productitem.productItemCost">
-          <h2><strong>Price:</strong> R{{productitem.productItemCost}}</h2> 
-        </div>    
-             -->
               
-        <mat-form-field appearance="outline">
-          <mat-label>Type</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let productitem of productItems" [value]= "productitem.productItemName">
-              R{{productitem.productItemCost}} =
-              {{productitem.productItemName}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        </ng-container>
-    </section>
-    <div>  
-    <footer class="modal-card-foot">
-        <ng-container *ngFor="let item of products">
-        <button class="button is-info is-rounded" (click)=addtocart(category)>Add to cart</button>
-        <button class="button is-danger is-rounded" (click)=closemodal(category)>Close</button>
-        </ng-container>
-    </footer>
+              <h2><strong>Price:</strong> R{{category.vatInclusive | number:'0.1-2'}}
+                <br/>Total Count : {{counter}}
+              </h2> 
+              
+              <button ng-click="count = count + 1" ng-init="count=0" class="button is-info is-rounded" (click)=addtocart(category)>Add to Cart</button>
+            </div>
+ 
+      </ng-container>
   </div>
+
+  
+  <div class="row"> 
+    <ng-container *ngFor="let category of productItems">         
+        <div class="card col-md-3">
+
+            <center><img src="{{category.categoryTypeImage}}" alt=""></center>
+            
+            <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.productItemName}}</p>
+            <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.categoryTypeName}}</p>
+            <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.itemDescription}}</p>
+            
+            <h2><strong>Price:</strong> R{{category.vatInclusive | number:'0.1-2'}}</h2> 
+            
+            <button class="button is-info is-rounded" (click)=addtocart(category)>Add to Cart</button>
+          </div>
+    </ng-container>
 </div>
-
-
-
 

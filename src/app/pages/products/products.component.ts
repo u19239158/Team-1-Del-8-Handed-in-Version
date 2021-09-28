@@ -26,49 +26,22 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
 
-
-    //Home page different categories of products
-    this.api.getProductCategory()
-    .subscribe(res=>{
-      this.productCategories=res;
-      console.log(this.productCategories);
-
-    })
-
-    
-    //product page content
-    this.api.getCategoryType()
-    .subscribe(res=>{
-      this.categoryTypes=res;
-      console.log(this.categoryTypes);
-
-    })
-
-    //modal product type dropdown
-    this.api.getProductItem()
+    //all product items for main page
+    this.api.getAllItems()
     .subscribe(res=>{
       this.productItems = res;
       console.log(this.productItems);
     })
-    
-    // this.cartService.getModalProduct()
-    // .subscribe(res=>{
-    //   this.products = res;
-    // })
+    //Home page different categories of products
+    this.api.getProductCategory()
+    .subscribe(res=>{
+      this.productCategories=res;
+      console.log(res);
+    })
+
   }
   
   //outside ng oninit
-  addtocart(item: any){
-    this.cartService.addtoCart(item);
-
-    this.snack.open('Item added to cart! ', 'OK', 
-    {
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-      duration: 1000
-    });
-  }
-
   loadbyCat(item){
     this.api.getProductByCategoryTypeID(item.productCategoryId)
     //productCategory
@@ -78,22 +51,41 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-  // openmodal(item: any){
-  //   document.querySelector('.modal').classList.add('is-active')
-  //   this.cartService.showItemModal(item);
-  // }
+  addtocart(item: any){
+    this.cartService.addtoCart(item);
+    localStorage.setItem(item.productItemId, JSON.stringify(1));
 
-  // closemodal(item:any){
-  //   this.modalItems = [];
-  //     document.querySelector('.modal').classList.remove('is-active')
-  //     this.cartService.closeItemModal(item);
-  //   }
+    var itemList = JSON.parse(localStorage.getItem(item.productItemId)) || [];
+    localStorage.setItem(item.productItemId, JSON.stringify(itemList));
+    //list of items - identity with id
+    // var itemList:any = [];
+
+    // itemList[0] = prompt("New member name?");
+    // localStorage.setItem(item.productItemId, JSON.stringify(itemList));
+    
+    
+    // var storedNames = JSON.parse(localStorage.getItem("names"));
+
+    
+    // localstorage.names = JSON.stringify(names);
+    // var storedNames = JSON.parse(localStorage.names);
+    
+
+  // localStorage.setItem('item.productItemId', JSON.stringify(res));
+
+  //JSON.parse(localStorage.getItem('item.productItemId'));
+
+    this.snack.open('Item added to cart! ', 'OK', 
+    {
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      duration: 2000
+    });
+  }
+
     
   Itemdropdown(){
     document.querySelector('.dropdown').classList.add('is-active')
   }
 
-  // ItemdropdownClose(){
-  //   document.querySelector('.dropdown').classList.remove('is-active')
-  // }
 }

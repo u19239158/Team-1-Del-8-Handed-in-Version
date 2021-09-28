@@ -20,10 +20,12 @@
                                 <td>{{i+1}}</td>
                                 <td><img src="{{item.categoryTypeImage}}" alt=""></td>
                                 <td style="width: 25%;">{{item.productItemName}}</td>
-                                <td style="width: 12%;">{{item.itemDescription}}</td>
-                                <!--if quantity value greater than 1 += ... Google this-->
-                                <td style="width: 12%;">{{item.quantity}}</td>
-                                <td style="width: 12%;">R{{item.productItemCost}}</td>
+                                <td style="width: 12%;">{{item.categoryTypeDescription}}</td>
+                                <td style="width: 12%;">                                  
+                                  <input id="quantity" type="number" class="no-spinners"  [value]="item.num" [(ngModel)]="item.num" min="1"/>
+                                </td>
+                                <td style="width: 12%;">R{{item.sellingPrice | number:'0.1-2'}}</td> 
+                                <!-- multiply price by the Quantity.value of the numeric up down -->
                                 <td>
                                     <button (click)="removeItem(item)" class="button is-rounded is-danger is-outlined"><i class="fas fa-trash-alt"></i></button>
                                 </td>
@@ -33,9 +35,9 @@
 
                             </td>
                             <!--google maps btn-->
-                            <p>
+                            <!-- <p>
                               <button class="btn btn-primary" (click)="openGoogelMapsModal()">Open Google Map</button>
-                          </p>
+                          </p> -->
                             <td><button (click)="emptycart()" class="button is-rounded is-danger is-outlined">Empty Cart</button></td>
                             <td><button routerLink="/products" class="button is-info is-rounded is-outlined">Shop More</button></td>
                             <td>
@@ -44,9 +46,11 @@
                             <td>
                         
                               <div class="box">
-                                VAT total: R {{vatTotals}}<br/>
+                                VAT total: R {{vatTotals | number:'0.1-2'}}<br/>
                               </div>
-                                <span class="tag is-large is-success is-rounded"><strong>Grand Total : R{{grandTotal}}</strong></span>
+                              <!-- <span class="tag is-large is-success is-rounded">VAT total: R {{vatTotals | number:'0.1-2'}}</span> -->
+                              <span class="tag is-large is-success is-rounded"><strong>Grand Total : R{{grandTotal | number:'0.1-2'}}</strong></span>
+                                <!-- vatInclusive -->
                             </td>
                         </tr>
                     </tbody>
@@ -60,8 +64,8 @@
 
 
 <ng-container *ngIf="products.length ==0">
-    <div class="container has-text-centered">
-            <div class="notification is-warning">
+    <div class="container has-text-centered is-large">
+            <div class="notification is-warning is-large">
                 <p class="title">
                     Your cart is empty!
                   </p>
@@ -75,7 +79,7 @@
 </ng-container>
 
 <!-- Modal -->
-<div class="modal"  tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -85,31 +89,32 @@
        </h3>
       </div>
 			<form #myForm="ngForm" (submit)="submitForm(myForm)" novalidate>
-            <div class="modal-body">
               <div class="control">
                 <!-- Customer Email -->
-
+                <div>
                   <label class="label">Please enter your email address:</label>
-                  <div class="control">
-                    <input class="input" type="email" [formControl]="email" placeholder="hello@mymail.com" required>
-                  </div>
+                  <!-- <div class="control"> -->
+                    <input class="input" type="email" [formControl]="email" placeholder="hello@mymail.com" ngModel required>
+                  <!-- </div> -->
+                </div>
+
 
                   <!-- ReceiveType -->
                   <div>
                     <label class="label">Please select how you would like to receive your order:</label>
-                    <input id="delivery" type="radio" class="custom-control-input" value="delivery" name="method" ngModel required>
-                    <label class="custom-control-label" for="male">Delivery</label>
+                    <input id="delivery" type="radio" value="delivery" name="method" ngModel required>
+                    <label for="male">Delivery</label>
                   </div>
+                  
 
-                  <div>
-                    <input id="collection" type="radio" class="custom-control-input" value="collection" name="method" ngModel required>
-                    <label class="custom-control-label" for="female">Collection</label>
+                   <div>
+                    <input id="collection" type="radio" value="collection" name="method" ngModel required>
+                    <label for="female">Collection</label>
                   </div>
 
                   <div *ngIf="isSubmitted && myForm.invalid">
                     <p>Please select a value</p>
-                  </div>
-            </div>
+                  </div> 
           </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)=close()>Close</button>
@@ -122,120 +127,6 @@
 
 
 <!--Open Google Maps Modal-->
-<div class="text-center">
-
-    <div class="panel">
-      <div>
-        <img class="sb-title-icon" src="https://fonts.gstatic.com/s/i/googlematerialicons/location_pin/v5/24px.svg" alt="">
-        <span class="sb-title">Address Selection</span>
-      </div>
-      <input type="text" placeholder="Address" id="location"/>
-      <input type="text" placeholder="Apt, Suite, etc (optional)"/>
-      <input type="text" placeholder="City" id="locality"/>
-      <div class="half-input-container">
-        <input type="text" class="half-input" placeholder="State/Province" id="administrative_area_level_1"/>
-        <input type="text" class="half-input" placeholder="Zip/Postal code" id="postal_code"/>
-      </div>
-      <input type="text" placeholder="Country" id="country"/>
-      <button class="button-cta">Checkout</button>
-    </div>
-    <!-- <div class="map" id="map"></div> -->
-  <h1>
-      <p *ngIf="coordinates.address">
-          Address: {{coordinates.address}}
-      </p>
-  </h1>
-  <h3>
-      <p *ngIf="coordinates.latitude">
-          Latitude: {{coordinates.latitude}}
-      </p>
-      <p *ngIf="coordinates.longitude">
-          Longitude: {{coordinates.longitude}}
-      </p>
-  </h3>
-
-  <!--second thingy-->
-      
-      <script>
-      "use strict";
-  
-      function initMap() {
-        const componentForm = [
-          'location',
-          'locality',
-          'administrative_area_level_1',
-          'country',
-          'postal_code',
-        ];
-        const map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 11,
-          center: { lat: 37.4221, lng: -122.0841 },
-          mapTypeControl: false,
-          fullscreenControl: true,
-          zoomControl: true,
-          streetViewControl: true
-        });
-        const marker = new google.maps.Marker({map: map, draggable: false});
-        const autocompleteInput = document.getElementById('location');
-        const autocomplete = new google.maps.places.Autocomplete(autocompleteInput);
-        autocomplete.addListener('place_changed', function () {
-          marker.setVisible(false);
-          const place = autocomplete.getPlace();
-          if (!place.geometry) {
-            // User entered the name of a Place that was not suggested and
-            // pressed the Enter key, or the Place Details request failed.
-            window.alert('No details available for input: \'' + place.name + '\'');
-            return;
-          }
-          renderAddress(place);
-          fillInAddress(place);
-        });
-  
-        function fillInAddress(place) {  // optional parameter
-          const addressNameFormat = {
-            'street_number': 'short_name',
-            'route': 'long_name',
-            'locality': 'long_name',
-            'administrative_area_level_1': 'short_name',
-            'country': 'long_name',
-            'postal_code': 'short_name',
-          };
-          const getAddressComp = function (type) {
-            for (const component of place.address_components) {
-              if (component.types[0] === type) {
-                return component[addressNameFormat[type]];
-              }
-            }
-            return '';
-          };
-          document.getElementById('location').value = getAddressComp('street_number') + ' '
-                    + getAddressComp('route');
-          for (const component of componentForm) {
-            // Location field is handled separately above as it has different logic.
-            if (component !== 'location') {
-              document.getElementById(component).value = getAddressComp(component);
-            }
-          }
-        }
-  
-        function renderAddress(place) {
-          map.setCenter(place.geometry.location);
-          marker.setPosition(place.geometry.location);
-          marker.setVisible(true);
-        }
-      }
-      </script>
-
-  
-</div>
-
-
-
-<!--Close Google Maps Modal-->
-
-
-
-<!-- DELIVERY ADDRESS Modal -->
 <div class="modal" id="deliveryModal" tabindex="-1" role="dialog"  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -245,65 +136,25 @@
           <button type="button" class="btn-close btn-close-black" (click)=closeDeliveryModal()></button>
        </h3>
       </div>
-      <!-- <form [formGroup]="addressform" (ngSubmit)="createCustomerAddress()"> -->
-            <div class="modal-body">                  
-                          
-                <div class="field">
-                    <label class="label">Address Line 1</label>
-                    <div class="control">
-                      <input class="input" type="text" placeholder="Address Line 1">
-                    </div>
-                </div>
-                <div class="field">
-                  <label class="label">Address Line 2</label>
-                  <div class="control">
-                    <input class="input" type="text" placeholder="Address Line 2">
-                  </div>
-              </div>
-              <div class="field">
-                <label class="label">Address Line 3</label>
-                <div class="control">
-                  <input class="input" type="text" placeholder="Address Line 3">
-                </div>
+      <div class="modal-body">   
+          <div class="panel">
+            <div>
+              <img class="sb-title-icon" src="https://fonts.gstatic.com/s/i/googlematerialicons/location_pin/v5/24px.svg" alt="">
+              <span class="sb-title">Address Selection</span>
             </div>
-        
-                <div class="field">
-                    <label class="label">Postal Code</label>
-                    <div class="control">
-                      <input class="input" type="text" placeholder="Postal Code">
-                    </div>
-                </div>
-                  
-        
-                  <div class="field">
-                    <label class="label">Province</label>
-                    <div class="control">
-                      <input class="input" type="text" placeholder="Province">
-                    </div>
-                </div>
-                  
-                  <div class="field">
-                    <label class="label">City</label>
-                    <div class="control">
-                      <input class="input" type="text" placeholder="City">
-                    </div>
-                </div>      
-
+            <input type="text" placeholder="Address" id="location"/>
+            <input type="text" placeholder="Apt, Suite, etc (optional)"/>
+            <input type="text" placeholder="City" id="locality"/>
+            <div class="half-input-container">
+              <input type="text" class="half-input" placeholder="State/Province" id="administrative_area_level_1"/>
+              <input type="text" class="half-input" placeholder="Zip/Postal code" id="postal_code"/>
             </div>
-      <div class="modal-footer">
-        <div class="field is-grouped">
-          <div class="control">
-            <button class="button is-link"  (click)="createCustomerAddress()">Submit</button> 
-          </div>
-          <div class="control">
-            <button class="button is-link is-light" (click)=closeDeliveryModal()>Cancel</button>
-          </div>
+            <input type="text" placeholder="Country" id="country"/>
+            <button class="button-cta">Checkout</button>    
+            </div>
+            <div class="map" id="map" alt="DISPLAY MAP HERE"></div>      
         </div>
-      </div>
-    <!-- </form> -->
-    </div>
   </div>
 </div>
-
-
+<!--Close Google Maps Modal-->
 

@@ -26,7 +26,7 @@ export class AuthenticationService {
         ) {}
 
     Login(user: Login) {
-        return this.http.post<Login>(`${this.server}Login/Login`, user, this.httpOptions);
+        return this.http.post<Login>(`${this.server}Login/customerLogin`, user, this.httpOptions);
       }
 
     // login(username: string, password: string): Observable<JwtResponse> {

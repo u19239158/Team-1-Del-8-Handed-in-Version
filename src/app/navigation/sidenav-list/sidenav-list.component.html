@@ -3,7 +3,13 @@
       <mat-icon>home</mat-icon> <span class="nav-caption">Home</span>
   </a>
 
-  <mat-list-item [matMenuTriggerFor]="menu1">
+  <a mat-list-item routerLink="/products" (click)="onSidenavClose()">
+    <mat-icon>shopping_cart</mat-icon> <span class="nav-caption">Products</span>
+</a>
+<a mat-list-item routerLink="/promotions" (click)="onSidenavClose()">
+  <mat-icon>shopping_basket</mat-icon> <span class="nav-caption">Promotions</span>
+</a>
+  <!-- <mat-list-item [matMenuTriggerFor]="menu1">
       <mat-icon>shopping_cart</mat-icon>
       <a matline>Products</a>
   </mat-list-item>
@@ -19,7 +25,7 @@
   <mat-menu #menu2="matMenu">
     <button mat-menu-item routerLink="/promotions" (click)="onSidenavClose()">Promos</button>
     <button mat-menu-item routerLink="/cart" (click)="onSidenavClose()">Cart</button>
-  </mat-menu>
+  </mat-menu> -->
 
 
   <a mat-list-item routerLink="/login" (click)="onSidenavClose()">

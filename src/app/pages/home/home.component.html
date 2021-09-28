@@ -11,9 +11,14 @@
 
 
 <br/>
-
 <div class="container">
-  <div class="row">    
+  <div class="content"> 
+   
+<div class="float">
+  <button  routerLink="/products" class="button is-info is-rounded my-float">Go To Products</button>
+  </div>
+   </div>
+  <div class="row"> 
     <section>
       <div class="tile is-ancestor is-vertical is-centered">
           <ng-container *ngFor="let prodcat of productCategories">
@@ -23,8 +28,11 @@
                   
                     <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">
                       {{prodcat.productCategoryDescription}}
-                    </p>               
-                    <button class="button is-info is-rounded is-centered is-small" routerLink="/products">Go To {{prodcat.productCategoryDescription}}</button>
+                    </p>     
+                        <!-- <button class="button is-info is-rounded is-centered is-small" routerLink="/products">
+                          {{prodcat.productCategoryDescription}}
+                        </button> -->
+                    <!-- <button class="button is-info is-rounded is-centered is-small" routerLink="/products">Go To {{prodcat.productCategoryDescription}}</button> -->
                     <br/>
                     <span class="content">
                       <center><img src="{{prodcat.productCategoryImage}}" width="60%" height="50%" padding=5 alt="productCategoryImage"></center>

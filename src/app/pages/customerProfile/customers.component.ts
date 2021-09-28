@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 
 @Component({
   selector: 'app-customers',
@@ -14,6 +15,7 @@ import { Router } from '@angular/router';
 export class CustomersComponent implements OnInit {
   customer: Customer = {} as Customer;
   isSubmitted = false;
+  userid : number;
   //customers: Customer[] = [];
   //Customer: Customer;
   customers: Observable<Customer[]>;
@@ -25,13 +27,19 @@ export class CustomersComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   console.log(obj.userId) 
+   this.userid = obj.userId
+    console.log(obj)
+
     this.customerService.getCustomerByID(1)
       .subscribe(res => {
         this.topCustomers = res;
         console.log(this.topCustomers);
       })
 
-    this.customerService.getCustomerByID(1).subscribe(res => {
+    this.customerService.GetProfile(obj.userId).subscribe(res => {
       this.customer = res
       console.log(res)
     });
@@ -76,5 +84,5 @@ export class CustomersComponent implements OnInit {
   //       })
   //     }
   //   });
-  //}
+  // }
 }

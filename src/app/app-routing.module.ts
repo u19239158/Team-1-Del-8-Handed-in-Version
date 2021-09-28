@@ -6,6 +6,7 @@ import { PromotionsComponent } from './pages/promotions/promotions.component';
 import { HomeComponent } from './pages/home/home.component';
 import { CustomersComponent } from './pages/customerProfile/customers.component';
 import { EditCustProfileComponent } from './pages/edit-cust-profile/edit-cust-profile.component';
+import { NewregisterComponent } from './pages/newregister/newregister.component';
 
 const routes: Routes = [
   { 
@@ -39,6 +40,10 @@ const routes: Routes = [
   {
     path: 'editProfile',
     component: EditCustProfileComponent
+  },
+  {
+    path: 'newregister',
+    component: NewregisterComponent
   },
 ];
 

@@ -7,21 +7,21 @@ export interface Sale
 {
   SaleID : number;
   SaleOrderDescription : string;
-  // SaleOrderDate : Date;
+  SaleOrderDate : Date;
   SaleOrderRecieveType : number;
   PaymentAmount : number;
-  // PaymentDate : Date;
-  // OrderStatusId : number;
-  // PaymentTypeId : number;
-  // StartDate: Date;
-  // EndDate: Date;
-  // OrderStatusDescription: string;
-  // CustomerID: number;
-  // ProductItemId: number;
-  // ProductItemName: string;
-  // SaleLineID: number;
-  // SaleLineQuantity: number;
-  // DeliveryDistance: string;
+  PaymentDate : Date;
+  OrderStatusId : number;
+  PaymentTypeId : number;
+  StartDate: Date;
+  EndDate: Date;
+  OrderStatusDescription: string;
+  CustomerID: number;
+  ProductItemId: number;
+  ProductItemName: string;
+  SaleLineID: number;
+  SaleLineQuantity: number;
+  //DeliveryDistance: string;
   AddressId : number;
 }
 
@@ -32,6 +32,16 @@ export interface Address {
   AddressLine2: string;
   AddressLine3: string;
   AddressPostalCode: string;
+}
+
+export interface Collection {
+  //customerId: number;
+  CollectionID: number;
+}
+
+export interface Delivery {
+  //customerId: number;
+  DeliveryID: number;
 }
 
 @Injectable({
@@ -46,6 +56,7 @@ export class CartService {
       })
   };
   public cartItemList : any =[]
+  public qtyProd = new BehaviorSubject<any>([]);
   //for the producst page
   public productList = new BehaviorSubject<any>([]);
    headers={
@@ -55,14 +66,36 @@ export class CartService {
      })
    }
   
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) { 
+      { idKey: 'productId' };
+    }
+
+  
 //post req
   paymentInit(item:any){
     console.log(item)
     return this.http.post<any>('https://api.paystack.co/transaction/initialize',item, this.headers)
   }
 
+  Checkout(Sale:Sale){
+    return this.http.post<any>(`${this.server}Checkout/Checkout`, Sale,this.httpOptions)
+  }
+  DeliverMethodSelected(){
+    this.postCollection
+    this.postDelivery
+  }
+  CreateCustomerAddress(Address:Address):Observable<Address[]>  {
+    return this.http.post<Address[]>(`${this.server}Checkout/AddAddress`, Address,this.httpOptions);
+  }
 
+  postDelivery(Delivery:Delivery):Observable<Address[]>{
+    return this.http.post<Address[]>(`${this.server}Checkout/AddSaleline`,Delivery ,this.httpOptions);
+
+  }
+  postCollection(Collection:Collection):Observable<Address[]>{
+    return this.http.post<Address[]>(`${this.server}Checkout/AddSaleline`, Collection,this.httpOptions);
+
+  }
   getProducts(){
     return this.productList.asObservable();
   }
@@ -73,44 +106,61 @@ export class CartService {
   }
 
   addtoCart(product : any){
-    this.cartItemList.push(product);
-    this.productList.next(this.cartItemList);
+    let currentCart = this.productList.value;
+    const quantity = this.qtyProd.value;
+    console.log(quantity)
+    console.log(currentCart)
+    
+    //see if can found product we adding
+    const index = currentCart.findIndex(x=>x.productItemId===product.productItemId)
+    if (index > -1){
+      quantity.SaleLineQuantity+=1;
+      this.productList.next(currentCart)
+    }
+    else{
+      currentCart.push(product)
+      this.productList.next(currentCart);
+      quantity.SaleLineQuantity=1;
+    }
+    //this.productList.next(this.cartItemList);
     this.getTotalPrice();
-    console.log(this.cartItemList)
+    console.log(quantity)
+    console.log(currentCart)
+    return quantity;
   }
+  
 
   getTotalPrice() : number{
     let grandTotal = 0;
-    this.cartItemList.map((a:any)=>{
-      grandTotal += a.sellingPrice;
+    let currentCart = this.productList.value;
+    currentCart.map((a:any)=>{
+      grandTotal += a.vatInclusive;
     })
+    console.log(grandTotal);
     return grandTotal;
   }
 
   getVATPrice() : number{
+    let currentCart = this.productList.value;
     let vatTotals = 0;
-    this.cartItemList.map((a:any)=>{
-      vatTotals += a.vatTotal;
+    currentCart.map((a:any)=>{
+      vatTotals += a.vatAmount;
     })
     console.log(vatTotals);
     return vatTotals;
   }
 
   removeCartItem(product: any){
-    this.cartItemList.map((a:any, index:any)=>{
-      if(product.id=== a.id){
-        this.cartItemList.splice(index,1);
-      }
-    })
-    this.productList.next(this.cartItemList);
+    let currentCart = this.productList.value;
+    currentCart = currentCart.filter(x=>x.productItemId!==product.productItemId)
+
+    this.productList.next(currentCart);
   }
   removeAllCart(){
-    this.cartItemList = []
-    this.productList.next(this.cartItemList);
+    let currentCart = this.productList.value;
+    currentCart = []
+    this.productList.next(currentCart);
   }
 
-  CreateCustomerAddress(Address:Address):Observable<Address[]>  {
-    return this.http.post<Address[]>(`${this.server}Checkout/AddAddress`, Address,this.httpOptions);
-  }
 
 }
