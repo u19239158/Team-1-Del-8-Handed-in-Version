@@ -18,6 +18,10 @@ using NKAP_API_2.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Org.BouncyCastle.Asn1.Cmp;
 using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio.Rest.Verify.V2;
+using Twilio.Types;
 
 namespace NKAP_API_2.Controllers
 {
@@ -183,6 +187,55 @@ namespace NKAP_API_2.Controllers
 
         //      });
 
+        [HttpPost]
+        [Route("ForgotResetPassword")]
+        public IActionResult ForgotResetPassword(RegisterModel model)
+        {
+            //send SMS here
+            const string accountSid = "AC5b5b33a689cafb8b7975e1e17d6b8bad";
+            const string authToken = "edc812f5342fb84d2ddbb527470eeef1";
+            // Initialize the Twilio client
+            TwilioClient.Init(accountSid, authToken);
+
+
+            // make an associative array of people we know, indexed by phone number
+            var people = new Dictionary<string, string>() {
+
+                {"+27713623778", "Boots"}
+            };
+
+            // Iterate over all our friends
+            foreach (var person in people)
+            {
+                // Send a new outgoing SMS by POSTing to the Messages resource
+
+                var code = new Random().Next(0, 1000000);
+                MessageResource.Create(
+                    from: new PhoneNumber("+13128182655"), // From number, must be an SMS-enabled Twilio number
+                    to: new PhoneNumber(person.Key), // To number, if using Sandbox see note above
+                                                     // Message content
+                    body: $"Your one time pin code is " + code + " for Nkap Bolting Login");
+
+                Console.WriteLine($"Sent message to {person.Value}");
+            }
+
+
+            //2. store the number in a table with the time it was created on
+            //store code var; time it was generated; phone number (like table columns)
+
+            return Ok("Enter your one time pin");
+
+        }
+
+        //[HttpPost]
+        //[Route("ResetPasswordOTP")]
+        //public IActionResult ResetPasswordOTP(RegisterModel model)
+        //{
+        //    //3. check  that the number is valid=6 characters
+        //    //4. check if a record with this code and phone number exists in the table
+        //    //5. check if time of the code is not greater than 1hr (hasn't expired)
+        //}
+
 
         [HttpPost]
         [Route("Register")]
@@ -285,6 +338,8 @@ namespace NKAP_API_2.Controllers
                 }
                 return builder.ToString();
             }
+
+
         }
     }
 }

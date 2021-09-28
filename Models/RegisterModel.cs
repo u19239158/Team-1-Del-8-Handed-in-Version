@@ -83,5 +83,9 @@ namespace NKAP_API_2.Models
         [JsonProperty("token")]
         public string token
         { get; set; }
+
+        [JsonProperty("otp")]
+        public string otp
+        { get; set; }
     }
 }
