@@ -442,6 +442,8 @@ namespace NKAP_API_2.Controllers
                 {
                     CategoryTypeID = (int)zz.ProductItem.CategoryTypeId,
                     CategoryTypeImage = zz.ProductItem.CategoryType.CategoryTypeImage,
+                    CategoryTypeDescription = zz.ProductItem.CategoryType.CategoryTypeDescription,
+                    ItemDescription = zz.ProductItem.CategoryType.ItemDescription,
                     ProductItemId = (int)zz.ProductItemId,
                     ProductItemName = zz.ProductItem.ProductItemName,
                     SpecialPrice = (decimal)zz.SpecialPrice,
@@ -455,6 +457,8 @@ namespace NKAP_API_2.Controllers
                 {
                     CategoryTypeID = (int)zz.CategoryTypeId,
                     CategoryTypeImage = zz.CategoryType.CategoryTypeImage,
+                    CategoryTypeDescription = zz.CategoryType.CategoryTypeDescription,
+                    ItemDescription = zz.CategoryType.ItemDescription,
                     ProductItemId = (int)zz.ProductItemId,
                     ProductItemName = zz.ProductItemName,
                     // SpecialPrice = (decimal)zz.SpecialPrice,

@@ -49,6 +49,10 @@ namespace NKAP_API_2.Models
         public string CategoryTypeDescription
         { get; set; }
 
+        [JsonProperty("itemdescription")]
+        public string ItemDescription
+        { get; set; }
+
         [JsonProperty("pricedescription")]
         public decimal PriceDescription
         { get; set; }
