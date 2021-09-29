@@ -126,13 +126,13 @@ namespace NKAP_API_2.Controllers
 
         string response;
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
-        [Route("DeleteSupplier/{supplierid}")] //route
-        [HttpDelete]
+        [Route("DeleteSupplier")] //route
+        [HttpPost]
         //Delete Supplier
-        public IActionResult DeleteSupplier(int supplierid)
+        public IActionResult DeleteSupplier(SupplierModel model)
         {
-            var supp = _db.Suppliers.Find(supplierid);
-            var supOrder = _db.SupplierOrders.Find(supplierid);
+            var supp = _db.Suppliers.Find(model.SupplierId);
+            var supOrder = _db.SupplierOrders.Find(model.SupplierId);
 
                 if (supp.SupplierBalance > 0)
                 {
@@ -147,22 +147,25 @@ namespace NKAP_API_2.Controllers
                 else
                 {
 
-                var supplier = _db.Suppliers.Find(supplierid);
+                var supplier = _db.Suppliers.Find(model.SupplierId);
                 _db.Suppliers.Remove(supplier); //Delete Record
                 _db.SaveChanges();
+
+                var user = _db.Users.Find(model.UsersID);
+                AuditTrail audit = new AuditTrail();
+                audit.AuditTrailDescription = user.UserUsername + " Deleted the Supplier: " +model.SupplierName;
+                audit.AuditTrailDate = System.DateTime.Now;
+                TimeSpan timeNow = DateTime.Now.TimeOfDay;
+                audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+                audit.UsersId = user.UsersId;
+                _db.AuditTrails.Add(audit);
+                _db.SaveChanges();
+
                 return Ok(supplier);
 
                 }
 
-            //var user = _db.Users.Find(model.UsersID);
-            //AuditTrail audit = new AuditTrail();
-            //audit.AuditTrailDescription = user.UserUsername + " Deleted a new Supplier to the system";
-            //audit.AuditTrailDate = System.DateTime.Now;
-            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
-            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
-            //audit.UsersId = user.UsersId;
-            //_db.AuditTrails.Add(audit);
-            //_db.SaveChanges();
+           
 
             //try
             //{

@@ -200,6 +200,74 @@ namespace NKAP_API_2.Controllers
             const string authToken = "edc812f5342fb84d2ddbb527470eeef1";
             // Initialize the Twilio client
             TwilioClient.Init(accountSid, authToken);
+            var user = _db.Users.FirstOrDefault(aa => aa.UserUsername  == model.UserUsername);
+            var cust = _db.Customers.FirstOrDefault(zz => zz.CustomerId == user.UsersId);
+            var emp = _db.Employees.FirstOrDefault(zz => zz.EmployeeId == user.UsersId);
+            var adm = _db.Admins.FirstOrDefault(zz => zz.AdminId == user.UsersId);
+            var number = "";
+            if (cust != null)
+            {
+             
+                number = cust.CustomerCellphoneNumber;
+                var code = new Random().Next(0, 1000000);
+                MessageResource.Create(
+                    from: new PhoneNumber("+13128182655"), // From number, must be an SMS-enabled Twilio number
+                    to: new PhoneNumber(number), // To number, if using Sandbox see note above
+                                                     // Message content
+                    body: $"Your one time pin code is " + code + " for Nkap Bolting Login");
+
+                Console.WriteLine($"Sent message to {user.UserUsername}");
+
+                //Verification vcode = new Verification(); // creating the entry in the verification table for the reset code
+                //{
+                //    vcode.UsersId = user.UsersId;
+                //    vcode.Code = code;
+                //    vcode.PhoneNumber = number;
+                //    vcode.CodeDate = DateTime.Now;
+                //}
+            }
+            else if (emp != null)
+            {
+                number = emp.EmployeeCellphoneNumber;
+                var code = new Random().Next(0, 1000000);
+                MessageResource.Create(
+                    from: new PhoneNumber("+13128182655"), // From number, must be an SMS-enabled Twilio number
+                    to: new PhoneNumber(number), // To number, if using Sandbox see note above
+                                                  // Message content
+                    body: $"Your one time pin code is " + code + " for Nkap Bolting Login");
+
+                Console.WriteLine($"Sent message to {user.UserUsername}");
+
+
+                //Verification vcode = new Verification(); // creating the entry in the verification table for the reset code
+                //{
+                //    vcode.UsersId = user.UsersId;
+                //    vcode.Code = code;
+                //    vcode.PhoneNumber = number;
+                //    vcode.CodeDate = DateTime.Now;
+                //}
+            }
+            else if (cust != null)
+            {
+                number = adm.AdminCellphoneNumber;
+                var code = new Random().Next(0, 1000000);
+                MessageResource.Create(
+                    from: new PhoneNumber("+13128182655"), // From number, must be an SMS-enabled Twilio number
+                    to: new PhoneNumber(number), // To number, if using Sandbox see note above
+                                                  // Message content
+                    body: $"Your one time pin code is " + code + " for Nkap Bolting Login");
+
+                Console.WriteLine($"Sent message to {user.UserUsername}");
+
+
+                //Verification vcode = new Verification(); // creating the entry in the verification table for the reset code
+                //{
+                //    vcode.UsersId = user.UsersId;
+                //    vcode.Code = code;
+                //    vcode.PhoneNumber = number;
+                //    vcode.CodeDate = DateTime.Now;
+                //}
+            }
 
 
             // make an associative array of people we know, indexed by phone number
@@ -231,14 +299,27 @@ namespace NKAP_API_2.Controllers
 
         }
 
-        //[HttpPost]
-        //[Route("ResetPasswordOTP")]
-        //public IActionResult ResetPasswordOTP(RegisterModel model)
-        //{
-        //    //3. check  that the number is valid=6 characters
-        //    //4. check if a record with this code and phone number exists in the table
-        //    //5. check if time of the code is not greater than 1hr (hasn't expired)
-        //}
+        [HttpPost]
+        [Route("ResetPasswordOTP")]
+        public IActionResult ResetPasswordOTP(RegisterModel model)
+        {
+            var user = _db.Users.FirstOrDefault(aa => aa.UserUsername == model.UserUsername);
+
+            // var verify = _db.Verification.OrderBy(ss => ss.VerificationID)LastOrDefault(ss => ss.UsersId == user.UsersID);
+
+            //if (model.otp == verify.Code)
+            //{
+            //    user.UserPassword = ComputeSha256Hash(model.UserPassword);
+            //    _db.Users.Attach(user);
+            //    _db.SaveChangesAsync();
+            //    return Ok();
+            //}
+            //3. check  that the number is valid=6 characters
+            //4. check if a record with this code and phone number exists in the table
+            //5. check if time of the code is not greater than 1hr (hasn't expired)
+
+            return Ok();
+        }
 
 
         [HttpPost]

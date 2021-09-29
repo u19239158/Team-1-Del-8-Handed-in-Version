@@ -187,9 +187,10 @@ namespace NKAP_API_2.Controllers
 
                 var user = _db.Users.Find(model.UsersID);
                 AuditTrail audit = new AuditTrail();
-                audit.AuditTrailDescription = user.UserUsername + " deleted a Category Type";
+                audit.AuditTrailDescription = user.UserUsername + " deleted the Category Type: " + model.CategoryTypeDescription;
                 audit.AuditTrailDate = System.DateTime.Now;
-                audit.AuditTrailTime = System.DateTime.Now.TimeOfDay
+                TimeSpan timeNow = DateTime.Now.TimeOfDay;
+                audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
                 audit.UsersId = user.UsersId;
                 _db.AuditTrails.Add(audit);
                 _db.SaveChanges();

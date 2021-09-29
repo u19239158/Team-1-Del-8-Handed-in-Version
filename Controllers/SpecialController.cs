@@ -318,33 +318,33 @@ namespace NKAP_API_2.Controllers
         }
 
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
-        [Route("DeleteSpecials/{specialid}")] //route
-        [HttpDelete]
+        [Route("DeleteSpecials")] //route
+        [HttpPost]
         //Delete Specialss
-        public IActionResult DeleteSpecials( int specialid, int userId)
+        public IActionResult DeleteSpecials( SpecialModel model)
         {
-            var spec = _db.ProductSpecials.FirstOrDefault(zz => zz.SpecialId == specialid);
+            var spec = _db.ProductSpecials.FirstOrDefault(zz => zz.SpecialId == model.SpecialID);
             
             //var Pspecial = _db.ProductSpecials.Find(productspecialId);
             _db.ProductSpecials.Remove(spec);
             //_db.ProductSpecials.Remove(Pspecial);//Delete Record
             _db.SaveChanges();
 
-            var special = _db.Specials.Find(specialid);
-
+            var special = _db.Specials.Find(model.SpecialID);
+            var prod = _db.ProductItems.Find(model.ProductItemId);
 
             _db.Specials.Remove(special);
             _db.SaveChanges();
 
-            //var user = _db.Users.Find(userId);
-            //AuditTrail audit = new AuditTrail();
-            //audit.AuditTrailDescription = user.UserUsername + " Deleted a special";
-            //audit.AuditTrailDate = System.DateTime.Now;
-            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
-            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
-            //audit.UsersId = user.UsersId;
-            //_db.AuditTrails.Add(audit);
-            //_db.SaveChanges();
+            var user = _db.Users.Find(model.UsersID);
+            AuditTrail audit = new AuditTrail();
+            audit.AuditTrailDescription = user.UserUsername + " Deleted the special on " + prod.ProductItemName;
+            audit.AuditTrailDate = System.DateTime.Now;
+            TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+            audit.UsersId = user.UsersId;
+            _db.AuditTrails.Add(audit);
+            _db.SaveChanges();
 
             return Ok(special);
 

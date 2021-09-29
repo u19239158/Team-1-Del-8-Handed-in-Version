@@ -110,26 +110,28 @@ namespace NKAP_API_2.Controllers
         }
 
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
-        [Route("DeleteUserRole/{userroleid}")] //route
-        [HttpDelete]
+        [Route("DeleteUserRole")] //route
+        [HttpPost]
         //Delete UserRole
-        public IActionResult DeleteUserRole(int userroleid)
+        public IActionResult DeleteUserRole(UserRoleModel model)
         {
-            var userrole = _db.UserRoles.Find(userroleid);
+            var userrole = _db.UserRoles.Find(model.UserRoleID);
             _db.UserRoles.Remove(userrole); //Delete Record
             _db.SaveChanges();
 
+
+            var user = _db.Users.Find(model.UsersID);
+            AuditTrail audit = new AuditTrail();
+            audit.AuditTrailDescription = user.UserUsername + " Deleted the user role: " + userrole.UserRoleName;
+            audit.AuditTrailDate = System.DateTime.Now;
+            TimeSpan timeNow = DateTime.Now.TimeOfDay;
+            audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+            audit.UsersId = user.UsersId;
+            _db.AuditTrails.Add(audit);
+            _db.SaveChanges();
             return Ok(userrole);
 
-            //var user = _db.Users.Find(model.UsersID);
-            //AuditTrail audit = new AuditTrail();
-            //audit.AuditTrailDescription = user.UserUsername + " Deleted a new user role";
-            //audit.AuditTrailDate = System.DateTime.Now;
-            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
-            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
-            //audit.UsersId = user.UsersId;
-            //_db.AuditTrails.Add(audit);
-            //_db.SaveChanges();
+          
         }
     }
 }

@@ -85,7 +85,7 @@ namespace NKAP_API_2.Models
         { get; set; }
 
         [JsonProperty("otp")]
-        public string otp
+        public int otp
         { get; set; }
     }
 }

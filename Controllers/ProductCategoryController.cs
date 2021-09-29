@@ -110,15 +110,26 @@ namespace NKAP_API_2.Controllers
 
         string response = "";
         //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
-        [Route("DeletePC/{productcategoryid}")] //route
-        [HttpDelete]
+        [Route("DeletePC")] //route
+        [HttpPost]
         //Delete Product Categories 
-        public IActionResult DeleteProductCategory(int productcategoryid)
+        public IActionResult DeleteProductCategory(ProductCategoryModel model)
         {
             try
             {
-                var ProdCat = _db.ProductCategories.Find(productcategoryid);
+                var ProdCat = _db.ProductCategories.Find(model.ProductCategoryID);
                 _db.ProductCategories.Remove(ProdCat); //Delete Record
+                _db.SaveChanges();
+
+                //add to audit trail
+                var user = _db.Users.Find(model.UsersID);
+                AuditTrail audit = new AuditTrail();
+                audit.AuditTrailDescription = user.UserUsername + " deleted the Product Category: " + model.ProductCategoryDesc;
+                audit.AuditTrailDate = System.DateTime.Now;
+                TimeSpan timeNow = DateTime.Now.TimeOfDay;
+                audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+                audit.UsersId = user.UsersId;
+                _db.AuditTrails.Add(audit);
                 _db.SaveChanges();
                 return Ok(ProdCat);
             }
@@ -131,16 +142,7 @@ namespace NKAP_API_2.Controllers
                 throw;
             }
 
-            //add to audit trail
-            //var user = _db.Users.Find(model.UsersID);
-            //AuditTrail audit = new AuditTrail();
-            //audit.AuditTrailDescription = user.UserUsername + "deleted a Product Category";
-            //audit.AuditTrailDate = System.DateTime.Now;
-            //TimeSpan timeNow = DateTime.Now.TimeOfDay;
-            //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
-            //audit.UsersId = user.UsersId;
-            //_db.AuditTrails.Add(audit);
-            //_db.SaveChanges();
+         
 
         }
     }
