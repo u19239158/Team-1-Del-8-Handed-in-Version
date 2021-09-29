@@ -39,6 +39,8 @@ export class PlaceSupplierOrderComponent implements OnInit {
   //dataSource = new MatTableDataSource<PlaceSupplierOrder>();
   displayedColumns: string[] = ['checkbox', 'productItemName', 'quantityOnHand'];
   @ViewChild(MatSort) sort: MatSort;
+  selectedItemsList = [];
+  checkedIDs = [];
 
   highlight(element: PlaceSupplierOrder) {
     element.highlighted = !element.highlighted;

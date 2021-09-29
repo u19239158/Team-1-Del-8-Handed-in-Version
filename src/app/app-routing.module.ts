@@ -10,6 +10,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ReceiveSupplierOrderComponent } from './supplier/receive-supplier-order/receive-supplier-order.component';
 import { PlaceSupplierOrderComponent } from './supplier/place-supplier-order/place-supplier-order.component';
 import { MakePaymentComponent } from './supplier/make-payment/make-payment.component';
+import { CaptureOrderComponent } from './supplier/receive-supplier-order/capture-order/capture-order.component';
 
 import { AddEditEmployeesComponent } from './employee/add-edit-employees/add-edit-employees.component';
 import { EmployeesComponent } from './employee/employees/employees.component';
@@ -123,6 +124,10 @@ const routes: Routes = [
   {
     path: 'receiveSupplierOrder',
     component: ReceiveSupplierOrderComponent
+  },
+  {
+    path: 'captureOrder',
+    component: CaptureOrderComponent
   },
   {
     path: 'makePayment/:id',
