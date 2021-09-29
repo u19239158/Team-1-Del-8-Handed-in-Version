@@ -34,8 +34,12 @@ export class CategorytypeService {
     return this.http.put<Categorytype[]>(`${this.server}Categorytype/UpdateCategoryType`, Categorytype,this.httpOptions);
   }
 
-    DeleteCategoryType(categoryTypeId):  Observable<Categorytype>  {
-    return this.http.delete<Categorytype>(`${this.server}Categorytype/DeleteCategoryType/${categoryTypeId}`).pipe(map(res => res));
+  //   DeleteCategoryType(categoryTypeId):  Observable<Categorytype>  {
+  //   return this.http.delete<Categorytype>(`${this.server}Categorytype/DeleteCategoryType/${categoryTypeId}`).pipe(map(res => res));
+  // }
+
+  DeleteCategoryType(Categorytype:Categorytype):  Observable<Categorytype[]>  {
+    return this.http.post<Categorytype[]>(`${this.server}Categorytype/DeleteCategoryType`, Categorytype,this.httpOptions);
   }
 }
 

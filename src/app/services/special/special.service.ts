@@ -44,22 +44,14 @@ export class SpecialService {
     return this.http.put<Special[]>(`${this.server}Special/UpdateSpecials`, Special,this.httpOptions);
   }
 
-  // DeleteSpecials(Special:Special):  Observable<Special[]>  {
-  //   return this.http.delete<Special[]>(`${this.server}Special/DeleteSpecials`).pipe(map(res => res))
-  // }
-
-  DeleteSpecials():  Observable<Special>  {
-    return this.http.delete<Special>(`${this.server}Special/DeleteSpecials`).pipe(map(res => res));
+  DeleteSpecial(Special:Special):  Observable<Special[]>  {
+    return this.http.post<Special[]>(`${this.server}Special/DeleteSpecials`, Special,this.httpOptions);
   }
-
-    DeleteSpecial(specialId):  Observable<Special[]>  {
-    return this.http.delete<Special[]>(`${this.server}Special/DeleteSpecials/${specialId}`).pipe(map(res => res));
-  }
-
-  // DeleteSpecial(Special: Special): Observable<any> {
-  //   return this.http.delete(`${this.server}Special/DeleteSpecials` ).pipe(map(res => res));
-  // }
   
+
+  //   DeleteSpecial(specialId):  Observable<Special[]>  {
+  //   return this.http.delete<Special[]>(`${this.server}Special/DeleteSpecials/${specialId}`).pipe(map(res => res));
+  // }
 
   getItemByID(ProductItemid):  Observable<Productitem>  {
     return this.http.get<Productitem>(`${this.server}Productitem/GetProdItemsByID/${ProductItemid}`).pipe(map(res => res));

@@ -36,8 +36,12 @@ export class SupplierService {
     return this.http.put<Supplier[]>(`${this.server}Supplier/UpdateSupplier`, Supplier,this.httpOptions);
   }
 
-  DeleteSupplier(supplierId):  Observable<Supplier>  {
-    return this.http.delete<Supplier>(`${this.server}Supplier/DeleteSupplier/${supplierId}`).pipe(map(res => res));
+  // DeleteSupplier(supplierId):  Observable<Supplier>  {
+  //   return this.http.delete<Supplier>(`${this.server}Supplier/DeleteSupplier/${supplierId}`).pipe(map(res => res));
+  // }
+
+  DeleteSupplier(Supplier:Supplier):  Observable<Supplier[]>  {
+    return this.http.post<Supplier[]>(`${this.server}Supplier/DeleteSupplier`, Supplier,this.httpOptions);
   }
 
   CaptureSupplierPayment(Supplier:Supplier):  Observable<Supplier[]>  {

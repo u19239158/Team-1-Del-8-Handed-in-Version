@@ -64,7 +64,7 @@
                   </button>
                   <mat-menu #menu="matMenu" xPosition="before">
                   <button mat-menu-item [routerLink]="['/supplierEdit', element.supplierId]" >Update Supplier</button>
-                  <button mat-menu-item (click)="deleteSupplier(element.supplierId)">Delete Supplier</button>
+                  <button mat-menu-item (click)="deleteSupplier(element)">Delete Supplier</button>
                   <button mat-menu-item  *ngIf= "element.supplierBalance > '0'" color="primary" type="submit" [routerLink]="['/makePayment', element.supplierId]" >Capture Supplier Payment</button>
                   </mat-menu>
               </td>

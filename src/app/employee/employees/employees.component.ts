@@ -24,7 +24,7 @@ export class EmployeesComponent implements OnInit {
   Employees: Employee[];
   searchValue: string;
   dataNotFound: boolean;
-
+  userid : number;
   //employees: Employee[] = [];
   Employee: Employee;
   employee: Observable<Employee[]>;
@@ -43,7 +43,9 @@ export class EmployeesComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => this.dataSource.paginator = this.paginator);
     this.readEmployees();
-
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   this.userid = obj.userId
     this.EmployeeService.GetEmployee().subscribe((result: Employee[]) => {
       this.Employees = result;
     });
@@ -72,6 +74,7 @@ export class EmployeesComponent implements OnInit {
   }
 
   deleteEmployee(Employee: Employee) {
+    Employee.usersId = this.userid
     const confirm = this.dialog.open(GlobalConfirmComponent, {
       disableClose: true,
     });

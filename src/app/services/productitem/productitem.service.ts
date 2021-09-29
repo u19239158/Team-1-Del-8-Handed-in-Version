@@ -20,7 +20,7 @@ export class ProductitemService {
   constructor(private http: HttpClient) { }
 
   GetProductItem():  Observable<Productitem[]>  {
-    return this.http.get<Productitem[]>(`${this.server}Productitem/GetProductItems`).pipe(map(res => res));
+    return this.http.get<Productitem[]>(`${this.server}Productitem/GetProductItemsWPrice`).pipe(map(res => res));
   }
 
   getProductItemByID(ProductItemid):  Observable<Productitem>  {
@@ -40,9 +40,13 @@ export class ProductitemService {
     return this.http.put<Productitem[]>(`${this.server}Productitem/UpdateProductItem`, Productitem,this.httpOptions);
   }
 
-    DeleteProductitem(ProductItemId):  Observable<Productitem>  {
-    return this.http.delete<Productitem>(`${this.server}Productitem/DeleteProductItem/${ProductItemId}`).pipe(map(res => res));
+  DeleteProductitem(Productitem:Productitem):  Observable<Productitem[]>  {
+    return this.http.post<Productitem[]>(`${this.server}Productitem/DeleteProductitem`, Productitem,this.httpOptions);
   }
+
+  //   DeleteProductitem(ProductItemId):  Observable<Productitem>  {
+  //   return this.http.delete<Productitem>(`${this.server}Productitem/DeleteProductItem/${ProductItemId}`).pipe(map(res => res));
+  // }
 
 }
 

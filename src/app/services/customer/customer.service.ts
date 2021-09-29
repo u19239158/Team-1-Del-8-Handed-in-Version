@@ -35,8 +35,12 @@ export class CustomerService {
       return this.http.put<Customer[]>(`${this.server}Customer/UpdateCustomer`, Customer,this.httpOptions);
     }
 
-      DeleteCustomer(customerId):  Observable<Customer>  {
-      return this.http.delete<Customer>(`${this.server}Customer/DeleteCustomer/${customerId}`).pipe(map(res => res));
+    //   DeleteCustomer(customerId):  Observable<Customer>  {
+    //   return this.http.delete<Customer>(`${this.server}Customer/DeleteCustomer/${customerId}`).pipe(map(res => res));
+    // }
+
+    DeleteCustomer(Customer:Customer):  Observable<Customer[]>  {
+      return this.http.post<Customer[]>(`${this.server}Customer/DeleteCustomer`, Customer,this.httpOptions);
     }
     
   }

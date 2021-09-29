@@ -35,9 +35,13 @@ export class EmployeeService {
     return this.http.put<Employee[]>(`${this.server}Employee/UpdateEmployee`, Employee,this.httpOptions);
   }
 
-    DeleteEmployee(employeeId):  Observable<Employee>  {
-    return this.http.delete<Employee>(`${this.server}Employee/DeleteEmployee/${employeeId}`).pipe(map(res => res));
+  DeleteEmployee(Employee:Employee):  Observable<Employee[]>  {
+    return this.http.post<Employee[]>(`${this.server}Employee/DeleteEmployee`, Employee,this.httpOptions);
   }
+
+  //   DeleteEmployee(employeeId):  Observable<Employee>  {
+  //   return this.http.delete<Employee>(`${this.server}Employee/DeleteEmployee/${employeeId}`).pipe(map(res => res));
+  // }
 }
 
 //   getAll(): Employee[] {

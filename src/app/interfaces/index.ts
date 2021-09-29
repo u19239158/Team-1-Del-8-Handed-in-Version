@@ -11,6 +11,10 @@ export interface Login {
   userRoleId: number;
 }
 
+export interface Log {
+  UsersID: number;
+}
+
 export interface Employee {
   employeeId: any;
   employeeName: string;
@@ -48,7 +52,7 @@ export interface UserRole {
   id: number;
   userRoleName: string;
   userRoleDescription: string;
-  userID: number;
+  usersID: number;
   auditTrailID: number;
   auditTrailDescription: string;
   auditTrailDate :string;

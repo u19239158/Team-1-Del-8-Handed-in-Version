@@ -23,7 +23,7 @@ export class CouriersComponent implements OnInit {
   Couriers: Courier[];
   searchValue: string;
   dataNotFound: boolean;
-
+  userid : number;
   // couriers: Courier[] = [];
   Courier: Courier;
   courier: Observable<Courier[]>;
@@ -46,6 +46,10 @@ export class CouriersComponent implements OnInit {
     this.CourierService.GeCourier().subscribe((result: Courier[]) => {
       this.Couriers = result;
     });
+
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   this.userid = obj.userId
 
   }
 
@@ -72,6 +76,7 @@ export class CouriersComponent implements OnInit {
   }
 
   deleteCourier(Courier: Courier) {
+    Courier.usersId = this.userid
     const confirm = this.dialog.open(GlobalConfirmComponent, {
       disableClose: true,
     });

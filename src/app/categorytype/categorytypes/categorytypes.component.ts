@@ -26,6 +26,7 @@ export class CategorytypesComponent implements OnInit {
 
   categorytypes: Categorytype[] = [];
   categorytype: Observable<Categorytype[]>;
+  userid : number;
   dataSource = new MatTableDataSource<Categorytype>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['productCategoryDesc', 'categoryTypeImage', 'categoryTypeDescription', 'actions'];
@@ -40,6 +41,11 @@ export class CategorytypesComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => this.dataSource.paginator = this.paginator);
     this.readCategorytypes();
+
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   this.userid = obj.userId
+    
 
     this.categorytypeService.GetCategoryType().subscribe((result: Categorytype[]) => {
       this.CategoryTypes = result;
@@ -72,6 +78,7 @@ export class CategorytypesComponent implements OnInit {
   }
 
   deleteCategorytype(Categorytype: Categorytype) {
+    Categorytype.usersId =this.userid
     const confirm = this.dialog.open(GlobalConfirmComponent, {
       disableClose: true,
     });
@@ -79,6 +86,7 @@ export class CategorytypesComponent implements OnInit {
     confirm.afterClosed().subscribe(res => {
       setTimeout(() => this.dataSource.paginator = this.paginator);
       if (res) {
+        
         this.categorytypeService.DeleteCategoryType(Categorytype).subscribe(res => {
           this.readCategorytypes();
           this.snack.open('Category Type Successfully Deleted! ', 'OK',

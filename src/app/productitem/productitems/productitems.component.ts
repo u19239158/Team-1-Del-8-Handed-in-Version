@@ -23,7 +23,7 @@ export class ProductitemsComponent implements OnInit {
   Productitems: Productitem[];
   searchValue: string;
   dataNotFound: boolean;
-
+  userid : number;
   productitems: Productitem[] = [];
   public pItem: any = [];
   productitem: Observable<Productitem[]>;
@@ -53,7 +53,9 @@ export class ProductitemsComponent implements OnInit {
 
     //this.dataSource.paginator = this.paginator;
     this.readProductitems();
-
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   this.userid = obj.userId
     this.productitemService.GetProductItem().subscribe((result: Productitem[]) => {
       this.Productitems = result;
       setTimeout(() => this.dataSource.paginator = this.paginator);
@@ -93,6 +95,7 @@ export class ProductitemsComponent implements OnInit {
   }
 
   deleteProductitem(Productitem: Productitem) {
+    Productitem.usersId = this.userid
     const confirm = this.dialog.open(GlobalConfirmComponent, {
       disableClose: true,
     });
