@@ -23,7 +23,7 @@ export class CustomersComponent implements OnInit {
   Customers: Customer[];
   searchValue: string;
   dataNotFound: boolean;
-
+  userid : number;
   //customers: Customer[] = [];
   Customer: Customer;
   customers: Observable<Customer[]>;
@@ -41,7 +41,9 @@ export class CustomersComponent implements OnInit {
   ngOnInit(): void {
 
     this.readCustomers();
-
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   this.userid = obj.userId
     this.customerService.GetCustomer().subscribe((result: Customer[]) => {
       this.Customers = result;
     });
@@ -78,6 +80,7 @@ export class CustomersComponent implements OnInit {
   // }
 
   deleteCustomer(Customer: Customer) {
+    Customer.usersId = this.userid
     const confirm = this.dialog.open(GlobalConfirmComponent, {
       disableClose: true,
     });

@@ -34,8 +34,12 @@ UpdateCouriere(Courier:Courier):  Observable<Courier[]>  {
   return this.http.put<Courier[]>(`${this.server}Courier/UpdateCourier`, Courier,this.httpOptions);
 }
 
-  DeleteCourier(courierId):  Observable<Courier>  {
-  return this.http.delete<Courier>(`${this.server}Courier/DeleteCourier/${courierId}`).pipe(map(res => res));
+//   DeleteCourier(courierId):  Observable<Courier>  {
+//   return this.http.delete<Courier>(`${this.server}Courier/DeleteCourier/${courierId}`).pipe(map(res => res));
+// }
+
+DeleteCourier(Courier:Courier):  Observable<Courier[]>  {
+  return this.http.post<Courier[]>(`${this.server}Courier/DeleteCourier`, Courier,this.httpOptions);
 }
 }
 

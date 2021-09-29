@@ -23,7 +23,7 @@ export class ProductcategorysComponent implements OnInit {
   Productcategorys: Productcategory[];
   searchValue: string;
   dataNotFound: boolean;
-
+  userid : number;
   productcategorys: Productcategory[] = [];
   productcategory: Observable<Productcategory[]>;
   dataSource = new MatTableDataSource<Productcategory>();
@@ -41,7 +41,9 @@ export class ProductcategorysComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => this.dataSource.paginator = this.paginator);
     this.readProductcategorys();
-
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   this.userid = obj.userId
     this.productcategoryService.GetProductCategory().subscribe((result: Productcategory[]) => {
       this.Productcategorys = result;
     });
@@ -69,6 +71,7 @@ export class ProductcategorysComponent implements OnInit {
   }
 
   deleteProductcategory(Productcategory: Productcategory) {
+    Productcategory.usersId = this.userid
     const confirm = this.dialog.open(GlobalConfirmComponent, {
       disableClose: true,
     });

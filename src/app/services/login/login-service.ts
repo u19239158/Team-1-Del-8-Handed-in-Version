@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Login } from 'src/app/interfaces';
+import { Login, Log } from 'src/app/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -25,4 +25,8 @@ export class LoginService {
   GetUserByID(userid):  Observable<Login>  {
     return this.http.get<Login>(`${this.server}User/GetUserByID/${userid}`).pipe(map(res => res));
   } 
+
+  Logout(UsersID: any) {
+    return this.http.post(`${this.server}Login/Logout/${UsersID}`, UsersID, this.httpOptions);
+  }
 }

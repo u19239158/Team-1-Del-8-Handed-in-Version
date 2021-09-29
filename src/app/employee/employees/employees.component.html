@@ -66,7 +66,7 @@
                         <mat-menu #menu="matMenu" xPosition="before">
                             <button mat-menu-item [routerLink]="['/employeesEdit', element.employeeId]">Update
                                 Employee</button>
-                            <button mat-menu-item (click)="deleteEmployee(element.employeeId)">Delete Employee</button>
+                            <button mat-menu-item (click)="deleteEmployee(element)">Delete Employee</button>
                         </mat-menu>
                     </td>
                 </ng-container>
