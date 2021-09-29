@@ -1,13 +1,20 @@
-<div class="back-ground">
-<mat-card class="example-card">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title class="title">Login to NKAP</mat-card-title>
+<div class="content">
+  <div>
+    <div>
 
-  </mat-card-header>
-   <mat-card-content>
+      <div class="split picture" color="primary">
+        <img style="margin-top:30px" src="assets/images/NKAP.jpg" />
+      </div>
+    </div>
+
+    <div class="split information">
+     
+      <div fxLayout="column" fxLayoutAlign="center" style="margin-top:100px" color="primary">
+
      <form [formGroup]="form">
           <!-- (ngSubmit)="Login(form.value)"> -->
+
+          <h1>Log in to Nkap Bolting</h1>
 
           <div >
             <mat-form-field style="width:50%" appearance="outline">
@@ -26,27 +33,19 @@
           </div>
 
           <div >
-            <button (click) = "Login()" mat-raised-button style="width:50%">Login</button>
+            <button mat-raised-button color ="primary" (click)="Login()" mat-raised-button style="width:50%">Login</button>
           </div>
           <br>
          
 
         </form>
-  </mat-card-content>
 
-  <mat-card-actions>
-   <div>
-            <a routerLink="/home" (click)="forgotPassword()">
+        <br>
+
+        <a routerLink="/home" (click)="forgotPassword()">
               <h5>Forgot Username/Password?</h5>
             </a>
-          </div>
-          <br>
-          <br>
-          <!-- <div >
-            <a routerLink="/home">
-              <h5>Create your account </h5>
-            </a>
-          </div> -->
-  </mat-card-actions>
-</mat-card>
+   </div>
+    </div>
+  </div>
 </div>
