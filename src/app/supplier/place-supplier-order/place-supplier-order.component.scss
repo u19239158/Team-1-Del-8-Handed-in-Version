@@ -62,7 +62,32 @@ h2 {
   }
 
   mat-card{
-    max-width: 250px;
-    max-height: 250px;
-    left: 40%;
+    max-width: 500px;
+    max-height: 500px;
+    text-align: center;
+  }
+
+  .split {
+    top: 25%;
+    height: 70%;
+    width: 50%;
+    position: fixed;
+    // z-index: 1;
+    // overflow-x: hidden;
+    // padding-top: 20px;
+  }
+  
+  .left {
+    left: 0;
+    background-color: white;
+    text-align: center;
+  }
+  
+  .right {
+    right: 0;
+    background-color: white;
+  }
+
+  button{
+    right: 20%;
   }

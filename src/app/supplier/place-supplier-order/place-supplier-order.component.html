@@ -1,27 +1,7 @@
 <div class="content">
   <h2>Place Supplier Order</h2>
 
-  <form [formGroup]="form" class="main">
-
-    <div class="mat-row">
-      <div class="mat-col-quarter">
-        <mat-form-field appearance="outline" class="control-m">
-          <mat-label> Supplier </mat-label>
-          <mat-select [(value)]="selected" formControlName="supplierID">
-            <mat-option *ngFor="let Supplier of supplier" [value]="Supplier.supplierID">{{Supplier.supplierName}}
-            </mat-option>
-          </mat-select>
-          <mat-hint>Select a supplier</mat-hint>
-        </mat-form-field>
-      </div>
-    </div>
-
-  </form>
-
-  <br>
-  <br>
-
-  <div class="search">
+   <div class="search">
     <ul fxLayout fxLayoutGap="15px" class="navigation-items">
       <li>
         <div class="field has-addons">
@@ -40,7 +20,7 @@
 
   <app-global-error *ngIf="dataNotFound"></app-global-error>
 
-  <div>
+  <div class="split right">
     <table mat-table [dataSource]="dataSource" *ngIf="!dataNotFound" matSort>
       <!-- Position Column -->
 
@@ -67,11 +47,33 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-  </div>
-  <div>
+ <div>
     <mat-paginator [pageSizeOptions]="[5, 8, 15, 35]" showFirstLastButtons aria-label="Select page">
     </mat-paginator>
   </div>
+  </div>
+ 
+
+<div class="split left">
+
+ <form [formGroup]="form" class="main">
+
+    <div class="mat-row">
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label> Supplier </mat-label>
+          <mat-select [(value)]="selected" formControlName="supplierID">
+            <mat-option *ngFor="let Supplier of supplier" [value]="Supplier.supplierID">{{Supplier.supplierName}}
+            </mat-option>
+          </mat-select>
+          <mat-hint>Select a supplier</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </form>
+
+  <br>
 
   <mat-card>
   
@@ -83,4 +85,8 @@
     </div>
   </mat-card>
 
+   <br>
+
   <button mat-raised-button type="submit" color="primary" (click)="finalOrder()">Place Order</button>
+
+</div>
