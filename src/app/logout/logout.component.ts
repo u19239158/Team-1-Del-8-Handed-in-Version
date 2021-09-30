@@ -45,18 +45,8 @@ export class LogoutComponent implements OnInit {
     this.router.navigateByUrl('');
   }
 
-<<<<<<< HEAD
-  Cancel(){
-    this.router.navigateByUrl('home');
-  }
-
-  // onNoClick(): void {
-  //   this.dialogRef.close();
-  // }
-=======
   Cancel() {
     this.dialogRef.close();
   }
->>>>>>> 21ec64c1c3a6a83c048896f15ceb076e4c60446e
 
 }
