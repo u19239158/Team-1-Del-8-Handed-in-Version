@@ -22,6 +22,7 @@ export class EditCustProfileComponent implements OnInit {
   customers: Observable<Customer[]>;
   collection = [];
   selected: string;
+  userid : number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,11 +39,19 @@ export class EditCustProfileComponent implements OnInit {
     this.isAddMode = !this.id;
     this.getCollection();
     const passwordValidators = [Validators.minLength(6)];
+
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   console.log(obj.userId) 
+   this.userid = obj.userId
+    console.log(obj)
+
+
     // if (this.isAddMode) {
     //     passwordValidators.push(Validators.required);
     // }
     //if (!this.isAddMode) {
-    this.customerService.getCustomerByID(1).subscribe(res => {
+    this.customerService.GetProfile(this.userid).subscribe(res => {
       this.Customer = res
       console.log(res)
       this.form = this.formBuilder.group({
@@ -71,7 +80,7 @@ export class EditCustProfileComponent implements OnInit {
   editCustomer() {
     const customer: Customer = this.form.value;
     customer.customerId = this.Customer.customerId;
-    this.customerService.UpdateCustomer(customer).subscribe(res => {
+    this.customerService.UpdateProfile(customer).subscribe(res => {
       console.log(res)
       //this.form.reset();
       this.router.navigateByUrl('/customer');

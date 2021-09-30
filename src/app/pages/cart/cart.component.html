@@ -18,13 +18,13 @@
 
                         <tr *ngFor="let item of products;let i = index">
                                 <td>{{i+1}}</td>
-                                <td><img src="{{item.categoryTypeImage}}" alt=""></td>
-                                <td style="width: 25%;">{{item.productItemName}}</td>
-                                <td style="width: 12%;">{{item.categoryTypeDescription}}</td>
+                                <td><img src="{{item.categorytypeimage}}" alt=""></td>
+                                <td style="width: 25%;">{{item.ProductItemname}}</td>
+                                <td style="width: 12%;">{{item.itemdescription}}</td>
                                 <td style="width: 12%;">                                  
-                                  <input id="quantity" type="number" class="no-spinners"  [value]="item.num" [(ngModel)]="item.num" min="1"/>
+                                  <input id="quantity" type="number" class="no-spinners" placeholder="1"  [value]="item.num" [(ngModel)]="item.num" min="1" (click)="reloadCurrentPage()"/>
                                 </td>
-                                <td style="width: 12%;">R{{item.sellingPrice | number:'0.1-2'}}</td> 
+                                <td style="width: 12%;">R{{item.VATInc | number:'0.1-2'}}</td> 
                                 <!-- multiply price by the Quantity.value of the numeric up down -->
                                 <td>
                                     <button (click)="removeItem(item)" class="button is-rounded is-danger is-outlined"><i class="fas fa-trash-alt"></i></button>
@@ -34,10 +34,6 @@
                             <td colspan="3">
 
                             </td>
-                            <!--google maps btn-->
-                            <!-- <p>
-                              <button class="btn btn-primary" (click)="openGoogelMapsModal()">Open Google Map</button>
-                          </p> -->
                             <td><button (click)="emptycart()" class="button is-rounded is-danger is-outlined">Empty Cart</button></td>
                             <td><button routerLink="/products" class="button is-info is-rounded is-outlined">Shop More</button></td>
                             <td>
@@ -126,8 +122,103 @@
 </div>
 
 
-<!--Open Google Maps Modal-->
+
+<!-- DELIVERY ADDRESS Modal -->
+
 <div class="modal" id="deliveryModal" tabindex="-1" role="dialog"  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          Delivery Address
+          <button type="button" class="btn-close btn-close-black" (click)=closeDeliveryModal()></button>
+       </h3>
+      </div>
+			<form #myForm="ngForm" (submit)="submitForm(myForm)" novalidate>
+              <div class="control">
+                <!-- Customer addressline -->
+                <div>
+                  <label class="label">Please enter your address:</label>
+                  <!-- <div class="control"> -->
+                    <input class="input" [formControl]="email" type="text" placeholder="Address">
+                  <!-- </div> -->
+                </div>                
+                
+                <!-- Customer addressline2 -->
+                <div>
+                  <label class="label">Please enter your address:</label>
+                  <!-- <div class="control"> -->
+                    <input class="input" [formControl]="email" type="text" placeholder="Address" ngModel required>
+                  <!-- </div> -->
+                </div>                
+                <!-- Customer city -->
+                <div>
+                  <label class="label">Please enter your City:</label>
+                  <!-- <div class="control"> -->
+                    <input class="input" [formControl]="email" type="text" placeholder="City" ngModel required>
+                  <!-- </div> -->
+                </div>                
+                <!-- Customer Province -->
+                <div>
+                  <label class="label">Please enter your Province:</label>
+                  <!-- <div class="control"> -->
+                    <input class="input" [formControl]="email" type="text" placeholder="City" ngModel required>
+                  <!-- </div> -->
+                </div>                
+                <!-- Customer Postal Code -->
+                <div>
+                  <label class="label">Please enter your Postal Code:</label>
+                  <!-- <div class="control"> -->
+                    <input class="input" [formControl]="email" type="text" placeholder="City" ngModel required>
+                  <!-- </div> -->
+                </div>
+                  <div *ngIf="isSubmitted && myForm.invalid">
+                    <p>Please enter corret value</p>
+                  </div> 
+          </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)=closeDeliveryModal()>Close</button>
+        <button type="submit" class="btn btn-primary">Checkout</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Open Google Maps Modal-->
+<!-- <div class="modal" id="deliveryModal" tabindex="-1" role="dialog"  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -154,7 +245,7 @@
             </div>
             <div class="map" id="map" alt="DISPLAY MAP HERE"></div>      
         </div>
-  </div>
-</div>
+  </div> 
+</div>-->
 <!--Close Google Maps Modal-->
 

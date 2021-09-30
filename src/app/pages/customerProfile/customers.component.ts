@@ -33,11 +33,11 @@ export class CustomersComponent implements OnInit {
    this.userid = obj.userId
     console.log(obj)
 
-    this.customerService.getCustomerByID(1)
-      .subscribe(res => {
-        this.topCustomers = res;
-        console.log(this.topCustomers);
-      })
+    // this.customerService.getCustomerByID(1)
+    //   .subscribe(res => {
+    //     this.topCustomers = res;
+    //     console.log(this.topCustomers);
+    //   })
 
     this.customerService.GetProfile(obj.userId).subscribe(res => {
       this.customer = res

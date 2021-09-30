@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, NgModule } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs';
 
@@ -66,7 +67,8 @@ export class CartService {
      })
    }
   
-  constructor(private http:HttpClient) { 
+  constructor(
+    private http:HttpClient) { 
       { idKey: 'productId' };
     }
 
@@ -112,9 +114,10 @@ export class CartService {
     console.log(currentCart)
     
     //see if can found product we adding
-    const index = currentCart.findIndex(x=>x.productItemId===product.productItemId)
+    const index = currentCart.findIndex(x=>x.productitemid===product.productitemid)
     if (index > -1){
       quantity.SaleLineQuantity+=1;
+      
       this.productList.next(currentCart)
     }
     else{
@@ -124,17 +127,18 @@ export class CartService {
     }
     //this.productList.next(this.cartItemList);
     this.getTotalPrice();
-    console.log(quantity)
+    console.log(currentCart.length)
     console.log(currentCart)
     return quantity;
   }
-  
+
+
 
   getTotalPrice() : number{
     let grandTotal = 0;
     let currentCart = this.productList.value;
     currentCart.map((a:any)=>{
-      grandTotal += a.vatInclusive;
+      grandTotal += a.num*a.VATInc;
     })
     console.log(grandTotal);
     return grandTotal;
@@ -144,7 +148,7 @@ export class CartService {
     let currentCart = this.productList.value;
     let vatTotals = 0;
     currentCart.map((a:any)=>{
-      vatTotals += a.vatAmount;
+      vatTotals += a.num*a.VATAmount;      
     })
     console.log(vatTotals);
     return vatTotals;

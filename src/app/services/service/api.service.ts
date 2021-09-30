@@ -78,12 +78,12 @@ export class ApiService {
 
   }   
   getProductByCategoryTypeID(categoryTypeid): Observable<any>{
-    return this.http.get(`${this.server}ProductItem/GetProdByProductCategory/${categoryTypeid}`)
-    
+    return this.http.get(`${this.server}Checkout/getProductWPricesByPcatIDy/${categoryTypeid}`)
+    //Checkout/getProductWPricesByPcatID
+    //ProductItem/GetProdByProductCategory
     // .pipe(map((res:any)=>{
     //   return res;
     // }))
-
   }  
 
   
@@ -120,8 +120,9 @@ export class ApiService {
       return res;
     }))
   }
+  
   getAllItems(){
-    return this.http.get<Product[]>(`${this.server}Checkout/getProducts`)
+    return this.http.get<Product[]>(`${this.server}Checkout/getProductWPrices`)
     .pipe(map((res:any)=>{
       return res;
     }))

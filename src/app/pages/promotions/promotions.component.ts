@@ -43,17 +43,18 @@ export class PromotionsComponent implements OnInit {
 
     //getDiscount
     //discount price content
-    this.api.getDiscount()
-    .subscribe(res=>{
-      this.discountprices=res;
-      console.log(this.discountprices);
-    })
+    // this.api.getDiscount()
+    // .subscribe(res=>{
+    //   this.discountprices=res;
+    //   console.log(this.discountprices);
+    // })
 
-    this.api.GetSpecial()
+    this.api.getAllItems()
     .subscribe(res=>{
-      this.specials=res;
+      this.specials=res.withspecial;
       console.log(this.specials);
     })
+
     //modal product type dropdown
     this.api.getProductItem()
     .subscribe(res=>{

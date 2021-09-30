@@ -28,26 +28,27 @@ export class ProductsComponent implements OnInit {
 
     //all product items for main page
     this.api.getAllItems()
-    .subscribe(res=>{
-      this.productItems = res;
-      console.log(this.productItems);
+    .subscribe(res=>{      
+      this.productItems= res.withoutspecial.map( (data, number) => ({...data, num:1}) );      
+      //console.log(this.productItems);
     })
-    //Home page different categories of products
+    
+    //Home page different categories of products (TABS)
     this.api.getProductCategory()
     .subscribe(res=>{
       this.productCategories=res;
-      console.log(res);
+      //console.log(res);
     })
-
   }
   
   //outside ng oninit
   loadbyCat(item){
     this.api.getProductByCategoryTypeID(item.productCategoryId)
-    //productCategory
     .subscribe(res=>{
-      this.categoryTypes = res;
-      console.log(res);
+      this.categoryTypes= res.withoutspecial.map( (data, number) => ({...data, num:1}) );      
+      // console.log(this.categoryTypes);
+      
+      // console.log(res);
     })
   }
 
@@ -57,24 +58,7 @@ export class ProductsComponent implements OnInit {
 
     var itemList = JSON.parse(localStorage.getItem(item.productItemId)) || [];
     localStorage.setItem(item.productItemId, JSON.stringify(itemList));
-    //list of items - identity with id
-    // var itemList:any = [];
-
-    // itemList[0] = prompt("New member name?");
-    // localStorage.setItem(item.productItemId, JSON.stringify(itemList));
     
-    
-    // var storedNames = JSON.parse(localStorage.getItem("names"));
-
-    
-    // localstorage.names = JSON.stringify(names);
-    // var storedNames = JSON.parse(localStorage.names);
-    
-
-  // localStorage.setItem('item.productItemId', JSON.stringify(res));
-
-  //JSON.parse(localStorage.getItem('item.productItemId'));
-
     this.snack.open('Item added to cart! ', 'OK', 
     {
       verticalPosition: 'top',

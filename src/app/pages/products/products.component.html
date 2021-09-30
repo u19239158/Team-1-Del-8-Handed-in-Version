@@ -37,34 +37,34 @@
       <ng-container *ngFor="let category of categoryTypes" ng-controller="check">       
           <div class="card col-md-3">
 
-              <center><img src="{{category.categoryTypeImage}}" alt=""></center>
+              <center><img src="{{category.categorytypeimage}}" alt=""></center>
               
-              <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.productItemName}}</p>
-              <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.categoryTypeName}}</p>
-              <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.itemDescription}}</p>
+              <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.ProductItemname}}</p>
+              <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.categorytypedescription}}</p>
+              <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.itemdescription}}</p>
               
-              <h2><strong>Price:</strong> R{{category.vatInclusive | number:'0.1-2'}}
-                <br/>Total Count : {{counter}}
+              <h2><strong>Price:</strong> R{{category.VATInc | number:'0.1-2'}}
               </h2> 
               
-              <button ng-click="count = count + 1" ng-init="count=0" class="button is-info is-rounded" (click)=addtocart(category)>Add to Cart</button>
+              <button class="button is-info is-rounded" (click)=addtocart(category)>Add to Cart</button>
             </div>
  
       </ng-container>
   </div>
 
-  
+
   <div class="row"> 
     <ng-container *ngFor="let category of productItems">         
         <div class="card col-md-3">
 
-            <center><img src="{{category.categoryTypeImage}}" alt=""></center>
+            <center><img src="{{category.categorytypeimage}}" alt=""></center>
             
-            <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.productItemName}}</p>
-            <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.categoryTypeName}}</p>
-            <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.itemDescription}}</p>
-            
-            <h2><strong>Price:</strong> R{{category.vatInclusive | number:'0.1-2'}}</h2> 
+            <p class="title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.ProductItemname}}</p>
+            <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.categorytypedescription}}</p>
+            <p class="subtitle" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100ch;">{{category.itemdescription}}</p>
+
+
+            <h2><strong>Price:</strong> R{{category.VATInc | number:'0.1-2'}}</h2> 
             
             <button class="button is-info is-rounded" (click)=addtocart(category)>Add to Cart</button>
           </div>
