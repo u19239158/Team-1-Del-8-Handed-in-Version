@@ -42,6 +42,10 @@ export class LogoutComponent implements OnInit {
      window.localStorage.removeItem("user");
   }
 
+  Cancel(){
+    this.router.navigateByUrl('home');
+  }
+
   // onNoClick(): void {
   //   this.dialogRef.close();
   // }

@@ -1,4 +1,13 @@
 <div class="content">
+
+  <a *ngIf="isAddMode" mat-mini-fab color="primary" href="http://localhost:8080/AddCategoryType1.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
+                <mat-icon>help</mat-icon>
+              </a>
+
+              <a *ngIf="!isAddMode" mat-mini-fab color="primary" href="http://localhost:8080/UpdateCategoryType1.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
+                <mat-icon>help</mat-icon>
+              </a>
+
   <h2 *ngIf="isAddMode">Add Category Types</h2>
   <h2 *ngIf="!isAddMode">Edit Category Types</h2>
 

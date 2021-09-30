@@ -1,5 +1,6 @@
 h2 {
-  text-align: left;
+  text-align: center;
+  top: 75px;
   font-weight: 40;
   font-size: 45px;
 }
@@ -8,6 +9,12 @@ h2 {
   position:inherit;
   top: 25%;
   left: 25%;
+  }
+
+  .help{
+    position: absolute;
+    left: 20px;
+    top: 75px;
   }
 
   mat-icon {
@@ -69,7 +76,7 @@ h2 {
   }
 
   .split {
-    top: 25%;
+    top: 35%;
     height: 70%;
     width: 50%;
     position: fixed;
