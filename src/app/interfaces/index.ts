@@ -178,12 +178,19 @@ export interface ReceiveSupplierOrder {
 export interface PlaceSupplierOrder {
   supplierName: string;
   checked: boolean;
-  productItem: string;
+  productItemId: number;
+  supplierID: number;
+  supplierproducts: string;
   price: string;
-  quantity: number;
+  supplierQuantityOrdered: number;
   highlighted?: boolean;
   hovered?: boolean;
   usersId: number;
+}
+
+export class Data {
+  public name: string;
+  public quantity: number;
 }
 
 export interface StockTake {

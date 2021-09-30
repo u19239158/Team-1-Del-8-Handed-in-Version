@@ -65,6 +65,7 @@ h2 {
     max-width: 500px;
     max-height: 500px;
     text-align: center;
+    left: 10px;
   }
 
   .split {
@@ -72,9 +73,6 @@ h2 {
     height: 70%;
     width: 50%;
     position: fixed;
-    // z-index: 1;
-    // overflow-x: hidden;
-    // padding-top: 20px;
   }
   
   .left {

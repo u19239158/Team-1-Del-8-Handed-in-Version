@@ -1,8 +1,10 @@
 <h2 mat-dialog-title>Add Quantity</h2>
 <mat-dialog-content class="mat-typography">
-    <p>
+
+    <form [formGroup]="form" class="main">
         <input type="number" min="1" matInput placeholder="Add Quantity" formControlName="quantity">
-    </p>
+    </form>
+
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button (click)="Cancel()">Cancel</button>
