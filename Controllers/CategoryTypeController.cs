@@ -174,16 +174,27 @@ namespace NKAP_API_2.Controllers
         }
         string response = "";
         // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
-        [Route("DeleteCategoryType/{categorytypeid}")] //route
-        [HttpDelete]
+        [Route("DeleteCategoryType")] //route
+        [HttpPost]
         //Delete Category Type
-        public IActionResult DeleteCategoryType(int categorytypeid)
+        public IActionResult DeleteCategoryType(CategoryTypeModel model)
         {
             try
             {
-                var catType = _db.CategoryTypes.Find(categorytypeid);
+                var catType = _db.CategoryTypes.Find(model.CategoryTypeID);
                 _db.CategoryTypes.Remove(catType); //Delete Record
                 _db.SaveChanges();
+
+                var user = _db.Users.Find(model.UsersID);
+                AuditTrail audit = new AuditTrail();
+                audit.AuditTrailDescription = user.UserUsername + " deleted the Category Type: " + model.CategoryTypeDescription;
+                audit.AuditTrailDate = System.DateTime.Now;
+                TimeSpan timeNow = DateTime.Now.TimeOfDay;
+                audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+                audit.UsersId = user.UsersId;
+                _db.AuditTrails.Add(audit);
+                _db.SaveChanges();
+
                 return Ok(catType);
             }
             catch (Exception)
@@ -193,15 +204,8 @@ namespace NKAP_API_2.Controllers
                 throw;
             }
 
-            //add to audit trail
-            //var user = _db.Users.Find(model.UsersID);
-            //AuditTrail audit = new AuditTrail();
-            //audit.AuditTrailDescription = user.UserUsername + "deleted a Category Type";
-            //audit.AuditTrailDate = System.DateTime.Now;
-            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
-            //audit.UsersId = user.UsersId;
-            //_db.AuditTrails.Add(audit);
-            //_db.SaveChanges();
+           // add to audit trail
+          
 
         }
 

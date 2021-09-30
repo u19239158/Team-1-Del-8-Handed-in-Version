@@ -149,17 +149,31 @@ namespace NKAP_API_2.Controllers
         }
         string response = "";
       //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
-        [Route("DeleteCourier/{courierid}")] //route
-        [HttpDelete]
+        [Route("DeleteCourier")] //route
+        [HttpPost]
         //Delete Category Type
-        public IActionResult DeleteCourier(int courierid)
+        public IActionResult DeleteCourier(CourierModel model)
         {
             try
             {
-                var courier = _db.Couriers.Find(courierid);
+                var courier = _db.Couriers.Find(model.CourierID);
                 _db.Couriers.Remove(courier); //Delete Record
                 _db.SaveChanges();
+
+
+                //add to audit trail
+                var user = _db.Users.Find(model.UsersID);
+                AuditTrail audit = new AuditTrail();
+                audit.AuditTrailDescription = user.UserUsername + " deleted the Courier: " +model.CourierName;
+                audit.AuditTrailDate = System.DateTime.Now;
+                TimeSpan timeNow = DateTime.Now.TimeOfDay;
+                audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+                audit.UsersId = user.UsersId;
+                _db.AuditTrails.Add(audit);
+                _db.SaveChanges();
                 return Ok(courier);
+
+              
             }
             catch (Exception)
             {
@@ -168,15 +182,7 @@ namespace NKAP_API_2.Controllers
                 throw;
             }
 
-            //add to audit trail
-            //var user = _db.Users.Find(model.UsersID);
-            //AuditTrail audit = new AuditTrail();
-            //audit.AuditTrailDescription = user.UserUsername + "deleted a Courier";
-            //audit.AuditTrailDate = System.DateTime.Now;
-            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
-            //audit.UsersId = user.UsersId;
-            //_db.AuditTrails.Add(audit);
-            //_db.SaveChanges();
+
 
         }
 

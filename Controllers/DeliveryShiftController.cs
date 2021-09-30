@@ -458,12 +458,12 @@ namespace NKAP_API_2.Controllers
         //    return Ok(shiftDate);
         //}
         string response = "";
-        [Route("DeleteDeliveryShift/{shiftid}")] //route
-        [HttpDelete]
+        [Route("DeleteDeliveryShift")] //route
+        [HttpPost]
         //Delete DeliveryShift
-        public IActionResult DeleteDeliveryShift(int shiftid)
+        public IActionResult DeleteDeliveryShift(DeliveryShiftModel model)
         {
-            var shift1 = _db.EmployeeShifts.FirstOrDefault(zz => zz.ShiftId == shiftid);
+            var shift1 = _db.EmployeeShifts.FirstOrDefault(zz => zz.ShiftId == model.ShiftId);
             if (shift1.DeliveryId >= 0)
             {
                 response = "Delivery Shift could not be deleted as it is has a delivery allocated to it";
@@ -471,22 +471,22 @@ namespace NKAP_API_2.Controllers
             }
             else
             {
-                var shift = _db.Shifts.FirstOrDefault(zz => zz.ShiftId == shiftid);
+                var shift = _db.Shifts.FirstOrDefault(zz => zz.ShiftId == model.ShiftId);
                 _db.Shifts.Remove(shift);
-                var delShift = _db.EmployeeShifts.FirstOrDefault(zz => zz.ShiftId == shiftid);
+                var delShift = _db.EmployeeShifts.FirstOrDefault(zz => zz.ShiftId == model.ShiftId);
                 _db.EmployeeShifts.Remove(delShift); //Delete Record
                 _db.SaveChanges();
 
                 //add to audit trail
-                //var user = _db.Users.Find(model.UsersID);
-                //AuditTrail audit = new AuditTrail();
-                //audit.AuditTrailDescription = user.UserUsername + "deleted a Delivery Shift";
-                //audit.AuditTrailDate = System.DateTime.Now;
-                //TimeSpan timeNow = DateTime.Now.TimeOfDay;
-                //audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
-                //audit.UsersId = user.UsersId;
-                //_db.AuditTrails.Add(audit);
-                //_db.SaveChanges();
+                var user = _db.Users.Find(model.UsersID);
+                AuditTrail audit = new AuditTrail();
+                audit.AuditTrailDescription = user.UserUsername + " deleted a Delivery Shift";
+                audit.AuditTrailDate = System.DateTime.Now;
+                TimeSpan timeNow = DateTime.Now.TimeOfDay;
+                audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+                audit.UsersId = user.UsersId;
+                _db.AuditTrails.Add(audit);
+                _db.SaveChanges();
 
                 return Ok(delShift);
             }

@@ -308,15 +308,26 @@ namespace NKAP_API_2.Controllers
 
         string response = "";
      //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin, Customer")]
-        [Route("DeleteCustomer/{customerid}")] //route
-        [HttpDelete]
+        [Route("DeleteCustomer")] //route
+        [HttpPost]
         //Delete Customer
-        public IActionResult DeleteCustomer(int customerid)
+        public IActionResult DeleteCustomer(CustomerModel model)
         {
             try
             {
-                var customer = _db.Customers.Find(customerid);
+                var customer = _db.Customers.Find(model.CustomerID);
                 _db.Customers.Remove(customer); //Delete Record
+                _db.SaveChanges();
+
+               // add to audit trail
+                var user = _db.Users.Find(model.UsersID);
+                AuditTrail audit = new AuditTrail();
+                audit.AuditTrailDescription = user.UserUsername + "deleted the Customer " + model.CustomerName + " " + model.CustomerSurname;
+                audit.AuditTrailDate = System.DateTime.Now;
+                TimeSpan timeNow = DateTime.Now.TimeOfDay;
+                audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+                audit.UsersId = user.UsersId;
+                _db.AuditTrails.Add(audit);
                 _db.SaveChanges();
                 return Ok(customer);
             }
@@ -327,27 +338,30 @@ namespace NKAP_API_2.Controllers
                 throw;
             }
 
-            //add to audit trail
-            //var user = _db.Users.Find(model.UsersID);
-            //AuditTrail audit = new AuditTrail();
-            //audit.AuditTrailDescription = user.UserUsername + "deleted a Customer";
-            //audit.AuditTrailDate = System.DateTime.Now;
-            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
-            //audit.UsersId = user.UsersId;
-            //_db.AuditTrails.Add(audit);
-            //_db.SaveChanges();
+
 
         }
 
-        [Route("DeleteProfile/{userid}")] //route
-        [HttpDelete]
+        [Route("DeleteProfile")] //route
+        [HttpPost]
         //Delete Customer
-        public IActionResult DeleteProfile(int userid)
+        public IActionResult DeleteProfile(CustomerModel model)
         {
             try
             {
-                var customer = _db.Customers.Find(userid);
+                var customer = _db.Customers.Find(model.CustomerID);
                 _db.Customers.Remove(customer); //Delete Record
+                _db.SaveChanges();
+
+                //add to audit trail
+                var user = _db.Users.Find(model.UsersID);
+                AuditTrail audit = new AuditTrail();
+                audit.AuditTrailDescription = user.UserUsername + "deleted their profile";
+                audit.AuditTrailDate = System.DateTime.Now;
+                TimeSpan timeNow = DateTime.Now.TimeOfDay;
+                audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+                audit.UsersId = user.UsersId;
+                _db.AuditTrails.Add(audit);
                 _db.SaveChanges();
                 return Ok(customer);
             }
@@ -358,15 +372,7 @@ namespace NKAP_API_2.Controllers
                 throw;
             }
 
-            //add to audit trail
-            //var user = _db.Users.Find(model.UsersID);
-            //AuditTrail audit = new AuditTrail();
-            //audit.AuditTrailDescription = user.UserUsername + "deleted a Customer";
-            //audit.AuditTrailDate = System.DateTime.Now;
-            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
-            //audit.UsersId = user.UsersId;
-            //_db.AuditTrails.Add(audit);
-            //_db.SaveChanges();
+            
 
         }
     }

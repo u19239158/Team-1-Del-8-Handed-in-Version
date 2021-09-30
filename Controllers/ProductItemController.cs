@@ -452,19 +452,30 @@ namespace NKAP_API_2.Controllers
 
         string response = "";
         // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
-        [Route("DeleteProductItem/{productitemid}")] //route
-        [HttpDelete]
+        [Route("DeleteProductItem")] //route
+        [HttpPost]
         //Delete Product Item
-        public IActionResult DeleteProductItem(int productitemid)
+        public IActionResult DeleteProductItem(ProductItemModel model)
         {
-            var ProdSpec = _db.ProductSpecials.FirstOrDefault(zz => zz.ProductItemId == productitemid);
+            var ProdSpec = _db.ProductSpecials.FirstOrDefault(zz => zz.ProductItemId == model.ProductItemId);
             if (ProdSpec == null)
             {
-                var ItemPrice = _db.Prices.FirstOrDefault(zz => zz.ProductItemId == productitemid);
-                var Pitem = _db.ProductItems.Find(productitemid);
+                var ItemPrice = _db.Prices.FirstOrDefault(zz => zz.ProductItemId == model.ProductItemId);
+                var Pitem = _db.ProductItems.Find(model.ProductItemId);
                 _db.Prices.Remove(ItemPrice);
                 _db.SaveChanges();
                 _db.ProductItems.Remove(Pitem);  //Delete Record
+                _db.SaveChanges();
+
+                //add to audit trail
+                var user = _db.Users.Find(model.UsersID);
+                AuditTrail audit = new AuditTrail();
+                audit.AuditTrailDescription = user.UserUsername + " deleted the Product Item: " + model.ProductItemName;
+                audit.AuditTrailDate = System.DateTime.Now;
+                TimeSpan timeNow = DateTime.Now.TimeOfDay;
+                audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+                audit.UsersId = user.UsersId;
+                _db.AuditTrails.Add(audit);
                 _db.SaveChanges();
 
                 return Ok();
@@ -478,16 +489,7 @@ namespace NKAP_API_2.Controllers
                 
             }
 
-            //add to audit trail
-            //var user = _db.Users.Find(model.UsersID);
-            //AuditTrail audit = new AuditTrail();
-            //audit.AuditTrailDescription = user.UserUsername + "deleted a Product Item";
-            //audit.AuditTrailDate = System.DateTime.Now;
-            //audit.AuditTrailTime = System.DateTime.Now.TimeOfDay;
-            //audit.UsersId = user.UsersId;
-            //_db.AuditTrails.Add(audit);
-            //_db.SaveChanges();
-
+            
         }
     }
 }
