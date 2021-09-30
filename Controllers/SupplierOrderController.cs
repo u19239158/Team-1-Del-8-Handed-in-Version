@@ -299,15 +299,23 @@ namespace NKAP_API_2.Controllers
         public IActionResult PlaceSupplierOrder(SupplierOrderModel model) //reference the model
         {
             SupplierOrder supOrder = new SupplierOrder();
-            supOrder.OrderDatePlaced = model.OrderDatePlaced; //attributes in table
-            //supOrder.OrderDateReceived = model.OrderDateRecieved;
-            //supOrder.SupplierOrderTotal = model.SupplierOrderTotal;
-            //supOrder.SupplierOrderSubTotal = model.SupplierOrderTotal;
-            //supOrder.SupplierOrderVat = model.SupplierOrderVat;
-            supOrder.SupplierOrderStatusId = 1;
-            supOrder.SupplierId = model.SupplierID;
-            _db.SupplierOrders.Add(supOrder);
-            _db.SaveChanges();
+            {
+                supOrder.OrderDatePlaced = System.DateTime.Now; //attributes in table
+                supOrder.SupplierOrderStatusId = 1;
+                supOrder.SupplierId = model.SupplierID;
+                _db.SupplierOrders.Add(supOrder);
+                _db.SaveChanges();
+            }
+
+            SupplierOrderLine supline = new SupplierOrderLine();
+            {
+                supline.ProductItemId = model.ProductItemId;
+                supline.SupplierOrderId = supOrder.SupplierOrderId;
+                supline.SupplierProducts = model.SupplierProducts;
+                supline.SupplierQuantityOrdered = model.SupplierQuantityOrdered;
+                _db.SupplierOrderLines.Add(supline);
+                _db.SaveChanges();
+            }
 
             return Ok(supOrder);
         }

@@ -80,5 +80,17 @@ namespace NKAP_API_2.Models
         [JsonProperty("ProductCategoryId")]
         public int ProductCategoryId
         { get; set; }
+
+        [JsonProperty("specialstartdate")]
+        public DateTime SpecialStartDate
+        { get; set; }
+
+        [JsonProperty("specialdescription")]
+        public string SpecialDescription
+        { get; set; }
+
+        [JsonProperty("specialenddate")]
+        public DateTime SpecialEndDate
+        { get; set; }
     }
 }

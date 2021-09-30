@@ -447,6 +447,9 @@ namespace NKAP_API_2.Controllers
                     ProductItemId = (int)zz.ProductItemId,
                     ProductItemName = zz.ProductItem.ProductItemName,
                     SpecialPrice = (decimal)zz.SpecialPrice,
+                    SpecialEndDate = zz.Special.SpecialEndDate,
+                    SpecialStartDate = zz.Special.SpecialStartDate,
+                    SpecialDescription = zz.Special.SpecialDescription,
                     PriceDescription = zz.ProductItem.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault(),
                     VATInc = Math.Round( (decimal)(zz.SpecialPrice+ (zz.SpecialPrice * VAT.VatPercentage)) , 2),
                     VATAmount =Math.Round( (decimal)(zz.SpecialPrice * VAT.VatPercentage),2)
@@ -462,6 +465,7 @@ namespace NKAP_API_2.Controllers
                     ItemDescription = zz.CategoryType.ItemDescription,
                     ProductItemId = (int)zz.ProductItemId,
                     ProductItemName = zz.ProductItemName,
+                    
                     // SpecialPrice = (decimal)zz.SpecialPrice,
                     PriceDescription = zz.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault(),
                    VATInc = Math.Round( (decimal)(zz.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault() +(zz.Prices.Where(xx => xx.ProductItemId == zz.ProductItemId).Select(xx => xx.PriceDescription).FirstOrDefault() * VAT.VatPercentage)) , 2),

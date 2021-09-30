@@ -286,7 +286,7 @@ namespace NKAP_API_2.Controllers
                     from: new PhoneNumber("+13128182655"), // From number, must be an SMS-enabled Twilio number
                     to: new PhoneNumber(person.Key), // To number, if using Sandbox see note above
                                                      // Message content
-                    body: $"Your one time pin code is " + code + " for Nkap Bolting Login");
+                    body: $"Your one time pin code is " + code + "for Nkap Bolting Login");
 
                 Console.WriteLine($"Sent message to {person.Value}");
             }
