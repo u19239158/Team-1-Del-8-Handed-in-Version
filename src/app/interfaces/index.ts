@@ -189,8 +189,15 @@ export interface PlaceSupplierOrder {
 }
 
 export class Data {
+  public id : number;
   public name: string;
   public quantity: number;
+}
+
+export interface place {
+   id : number;
+   name: string;
+   quantity: number;
 }
 
 export interface StockTake {

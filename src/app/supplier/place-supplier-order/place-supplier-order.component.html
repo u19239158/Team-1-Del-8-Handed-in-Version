@@ -27,7 +27,7 @@
       <ng-container matColumnDef="checkbox">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Select </th>
         <td mat-cell *matCellDef="let element">
-          <mat-checkbox (click)="PlaceOrder(element.productItemName)"></mat-checkbox>
+          <mat-checkbox (click)="PlaceOrder(element.productItemName, element.productItemId)"></mat-checkbox>
         </td>
       </ng-container>
 
