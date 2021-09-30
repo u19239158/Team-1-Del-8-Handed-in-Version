@@ -134,13 +134,13 @@
           <button type="button" class="btn-close btn-close-black" (click)=closeDeliveryModal()></button>
        </h3>
       </div>
-			<form #myForm="ngForm" (submit)="submitForm(myForm)" novalidate>
-              <div class="control">
+			<form [formGroup]="addressform" (ngSubmit)="submitAddressForm()">
+              <div class="control"></div>
                 <!-- Customer addressline -->
                 <div>
                   <label class="label">Please enter your address:</label>
                   <!-- <div class="control"> -->
-                    <input class="input" [formControl]="email" type="text" placeholder="Address">
+                    <input class="input" formControlName="AddressLine1" type="text" placeholder="Address">
                   <!-- </div> -->
                 </div>                
                 
@@ -148,34 +148,53 @@
                 <div>
                   <label class="label">Please enter your address:</label>
                   <!-- <div class="control"> -->
-                    <input class="input" [formControl]="email" type="text" placeholder="Address" ngModel required>
+                    <input class="input" formControlName="addressline2" type="text" placeholder="Address" ngModel required>
                   <!-- </div> -->
-                </div>                
+                </div>  
+                <!-- Customer addressline2 -->
+                <div>
+                  <label class="label">Please enter your address(optional):</label>
+                  <!-- <div class="control"> -->
+                    <input class="input" formControlName="addressline3" type="text" placeholder="Address" ngModel required>
+                  <!-- </div> -->
+                </div> 
+
                 <!-- Customer city -->
                 <div>
                   <label class="label">Please enter your City:</label>
                   <!-- <div class="control"> -->
-                    <input class="input" [formControl]="email" type="text" placeholder="City" ngModel required>
+                    <input class="input" formControlName="city" type="text" placeholder="City" ngModel required>
                   <!-- </div> -->
                 </div>                
                 <!-- Customer Province -->
                 <div>
                   <label class="label">Please enter your Province:</label>
                   <!-- <div class="control"> -->
-                    <input class="input" [formControl]="email" type="text" placeholder="City" ngModel required>
+                    <input name="city" list="provincename" class="input" formControlName="province" type="text" placeholder="Province" ngModel required>
+                    <datalist id="provincename">
+                      <option value="Eastern Cape">
+                      <option value="Free State">
+                      <option value="Gauteng">
+                      <option value="KwaZulu-Natal">
+                      <option value="Limpopo">
+                      <option value="Mpumalanga">
+                      <option value="North West">
+                      <option value="Northern Cape">
+                      <option value="Western Cape">
+                    </datalist>
                   <!-- </div> -->
                 </div>                
                 <!-- Customer Postal Code -->
                 <div>
                   <label class="label">Please enter your Postal Code:</label>
                   <!-- <div class="control"> -->
-                    <input class="input" [formControl]="email" type="text" placeholder="City" ngModel required>
+                    <input class="input" formControlName="postalCode" type="text" placeholder="Postal Code" ngModel required>
                   <!-- </div> -->
                 </div>
-                  <div *ngIf="isSubmitted && myForm.invalid">
+                  <!-- <div *ngIf="isSubmitted && myForm.invalid">
                     <p>Please enter corret value</p>
-                  </div> 
-          </div>
+                  </div>  -->
+                  
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)=closeDeliveryModal()>Close</button>
         <button type="submit" class="btn btn-primary">Checkout</button>

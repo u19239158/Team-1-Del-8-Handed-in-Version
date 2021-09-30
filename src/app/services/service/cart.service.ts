@@ -82,20 +82,17 @@ export class CartService {
   Checkout(Sale:Sale){
     return this.http.post<any>(`${this.server}Checkout/Checkout`, Sale,this.httpOptions)
   }
-  DeliverMethodSelected(){
-    this.postCollection
-    this.postDelivery
-  }
-  CreateCustomerAddress(Address:Address):Observable<Address[]>  {
+
+  AddCustomerAddress(Address:Address):Observable<Address[]>  {
     return this.http.post<Address[]>(`${this.server}Checkout/AddAddress`, Address,this.httpOptions);
   }
 
-  postDelivery(Delivery:Delivery):Observable<Address[]>{
-    return this.http.post<Address[]>(`${this.server}Checkout/AddSaleline`,Delivery ,this.httpOptions);
+  postDelivery(Delivery:Delivery):Observable<Delivery[]>{
+    return this.http.post<Delivery[]>(`${this.server}Checkout/Delivery`,Delivery ,this.httpOptions);
 
   }
-  postCollection(Collection:Collection):Observable<Address[]>{
-    return this.http.post<Address[]>(`${this.server}Checkout/AddSaleline`, Collection,this.httpOptions);
+  postCollection(Collection:Collection):Observable<Collection[]>{
+    return this.http.post<Collection[]>(`${this.server}Checkout/Collection`, Collection,this.httpOptions);
 
   }
   getProducts(){
