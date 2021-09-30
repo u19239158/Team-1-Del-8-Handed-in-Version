@@ -10,6 +10,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ReceiveSupplierOrderComponent } from './supplier/receive-supplier-order/receive-supplier-order.component';
 import { PlaceSupplierOrderComponent } from './supplier/place-supplier-order/place-supplier-order.component';
 import { MakePaymentComponent } from './supplier/make-payment/make-payment.component';
+import { CaptureOrderComponent } from './supplier/receive-supplier-order/capture-order/capture-order.component';
 
 import { AddEditEmployeesComponent } from './employee/add-edit-employees/add-edit-employees.component';
 import { EmployeesComponent } from './employee/employees/employees.component';
@@ -49,8 +50,10 @@ import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-
 
 import { StockTakeComponent } from './admin/stock-take/stock-take.component';
 import { WriteOffStockComponent } from './admin/write-off-stock/write-off-stock.component';
+import { ViewWriteOffComponent } from './admin/write-off-stock/view-write-off/view-write-off.component';
 import { PageComponent } from './admin/write-off-stock/page/page.component';
 import { StockTakePageComponent } from './admin/stock-take/stock-take-page/stock-take-page.component';
+import { ViewstocktakeComponent } from './admin/stock-take/viewstocktake/viewstocktake.component';
 // import { ReceiveOrderComponent } from './supplier/receive-supplier-order/receive-order/receive-order.component';
 
 import { OnlineSalesComponent } from './admin/online-sales/online-sales.component';
@@ -121,6 +124,10 @@ const routes: Routes = [
   {
     path: 'receiveSupplierOrder',
     component: ReceiveSupplierOrderComponent
+  },
+  {
+    path: 'captureOrder',
+    component: CaptureOrderComponent
   },
   {
     path: 'makePayment/:id',
@@ -251,8 +258,16 @@ const routes: Routes = [
     component: StockTakeComponent,
   },
   {
+    path: 'viewstocktake',
+    component: ViewstocktakeComponent,
+  },
+  {
     path: 'writeOffStock',
     component: WriteOffStockComponent,
+  },
+  {
+    path: 'viewwriteoff',
+    component: ViewWriteOffComponent,
   },
   {
     path: 'assigndeliveryorder',

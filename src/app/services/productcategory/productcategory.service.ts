@@ -35,9 +35,13 @@ export class ProductcategoryService {
     return this.http.put<Productcategory[]>(`${this.server}Productcategory/UpdatePC`, Productcategory,this.httpOptions);
   }
 
-    DeleteProductCategory(productCategoryId):  Observable<Productcategory>  {
-    return this.http.delete<Productcategory>(`${this.server}Productcategory/DeletePC/${productCategoryId}`).pipe(map(res => res));
+  DeleteProductCategory(Productcategory:Productcategory):  Observable<Productcategory[]>  {
+    return this.http.post<Productcategory[]>(`${this.server}Productcategory/DeletePC`, Productcategory,this.httpOptions); 
   }
+
+  //   DeleteProductCategory(productCategoryId):  Observable<Productcategory>  {
+  //   return this.http.delete<Productcategory>(`${this.server}Productcategory/DeletePC/${productCategoryId}`).pipe(map(res => res));
+  // }
 }
 //   getAll(): Productcategory[] {
 //     const productcategorys = JSON.parse(localStorage.getItem(this.KEY));

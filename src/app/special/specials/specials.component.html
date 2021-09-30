@@ -1,5 +1,10 @@
 <div class="main">
     <div>
+
+        <a mat-mini-fab color="primary" href="http://localhost:8080/Specials.html" target="_blank"
+            aria-label="Example icon button with a menu icon" class="help">
+            <mat-icon>help</mat-icon>
+        </a>
         <h2>Specials</h2>
 
         <div class="search">
@@ -39,7 +44,7 @@
 
                 <ng-container matColumnDef="specialPrice">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
-                    <td mat-cell *matCellDef="let element"> R {{element.specialPrice}} </td>
+                    <td mat-cell *matCellDef="let element"> R {{element.specialPrice | number:'1.1-2'}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="specialStartDate">

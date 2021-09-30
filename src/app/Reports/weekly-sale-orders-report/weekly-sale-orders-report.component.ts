@@ -204,6 +204,18 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
      /* table id is passed over here */   
      let element = document.getElementById('WsaleTable'); 
      const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+      (error: TypeError) => {
+      console.log("Please generate report before exporting to excel", "test")
+      if (error.message = "Cannot read properties of null (reading 'getElementsByTagName')") {
+        this.snack.open("Please generate report before exporting to excel", 'OK',
+          {
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            duration: 4000
+          });
+        return;
+      }
+    }
 
      /* generate workbook and add the worksheet */
      const wb: XLSX.WorkBook = XLSX.utils.book_new();

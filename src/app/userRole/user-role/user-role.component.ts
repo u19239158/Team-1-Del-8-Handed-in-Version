@@ -23,7 +23,7 @@ export class UserRoleComponent implements OnInit {
   UserRoles: UserRole[];
   searchValue: string;
   dataNotFound: boolean;
-
+  userid : number;
   //userRoles: UserRole[] = [];
   UserRole: UserRole;
   userRoles: Observable<UserRole[]>;
@@ -43,7 +43,9 @@ export class UserRoleComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => this.dataSource.paginator = this.paginator);
     // this.dataSource.paginator = this.paginator;
-
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   this.userid = obj.userId
     this.readUserRoles();
 
     this.UserRoleService.GetUserRole().subscribe((result: UserRole[]) => {
@@ -88,6 +90,7 @@ export class UserRoleComponent implements OnInit {
   }
 
   deleteUserRole(UserRole: UserRole) {
+    UserRole.usersID = this.userid
     const confirm = this.dialog.open(GlobalConfirmComponent, {
       disableClose: true,
     });

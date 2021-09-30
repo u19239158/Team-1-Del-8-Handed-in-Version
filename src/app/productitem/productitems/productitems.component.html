@@ -1,5 +1,10 @@
 <div class="main">
     <div>
+
+       <a mat-mini-fab color="primary" href="http://localhost:8080/ProductItem.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
+                <mat-icon>help</mat-icon>
+              </a>
+
         <h2>Product Items</h2>
 
         <div class="search">
@@ -77,7 +82,7 @@
                                 Product Item</button>
                             <button mat-menu-item (click)="SendID(element.productItemId)"
                                 [routerLink]="['/specialAdd', element.productItemId]">Add Special</button>
-                            <button mat-menu-item (click)="deleteProductitem(element.productItemId)">Delete Product
+                            <button mat-menu-item (click)="deleteProductitem(element)">Delete Product
                                 Item</button>
                         </mat-menu>
                     </td>

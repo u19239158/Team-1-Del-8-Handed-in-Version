@@ -19,7 +19,7 @@ mat-row {
   width: 500px;
 }
 
-button{
+.button{
   margin-top: 5px;
   left: 70%;
   width: 500px;
@@ -56,4 +56,10 @@ th {
   color: black;
   font-weight: 40;
   font-size: 20px;
+}
+
+.help{
+  position: absolute;
+  left: 20px;
+  top: 75px;
 }

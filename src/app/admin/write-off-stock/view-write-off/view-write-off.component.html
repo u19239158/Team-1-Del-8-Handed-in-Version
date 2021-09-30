@@ -1,0 +1,66 @@
+<div class="main">
+    <div>
+        <h2>Written Off Stock</h2>
+
+        <div class="search">
+            <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+                <li>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input type="text" [(ngModel)]="searchValue" class="input" id="search"
+                                placeholder="Search Written Off Stock">
+                        </div>
+                        <div class="control">
+                            <a class="button is-info" (click)="filter()">
+                                <span class="fas fa-search search-icon"></span>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <app-global-error *ngIf="dataNotFound"></app-global-error>
+
+        <br>
+        <br>
+        <div>
+            <table mat-table [dataSource]="dataSource" *ngIf="!dataNotFound" matSort>
+                <!-- User ID Name Column -->
+                <ng-container matColumnDef="Product">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Product</th>
+                    <td mat-cell *matCellDef="let element">{{element.productItemName}} </td>
+                </ng-container>
+
+                <!-- Description Column -->
+                <ng-container matColumnDef="Write-Off-Date">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Write-Off Date </th>
+                    <td mat-cell *matCellDef="let element"> {{element.writtenOffStockDate | date:"dd/MM/yyyy" }} </td>
+                </ng-container>
+               
+                     <!-- Date Column -->
+                <ng-container matColumnDef="Write-Off-Reason">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Write-Off Reason</th>
+                    <td mat-cell *matCellDef="let element"> {{element. writeOffReason}} </td>
+                </ng-container>
+
+                     <!-- Time Column -->
+                 <ng-container matColumnDef="Write-Off-Quantity">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Write-Off Quantity </th>
+                    <td mat-cell *matCellDef="let element"> {{element.writeOffQuantity }} </td>
+                </ng-container>
+
+             
+               
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page">
+            </mat-paginator>
+        </div>
+
+<button type="submit" class="btn btn-primary" [routerLink]="['/writeOffStock']">Back</button>
+
+    </div>
+

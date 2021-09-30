@@ -73,7 +73,7 @@
                             <button mat-menu-item *ngIf="canBeUpdated(element)"
                                 [routerLink]="['/editDeliveryShift', element.shiftId]">Update Delivery
                                 Shift</button>
-                            <button mat-menu-item (click)="deleteDeliveryshift(element.shiftId)">Delete Delivery
+                            <button mat-menu-item (click)="deleteDeliveryshift(element)">Delete Delivery
                                 Shift</button>
                         </mat-menu>
                     </td>

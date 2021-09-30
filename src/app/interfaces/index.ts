@@ -8,6 +8,11 @@ export interface Login {
   userPassword: string;
   token : string;
   userId: number;
+  userRoleId: number;
+}
+
+export interface Log {
+  UsersID: number;
 }
 
 export interface Employee {
@@ -47,7 +52,7 @@ export interface UserRole {
   id: number;
   userRoleName: string;
   userRoleDescription: string;
-  userID: number;
+  usersID: number;
   auditTrailID: number;
   auditTrailDescription: string;
   auditTrailDate :string;
@@ -174,12 +179,19 @@ export interface ReceiveSupplierOrder {
 export interface PlaceSupplierOrder {
   supplierName: string;
   checked: boolean;
-  productItem: string;
+  productItemId: number;
+  supplierID: number;
+  supplierproducts: string;
   price: string;
-  quantity: number;
+  supplierQuantityOrdered: number;
   highlighted?: boolean;
   hovered?: boolean;
   usersId: number;
+}
+
+export class Data {
+  public name: string;
+  public quantity: number;
 }
 
 export interface StockTake {
@@ -190,6 +202,7 @@ export interface StockTake {
   stockTakeQuantity: number;
   productItemId: number;
   usersId: number;
+  productItemName: string;
 }
 
 export interface WriteOffStock {
@@ -201,6 +214,7 @@ export interface WriteOffStock {
   writeOffReason: string;
   productItemWrittenOffStockId: number;
   usersId: number;
+  productItemName: string;
 }
 
 export interface AssignUnscheduledDelivery { //should be in delivery shift. we don't create interfaces for each individual requirement.

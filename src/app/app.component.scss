@@ -81,14 +81,12 @@ main {
 }
 
 footer {
-  display:block;
-    position:fixed;
-    left:0;
-    right:0;
-    bottom:0;
+  position: fixed;
+  left: 0;
+  bottom: 0;
   width: 100%;
   background-color: rgb(66, 108, 224);
-  color: white;
+  color: black;
   text-align: center;
 }
 

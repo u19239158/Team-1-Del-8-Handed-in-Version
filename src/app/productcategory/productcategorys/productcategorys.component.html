@@ -1,5 +1,10 @@
 <div class="main">
     <div>
+
+     <a mat-mini-fab color="primary" href="http://localhost:8080/ProductCategory.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
+                <mat-icon>help</mat-icon>
+              </a>
+
         <h2>Product Categories</h2>
 
         <div class="search">
@@ -55,7 +60,7 @@
                             <button mat-menu-item
                                 [routerLink]="['/editProductCategory', element.productCategoryId]">Update Product
                                 Category</button>
-                            <button mat-menu-item (click)="deleteProductcategory(element.productCategoryId)">Delete
+                            <button mat-menu-item (click)="deleteProductcategory(element)">Delete
                                 Product Category</button>
                         </mat-menu>
                     </td>

@@ -25,7 +25,7 @@ export class DeliveryshiftsComponent implements OnInit {
   searchValue: number;
   searchWord: string;
   dataNotFound: boolean;
-
+  userid : number;
   deliveryshift: Deliveryshift[] = [];
   // DeliveryShift: Deliveryshift;
   deliveryShift: Observable<Deliveryshift[]>;
@@ -47,7 +47,9 @@ export class DeliveryshiftsComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => this.dataSource.paginator = this.paginator);
     this.readDeliveryshifts();
-
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   this.userid = obj.userId
     this.deliveryshiftService.GetDeliveryShift().subscribe((result: Deliveryshift[]) => {
       this.setDeliveryShifts(result);
     });
@@ -94,6 +96,7 @@ export class DeliveryshiftsComponent implements OnInit {
   }
 
   deleteDeliveryshift(Deliveryshift: Deliveryshift) {
+    Deliveryshift.usersId = this.userid
     const confirm = this.dialog.open(GlobalConfirmComponent, {
       disableClose: true,
     });

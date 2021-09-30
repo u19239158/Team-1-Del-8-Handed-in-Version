@@ -1,7 +1,9 @@
 <div class="main">
     <div>
 
-         
+         <a mat-mini-fab color="primary" href="http://localhost:8080/User.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
+                <mat-icon>help</mat-icon>
+              </a>
 
         <h2>User Role</h2>
 
@@ -56,7 +58,7 @@
                         <mat-menu #menu="matMenu" xPosition="before">
                             <button mat-menu-item [routerLink]="['/userRoleEdit',element.userRoleId]">Update User
                                 Role</button>
-                            <button mat-menu-item (click)="deleteUserRole(element.userRoleId)">Delete User Role</button>
+                            <button mat-menu-item (click)="deleteUserRole(element)">Delete User Role</button>
                         </mat-menu>
                     </td>
                 </ng-container>

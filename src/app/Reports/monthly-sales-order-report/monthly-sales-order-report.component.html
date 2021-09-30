@@ -1,3 +1,7 @@
+   <a mat-mini-fab color="primary" href="http://localhost:8080/MonthlySalesOrderReport.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
+                <mat-icon>help</mat-icon>
+              </a>
+
 <h1>Monthly Sales Report</h1>
 
 <div class="column left">
@@ -80,8 +84,8 @@
 
 
 
-<div id="htmlData" class="mat-elevation-z8 table column right" *ngIf="created">
- 
+<div id="htmlData" class=" column right" *ngIf="created">
+
 <h2>Total Sales For the Month: R{{total | number:'1.1-2'}}</h2> 
 <h2>Average Sale Amount : R{{aveg | number:'1.1-2'}}</h2>
 

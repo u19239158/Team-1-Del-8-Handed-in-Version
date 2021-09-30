@@ -23,7 +23,7 @@ export class SuppliersComponent implements OnInit {
   Suppliers: Supplier[];
   searchValue: string;
   dataNotFound: boolean;
-
+  userid : number;
   Supplier: Supplier;
   supplier: Observable<Supplier[]>;
   dataSource = new MatTableDataSource<Supplier>();
@@ -44,7 +44,9 @@ export class SuppliersComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => this.dataSource.paginator = this.paginator);
     this.readSuppliers();
-
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   this.userid = obj.userId
     this.supplierService.GetSupplier().subscribe((result: Supplier[]) => {
       this.Suppliers = result;
       setTimeout(() => this.dataSource.paginator = this.paginator);
@@ -74,6 +76,7 @@ export class SuppliersComponent implements OnInit {
   }
 
   deleteSupplier(Supplier: Supplier) {
+    Supplier.usersId = this.userid
     const confirm = this.dialog.open(GlobalConfirmComponent, {
       disableClose: true,
     });

@@ -26,6 +26,7 @@ export class SpecialsComponent implements OnInit {
   dataNotFound: boolean;
   public specspeiial: any = [];
   specials: Special[] = [];
+  userid : number;
   special: Observable<Special[]>;
   dataSource = new MatTableDataSource<Special>();
   displayedColumns: string[] = ['productItemName', 'specialDescription', 'specialPrice', 'specialStartDate', 'specialEndDate', 'actions'];
@@ -48,7 +49,9 @@ export class SpecialsComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => this.dataSource.paginator = this.paginator);
     this.readSpecials();
-
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   this.userid = obj.userId
     this.specialService.GetSpecial().subscribe((result: Special[]) => {
       this.Specials = result;
     });
@@ -84,6 +87,7 @@ export class SpecialsComponent implements OnInit {
   }
 
   deleteSpecial(special: Special) {
+    special.usersId = this.userid
     this.specialService.getSpecialByID(special).subscribe(res => {
       this.specspeiial = res;
       console.log(this.specspeiial)

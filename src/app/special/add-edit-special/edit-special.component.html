@@ -1,74 +1,81 @@
 <div class="content">
-  <h2 *ngIf="!isAddMode">Edit Special</h2>
-  <!-- <h2 >Edit Special</h2> -->
+
+  <a mat-mini-fab color="primary" href="http://localhost:8080/EditSpecial.html" target="_blank"
+    aria-label="Example icon button with a menu icon" class="help">
+    <mat-icon>help</mat-icon>
+  </a>
+
+  <h2>Edit Special</h2>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="main">
 
-        <div class="mat-row">
-          <!-- Special Description -->
-          <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-m">
-                <mat-label>Description</mat-label>
-                <input type="text" matInput placeholder="Description" formControlName="specialDescription">
-                   <mat-hint>Enter special description</mat-hint>
-                   <mat-error *ngIf="form.controls['specialDescription'].invalid">Please select enter a special description</mat-error> 
-            </mat-form-field>
-          </div>
-        </div>
+    <div class="mat-row">
+      <!-- Special Description -->
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Description</mat-label>
+          <input type="text" matInput placeholder="Description" formControlName="specialDescription">
+          <mat-hint>Enter special description</mat-hint>
+          <mat-error *ngIf="form.controls['specialDescription'].invalid">Please select enter a special description
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
 
 
-      <div class="mat-row">
-        <!-- Start Date -->
-       <div class="mat-col-quarter">
+    <div class="mat-row">
+      <!-- Start Date -->
+      <div class="mat-col-quarter">
         <mat-form-field class="control-m">
-          <input matInput [matDatepicker]="picker" placeholder="Special Start Date"formControlName="specialStartDate">
+          <input matInput [matDatepicker]="picker" placeholder="Special Start Date" formControlName="specialStartDate">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
-             <mat-hint>Enter special name start date </mat-hint>
-             <mat-error *ngIf="form.controls['specialStartDate'].invalid">Please select the special's start date</mat-error> 
+          <mat-hint>Enter special name start date </mat-hint>
+          <mat-error *ngIf="form.controls['specialStartDate'].invalid">Please select the special's start date
+          </mat-error>
         </mat-form-field>
-        </div>
       </div>
+    </div>
 
-      <div class="mat-row"> 
-       <!-- End Date -->
-       <div class="mat-col-quarter">
+    <div class="mat-row">
+      <!-- End Date -->
+      <div class="mat-col-quarter">
         <mat-form-field class="control-m">
           <input matInput [matDatepicker]="picker1" placeholder="Special End Date" formControlName="specialEndDate">
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
-             <mat-hint>Enter special end date</mat-hint>
-             <mat-error *ngIf="form.controls['specialEndDate'].invalid">Please select the special's end date</mat-error> 
+          <mat-hint>Enter special end date</mat-hint>
+          <mat-error *ngIf="form.controls['specialEndDate'].invalid">Please select the special's end date</mat-error>
         </mat-form-field>
-       </div>
       </div>
+    </div>
 
-      <div class="mat-row"> 
-          <!-- Special Price -->
-          <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-m">
-              <mat-label>Discount Percentage</mat-label>
-              <mat-select [(value)]="selected" formControlName="discountId">
-                <mat-option *ngFor="let Discount of collection" [value]="Discount.discountId">
-                  {{Discount.discountPercentage | percent}}
-                </mat-option>
-              </mat-select>
-            <mat-hint>Choose special discount</mat-hint>
-            <mat-error *ngIf="form.controls['discountId'].invalid">Please select the discount percentage</mat-error> 
-            </mat-form-field>
-          </div>
+    <div class="mat-row">
+      <!-- Special Price -->
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Discount Percentage</mat-label>
+          <mat-select [(value)]="selected" formControlName="discountId">
+            <mat-option *ngFor="let Discount of collection" [value]="Discount.discountId">
+              {{Discount.discountPercentage | percent}}
+            </mat-option>
+          </mat-select>
+          <mat-hint>Choose special discount</mat-hint>
+          <mat-error *ngIf="form.controls['discountId'].invalid">Please select the discount percentage</mat-error>
+        </mat-form-field>
       </div>
+    </div>
 
     <div class="mat-row">
       <!-- Save or cancel special -->
       <div class="form-group" class="control-m">
-        <button mat-raised-button color ="primary" [disabled]="loading">
-            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-            Save
+        <button mat-raised-button color="primary" [disabled]="loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Save
         </button>
         <a (click)="Close()" mat-button>Cancel</a>
-    </div>
+      </div>
 
     </div>
-</form>
+  </form>
 </div>

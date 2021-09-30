@@ -58,7 +58,7 @@
                 </button>
                 <mat-menu #menu="matMenu" xPosition="before">
                 <button mat-menu-item [routerLink]="['/editCategoryType', element.categoryTypeId]" >Update Category Type</button>
-                <button mat-menu-item (click)="deleteCategorytype(element.categoryTypeId)">Delete Category Type</button>
+                <button mat-menu-item (click)="deleteCategorytype(element)">Delete Category Type</button>
                 </mat-menu>
             </td>
         </ng-container>

@@ -67,7 +67,7 @@
                         <mat-menu #menu="matMenu" xPosition="before">
                             <button mat-menu-item [routerLink]="['/editCourier', element.courierID]">Update
                                 Courier</button>
-                            <button mat-menu-item (click)="deleteCourier(element.courierID)">Delete Courier</button>
+                            <button mat-menu-item (click)="deleteCourier(element)">Delete Courier</button>
                         </mat-menu>
                     </td>
                 </ng-container>

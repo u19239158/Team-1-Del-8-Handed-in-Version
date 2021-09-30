@@ -7,12 +7,13 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ProductitemService } from 'src/app/services/productitem/productitem.service';
 import { PlaceSupplierOrderService } from 'src/app/services/place-supplier-order/place-supplier-order.service';
-import { PlaceSupplierOrder, Productitem } from 'src/app/interfaces';
+import { PlaceSupplierOrder, Productitem, Data } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { direction } from 'html2canvas/dist/types/css/property-descriptors/direction';
+import { MomentDateModule } from '@angular/material-moment-adapter';
 
 @Component({
   selector: 'app-place-supplier-order',
@@ -24,7 +25,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
   Productitems: Productitem[];
   searchValue: string;
   dataNotFound: boolean;
-
+  // arr: Array<{id: number, text: string}>
   //form: FormGroup;
   loading = false;
   submitted = false;
@@ -39,7 +40,12 @@ export class PlaceSupplierOrderComponent implements OnInit {
   //dataSource = new MatTableDataSource<PlaceSupplierOrder>();
   displayedColumns: string[] = ['checkbox', 'productItemName', 'quantityOnHand'];
   @ViewChild(MatSort) sort: MatSort;
-
+  checkedIDs = [];
+  public list: Data [] = [];
+  name: string;
+  quant: number;
+  QuantityModalComponent: QuantityModalComponent;
+  
   highlight(element: PlaceSupplierOrder) {
     element.highlighted = !element.highlighted;
   }
@@ -56,7 +62,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
     private router: Router,
     private FormGroup: FormBuilder,
     private FB: FormBuilder,
-
+    
     // public dialogRef: MatDialogRef<PlaceSupplierOrder>
   ) { }
 
@@ -77,6 +83,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
 
     this.productitemService.GetProductItem().subscribe((result: Productitem[]) => {
       this.productitems = result;
+      // this.name = this.productitems.productItemName;
       setTimeout(() => this.dataSource.paginator = this.paginator);
     });
 
@@ -116,36 +123,43 @@ export class PlaceSupplierOrderComponent implements OnInit {
       })
   }
 
-  // openDialog(): void {
-  //   // const dialogRef = this.dialog.open(QuantityModal, {
-  //   //   width: '250px',
-  //     // element: {name: this.quantity, animal: this.animal}
-  //   // });
-
-  //   // dialogRef.afterClosed().subscribe(result => {
-  //   //   console.log('The dialog was closed');
-  //   //   //this.Quantity = result;
-  //   // });
-  // }
-
-
-  PlaceOrder() {
+  PlaceOrder(producItemName: string) {
     const confirm = this.dialog.open(QuantityModalComponent, {
       disableClose: true,
     });
+   
+     confirm.afterClosed().subscribe(res => {
 
-    confirm.afterClosed().subscribe(res => {
+      if(res) {
+      // this.QuantityModalComponent.content.event.subscribe(res => {
+      
+      var num = localStorage.getItem('quantity');
+      const q = JSON.parse(num);
+      this.quant = q;
+      console.log(this.quant);
+      console.log(res);
+      this.list.push({name: producItemName, quantity: this.quant});
+      console.log(this.list);
+      }
       this.router.navigateByUrl('placeSupplierOrder');
     })
   }
 
   finalOrder() {
     const placeOrder: PlaceSupplierOrder = this.form.value;
+    // placeOrder.supplierQuantityOrdered = this.list.
     this.placeSupplierOrderService.CreateSupplierOrder(placeOrder).subscribe(res => {
       console.log(res)
       this.loading = false
       this.router.navigateByUrl('placeSupplierOrder');
+
+      this.list.forEach(order => {
+          console.log(order);
+      });
     })
+  }
+
+  clearOrder(){
 
   }
 }

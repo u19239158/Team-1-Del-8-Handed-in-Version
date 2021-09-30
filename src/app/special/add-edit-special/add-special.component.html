@@ -1,4 +1,9 @@
 <div class="content">
+
+ <a mat-mini-fab color="primary" href="http://localhost:8080/AddSpecial.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
+                <mat-icon>help</mat-icon>
+              </a>
+
   <h2>Add Special</h2>
 
   <form [formGroup]="form">
@@ -22,7 +27,7 @@
     <div class="mat-row">
       <div class="mat-col-quarter">
         <div class="form-group" class="control-m">
-          <button mat-raised-button color="primary" type="submit" (click)="showProducts()" [disabled]="loading">
+          <button mat-raised-button color="primary" type="submit" (click)="showProducts()" [disabled]="loading" class="button">
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
             Show Products
           </button>

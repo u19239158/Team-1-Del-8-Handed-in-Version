@@ -1,5 +1,5 @@
 h2 {
-  text-align: center;
+  text-align: left;
   font-weight: 40;
   font-size: 45px;
 }
@@ -58,5 +58,34 @@ h2 {
   .search {
     position: absolute;
     right: 20px;
-    top: 75px;
+    top: 55px;
+  }
+
+  mat-card{
+    max-width: 500px;
+    max-height: 500px;
+    text-align: center;
+    left: 10px;
+  }
+
+  .split {
+    top: 25%;
+    height: 70%;
+    width: 50%;
+    position: fixed;
+  }
+  
+  .left {
+    left: 0;
+    background-color: white;
+    text-align: center;
+  }
+  
+  .right {
+    right: 0;
+    background-color: white;
+  }
+
+  button{
+    right: 20%;
   }
