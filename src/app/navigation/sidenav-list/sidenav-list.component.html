@@ -70,7 +70,7 @@
   <mat-list-item [matMenuTriggerFor]="menu4" *ngIf="user.userRoleId == 1">
     <!-- <mat-icon>shopping_cart</mat-icon> -->
     <img src="assets/images/product.png" class="w3-margin-right" width=20px height=20px>
-    <a matline>&nbsp;Products</a>
+    <a matline> &nbsp;Products</a>
   </mat-list-item>
   <mat-menu #menu4="matMenu">
     <button mat-menu-item routerLink="/productCategory" (click)="onSidenavClose()">Product Category</button>

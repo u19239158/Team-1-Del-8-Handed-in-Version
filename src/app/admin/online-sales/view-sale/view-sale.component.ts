@@ -81,6 +81,7 @@ export class ViewSaleComponent implements OnInit {
       this.sale = res
       console.log(res)
 
+
       const formOptions: AbstractControlOptions = {};
       this.form = this.formBuilder.group({
       }, formOptions)
@@ -117,6 +118,9 @@ export class ViewSaleComponent implements OnInit {
           console.log(data)
           if (data.saleOrderRecieveType == true) {
             {
+              this.OnlineSalesService.CollectionSMS(this.sale). subscribe (data => {})
+
+
               this.OnlineSalesService.GetSaleByID(this.id).subscribe(res => {
                 this.sale = res;
                 console.log(this.sale)
