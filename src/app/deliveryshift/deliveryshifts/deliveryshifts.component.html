@@ -70,7 +70,8 @@
                             <mat-icon>more_vert</mat-icon>
                         </button>
                         <mat-menu #menu="matMenu" xPosition="before">
-                            <button mat-menu-item [routerLink]="['/editDeliveryShift', element.shiftId]">Update Delivery
+                            <button mat-menu-item *ngIf="canBeUpdated(element)"
+                                [routerLink]="['/editDeliveryShift', element.shiftId]">Update Delivery
                                 Shift</button>
                             <button mat-menu-item (click)="deleteDeliveryshift(element.shiftId)">Delete Delivery
                                 Shift</button>

@@ -33,13 +33,15 @@ export class SidenavListComponent implements OnInit {
   // }
 
   Logout() {
-    const confirm = this.dialog.open(LogoutComponent, {
-             disableClose: true,
+
+    const logout = this.dialog.open(LogoutComponent, {
+             disableClose: true
             });
   
-    confirm.afterClosed().subscribe(res => {
-      this.router.navigateByUrl('login');
-      this.onSidenavClose();
-        })
+    // confirm.afterClosed().subscribe(res => {
+    //   this.router.navigateByUrl('login');
+    //   this.onSidenavClose();
+    //     })
+
       }
 }

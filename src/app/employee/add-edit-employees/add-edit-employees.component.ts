@@ -29,7 +29,7 @@ export class AddEditEmployeesComponent implements OnInit {
   selectedDate = new Date();
   collections = [];
   times = [];
-  userid : number;
+  userid: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,7 +39,7 @@ export class AddEditEmployeesComponent implements OnInit {
     private EmployeeService: EmployeeService,
   ) {
     const currentYear = new Date().getFullYear();
-    this.maxDate = moment().subtract(16, 'years').toDate();
+    this.maxDate = moment().subtract(15, 'years',).toDate();
   }
 
   ngOnInit(): void {
@@ -48,8 +48,8 @@ export class AddEditEmployeesComponent implements OnInit {
 
     var ids = localStorage.getItem('user')
     const obj = JSON.parse(ids)
-   console.log(obj.userId) 
-   this.userid = obj.userId
+    console.log(obj.userId)
+    this.userid = obj.userId
     console.log(obj)
 
     const passwordValidators = [Validators.minLength(6)];

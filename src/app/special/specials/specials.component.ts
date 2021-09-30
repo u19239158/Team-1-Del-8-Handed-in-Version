@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { direction } from 'html2canvas/dist/types/css/property-descriptors/direction';
+import * as moment from 'moment';
 
 
 @Component({
@@ -51,6 +52,12 @@ export class SpecialsComponent implements OnInit {
     this.specialService.GetSpecial().subscribe((result: Special[]) => {
       this.Specials = result;
     });
+
+  }
+
+  canBeUpdated = (element) => {
+
+    return +moment(element.specialEndDate, 'DD/MM/YYYY') > +moment()
 
   }
 

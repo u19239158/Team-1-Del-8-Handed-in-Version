@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-logout',
@@ -8,7 +9,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 
 export class LogoutComponent implements OnInit {
-  router: any;
+
   focus(): void {
     throw new Error('Method not implemented.');
   }
@@ -16,18 +17,21 @@ export class LogoutComponent implements OnInit {
    *
    * @param dialogRef {MatDialogRef<LogoutComponent>} this parameter controls the modal component and can call methods to close the modal
    */
-  constructor(private dialogRef: MatDialogRef<LogoutComponent>) { }
+  constructor(
+    private dialogRef: MatDialogRef<LogoutComponent>,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  Confirm(): void {
+  Logout() {
     window.localStorage.removeItem("user");
-    this.dialogRef.close(true);
+    this.dialogRef.close();
+    this.router.navigateByUrl('');
   }
 
-  // onNoClick(): void {
-  //   this.dialogRef.close();
-  // }
+  Cancel() {
+    this.dialogRef.close();
+  }
 
 }
