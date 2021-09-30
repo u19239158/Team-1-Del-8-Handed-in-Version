@@ -4,8 +4,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
+    selector: 'app-register',
+    templateUrl: './register.component.html',
     styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
@@ -19,11 +19,11 @@ export class RegisterComponent implements OnInit {
             'username': ['', Validators.compose([Validators.required])],
             'name': ['', Validators.compose([Validators.required])],
             'surname': ['', Validators.compose([Validators.required])],
-            'cellnumber': ['', Validators.compose([Validators.required])],
-            'email': ['', Validators.compose([Validators.required])],
-            'vat': ['', Validators.compose([Validators.required])],
-            'businessname': ['', Validators.compose([Validators.required])],
-            'password': ['', Validators.compose([Validators.required])],
+            'cellnumber': ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.minLength(10), Validators.maxLength(10)]],
+            'email': ['', [Validators.required, Validators.email]],
+            'vat': ['', [Validators.minLength(10), Validators.maxLength(10)]],
+            'businessname': ['', [Validators.maxLength(50)]],
+            'password': ['', [Validators.minLength(6), Validators.required]],
             'confirmpassword': ['', Validators.compose([Validators.required])],
         });
     }
