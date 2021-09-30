@@ -12,6 +12,10 @@ using NKAP_API_2.EF;
 using NKAP_API_2.Models;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio.Rest.Verify.V2;
+using Twilio.Types;
 
 namespace NKAP_API_2.Controllers
 {
@@ -248,37 +252,41 @@ namespace NKAP_API_2.Controllers
 
         }
 
-        ////[Route("PromoteSpecials/{customerEmail}, {}")]
-        //[Route("PromoteSpecials/{customerEmail}")] //route
-        //[HttpGet]
-        //public async Task<IActionResult> GetAsync(string customerEmail)
-        //{
-        //    var apiKey = "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";
-        //    var client = new SendGridClient(apiKey);
-        //    var msg = new SendGridMessage();
-        //    msg.SetSubject("Promote Specials");
-        //    msg.SetFrom(new EmailAddress("ds3solutions370@outlook.com", "NKAP Bolting"));
-        //    msg.AddTo(new EmailAddress(customerEmail));
-        //    msg.SetTemplateId("________");
+        [HttpPost]
+        [Route("CollectionSMS")]
+        public IActionResult CollectionSMS(CustomerModel model)
+        {
+            //send SMS here
+            const string accountSid = "AC5b5b33a689cafb8b7975e1e17d6b8bad";
+            const string authToken = "edc812f5342fb84d2ddbb527470eeef1";
+            // Initialize the Twilio client
+            TwilioClient.Init(accountSid, authToken);
+
+            // Iterate over all our friends
+            var number = "";
+            number = model.CustomerCellphoneNumber;
+            string cnumber = number.Substring(1);
+            string Ncode = "+27";
+            string finalNumber = Ncode + cnumber;
+                      
+                // Send a new outgoing SMS by POSTing to the Messages resource
+
+              
+                MessageResource.Create(
+                from: new PhoneNumber("+13128182655"), // From number, must be an SMS-enabled Twilio number
+                to: new PhoneNumber(finalNumber), // To number, if using Sandbox see note above
+                // Message content
+                body: $"Your order is ready for collection from Nkap Bolting. " +
+                $"Collection times: Monday - Friday, 08:00am - 16:00pm. " +
+                $"Business Address: 13 Watterson Street, Marburg, Port Shepstone, Kwa - Zulu Natal");
+
+
+            return Ok();
+        }
 
 
 
-        //    //var dynamicTemplateData = new Models.CourierOrderMailData
-        //    //{
-        //    //    //Subject = "Hi!",
-        //    //    //Name = "Example User"
-        //    //};
-
-        //    //msg.SetTemplateData(dynamicTemplateData);
-
-        //    var response = await client.SendEmailAsync(msg);
-
-        //    return Ok(response);
-
-        //}
-
-
-    }
+}
 
 }
 
