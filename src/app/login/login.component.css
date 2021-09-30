@@ -31,3 +31,9 @@
 h1 {
   top:50px;
 }
+
+.help{
+  position: absolute;
+  right: 20px;
+  bottom: 75px;
+}

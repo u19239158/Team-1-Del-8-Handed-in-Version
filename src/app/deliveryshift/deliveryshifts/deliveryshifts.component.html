@@ -1,5 +1,10 @@
 <div class="main">
     <div>
+
+    <a mat-mini-fab color="primary" href="http://localhost:8080/DeliveryShifts.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
+                <mat-icon>help</mat-icon>
+              </a>
+
         <h2>Delivery Shifts</h2>
 
         <div class="search">
@@ -70,7 +75,8 @@
                             <mat-icon>more_vert</mat-icon>
                         </button>
                         <mat-menu #menu="matMenu" xPosition="before">
-                            <button mat-menu-item [routerLink]="['/editDeliveryShift', element.shiftId]">Update Delivery
+                            <button mat-menu-item *ngIf="canBeUpdated(element)"
+                                [routerLink]="['/editDeliveryShift', element.shiftId]">Update Delivery
                                 Shift</button>
                             <button mat-menu-item (click)="deleteDeliveryshift(element)">Delete Delivery
                                 Shift</button>

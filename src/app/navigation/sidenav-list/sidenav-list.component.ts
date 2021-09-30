@@ -11,30 +11,30 @@ import { LoginService } from 'src/app/services/login/login-service';
   styleUrls: ['./sidenav-list.component.scss']
 })
 export class SidenavListComponent implements OnInit {
-  userid : number;
+  userid: number;
   user: Login = {} as Login;
   @Output() sidenavClose = new EventEmitter();
 
   @ViewChild('logout') menuTrigger: LogoutComponent;
 
   constructor(private dialog: MatDialog,
-              private router: Router,
-              private log: LoginService,
-              ) { }
+    private router: Router,
+    private log: LoginService,
+  ) { }
 
   ngOnInit(): void {
 
     var ids = localStorage.getItem('user')
     const obj = JSON.parse(ids)
-   console.log(obj.userId) 
-   this.userid = obj.userId
+    console.log(obj.userId)
+    this.userid = obj.userId
     console.log(obj)
 
     this.log.GetUserByID(obj.userId).subscribe(res => {
       this.user = res
       console.log(res)
-  });
-}
+    });
+  }
   public onSidenavClose = () => {
     this.sidenavClose.emit();
   }
@@ -48,13 +48,15 @@ export class SidenavListComponent implements OnInit {
   // }
 
   Logout() {
-    const confirm = this.dialog.open(LogoutComponent, {
-             disableClose: true,
-            });
-  
-    confirm.afterClosed().subscribe(res => {
-      this.router.navigateByUrl('');
-      this.onSidenavClose();
-        })
-      }
+
+    const logout = this.dialog.open(LogoutComponent, {
+      disableClose: true
+    });
+
+    // confirm.afterClosed().subscribe(res => {
+    //   this.router.navigateByUrl('login');
+    //   this.onSidenavClose();
+    //     })
+
+  }
 }

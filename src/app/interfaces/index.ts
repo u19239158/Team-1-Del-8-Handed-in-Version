@@ -92,6 +92,7 @@ export interface Courier {
 }
 
 export interface Deliveryshift {
+  canBeUpdated: boolean;
   customerBusinessName: string;
   customerSurname: string;
   addressLine2: string;

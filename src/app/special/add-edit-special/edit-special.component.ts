@@ -27,13 +27,13 @@ export class EditSpecialComponent implements OnInit {
   specials: Observable<Special[]>;
   collection = [];
   selected: string;
-  userid : number;
+  userid: number;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private snack : MatSnackBar,
+    private snack: MatSnackBar,
     private SpecialService: SpecialService,
     private http: HttpClient
 
@@ -41,28 +41,48 @@ export class EditSpecialComponent implements OnInit {
 
 
   ngOnInit(): void {
-    const formOptions: AbstractControlOptions = { };
+    const formOptions: AbstractControlOptions = {};
+    if (!this.isAddMode) {
+      this.SpecialService.getSpecialByID(this.id).subscribe(res => {
+        this.special = res
+        console.log(res)
+        this.form = this.formBuilder.group({
+          // id: [this.special.specialID, Validators.required],
+          specialDescription: [this.special.specialDescription, [Validators.required]],
+          discountId: [this.special.discountPercentage, [Validators.required]],
+          specialStartDate: [this.special.specialStartDate, [Validators.required]],
+          specialEndDate: [this.special.specialEndDate, [Validators.required]],
+
+          //categoryTypeImage : this.image,
+          // categoryTypeDescription: [this.categorytype.categoryTypeDescription, [Validators.required, Validators.maxLength(50)]],
+          //categoryTypeImage: [this.image, [Validators.required]],
+          // itemDescription: [this.categorytype.itemDescription, [Validators.required, Validators.maxLength(50)]],
+          // productCategoryID: [this.categorytype.productCategoryID, [Validators.required, Validators.maxLength(50)]],
+        }, formOptions);
+      });
+    }
+
     this.getCollection();
-    
+
     var ids = localStorage.getItem('user')
     const obj = JSON.parse(ids)
-   console.log(obj.userId) 
-   this.userid = obj.userId
+    console.log(obj.userId)
+    this.userid = obj.userId
     console.log(obj)
 
-    this.id = +this.route.snapshot.params['id'];
-    this.SpecialService.getSpecialByID(this.id).subscribe(res =>{
-       this.special = res
-       this.form = this.formBuilder.group({
-      id: [this.special.specialID, Validators.required],
-      specialDescription: [this.special.specialDescription, [Validators.required]],
-      discountId: [this.special.discountPercentage, [Validators.required]],
-      specialStartDate: [this.special.specialStartDate, [Validators.required]],
-      specialEndDate: [this.special.specialEndDate, [Validators.required]],
-    }, formOptions); ;})
-      
-    
-    
+    // this.id = +this.route.snapshot.params['id'];
+    // this.SpecialService.getSpecialByID(this.id).subscribe(res =>{
+    //    this.special = res
+    //    this.form = this.formBuilder.group({
+    //   id: [this.special.specialID, Validators.required],
+    //   specialDescription: [this.special.specialDescription, [Validators.required]],
+    //   discountId: [this.special.discountPercentage, [Validators.required]],
+    //   specialStartDate: [this.special.specialStartDate, [Validators.required]],
+    //   specialEndDate: [this.special.specialEndDate, [Validators.required]],
+    // }, formOptions); })
+
+
+
 
   }
 
@@ -143,12 +163,12 @@ export class EditSpecialComponent implements OnInit {
       this.form.reset();
       this.router.navigateByUrl('special');
     });
-    this.snack.open('Special Successfully Updated! ', 'OK', 
-    {
-      verticalPosition: 'bottom',
-      horizontalPosition: 'center',
-      duration: 2000
-    });
+    this.snack.open('Special Successfully Updated! ', 'OK',
+      {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+        duration: 2000
+      });
   }
 
   Close() {

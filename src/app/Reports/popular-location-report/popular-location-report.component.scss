@@ -3,6 +3,12 @@
     width: 50%;
 }
 
+.help{
+  position: absolute;
+  right: 20px;
+  top: 75px;
+}
+
 .column {
     float: left;
     padding: 10px;
@@ -13,3 +19,8 @@
     width: 40%;
   }
   
+  .help{
+    position: absolute;
+    left: 20px;
+    top: 75px;
+  }
