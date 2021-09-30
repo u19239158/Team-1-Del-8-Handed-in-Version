@@ -11,6 +11,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { direction } from 'html2canvas/dist/types/css/property-descriptors/direction';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-deliveryshifts',
@@ -33,6 +34,9 @@ export class DeliveryshiftsComponent implements OnInit {
   displayedColumns: string[] = ['startTime', 'endTime', 'dayOfTheWeek', 'employeeName', 'noOfDeliveries', 'actions'];
   @ViewChild(MatSort) sort: MatSort;
 
+  now: number = +Date();
+
+
   constructor(private deliveryshiftService: DeliveryshiftService,
     private snack: MatSnackBar,
     private router: Router,
@@ -47,9 +51,19 @@ export class DeliveryshiftsComponent implements OnInit {
     const obj = JSON.parse(ids)
    this.userid = obj.userId
     this.deliveryshiftService.GetDeliveryShift().subscribe((result: Deliveryshift[]) => {
-      this.DeliveryShifts = result;
+      this.setDeliveryShifts(result);
     });
 
+  }
+
+  canBeUpdated = (element) => {
+
+    return +moment(element.dayOfTheWeek, 'DD/MM/YYYY') > +moment()
+
+  }
+
+  setDeliveryShifts(result) {
+    this.DeliveryShifts = result;
   }
 
   readDeliveryshifts(): void {

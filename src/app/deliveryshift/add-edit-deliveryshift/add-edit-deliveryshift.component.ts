@@ -37,7 +37,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
   currentData = 2;
   minDate: Date;
   selectedDate = new Date();
-  userid : number;
+  userid: number;
 
 
   constructor(
@@ -60,8 +60,8 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
 
     var ids = localStorage.getItem('user')
     const obj = JSON.parse(ids)
-   console.log(obj.userId) 
-   this.userid = obj.userId
+    console.log(obj.userId)
+    this.userid = obj.userId
     console.log(obj)
 
     const formOptions: AbstractControlOptions = {};
@@ -124,6 +124,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     this.loading = true;
     if (this.isAddMode) {
       this.AssignDeliveryShifts();
+      console.log("ff", this.form.value)
     } else {
       this.updateDeliveryshift();
     }
@@ -193,7 +194,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     const deliveryshift: Deliveryshift = this.form.value;
     deliveryshift.usersId = this.userid
     this.DeliveryShiftService.AssignDeliveryShifts(deliveryshift).subscribe(res => {
-      console.log(res)
+      console.log("check", deliveryshift)
       this.loading = false
       this.router.navigateByUrl('deliveryShift');
     });
@@ -203,7 +204,9 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
         horizontalPosition: 'center',
         duration: 4000
       });
+
   }
+
 
   updateDeliveryshift() {
     const deliveryshift: Deliveryshift = this.form.value;
