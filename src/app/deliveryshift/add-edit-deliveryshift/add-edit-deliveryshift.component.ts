@@ -83,8 +83,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
       console.log("test", this.shiftId)
       this.DeliveryShiftService.getDeliveryShiftByID(this.shiftId).subscribe(res => {
         this.deliveryshift = res
-        console.log("res5", res)
-        console.log("dayOfTheWeek", this.deliveryshift.dayOfTheWeek)
+
         this.form = this.formBuilder.group({
           dateId: [this.deliveryshift.dateId, [Validators.required]],
           timeId: [this.deliveryshift.timeId, [Validators.required]],

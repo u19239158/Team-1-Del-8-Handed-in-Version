@@ -24,7 +24,7 @@ export class ForgotUsernameComponent implements OnInit {
     private formBuilder: FormBuilder,
     private snack: MatSnackBar,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,) {
 
   }
 
@@ -40,8 +40,8 @@ export class ForgotUsernameComponent implements OnInit {
   }
 
   Confirm(): void {
-    window.localStorage.removeItem("user");
-    // this.dialogRef.close(true);
+    // window.localStorage.removeItem("user");
+    this.dialogRef.close();
   }
 
   Cancel(): void {
