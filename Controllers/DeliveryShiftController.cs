@@ -464,12 +464,7 @@ namespace NKAP_API_2.Controllers
         public IActionResult DeleteDeliveryShift(DeliveryShiftModel model)
         {
             var shift1 = _db.EmployeeShifts.FirstOrDefault(zz => zz.ShiftId == model.ShiftId);
-            if (shift1.DeliveryId >= 0)
-            {
-                response = "Delivery Shift could not be deleted as it is has a delivery allocated to it";
-                return BadRequest(response);
-            }
-            else
+            if (shift1.NoOfDeliveries == 0)
             {
                 var shift = _db.Shifts.FirstOrDefault(zz => zz.ShiftId == model.ShiftId);
                 _db.Shifts.Remove(shift);
@@ -489,6 +484,12 @@ namespace NKAP_API_2.Controllers
                 _db.SaveChanges();
 
                 return Ok(delShift);
+               
+            }
+            else
+            {
+                response = "Delivery Shift could not be deleted as it is has a delivery allocated to it";
+                return BadRequest(response);
             }
             //try
             //{
@@ -546,6 +547,7 @@ namespace NKAP_API_2.Controllers
                 //attributes in table 
                 ShiftId = shifts.ShiftId,
                 EmployeeId = model.EmployeeID,
+                NoOfDeliveries = 0,
             };
             _db.EmployeeShifts.Add(EmpShifts);
             _db.SaveChanges();
