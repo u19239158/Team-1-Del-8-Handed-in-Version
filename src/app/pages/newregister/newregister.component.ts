@@ -20,9 +20,9 @@ export class NewregisterComponent implements OnInit {
   customers: Observable<User[]>;
   collection = [];
   selected: string;
-  userid : number;
+  userid: number;
 
-  constructor( private formBuilder: FormBuilder,
+  constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private snack: MatSnackBar,
@@ -41,13 +41,12 @@ export class NewregisterComponent implements OnInit {
       userUsername: ['', [Validators.required]],
       customerBusinessName: ['', [Validators.maxLength(50)]],
       customerVATReg: ['', [Validators.minLength(10), Validators.maxLength(10)]],
-      userPassword: ['', [Validators.minLength(6), Validators.required , Validators.nullValidator]],
-       customerConfirmPassword: ['',  [Validators.required , Validators.nullValidator]]
+      userPassword: ['', [Validators.minLength(6), Validators.required, Validators.nullValidator]],
+      customerConfirmPassword: ['', [Validators.required, Validators.nullValidator]],
     }, formOptions);
   }
 
-  onSubmit()
-  {
+  onSubmit() {
     const customer: User = this.form.value;
     this.CustomerService.Register(customer).subscribe(res => {
       console.log(res)
@@ -60,7 +59,7 @@ export class NewregisterComponent implements OnInit {
     this.http
       .get<any>('https://localhost:44393/api/Title/GetTitle').subscribe((res: any) => {
         this.collection = res;
-        console.log (res) ;
+        console.log(res);
       }, error => {
         console.log({ error });
       })
@@ -68,7 +67,7 @@ export class NewregisterComponent implements OnInit {
 
   Close() {
     this.form.reset();
-    this.router.navigateByUrl('products');
+    this.router.navigateByUrl('login');
   }
 
 }
