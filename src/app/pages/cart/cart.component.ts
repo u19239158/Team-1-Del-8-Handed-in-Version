@@ -16,6 +16,24 @@ export interface Coordinates {
   latitude: number;
   longitude: number;
 }
+export interface Address {
+  customerId: number;
+  ProvinceID: number;
+  AddressLine1: string;
+  AddressLine2: string;
+  AddressLine3: string;
+  AddressPostalCode: string;
+}
+
+export interface Collection {
+  customerId: number;
+  CollectionID: number;
+}
+
+export interface Delivery {
+  customerId: number;
+  DeliveryID: number;
+}
 
 
 
@@ -27,6 +45,7 @@ export interface Coordinates {
 export class CartComponent implements OnInit {
 
   email = new FormControl('', [Validators.required, Validators.email]);
+
   addressform: FormGroup;
 
   isSubmitted = false;
@@ -48,7 +67,19 @@ export class CartComponent implements OnInit {
 
 
   ngOnInit() {
+
+
     const formOptions: AbstractControlOptions = { };
+
+    const AddressformOptions: AbstractControlOptions = {};
+    this.addressform = this.formBuilder.group({
+    AddressLine1 : new FormControl('', [Validators.required]),
+    addressline2 : new FormControl('', [Validators.required]),
+    addressline3 : new FormControl(''),
+    city : new FormControl('', [Validators.required]),
+    province : new FormControl('', [Validators.required]),
+    postalCode : new FormControl('', [Validators.required,Validators.maxLength(4)])
+  }, AddressformOptions);
 
       
     //show products in cart
@@ -213,6 +244,11 @@ reloadCurrentPage(){
       
       document.querySelector('#deliveryModal').classList.add('is-active')
       document.querySelector('.modal').classList.remove('is-active')
+      const delivery: Delivery = form.value;
+      this.cartService.postDelivery(delivery)
+      .subscribe(res => {
+        console.log(res)
+      })
     }
     else{
       const customerEmail = this.email.value
@@ -221,16 +257,27 @@ reloadCurrentPage(){
       console.log(customerEmail)
       
       document.querySelector('.modal').classList.remove('is-active')
-
+      const collection: Collection = form.value;
+      this.cartService.postCollection(collection)
+      .subscribe(res => {
+        console.log(res)
+      })
       this.makePayment()
     }
   }
 
-  createCustomerAddress(){
-    const customerEmail = this.email.value
-    console.log("customerEmail yessssss")
+  submitAddressForm() {
 
-    this.makePayment()
+      const address: Address = this.addressform.value;
+      console.log(address)
+      this.cartService.AddCustomerAddress(address).subscribe(res => {
+        console.log(res)
+
+        document.querySelector('.modal').classList.remove('is-active')
+
+      //this.cartService.Checkout(form);
+      //this.makePayment();
+    })
   }
 
 
