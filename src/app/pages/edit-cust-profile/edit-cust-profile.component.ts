@@ -34,28 +34,15 @@ export class EditCustProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const formOptions: AbstractControlOptions = {};
-    this.id = +this.route.snapshot.params['id'];
-    this.isAddMode = !this.id;
     this.getCollection();
-    const passwordValidators = [Validators.minLength(6)];
-
     var ids = localStorage.getItem('user')
     const obj = JSON.parse(ids)
-    console.log(obj.userId)
     this.userid = obj.userId
-    console.log(obj)
-
-
-    // if (this.isAddMode) {
-    //     passwordValidators.push(Validators.required);
-    // }
-    //if (!this.isAddMode) {
+    const formOptions: AbstractControlOptions = {};
     this.customerService.GetProfile(this.userid).subscribe(res => {
       this.Customer = res
-      console.log(res)
       this.form = this.formBuilder.group({
-        titleID: [this.Customer.titleID, [Validators.required]],
+        titleID: [this.Customer.titleDesc, [Validators.required]],
         customerName: [this.Customer.customerName, [Validators.required]],
         customerSurname: [this.Customer.customerSurname, [Validators.required]],
         customerEmailAddress: [this.Customer.customerEmailAddress, [Validators.required, Validators.email]],
@@ -67,6 +54,8 @@ export class EditCustProfileComponent implements OnInit {
         // customerPassword: ['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
         // customerConfirmPassword: ['', this.isAddMode ? Validators.required : Validators.nullValidator]
       }, formOptions);
+      const passwordValidators = [Validators.minLength(6)];
+      console.log(obj)
     })
     // }
   }
@@ -79,7 +68,7 @@ export class EditCustProfileComponent implements OnInit {
 
   editCustomer() {
     const customer: Customer = this.form.value;
-    customer.customerId = this.Customer.customerId;
+    customer.usersId = this.userid
     this.customerService.UpdateProfile(customer).subscribe(res => {
       console.log(res)
       //this.form.reset();

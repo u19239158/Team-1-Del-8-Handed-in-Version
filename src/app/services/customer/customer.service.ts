@@ -16,6 +16,7 @@ export interface Customer {
   customerPassword: string;
   titleID: number;
   titleDesc: string;
+  usersId: number;
 }
 
 export interface User {

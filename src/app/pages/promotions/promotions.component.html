@@ -24,20 +24,20 @@
   <ng-container *ngFor="let specials of specials">         
       <div class="card col-md-3">
               
-            <p class="title">{{specials.productItemName}}</p>
-            <p class="subtitle">R {{specials.specialPrice | number:'0.1-2'}}</p>
+            <p class="title">{{specials.ProductItemname}}</p>
+            <p class="subtitle">R {{specials.Specialprice | number:'0.1-2'}}</p>
 
-            <center><img src="{{specials.categoryTypeImage}}" alt=""></center>
-            <p class="subtitle">R {{specials.specialDescription}}</p>
+            <center><img src="{{specials.categorytypeimage}}" alt=""></center>
+            <p class="subtitle"> {{specials.specialdescription}}</p>
    
             <div class="tags has-addons">
               <span class="tag is-danger">Sale starts</span>
-              <span class="tag is-danger is-light">{{specials.specialStartDate | date:"dd/MM/yy"}}</span>
+              <span class="tag is-danger is-light">{{specials.specialstartdate | date:"dd/MM/yy"}}</span>
             </div>
 
             <div class="tags has-addons">
               <span class="tag is-danger">Sale ends</span>
-              <span class="tag is-danger is-light">{{specials.specialEndDate | date:"dd/MM/yy"}}</span>
+              <span class="tag is-danger is-light">{{specials.specialenddate | date:"dd/MM/yy"}}</span>
             </div>
             <button class="button is-info is-rounded" (click)=addtocart(category)>Add to Cart</button>
             
