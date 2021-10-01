@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { last } from 'rxjs/operators';
-import { PlaceSupplierOrder } from 'src/app/interfaces';
+import { PlaceSupplierOrder, place } from 'src/app/interfaces';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -18,7 +18,7 @@ export class PlaceSupplierOrderService {
 };
   constructor(private http: HttpClient) { }
 
-  CreateSupplierOrder(PlaceSupplierOrder:PlaceSupplierOrder):  Observable<PlaceSupplierOrder[]>  {
-    return this.http.post<PlaceSupplierOrder[]>(`${this.server}SupplierOrder/CreateSupplierOrder`, PlaceSupplierOrder,this.httpOptions);
+  PlaceSupplierOrder(place:place):  Observable<place[]>  {
+    return this.http.post<place[]>(`${this.server}SupplierOrder/PlaceSupplierOrder`, place,this.httpOptions);
   }
 }

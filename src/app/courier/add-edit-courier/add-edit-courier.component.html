@@ -1,5 +1,13 @@
 <div class="content">
 
+  <a *ngIf="isAddMode" mat-mini-fab color="primary" href="http://localhost:8080/AddCourier.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
+                <mat-icon>help</mat-icon>
+              </a>
+
+              <a *ngIf="!isAddMode" mat-mini-fab color="primary" href="http://localhost:8080/UpdateCourier.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
+                <mat-icon>help</mat-icon>
+              </a>
+
 <h2 *ngIf="isAddMode">Add Courier</h2>
 <h2 *ngIf="!isAddMode">Edit Courier</h2>
 

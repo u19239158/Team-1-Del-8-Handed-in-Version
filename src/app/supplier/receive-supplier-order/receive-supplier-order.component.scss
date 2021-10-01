@@ -1,7 +1,7 @@
 h2 {
   font-weight: 400;
   font-size: 45px;
-  left: 40px;
+  text-align: center;
 }
 
 .content {
@@ -9,6 +9,12 @@ margin: 0;
 position:inherit;
 top: 25%;
 left: 25%;
+}
+
+.help{
+  position: absolute;
+  left: 20px;
+  top: 75px;
 }
 
 table {
