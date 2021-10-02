@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ProductitemService } from 'src/app/services/productitem/productitem.service';
 import { PlaceSupplierOrderService } from 'src/app/services/place-supplier-order/place-supplier-order.service';
-import { PlaceSupplierOrder, Productitem, Data } from 'src/app/interfaces';
+import { PlaceSupplierOrder, Productitem, Data, place } from 'src/app/interfaces';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
@@ -45,6 +45,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
   name: string;
   quant: number;
   QuantityModalComponent: QuantityModalComponent;
+  place : place;
   
   highlight(element: PlaceSupplierOrder) {
     element.highlighted = !element.highlighted;
@@ -123,7 +124,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
       })
   }
 
-  PlaceOrder(producItemName: string) {
+  PlaceOrder(producItemName: string, productItemId: number) {
     const confirm = this.dialog.open(QuantityModalComponent, {
       disableClose: true,
     });
@@ -138,7 +139,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
       this.quant = q;
       console.log(this.quant);
       console.log(res);
-      this.list.push({name: producItemName, quantity: this.quant});
+      this.list.push({name: producItemName, quantity: this.quant , id:productItemId });
       console.log(this.list);
       }
       this.router.navigateByUrl('placeSupplierOrder');
@@ -147,17 +148,33 @@ export class PlaceSupplierOrderComponent implements OnInit {
 
   finalOrder() {
     const placeOrder: PlaceSupplierOrder = this.form.value;
-    // placeOrder.supplierQuantityOrdered = this.list.
-    this.placeSupplierOrderService.CreateSupplierOrder(placeOrder).subscribe(res => {
+
+   
+    for (let index = 0; index < this.list.length; index++) {
+      const element = this.list[index];
+      
+      console.log(element);
+      console.log(element.id)
+        
+      this.place.id = element.id;
+       element.name = this.place.name;
+       element.quantity = this.place.quantity;
+      
+    
+    }
+
+    this.placeSupplierOrderService.PlaceSupplierOrder(this.place).subscribe(res => {
       console.log(res)
       this.loading = false
       this.router.navigateByUrl('placeSupplierOrder');
 
-      this.list.forEach(order => {
-          console.log(order);
-      });
+      // this.list.forEach(order => {
+      //     console.log(order);
+      // }); 
     })
   }
+
+ 
 
   clearOrder(){
 

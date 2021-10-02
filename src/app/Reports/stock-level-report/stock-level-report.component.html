@@ -4,13 +4,13 @@
 
 <div>
   <h1>Stock Level Report </h1>
-  <button mat-raised-button color ="primary" (click)="generatePdf()">Generate PDF</button>
+  <button type="submit" class="btn btn-success" (click)="exportexcel()" >Export to Excel</button>
   <br>
   <br>
 </div>
 
 <div>
-  <table mat-table [dataSource]="dataSource" matSort>
+  <table mat-table [dataSource]="dataSource" matSort id="stockTable">
        
         <ng-container matColumnDef="productCategory">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Category </th>

@@ -81,7 +81,9 @@ export class WeekSelectionStrategy<D>
 })
 export class MonthlySalesOrderReportComponent implements OnInit {
   dataSource = new MatTableDataSource<Reports>();
+  dataSauce = new MatTableDataSource<Reports>();
   displayedColumns: string[] = ['saleId', 'saleOrderDate', 'customerName', 'customerCellphoneNumber',  'customerBusinessName','salePaymentAmount'];
+  displayed: string[] = ['ProductCategory', 'NumberOfSales'];
   tableData: any;
   Sales: any ;
   aveg: any;
@@ -131,6 +133,8 @@ export class MonthlySalesOrderReportComponent implements OnInit {
     console.log(event, active);
   }
 
+
+
   generateReport() {
     this.serv.SalesReport(this.form.value).subscribe(data => {
       this.created = true;
@@ -144,6 +148,10 @@ export class MonthlySalesOrderReportComponent implements OnInit {
      this.serv.SalesReportAvg(this.form.value).subscribe(res =>{
       console.log(res)
       this.aveg= res;
+      this.serv.SalesControl(this.form.value).subscribe(res => {
+        this.dataSauce = new MatTableDataSource(res)
+        console.log(res);
+      })
     },(error: HttpErrorResponse) =>
     {
       console.log(error.error,"test")
@@ -163,6 +171,8 @@ export class MonthlySalesOrderReportComponent implements OnInit {
     
   }
   )
+
+
 
   }
   // Restructure data for chart

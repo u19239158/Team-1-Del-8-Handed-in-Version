@@ -88,9 +88,9 @@ export class SpecialsComponent implements OnInit {
 
   deleteSpecial(special: Special) {
     special.usersId = this.userid
-    this.specialService.getSpecialByID(special).subscribe(res => {
-      this.specspeiial = res;
-      console.log(this.specspeiial)
+    // this.specialService.getSpecialByID(special.specialID).subscribe(res => {
+    //   this.specspeiial = res;
+    //   console.log(this.specspeiial)
       const confirm = this.dialog.open(GlobalConfirmComponent, {
         disableClose: true,
       });
@@ -110,7 +110,7 @@ export class SpecialsComponent implements OnInit {
 
         }
       });
-    })
+   // })
   }
 
 

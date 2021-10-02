@@ -116,6 +116,12 @@ export interface Deliveryshift {
   customerCellphoneNumber : string;
   addressPostalCode : number;
   usersId: number;
+  maxNumber : number;
+}
+
+export interface dshift {
+  maxId: number
+  maxNumber : number
 }
 
 export interface Productcategory {
@@ -190,8 +196,15 @@ export interface PlaceSupplierOrder {
 }
 
 export class Data {
+  public id : number;
   public name: string;
   public quantity: number;
+}
+
+export interface place {
+   id : number;
+   name: string;
+   quantity: number;
 }
 
 export interface StockTake {
@@ -255,6 +268,9 @@ export interface Reports {
   quantitySold: number;
   numberOfSales: number;
   numberOfSalesMade: number;
+  productCategory: string;
+  NumberOfSales : number;
+  ProductCategory : string;
 }
 
 export interface OnlineSales {

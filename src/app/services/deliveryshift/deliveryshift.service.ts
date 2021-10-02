@@ -1,3 +1,4 @@
+import { dshift } from './../../interfaces/index';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -50,6 +51,18 @@ export class DeliveryshiftService {
     return this.http.put<Deliveryshift[]>(`${this.server}Deliveryshift/UpdateDeliveryShift`, Deliveryshift, this.httpOptions);
   }
 
+  UpdateMaxDeliveries(Deliveryshift: Deliveryshift): Observable<Deliveryshift[]> {
+    return this.http.put<Deliveryshift[]>(`${this.server}Deliveryshift/UpdateMaxDeliveries`, Deliveryshift, this.httpOptions);
+  }
+
+  // GetMaxD(): Observable<dshift[]> {
+  //   return this.http.get<dshift[]>(`${this.server}Deliveryshift/GetMaxD`).pipe(map(res => res));
+  // }
+
+  GetMaxD(id): Observable<dshift> {
+    return this.http.get<dshift>(`${this.server}Deliveryshift/GetMaxD/${id}`).pipe(map(res => res));
+  }
+  
   DeleteDeliveryShift(Deliveryshift: Deliveryshift): Observable<Deliveryshift[]> {
     return this.http.post<Deliveryshift[]>(`${this.server}Deliveryshift/DeleteDeliveryShift`, Deliveryshift, this.httpOptions);
   }
