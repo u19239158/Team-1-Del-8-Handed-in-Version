@@ -6,6 +6,7 @@ import jsPDF from 'jspdf';
 import { ReportServiceService } from 'src/app/services/Reports/report-service.service';
 import { MatTableDataSource } from '@angular/material/table';
 import html2canvas from 'html2canvas';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-stock-level-report',
@@ -16,6 +17,7 @@ import html2canvas from 'html2canvas';
 export class StockLevelReportComponent implements OnInit {
   dataSource = new MatTableDataSource<Reports>();
   displayedColumns: string[] = ['productCategory', 'categoryType','productItemId', 'productItemName', 'quantityOnHand'];
+  fileName= 'StockLevel.xlsx'; 
 
   constructor(private service: ReportServiceService ) { }
 
@@ -56,5 +58,19 @@ export class StockLevelReportComponent implements OnInit {
               'Quantity on Hand'
             ]]
 
+            exportexcel(): void 
+            {
+               /* table id is passed over here */   
+               let element = document.getElementById('stockTable'); 
+               const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+        
+               /* generate workbook and add the worksheet */
+               const wb: XLSX.WorkBook = XLSX.utils.book_new();
+               XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        
+               /* save to file */
+               XLSX.writeFile(wb, this.fileName);
+              
+            }
    
 }

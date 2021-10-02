@@ -81,6 +81,10 @@ export class ReportServiceService {
   DashboardPieSales(): Observable<any> {
     return this.http.get(`${this.server}Report/DashboardPieSales`).pipe(map(res => res))
   }
+
+  SalesControl(ReportParams: ReportParameters): Observable<any> {
+    return this.http.post(`${this.server}Report/SalesControl`, ReportParams).pipe(map(res => res))
+  }
 }
 
 

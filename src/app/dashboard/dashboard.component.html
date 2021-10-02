@@ -2,11 +2,11 @@
                 <mat-icon>help</mat-icon>
               </a>
 
-<h2>Dashboard</h2>
+<h1>Daily Dashboard Sales</h1>
 
 <mat-card  class="split left">
 <div>
-  <h2>Items Sold Per Product Category</h2>
+  <h2>Daily Sales Per Product Category</h2>
   <div id="htmlData" class=" column right" *ngIf="created">
     <div style="display: block">
       <canvas baseChart
@@ -23,7 +23,27 @@
 </div>
 </mat-card>
 
-<mat-card class="split right">
+<mat-card  class="split right">
+<div>
+  <h2>Daily Sales Per Category Type</h2>
+  <div id="htmlData" class=" column right" *ngIf="created">
+    <div style="display: block">
+      <canvas baseChart
+        [datasets]="barChartDat"
+        [labels]="barChartLabe"
+        [options]="barChartOpt"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLeg"
+        [chartType]="barChartTy">
+      </canvas>
+    </div>
+    <!-- <button mat-button mat-raised-button color="primary" (click)="randomize()">Update</button> -->
+  </div>
+</div>
+</mat-card>
+
+
+<!-- <mat-card class="split right">
 <div>
   <h2>Items Sold Per Category Type</h2>
   <div>
@@ -40,4 +60,4 @@
     </div>
   </div>
 </div>
-</mat-card>
+</mat-card> -->
