@@ -72,20 +72,13 @@ export class LoginComponent implements OnInit {
            this.router.navigateByUrl('home');
           },(error: HttpErrorResponse)=>
           {
-          //   if (error.status ===200)
-          //   {
-          //     localStorage.setItem('user', error.error.text);
-          //     console.log(error)
-          //     this.router.navigateByUrl('/');
-          // }
-
           if (error.status === 400)
             {
               this.snack.open(error.error, 'OK',
               {
                 verticalPosition: 'top',
-      horizontalPosition: 'center',
-      duration: 4000
+                horizontalPosition: 'center',
+                  duration: 4000
               });
           }});
           
