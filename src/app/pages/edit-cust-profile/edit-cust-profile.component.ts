@@ -22,7 +22,7 @@ export class EditCustProfileComponent implements OnInit {
   customers: Observable<Customer[]>;
   collection = [];
   selected: string;
-  userid : number;
+  userid: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,7 +37,7 @@ export class EditCustProfileComponent implements OnInit {
     this.getCollection();
     var ids = localStorage.getItem('user')
     const obj = JSON.parse(ids)
-   this.userid = obj.userId
+    this.userid = obj.userId
     const formOptions: AbstractControlOptions = {};
     this.customerService.GetProfile(this.userid).subscribe(res => {
       this.Customer = res
@@ -49,7 +49,7 @@ export class EditCustProfileComponent implements OnInit {
         customerCellphoneNumber: [this.Customer.customerCellphoneNumber, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
         //customerUsername: [this.Customer.customerUserName, [Validators.required]],
         customerBusinessName: [this.Customer.customerBusinessName, [Validators.maxLength(50)]],
-        customerVATReg: [this.Customer.customerVATReg, [Validators.maxLength(10)]],
+        customerVATReg: [this.Customer.customerVATReg, [Validators.minLength(10), Validators.maxLength(10)]],
         titleDesc: [this.Customer.titleDesc, [Validators.maxLength(50)]],
         // customerPassword: ['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
         // customerConfirmPassword: ['', this.isAddMode ? Validators.required : Validators.nullValidator]
