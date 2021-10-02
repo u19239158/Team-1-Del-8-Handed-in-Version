@@ -28,7 +28,7 @@ export interface Sale
 
 export interface Address {
   //customerId: number;
-  ProvinceID: number;
+  provinceDescription: string;
   AddressLine1: string;
   AddressLine2: string;
   AddressLine3: string;
@@ -38,6 +38,15 @@ export interface Address {
 export interface Collection {
   //customerId: number;
   CollectionID: number;
+}
+
+export interface OnlineSale {
+  customerId: number;
+  paymentAmount: number;
+  productItemId: number;
+  salelineQuantity: number;
+  productItemName: string;
+ 
 }
 
 export interface Delivery {
@@ -91,8 +100,8 @@ export class CartService {
     return this.http.post<Delivery[]>(`${this.server}Checkout/Delivery`,Delivery ,this.httpOptions);
 
   }
-  postCollection(Collection:Collection):Observable<Collection[]>{
-    return this.http.post<Collection[]>(`${this.server}Checkout/Collection`, Collection,this.httpOptions);
+  postCollection(OnlineSale:OnlineSale):Observable<OnlineSale[]>{
+    return this.http.post<OnlineSale[]>(`${this.server}Checkout/CollectionCheckout`, OnlineSale,this.httpOptions);
 
   }
   getProducts(){
@@ -129,6 +138,7 @@ export class CartService {
     return quantity;
   }
 
+  
 
 
   getTotalPrice() : number{

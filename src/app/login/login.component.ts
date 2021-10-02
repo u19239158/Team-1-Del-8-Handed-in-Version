@@ -42,7 +42,17 @@ export class LoginComponent implements OnInit {
         
         localStorage.setItem('user', JSON.stringify(res));
         this.router.navigateByUrl('/');
-      }
+      },(error: HttpErrorResponse)=>
+      {
+      if (error.status === 400)
+        {
+          this.snack.open(error.error, 'OK',
+          {
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+              duration: 4000
+          });
+      }}
       )}
 
     // onSubmit(loginForm) {

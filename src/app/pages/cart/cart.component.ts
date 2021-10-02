@@ -1,6 +1,6 @@
 import { AutofillMonitor } from '@angular/cdk/text-field';
 import { Component, OnInit } from '@angular/core';
-import { CartService, Sale } from 'src/app/services/service/cart.service';
+import { CartService, OnlineSale, Sale,  } from 'src/app/services/service/cart.service';
 import { AbstractControlOptions ,FormBuilder, FormGroup, NgForm, Validators, FormControl } from '@angular/forms';
 import { SafeMethodCall } from '@angular/compiler';
 import { Observable } from 'rxjs';
@@ -9,6 +9,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Customer,CustomerService } from 'src/app/services/customer/customer.service';
+import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 
 
 export interface Coordinates {
@@ -18,7 +20,7 @@ export interface Coordinates {
 }
 export interface Address {
   customerId: number;
-  ProvinceID: number;
+  provinceDescription: string;
   AddressLine1: string;
   AddressLine2: string;
   AddressLine3: string;
@@ -54,13 +56,15 @@ export class CartComponent implements OnInit {
   public vatTotals !: number;
   public grandTotal !: number;
   public  coordinates: Coordinates;
-
+  Customer: Customer;
+  userid : number;
   constructor(
     private router: Router,
     private cartService : CartService,
     private snack : MatSnackBar,
     private formBuilder: FormBuilder,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private customerService: CustomerService,
   ) {
     this.coordinates = {} as Coordinates;
   }
@@ -68,17 +72,15 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
 
-
     const formOptions: AbstractControlOptions = { };
-
     const AddressformOptions: AbstractControlOptions = {};
     this.addressform = this.formBuilder.group({
     AddressLine1 : new FormControl('', [Validators.required]),
     addressline2 : new FormControl('', [Validators.required]),
     addressline3 : new FormControl(''),
-    city : new FormControl('', [Validators.required]),
-    province : new FormControl('', [Validators.required]),
-    postalCode : new FormControl('', [Validators.required,Validators.maxLength(4)])
+    cityDescription : new FormControl('', [Validators.required]),
+    provinceDescription : new FormControl('', [Validators.required]),
+    addressPostalCode : new FormControl('', [Validators.required,Validators.maxLength(4)])
   }, AddressformOptions);
 
       
@@ -93,7 +95,11 @@ export class CartComponent implements OnInit {
       console.log(this.products)
     })
     
-
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   this.userid = obj.userId
+   this.customerService.GetProfile(this.userid).subscribe(res => {
+    this.Customer = res})
   
 //this.cartService.Checkout() {
   // const componentForm = [
@@ -238,7 +244,7 @@ reloadCurrentPage(){
 
     } else if(form.value.method=="delivery"){
       
-      const customerEmail = this.email.value
+      const customerEmail = this.Customer.customerEmailAddress
       console.log("else if",form.value)
       console.log(customerEmail)
       
@@ -251,24 +257,41 @@ reloadCurrentPage(){
       })
     }
     else{
-      const customerEmail = this.email.value
+      const customerEmail = this.Customer.customerEmailAddress
       
       console.log("else",form.value)
       console.log(customerEmail)
       
       document.querySelector('.modal').classList.remove('is-active')
-      const collection: Collection = form.value;
-      this.cartService.postCollection(collection)
+      // this.cartService.getProducts().subscribe(res =>
+      //   {
+      //     this.products = res
+      //   })
+      console.log(this.products)
+      const test1= this.products.map(y => y.productitemid)
+      const ProductItemname= this.products.map(y => y.ProductItemname)
+      const num= this.products.map(y => y.num)
+      console.log(test1)
+      const OnlineSale: OnlineSale = form.value;
+      OnlineSale.customerId = this.Customer.customerId;
+      OnlineSale.paymentAmount = this.grandTotal;
+     OnlineSale.productItemId = test1
+       OnlineSale.salelineQuantity = num;
+       OnlineSale.productItemName = ProductItemname;
+       console.log(OnlineSale)
+      this.cartService.postCollection(OnlineSale)
       .subscribe(res => {
         console.log(res)
       })
-      this.makePayment()
+      // this.makePayment()
     }
   }
 
   submitAddressForm() {
 
       const address: Address = this.addressform.value;
+      address.customerId = this.Customer.customerId;
+      
       console.log(address)
       this.cartService.AddCustomerAddress(address).subscribe(res => {
         console.log(res)
@@ -284,7 +307,7 @@ reloadCurrentPage(){
  
   makePayment(){
     const data = {
-      email: this.email.value,
+      email: this.Customer.customerEmailAddress,
       amount: this.grandTotal*100
     }
     this.cartService.paymentInit(data)

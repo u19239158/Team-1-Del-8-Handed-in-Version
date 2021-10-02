@@ -163,14 +163,14 @@
                 <div>
                   <label class="label">Please enter your City:</label>
                   <!-- <div class="control"> -->
-                    <input class="input" formControlName="city" type="text" placeholder="City" ngModel required>
+                    <input class="input" formControlName="cityDescription" type="text" placeholder="City" ngModel required>
                   <!-- </div> -->
                 </div>                
                 <!-- Customer Province -->
                 <div>
                   <label class="label">Please enter your Province:</label>
                   <!-- <div class="control"> -->
-                    <input name="city" list="provincename" class="input" formControlName="province" type="text" placeholder="Province" ngModel required>
+                    <input name="city" list="provincename" class="input" formControlName="provinceDescription" type="text" placeholder="Province" ngModel required>
                     <datalist id="provincename">
                       <option value="Eastern Cape">
                       <option value="Free State">
@@ -188,7 +188,7 @@
                 <div>
                   <label class="label">Please enter your Postal Code:</label>
                   <!-- <div class="control"> -->
-                    <input class="input" formControlName="postalCode" type="text" placeholder="Postal Code" ngModel required>
+                    <input class="input" formControlName="addressPostalCode" type="text" placeholder="Postal Code" ngModel required>
                   <!-- </div> -->
                 </div>
                   <!-- <div *ngIf="isSubmitted && myForm.invalid">
