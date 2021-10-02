@@ -36,13 +36,13 @@ export class LoginComponent implements OnInit {
     //     'password': ['', Validators.compose([Validators.required])]
     // });
   }
-  Login(): void {
-    this.AuthenticationService.Login(this.form.value).subscribe(res => {
-      // route to home
+  // Login(): void {
+  //   this.AuthenticationService.Login(this.form.value).subscribe(res => {
+  //     // route to home
 
-      localStorage.setItem('user', JSON.stringify(res));
-      this.router.navigateByUrl('/');
-    }
+  //     localStorage.setItem('user', JSON.stringify(res));
+  //     this.router.navigateByUrl('/');
+  //   }
     Login(): void 
     {
       this.AuthenticationService.Login(this.form.value).subscribe(res => {
