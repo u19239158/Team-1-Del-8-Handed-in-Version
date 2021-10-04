@@ -1,4 +1,9 @@
-<h1>Unscheduled Deliveries</h1>
+ <a mat-mini-fab color="primary" href="http://localhost:8080/UnscheduledDeliveries.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
+                <mat-icon>help</mat-icon>
+              </a>
+              
+
+<h2>Unscheduled Deliveries</h2>
 
 <div class="search">
     <ul fxLayout fxLayoutGap="15px" class="navigation-items">
@@ -18,6 +23,8 @@
 </div>
 
 <app-global- error *ngIf="dataNotFound"></app-global->
+
+<br>
 
 <div class="mat-elevation-z8 table">
     <table mat-table [dataSource]="dataSource" matSort *ngIf="!dataNotFound">

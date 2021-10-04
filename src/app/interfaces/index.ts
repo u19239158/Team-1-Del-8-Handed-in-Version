@@ -268,6 +268,9 @@ export interface Reports {
   quantitySold: number;
   numberOfSales: number;
   numberOfSalesMade: number;
+  productCategory: string;
+  NumberOfSales : number;
+  ProductCategory : string;
 }
 
 export interface OnlineSales {
