@@ -240,10 +240,12 @@ namespace NKAP_API_2.Controllers
         //Create a Model for table
         public IActionResult RecieveInvoice(SupplierOrderModel model) //reference the model
         {
+
             SupplierOrder suppOrder = _db.SupplierOrders.Find(model.SupplierOrderID);
             {
-                model.OrderDateRecieved = (DateTime)suppOrder.OrderDateReceived;
-              
+              suppOrder.OrderDateReceived = System.DateTime.Now;
+
+
             };
 
             _db.SupplierOrders.Attach(suppOrder);
@@ -252,27 +254,49 @@ namespace NKAP_API_2.Controllers
             SupplierInvoice supInvoice = new SupplierInvoice
             {
                 //attributes in table 
-                SupplierInvoiceId = model.SupplierInvoiceID,
-                SupplierInvoiceDate = model.SupplierInvoiceDate,
-                SupplierInvoiceTotal = model.SupplierInvoiceTotal
+                SupplierInvoiceDate = System.DateTime.Now,
+                SupplierInvoiceTotal = model.SupplierInvoiceTotal,
+                //SupplierInvoicePDF = model.SupplierInvoicePDF,
+                SupplierId = model.SupplierID,
             
             };
             _db.SupplierInvoices.Add(supInvoice);
             _db.SaveChanges();
 
+            foreach (var item in model.InvoiceLineList)
+            {
+                SupplierInvoiceLine SIline = new SupplierInvoiceLine();
+                SIline.SupplierInvoiceId = supInvoice.SupplierInvoiceId;
+                SIline.SupplierItemName = item.name;
+                SIline.QuantityReceived = item.quantity;
+                SIline.ProductItemId = item.id;
+
+                _db.SupplierInvoiceLines.Add(SIline);
+                _db.SaveChanges();
+
+                var NewPQuantity = _db.ProductItems.Find(model.ProductItemId);
+                NewPQuantity.QuantityOnHand = NewPQuantity.QuantityOnHand + item.quantity;
+                _db.ProductItems.Attach(NewPQuantity);
+                //Attach Record
+                _db.SaveChanges();
+
+            }
 
 
             return Ok();
         }
 
+
+      
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("AddInvoiceLine")] //route
         [HttpPost]
         //Add Sales
         //Create a Model for table
+
         public IActionResult AddInvoiceLine(SupplierInvoiceLineModel model) //reference the model
         {
-
+          
             SupplierInvoiceLine SIline = new SupplierInvoiceLine();
             SIline.SupplierInvoiceId = model.SupplierInvoiceId;
             SIline.SupplierItemName = model.SupplierItemName;

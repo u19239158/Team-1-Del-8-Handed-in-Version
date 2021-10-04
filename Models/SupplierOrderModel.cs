@@ -63,5 +63,13 @@ namespace NKAP_API_2.Models
         [JsonProperty("supplierquantityordered")]
         public int SupplierQuantityOrdered
         { get; set; }
+
+        [JsonProperty("supplierinvoicePDF")]
+        public string SupplierInvoicePDF
+        { get; set; }
+
+        [JsonProperty("InvoiceLineList")]
+        public List<InvoiceLine> InvoiceLineList = new List<InvoiceLine>();
+        
     }
 }
