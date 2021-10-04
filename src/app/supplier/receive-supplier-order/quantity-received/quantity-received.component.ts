@@ -12,6 +12,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class QuantityReceivedComponent implements OnInit {
   form: FormGroup;
+
+  public event: EventEmitter<any> = new EventEmitter();
   
  constructor(private dialogRef: MatDialogRef<QuantityReceivedComponent>,
   private formBuilder: FormBuilder,
@@ -29,11 +31,24 @@ export class QuantityReceivedComponent implements OnInit {
   }
 
   Confirm(): void {
+    this.triggerEvent(this.form.value.quantity);
+    //this.PlaceSupplierOrder.CreateSupplierOrder(this.form.value).subscribe(res => {
     this.dialogRef.close(true);
+  
   }
   
    Cancel(): void {
      this.dialogRef.close(false);
    }
-
-}
+  
+  //  saveToList(form) {
+  //   console.log(form.value);
+  // } 
+  
+    triggerEvent(quantity: number) {
+      this.event.emit({quantity});
+      localStorage.setItem('invoiceQuantity', JSON.stringify(quantity));
+      console.log(quantity);
+    }
+    
+  }
