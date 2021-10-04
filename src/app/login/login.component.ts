@@ -115,7 +115,9 @@ export class LoginComponent implements OnInit {
           // });
         }
 
-        forgotPassword(){
+        forgotPassword(): void{
+          this.Loginservice.ResetPassword(this.form.value).subscribe(res => {})
+
           const confirm = this.dialog.open(ForgotUsernameComponent, {
             disableClose: true,
            });

@@ -19,7 +19,7 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   Login(user: Login) {
-    return this.http.post(`${this.server}Login/Login`, user, this.httpOptions);
+    return this.http.post(`${this.server}Login/Logins`, user, this.httpOptions);
   }
 
   GetUserByID(userid):  Observable<Login>  {
@@ -29,4 +29,12 @@ export class LoginService {
   Logout(UsersID: any) {
     return this.http.post(`${this.server}Login/Logout/${UsersID}`, UsersID, this.httpOptions);
   }
+  ResetPassword(user: Login) {
+    return this.http.post(`${this.server}Login/ForgotResetPassword`, user, this.httpOptions);
+  }
+
+  ResetPasswordOTP(user: Login) {
+    return this.http.post(`${this.server}Login/ResetPasswordOTP`, user, this.httpOptions);
+  }
+  
 }
