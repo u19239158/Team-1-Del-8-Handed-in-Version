@@ -153,18 +153,6 @@ export class PlaceSupplierOrderComponent implements OnInit {
       supplierId : placeOrder.supplierID,
       itemsOrdered : this.list
     }
-    // for (let index = 0; index < this.list.length; index++) {
-    //   const element = this.list[index];
-      
-    //   console.log(element);
-    //   console.log(element.id)
-        
-    //   this.place.id = element.id;
-    //    element.name = this.place.name;
-    //    element.quantity = this.place.quantity;
-      
-    
-    // }
 
     this.placeSupplierOrderService.PlaceSupplierOrder(Data).subscribe(res => {
       console.log(res)

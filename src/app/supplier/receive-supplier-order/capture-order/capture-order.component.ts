@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReceiveSupplierOrder } from 'src/app/interfaces';
 import { ReceiveSupplierService } from 'src/app/services/supplier/receive-supplier-order';
-import { QuantityModalComponent } from '../../place-supplier-order/quantity-modal/quantity-modal.component';
+import { QuantityReceivedComponent } from '../quantity-received/quantity-received.component';
 import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
 
 @Component({
@@ -67,7 +67,7 @@ export class CaptureOrderComponent implements OnInit {
   }
   
   AddQuantity() {
-    const confirm = this.dialog.open(QuantityModalComponent, {
+    const confirm = this.dialog.open(QuantityReceivedComponent, {
       disableClose: true,
     });
 
@@ -76,7 +76,7 @@ export class CaptureOrderComponent implements OnInit {
     })
   }
 
-  uploadInvoice(){
-    
+  Close(){
+    this.router.navigateByUrl("receiveSupplierOrder");
   }
 }

@@ -1,30 +1,9 @@
 <div class="content">
   <h2>Capture Order</h2>
-
   
 <a mat-mini-fab color="primary" href="http://localhost:8080/ViewOrder.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
                 <mat-icon>help</mat-icon>
               </a>
-
-<div class="mat-row">
-      <div appearance="outline" class="upload">
-        <label class="image-upload-container btn btn-bwm">
-          <span>Upload Invoice</span>
-          <input #fileInput type="file" accept=".pdf" (change)="upload($event)">
-          <br>
-          <mat-hint>Upload invoice</mat-hint>
-        </label>
-
-<br>
-
-        <button mat-raised-button type="submit" color="primary" (click)="uploadInvoice()" class="button">Upload</button>
- 
-      </div>
-
-      <br>
-      <br>
-      <br>
-         </div>
 
     <br>
 
@@ -56,5 +35,41 @@
     </table>
 
   </div>
+
+<br>
+<br>
   
+<div class="mat-row">
+    <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m" >
+             <mat-label  >Invoive Total</mat-label> 
+            <input type="number" matInput placeholder="Enter invoice total amount" formControlName="invoiceTotal" ngModel required>
+            <mat-hint >Enter invoice total</mat-hint>
+        </mat-form-field>
+    </div>
+
+   <div class="mat-col-quarter">
+      <div appearance="outline" class="upload">
+        <label class="image-upload-container btn btn-bwm">
+          <span>Upload Invoice</span>
+          <input #fileInput type="file" accept=".pdf" (change)="upload($event)">
+          <br>
+          <mat-hint>Upload invoice</mat-hint>
+        </label>
+      </div>
+    </div>
   </div>
+
+  <br>
+
+  <div class="mat-row">
+    <div class="form-group" class="buttons">
+      <button mat-raised-button color ="primary">
+          Save
+      </button>
+      <a (click)="Close()" mat-button>Cancel</a>
+    </div>
+  </div>
+  </div>
+
+  

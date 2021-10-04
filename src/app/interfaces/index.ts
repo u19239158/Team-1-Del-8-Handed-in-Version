@@ -202,7 +202,7 @@ export class Data {
   public quantity: number;
 }
 
-export interface place {
+export class place {
    id : number;
    name: string;
    quantity: number;
