@@ -3,10 +3,11 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ReceiveSupplierOrder } from 'src/app/interfaces';
 import { ReceiveSupplierService } from 'src/app/services/supplier/receive-supplier-order';
 import { QuantityModalComponent } from '../../place-supplier-order/quantity-modal/quantity-modal.component';
+import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-capture-order',
@@ -19,31 +20,52 @@ export class CaptureOrderComponent implements OnInit {
   RecieveSupplierOrder: ReceiveSupplierOrder[];
   recievesupplierorder: ReceiveSupplierOrder;
   receiveSupplierOrders: ReceiveSupplierOrder[] = [];
+  path: File;
+  SupplierOrderId: any;
+  id: number;
 
   constructor(
     private receiveSupplierService: ReceiveSupplierService,
-    private route: Router,
     private formBuilder: FormBuilder,
-    private router: Router,
     private http: HttpClient,
     private dialog: MatDialog,
+    private storage : AngularFireStorage,
+    private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
-    this.readSupplierOrder();
-
+    this.id = +this.route.snapshot.params['id'];
+    this.readSupplierOrder(this.id);
+  
     this.receiveSupplierService.ReceiveSupplierOrder().subscribe((result: ReceiveSupplierOrder[]) => {
       this.receiveSupplierOrders = result;
     })
   }
 
-  readSupplierOrder(): void {
-    this.receiveSupplierService.ReceiveSupplierOrder().subscribe(res => {
-      console.log(res)
+  readSupplierOrder(SupplierOrderId:any): void {
+    this.receiveSupplierService.getSupplierOrderByID(this.id).subscribe(res => {
+      console.log(res);
       this.dataSource = new MatTableDataSource(res)
     })
   }
 
+  async upload(event) {    
+    this.path = event.target.files[0]
+  }
+
+  async uploadImage(){
+    const key = `/files${Math.random()}${this.path.name}`;
+    console.log(this.path)
+     await this.storage.upload(key, this.path);
+  
+    const fileref = this.storage.ref(key);
+
+    const downloadUrl = fileref.getDownloadURL();
+    return downloadUrl;
+
+  }
+  
   AddQuantity() {
     const confirm = this.dialog.open(QuantityModalComponent, {
       disableClose: true,
@@ -52,5 +74,9 @@ export class CaptureOrderComponent implements OnInit {
     confirm.afterClosed().subscribe(res => {
       this.router.navigateByUrl('captureOrder');
     })
+  }
+
+  uploadInvoice(){
+    
   }
 }

@@ -1,3 +1,4 @@
+import { PlaceSupplierOrder } from 'src/app/interfaces';
 import { ReceiveSupplierOrder } from './../../interfaces/index';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
@@ -20,6 +21,10 @@ export class ReceiveSupplierService {
 
   ReceiveSupplierOrder():  Observable<ReceiveSupplierOrder[]>  {
     return this.http.get<ReceiveSupplierOrder[]>(`${this.server}SupplierOrder/GetSupplierOrder`).pipe(map(res => res));
+  }
+
+  getSupplierOrderByID(SupplierOrderId):  Observable<ReceiveSupplierOrder[]>  {
+    return this.http.get<ReceiveSupplierOrder[]>(`${this.server}SupplierOrder/GetSupplierOrderByID/${SupplierOrderId}`).pipe(map(res => res));
   }
 
 }

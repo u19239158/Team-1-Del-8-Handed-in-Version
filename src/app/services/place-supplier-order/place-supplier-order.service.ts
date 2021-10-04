@@ -18,7 +18,7 @@ export class PlaceSupplierOrderService {
 };
   constructor(private http: HttpClient) { }
 
-  PlaceSupplierOrder(place:place):  Observable<place[]>  {
-    return this.http.post<place[]>(`${this.server}SupplierOrder/PlaceSupplierOrder`, place,this.httpOptions);
+  PlaceSupplierOrder(place:any):  Observable<any>  {
+    return this.http.post<any>(`${this.server}SupplierOrder/PlaceSupplierOrder`, place,this.httpOptions);
   }
 }

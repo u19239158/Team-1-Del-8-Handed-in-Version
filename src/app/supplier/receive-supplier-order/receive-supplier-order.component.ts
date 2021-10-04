@@ -94,9 +94,7 @@ export class ReceiveSupplierOrderComponent implements OnInit {
     })
   }
 
-  viewOrder() {
-    this.router.navigateByUrl('captureOrder');
-}
+ 
 
 showInvoice(){
   

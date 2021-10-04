@@ -7,13 +7,24 @@ h2 {
     margin: 0;
     position:inherit;
     top: 25%;
-    left: 25%;
+    right: 25%;
     }
 
     .help{
       position: absolute;
       left: 20px;
       top: 75px;
+    }
+
+    .upload{
+      position: absolute;
+      right: 20px;
+      top: 75px;
+    }
+
+    .button{
+      top: 15px;
+      right: 80px;
     }
   
     mat-icon {
