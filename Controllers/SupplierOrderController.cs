@@ -306,16 +306,21 @@ namespace NKAP_API_2.Controllers
                 _db.SupplierOrders.Add(supOrder);
                 _db.SaveChanges();
             }
-
-            SupplierOrderLine supline = new SupplierOrderLine();
+            foreach(var item in model.itemsOrdered)
             {
-                supline.ProductItemId = model.ProductItemId;
-                supline.SupplierOrderId = supOrder.SupplierOrderId;
-                supline.SupplierProducts = model.SupplierProducts;
-                supline.SupplierQuantityOrdered = model.SupplierQuantityOrdered;
-                _db.SupplierOrderLines.Add(supline);
-                _db.SaveChanges();
+                SupplierOrderLine supline = new SupplierOrderLine();
+
+                {
+                    supline.ProductItemId = item.id;
+                    supline.SupplierOrderId = supOrder.SupplierOrderId;
+                    supline.SupplierProducts = item.name;
+                    supline.SupplierQuantityOrdered = item.quantity;
+                    _db.SupplierOrderLines.Add(supline);
+                    _db.SaveChanges();
+                }
             }
+
+          
 
             return Ok(supOrder);
         }

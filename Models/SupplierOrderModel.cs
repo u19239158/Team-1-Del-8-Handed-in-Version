@@ -63,5 +63,8 @@ namespace NKAP_API_2.Models
         [JsonProperty("supplierquantityordered")]
         public int SupplierQuantityOrdered
         { get; set; }
+
+        [JsonProperty("itemsOrdered")]
+        public List<PlaceOrder> itemsOrdered = new List<PlaceOrder>();
     }
 }
