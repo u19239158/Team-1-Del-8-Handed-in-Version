@@ -25,7 +25,7 @@ export class DeliveryshiftsComponent implements OnInit {
   searchValue: number;
   searchWord: string;
   dataNotFound: boolean;
-  userid : number;
+  userid: number;
   deliveryshift: Deliveryshift[] = [];
   // DeliveryShift: Deliveryshift;
   deliveryShift: Observable<Deliveryshift[]>;
@@ -49,7 +49,7 @@ export class DeliveryshiftsComponent implements OnInit {
     this.readDeliveryshifts();
     var ids = localStorage.getItem('user')
     const obj = JSON.parse(ids)
-   this.userid = obj.userId
+    this.userid = obj.userId
     this.deliveryshiftService.GetDeliveryShift().subscribe((result: Deliveryshift[]) => {
       this.setDeliveryShifts(result);
     });
@@ -58,7 +58,7 @@ export class DeliveryshiftsComponent implements OnInit {
 
   canBeUpdated = (element) => {
 
-    return +moment(element.dayOfTheWeek, 'DD/MM/YYYY') > +moment()
+    return +moment(element.dayOfTheWeek + ' ' + element.endTime, 'DD/MM/YYYY HH:mm:ss') > +moment()
 
   }
 

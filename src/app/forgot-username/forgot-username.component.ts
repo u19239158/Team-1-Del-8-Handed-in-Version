@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MustMatch } from '../employee/add-edit-employees/must-match.validators';
+import { LoginService } from '../services/login/login-service';
 
 @Component({
   selector: 'app-forgot-username',
@@ -24,16 +25,18 @@ export class ForgotUsernameComponent implements OnInit {
     private formBuilder: FormBuilder,
     private snack: MatSnackBar,
     private route: ActivatedRoute,
-    private router: Router,) {
+    private router: Router,
+    private log : LoginService
+    ) {
 
   }
 
   ngOnInit(): void {
 
-    const formOptions: AbstractControlOptions = { validators: MustMatch('newPassword', 'confirmNewPassword') };
+    const formOptions: AbstractControlOptions = { validators: MustMatch('userPassword', 'confirmNewPassword') };
     this.form = this.formBuilder.group({
       otp: ['', [Validators.minLength(6), Validators.required]],
-      newPassword: ['', [Validators.minLength(6), Validators.required]],
+      userPassword: ['', [Validators.minLength(6), Validators.required]],
       confirmNewPassword: ['', [Validators.minLength(6), Validators.required]],
 
     }, formOptions);
@@ -41,6 +44,7 @@ export class ForgotUsernameComponent implements OnInit {
 
   Confirm(): void {
     // window.localStorage.removeItem("user");
+    this.log.ResetPasswordOTP(this.form.value).subscribe( res => {})
     this.dialogRef.close();
   }
 

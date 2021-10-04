@@ -4,9 +4,10 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Special, Productitem } from 'src/app/interfaces';
-import { HttpClient } from '@angular/common/http';
-import * as moment from 'moment'
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import * as moment from 'moment';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-edit-special',
@@ -21,13 +22,18 @@ export class EditSpecialComponent implements OnInit {
   isAddMode: boolean;
   loading = false;
   submitted = false;
-  special: Special = {} as Special;
-  // special: Special;
-  productItem: Productitem;
+  special: Special;
+  //productItem :Productitem;
   specials: Observable<Special[]>;
   collection = [];
   selected: string;
+  productItem: Productitem = {} as Productitem;
+  minDate: Date;
+  selectedDate = new Date();
+  selectedStartDate = new Date();
+  endDateEnabled: boolean = false;
   userid: number;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,76 +43,51 @@ export class EditSpecialComponent implements OnInit {
     private SpecialService: SpecialService,
     private http: HttpClient
 
-  ) { }
-
+  ) {
+    const currentYear = new Date().getFullYear();
+    this.minDate = new Date();
+  }
 
   ngOnInit(): void {
-    const formOptions: AbstractControlOptions = {};
-    if (!this.isAddMode) {
-      this.SpecialService.getSpecialByID(this.id).subscribe(res => {
-        this.special = res
-        console.log(res)
-        this.form = this.formBuilder.group({
-          // id: [this.special.specialID, Validators.required],
-          specialDescription: [this.special.specialDescription, [Validators.required]],
-          discountId: [this.special.discountPercentage, [Validators.required]],
-          specialStartDate: [this.special.specialStartDate, [Validators.required]],
-          specialEndDate: [this.special.specialEndDate, [Validators.required]],
-
-          //categoryTypeImage : this.image,
-          // categoryTypeDescription: [this.categorytype.categoryTypeDescription, [Validators.required, Validators.maxLength(50)]],
-          //categoryTypeImage: [this.image, [Validators.required]],
-          // itemDescription: [this.categorytype.itemDescription, [Validators.required, Validators.maxLength(50)]],
-          // productCategoryID: [this.categorytype.productCategoryID, [Validators.required, Validators.maxLength(50)]],
-        }, formOptions);
-      });
-    }
-
+    this.id = +this.route.snapshot.params['id'];
+    //this.isAddMode = !this.id;
     this.getCollection();
-
     var ids = localStorage.getItem('user')
     const obj = JSON.parse(ids)
     console.log(obj.userId)
     this.userid = obj.userId
     console.log(obj)
 
-    // this.id = +this.route.snapshot.params['id'];
-    // this.SpecialService.getSpecialByID(this.id).subscribe(res =>{
-    //    this.special = res
-    //    this.form = this.formBuilder.group({
-    //   id: [this.special.specialID, Validators.required],
-    //   specialDescription: [this.special.specialDescription, [Validators.required]],
-    //   discountId: [this.special.discountPercentage, [Validators.required]],
-    //   specialStartDate: [this.special.specialStartDate, [Validators.required]],
-    //   specialEndDate: [this.special.specialEndDate, [Validators.required]],
-    // }, formOptions); })
+    this.collection
+
+    this.SpecialService.getItemByID(this.id).subscribe(res => {
+      this.productItem = res
+      console.log(res)
+    });
 
 
 
-
+    const formOptions: AbstractControlOptions = {};
+    this.SpecialService.getSpecialByID(this.id).subscribe(res => {
+      this.special = res
+      console.log(res)
+      this.form = this.formBuilder.group({
+        //specialImage: ['', [Validators.required]],
+        specialDescription: [this.special.specialDescription, [Validators.required]],
+        discountId: [this.special.discountId, [Validators.required]],
+        // discountPercentage: [0,[Validators.required]],
+        //productItemId: [this.special.productItemId,[Validators.required] ],
+        specialStartDate: [this.special.specialStartDate, [Validators.required]],
+        specialEndDate: [this.special.specialEndDate, [Validators.required]],
+      }, formOptions);
+    });
   }
 
-  // ngOnInit(): void {
-  //   this.id = +this.route.snapshot.params['id'];
-  //   this.getCollection();
-  //   const formOptions: AbstractControlOptions = {};
-  //   {
-  //     this.SpecialService.getSpecialByID(this.id).subscribe(res => {
-  //       this.special = res;
-  //       console.log(res)
-  //       this.form = this.formBuilder.group({
-  //         id: [this.special.specialID, Validators.required],
-  //         specialDescription: [this.special.specialDescription, [Validators.required]],
-  //         discountId: [this.special.discountId],
-  //         // moment(this.special.specialEndDate).format('YYYY-MM-DD'), [Validators.required],
-  //         specialStartDate: [moment(this.special.specialStartDate).format('YYYY-MM-DD'), [Validators.required]],
-  //         specialEndDate: [moment(this.special.specialEndDate).format('YYYY-MM-DD'), [Validators.required]],
-  //       }, formOptions);
-  //     })
 
-  //   }
-  // }
-
+  onStartDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.selectedStartDate = moment(event.value).toDate();
+    this.endDateEnabled = true;
+  }
 
 
   onSubmit() {
@@ -129,11 +110,6 @@ export class EditSpecialComponent implements OnInit {
     this.http
       .get<any>('https://localhost:44393/api/Discount/GetDiscount').subscribe((res: any) => {
         this.collection = res;
-
-        setTimeout(() => {
-          // this.form.patchValue({ employeeId: 2 })
-        }, 3000);
-
       }, error => {
         console.log({ error });
       })
@@ -141,17 +117,6 @@ export class EditSpecialComponent implements OnInit {
   }
 
 
-  // createSpecial() {
-  //   const special: Special = this.form.value;
-  //   special.productItemId = this.productItem.productItemId;
-  //   special.productItemCost = this.productItem.productItemCost;
-  //  // special.discountPercentage = this.collection.find(this.discountPercentage);
-  //   this.SpecialService.CreateSpecial(special).subscribe(res => {
-  //     console.log(res)
-  //     this.loading = false
-  //     this.router.navigateByUrl('special');
-  //   });
-  // }
 
   updateSpecial() {
     const special: Special = this.form.value;

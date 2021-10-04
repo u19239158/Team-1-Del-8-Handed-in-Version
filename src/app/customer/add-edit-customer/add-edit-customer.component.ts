@@ -24,7 +24,7 @@ export class AddEditCustomerComponent implements OnInit {
   customers: Observable<Customer[]>;
   collection = [];
   selected: string;
-  userid : number;
+  userid: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,8 +42,8 @@ export class AddEditCustomerComponent implements OnInit {
 
     var ids = localStorage.getItem('user')
     const obj = JSON.parse(ids)
-   console.log(obj.userId) 
-   this.userid = obj.userId
+    console.log(obj.userId)
+    this.userid = obj.userId
     console.log(obj)
 
     const passwordValidators = [Validators.minLength(6)];
