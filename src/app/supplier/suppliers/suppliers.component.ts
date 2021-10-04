@@ -91,21 +91,21 @@ export class SuppliersComponent implements OnInit {
               horizontalPosition: 'center',
               duration: 2000
             });
-        }, (error: HttpErrorResponse) => {
-          console.log(error.error, "test")
-          if (error.status === 400) {
-            this.snack.open(error.error, 'OK',
-              {
-                verticalPosition: 'top',
-                horizontalPosition: 'center',
-                duration: 3000
-              });
-            return;
-          }
         });
 
       }
 
+    }, (error: HttpErrorResponse) => {
+      console.log(error.error, "test")
+      if (error.status === 400) {
+        this.snack.open(error.error, 'OK',
+          {
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            duration: 3000
+          });
+        return;
+      }
     });
   }
 

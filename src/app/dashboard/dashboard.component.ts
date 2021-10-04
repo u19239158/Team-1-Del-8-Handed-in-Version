@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
   created = false;
   Productcategory: Productcategory = {} as Productcategory;
   salegraph : Chart;
+  salgraph : Chart;
   pie : Chart;
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -39,10 +40,34 @@ export class DashboardComponent implements OnInit {
   public barChartLabels: Label[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
+
+  public barChartData: ChartDataSets[] = [
+    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
+    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
+  ];
+
+  public barChartOpt: ChartOptions = {
+    responsive: true,
+    // We use these empty structures as placeholders for dynamic theming.
+    scales: { xAxes: [{}], yAxes: [{
+      ticks: {
+          beginAtZero: true
+      }
+  }]},
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+      }
+    }
+  };
+  public barChartLabe: Label[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+  public barChartTy: ChartType = 'bar';
+  public barChartLeg = true;
   
   //public barChartPlugins = [pluginDataLabels];
 
-  public barChartData: ChartDataSets[] = [
+  public barChartDat: ChartDataSets[] = [
     { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
     { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
   ];
@@ -93,7 +118,7 @@ export class DashboardComponent implements OnInit {
 
   public randomize(): void {
     // Only Change 3 values
-    this.barChartData[0].data = [
+    this.barChartDat[0].data = [
       Math.round(Math.random() * 100),
       59,
       80,
@@ -116,6 +141,7 @@ export class DashboardComponent implements OnInit {
     let ProductCategory: any[] =  [];
     let CategoryType: any[] =  [];
     let NumberOfSales: number[] =  [];
+    let NumbOfSales: number[] =  [];
     let pieSales: number[] =  [];
     const counts: any[] =  [];
 
@@ -136,9 +162,9 @@ export class DashboardComponent implements OnInit {
     this.created = false;
     // Restructure data for chart
     CategoryType = data.map(x => x.CategoryType);
-    pieSales = data.map(x => x.NumberOfSales)
+    NumbOfSales = data.map(x => x.NumberOfSales)
     // Generate Chart
-    this.generatePie(CategoryType, pieSales)
+    this.generatePChart(CategoryType, NumbOfSales)
     // Call table data method
    // this.generateTables(data);
   })
@@ -156,6 +182,19 @@ generateChart(ProductCategory, NumberOfSales) {
   });
 
   this.barChartLabels = ProductCategory;
+  this.created = true;
+}
+
+generatePChart(CategoryType,NumbOfSales) {
+  console.log(CategoryType, NumbOfSales);
+  if (this.salgraph) {this.salgraph.destroy(); }
+  this.barChartDat = [];
+  this.barChartDat.push({
+    data: NumbOfSales,
+    label: 'Sales Per Category Type'
+  });
+
+  this.barChartLabe = CategoryType;
   this.created = true;
 }
 

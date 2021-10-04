@@ -116,6 +116,12 @@ export interface Deliveryshift {
   customerCellphoneNumber : string;
   addressPostalCode : number;
   usersId: number;
+  maxNumber : number;
+}
+
+export interface dshift {
+  maxId: number
+  maxNumber : number
 }
 
 export interface Productcategory {
@@ -262,6 +268,9 @@ export interface Reports {
   quantitySold: number;
   numberOfSales: number;
   numberOfSalesMade: number;
+  productCategory: string;
+  NumberOfSales : number;
+  ProductCategory : string;
 }
 
 export interface OnlineSales {
