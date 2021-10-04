@@ -26,7 +26,7 @@ export class SpecialsComponent implements OnInit {
   dataNotFound: boolean;
   public specspeiial: any = [];
   specials: Special[] = [];
-  userid : number;
+  userid: number;
   special: Observable<Special[]>;
   dataSource = new MatTableDataSource<Special>();
   displayedColumns: string[] = ['productItemName', 'specialDescription', 'specialPrice', 'specialStartDate', 'specialEndDate', 'actions'];
@@ -51,18 +51,13 @@ export class SpecialsComponent implements OnInit {
     this.readSpecials();
     var ids = localStorage.getItem('user')
     const obj = JSON.parse(ids)
-   this.userid = obj.userId
+    this.userid = obj.userId
     this.specialService.GetSpecial().subscribe((result: Special[]) => {
       this.Specials = result;
     });
 
   }
 
-  canBeUpdated = (element) => {
-
-    return +moment(element.specialEndDate, 'DD/MM/YYYY') > +moment()
-
-  }
 
   readSpecials(): void {
     //this.dataSource = new MatTableDataSource<Special>(this.specialService.getAll());
@@ -91,26 +86,26 @@ export class SpecialsComponent implements OnInit {
     // this.specialService.getSpecialByID(special.specialID).subscribe(res => {
     //   this.specspeiial = res;
     //   console.log(this.specspeiial)
-      const confirm = this.dialog.open(GlobalConfirmComponent, {
-        disableClose: true,
-      });
+    const confirm = this.dialog.open(GlobalConfirmComponent, {
+      disableClose: true,
+    });
 
-      confirm.afterClosed().subscribe(res => {
-        if (res) {
-          this.specialService.DeleteSpecial(special).subscribe(res => {
-            this.readSpecials();
+    confirm.afterClosed().subscribe(res => {
+      if (res) {
+        this.specialService.DeleteSpecial(special).subscribe(res => {
+          this.readSpecials();
+        });
+
+        this.snack.open('Special Successfully Deleted! ', 'OK',
+          {
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            duration: 4000
           });
 
-          this.snack.open('Special Successfully Deleted! ', 'OK',
-            {
-              verticalPosition: 'top',
-              horizontalPosition: 'center',
-              duration: 4000
-            });
-
-        }
-      });
-   // })
+      }
+    });
+    // })
   }
 
 

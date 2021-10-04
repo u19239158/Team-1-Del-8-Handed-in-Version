@@ -1,25 +1,26 @@
 <div class="content">
   <div>
-        <div class="split picture" color="primary">
-        <img style="margin-top:30px" src="assets/images/NKAP.jpg" />
-      </div>
+    <div class="split picture" color="primary">
+      <img style="margin-top:30px" src="assets/images/NKAP.jpg" />
     </div>
+  </div>
 
-    <div class="split information">
+  <div class="split information">
 
-     <a mat-mini-fab color="primary" href="http://localhost:8080/Login.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
-                <mat-icon>help</mat-icon>
-              </a>
+    <a mat-mini-fab color="primary" href="http://localhost:8080/Login.html" target="_blank"
+      aria-label="Example icon button with a menu icon" class="help">
+      <mat-icon>help</mat-icon>
+    </a>
     <div>
-     
+
       <div fxLayout="column" fxLayoutAlign="center" style="margin-top:100px" color="primary">
 
-     <form [formGroup]="form">
+        <form [formGroup]="form">
           <!-- (ngSubmit)="Login(form.value)"> -->
 
           <h1>Log in to Nkap Bolting</h1>
 
-          <div >
+          <div>
             <mat-form-field style="width:50%" appearance="outline">
               <mat-label>Username</mat-label>
               <input formControlName="userUsername" matInput class="info">
@@ -27,7 +28,7 @@
             </mat-form-field>
           </div>
 
-          <div >
+          <div>
             <mat-form-field style="width:50%" appearance="outline">
               <mat-label>Password</mat-label>
               <input type="password" formControlName="userPassword" matInput>
@@ -35,20 +36,21 @@
             </mat-form-field>
           </div>
 
-          <div >
-            <button mat-raised-button color ="primary" (click)="Login()" mat-raised-button style="width:50%">Login</button>
+          <div>
+            <button mat-raised-button color="primary" (click)="Login()" mat-raised-button
+              style="width:50%">Login</button>
           </div>
           <br>
-         
+
 
         </form>
 
         <br>
 
-        <a routerLink="/home" (click)="forgotPassword()">
-              <h5>Forgot Username/Password?</h5>
-            </a>
-   </div>
+        <a (click)="forgotPassword()">
+          <h5>Forgot Username/Password?</h5>
+        </a>
+      </div>
     </div>
   </div>
 </div>

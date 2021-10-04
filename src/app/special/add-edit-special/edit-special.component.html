@@ -1,10 +1,43 @@
- <a mat-mini-fab color="primary" href="http://localhost:8080/UpdateSpecial.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
-                <mat-icon>help</mat-icon>
-              </a>
+<a mat-mini-fab color="primary" href="http://localhost:8080/UpdateSpecial.html" target="_blank"
+  aria-label="Example icon button with a menu icon" class="help">
+  <mat-icon>help</mat-icon>
+</a>
+
+
+<!-- <mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>Product Details</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <label for="productItemName">Product Item Name: </label>
+    <span> &nbsp;{{productItem.productItemName}}</span>
+
+    <br>
+
+    <label for="productItemName">Product Item Cost Price: </label>
+    <span> &nbsp;R{{productItem.productItemCost | number:'1.1-2'}}</span>
+
+    <br>
+    <label for="productItemName">Product Item Selling Price: </label>
+    <span> &nbsp;R{{productItem.priceDescription | number:'1.1-2'}}</span>
+
+    <br>
+
+    <label for="productItemName">Product Item Quantity: </label>
+    <span> &nbsp;{{productItem.quantityOnHand}}</span>
+
+  </mat-card-content>
+  <mat-card-actions>
+
+  </mat-card-actions>
+</mat-card> -->
 
 <div class="content">
-
-  <h2 >Edit Special</h2>
+  <h2>Update Special</h2>
+  <!-- <h2 *ngIf="!isAddMode">Edit Special</h2> -->
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="main">
 
@@ -15,8 +48,7 @@
           <mat-label>Description</mat-label>
           <input type="text" matInput placeholder="Description" formControlName="specialDescription">
           <mat-hint>Enter special description</mat-hint>
-          <mat-error *ngIf="form.controls['specialDescription'].invalid">Please select enter a special description
-          </mat-error>
+          <mat-error *ngIf="form.controls['specialDescription'].invalid">Please enter special description</mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -26,25 +58,29 @@
       <!-- Start Date -->
       <div class="mat-col-quarter">
         <mat-form-field class="control-m">
-          <input matInput [matDatepicker]="picker" placeholder="Special Start Date" formControlName="specialStartDate">
+          <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="Special Start Date"
+            formControlName="specialStartDate" (dateChange)="onStartDateChange('change', $event)" disabled>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-          <mat-hint>Enter special name start date </mat-hint>
-          <mat-error *ngIf="form.controls['specialStartDate'].invalid">Please select the special's start date
+          <mat-datepicker #picker disabled="false"></mat-datepicker>
+          <mat-hint>Enter special start date first to
+            enter special end date</mat-hint>
+          <mat-error *ngIf="form.controls['specialStartDate'].invalid">Please enter the special's start date first to
+            enter the end date
           </mat-error>
         </mat-form-field>
       </div>
     </div>
 
-    <div class="mat-row">
+    <div class="mat-row" *ngIf="endDateEnabled">
       <!-- End Date -->
       <div class="mat-col-quarter">
         <mat-form-field class="control-m">
-          <input matInput [matDatepicker]="picker1" placeholder="Special End Date" formControlName="specialEndDate">
+          <input matInput [min]="selectedStartDate" [matDatepicker]="picker1" placeholder="Special End Date"
+            formControlName="specialEndDate" disabled>
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-          <mat-datepicker #picker1></mat-datepicker>
+          <mat-datepicker #picker1 disabled='false'></mat-datepicker>
           <mat-hint>Enter special end date</mat-hint>
-          <mat-error *ngIf="form.controls['specialEndDate'].invalid">Please select the special's end date</mat-error>
+          <mat-error *ngIf="form.controls['specialEndDate'].invalid">Please enter the special's start date</mat-error>
         </mat-form-field>
       </div>
     </div>

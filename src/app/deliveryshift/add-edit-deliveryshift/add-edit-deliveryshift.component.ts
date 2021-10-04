@@ -83,7 +83,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
       console.log("test", this.shiftId)
       this.DeliveryShiftService.getDeliveryShiftByID(this.shiftId).subscribe(res => {
         this.deliveryshift = res
-
+        console.log("pt", res)
         this.form = this.formBuilder.group({
           dateId: [this.deliveryshift.dateId, [Validators.required]],
           timeId: [this.deliveryshift.timeId, [Validators.required]],
@@ -96,6 +96,7 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
           employeeShiftId: [this.deliveryshift.employeeShiftId],
         }, formOptions);
         // employeeId: [this.employeeShiftId, [Validators.required]],
+        this.generateTimes();
       });
     }
   }
@@ -145,12 +146,17 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     console.log("NOW", moment().format("YYYY-MM-DD HH:mm:ss"))
     this.times = JSON.parse(JSON.stringify(this.collections)).filter(ds => {
       // const time = ds.startTime;
+      console.log("selectedDate", this.selectedDate)
       const nowDate = moment(this.selectedDate).format("YYYY-MM-DD") + " " + ds.startTime
       console.log("now Date", nowDate)
       const time = +moment(moment(nowDate).utc()).toDate()
       console.log("testing", this.form.value);
+      console.log("+moment(this.deliveryshift.dayOfTheWeek).toDate()", +moment(this.deliveryshift.dayOfTheWeek).toDate())
+      console.log("+moment()", +moment())
+      if (+moment(this.deliveryshift.dayOfTheWeek).toDate() < +moment()) {
+        return true;
+      }
       return time >= now;
-
     });
   }
 
