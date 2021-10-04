@@ -244,8 +244,8 @@ namespace NKAP_API_2.Controllers
             SupplierOrder suppOrder = _db.SupplierOrders.Find(model.SupplierOrderID);
             {
               suppOrder.OrderDateReceived = System.DateTime.Now;
-
-
+                suppOrder.SupplierOrderTotal = model.SupplierInvoiceTotal;
+                suppOrder.SupplierOrderStatusId = 2;
             };
 
             _db.SupplierOrders.Attach(suppOrder);
@@ -274,7 +274,7 @@ namespace NKAP_API_2.Controllers
                 _db.SupplierInvoiceLines.Add(SIline);
                 _db.SaveChanges();
 
-                var NewPQuantity = _db.ProductItems.Find(model.ProductItemId);
+                var NewPQuantity = _db.ProductItems.Find(item.id);
                 NewPQuantity.QuantityOnHand = NewPQuantity.QuantityOnHand + item.quantity;
                 _db.ProductItems.Attach(NewPQuantity);
                 //Attach Record
