@@ -1,12 +1,14 @@
 <div class="content">
 
-<a *ngIf="isAddMode" mat-mini-fab color="primary" href="http://localhost:8080/AddDeliveryShift.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
-                <mat-icon>help</mat-icon>
-              </a>
+  <a *ngIf="isAddMode" mat-mini-fab color="primary" href="http://localhost:8080/AddDeliveryShift.html" target="_blank"
+    aria-label="Example icon button with a menu icon" class="help">
+    <mat-icon>help</mat-icon>
+  </a>
 
-              <a *ngIf="!isAddMode" mat-mini-fab color="primary" href="http://localhost:8080/UpdateDeliveryShifts.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
-                <mat-icon>help</mat-icon>
-              </a>
+  <a *ngIf="!isAddMode" mat-mini-fab color="primary" href="http://localhost:8080/UpdateDeliveryShifts.html"
+    target="_blank" aria-label="Example icon button with a menu icon" class="help">
+    <mat-icon>help</mat-icon>
+  </a>
 
   <h2 *ngIf="isAddMode">Add Delivery Shift</h2>
   <h2 *ngIf="!isAddMode">Edit Delivery Shift</h2>

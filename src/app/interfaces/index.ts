@@ -9,6 +9,7 @@ export interface Login {
   token : string;
   userId: number;
   userRoleId: number;
+  otp: number
 }
 
 export interface Log {
