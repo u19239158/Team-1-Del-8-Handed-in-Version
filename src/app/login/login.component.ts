@@ -13,65 +13,63 @@ import { ForgotUsernameComponent } from '../forgot-username/forgot-username.comp
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 
-  form : FormGroup = this.fb.group({
+  form: FormGroup = this.fb.group({
     'userUsername': ['', Validators.compose([Validators.required])],
     'userPassword': ['', Validators.compose([Validators.required])]
-});
+  });
 
-   // form: FormGroup;
-   // formSubmitted: boolean = false;
+  // form: FormGroup;
+  // formSubmitted: boolean = false;
 
-    constructor(
-      private fb: FormBuilder,
-      private router: Router,
-      private dialog: MatDialog,
-      private Loginservice: LoginService,
-      private snack: MatSnackBar,
-      private InterceptorServiceService: InterceptorServiceService
-      ) { }
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private dialog: MatDialog,
+    private Loginservice: LoginService,
+    private snack: MatSnackBar,
+    private InterceptorServiceService: InterceptorServiceService
+  ) { }
 
 
 
-    ngOnInit() : void {
-     
-    }
+  ngOnInit(): void {
+
+  }
 
   //  onSubmit(loginForm) {
-        // this.formSubmitted = true;
+  // this.formSubmitted = true;
 
-        // if (this.form.valid) {
-        //     let username = this.form.controls['username'].value;
-        //     let password = this.form.controls['password'].value;
+  // if (this.form.valid) {
+  //     let username = this.form.controls['username'].value;
+  //     let password = this.form.controls['password'].value;
 
-        //     let user$ = this.InterceptorServiceService.Login(username, password);
+  //     let user$ = this.InterceptorServiceService.Login(username, password);
 
-        //     user$.subscribe(
-        //         (data: any) => console.log(data),
-        //         err => console.error(err)
-        //     );
-        // } else {
-        //     console.log("The form is NOT valid");
-        //     this.formSubmitted = false;
-        // }
+  //     user$.subscribe(
+  //         (data: any) => console.log(data),
+  //         err => console.error(err)
+  //     );
+  // } else {
+  //     console.log("The form is NOT valid");
+  //     this.formSubmitted = false;
+  // }
 
-        Login(): void
-        {
-         
-          this.Loginservice.Login(this.form.value).subscribe(res => {
-            //window.location.reload();
-           // const token = (<any>res).token
-            localStorage.setItem('user', JSON.stringify(res));
-             //localStorage.setItem('user',JSON.stringify(token) );
-            console.log(res);
-            //localStorage.setItem('user', JSON.stringify({ token: res }));
+  Login(): void {
 
-           this.router.navigateByUrl('home');
-          },(error: HttpErrorResponse)=>
-          {
+    this.Loginservice.Login(this.form.value).subscribe(res => {
+      //window.location.reload();
+      // const token = (<any>res).token
+      localStorage.setItem('user', JSON.stringify(res));
+      //localStorage.setItem('user',JSON.stringify(token) );
+      console.log(res);
+      //localStorage.setItem('user', JSON.stringify({ token: res }));
+
+      this.router.navigateByUrl('home');
+    }, (error: HttpErrorResponse) => {
           if (error.status === 400)
             {
               this.snack.open(error.error, 'OK',
@@ -123,7 +121,7 @@ export class LoginComponent implements OnInit {
            });
  
           confirm.afterClosed().subscribe(res => {
-            this.router.navigateByUrl('login');
+            // this.router.navigateByUrl('');
       
               })
         }

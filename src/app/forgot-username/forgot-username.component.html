@@ -15,7 +15,7 @@
         </div>
 
 
-        <div class="mat-row">
+        <div class="mat-row" *ngIf="form.controls['otp'].value">
             <mat-form-field appearance="outline" class="control-m">
                 <mat-label>New Password</mat-label>
                 <input type="password" matInput placeholder="Enter new password" formControlName="userPassword">
@@ -26,7 +26,7 @@
         </div>
 
 
-        <div class="mat-row">
+        <div class="mat-row" *ngIf="form.controls['newPassword'].value">
             <mat-form-field appearance="outline" class="control-m">
                 <mat-label>Confirm new Password</mat-label>
                 <input type="password" matInput placeholder="Confirm new password" formControlName="confirmNewPassword">
