@@ -4,6 +4,7 @@ import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@ang
 import { Observable } from 'rxjs';
 import { SupplierService } from 'src/app/services/supplier/supplier.service.component';
 import { Supplier } from 'src/app/interfaces';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-make-payment',
@@ -24,7 +25,8 @@ export class MakePaymentComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private SupplierService: SupplierService
+    private SupplierService: SupplierService,
+    private snack: MatSnackBar
     ) { }
 
   ngOnInit(): void {
@@ -64,7 +66,12 @@ export class MakePaymentComponent implements OnInit {
       console.log(res)
       this.loading = false;
       this.router.navigateByUrl('supplier')
-    })
+    }),  this.snack.open('Successfully Captured Payment! ', 'OK',
+    {
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      duration: 4000
+    });
   }
 
   Close(){

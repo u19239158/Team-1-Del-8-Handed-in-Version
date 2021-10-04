@@ -73,7 +73,7 @@
                         <mat-menu #menu="matMenu" xPosition="before">
                             <button mat-menu-item *ngIf="canBeUpdated(element)"
                                 [routerLink]="['/specialEdit', element.specialId]">Update Special</button>
-                            <button mat-menu-item (click)="deleteSpecial(element.specialId)">Delete Special</button>
+                            <button mat-menu-item (click)="deleteSpecial(element)">Delete Special</button>
                         </mat-menu>
                     </td>
                 </ng-container>
