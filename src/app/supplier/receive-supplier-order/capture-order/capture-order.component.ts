@@ -20,6 +20,7 @@ export class CaptureOrderComponent implements OnInit {
   RecieveSupplierOrder: ReceiveSupplierOrder[];
   recievesupplierorder: ReceiveSupplierOrder;
   receiveSupplierOrders: ReceiveSupplierOrder[] = [];
+  userid: number;
   path: File;
   SupplierOrderId: any;
   id: number;
@@ -28,6 +29,7 @@ export class CaptureOrderComponent implements OnInit {
   supplierId: number;
   form = this.FB.group({
     invoiceTotal: [null, Validators.required],
+    
     
   })
   constructor(
@@ -44,6 +46,10 @@ export class CaptureOrderComponent implements OnInit {
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
     this.readSupplierOrder(this.id);
+
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   this.userid = obj.userId
   }
 
   readSupplierOrder(SupplierOrderId:any): void {
@@ -109,12 +115,14 @@ export class CaptureOrderComponent implements OnInit {
 
   finalOrder() {
     const receiveOrder: ReceiveSupplierOrder = this.form.value;
+  receiveOrder.usersId = this.userid
     console.log(this.list);
     const Data = {
       supplierInvoiceTotal : receiveOrder.invoiceTotal,
       InvoiceLineList : this.list,
       supplierId: this.supplierId,
       supplierOrderId: this.SupplierOrderId,
+      usersid : receiveOrder.usersId
     }
 
     this.receiveSupplierService.ReceiveSupplierOrder(Data).subscribe(res => {

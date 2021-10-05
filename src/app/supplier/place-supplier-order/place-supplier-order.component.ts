@@ -46,6 +46,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
   quant: number;
   QuantityModalComponent: QuantityModalComponent;
   place : place;
+  userid: number;
   
   highlight(element: PlaceSupplierOrder) {
     element.highlighted = !element.highlighted;
@@ -87,6 +88,10 @@ export class PlaceSupplierOrderComponent implements OnInit {
       // this.name = this.productitems.productItemName;
       setTimeout(() => this.dataSource.paginator = this.paginator);
     });
+
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   this.userid = obj.userId
 
   }
 
@@ -148,10 +153,12 @@ export class PlaceSupplierOrderComponent implements OnInit {
 
   finalOrder() {
     const placeOrder: PlaceSupplierOrder = this.form.value;
+    placeOrder.usersId = this.userid
     console.log(this.list);
     const Data = {
       supplierId : placeOrder.supplierID,
-      itemsOrdered : this.list
+      itemsOrdered : this.list,
+      usersid: placeOrder.usersId
     }
 
     this.placeSupplierOrderService.PlaceSupplierOrder(Data).subscribe(res => {
