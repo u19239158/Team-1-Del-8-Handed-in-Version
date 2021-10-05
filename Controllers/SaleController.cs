@@ -482,7 +482,7 @@ namespace NKAP_API_2.Controllers
                     SaleID = sor.SaleID,
                     AddressLine1 = sd.AddressLine1,
                     AddressLine2 = sd.AddressLine2,
-                    AddressLine3 = sd.AddressLine3,
+                  
                     AddressPostalCode = sd.AddressPostalCode
 
                 }).Join(_db.SaleLines,
@@ -509,7 +509,7 @@ namespace NKAP_API_2.Controllers
                     SaleID = sor.SaleID,
                     AddressLine1 = sor.AddressLine1,
                     AddressLine2 = sor.AddressLine2,
-                    AddressLine3 = sor.AddressLine3,
+                 
                     AddressPostalCode = sor.AddressPostalCode,
                     ProductItemId = sd.ProductItemId,
                 }).Join(_db.ProductItems,
@@ -536,7 +536,7 @@ namespace NKAP_API_2.Controllers
                     SaleID = sor.SaleID,
                     AddressLine1 = sor.AddressLine1,
                     AddressLine2 = sor.AddressLine2,
-                    AddressLine3 = sor.AddressLine3,
+                    
                     AddressPostalCode = sor.AddressPostalCode,
                     ProductItemId = sd.ProductItemId,
                     ProductItemName = sd.ProductItemName
@@ -639,7 +639,7 @@ namespace NKAP_API_2.Controllers
                    SaleID = sor.SaleID,
                    AddressLine1 = sd.AddressLine1,
                    AddressLine2 = sd.AddressLine2,
-                   AddressLine3 = sd.AddressLine3,
+                   
                    AddressPostalCode = sd.AddressPostalCode
 
                }).First(ss => ss.SaleID == saleid);
@@ -773,10 +773,10 @@ namespace NKAP_API_2.Controllers
                     SaleID = sor.SaleID,
                     AddressLine1 = sd.AddressLine1,
                     AddressLine2 = sd.AddressLine2,
-                    AddressLine3 = sd.AddressLine3,
+                   
                     AddressPostalCode = sd.AddressPostalCode
 
-                });
+                }).Distinct();
 
             return Ok(Sale);
         }
@@ -912,7 +912,7 @@ namespace NKAP_API_2.Controllers
                     CustomerEmailAddress = sor.CustomerEmailAddress,
                     AddressLine1 = sd.AddressLine1,
                     AddressLine2 = sd.AddressLine2,
-                    AddressLine3 = sd.AddressLine3,
+                    
                     AddressPostalCode = sd.AddressPostalCode
 
                 }).First(ss => ss.SaleID == saleid);

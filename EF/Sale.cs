@@ -20,7 +20,7 @@ namespace NKAP_API_2.EF
         public int? EmployeeId { get; set; }
         public string SaleOrderDescription { get; set; }
         public DateTime SaleOrderDate { get; set; }
-        public bool SaleOrderAssign { get; set; }
+        public bool? SaleOrderAssign { get; set; }
         public bool SaleOrderRecieveType { get; set; }
         public decimal PaymentAmount { get; set; }
         public DateTime PaymentDate { get; set; }

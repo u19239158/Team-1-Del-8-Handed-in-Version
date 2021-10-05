@@ -12,7 +12,6 @@ namespace NKAP_API_2.EF
         public int? ProductItemId { get; set; }
         public string SupplierItemName { get; set; }
         public int QuantityReceived { get; set; }
-        public decimal? LineItemCost { get; set; }
 
         public virtual ProductItem ProductItem { get; set; }
         public virtual SupplierInvoice SupplierInvoice { get; set; }

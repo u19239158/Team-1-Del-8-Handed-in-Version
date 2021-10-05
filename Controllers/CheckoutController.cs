@@ -31,7 +31,8 @@ namespace NKAP_API_2.Controllers
             Sale sale = new Sale();
             sale.SaleOrderDescription = ""; //attributes in table
             sale.SaleOrderDate = System.DateTime.Now;
-            sale.SaleOrderRecieveType = model.SaleOrderRecieveType;
+            sale.SaleOrderRecieveType = false;
+            sale.SaleOrderAssign = false;
             sale.PaymentAmount = model.PaymentAmount;
             sale.PaymentDate = System.DateTime.Now;
             sale.OrderStatusId = 1;
@@ -43,23 +44,38 @@ namespace NKAP_API_2.Controllers
             Delivery Del = new Delivery();
             Del.AddressId = model.AddressId;
             Del.SaleId = sale.SaleId;
-            Del.DeliveryDistance = model.DeliveryDistance;
+           // Del.DeliveryDistance = model.DeliveryDistance;
             _db.Deliveries.Add(Del);
             _db.SaveChanges();
 
-            SaleLine Sline = new SaleLine();
-            Sline.ProductItemId = model.ProductItemId;
-            Sline.SaleLineQuantity = model.SaleLineQuantity;
-            Sline.SaleId = sale.SaleId;
-            _db.SaleLines.Add(Sline);
-            _db.SaveChanges();
 
-            var sd = _db.Sales.Find(sale.SaleId);
-            sd.SaleOrderDescription +=  model.ProductItemName + model.SaleLineQuantity + "x "+ ",";
-            _db.Sales.Attach(sd); //Attach Record
-            _db.SaveChanges();
 
-            var user = _db.Users.Find(model.UsersID);
+            foreach (var item in model.saleLists)
+            {
+                SaleLine Sline = new SaleLine();
+                Sline.ProductItemId = item.productItemId;
+                Sline.SaleLineQuantity = item.num;
+                Sline.SaleId = sale.SaleId;
+                _db.SaleLines.Add(Sline);
+                _db.SaveChanges();
+
+
+                var sd = _db.Sales.Find(sale.SaleId);
+                var prod = _db.ProductItems.Find(Sline.ProductItemId);
+                sd.SaleOrderDescription += prod.ProductItemName + " (" + Sline.SaleLineQuantity + "qty) ,";
+                prod.QuantityOnHand = prod.QuantityOnHand - Sline.SaleLineQuantity;
+                _db.Sales.Attach(sd); //Attach Record
+                _db.ProductItems.Attach(prod);
+                _db.SaveChanges();
+            }
+
+            //var sd = _db.Sales.Find(sale.SaleId);
+            //sd.SaleOrderDescription +=  model.ProductItemName + model.SaleLineQuantity + "x "+ ",";
+            //_db.Sales.Attach(sd); //Attach Record
+            //_db.SaveChanges();
+
+            var customer = _db.Customers.Find(model.CustomerID);
+            var user = _db.Users.FirstOrDefault(zz => zz.UsersId == customer.UsersId);
             AuditTrail audit = new AuditTrail();
             audit.AuditTrailDescription = user.UserUsername + " made a sale worth: " + 'R' + model.PaymentAmount;
             audit.AuditTrailDate = System.DateTime.Now;
@@ -72,7 +88,7 @@ namespace NKAP_API_2.Controllers
             return Ok();
         }
 
-        [Route("Checkout")] //route
+        [Route("CollectionCheckout")] //route
         [HttpPost]
         //Add Sales
         //Create a Model for table
@@ -81,7 +97,7 @@ namespace NKAP_API_2.Controllers
             Sale sale = new Sale();
             sale.SaleOrderDescription = ""; //attributes in table
             sale.SaleOrderDate = System.DateTime.Now;
-            sale.SaleOrderRecieveType = model.SaleOrderRecieveType;
+            sale.SaleOrderRecieveType = true;
             sale.PaymentAmount = model.PaymentAmount;
             sale.PaymentDate = System.DateTime.Now;
             sale.OrderStatusId = 1;
@@ -90,22 +106,31 @@ namespace NKAP_API_2.Controllers
             _db.Sales.Add(sale);
             _db.SaveChanges();
 
+            foreach (var item in model.saleLists)
+            {
+                SaleLine Sline = new SaleLine();
+                Sline.ProductItemId = item.productItemId;
+                Sline.SaleLineQuantity = item.num;
+                Sline.SaleId = sale.SaleId;
+                _db.SaleLines.Add(Sline);
+                _db.SaveChanges();
 
-            SaleLine Sline = new SaleLine();
-            Sline.ProductItemId = model.ProductItemId;
-            Sline.SaleLineQuantity = model.SaleLineQuantity;
-            Sline.SaleId = sale.SaleId;
-            _db.SaleLines.Add(Sline);
-            _db.SaveChanges();
 
-            var sd = _db.Sales.Find(sale.SaleId);
-            sd.SaleOrderDescription += model.ProductItemName + model.SaleLineQuantity + "x " + ",";
-            _db.Sales.Attach(sd); //Attach Record
-            _db.SaveChanges();
+                var sd = _db.Sales.Find(sale.SaleId);
+                var prod = _db.ProductItems.Find(Sline.ProductItemId);
+                sd.SaleOrderDescription += prod.ProductItemName + " (" + Sline.SaleLineQuantity + "qty) ,";
+                prod.QuantityOnHand = prod.QuantityOnHand - Sline.SaleLineQuantity;
+                _db.Sales.Attach(sd); //Attach Record
+                _db.ProductItems.Attach(prod);
+                _db.SaveChanges();
+            }
+          
 
-            var user = _db.Users.Find(model.UsersID);
+
+            var customer = _db.Customers.Find(model.CustomerID);
+            var user = _db.Users.FirstOrDefault(zz => zz.UsersId == customer.UsersId);
             AuditTrail audit = new AuditTrail();
-            audit.AuditTrailDescription = user.UserUsername + " made a sale worth: " + 'R' + model.PaymentAmount;
+            audit.AuditTrailDescription = user.UserUsername + " made a sale worth: " + 'R' + sale.PaymentAmount;
             audit.AuditTrailDate = System.DateTime.Now;
             TimeSpan timeNow = DateTime.Now.TimeOfDay;
             audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
@@ -563,17 +588,39 @@ namespace NKAP_API_2.Controllers
         //Create a Model for table
         public IActionResult AddAddress(AddressModel model) //reference the model
         {
-            Address address = new Address();
-            address.AddressLine1 = model.AddressLine1; //attributes in table
-            address.AddressLine2 = model.AddressLine2;
-            address.AddressLine3 = model.AddressLine3;
-            address.AddressPostalCode = model.AddressPostalCode;
-            address.CustomerId = model.CustomerID;
-            address.ProvinceId = model.ProvinceID;
-            _db.Addresses.Add(address);
-            _db.SaveChanges();
+            var addy = _db.Addresses.FirstOrDefault(ss => ss.CustomerId == model.CustomerID);
+            if (addy !=null)
+            {
+                addy.AddressLine1 = model.AddressLine1; //attributes in table
+                addy.AddressLine2 = model.AddressLine2;
 
-            return Ok(address);
+                addy.AddressPostalCode = model.AddressPostalCode;
+                addy.CustomerId = model.CustomerID;
+
+                var provy = _db.Provinces.FirstOrDefault(zz => zz.ProvinceDescription == model.ProvinceDescription);
+                addy.ProvinceId = provy.ProvinceId;
+                _db.Addresses.Attach(addy);
+                _db.SaveChanges();
+
+                return Ok();
+            }
+            else
+            {
+
+                Address address = new Address();
+                address.AddressLine1 = model.AddressLine1; //attributes in table
+                address.AddressLine2 = model.AddressLine2;
+
+                address.AddressPostalCode = model.AddressPostalCode;
+                address.CustomerId = model.CustomerID;
+
+                var provy = _db.Provinces.FirstOrDefault(zz => zz.ProvinceDescription == model.ProvinceDescription);
+                address.ProvinceId = provy.ProvinceId;
+                _db.Addresses.Attach(address);
+                _db.SaveChanges();
+                return Ok();
+            }
+           
         }
 
       

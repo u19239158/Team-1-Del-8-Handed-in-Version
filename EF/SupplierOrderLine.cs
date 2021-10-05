@@ -12,7 +12,6 @@ namespace NKAP_API_2.EF
         public int? ProductItemId { get; set; }
         public string SupplierProducts { get; set; }
         public int SupplierQuantityOrdered { get; set; }
-        public decimal? SupplierOrderLineCost { get; set; }
 
         public virtual ProductItem ProductItem { get; set; }
         public virtual SupplierOrder SupplierOrder { get; set; }

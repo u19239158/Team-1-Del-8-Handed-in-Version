@@ -79,6 +79,15 @@ namespace NKAP_API_2.Controllers
 
             };
             _db.Users.Add(newUser);
+            _db.SaveChanges();
+
+
+            PasswordHistory pass = new PasswordHistory();
+            pass.PasswordHistoryDate = System.DateTime.Now;
+            pass.UsersId = newUser.UsersId;
+            pass.PasswordHistoryText = newUser.UserPassword;
+            _db.PasswordHistories.Add(pass);
+            _db.SaveChanges();
 
             Employee employee = new Employee();
             {
@@ -89,6 +98,7 @@ namespace NKAP_API_2.Controllers
                 employee.EmployeeCellphoneNumber = model.EmployeeCellphoneNumber;
                 employee.EmployeeDob = model.EmployeeDOB.AddDays(1);
                 employee.EmployeeIdnumber = (model.EmployeeIDNumber);
+                employee.UsersId = newUser.UsersId;
                 _db.Employees.Add(employee);
                 _db.SaveChanges();
 
@@ -106,7 +116,7 @@ namespace NKAP_API_2.Controllers
             _db.SaveChanges();
 
 
-            return Ok(employee);
+            return Ok();
         }
 
         private string ComputeSha256Hash(string rawData)
@@ -177,18 +187,19 @@ namespace NKAP_API_2.Controllers
         {
             try
             {
-                var delemployee = _db.Employees.Find(model.Employee_ID);
-                _db.Employees.Remove(delemployee); //Delete Record
+                var delemployee = _db.Employees.Find(model.Employee_ID);    //Delete Record
+                var user = _db.Users.FirstOrDefault(zz => zz.UsersId == delemployee.UsersId);
+                _db.Users.Remove(user);
+                _db.Employees.Remove(delemployee);
                 _db.SaveChanges();
-
                 //add to audit trail
-                var user = _db.Users.Find(model.UsersID);
+                var users = _db.Users.Find(model.UsersID);
                 AuditTrail audit = new AuditTrail();
                 audit.AuditTrailDescription = user.UserUsername + "deleted the Employee: " + model.EmployeeName + " " + model.EmployeeSurName;
                 audit.AuditTrailDate = System.DateTime.Now;
                 TimeSpan timeNow = DateTime.Now.TimeOfDay;
                 audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
-                audit.UsersId = user.UsersId;
+                audit.UsersId = users.UsersId;
                 _db.AuditTrails.Add(audit);
                 _db.SaveChanges();
                 return Ok(delemployee);

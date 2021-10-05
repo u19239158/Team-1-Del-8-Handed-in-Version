@@ -41,22 +41,22 @@ namespace NKAP_API_2.Controllers
         public IActionResult Login(RegisterModel model)
         {
             //using var db = new NKAP_BOLTING_DB_4Context();
-           
+
             var hashedPassword = this.ComputeSha256Hash(model.UserPassword);
             model.UserRoleName = "Admin";
             var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
 
             if (user == null)
             {
-                request = "Invalid Credentials" ;
+                request = "Invalid Credentials";
                 return BadRequest(request);
-               // return ;
+                // return ;
             }
             else
             {
                 var tokens = token.GenerateToken(model);
                 var username = user.UserUsername;
-                
+
                 var x = new helperclass();
                 x.token = tokens;
                 x.userUsername = username;
@@ -64,13 +64,13 @@ namespace NKAP_API_2.Controllers
                 x.userRoleID = (int)user.UserRoleId;
 
                 //add to audit trail
-              
+
                 var users = _db.Users.Find(user.UsersId);
                 AuditTrail audit = new AuditTrail();
                 audit.AuditTrailDescription = users.UserUsername + " logged In.";
                 audit.AuditTrailDate = System.DateTime.Now;
                 TimeSpan timeNow = DateTime.Now.TimeOfDay;
-                audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds); 
+                audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
                 audit.UsersId = users.UsersId;
                 _db.AuditTrails.Add(audit);
                 _db.SaveChanges();
@@ -78,7 +78,7 @@ namespace NKAP_API_2.Controllers
                 return Ok(x);
                 //return ;
 
-               
+
             }
 
         }
@@ -92,51 +92,98 @@ namespace NKAP_API_2.Controllers
         }
 
         //Login Admin/Emp SIDE after new db
-        //[HttpPost]
-        //[Route("Logins")]
-        //public IActionResult Logins(RegisterModel model)
-        //{
-        //    //using var db = new NKAP_BOLTING_DB_4Context();
+        [HttpPost]
+        [Route("Logins")]
+        public IActionResult Logins(RegisterModel model)
+        {
+            //using var db = new NKAP_BOLTING_DB_4Context();
 
-        //    var hashedPassword = this.ComputeSha256Hash(model.UserPassword);
-        //   // model.UserRoleName = "Admin";
-        //    var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
-        //    var log = _db.Users.FirstOrDefault(zz => zz.UserUsername == model.UserUsername);
+            var hashedPassword = this.ComputeSha256Hash(model.UserPassword);
+            // model.UserRoleName = "Admin";
+            var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername ).FirstOrDefault();
+            var log = _db.Users.FirstOrDefault(zz => zz.UserUsername == model.UserUsername);
+   
 
-        //    if (_db.Admins.FirstOrDefault(zz=> zz.UsersId == log.UsersId) )
-        //    {
-        //        model.UserRoleName = "Admin";
-        //        if (user == null)
-        //        {
-        //            request = "Invalid Credentials";
-        //            return BadRequest(request);
-        //            // return ;
-        //        }
-        //        else
-        //        {
-        //            return Ok(token.GenerateToken(model));
-        //            //return ;
-        //        }
+            if (user == null)
+            {
+                request = "User does not exist.";
+                return BadRequest(request);
+                // return ;
+            }
 
-        //    }
-        //    else if (_db.Employees.FirstOrDefault(zz => zz.UsersId == log.UsersId))
-        //    {
-        //        model.UserRoleName = "Employee";
-        //        if (user == null)
-        //        {
-        //            request = "Invalid Credentials";
-        //            return BadRequest(request);
-        //            // return ;
-        //        }
-        //        else
-        //        {
-        //            return Ok(token.GenerateToken(model));
-        //            //return ;
-        //        }
-        //    }
-        //     return Forbid(request);
+            var admin = _db.Admins.FirstOrDefault(zz => zz.UsersId == log.UsersId);
+            var emp = _db.Employees.FirstOrDefault(zz => zz.UsersId == log.UsersId);
+             if (admin != null)
+            {
+                model.UserRoleName = "Admin";
+                if (user.UserPassword !=ComputeSha256Hash( model.UserPassword))
+                {
+                   
+                    request = "Incorrect Password";
+                    return BadRequest(request);
+                    // return ;
+                    
+                }
+                else
+                {
+                    var tokens = token.GenerateToken(model);
+                    var username = user.UserUsername;
+                    var x = new helperclass();
+                    x.token = tokens;
+                    x.userUsername = username;
+                    x.userId = user.UsersId;
+                    x.userRoleID = (int)user.UserRoleId;
 
-        //}
+                    var users = _db.Users.Find(user.UsersId);
+                    AuditTrail audit = new AuditTrail();
+                    audit.AuditTrailDescription = users.UserUsername + " logged In.";
+                    audit.AuditTrailDate = System.DateTime.Now;
+                    TimeSpan timeNow = DateTime.Now.TimeOfDay;
+                    audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+                    audit.UsersId = users.UsersId;
+                    _db.AuditTrails.Add(audit);
+                    _db.SaveChanges();
+
+                    return Ok(x);
+                    //return ;
+                }
+
+            }
+            else if (emp != null)
+            {
+                model.UserRoleName = "Employee";
+                if (user.UserPassword != ComputeSha256Hash(model.UserPassword))
+                {
+                    request = "Incorrect Password";
+                    return BadRequest(request);
+                    // return ;
+                }
+                else
+                {
+                    var tokens = token.GenerateToken(model);
+                    var username = user.UserUsername;
+                    var x = new helperclass();
+                    x.token = tokens;
+                    x.userUsername = username;
+                    x.userId = user.UsersId;
+                    x.userRoleID = (int)user.UserRoleId;
+
+                    var users = _db.Users.Find(user.UsersId);
+                    AuditTrail audit = new AuditTrail();
+                    audit.AuditTrailDescription = users.UserUsername + " logged In.";
+                    audit.AuditTrailDate = System.DateTime.Now;
+                    TimeSpan timeNow = DateTime.Now.TimeOfDay;
+                    audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+                    audit.UsersId = users.UsersId;
+                    _db.AuditTrails.Add(audit);
+                    _db.SaveChanges();
+                    return Ok(x);
+                    //return ;
+                }
+            }
+            return Forbid(request);
+
+        }
 
         //[HttpPost]
         //[Route("CustomerLogin")]
@@ -201,101 +248,98 @@ namespace NKAP_API_2.Controllers
             // Initialize the Twilio client
             TwilioClient.Init(accountSid, authToken);
             var user = _db.Users.FirstOrDefault(aa => aa.UserUsername  == model.UserUsername);
-            var cust = _db.Customers.FirstOrDefault(zz => zz.CustomerId == user.UsersId);
-            var emp = _db.Employees.FirstOrDefault(zz => zz.EmployeeId == user.UsersId);
-            var adm = _db.Admins.FirstOrDefault(zz => zz.AdminId == user.UsersId);
+            if (user == null)
+            {
+                return BadRequest("Please enter a valid username");
+            }
+            var cust = _db.Customers.FirstOrDefault(zz => zz.UsersId == user.UsersId);
+            var emp = _db.Employees.FirstOrDefault(zz => zz.UsersId == user.UsersId);
+            var adm = _db.Admins.FirstOrDefault(zz => zz.UsersId == user.UsersId);
             var number = "";
             if (cust != null)
             {
              
                 number = cust.CustomerCellphoneNumber;
-                var code = new Random().Next(0, 1000000);
+                string cnumber = number.Substring(1);
+                string Ncode = "+27";
+                string finalNumber = Ncode + cnumber;
+                var code = new Random().Next(100000, 1000000);
                 MessageResource.Create(
                     from: new PhoneNumber("+13128182655"), // From number, must be an SMS-enabled Twilio number
-                    to: new PhoneNumber(number), // To number, if using Sandbox see note above
+                    to: new PhoneNumber(finalNumber), // To number, if using Sandbox see note above
                                                      // Message content
                     body: $"Your one time pin code is " + code + " for Nkap Bolting Login");
 
                 Console.WriteLine($"Sent message to {user.UserUsername}");
 
-                //Verification vcode = new Verification(); // creating the entry in the verification table for the reset code
-                //{
-                //    vcode.UsersId = user.UsersId;
-                //    vcode.Code = code;
-                //    vcode.PhoneNumber = number;
-                //    vcode.CodeDate = DateTime.Now;
-                //}
+                Verification vcode = new Verification(); // creating the entry in the verification table for the reset code
+                {
+                    vcode.UsersId = user.UsersId;
+                    vcode.Code = code;
+                    vcode.PhoneNumber = number;
+                    vcode.CodeDate = DateTime.Now;
+                }
+                _db.Verifications.Add(vcode);
+                _db.SaveChanges();
             }
             else if (emp != null)
             {
                 number = emp.EmployeeCellphoneNumber;
-                var code = new Random().Next(0, 1000000);
+                string cnumber = number.Substring(1);
+                string Ncode = "+27";
+                string finalNumber = Ncode + cnumber;
+                var code = new Random().Next(100000, 1000000);
                 MessageResource.Create(
                     from: new PhoneNumber("+13128182655"), // From number, must be an SMS-enabled Twilio number
-                    to: new PhoneNumber(number), // To number, if using Sandbox see note above
+                    to: new PhoneNumber(finalNumber), // To number, if using Sandbox see note above
                                                   // Message content
                     body: $"Your one time pin code is " + code + " for Nkap Bolting Login");
 
                 Console.WriteLine($"Sent message to {user.UserUsername}");
 
 
-                //Verification vcode = new Verification(); // creating the entry in the verification table for the reset code
-                //{
-                //    vcode.UsersId = user.UsersId;
-                //    vcode.Code = code;
-                //    vcode.PhoneNumber = number;
-                //    vcode.CodeDate = DateTime.Now;
-                //}
+                Verification vcode = new Verification(); // creating the entry in the verification table for the reset code
+                {
+                    vcode.UsersId = user.UsersId;
+                    vcode.Code = code;
+                    vcode.PhoneNumber = number;
+                    vcode.CodeDate = DateTime.Now;
+                }
+                _db.Verifications.Add(vcode);
+                _db.SaveChanges();
             }
-            else if (cust != null)
+            else if (adm != null)
             {
                 number = adm.AdminCellphoneNumber;
-                var code = new Random().Next(0, 1000000);
+                string cnumber = number.Substring(1);
+                string Ncode = "+27";
+                string finalNumber = Ncode + cnumber;
+                var code = new Random().Next(100000, 1000000);
                 MessageResource.Create(
                     from: new PhoneNumber("+13128182655"), // From number, must be an SMS-enabled Twilio number
-                    to: new PhoneNumber(number), // To number, if using Sandbox see note above
+                    to: new PhoneNumber(finalNumber), // To number, if using Sandbox see note above
                                                   // Message content
                     body: $"Your one time pin code is " + code + " for Nkap Bolting Login");
 
                 Console.WriteLine($"Sent message to {user.UserUsername}");
 
 
-                //Verification vcode = new Verification(); // creating the entry in the verification table for the reset code
-                //{
-                //    vcode.UsersId = user.UsersId;
-                //    vcode.Code = code;
-                //    vcode.PhoneNumber = number;
-                //    vcode.CodeDate = DateTime.Now;
-                //}
+                Verification vcode = new Verification(); // creating the entry in the verification table for the reset code
+                {
+                    vcode.UsersId = user.UsersId;
+                    vcode.Code = code;
+                    vcode.PhoneNumber = number;
+                    vcode.CodeDate = DateTime.Now;
+                }
+                _db.Verifications.Add(vcode);
+                _db.SaveChanges();
             }
 
 
-            // make an associative array of people we know, indexed by phone number
-            var people = new Dictionary<string, string>() {
-
-                {"+27713623778", "Boots"}
-            };
-
-            // Iterate over all our friends
-            foreach (var person in people)
-            {
-                // Send a new outgoing SMS by POSTing to the Messages resource
-
-                var code = new Random().Next(0, 1000000);
-                MessageResource.Create(
-                    from: new PhoneNumber("+13128182655"), // From number, must be an SMS-enabled Twilio number
-                    to: new PhoneNumber(person.Key), // To number, if using Sandbox see note above
-                                                     // Message content
-                    body: $"Your one time pin code is " + code + "for Nkap Bolting Login");
-
-                Console.WriteLine($"Sent message to {person.Value}");
-            }
+         
 
 
-            //2. store the number in a table with the time it was created on
-            //store code var; time it was generated; phone number (like table columns)
-
-            return Ok("Enter your one time pin");
+            return Ok();
 
         }
 
@@ -303,22 +347,35 @@ namespace NKAP_API_2.Controllers
         [Route("ResetPasswordOTP")]
         public IActionResult ResetPasswordOTP(RegisterModel model)
         {
-            var user = _db.Users.FirstOrDefault(aa => aa.UserUsername == model.UserUsername);
+            var bar = _db.Users.FirstOrDefault(aa => aa.UserUsername == model.UserUsername);
+            //var otp = _db.Verifications.FirstOrDefault(aa => aa.Code == model.otp);
+            //var user = _db.Users.OrderBy(ss => ss.UsersId). LastOrDefault(aa => aa.UsersId == otp.UsersId);
+            var verify = _db.Verifications.OrderBy(ss => ss.VerificationId).LastOrDefault(ss => ss.UsersId == bar.UsersId);
+            string msg= "";
+            if (model.otp == verify.Code)
+            {
+                bar.UserPassword = ComputeSha256Hash(model.UserPassword);
 
-            // var verify = _db.Verification.OrderBy(ss => ss.VerificationID)LastOrDefault(ss => ss.UsersId == user.UsersID);
+                PasswordHistory pass = new PasswordHistory();
+                pass.PasswordHistoryDate = System.DateTime.Now;
+                pass.UsersId = bar.UsersId;
+                pass.PasswordHistoryText = bar.UserPassword;
+                _db.PasswordHistories.Add(pass);
+                _db.SaveChanges();
+                _db.Users.Attach(bar);
+                _db.SaveChanges();
+                return Ok();
+            }
+            else 
+            {
+                msg = "Invalid OTP";
+                return BadRequest(msg);
+            }
+            //3.check  that the number is valid = 6 characters
+            //4.check if a record with this code and phone number exists in the table
+            //5.check if time of the code is not greater than 1hr(hasn't expired)
 
-            //if (model.otp == verify.Code)
-            //{
-            //    user.UserPassword = ComputeSha256Hash(model.UserPassword);
-            //    _db.Users.Attach(user);
-            //    _db.SaveChangesAsync();
-            //    return Ok();
-            //}
-            //3. check  that the number is valid=6 characters
-            //4. check if a record with this code and phone number exists in the table
-            //5. check if time of the code is not greater than 1hr (hasn't expired)
-
-            return Ok();
+          
         }
 
 
@@ -338,27 +395,32 @@ namespace NKAP_API_2.Controllers
                 UserUsername = model.UserUsername,
                 UserPassword = ComputeSha256Hash(model.UserPassword),
                 UserRoleId = 2,
+
                 
             };
+            _db.Users.Add(newUser);
+            _db.SaveChanges();
 
             //add to passwordHistory
-            //var passH = _db.PasswordHistories.Find(model.UsersID);
-            //PasswordHistory pass = new PasswordHistory();
-            //pass.PasswordHistoryDate = System.DateTime.Now;
-            //pass.PasswordHistoryText = newUser.UserPassword;
-            //_db.PasswordHistories.Add(pass);
-            //_db.SaveChanges();
+   
+            PasswordHistory pass = new PasswordHistory();
+            pass.PasswordHistoryDate = System.DateTime.Now;
+            pass.UsersId = newUser.UsersId;
+            pass.PasswordHistoryText = newUser.UserPassword;
+            _db.PasswordHistories.Add(pass);
+            _db.SaveChanges();
 
 
             var newCustomer = new Customer
             {
-                //TitleId = model.TitleID,
+                TitleId = model.TitleID,
                 CustomerName = model.CustomerName,
                 CustomerSurname = model.CustomerSurname,
                 CustomerCellphoneNumber = model.CustomerCellphoneNumber,
                 CustomerEmailAddress = model.CustomerEmailAddress,
                 CustomerBusinessName = model.CustomerBusinessName,
-                CustomerVatreg = model.CustomerVatReg
+                CustomerVatreg = model.CustomerVatReg,
+                UsersId = newUser.UsersId
             };
 
             //var newAdmin = new Admin
@@ -368,20 +430,20 @@ namespace NKAP_API_2.Controllers
             //    AdminSurname = model.CustomerSurname,
             //    AdminCellphoneNumber = model.CustomerCellphoneNumber,
             //    AdminEmailAddress = model.CustomerEmailAddress,
-
+            //    UsersId = newUser.UsersId
             //};
 
 
             try
             {
-                _db.Users.Add(newUser);
+                //_db.Users.Add(newUser);
                 //_db.Admins.Add(newAdmin);
                  _db.Customers.Add(newCustomer);
                 // _db.PasswordHistories.Add(newpasshist);
                 _db.SaveChanges();
 
                 //add to audit trail
-                var user = _db.Users.Find(model.UsersID);
+                var user = _db.Users.Find(newUser.UsersId);
                 AuditTrail audit = new AuditTrail();
                 audit.AuditTrailDescription = newUser.UserUsername + " Registered a new Account";
                 audit.AuditTrailDate = System.DateTime.Now;
@@ -392,7 +454,7 @@ namespace NKAP_API_2.Controllers
                 _db.SaveChanges();
 
 
-                return Ok(newCustomer);
+                return Ok();
             }
             catch (Exception e)
             {

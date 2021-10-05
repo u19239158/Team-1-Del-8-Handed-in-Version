@@ -22,7 +22,7 @@ namespace NKAP_API_2.Controllers
         public ReportController(NKAP_BOLTING_DB_4Context db)
         { _db = db; }
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+       // [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetPackingReportData")] //route
         [HttpGet]
         //get Sales with status "needs packing"
@@ -55,7 +55,7 @@ namespace NKAP_API_2.Controllers
 
 
 
-        [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+  //      [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetDeliveryReportData")] //route
         [HttpGet]
         //get Sales with status "needs packing"
@@ -121,7 +121,7 @@ namespace NKAP_API_2.Controllers
                     CustomerCellphoneNumber = a.CustomerCellphoneNumber,
                     AddressLine1 = t.AddressLine1,
                     AddressLine2 = t.AddressLine2,
-                    AddressLine3 = t.AddressLine3,
+                
                     AddressPostalCode = t.AddressPostalCode,
                     ProvinceID = t.ProvinceId
 
@@ -145,7 +145,7 @@ namespace NKAP_API_2.Controllers
                     CustomerCellphoneNumber = a.CustomerCellphoneNumber,
                     AddressLine1 = a.AddressLine1,
                     AddressLine2 = a.AddressLine2,
-                    AddressLine3 = a.AddressLine3,
+                
                     AddressPostalCode = a.AddressPostalCode,
                     ProvinceID = a.ProvinceID,
                     ProvinceDescription = t.ProvinceDescription,
@@ -622,7 +622,7 @@ namespace NKAP_API_2.Controllers
                     ProvinceID = a.ProvinceID,
                     ProvinceDescription = t.ProvinceDescription,
 
-                }).AsEnumerable().Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).GroupBy(zz => zz.ProvinceID);
+                }).AsEnumerable().Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).GroupBy(zz => zz.ProvinceID).Distinct();
             string bad;
             var results = _db.Sales.Where((ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate));
 

@@ -14,6 +14,7 @@ namespace NKAP_API_2.EF
         }
 
         public int EmployeeId { get; set; }
+        public int? UsersId { get; set; }
         public string EmployeeName { get; set; }
         public string EmployeeSurname { get; set; }
         public string EmployeeCellphoneNumber { get; set; }
@@ -22,6 +23,7 @@ namespace NKAP_API_2.EF
         public DateTime EmployeeDob { get; set; }
         public string EmployeeIdnumber { get; set; }
 
+        public virtual User Users { get; set; }
         public virtual ICollection<EmployeeShift> EmployeeShifts { get; set; }
         public virtual ICollection<Sale> Sales { get; set; }
     }

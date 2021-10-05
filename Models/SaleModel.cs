@@ -84,10 +84,7 @@ namespace NKAP_API_2.Models
 
         [JsonProperty("addressid")]
         public int AddressId
-        {
-            get; set;
-
-        }
+        { get; set; }
 
         [JsonProperty("userusername")]
         public string UserUsername
@@ -96,5 +93,9 @@ namespace NKAP_API_2.Models
         [JsonProperty("usersid")]
         public int UsersID
         { get; set; }
+
+        [JsonProperty("saleLists")]
+        public List<SaleList> saleLists = new List<SaleList>();
+       
     }
 }

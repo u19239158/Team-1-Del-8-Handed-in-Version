@@ -390,7 +390,7 @@ namespace NKAP_API_2.Controllers
             {
                 ProdPrice.ProductItemId = PItem.ProductItemId;
                 ProdPrice.PriceDate = System.DateTime.Now;
-                ProdPrice.PriceDescription = model.ProductItemCost + (model.ProductItemCost * markup.MarkupPercentage);
+                ProdPrice.PriceDescription = (decimal)(model.ProductItemCost + (model.ProductItemCost * markup.MarkupPercentage));
             }
 
             _db.Prices.Add(ProdPrice);
@@ -430,7 +430,7 @@ namespace NKAP_API_2.Controllers
             {
                 //Product.ProductItemId = PItem.ProductItemId;
                 Product.PriceDate = System.DateTime.Now;
-                Product.PriceDescription = model.ProductItemCost + (model.ProductItemCost * markup.MarkupPercentage);
+                Product.PriceDescription = (decimal)(model.ProductItemCost + (model.ProductItemCost * markup.MarkupPercentage));
             }
 
             _db.Prices.Attach(Product);

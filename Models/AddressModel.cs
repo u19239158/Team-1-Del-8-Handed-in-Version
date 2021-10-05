@@ -36,5 +36,9 @@ namespace NKAP_API_2.Models
         public int ProvinceID
         { get; set; }
 
+        [JsonProperty("provincedescription")]
+        public string ProvinceDescription
+        { get; set; }
+
     }
 }

@@ -14,6 +14,7 @@ namespace NKAP_API_2.EF
         }
 
         public int CustomerId { get; set; }
+        public int? UsersId { get; set; }
         public int? TitleId { get; set; }
         public string CustomerName { get; set; }
         public string CustomerSurname { get; set; }
@@ -23,6 +24,7 @@ namespace NKAP_API_2.EF
         public string CustomerVatreg { get; set; }
 
         public virtual Title Title { get; set; }
+        public virtual User Users { get; set; }
         public virtual ICollection<Address> Addresses { get; set; }
         public virtual ICollection<Sale> Sales { get; set; }
     }
