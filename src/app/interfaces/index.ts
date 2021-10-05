@@ -178,9 +178,10 @@ export interface ReceiveSupplierOrder {
   // orderDateReceived: string;
   // invoiceNumber: number;
   // invoiceDate: string;
-  // invoiceTotal: number;
+   invoiceTotal: number;
   // price: string;
   usersId: number;
+  supplierID: number;
 }
 
 export interface PlaceSupplierOrder {
@@ -202,10 +203,11 @@ export class Data {
   public quantity: number;
 }
 
-export interface place {
+export class place {
    id : number;
    name: string;
    quantity: number;
+  
 }
 
 export interface StockTake {

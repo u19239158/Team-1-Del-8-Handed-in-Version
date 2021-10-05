@@ -19,7 +19,7 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   Login(user: Login) {
-    return this.http.post(`${this.server}Login/Logins`, user, this.httpOptions);
+    return this.http.post(`${this.server}Login/Login`, user, this.httpOptions);
   }
 
   GetUserByID(userid):  Observable<Login>  {

@@ -126,7 +126,7 @@ const routes: Routes = [
     component: ReceiveSupplierOrderComponent
   },
   {
-    path: 'captureOrder',
+    path: 'captureOrder/:id',
     component: CaptureOrderComponent
   },
   {

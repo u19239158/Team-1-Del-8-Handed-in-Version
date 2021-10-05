@@ -89,6 +89,7 @@ import { ForgotUsernameComponent } from './forgot-username/forgot-username.compo
 import { AudittrailComponent } from './audittrail/audittrail.component';
 import { ViewWriteOffComponent } from './admin/write-off-stock/view-write-off/view-write-off.component';
 import { ViewstocktakeComponent } from './admin/stock-take/viewstocktake/viewstocktake.component';
+import { QuantityReceivedComponent } from './supplier/receive-supplier-order/quantity-received/quantity-received.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDF8jZluZQu1iARJPootZqStlIMNnQ6OFA",
@@ -166,6 +167,7 @@ const firebaseConfig = {
     AudittrailComponent,
     ViewWriteOffComponent,
     ViewstocktakeComponent,
+    QuantityReceivedComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),

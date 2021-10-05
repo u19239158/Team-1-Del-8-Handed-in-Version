@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlaceSupplierOrderService } from 'src/app/services/place-supplier-order/place-supplier-order.service';
+
 @Component({
   selector: 'app-quantity-modal',
   templateUrl: './quantity-modal.component.html',

@@ -74,7 +74,7 @@ export class PageComponent implements OnInit {
     this.WriteOffStockService.WriteOffStock(writeOffStock).subscribe(res => {
       console.log(res)
       this.loading = false
-      this.router.navigateByUrl('writeOffStock');
+      this.router.navigateByUrl('viewwriteoff');
     });
     this.snack.open('Successfully Performed Write-Off! ', 'OK', 
     {

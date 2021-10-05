@@ -73,7 +73,7 @@ export class StockTakePageComponent implements OnInit {
     this.StockTakeService.StockTake(stockTake).subscribe(res => {
       console.log(res)
       this.loading = false
-      this.router.navigateByUrl('/stockTake');
+      this.router.navigateByUrl('/viewstocktake');
     });
     this.snack.open('Successfully Performed Stock Take! ', 'OK', 
     {

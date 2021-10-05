@@ -3,7 +3,7 @@ import { ReceiveSupplierService } from './../../services/supplier/receive-suppli
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
-import { ReceiveSupplierOrder } from 'src/app/interfaces';
+import { ReceiveSupplierOrder, place } from 'src/app/interfaces';
 import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -12,7 +12,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { direction } from 'html2canvas/dist/types/css/property-descriptors/direction';
-
 
 @Component({
   selector: 'app-receive-supplier-order',
@@ -32,6 +31,7 @@ export class ReceiveSupplierOrderComponent implements OnInit {
   dataSource = new MatTableDataSource<ReceiveSupplierOrder>();
   form: FormGroup;
   id: any;
+  
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -54,9 +54,6 @@ export class ReceiveSupplierOrderComponent implements OnInit {
     this.readSupplierOrder();
     this.getSupplier();
 
-    this.receiveSupplierService.ReceiveSupplierOrder().subscribe((result: ReceiveSupplierOrder[]) => {
-      this.receiveSupplierOrders = result;
-    })
   }
   getSupplier() {
     this.http
@@ -86,7 +83,7 @@ export class ReceiveSupplierOrderComponent implements OnInit {
   }
 
   readSupplierOrder(): void {
-    this.receiveSupplierService.ReceiveSupplierOrder().subscribe(res => {
+    this.receiveSupplierService.GetSupplierOrder().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
       this.dataSource.sort = this.sort;
@@ -94,11 +91,12 @@ export class ReceiveSupplierOrderComponent implements OnInit {
     })
   }
 
-  viewOrder() {
-    this.router.navigateByUrl('captureOrder');
-}
+  view(){
+    
+  }
 
 showInvoice(){
   
 }
+
 }

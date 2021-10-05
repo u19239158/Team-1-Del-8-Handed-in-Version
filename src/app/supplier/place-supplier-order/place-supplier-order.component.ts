@@ -52,7 +52,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
   }
 
   form = this.FB.group({
-    supplierID: ['', Validators.required]
+    supplierID: [null, Validators.required]
   })
 
   constructor(
@@ -142,28 +142,19 @@ export class PlaceSupplierOrderComponent implements OnInit {
       this.list.push({name: producItemName, quantity: this.quant , id:productItemId });
       console.log(this.list);
       }
-      this.router.navigateByUrl('placeSupplierOrder');
+      // this.router.navigateByUrl('placeSupplierOrder');
     })
   }
 
   finalOrder() {
     const placeOrder: PlaceSupplierOrder = this.form.value;
-
-   
-    for (let index = 0; index < this.list.length; index++) {
-      const element = this.list[index];
-      
-      console.log(element);
-      console.log(element.id)
-        
-      this.place.id = element.id;
-       element.name = this.place.name;
-       element.quantity = this.place.quantity;
-      
-    
+    console.log(this.list);
+    const Data = {
+      supplierId : placeOrder.supplierID,
+      itemsOrdered : this.list
     }
 
-    this.placeSupplierOrderService.PlaceSupplierOrder(this.place).subscribe(res => {
+    this.placeSupplierOrderService.PlaceSupplierOrder(Data).subscribe(res => {
       console.log(res)
       this.loading = false
       this.router.navigateByUrl('placeSupplierOrder');

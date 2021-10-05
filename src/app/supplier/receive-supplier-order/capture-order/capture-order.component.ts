@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
-import { ReceiveSupplierOrder } from 'src/app/interfaces';
+import { ActivatedRoute, Router } from '@angular/router';
+import { place, ReceiveSupplierOrder } from 'src/app/interfaces';
 import { ReceiveSupplierService } from 'src/app/services/supplier/receive-supplier-order';
-import { QuantityModalComponent } from '../../place-supplier-order/quantity-modal/quantity-modal.component';
+import { QuantityReceivedComponent } from '../quantity-received/quantity-received.component';
+import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-capture-order',
@@ -19,33 +20,81 @@ export class CaptureOrderComponent implements OnInit {
   RecieveSupplierOrder: ReceiveSupplierOrder[];
   recievesupplierorder: ReceiveSupplierOrder;
   receiveSupplierOrders: ReceiveSupplierOrder[] = [];
-
+  path: File;
+  SupplierOrderId: any;
+  id: number;
+  public list: place[]=[];
+  quant: number;
+  supplierId: number;
+  form = this.FB.group({
+    invoiceTotal: [null, Validators.required],
+    
+  })
   constructor(
     private receiveSupplierService: ReceiveSupplierService,
-    private route: Router,
     private formBuilder: FormBuilder,
-    private router: Router,
     private http: HttpClient,
     private dialog: MatDialog,
+    private storage : AngularFireStorage,
+    private route: ActivatedRoute,
+    private router: Router,
+    private FB: FormBuilder,
   ) { }
 
   ngOnInit(): void {
-    this.readSupplierOrder();
-
-    this.receiveSupplierService.ReceiveSupplierOrder().subscribe((result: ReceiveSupplierOrder[]) => {
-      this.receiveSupplierOrders = result;
-    })
+    this.id = +this.route.snapshot.params['id'];
+    this.readSupplierOrder(this.id);
   }
 
-  readSupplierOrder(): void {
-    this.receiveSupplierService.ReceiveSupplierOrder().subscribe(res => {
-      console.log(res)
+  readSupplierOrder(SupplierOrderId:any): void {
+    this.receiveSupplierService.getSupplierOrderByID(this.id).subscribe(res => {
+      this.supplierId = res[0].supplierID;
+      this.SupplierOrderId = res[0].supplierOrderID;
+      console.log(res);
       this.dataSource = new MatTableDataSource(res)
     })
   }
 
+  AddInvoiceQuantity(supplierProducts: string, productItemId: number) {
+    const confirm = this.dialog.open(QuantityReceivedComponent, {
+      disableClose: true,
+    });
+   
+     confirm.afterClosed().subscribe(res => {
+
+      if(res) {
+      // this.QuantityModalComponent.content.event.subscribe(res => {
+      
+      var num = localStorage.getItem('invoiceQuantity');
+      const q = JSON.parse(num);
+      this.quant = q;
+      console.log(this.quant);
+      console.log(res);
+      this.list.push({name: supplierProducts, quantity: this.quant , id:productItemId });
+      console.log(this.list);
+      }
+      // this.router.navigateByUrl('placeSupplierOrder');
+    })
+  }
+
+  async upload(event) {    
+    this.path = event.target.files[0]
+  }
+
+  async uploadImage(){
+    const key = `/files${Math.random()}${this.path.name}`;
+    console.log(this.path)
+     await this.storage.upload(key, this.path);
+  
+    const fileref = this.storage.ref(key);
+
+    const downloadUrl = fileref.getDownloadURL();
+    return downloadUrl;
+
+  }
+  
   AddQuantity() {
-    const confirm = this.dialog.open(QuantityModalComponent, {
+    const confirm = this.dialog.open(QuantityReceivedComponent, {
       disableClose: true,
     });
 
@@ -53,4 +102,30 @@ export class CaptureOrderComponent implements OnInit {
       this.router.navigateByUrl('captureOrder');
     })
   }
+
+  Close(){
+    this.router.navigateByUrl("receiveSupplierOrder");
+  }
+
+  finalOrder() {
+    const receiveOrder: ReceiveSupplierOrder = this.form.value;
+    console.log(this.list);
+    const Data = {
+      supplierInvoiceTotal : receiveOrder.invoiceTotal,
+      InvoiceLineList : this.list,
+      supplierId: this.supplierId,
+      supplierOrderId: this.SupplierOrderId,
+    }
+
+    this.receiveSupplierService.ReceiveSupplierOrder(Data).subscribe(res => {
+      console.log(res)
+      // this.loading = false
+      this.router.navigateByUrl('receiveSupplierOrder');
+
+      // this.list.forEach(order => {
+      //     console.log(order);
+      // }); 
+    })
+  }
+
 }
