@@ -1,8 +1,9 @@
 <h2 mat-dialog-title>Forgot Password</h2>
 <form [formGroup]="form">
     <!-- (ngSubmit)=" onSubmit()" -->
-
     <mat-dialog-content class="mat-typography">
+
+
 
         <div class="mat-row">
             <mat-form-field appearance="outline" class="control-m">
@@ -14,18 +15,18 @@
         </div>
 
 
-        <div class="mat-row">
+        <div class="mat-row" *ngIf="form.controls['otp'].value">
             <mat-form-field appearance="outline" class="control-m">
                 <mat-label>New Password</mat-label>
-                <input type="password" matInput placeholder="Enter new password" formControlName="newPassword">
+                <input type="password" matInput placeholder="Enter new password" formControlName="userPassword">
                 <mat-hint>Enter New Password</mat-hint>
-                <mat-error *ngIf="form.controls['newPassword'].invalid">Password must be 6 or more characters long
+                <mat-error *ngIf="form.controls['userPassword'].invalid">Password must be 6 or more characters long
                 </mat-error>
             </mat-form-field>
         </div>
 
 
-        <div class="mat-row">
+        <div class="mat-row" *ngIf="form.controls['userPassword'].value">
             <mat-form-field appearance="outline" class="control-m">
                 <mat-label>Confirm new Password</mat-label>
                 <input type="password" matInput placeholder="Confirm new password" formControlName="confirmNewPassword">
@@ -37,7 +38,7 @@
 
     </mat-dialog-content>
     <mat-dialog-actions align="end">
-        <button mat-button (click)="Cancel()">Cancel</button>
+        <button mat-button [routerLink]="['/login']" (click)="Cancel()">Cancel</button>
         <button mat-raised-button type="submit" color="primary" cdkFocusInitial (click)="Confirm()">Confirm</button>
     </mat-dialog-actions>
 </form>

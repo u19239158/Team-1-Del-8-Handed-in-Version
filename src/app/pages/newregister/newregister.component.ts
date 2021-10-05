@@ -48,6 +48,16 @@ export class NewregisterComponent implements OnInit {
 
   onSubmit() {
     const customer: User = this.form.value;
+    if (customer.userPassword !== customer.customerConfirmPassword) {
+      // alert("Your passwords do not match")
+      this.snack.open('Your passwords do not match ', 'OK',
+        {
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          duration: 4000
+        });
+      return
+    }
     this.CustomerService.Register(customer).subscribe(res => {
       console.log(res)
       this.loading = false
