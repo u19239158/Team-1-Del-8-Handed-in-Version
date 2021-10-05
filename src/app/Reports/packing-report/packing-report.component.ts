@@ -1,5 +1,5 @@
 import { Reports } from 'src/app/interfaces';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import 'jspdf-autotable';
 import jsPDF from 'jspdf';
 import { ReportServiceService } from 'src/app/services/Reports/report-service.service';
@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table'
 import { Customer } from './../../interfaces/index';
 import { Observable } from 'rxjs';
 import html2canvas from 'html2canvas';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-packing-report',
@@ -18,13 +19,15 @@ export class PackingReportComponent implements OnInit {
   Reports: Reports[] = [];
   report: Reports;
   reports: Observable<Reports[]>;
-  string : string;
-  
-  dataSource = new MatTableDataSource<Reports>();
-  displayedColumns: string[] = ['saleId', 'saleOrderDate','saleOrderDescription', 'saleOrderRecieveType', 'orderStatusDescription', 'paymentDate'];
+  string: string;
 
-  constructor(private ReportServiceService: ReportServiceService 
-  
+  dataSource = new MatTableDataSource<Reports>();
+  displayedColumns: string[] = ['saleId', 'saleOrderDate', 'saleOrderDescription', 'saleOrderRecieveType', 'orderStatusDescription', 'paymentDate'];
+
+  @ViewChild(MatSort) sort: MatSort;
+
+  constructor(private ReportServiceService: ReportServiceService
+
   ) { }
   ngOnInit(): void {
     this.readPackingReport();
@@ -36,19 +39,20 @@ export class PackingReportComponent implements OnInit {
 
   readPackingReport(): void {
     //const Report :Reports;
-     this.ReportServiceService.PackingReport().subscribe(res => {
-       console.log(res)
-       this.dataSource = new MatTableDataSource(res)
-     })
+    this.ReportServiceService.PackingReport().subscribe(res => {
+      console.log(res)
+      this.dataSource = new MatTableDataSource(res)
+      this.dataSource.sort = this.sort;
+    })
   }
 
-  header = [['Sale ID', 
-              'Date', 
-              'Description', 
-              'Collection/Delivery',
-              'Order Status',
-              'Payment Date'
-            ]]
+  header = [['Sale ID',
+    'Date',
+    'Description',
+    'Collection/Delivery',
+    'Order Status',
+    'Payment Date'
+  ]]
 
   generatePdf(): void {
     let Data = document.getElementById('htmlData')!;
@@ -67,5 +71,5 @@ export class PackingReportComponent implements OnInit {
       PDF.save('Packing Report.pdf');
     });
   }
-  }
+}
 

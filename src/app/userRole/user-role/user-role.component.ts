@@ -23,7 +23,7 @@ export class UserRoleComponent implements OnInit {
   UserRoles: UserRole[];
   searchValue: string;
   dataNotFound: boolean;
-  userid : number;
+  userid: number;
   //userRoles: UserRole[] = [];
   UserRole: UserRole;
   userRoles: Observable<UserRole[]>;
@@ -45,7 +45,7 @@ export class UserRoleComponent implements OnInit {
     // this.dataSource.paginator = this.paginator;
     var ids = localStorage.getItem('user')
     const obj = JSON.parse(ids)
-   this.userid = obj.userId
+    this.userid = obj.userId
     this.readUserRoles();
 
     this.UserRoleService.GetUserRole().subscribe((result: UserRole[]) => {
