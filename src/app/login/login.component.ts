@@ -36,22 +36,32 @@ export class LoginComponent implements OnInit {
     //     'password': ['', Validators.compose([Validators.required])]
     // });
   }
-  Login(): void {
-    this.AuthenticationService.Login(this.form.value).subscribe(res => {
-      // route to home
+  // Login(): void {
+  //   this.AuthenticationService.Login(this.form.value).subscribe(res => {
+  //     // route to home
 
-      localStorage.setItem('user', JSON.stringify(res));
-      this.router.navigateByUrl('/');
-    }
-    )
-  }
-
-  // onSubmit(loginForm) {
-  //     this.formSubmitted = true;
-
-  //     if (this.form.valid) {
-  //         let username = this.form.controls['username'].value;
-  //         let password = this.form.controls['password'].value;
+  //     localStorage.setItem('user', JSON.stringify(res));
+  //     this.router.navigateByUrl('/');
+  //   }
+    Login(): void 
+    {
+      this.AuthenticationService.Login(this.form.value).subscribe(res => {
+        // route to home
+        
+        localStorage.setItem('user', JSON.stringify(res));
+        this.router.navigateByUrl('/');
+      },(error: HttpErrorResponse)=>
+      {
+      if (error.status === 400)
+        {
+          this.snack.open(error.error, 'OK',
+          {
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+              duration: 4000
+          });
+      }}
+      )}
 
   //         let user$ = this.authenticationService.Login(username, password);
 

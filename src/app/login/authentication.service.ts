@@ -29,6 +29,10 @@ export class AuthenticationService {
         return this.http.post<Login>(`${this.server}Login/customerLogin`, user, this.httpOptions);
       }
 
+      Logout(UsersID: any) {
+        return this.http.post(`${this.server}Login/Logout/${UsersID}`, UsersID, this.httpOptions);
+      }
+
     // login(username: string, password: string): Observable<JwtResponse> {
     //     let jwtRequest: JwtRequest = { username: username, password: password };
 
