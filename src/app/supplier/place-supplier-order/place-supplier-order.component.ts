@@ -14,6 +14,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { direction } from 'html2canvas/dist/types/css/property-descriptors/direction';
 import { MomentDateModule } from '@angular/material-moment-adapter';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-place-supplier-order',
@@ -66,6 +67,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
     private router: Router,
     private FormGroup: FormBuilder,
     private FB: FormBuilder,
+    private snack: MatSnackBar
 
     // public dialogRef: MatDialogRef<PlaceSupplierOrder>
   ) { }
@@ -178,11 +180,24 @@ export class PlaceSupplierOrderComponent implements OnInit {
       //     console.log(order);
       // }); 
     })
+    this.snack.open('Order Successfuly Placed! ', 'OK', 
+    {
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      duration: 4000
+    });
   }
 
   clearOrder() {
     this.list = [];
     this.checkboxes = {};
+    this.snack.open('Order Cleared! ', 'OK', 
+    {
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      duration: 2000
+    });
   }
+  
 }
 

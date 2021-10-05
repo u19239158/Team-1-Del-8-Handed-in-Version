@@ -8,6 +8,7 @@ import { place, ReceiveSupplierOrder } from 'src/app/interfaces';
 import { ReceiveSupplierService } from 'src/app/services/supplier/receive-supplier-order';
 import { QuantityReceivedComponent } from '../quantity-received/quantity-received.component';
 import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-capture-order',
@@ -41,6 +42,7 @@ export class CaptureOrderComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private FB: FormBuilder,
+    private snack: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -134,6 +136,14 @@ export class CaptureOrderComponent implements OnInit {
       //     console.log(order);
       // }); 
     })
+    this.snack.open('Order Successfuly Captured! ', 'OK', 
+    {
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      duration: 4000
+    });
   }
+
+  
 
 }
