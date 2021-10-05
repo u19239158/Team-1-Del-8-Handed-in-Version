@@ -41,12 +41,12 @@ export class PlaceSupplierOrderComponent implements OnInit {
   displayedColumns: string[] = ['checkbox', 'productItemName', 'quantityOnHand'];
   @ViewChild(MatSort) sort: MatSort;
   checkedIDs = [];
-  public list: Data [] = [];
+  public list: Data[] = [];
   name: string;
   quant: number;
   QuantityModalComponent: QuantityModalComponent;
-  place : place;
-  
+  place: place;
+
   highlight(element: PlaceSupplierOrder) {
     element.highlighted = !element.highlighted;
   }
@@ -54,6 +54,8 @@ export class PlaceSupplierOrderComponent implements OnInit {
   form = this.FB.group({
     supplierID: [null, Validators.required]
   })
+
+  checkboxes = {};
 
   constructor(
     private productitemService: ProductitemService,
@@ -63,7 +65,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
     private router: Router,
     private FormGroup: FormBuilder,
     private FB: FormBuilder,
-    
+
     // public dialogRef: MatDialogRef<PlaceSupplierOrder>
   ) { }
 
@@ -124,25 +126,31 @@ export class PlaceSupplierOrderComponent implements OnInit {
       })
   }
 
-  PlaceOrder(producItemName: string, productItemId: number) {
+  PlaceOrder(producItemName: string, productItemId: number, checked: boolean) {
+
+    if (checked) {
+      for (let i = 0; i < this.list.length; i++) {
+        const product = this.list[i];
+        if (product.id === productItemId) {
+          this.list.splice(i, 1)
+          return
+        }
+      }
+    }
+
     const confirm = this.dialog.open(QuantityModalComponent, {
       disableClose: true,
     });
-   
-     confirm.afterClosed().subscribe(res => {
 
-      if(res) {
-      // this.QuantityModalComponent.content.event.subscribe(res => {
-      
-      var num = localStorage.getItem('quantity');
-      const q = JSON.parse(num);
-      this.quant = q;
-      console.log(this.quant);
-      console.log(res);
-      this.list.push({name: producItemName, quantity: this.quant , id:productItemId });
-      console.log(this.list);
+    confirm.afterClosed().subscribe(res => {
+
+      if (res) {
+
+        var num = localStorage.getItem('quantity');
+        const q = JSON.parse(num);
+        this.quant = q;
+        this.list.push({ name: producItemName, quantity: this.quant, id: productItemId });
       }
-      // this.router.navigateByUrl('placeSupplierOrder');
     })
   }
 
@@ -150,8 +158,8 @@ export class PlaceSupplierOrderComponent implements OnInit {
     const placeOrder: PlaceSupplierOrder = this.form.value;
     console.log(this.list);
     const Data = {
-      supplierId : placeOrder.supplierID,
-      itemsOrdered : this.list
+      supplierId: placeOrder.supplierID,
+      itemsOrdered: this.list
     }
 
     this.placeSupplierOrderService.PlaceSupplierOrder(Data).subscribe(res => {
@@ -165,10 +173,9 @@ export class PlaceSupplierOrderComponent implements OnInit {
     })
   }
 
- 
-
-  clearOrder(){
-
+  clearOrder() {
+    this.list = [];
+    this.checkboxes = {};
   }
 }
 
