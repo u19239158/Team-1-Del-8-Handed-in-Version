@@ -65,6 +65,7 @@ namespace NKAP_API_2.Controllers
             supplier.SupplierAddressLine3 = model.SupplierAddressLine3;
             supplier.SupplierCityTown = model.SupplierCityTown;
             supplier.SupplierPostalCode = model.SupplierPostalCode;
+            supplier.SupplierBalance = 0;
          // supplier.SupplierBalance = model.SupplierBalance;
             _db.Suppliers.Add(supplier);
             _db.SaveChanges();
@@ -134,7 +135,7 @@ namespace NKAP_API_2.Controllers
             var supp = _db.Suppliers.Find(model.SupplierId);
             var supOrder = _db.SupplierOrders.Find(model.SupplierId);
 
-                if (supp.SupplierBalance > 0)
+                if (model.SupplierBalance > 0)
                 {
                 response = "Supplier could not be deleted as there is an active supplier order or an outstanding balance";
                 return BadRequest(response);
@@ -144,7 +145,7 @@ namespace NKAP_API_2.Controllers
                // response = "Supplier could not be deleted as there is an active supplier order or an outstanding balance";
                // return BadRequest(response);
                //  }
-                else
+                else 
                 {
 
                 var supplier = _db.Suppliers.Find(model.SupplierId);
@@ -164,6 +165,8 @@ namespace NKAP_API_2.Controllers
                 return Ok(supplier);
 
                 }
+
+            return Ok();
 
            
 

@@ -671,7 +671,7 @@ namespace NKAP_API_2.Controllers
                 {
                     SaleOrderDate = a.SaleOrderDate,
                     SaleId = a.SaleId,
-            
+
                     ProductItemId = t.ProductItemId,
                     CategoryTypeId = t.CategoryTypeId
 
@@ -683,7 +683,7 @@ namespace NKAP_API_2.Controllers
                 {
                     SaleOrderDate = a.SaleOrderDate,
                     SaleId = a.SaleId,
-                   
+
                     ProductItemId = a.ProductItemId,
                     CategoryTypeId = t.CategoryTypeId,
                     ProductCategoryId = t.ProductCategoryId
@@ -695,13 +695,14 @@ namespace NKAP_API_2.Controllers
                 {
                     SaleOrderDate = a.SaleOrderDate,
                     SaleId = a.SaleId,
-                
+
                     ProductItemId = a.ProductItemId,
                     CategoryTypeId = a.CategoryTypeId,
                     ProductCategoryId = t.ProductCategoryId,
                     ProductCategoryDescription = t.ProductCategoryDescription
 
                 }).AsEnumerable().GroupBy(zz => zz.ProductCategoryId);
+                //.Where((ss => ss.SaleOrderDate == System.DateTime.Now);
             //.AsEnumerable().Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).GroupBy(zz => zz.ProductCategoryId);
             //string bad;
 
@@ -723,6 +724,87 @@ namespace NKAP_API_2.Controllers
             }
 
             int max = salesdata.Max(t => t.NumberOfSales);
+
+            return Ok(salesdata);
+
+        }
+
+        [Route("SalesControl")] //route
+        [HttpPost]
+        public IActionResult SalesControl(ReportModel model)
+        {
+
+            var dashy = _db.Sales.Join(_db.SaleLines,
+                a => a.SaleId,
+                t => t.SaleId,
+                (a, t) => new
+                {
+                    SaleOrderDate = a.SaleOrderDate,
+                    SaleId = a.SaleId,
+                    ProductItemId = t.ProductItemId,
+
+                }).Join(_db.ProductItems,
+                a => a.ProductItemId,
+                t => t.ProductItemId,
+                (a, t) => new
+                {
+                    SaleOrderDate = a.SaleOrderDate,
+                    SaleId = a.SaleId,
+
+                    ProductItemId = t.ProductItemId,
+                    CategoryTypeId = t.CategoryTypeId
+
+                })
+                .Join(_db.CategoryTypes,
+                a => a.CategoryTypeId,
+                t => t.CategoryTypeId,
+                (a, t) => new
+                {
+                    SaleOrderDate = a.SaleOrderDate,
+                    SaleId = a.SaleId,
+
+                    ProductItemId = a.ProductItemId,
+                    CategoryTypeId = t.CategoryTypeId,
+                    ProductCategoryId = t.ProductCategoryId
+
+                }).Join(_db.ProductCategories,
+                a => a.ProductCategoryId,
+                t => t.ProductCategoryId,
+                (a, t) => new
+                {
+                    SaleOrderDate = a.SaleOrderDate,
+                    SaleId = a.SaleId,
+
+                    ProductItemId = a.ProductItemId,
+                    CategoryTypeId = a.CategoryTypeId,
+                    ProductCategoryId = t.ProductCategoryId,
+                    ProductCategoryDescription = t.ProductCategoryDescription
+
+                }).AsEnumerable().Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).GroupBy(zz => zz.ProductCategoryId);
+            
+
+            List<dynamic> salesdata = new List<dynamic>();
+            List<dynamic> maxdata = new List<dynamic>();
+            
+
+            foreach (var item in dashy)
+            {
+                dynamic province = new ExpandoObject();
+                province.NumberOfSales = item.Count();
+                province.ProductCategory = item.Select(zz => zz.ProductCategoryDescription).FirstOrDefault();
+                salesdata.Add(province);
+
+            }
+            foreach (var item in dashy)
+            {
+                dynamic data = new ExpandoObject();
+
+                // data.ProductCategory = item.Select(zz => zz.ProductCategoryDescription).Where(salesdata.Max(t => t.NumberOfSales));
+
+                int max = salesdata.Max(t => t.NumberOfSales);
+                maxdata.Add(data);
+
+            }
 
             return Ok(salesdata);
 
@@ -855,6 +937,7 @@ namespace NKAP_API_2.Controllers
                     CategoryTypeDescription = t.CategoryTypeDescription
 
                 }).AsEnumerable().GroupBy(zz => zz.CategoryTypeId);
+            //.Where((ss => ss.SaleOrderDate == System.DateTime.Now);
             //.AsEnumerable().Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).GroupBy(zz => zz.ProductCategoryId);
             //string bad;
 

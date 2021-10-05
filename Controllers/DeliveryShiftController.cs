@@ -484,6 +484,12 @@ namespace NKAP_API_2.Controllers
                 _db.SaveChanges();
 
                 return Ok(delShift);
+               
+            }
+            else
+            {
+                response = "Delivery Shift could not be deleted as it is has a delivery allocated to it";
+                return BadRequest(response);
             }
             catch (Exception)
             {
@@ -548,6 +554,7 @@ namespace NKAP_API_2.Controllers
                 //attributes in table 
                 ShiftId = shifts.ShiftId,
                 EmployeeId = model.EmployeeID,
+                NoOfDeliveries = 0,
             };
             _db.EmployeeShifts.Add(EmpShifts);
             _db.SaveChanges();
