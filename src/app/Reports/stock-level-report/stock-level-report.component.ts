@@ -1,5 +1,5 @@
 import { Reports, Productitem } from './../../interfaces/index';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 //import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import jsPDF from 'jspdf';
@@ -7,6 +7,7 @@ import { ReportServiceService } from 'src/app/services/Reports/report-service.se
 import { MatTableDataSource } from '@angular/material/table';
 import html2canvas from 'html2canvas';
 import * as XLSX from 'xlsx';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-stock-level-report',
@@ -16,20 +17,23 @@ import * as XLSX from 'xlsx';
 
 export class StockLevelReportComponent implements OnInit {
   dataSource = new MatTableDataSource<Reports>();
-  displayedColumns: string[] = ['productCategory', 'categoryType','productItemId', 'productItemName', 'quantityOnHand'];
-  fileName= 'StockLevel.xlsx'; 
+  displayedColumns: string[] = ['productCategory', 'categoryType', 'productItemId', 'productItemName', 'quantityOnHand'];
+  fileName = 'StockLevel.xlsx';
 
-  constructor(private service: ReportServiceService ) { }
+  @ViewChild(MatSort) sort: MatSort;
+
+  constructor(private service: ReportServiceService) { }
 
   ngOnInit(): void {
     this.readStockLevel();
   }
 
   readStockLevel(): void {
-     this.service.StockLevelReport().subscribe(res => {
-       console.log(res)
-       this.dataSource = new MatTableDataSource(res)
-     })
+    this.service.StockLevelReport().subscribe(res => {
+      console.log(res)
+      this.dataSource = new MatTableDataSource(res)
+      this.dataSource.sort = this.sort;
+    })
   }
 
   generatePdf(): void {
@@ -50,27 +54,26 @@ export class StockLevelReportComponent implements OnInit {
       PDF.save('Stock Report.pdf');
     });
   }
-  
-  header = [['Product Category', 
-              'Category Type', 
-              'Product Item ID', 
-              'Product Item Name',
-              'Quantity on Hand'
-            ]]
 
-            exportexcel(): void 
-            {
-               /* table id is passed over here */   
-               let element = document.getElementById('stockTable'); 
-               const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
-        
-               /* generate workbook and add the worksheet */
-               const wb: XLSX.WorkBook = XLSX.utils.book_new();
-               XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-        
-               /* save to file */
-               XLSX.writeFile(wb, this.fileName);
-              
-            }
-   
+  header = [['Product Category',
+    'Category Type',
+    'Product Item ID',
+    'Product Item Name',
+    'Quantity on Hand'
+  ]]
+
+  exportexcel(): void {
+    /* table id is passed over here */
+    let element = document.getElementById('stockTable');
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, this.fileName);
+
+  }
+
 }

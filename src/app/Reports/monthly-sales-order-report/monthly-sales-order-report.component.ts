@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 //import * as pluginDataLabels from 'chartjs-plugin-datalabels';
@@ -11,6 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+import { MatSort } from '@angular/material/sort';
 import { FormControl } from '@angular/forms';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -72,8 +73,8 @@ export class WeekSelectionStrategy<D>
 
   //   { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   // ],
-   // Start Date Range Code
-   providers: [{
+  // Start Date Range Code
+  providers: [{
     provide: MAT_DATE_RANGE_SELECTION_STRATEGY,
     useClass: WeekSelectionStrategy
   }]
@@ -82,13 +83,13 @@ export class WeekSelectionStrategy<D>
 export class MonthlySalesOrderReportComponent implements OnInit {
   dataSource = new MatTableDataSource<Reports>();
   dataSauce = new MatTableDataSource<Reports>();
-  displayedColumns: string[] = ['saleId', 'saleOrderDate', 'customerName', 'customerCellphoneNumber',  'customerBusinessName','salePaymentAmount'];
+  displayedColumns: string[] = ['saleId', 'saleOrderDate', 'customerName', 'customerCellphoneNumber', 'customerBusinessName', 'salePaymentAmount'];
   displayed: string[] = ['ProductCategory', 'NumberOfSales'];
   tableData: any;
-  Sales: any ;
+  Sales: any;
   aveg: any;
-  total : any;
-  fileName= 'MonthlySales.xlsx'; 
+  total: any;
+  fileName = 'MonthlySales.xlsx';
   ReportParams: ReportParameters = {
     startDate: null,
     endDate: null
@@ -110,6 +111,8 @@ export class MonthlySalesOrderReportComponent implements OnInit {
     this.date.setValue(ctrlValue);
     datepicker.close();
   }
+
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private serv: ReportServiceService,
@@ -144,33 +147,33 @@ export class MonthlySalesOrderReportComponent implements OnInit {
         console.log(res)
         this.total = res
         this.dataSource = new MatTableDataSource(data)
-     // this.generateTables(data);
-     this.serv.SalesReportAvg(this.form.value).subscribe(res =>{
-      console.log(res)
-      this.aveg= res;
-      this.serv.SalesControl(this.form.value).subscribe(res => {
-        this.dataSauce = new MatTableDataSource(res)
-        console.log(res);
-      })
-    },(error: HttpErrorResponse) =>
-    {
-      console.log(error.error,"test")
-     if (error.status === 400)
-    {
-      this.snack.open(error.error, 'OK', 
-      {
-        verticalPosition: 'top',
-        horizontalPosition: 'center',
-        duration: 3000
-      });
-      return;
-    }
-  })
+        this.dataSource.sort = this.sort;
+        // this.generateTables(data);
+        this.serv.SalesReportAvg(this.form.value).subscribe(res => {
+          console.log(res)
+          this.aveg = res;
+          this.serv.SalesControl(this.form.value).subscribe(res => {
+            this.dataSauce = new MatTableDataSource(res)
+            this.dataSource.sort = this.sort;
+            console.log(res);
+          })
+        }, (error: HttpErrorResponse) => {
+          console.log(error.error, "test")
+          if (error.status === 400) {
+            this.snack.open(error.error, 'OK',
+              {
+                verticalPosition: 'top',
+                horizontalPosition: 'center',
+                duration: 3000
+              });
+            return;
+          }
+        })
 
-    });
-    
-  }
-  )
+      });
+
+    }
+    )
 
 
 
@@ -206,20 +209,19 @@ export class MonthlySalesOrderReportComponent implements OnInit {
     });
   }
 
-  exportexcel(): void 
-    {
-       /* table id is passed over here */   
-       let element = document.getElementById('saleTable'); 
-       const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+  exportexcel(): void {
+    /* table id is passed over here */
+    let element = document.getElementById('saleTable');
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
-       /* generate workbook and add the worksheet */
-       const wb: XLSX.WorkBook = XLSX.utils.book_new();
-       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-       /* save to file */
-       XLSX.writeFile(wb, this.fileName);
-			
-    }
+    /* save to file */
+    XLSX.writeFile(wb, this.fileName);
+
+  }
 }
 
   // generateTables(data) {

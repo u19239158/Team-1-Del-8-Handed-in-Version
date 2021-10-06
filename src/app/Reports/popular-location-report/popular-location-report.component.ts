@@ -1,5 +1,5 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 // import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
@@ -12,6 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DateAdapter } from '@angular/material/core';
 import { MatDateRangeSelectionStrategy, DateRange, MAT_DATE_RANGE_SELECTION_STRATEGY } from '@angular/material/datepicker';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatSort } from '@angular/material/sort';
 
 
 @Injectable()
@@ -55,6 +56,7 @@ export class WeekSelectionStrategy<D>
 
 export class PopularLocationReportComponent implements OnInit {
   dataSource = new MatTableDataSource<Reports>();
+
   tableData: any;
   ReportParams: ReportParameters = {
     startDate: null,
@@ -62,15 +64,17 @@ export class PopularLocationReportComponent implements OnInit {
   };
   form: FormGroup
   created = false;
-  salegraph : Chart;
+  salegraph: Chart;
   public barChartOptions: ChartOptions = {
     responsive: true,
     // We use these empty structures as placeholders for dynamic theming.
-    scales: { xAxes: [{}], yAxes: [{
-      ticks: {
+    scales: {
+      xAxes: [{}], yAxes: [{
+        ticks: {
           beginAtZero: true
-      }
-  }]},
+        }
+      }]
+    },
     plugins: {
       datalabels: {
         anchor: 'end',
@@ -83,12 +87,12 @@ export class PopularLocationReportComponent implements OnInit {
   public barChartLegend = true;
   // public barChartPlugins = [pluginDataLabels];
 
-
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private serv: ReportServiceService,
     private formBuilder: FormBuilder,
-    private snack : MatSnackBar,
-    ) { }
+    private snack: MatSnackBar,
+  ) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -115,41 +119,39 @@ export class PopularLocationReportComponent implements OnInit {
       (Math.random() * 100),
       56,
       (Math.random() * 100),
-      40 ];
+      40];
   }
 
   generateReport() {
 
-      let provinceDescription: any[] =  [];
-      let provincesales: number[] =  [];
-      const counts: any[] =  [];
-  
+    let provinceDescription: any[] = [];
+    let provincesales: number[] = [];
+    const counts: any[] = [];
+
     this.serv.PopularLocationReport(this.form.value).subscribe(data => {
       this.created = false;
       // Restructure data for chart
-       provinceDescription = data.map(x => x.provinceDescription);
-       provincesales = data.map(x => x.provincesales)
+      provinceDescription = data.map(x => x.provinceDescription);
+      provincesales = data.map(x => x.provincesales)
 
       // Generate Chart
       this.generateChart(provinceDescription, provincesales)
-      
+
 
       // Call table data method
-     // this.generateTables(data);
-    },(error: HttpErrorResponse) =>
-    {
-      console.log(error.error,"test")
-     if (error.status === 400)
-    {
-      this.snack.open(error.error, 'OK', 
-      {
-        verticalPosition: 'top',
-        horizontalPosition: 'center',
-        duration: 3000
-      });
-      return;
-    }
-  });
+      // this.generateTables(data);
+    }, (error: HttpErrorResponse) => {
+      console.log(error.error, "test")
+      if (error.status === 400) {
+        this.snack.open(error.error, 'OK',
+          {
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            duration: 3000
+          });
+        return;
+      }
+    });
   }
 
   public barChartData: ChartDataSets[] = [
@@ -179,21 +181,21 @@ export class PopularLocationReportComponent implements OnInit {
   // generateTables(data) {
   //   this.tableData = data;
   //   this.created = true;
-    // this.averages = data.map(avg => avg.AverageQuantityOrdered);
-    // this.getGrandAverage();
- // }
+  // this.averages = data.map(avg => avg.AverageQuantityOrdered);
+  // this.getGrandAverage();
+  // }
 
- generateChart(provinceDescription, provincesales) {
-  console.log(provinceDescription, provincesales);
-  if (this.salegraph) {this.salegraph.destroy(); }
-  this.barChartData = [];
-  this.barChartData.push({
-    data: provincesales,
-    label: 'Sales Per Province'
-  });
+  generateChart(provinceDescription, provincesales) {
+    console.log(provinceDescription, provincesales);
+    if (this.salegraph) { this.salegraph.destroy(); }
+    this.barChartData = [];
+    this.barChartData.push({
+      data: provincesales,
+      label: 'Sales Per Province'
+    });
 
-  this.barChartLabels = provinceDescription;
-  this.created = true;
-}
+    this.barChartLabels = provinceDescription;
+    this.created = true;
+  }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit, Injectable, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 //import * as pluginDataLabels from 'chartjs-plugin-datalabels';
@@ -19,6 +19,7 @@ import {
 } from '@angular/material/datepicker';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
 
 @Injectable()
 export class WeekSelectionStrategy<D>
@@ -62,12 +63,12 @@ export class WeekSelectionStrategy<D>
 export class WeeklySaleOrdersReportComponent implements OnInit {
   dataSource = new MatTableDataSource<Reports>();
   dataSauce = new MatTableDataSource<Reports>();
-  displayedColumns: string[] = ['saleId', 'saleOrderDate', 'customerId','customerName', 'customerCellphoneNumber', 'customerBusinessName','salePaymentAmount'];
+  displayedColumns: string[] = ['saleId', 'saleOrderDate', 'customerId', 'customerName', 'customerCellphoneNumber', 'customerBusinessName', 'salePaymentAmount'];
   displayed: string[] = ['ProductCategory', 'NumberOfSales'];
   tableData: any;
   aveg: any;
-  total : any;
-  fileName= 'WeeklySales.xlsx'; 
+  total: any;
+  fileName = 'WeeklySales.xlsx';
   ReportParams: ReportParameters = {
     startDate: null,
     endDate: null
@@ -105,6 +106,8 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
 
   // ];
 
+  @ViewChild(MatSort) sort: MatSort;
+
   constructor(
     private serv: ReportServiceService,
     private formBuilder: FormBuilder,
@@ -113,7 +116,7 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      startDate: ['' , Validators.required],
+      startDate: ['', Validators.required],
       endDate: ['', Validators.required],
     })
   }
@@ -130,37 +133,37 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
   generateReport() {
     this.serv.SalesReport(this.form.value).subscribe(data => {
       this.created = false;
-      this.serv.SalesReportSum(this.form.value).subscribe(res =>{
+      this.serv.SalesReportSum(this.form.value).subscribe(res => {
         console.log(res)
-          this.total = res
-          })
-        
+        this.total = res
+      })
+
       console.log(data);
       this.dataSource = new MatTableDataSource(data)
+      this.dataSource.sort = this.sort;
       this.generateTables(data);
     });
 
-    this.serv.SalesReportAvg(this.form.value).subscribe(res =>{
+    this.serv.SalesReportAvg(this.form.value).subscribe(res => {
       console.log(res)
       this.aveg = res;
       this.serv.SalesControl(this.form.value).subscribe(res => {
         this.dataSauce = new MatTableDataSource(res)
+        this.dataSource.sort = this.sort;
         console.log(res);
       })
-    },(error: HttpErrorResponse) =>
-    {
-      console.log(error.error,"test")
-     if (error.status === 400)
-    {
-      this.snack.open(error.error, 'OK', 
-      {
-        verticalPosition: 'top',
-        horizontalPosition: 'center',
-        duration: 3000
-      });
-      return;
-    }
-  })
+    }, (error: HttpErrorResponse) => {
+      console.log(error.error, "test")
+      if (error.status === 400) {
+        this.snack.open(error.error, 'OK',
+          {
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            duration: 3000
+          });
+        return;
+      }
+    })
   }
 
   // generateChart(data) {
@@ -205,12 +208,11 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
     // this.averages = data.map(avg => avg.AverageQuantityOrdered);
     // this.getGrandAverage();
   }
-  exportexcel(): void 
-  {
-     /* table id is passed over here */   
-     let element = document.getElementById('WsaleTable'); 
-     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
-      (error: TypeError) => {
+  exportexcel(): void {
+    /* table id is passed over here */
+    let element = document.getElementById('WsaleTable');
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    (error: TypeError) => {
       console.log("Please generate report before exporting to excel", "test")
       if (error.message = "Cannot read properties of null (reading 'getElementsByTagName')") {
         this.snack.open("Please generate report before exporting to excel", 'OK',
@@ -223,13 +225,13 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
       }
     }
 
-     /* generate workbook and add the worksheet */
-     const wb: XLSX.WorkBook = XLSX.utils.book_new();
-     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-     /* save to file */
-     XLSX.writeFile(wb, this.fileName);
-    
+    /* save to file */
+    XLSX.writeFile(wb, this.fileName);
+
   }
   // public randomize(): void {
   //   // Only Change 3 values
