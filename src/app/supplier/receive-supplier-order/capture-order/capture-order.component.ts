@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
@@ -9,6 +9,7 @@ import { ReceiveSupplierService } from 'src/app/services/supplier/receive-suppli
 import { QuantityReceivedComponent } from '../quantity-received/quantity-received.component';
 import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-capture-order',
@@ -28,9 +29,11 @@ export class CaptureOrderComponent implements OnInit {
   public list: place[]=[];
   quant: number;
   supplierId: number;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   form = this.FB.group({
     invoiceTotal: [null, Validators.required],
-    
+
+
     
   })
   constructor(
@@ -60,6 +63,7 @@ export class CaptureOrderComponent implements OnInit {
       this.SupplierOrderId = res[0].supplierOrderID;
       console.log(res);
       this.dataSource = new MatTableDataSource(res)
+      setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }
 
