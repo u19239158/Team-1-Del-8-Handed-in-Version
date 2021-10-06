@@ -8,6 +8,7 @@ namespace NKAP_API_2.EF
     public partial class Admin
     {
         public int AdminId { get; set; }
+        public int? UsersId { get; set; }
         public int? TitleId { get; set; }
         public string AdminName { get; set; }
         public string AdminSurname { get; set; }
@@ -15,5 +16,6 @@ namespace NKAP_API_2.EF
         public string AdminEmailAddress { get; set; }
 
         public virtual Title Title { get; set; }
+        public virtual User Users { get; set; }
     }
 }

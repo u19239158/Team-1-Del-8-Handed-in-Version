@@ -16,6 +16,7 @@ namespace NKAP_API_2.EF
         public int? SupplierId { get; set; }
         public DateTime SupplierInvoiceDate { get; set; }
         public decimal? SupplierInvoiceTotal { get; set; }
+        public string SupplierInvoicePdf { get; set; }
 
         public virtual Supplier Supplier { get; set; }
         public virtual ICollection<SupplierInvoiceLine> SupplierInvoiceLines { get; set; }

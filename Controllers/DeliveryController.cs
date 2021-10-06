@@ -69,7 +69,7 @@ namespace NKAP_API_2.Controllers
                     AddressId = dd.AddressId,
                     AddressLine1 = dd.AddressLine1,
                     AddressLine2 = dd.AddressLine2,
-                    AddressLine3 = dd.AddressLine3,
+                   
                     PostalCode = dd.AddressPostalCode,
                     CourierId = jj.CourierId,
                     CourierName = jj.CourierName,
@@ -130,7 +130,7 @@ namespace NKAP_API_2.Controllers
                     AddressId = dd.AddressId,
                     AddressLine1 = dd.AddressLine1,
                     AddressLine2 = dd.AddressLine2,
-                    AddressLine3 = dd.AddressLine3,
+                  
                     PostalCode = dd.AddressPostalCode,
                     CourierId = jj.CourierId,
                     CourierName = jj.CourierName,
@@ -247,7 +247,7 @@ namespace NKAP_API_2.Controllers
                      AddressId = sd.AddressId,
                      AddressLine1 = sd.AddressLine1,
                      AddressLine2 = sd.AddressLine2,
-                     AddressLine3 = sd.AddressLine3,
+                     
                      AddressPostalCode = sd.AddressPostalCode,
                      ProvinceId = sd.ProvinceId
 
@@ -267,33 +267,12 @@ namespace NKAP_API_2.Controllers
                      AddressId = sor.AddressId,
                      AddressLine1 = sor.AddressLine1,
                      AddressLine2 = sor.AddressLine2,
-                     AddressLine3 = sor.AddressLine3,
+                     
                      AddressPostalCode = sor.AddressPostalCode,
                      ProvinceId = sd.ProvinceId,
                      ProvinceDescription = sd.ProvinceDescription,
 
-                 }).Where(ss => ss.SaleOrderRecieveType == false).Join(_db.Provinces,
-                 sor => sor.ProvinceId,
-                 sd => sd.ProvinceId,
-                    (sor, sd) => new
-                    {
-                        SaleId = sor.SaleId,
-                        SaleOrderAssign = sor.SaleOrderAssign,
-                        SaleOrderRecieveType = sor.SaleOrderRecieveType,
-                        OrderStatusId = sor.OrderStatusId,
-                        CustomerId = sor.CustomerId,
-                        CustomerName = sor.CustomerName,
-                        CustomerSurname = sor.CustomerSurname,
-                        CustomerBusinessName = sor.CustomerBusinessName,
-                        AddressId = sor.AddressId,
-                        AddressLine1 = sor.AddressLine1,
-                        AddressLine2 = sor.AddressLine2,
-                        AddressLine3 = sor.AddressLine3,
-                        AddressPostalCode = sor.AddressPostalCode,
-                        ProvinceId = sor.ProvinceId,
-                        ProvinceDescription = sor.ProvinceDescription,
-                        //CityDescription = sd.CityDescription
-                    }).Where(ss => ss.OrderStatusId == 3).Join(_db.Deliveries,
+                 }).Where(ss => ss.OrderStatusId == 3).Join(_db.Deliveries,
                  sor => sor.AddressId,
                  sd => sd.AddressId,
                     (sor, sd) => new
@@ -309,7 +288,7 @@ namespace NKAP_API_2.Controllers
                         AddressId = sor.AddressId,
                         AddressLine1 = sor.AddressLine1,
                         AddressLine2 = sor.AddressLine2,
-                        AddressLine3 = sor.AddressLine3,
+                       
                         AddressPostalCode = sor.AddressPostalCode,
                         ProvinceId = sor.ProvinceId,
                         ProvinceDescription = sor.ProvinceDescription,
@@ -328,61 +307,73 @@ namespace NKAP_API_2.Controllers
         //Update Order Status
         public IActionResult AssignLocalDelivery(DeliveryShiftModel model)
         {
-            //string response;
-            //var ds = _db.EmployeeShifts.Find(model.EmployeeShiftId);
-            //var md = _db.MaxDeliveries.First(zz => zz.MaxID = 1);
-            //if (ds.NoOfDeliveries < md.MaxNumber)
-            //{
+            string response;
+            var ds = _db.EmployeeShifts.Find(model.EmployeeShiftId);
+            var md = _db.MaxDeliveries.FirstOrDefault(zz => zz.MaxId == 1);
+            if (ds.NoOfDeliveries < md.MaxNumber)
+            {
+                ds.NoOfDeliveries = +1;
+                _db.EmployeeShifts.Attach(ds); //Attach Record
+                _db.SaveChanges();
 
-            //}
-            //else
-            //{
-            //    response = "Shift has reached the maximum delivery capacity";
-            //    return BadRequest(response);
-            //}
-          
-            //ds.NoOfDeliveries = +1;
-            //_db.EmployeeShifts.Attach(ds); //Attach Record
-            //_db.SaveChanges();
+                var sd = _db.Sales.Find(model.SaleID);
+                sd.SaleOrderAssign = true;
+                _db.Sales.Attach(sd); //Attach Record
+                _db.SaveChanges();
 
-            var sd = _db.Sales.Find(model.SaleID);
-            sd.SaleOrderAssign = true;
-            _db.Sales.Attach(sd); //Attach Record
-            _db.SaveChanges();
+                var dd = _db.Deliveries.Find(model.DeliveryId);
+                dd.EmployeeShiftId = model.EmployeeShiftId;
+                _db.Deliveries.Attach(dd);
 
-            //var dd = _db.EmployeeShifts.Find(model.EmployeeShiftId);
-            //dd.DeliveryId = model.DeliveryId;
-            //_db.EmployeeShifts.Attach(dd);
-            return Ok(sd);
+                var user = _db.Users.Find(model.UsersID);
+                AuditTrail audit = new AuditTrail();
+                audit.AuditTrailDescription = user.UserUsername + " assigned a Delivery to a Shift";
+                audit.AuditTrailDate = System.DateTime.Now;
+                TimeSpan timeNow = DateTime.Now.TimeOfDay;
+                audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+                audit.UsersId = user.UsersId;
+                _db.AuditTrails.Add(audit);
+                _db.SaveChanges();
+
+
+                return Ok(sd);
+            }
+            else
+            {
+                response = "Shift has reached the maximum delivery capacity";
+                return BadRequest(response);
+            }
+
+           
         }
 
         //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
-        [Route("AssignDelivery")] //route
-        [HttpPut]
-        //Update Order Status
-        public IActionResult AssignDelivery(DeliveryShiftModel model)
-        {
-            var dd = _db.EmployeeShifts.Find(model.EmployeeShiftId);
-            dd.DeliveryId = model.DeliveryId;
-            _db.EmployeeShifts.Attach(dd);
+        //[Route("AssignDelivery")] //route
+        //[HttpPut]
+        ////Update Order Status
+        //public IActionResult AssignDelivery(DeliveryShiftModel model)
+        //{
+        //    var dd = _db.EmployeeShifts.Find(model.EmployeeShiftId);
+        //    dd.DeliveryId = model.DeliveryId;
+        //    _db.EmployeeShifts.Attach(dd);
 
-            //add to audit trail
-            var user = _db.Users.Find(model.UsersID);
-            AuditTrail audit = new AuditTrail();
-            audit.AuditTrailDescription = user.UserUsername + " assigned a Delivery to a Shift";
-            audit.AuditTrailDate = System.DateTime.Now;
-            TimeSpan timeNow = DateTime.Now.TimeOfDay;
-            audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
-            audit.UsersId = user.UsersId;
-            _db.AuditTrails.Add(audit);
-            _db.SaveChanges();
+        //    //add to audit trail
+        //    var user = _db.Users.Find(model.UsersID);
+        //    AuditTrail audit = new AuditTrail();
+        //    audit.AuditTrailDescription = user.UserUsername + " assigned a Delivery to a Shift";
+        //    audit.AuditTrailDate = System.DateTime.Now;
+        //    TimeSpan timeNow = DateTime.Now.TimeOfDay;
+        //    audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+        //    audit.UsersId = user.UsersId;
+        //    _db.AuditTrails.Add(audit);
+        //    _db.SaveChanges();
 
-            return Ok(dd);
-        }
+        //    return Ok(dd);
+        //}
 
 
-            //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
-            [Route("AssignCourier")] //route
+        //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
+        [Route("AssignCourier")] //route
         [HttpPut]
         //Update Order Status
         public IActionResult AssignCourier(DeliveryShiftModel model)
@@ -457,7 +448,7 @@ namespace NKAP_API_2.Controllers
                     AddressId = dd.AddressId,
                     AddressLine1 = dd.AddressLine1,
                     AddressLine2 = dd.AddressLine2,
-                    AddressLine3 = dd.AddressLine3,
+                    
                     PostalCode = dd.AddressPostalCode,
                     CourierTrackingNumber = jj.CourierTrackingNumber,
                     DeliveryDistance = jj.DeliveryDistance,

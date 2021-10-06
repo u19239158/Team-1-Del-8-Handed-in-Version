@@ -36,7 +36,7 @@ namespace NKAP_API_2.Controllers
                      SupplierOrderLineID = su.SupplierOrderLineId,
                      SupplierProducts = su.SupplierProducts,
                      SupplierQuantityOrdered = su.SupplierQuantityOrdered,
-                     SupplierOrderLineCost = su.SupplierOrderLineCost,
+                   
               
                      ProductItemID = su.ProductItemId
 
@@ -50,7 +50,7 @@ namespace NKAP_API_2.Controllers
                      SupplierOrderLineID = sor.SupplierOrderLineID,
                      SupplierProducts = sor.SupplierProducts,
                      SupplierQuantityOrdered = sor.SupplierQuantityOrdered,
-                     SupplierOrderLineCost = sor.SupplierOrderLineCost,
+                    
                      ProductItemID = sor.ProductItemID,
 
 
@@ -78,7 +78,7 @@ namespace NKAP_API_2.Controllers
                      SupplierOrderLineID = su.SupplierOrderLineId,
                      SupplierProducts = su.SupplierProducts,
                      SupplierQuantityOrdered = su.SupplierQuantityOrdered,
-                     SupplierOrderLineCost = su.SupplierOrderLineCost,
+                     
 
                      ProductItemID = su.ProductItemId
 
@@ -92,7 +92,7 @@ namespace NKAP_API_2.Controllers
                      SupplierOrderLineID = sor.SupplierOrderLineID,
                      SupplierProducts = sor.SupplierProducts,
                      SupplierQuantityOrdered = sor.SupplierQuantityOrdered,
-                     SupplierOrderLineCost = sor.SupplierOrderLineCost,
+                    
                      ProductItemID = sor.ProductItemID,
 
                      ProductItemName = sd.ProductItemName
@@ -113,7 +113,7 @@ namespace NKAP_API_2.Controllers
             SupplierOrderLine orderline = new SupplierOrderLine();
             orderline.SupplierProducts = model.SupplierProducts;
             orderline.SupplierQuantityOrdered = model.SupplierQuantityOrdered;
-            orderline.SupplierOrderLineCost = model.SupplierOrderLineCost;  //attributes in table
+            //attributes in table
             orderline.SupplierOrderId = model.SupplierOrderId;
             orderline.ProductItemId = model.ProductItemId;
             _db.SupplierOrderLines.Add(orderline);

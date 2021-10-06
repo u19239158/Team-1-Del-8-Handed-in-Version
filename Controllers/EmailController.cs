@@ -211,7 +211,7 @@ namespace NKAP_API_2.Controllers
                     CustomerEmailAddress = sor.CustomerEmailAddress,
                     AddressLine1 = sd.AddressLine1,
                     AddressLine2 = sd.AddressLine2,
-                    AddressLine3 = sd.AddressLine3,
+                  
                     AddressPostalCode = sd.AddressPostalCode
 
                 }).First(ss => ss.SaleID == saleid);

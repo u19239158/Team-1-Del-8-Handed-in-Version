@@ -37,6 +37,38 @@ namespace NKAP_API_2.Controllers
             return Ok(Address);
         }
 
+        [Route("GetAddressByCustID/{CustomerId}")] //route
+        [HttpGet]
+        //get Address by ID (Read)
+        public IActionResult GetAddressByCustID(int CustomerId)
+        {
+            var Address = _db.Addresses.Join(_db.Provinces,
+                su => su.ProvinceId,
+                so => so.ProvinceId,
+
+                (su, so) => new
+                {
+                    AddressId = su.AddressId,
+                    CustomerId = su.CustomerId,
+                    AddressLine1 = su.AddressLine1,
+                    AddressLine2 = su.AddressLine2,
+                    AddressPostalCode = su.AddressPostalCode,
+                    ProvinceDescription = so.ProvinceDescription,
+                }).
+
+                    FirstOrDefault(SS => SS.CustomerId == CustomerId);
+            if (Address != null)
+            {
+           
+                return Ok(Address);
+            }
+            else
+            {
+                return Ok("Address not found");
+            }
+           
+        }
+
         [Route("CreateAddress")] //route
         [HttpPost]
         //Add Address
@@ -46,7 +78,7 @@ namespace NKAP_API_2.Controllers
             Address address = new Address();
             address.AddressLine1 = model.AddressLine1; //attributes in table
             address.AddressLine2 = model.AddressLine2;
-            address.AddressLine3 = model.AddressLine3;
+        
             address.AddressPostalCode = Convert.ToInt32(model.AddressPostalCode);
             _db.Addresses.Add(address);
             _db.SaveChanges();
@@ -62,7 +94,7 @@ namespace NKAP_API_2.Controllers
             var address = _db.Addresses.Find(model.AddressID);
             address.AddressLine1 = model.AddressLine1; //attributes in table
             address.AddressLine2 = model.AddressLine2;
-            address.AddressLine3 = model.AddressLine3;
+            
             address.AddressPostalCode = Convert.ToInt32(model.AddressPostalCode);
             _db.Addresses.Attach(address); //Attach Record
             _db.SaveChanges();

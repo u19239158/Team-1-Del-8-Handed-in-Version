@@ -39,7 +39,7 @@ namespace NKAP_API_2.Controllers
                    SpecialDescription = a.SpecialDescription,
                    SpecialStartDate = a.SpecialStartDate,
                    SpecialEndDate = a.SpecialEndDate,
-                   SpecialImage = a.SpecialImage,
+                   
                    ProductItemId = t.ProductItemId
 
                }).Join(_db.ProductItems,
@@ -53,7 +53,7 @@ namespace NKAP_API_2.Controllers
                    SpecialDescription = a.SpecialDescription,
                    SpecialStartDate = a.SpecialStartDate,
                    SpecialEndDate = a.SpecialEndDate,
-                   SpecialImage = a.SpecialImage,
+                  
                    ProductItemName = t.ProductItemName,
                    ProductItemId = t.ProductItemId,
                    CategoryTypeId = t.CategoryTypeId
@@ -69,7 +69,7 @@ namespace NKAP_API_2.Controllers
                    SpecialDescription = a.SpecialDescription,
                    SpecialStartDate = a.SpecialStartDate,
                    SpecialEndDate = a.SpecialEndDate,
-                   SpecialImage = a.SpecialImage,
+                  
                    ProductItemName = a.ProductItemName,
                    ProductItemId = a.ProductItemId,
                    CategoryTypeImage = t.CategoryTypeImage,
@@ -99,7 +99,7 @@ namespace NKAP_API_2.Controllers
                    SpecialDescription = a.SpecialDescription,
                    SpecialStartDate = a.SpecialStartDate,
                    SpecialEndDate = a.SpecialEndDate,
-                   SpecialImage = a.SpecialImage,
+                 
                    ProductItemId = t.ProductItemId
 
                }).Join(_db.ProductItems,
@@ -113,7 +113,7 @@ namespace NKAP_API_2.Controllers
                    SpecialDescription = a.SpecialDescription,
                    SpecialStartDate = a.SpecialStartDate,
                    SpecialEndDate = a.SpecialEndDate,
-                   SpecialImage = a.SpecialImage,
+                   
                    ProductItemName = t.ProductItemName,
                    prod = t.ProductItemCost,
                    ProductItemId = t.ProductItemId
@@ -141,7 +141,7 @@ namespace NKAP_API_2.Controllers
                    SpecialDescription = a.SpecialDescription,
                    SpecialStartDate = a.SpecialStartDate,
                    SpecialEndDate = a.SpecialEndDate,
-                   SpecialImage = a.SpecialImage,
+                   
                    ProductItemId = t.ProductItemId
 
                }).Join(_db.ProductItems,
@@ -155,7 +155,7 @@ namespace NKAP_API_2.Controllers
                    SpecialDescription = a.SpecialDescription,
                    SpecialStartDate = a.SpecialStartDate,
                    SpecialEndDate = a.SpecialEndDate,
-                   SpecialImage = a.SpecialImage,
+                   
                    ProductItemName = t.ProductItemName,
                    ProductItemCost = t.ProductItemCost,
                    ProductItemId = t.ProductItemId
@@ -182,7 +182,7 @@ namespace NKAP_API_2.Controllers
                    SpecialDescription = a.SpecialDescription,
                    SpecialStartDate = a.SpecialStartDate,
                    SpecialEndDate = a.SpecialEndDate,
-                   SpecialImage = a.SpecialImage,
+                  
 
                }).Where(sd => sd.SpecialStartDate == SpecialStartdate);
             return Ok(special);
@@ -206,7 +206,7 @@ namespace NKAP_API_2.Controllers
                   SpecialDescription = a.SpecialDescription,
                   SpecialStartDate = a.SpecialStartDate,
                   SpecialEndDate = a.SpecialEndDate,
-                  SpecialImage = a.SpecialImage,
+                  
 
               }).Where(sd => sd.SpecialEndDate == SpecialEnddate);
             return Ok(special);

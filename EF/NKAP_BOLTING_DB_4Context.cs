@@ -23,7 +23,6 @@ namespace NKAP_API_2.EF
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<CartLine> CartLines { get; set; }
         public virtual DbSet<CategoryType> CategoryTypes { get; set; }
-        public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Courier> Couriers { get; set; }
         public virtual DbSet<CourierType> CourierTypes { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
@@ -34,6 +33,7 @@ namespace NKAP_API_2.EF
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<EmployeeShift> EmployeeShifts { get; set; }
         public virtual DbSet<Markup> Markups { get; set; }
+        public virtual DbSet<MaxDelivery> MaxDeliveries { get; set; }
         public virtual DbSet<OrderStatus> OrderStatuses { get; set; }
         public virtual DbSet<PasswordHistory> PasswordHistories { get; set; }
         public virtual DbSet<PaymentType> PaymentTypes { get; set; }
@@ -61,6 +61,7 @@ namespace NKAP_API_2.EF
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<Vat> Vats { get; set; }
+        public virtual DbSet<Verification> Verifications { get; set; }
         public virtual DbSet<WrittenOffStock> WrittenOffStocks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -73,7 +74,7 @@ namespace NKAP_API_2.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "Latin1_General_CI_AS");
+            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
             modelBuilder.Entity<Address>(entity =>
             {
@@ -92,11 +93,6 @@ namespace NKAP_API_2.EF
                     .IsUnicode(false)
                     .HasColumnName("Address_Line2");
 
-                entity.Property(e => e.AddressLine3)
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .HasColumnName("Address_Line3");
-
                 entity.Property(e => e.AddressPostalCode).HasColumnName("Address_PostalCode");
 
                 entity.Property(e => e.CustomerId).HasColumnName("Customer_ID");
@@ -106,12 +102,12 @@ namespace NKAP_API_2.EF
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.Addresses)
                     .HasForeignKey(d => d.CustomerId)
-                    .HasConstraintName("FK__Address__Custome__276EDEB3");
+                    .HasConstraintName("FK__Address__Custome__3A81B327");
 
                 entity.HasOne(d => d.Province)
                     .WithMany(p => p.Addresses)
                     .HasForeignKey(d => d.ProvinceId)
-                    .HasConstraintName("FK__Address__Provinc__286302EC");
+                    .HasConstraintName("FK__Address__Provinc__3B75D760");
             });
 
             modelBuilder.Entity<Admin>(entity =>
@@ -146,10 +142,17 @@ namespace NKAP_API_2.EF
 
                 entity.Property(e => e.TitleId).HasColumnName("Title_ID");
 
+                entity.Property(e => e.UsersId).HasColumnName("Users_ID");
+
                 entity.HasOne(d => d.Title)
                     .WithMany(p => p.Admins)
                     .HasForeignKey(d => d.TitleId)
-                    .HasConstraintName("FK__Admin__Title_ID__1273C1CD");
+                    .HasConstraintName("FK__Admin__Title_ID__2C3393D0");
+
+                entity.HasOne(d => d.Users)
+                    .WithMany(p => p.Admins)
+                    .HasForeignKey(d => d.UsersId)
+                    .HasConstraintName("FK__Admin__Users_ID__2B3F6F97");
             });
 
             modelBuilder.Entity<AuditTrail>(entity =>
@@ -175,7 +178,7 @@ namespace NKAP_API_2.EF
                 entity.HasOne(d => d.Users)
                     .WithMany(p => p.AuditTrails)
                     .HasForeignKey(d => d.UsersId)
-                    .HasConstraintName("FK__AuditTrai__Users__1A14E395");
+                    .HasConstraintName("FK__AuditTrai__Users__2F10007B");
             });
 
             modelBuilder.Entity<Cart>(entity =>
@@ -200,12 +203,12 @@ namespace NKAP_API_2.EF
                 entity.HasOne(d => d.Cart)
                     .WithMany(p => p.CartLines)
                     .HasForeignKey(d => d.CartId)
-                    .HasConstraintName("FK__CartLine__Cart_I__4D94879B");
+                    .HasConstraintName("FK__CartLine__Cart_I__6E01572D");
 
                 entity.HasOne(d => d.ProductItem)
                     .WithMany(p => p.CartLines)
                     .HasForeignKey(d => d.ProductItemId)
-                    .HasConstraintName("FK__CartLine__Produc__4E88ABD4");
+                    .HasConstraintName("FK__CartLine__Produc__6EF57B66");
             });
 
             modelBuilder.Entity<CategoryType>(entity =>
@@ -234,27 +237,7 @@ namespace NKAP_API_2.EF
                 entity.HasOne(d => d.ProductCategory)
                     .WithMany(p => p.CategoryTypes)
                     .HasForeignKey(d => d.ProductCategoryId)
-                    .HasConstraintName("FK__CategoryT__Produ__4222D4EF");
-            });
-
-            modelBuilder.Entity<City>(entity =>
-            {
-                entity.ToTable("City");
-
-                entity.Property(e => e.CityId).HasColumnName("City_ID");
-
-                entity.Property(e => e.CityDescription)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("City_Description");
-
-                entity.Property(e => e.ProvinceId).HasColumnName("Province_ID");
-
-                entity.HasOne(d => d.Province)
-                    .WithMany(p => p.Cities)
-                    .HasForeignKey(d => d.ProvinceId)
-                    .HasConstraintName("FK__City__Province_I__24927208");
+                    .HasConstraintName("FK__CategoryT__Produ__628FA481");
             });
 
             modelBuilder.Entity<Courier>(entity =>
@@ -286,7 +269,7 @@ namespace NKAP_API_2.EF
                 entity.HasOne(d => d.CourierType)
                     .WithMany(p => p.Couriers)
                     .HasForeignKey(d => d.CourierTypeId)
-                    .HasConstraintName("FK__Courier__Courier__2D27B809");
+                    .HasConstraintName("FK__Courier__Courier__403A8C7D");
             });
 
             modelBuilder.Entity<CourierType>(entity =>
@@ -344,10 +327,17 @@ namespace NKAP_API_2.EF
 
                 entity.Property(e => e.TitleId).HasColumnName("Title_ID");
 
+                entity.Property(e => e.UsersId).HasColumnName("Users_ID");
+
                 entity.HasOne(d => d.Title)
                     .WithMany(p => p.Customers)
                     .HasForeignKey(d => d.TitleId)
-                    .HasConstraintName("FK__Customer__Title___1FCDBCEB");
+                    .HasConstraintName("FK__Customer__Title___35BCFE0A");
+
+                entity.HasOne(d => d.Users)
+                    .WithMany(p => p.Customers)
+                    .HasForeignKey(d => d.UsersId)
+                    .HasConstraintName("FK__Customer__Users___34C8D9D1");
             });
 
             modelBuilder.Entity<Date>(entity =>
@@ -379,27 +369,32 @@ namespace NKAP_API_2.EF
                     .HasColumnName("Delivery_Date");
 
                 entity.Property(e => e.DeliveryDistance)
-                    .IsRequired()
-                    .HasMaxLength(1024)
                     .IsUnicode(false)
                     .HasColumnName("Delivery_Distance");
+
+                entity.Property(e => e.EmployeeShiftId).HasColumnName("EmployeeShift_ID");
 
                 entity.Property(e => e.SaleId).HasColumnName("Sale_ID");
 
                 entity.HasOne(d => d.Address)
                     .WithMany(p => p.Deliveries)
                     .HasForeignKey(d => d.AddressId)
-                    .HasConstraintName("FK__Delivery__Addres__3C69FB99");
+                    .HasConstraintName("FK__Delivery__Addres__5BE2A6F2");
 
                 entity.HasOne(d => d.Courier)
                     .WithMany(p => p.Deliveries)
                     .HasForeignKey(d => d.CourierId)
-                    .HasConstraintName("FK__Delivery__Courie__3B75D760");
+                    .HasConstraintName("FK__Delivery__Courie__5AEE82B9");
+
+                entity.HasOne(d => d.EmployeeShift)
+                    .WithMany(p => p.Deliveries)
+                    .HasForeignKey(d => d.EmployeeShiftId)
+                    .HasConstraintName("FK__Delivery__Employ__5DCAEF64");
 
                 entity.HasOne(d => d.Sale)
                     .WithMany(p => p.Deliveries)
                     .HasForeignKey(d => d.SaleId)
-                    .HasConstraintName("FK__Delivery__Sale_I__3D5E1FD2");
+                    .HasConstraintName("FK__Delivery__Sale_I__5CD6CB2B");
             });
 
             modelBuilder.Entity<DeliveryPrice>(entity =>
@@ -474,6 +469,13 @@ namespace NKAP_API_2.EF
                     .HasMaxLength(40)
                     .IsUnicode(false)
                     .HasColumnName("Employee_Surname");
+
+                entity.Property(e => e.UsersId).HasColumnName("Users_ID");
+
+                entity.HasOne(d => d.Users)
+                    .WithMany(p => p.Employees)
+                    .HasForeignKey(d => d.UsersId)
+                    .HasConstraintName("FK__Employee__Users___46E78A0C");
             });
 
             modelBuilder.Entity<EmployeeShift>(entity =>
@@ -481,8 +483,6 @@ namespace NKAP_API_2.EF
                 entity.ToTable("EmployeeShift");
 
                 entity.Property(e => e.EmployeeShiftId).HasColumnName("EmployeeShift_ID");
-
-                entity.Property(e => e.DeliveryId).HasColumnName("Delivery_ID");
 
                 entity.Property(e => e.EmployeeId).HasColumnName("Employee_ID");
 
@@ -492,20 +492,15 @@ namespace NKAP_API_2.EF
 
                 entity.Property(e => e.ShiftId).HasColumnName("Shift_ID");
 
-                entity.HasOne(d => d.Delivery)
-                    .WithMany(p => p.EmployeeShifts)
-                    .HasForeignKey(d => d.DeliveryId)
-                    .HasConstraintName("FK__EmployeeS__Deliv__0A9D95DB");
-
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.EmployeeShifts)
                     .HasForeignKey(d => d.EmployeeId)
-                    .HasConstraintName("FK__EmployeeS__Emplo__09A971A2");
+                    .HasConstraintName("FK__EmployeeS__Emplo__571DF1D5");
 
                 entity.HasOne(d => d.Shift)
                     .WithMany(p => p.EmployeeShifts)
                     .HasForeignKey(d => d.ShiftId)
-                    .HasConstraintName("FK__EmployeeS__Shift__0B91BA14");
+                    .HasConstraintName("FK__EmployeeS__Shift__5812160E");
             });
 
             modelBuilder.Entity<Markup>(entity =>
@@ -517,6 +512,14 @@ namespace NKAP_API_2.EF
                 entity.Property(e => e.MarkupPercentage)
                     .HasColumnType("decimal(10, 2)")
                     .HasColumnName("Markup_Percentage");
+            });
+
+            modelBuilder.Entity<MaxDelivery>(entity =>
+            {
+                entity.HasKey(e => e.MaxId)
+                    .HasName("PK__MaxDeliv__285678F3AB4B931B");
+
+                entity.Property(e => e.MaxId).HasColumnName("MaxID");
             });
 
             modelBuilder.Entity<OrderStatus>(entity =>
@@ -544,7 +547,7 @@ namespace NKAP_API_2.EF
 
                 entity.Property(e => e.PasswordHistoryText)
                     .IsRequired()
-                    .HasMaxLength(20)
+                    .HasMaxLength(70)
                     .IsUnicode(false)
                     .HasColumnName("PasswordHistory_Text");
 
@@ -553,7 +556,7 @@ namespace NKAP_API_2.EF
                 entity.HasOne(d => d.Users)
                     .WithMany(p => p.PasswordHistories)
                     .HasForeignKey(d => d.UsersId)
-                    .HasConstraintName("FK__PasswordH__Users__1CF15040");
+                    .HasConstraintName("FK__PasswordH__Users__31EC6D26");
             });
 
             modelBuilder.Entity<PaymentType>(entity =>
@@ -588,7 +591,7 @@ namespace NKAP_API_2.EF
                 entity.HasOne(d => d.ProductItem)
                     .WithMany(p => p.Prices)
                     .HasForeignKey(d => d.ProductItemId)
-                    .HasConstraintName("FK__Price__ProductIt__571DF1D5");
+                    .HasConstraintName("FK__Price__ProductIt__778AC167");
             });
 
             modelBuilder.Entity<ProductCategory>(entity =>
@@ -631,7 +634,7 @@ namespace NKAP_API_2.EF
                 entity.HasOne(d => d.CategoryType)
                     .WithMany(p => p.ProductItems)
                     .HasForeignKey(d => d.CategoryTypeId)
-                    .HasConstraintName("FK__ProductIt__Categ__44FF419A");
+                    .HasConstraintName("FK__ProductIt__Categ__656C112C");
             });
 
             modelBuilder.Entity<ProductItemStockTake>(entity =>
@@ -649,12 +652,12 @@ namespace NKAP_API_2.EF
                 entity.HasOne(d => d.ProductItem)
                     .WithMany(p => p.ProductItemStockTakes)
                     .HasForeignKey(d => d.ProductItemId)
-                    .HasConstraintName("FK__ProductIt__Produ__5441852A");
+                    .HasConstraintName("FK__ProductIt__Produ__74AE54BC");
 
                 entity.HasOne(d => d.StockTake)
                     .WithMany(p => p.ProductItemStockTakes)
                     .HasForeignKey(d => d.StockTakeId)
-                    .HasConstraintName("FK__ProductIt__Stock__534D60F1");
+                    .HasConstraintName("FK__ProductIt__Stock__73BA3083");
             });
 
             modelBuilder.Entity<ProductItemWrittenOffStock>(entity =>
@@ -678,12 +681,12 @@ namespace NKAP_API_2.EF
                 entity.HasOne(d => d.ProductItem)
                     .WithMany(p => p.ProductItemWrittenOffStocks)
                     .HasForeignKey(d => d.ProductItemId)
-                    .HasConstraintName("FK__ProductIt__Produ__778AC167");
+                    .HasConstraintName("FK__ProductIt__Produ__17F790F9");
 
                 entity.HasOne(d => d.WrittenOffStock)
                     .WithMany(p => p.ProductItemWrittenOffStocks)
                     .HasForeignKey(d => d.WrittenOffStockId)
-                    .HasConstraintName("FK__ProductIt__Writt__76969D2E");
+                    .HasConstraintName("FK__ProductIt__Writt__17036CC0");
             });
 
             modelBuilder.Entity<ProductSpecial>(entity =>
@@ -703,12 +706,12 @@ namespace NKAP_API_2.EF
                 entity.HasOne(d => d.ProductItem)
                     .WithMany(p => p.ProductSpecials)
                     .HasForeignKey(d => d.ProductItemId)
-                    .HasConstraintName("FK__Product_S__Produ__6B24EA82");
+                    .HasConstraintName("FK__Product_S__Produ__0B91BA14");
 
                 entity.HasOne(d => d.Special)
                     .WithMany(p => p.ProductSpecials)
                     .HasForeignKey(d => d.SpecialId)
-                    .HasConstraintName("FK__Product_S__Speci__6A30C649");
+                    .HasConstraintName("FK__Product_S__Speci__0A9D95DB");
             });
 
             modelBuilder.Entity<Province>(entity =>
@@ -762,22 +765,22 @@ namespace NKAP_API_2.EF
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.Sales)
                     .HasForeignKey(d => d.CustomerId)
-                    .HasConstraintName("FK__Sale__Customer_I__35BCFE0A");
+                    .HasConstraintName("FK__Sale__Customer_I__49C3F6B7");
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.Sales)
                     .HasForeignKey(d => d.EmployeeId)
-                    .HasConstraintName("FK__Sale__Employee_I__38996AB5");
+                    .HasConstraintName("FK__Sale__Employee_I__4CA06362");
 
                 entity.HasOne(d => d.OrderStatus)
                     .WithMany(p => p.Sales)
                     .HasForeignKey(d => d.OrderStatusId)
-                    .HasConstraintName("FK__Sale__OrderStatu__37A5467C");
+                    .HasConstraintName("FK__Sale__OrderStatu__4BAC3F29");
 
                 entity.HasOne(d => d.PaymentType)
                     .WithMany(p => p.Sales)
                     .HasForeignKey(d => d.PaymentTypeId)
-                    .HasConstraintName("FK__Sale__PaymentTyp__36B12243");
+                    .HasConstraintName("FK__Sale__PaymentTyp__4AB81AF0");
             });
 
             modelBuilder.Entity<SaleLine>(entity =>
@@ -795,12 +798,12 @@ namespace NKAP_API_2.EF
                 entity.HasOne(d => d.ProductItem)
                     .WithMany(p => p.SaleLines)
                     .HasForeignKey(d => d.ProductItemId)
-                    .HasConstraintName("FK__SaleLine__Produc__48CFD27E");
+                    .HasConstraintName("FK__SaleLine__Produc__693CA210");
 
                 entity.HasOne(d => d.Sale)
                     .WithMany(p => p.SaleLines)
                     .HasForeignKey(d => d.SaleId)
-                    .HasConstraintName("FK__SaleLine__Sale_I__47DBAE45");
+                    .HasConstraintName("FK__SaleLine__Sale_I__68487DD7");
             });
 
             modelBuilder.Entity<Shift>(entity =>
@@ -816,12 +819,12 @@ namespace NKAP_API_2.EF
                 entity.HasOne(d => d.Date)
                     .WithMany(p => p.Shifts)
                     .HasForeignKey(d => d.DateId)
-                    .HasConstraintName("FK__Shift__Date_ID__05D8E0BE");
+                    .HasConstraintName("FK__Shift__Date_ID__534D60F1");
 
                 entity.HasOne(d => d.Time)
                     .WithMany(p => p.Shifts)
                     .HasForeignKey(d => d.TimeId)
-                    .HasConstraintName("FK__Shift__Time_ID__06CD04F7");
+                    .HasConstraintName("FK__Shift__Time_ID__5441852A");
             });
 
             modelBuilder.Entity<Special>(entity =>
@@ -839,10 +842,6 @@ namespace NKAP_API_2.EF
                 entity.Property(e => e.SpecialEndDate)
                     .HasColumnType("date")
                     .HasColumnName("Special_EndDate");
-
-                entity.Property(e => e.SpecialImage)
-                    .IsUnicode(false)
-                    .HasColumnName("Special_Image");
 
                 entity.Property(e => e.SpecialStartDate)
                     .HasColumnType("date")
@@ -925,6 +924,10 @@ namespace NKAP_API_2.EF
                     .HasColumnType("date")
                     .HasColumnName("SupplierInvoice_Date");
 
+                entity.Property(e => e.SupplierInvoicePdf)
+                    .IsUnicode(false)
+                    .HasColumnName("SupplierInvoicePDF");
+
                 entity.Property(e => e.SupplierInvoiceTotal)
                     .HasColumnType("money")
                     .HasColumnName("SupplierInvoice_Total");
@@ -932,7 +935,7 @@ namespace NKAP_API_2.EF
                 entity.HasOne(d => d.Supplier)
                     .WithMany(p => p.SupplierInvoices)
                     .HasForeignKey(d => d.SupplierId)
-                    .HasConstraintName("FK__SupplierI__Suppl__6E01572D");
+                    .HasConstraintName("FK__SupplierI__Suppl__0E6E26BF");
             });
 
             modelBuilder.Entity<SupplierInvoiceLine>(entity =>
@@ -940,10 +943,6 @@ namespace NKAP_API_2.EF
                 entity.ToTable("Supplier_InvoiceLine");
 
                 entity.Property(e => e.SupplierInvoiceLineId).HasColumnName("Supplier_InvoiceLine_ID");
-
-                entity.Property(e => e.LineItemCost)
-                    .HasColumnType("money")
-                    .HasColumnName("LineItem_Cost");
 
                 entity.Property(e => e.ProductItemId).HasColumnName("ProductItem_ID");
 
@@ -960,12 +959,12 @@ namespace NKAP_API_2.EF
                 entity.HasOne(d => d.ProductItem)
                     .WithMany(p => p.SupplierInvoiceLines)
                     .HasForeignKey(d => d.ProductItemId)
-                    .HasConstraintName("FK__Supplier___Produ__71D1E811");
+                    .HasConstraintName("FK__Supplier___Produ__123EB7A3");
 
                 entity.HasOne(d => d.SupplierInvoice)
                     .WithMany(p => p.SupplierInvoiceLines)
                     .HasForeignKey(d => d.SupplierInvoiceId)
-                    .HasConstraintName("FK__Supplier___Suppl__70DDC3D8");
+                    .HasConstraintName("FK__Supplier___Suppl__114A936A");
             });
 
             modelBuilder.Entity<SupplierOrder>(entity =>
@@ -986,27 +985,15 @@ namespace NKAP_API_2.EF
 
                 entity.Property(e => e.SupplierOrderStatusId).HasColumnName("SupplierOrderStatus_ID");
 
-                entity.Property(e => e.SupplierOrderSubTotal)
-                    .HasColumnType("money")
-                    .HasColumnName("SupplierOrder_SubTotal");
-
-                entity.Property(e => e.SupplierOrderTotal)
-                    .HasColumnType("money")
-                    .HasColumnName("SupplierOrder_Total");
-
-                entity.Property(e => e.SupplierOrderVat)
-                    .HasColumnType("money")
-                    .HasColumnName("SupplierOrder_VAT");
-
                 entity.HasOne(d => d.Supplier)
                     .WithMany(p => p.SupplierOrders)
                     .HasForeignKey(d => d.SupplierId)
-                    .HasConstraintName("FK__SupplierO__Suppl__619B8048");
+                    .HasConstraintName("FK__SupplierO__Suppl__02084FDA");
 
                 entity.HasOne(d => d.SupplierOrderStatus)
                     .WithMany(p => p.SupplierOrders)
                     .HasForeignKey(d => d.SupplierOrderStatusId)
-                    .HasConstraintName("FK__SupplierO__Suppl__60A75C0F");
+                    .HasConstraintName("FK__SupplierO__Suppl__01142BA1");
             });
 
             modelBuilder.Entity<SupplierOrderLine>(entity =>
@@ -1019,10 +1006,6 @@ namespace NKAP_API_2.EF
 
                 entity.Property(e => e.SupplierOrderId).HasColumnName("SupplierOrder_ID");
 
-                entity.Property(e => e.SupplierOrderLineCost)
-                    .HasColumnType("money")
-                    .HasColumnName("SupplierOrderLine_Cost");
-
                 entity.Property(e => e.SupplierProducts)
                     .IsRequired()
                     .HasMaxLength(40)
@@ -1034,12 +1017,12 @@ namespace NKAP_API_2.EF
                 entity.HasOne(d => d.ProductItem)
                     .WithMany(p => p.SupplierOrderLines)
                     .HasForeignKey(d => d.ProductItemId)
-                    .HasConstraintName("FK__SupplierO__Produ__656C112C");
+                    .HasConstraintName("FK__SupplierO__Produ__05D8E0BE");
 
                 entity.HasOne(d => d.SupplierOrder)
                     .WithMany(p => p.SupplierOrderLines)
                     .HasForeignKey(d => d.SupplierOrderId)
-                    .HasConstraintName("FK__SupplierO__Suppl__6477ECF3");
+                    .HasConstraintName("FK__SupplierO__Suppl__04E4BC85");
             });
 
             modelBuilder.Entity<SupplierOrderStatus>(entity =>
@@ -1070,7 +1053,7 @@ namespace NKAP_API_2.EF
                 entity.HasOne(d => d.Supplier)
                     .WithMany(p => p.SupplierPayments)
                     .HasForeignKey(d => d.SupplierId)
-                    .HasConstraintName("FK__SupplierP__Suppl__5BE2A6F2");
+                    .HasConstraintName("FK__SupplierP__Suppl__7C4F7684");
             });
 
             modelBuilder.Entity<Time>(entity =>
@@ -1096,7 +1079,7 @@ namespace NKAP_API_2.EF
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.UsersId)
-                    .HasName("PK__Users__EB68290D430AABBF");
+                    .HasName("PK__Users__EB68290D00F6641A");
 
                 entity.Property(e => e.UsersId).HasColumnName("Users_ID");
 
@@ -1116,7 +1099,7 @@ namespace NKAP_API_2.EF
                 entity.HasOne(d => d.UserRole)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.UserRoleId)
-                    .HasConstraintName("FK__Users__UserRole___173876EA");
+                    .HasConstraintName("FK__Users__UserRole___286302EC");
             });
 
             modelBuilder.Entity<UserRole>(entity =>
@@ -1147,6 +1130,27 @@ namespace NKAP_API_2.EF
                 entity.Property(e => e.VatPercentage)
                     .HasColumnType("decimal(10, 2)")
                     .HasColumnName("VAT_Percentage");
+            });
+
+            modelBuilder.Entity<Verification>(entity =>
+            {
+                entity.ToTable("Verification");
+
+                entity.Property(e => e.VerificationId).HasColumnName("Verification_ID");
+
+                entity.Property(e => e.CodeDate).HasColumnType("date");
+
+                entity.Property(e => e.PhoneNumber)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UsersId).HasColumnName("Users_ID");
+
+                entity.HasOne(d => d.Users)
+                    .WithMany(p => p.Verifications)
+                    .HasForeignKey(d => d.UsersId)
+                    .HasConstraintName("FK__Verificat__Users__245D67DE");
             });
 
             modelBuilder.Entity<WrittenOffStock>(entity =>

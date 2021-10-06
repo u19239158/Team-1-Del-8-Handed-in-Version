@@ -241,7 +241,7 @@ namespace NKAP_API_2.Controllers
                     TimeId = a.TimeId,
                     EmployeeShiftId = t.EmployeeShiftId,
                     NoOfDeliveries = t.NoOfDeliveries,
-                    DeliveryId = t.DeliveryId,
+                   
                 }).Join(_db.Dates,
                  sor => sor.DateId,
                  sd => sd.DateId,
@@ -254,7 +254,7 @@ namespace NKAP_API_2.Controllers
                      DayOfTheWeek = sd.DayOfTheWeek.ToString("dd/MM/yyyy"),
                      EmployeeShiftId = sor.EmployeeShiftId,
                      NoOfDeliveries = sor.NoOfDeliveries,
-                     DeliveryId = sor.DeliveryId
+                    
                  }).Join(_db.Times,
                  sor => sor.TimeId,
                  sd => sd.TimeId,
@@ -269,7 +269,7 @@ namespace NKAP_API_2.Controllers
                      EndTime = sd.EndTime,
                      EmployeeShiftId = sor.EmployeeShiftId,
                      NoOfDeliveries = sor.NoOfDeliveries,
-                     DeliveryId = sor.DeliveryId
+                    
                  }).Join(_db.Employees,
                  sor => sor.EmployeeID,
                  sd => sd.EmployeeId,
@@ -286,10 +286,10 @@ namespace NKAP_API_2.Controllers
                      EndTime = sor.EndTime,
                      EmployeeShiftId = sor.EmployeeShiftId,
                      NoOfDeliveries = sor.NoOfDeliveries,
-                     DeliveryId = sor.DeliveryId
+                   
                  }).Join(_db.Deliveries,
-                 sor => sor.DeliveryId,
-                 sd => sd.DeliveryId,
+                 sor => sor.EmployeeShiftId,
+                 sd => sd.EmployeeShiftId,
                  (sor, sd) => new
                  {
                      ShiftId = sor.ShiftId,
@@ -303,7 +303,7 @@ namespace NKAP_API_2.Controllers
                      EndTime = sor.EndTime,
                      EmployeeShiftId = sor.EmployeeShiftId,
                      NoOfDeliveries = sor.NoOfDeliveries,
-                     DeliveryId = sor.DeliveryId,
+                     DeliveryId = sd.DeliveryId,
                      SaleId = sd.SaleId, 
                  });
 
@@ -330,7 +330,7 @@ namespace NKAP_API_2.Controllers
                     TimeId = a.TimeId,
                     EmployeeShiftId = t.EmployeeShiftId,
                     NoOfDeliveries = t.NoOfDeliveries,
-                    DeliveryId = t.DeliveryId
+                   
 
                 }).Join(_db.Dates,
                  sor => sor.DateId,
@@ -344,7 +344,7 @@ namespace NKAP_API_2.Controllers
                      DayOfTheWeek = sd.DayOfTheWeek.ToString("dd/MM/yyyy"),
                      EmployeeShiftId = sor.EmployeeShiftId,
                      NoOfDeliveries = sor.NoOfDeliveries,
-                     DeliveryId = sor.DeliveryId
+                    
 
                  }).Join(_db.Times,
                  sor => sor.TimeId,
@@ -360,7 +360,7 @@ namespace NKAP_API_2.Controllers
                      EndTime = sd.EndTime,
                      EmployeeShiftId = sor.EmployeeShiftId,
                      NoOfDeliveries = sor.NoOfDeliveries,
-                     DeliveryId = sor.DeliveryId
+                    
 
                  }).Join(_db.Employees,
                  sor => sor.EmployeeID,
@@ -378,8 +378,8 @@ namespace NKAP_API_2.Controllers
                      EndTime = sor.EndTime,
                      EmployeeShiftId = sor.EmployeeShiftId,
                      NoOfDeliveries = sor.NoOfDeliveries,
-                     DeliveryId = sor.DeliveryId
-                 }).Where( zz => zz.DeliveryId != null);
+                     
+                 }).ToList();
 
             return Ok(DeliveryShift);
 
@@ -463,9 +463,9 @@ namespace NKAP_API_2.Controllers
         //Delete DeliveryShift
         public IActionResult DeleteDeliveryShift(DeliveryShiftModel model)
         {
-            var shift1 = _db.EmployeeShifts.FirstOrDefault(zz => zz.ShiftId == model.ShiftId);
-            if (shift1.NoOfDeliveries == 0)
+            try
             {
+
                 var shift = _db.Shifts.FirstOrDefault(zz => zz.ShiftId == model.ShiftId);
                 _db.Shifts.Remove(shift);
                 var delShift = _db.EmployeeShifts.FirstOrDefault(zz => zz.ShiftId == model.ShiftId);
@@ -486,11 +486,13 @@ namespace NKAP_API_2.Controllers
                 return Ok(delShift);
                
             }
-            else
+            catch (Exception)
             {
                 response = "Delivery Shift could not be deleted as it is has a delivery allocated to it";
                 return BadRequest(response);
+                throw;
             }
+         
             //try
             //{
             //    var shift = _db.Shifts.FirstOrDefault(zz => zz.ShiftId == shiftid);
@@ -645,11 +647,11 @@ namespace NKAP_API_2.Controllers
                     TimeId = a.TimeId,
                     EmployeeShiftId = t.EmployeeShiftId,
                     NoOfDeliveries = t.NoOfDeliveries,
-                    DeliveryId = t.DeliveryId
+                   
 
                 }).Join(_db.Deliveries,
-                 sor => sor.DeliveryId,
-                 sd => sd.DeliveryId,
+                 sor => sor.EmployeeShiftId,
+                 sd => sd.EmployeeShiftId,
                  (sor, sd) => new
                  {
                      DateId = sor.DateId,
@@ -702,7 +704,7 @@ namespace NKAP_API_2.Controllers
                     SaleID = sor.SaleID,
                     AddressLine1 = sd.AddressLine1,
                     AddressLine2 = sd.AddressLine2,
-                    AddressLine3 = sd.AddressLine3,
+                 
                     AddressPostalCode = sd.AddressPostalCode,
                     EmployeeShiftId = sor.EmployeeShiftId
 
@@ -712,19 +714,29 @@ namespace NKAP_API_2.Controllers
 
         }
         //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
-        //[Route("UpdateMaxDeliveries")] //route
-        //[HttpPut]
-        ////Update UpdateMaxDeliveries
-        //public IActionResult UpdateMaxDeliveries(DeliveryShiftModel model)
-        //{
-        //    var newMax = _db.MaxDeliveries.Find( zz => zz.MaxID = 1);
-        //    newMax.MaxNumber = model.MaxNumber; //attributes in table
-        //    _db.MaxDeliveries.Attach(newMax); //Attach Record
-        //    _db.SaveChanges();
+        [Route("UpdateMaxDeliveries")] //route
+        [HttpPut]
+        //Update UpdateMaxDeliveries
+        public IActionResult UpdateMaxDeliveries(DeliveryShiftModel model)
+        {
+            var newMax = _db.MaxDeliveries.FirstOrDefault(zz => zz.MaxId == 1);
+            newMax.MaxNumber = model.MaxNumber; //attributes in table
+            _db.MaxDeliveries.Attach(newMax); //Attach Record
+            _db.SaveChanges();
 
 
-        //    return Ok(newMax);
-        //}
+            return Ok(newMax);
+        }
+
+
+        [Route("GetMaxD/{id}")] //route
+        [HttpGet]
+        //get Markup (Read)
+        public IActionResult GetMaxD(int id )
+        {
+            var maxd = _db.MaxDeliveries.FirstOrDefault( zz => zz.MaxId == id);
+            return Ok(maxd);
+        }
 
     }
 }

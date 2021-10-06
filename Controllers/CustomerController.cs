@@ -85,34 +85,35 @@ namespace NKAP_API_2.Controllers
             return Ok(Custitle);
         }
 
-        //[Route("GetProfile/{userid}")] //route
-        //[HttpGet]
-        ////get Customer by ID (Read)
-        //public IActionResult GetProfile(int userid)
-        //{
-        //    //var Customer = _db.Customers.Find(customerid);
+        [Route("GetProfile/{userid}")] //route
+        [HttpGet]
+        //get Customer by ID (Read)
+        public IActionResult GetProfile(int userid)
+        {
+            //var Customer = _db.Customers.Find(customerid);
 
-        //    var Custitle = _db.Customers.Join(_db.Titles,
-        //      c => c.TitleId,
-        //      t => t.TitleId,
-        //      (c, t) => new
-        //      {
-        //          CustomerId = c.CustomerId,
+            var Custitle = _db.Customers.Join(_db.Titles,
+              c => c.TitleId,
+              t => t.TitleId,
+              (c, t) => new
+              {
+                  CustomerId = c.CustomerId,
 
-        //          TitleID = c.TitleId,
-        //          TitleDesc = t.TitleDescription,
-        //          CustomerID = c.CustomerId,
-        //          CustomerName = c.CustomerName,
-        //          CustomerSurname = c.CustomerSurname,
-        //          CustomerCellphoneNumber = c.CustomerCellphoneNumber,
-        //          CustomerEmailAddress = c.CustomerEmailAddress,
-        //          CustomerVATReg = c.CustomerVatreg,
-        //          CustomerBusinessName = c.CustomerBusinessName,
+                  TitleID = c.TitleId,
+                  TitleDesc = t.TitleDescription,
+                  CustomerID = c.CustomerId,
+                  CustomerName = c.CustomerName,
+                  CustomerSurname = c.CustomerSurname,
+                  CustomerCellphoneNumber = c.CustomerCellphoneNumber,
+                  CustomerEmailAddress = c.CustomerEmailAddress,
+                  CustomerVATReg = c.CustomerVatreg,
+                  CustomerBusinessName = c.CustomerBusinessName,
+                  UsersId = c.UsersId
 
-        //      }).First(cn => cn.userID == userid);
+              }).First(cn => cn.UsersId == userid);
 
-        //    return Ok(Custitle);
-        //}
+            return Ok(Custitle);
+        }
 
         //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("GetCustomerByName/{customername}")] //route
@@ -281,7 +282,7 @@ namespace NKAP_API_2.Controllers
         //Update Customer
         public IActionResult UpdateProfile(CustomerModel model)
         {
-            var customer = _db.Customers.Find(model.UsersID);
+            var customer = _db.Customers.FirstOrDefault(ss=> ss.UsersId ==model.UsersID);
             customer.CustomerName = model.CustomerName; //attributes in table
             customer.CustomerSurname = model.CustomerSurname;
             customer.CustomerCellphoneNumber = model.CustomerCellphoneNumber;
@@ -303,7 +304,7 @@ namespace NKAP_API_2.Controllers
             _db.AuditTrails.Add(audit);
             _db.SaveChanges();
 
-            return Ok(customer);
+            return Ok();
         }
 
         string response = "";
@@ -316,7 +317,9 @@ namespace NKAP_API_2.Controllers
             try
             {
                 var customer = _db.Customers.Find(model.CustomerID);
+                var use = _db.Users.FirstOrDefault(zz => zz.UsersId == customer.UsersId);
                 _db.Customers.Remove(customer); //Delete Record
+
                 _db.SaveChanges();
 
                // add to audit trail

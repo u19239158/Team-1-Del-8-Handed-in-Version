@@ -35,7 +35,7 @@ namespace NKAP_API_2.Controllers
                     ProductItemID = su.ProductItemId,
                     SupplierItemName = su.SupplierItemName,
                     QuantityRecieved = su.QuantityReceived,
-                    LineItemCost = su.LineItemCost,
+                  
                     SupplierInvoiceId = su.SupplierInvoiceId
                 }).Join(_db.SupplierInvoices,
                 sor => sor.SupplierInvoiceId,
@@ -45,7 +45,7 @@ namespace NKAP_API_2.Controllers
                     ProductItemID = sor.ProductItemID,
                     SupplierItemName = sor.SupplierItemName,
                     QuantityRecieved = sor.QuantityRecieved,
-                    LineItemCost = sor.LineItemCost,
+                   
                     SupplierInvoiceID = sor.SupplierInvoiceId,
 
                 });
@@ -61,7 +61,7 @@ namespace NKAP_API_2.Controllers
         {
             SupplierInvoiceLine invoiceline = new SupplierInvoiceLine();
             invoiceline.SupplierItemName = model.SupplierItemName;  //attributes in table
-            invoiceline.LineItemCost = model.LineItemCost;
+          
             invoiceline.QuantityReceived = model.QuantityRecieved;
             invoiceline.ProductItemId = model.ProductItemId;
             invoiceline.SupplierInvoiceId = model.SupplierInvoiceId;
