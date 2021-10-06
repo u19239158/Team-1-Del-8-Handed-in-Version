@@ -14,6 +14,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { direction } from 'html2canvas/dist/types/css/property-descriptors/direction';
 import { MomentDateModule } from '@angular/material-moment-adapter';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-place-supplier-order',
@@ -41,11 +42,12 @@ export class PlaceSupplierOrderComponent implements OnInit {
   displayedColumns: string[] = ['checkbox', 'productItemName', 'quantityOnHand'];
   @ViewChild(MatSort) sort: MatSort;
   checkedIDs = [];
-  public list: Data [] = [];
+  public list: Data[] = [];
   name: string;
   quant: number;
   QuantityModalComponent: QuantityModalComponent;
   place : place;
+  userid: number;
   
   highlight(element: PlaceSupplierOrder) {
     element.highlighted = !element.highlighted;
@@ -55,6 +57,8 @@ export class PlaceSupplierOrderComponent implements OnInit {
     supplierID: [null, Validators.required]
   })
 
+  checkboxes = {};
+
   constructor(
     private productitemService: ProductitemService,
     private placeSupplierOrderService: PlaceSupplierOrderService,
@@ -63,7 +67,8 @@ export class PlaceSupplierOrderComponent implements OnInit {
     private router: Router,
     private FormGroup: FormBuilder,
     private FB: FormBuilder,
-    
+    private snack: MatSnackBar
+
     // public dialogRef: MatDialogRef<PlaceSupplierOrder>
   ) { }
 
@@ -87,6 +92,10 @@ export class PlaceSupplierOrderComponent implements OnInit {
       // this.name = this.productitems.productItemName;
       setTimeout(() => this.dataSource.paginator = this.paginator);
     });
+
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   this.userid = obj.userId
 
   }
 
@@ -124,34 +133,42 @@ export class PlaceSupplierOrderComponent implements OnInit {
       })
   }
 
-  PlaceOrder(producItemName: string, productItemId: number) {
+  PlaceOrder(producItemName: string, productItemId: number, checked: boolean) {
+
+    if (checked) {
+      for (let i = 0; i < this.list.length; i++) {
+        const product = this.list[i];
+        if (product.id === productItemId) {
+          this.list.splice(i, 1)
+          return
+        }
+      }
+    }
+
     const confirm = this.dialog.open(QuantityModalComponent, {
       disableClose: true,
     });
-   
-     confirm.afterClosed().subscribe(res => {
 
-      if(res) {
-      // this.QuantityModalComponent.content.event.subscribe(res => {
-      
-      var num = localStorage.getItem('quantity');
-      const q = JSON.parse(num);
-      this.quant = q;
-      console.log(this.quant);
-      console.log(res);
-      this.list.push({name: producItemName, quantity: this.quant , id:productItemId });
-      console.log(this.list);
+    confirm.afterClosed().subscribe(res => {
+
+      if (res) {
+
+        var num = localStorage.getItem('quantity');
+        const q = JSON.parse(num);
+        this.quant = q;
+        this.list.push({ name: producItemName, quantity: this.quant, id: productItemId });
       }
-      // this.router.navigateByUrl('placeSupplierOrder');
     })
   }
 
   finalOrder() {
     const placeOrder: PlaceSupplierOrder = this.form.value;
+    placeOrder.usersId = this.userid
     console.log(this.list);
     const Data = {
       supplierId : placeOrder.supplierID,
-      itemsOrdered : this.list
+      itemsOrdered : this.list,
+      usersid: placeOrder.usersId
     }
 
     this.placeSupplierOrderService.PlaceSupplierOrder(Data).subscribe(res => {
@@ -159,12 +176,24 @@ export class PlaceSupplierOrderComponent implements OnInit {
       this.loading = false
       this.router.navigateByUrl('placeSupplierOrder');
     })
+    this.snack.open('Order Successfuly Placed! ', 'OK', 
+    {
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      duration: 4000
+    });
   }
 
- 
-
-  clearOrder(){
-    this.list.splice(length);
+  clearOrder() {
+    this.list = [];
+    this.checkboxes = {};
+    this.snack.open('Order Cleared! ', 'OK', 
+    {
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      duration: 2000
+    });
   }
+  
 }
 

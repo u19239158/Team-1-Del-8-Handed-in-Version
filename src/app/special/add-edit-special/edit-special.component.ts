@@ -16,7 +16,15 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 })
 export class EditSpecialComponent implements OnInit {
 
-  form: FormGroup;
+  form: FormGroup = this.formBuilder.group({
+    //specialImage: ['', [Validators.required]],
+    specialDescription: ['', [Validators.required]],
+    discountId: [null, [Validators.required]],
+    // discountPercentage: [0,[Validators.required]],
+    //productItemId: [this.special.productItemId,[Validators.required] ],
+    specialStartDate: ['', [Validators.required]],
+    specialEndDate: ['', [Validators.required]],
+  });
   id: number;
   discountPercentage: number;
   isAddMode: boolean;
@@ -62,15 +70,13 @@ export class EditSpecialComponent implements OnInit {
 
     this.SpecialService.getItemByID(this.id).subscribe(res => {
       this.productItem = res
-      console.log(res)
     });
-
-
 
     const formOptions: AbstractControlOptions = {};
     this.SpecialService.getSpecialByID(this.id).subscribe(res => {
       this.special = res
-      console.log(res)
+      console.log("ss", res)
+      const formOptions: AbstractControlOptions = {};
       this.form = this.formBuilder.group({
         //specialImage: ['', [Validators.required]],
         specialDescription: [this.special.specialDescription, [Validators.required]],
@@ -84,10 +90,10 @@ export class EditSpecialComponent implements OnInit {
   }
 
 
-  onStartDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.selectedStartDate = moment(event.value).toDate();
-    this.endDateEnabled = true;
-  }
+  // onStartDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
+  //   this.selectedStartDate = moment(event.value).toDate();
+  //   this.endDateEnabled = true;
+  // }
 
 
   onSubmit() {
@@ -121,6 +127,7 @@ export class EditSpecialComponent implements OnInit {
   updateSpecial() {
     const special: Special = this.form.value;
     special.usersId = this.userid
+    special.specialID = this.id
     special.productItemId = this.productItem.productItemId;
     special.productItemCost = this.productItem.productItemCost;
     this.SpecialService.UpdateSpecial(special).subscribe(res => {

@@ -8,6 +8,7 @@ import { place, ReceiveSupplierOrder } from 'src/app/interfaces';
 import { ReceiveSupplierService } from 'src/app/services/supplier/receive-supplier-order';
 import { QuantityReceivedComponent } from '../quantity-received/quantity-received.component';
 import { AngularFireStorage, AngularFireStorageReference } from '@angular/fire/storage';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-capture-order',
@@ -20,6 +21,7 @@ export class CaptureOrderComponent implements OnInit {
   RecieveSupplierOrder: ReceiveSupplierOrder[];
   recievesupplierorder: ReceiveSupplierOrder;
   receiveSupplierOrders: ReceiveSupplierOrder[] = [];
+  userid: number;
   path: File;
   SupplierOrderId: any;
   id: number;
@@ -28,6 +30,7 @@ export class CaptureOrderComponent implements OnInit {
   supplierId: number;
   form = this.FB.group({
     invoiceTotal: [null, Validators.required],
+    
     
   })
   constructor(
@@ -39,11 +42,16 @@ export class CaptureOrderComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private FB: FormBuilder,
+    private snack: MatSnackBar
   ) { }
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
     this.readSupplierOrder(this.id);
+
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   this.userid = obj.userId
   }
 
   readSupplierOrder(SupplierOrderId:any): void {
@@ -109,12 +117,14 @@ export class CaptureOrderComponent implements OnInit {
 
   finalOrder() {
     const receiveOrder: ReceiveSupplierOrder = this.form.value;
+  receiveOrder.usersId = this.userid
     console.log(this.list);
     const Data = {
       supplierInvoiceTotal : receiveOrder.invoiceTotal,
       InvoiceLineList : this.list,
       supplierId: this.supplierId,
       supplierOrderId: this.SupplierOrderId,
+      usersid : receiveOrder.usersId
     }
 
     this.receiveSupplierService.ReceiveSupplierOrder(Data).subscribe(res => {
@@ -126,6 +136,14 @@ export class CaptureOrderComponent implements OnInit {
       //     console.log(order);
       // }); 
     })
+    this.snack.open('Order Successfuly Captured! ', 'OK', 
+    {
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      duration: 4000
+    });
   }
+
+  
 
 }

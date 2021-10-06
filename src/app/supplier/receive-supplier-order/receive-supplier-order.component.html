@@ -50,9 +50,9 @@
 
         <!-- Product Item -->
         <ng-container matColumnDef="viewOrder">
-          <th mat-header-cell *matHeaderCellDef> View Order </th>
+          <th mat-header-cell *matHeaderCellDef> Capture Order </th>
           <td mat-cell *matCellDef="let element">
-            <button mat-raised-button color="primary" [routerLink]="['/captureOrder',element.supplierOrderID]" (click)="view(element.supplierID)">View Order</button>
+            <button mat-raised-button *ngIf= "element.supplierOrderStatusId == '1'" color="primary"  [routerLink]="['/captureOrder',element.supplierOrderID]" (click)="view(element.supplierID)">Capture Order</button>
           </td>
         </ng-container>
 

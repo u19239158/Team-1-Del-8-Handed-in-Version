@@ -38,6 +38,19 @@
 
 <br>
 <br>
+
+<mat-card>
+
+      <div class="col-md-4">
+        <h4>Items Recieved: {{list.length}} </h4>
+
+        <li *ngFor="let item of list">
+        <b> Name: </b> {{item.name}} <b> Quantity: </b> {{item.quantity}}
+        </li>
+
+      </div>
+    </mat-card>
+
   
     <form [formGroup]="form" class="main">
 <div class="mat-row">

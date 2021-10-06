@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MustMatch } from '../employee/add-edit-employees/must-match.validators';
 import { LoginService } from '../services/login/login-service';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Login } from '../interfaces';
 
 @Component({
   selector: 'app-forgot-username',
@@ -19,7 +21,8 @@ export class ForgotUsernameComponent implements OnInit {
      */
 
   form: FormGroup;
-
+  username : string;
+  login : Login
   constructor(
     private dialogRef: MatDialogRef<ForgotUsernameComponent>,
     private formBuilder: FormBuilder,
@@ -32,7 +35,10 @@ export class ForgotUsernameComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    var user = localStorage.getItem('username')
+    
+    this.username = user
+    console.log(this.username)
     const formOptions: AbstractControlOptions = { validators: MustMatch('userPassword', 'confirmNewPassword') };
     this.form = this.formBuilder.group({
       otp: ['', [Validators.minLength(6), Validators.required]],
@@ -44,7 +50,30 @@ export class ForgotUsernameComponent implements OnInit {
 
   Confirm(): void {
     // window.localStorage.removeItem("user");
-    this.log.ResetPasswordOTP(this.form.value).subscribe( res => {})
+    const Login: Login = this.form.value;
+    Login.userUsername =this.username;
+    this.log.ResetPasswordOTP(Login).subscribe( res => {
+
+      this.snack.open('Successfully reset password! Please log in again ', 'OK',
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        duration: 4000
+      });
+    }, (error: HttpErrorResponse) => {
+      console.log(error.error, "test")
+      if (error.status === 400) {
+        this.snack.open(error.error, 'OK',
+          {
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            duration: 4000
+          });
+        return;
+      }
+    })
+    
+    
     this.dialogRef.close();
   }
 
