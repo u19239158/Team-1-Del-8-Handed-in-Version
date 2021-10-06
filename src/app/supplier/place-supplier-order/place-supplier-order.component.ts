@@ -158,17 +158,13 @@ export class PlaceSupplierOrderComponent implements OnInit {
       console.log(res)
       this.loading = false
       this.router.navigateByUrl('placeSupplierOrder');
-
-      // this.list.forEach(order => {
-      //     console.log(order);
-      // }); 
     })
   }
 
  
 
   clearOrder(){
-
+    this.list.splice(length);
   }
 }
 

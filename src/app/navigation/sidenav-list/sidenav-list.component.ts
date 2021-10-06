@@ -53,10 +53,7 @@ export class SidenavListComponent implements OnInit {
       disableClose: true
     });
 
-    // confirm.afterClosed().subscribe(res => {
-    //   this.router.navigateByUrl('login');
-    //   this.onSidenavClose();
-    //     })
+   this.onSidenavClose();
 
   }
 }
