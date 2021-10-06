@@ -985,6 +985,8 @@ namespace NKAP_API_2.EF
 
                 entity.Property(e => e.SupplierOrderStatusId).HasColumnName("SupplierOrderStatus_ID");
 
+                entity.Property(e => e.SupplierOrderTotal).HasColumnType("money");
+
                 entity.HasOne(d => d.Supplier)
                     .WithMany(p => p.SupplierOrders)
                     .HasForeignKey(d => d.SupplierId)
