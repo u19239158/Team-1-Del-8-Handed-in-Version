@@ -73,6 +73,14 @@ namespace NKAP_API_2.Models
 
         [JsonProperty("InvoiceLineList")]
         public List<InvoiceLine> InvoiceLineList = new List<InvoiceLine>();
-        
+
+        [JsonProperty("usersid")]
+        public int UsersID
+        { get; set; }
+
+        [JsonProperty("suppliername")]
+        public string SupplierName
+        { get; set; }
+
     }
 }
