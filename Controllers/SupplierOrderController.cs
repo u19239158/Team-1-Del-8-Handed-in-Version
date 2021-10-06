@@ -53,28 +53,23 @@ namespace NKAP_API_2.Controllers
                     OrderDateReceived = sor.OrderDateReceived,
               
 
-                });
-                //.Join(_db.SupplierOrderLines,
-                //sor => sor.SupplierOrderID,
-                //sd => sd.SupplierOrderId,
-                //(sor, sd) => new
-                //{
-                //    SupplierOrderID = sor.SupplierOrderID,
-                //    SupplierOrderStatusDesc = sor.SupplierOrderStatusDesc,
-                //    SupplierName = sor.SupplierName,
-                //    SupplierOrderStatusId = sor.SupplierOrderStatusId,
-                //    SupplierID = sor.SupplierID,
-                //    OrderDatePlaced = sor.OrderDatePlaced,
-                //    OrderDateReceived = sor.OrderDateReceived,
-                //    SupplierOrderTotal = sor.SupplierOrderTotal,
-                //    SupplierOrderSubTotal = sor.SupplierOrderSubTotal,
-                //    SupplierOrderVat = sor.SupplierOrderVat,
-                //    SupplierProducts = sd.SupplierProducts,
-                //    SupplierQuantityOrdered = sd.SupplierQuantityOrdered,
-                //    SupplierOrderLineCost = sd.SupplierOrderLineCost,
-                //    ProductItemId = sd.ProductItemId
+                })
+                .Join(_db.SupplierInvoices,
+                sor => sor.SupplierID,
+                sd => sd.SupplierId,
+                (sor, sd) => new
+                {
+                    SupplierOrderID = sor.SupplierOrderID,
+                    SupplierOrderStatusDesc = sor.SupplierOrderStatusDesc,
+                    SupplierName = sor.SupplierName,
+                    SupplierOrderStatusId = sor.SupplierOrderStatusId,
+                    SupplierID = sor.SupplierID,
+                    OrderDatePlaced = sor.OrderDatePlaced,
+                    OrderDateReceived = sor.OrderDateReceived,
+                    SupplierOrderTotal = sd.SupplierInvoiceTotal,
+               
 
-                //});
+                });
 
             return Ok(SupplierOrders);
 
