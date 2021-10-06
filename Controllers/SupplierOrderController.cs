@@ -228,7 +228,7 @@ namespace NKAP_API_2.Controllers
             SupplierOrder suppOrder = _db.SupplierOrders.Find(model.SupplierOrderID);
             {
               suppOrder.OrderDateReceived = System.DateTime.Now;
-                suppOrder.SupplierOrderTotal = model.SupplierInvoiceTotal;
+               
                 suppOrder.SupplierOrderStatusId = 2;
             };
 
@@ -240,7 +240,7 @@ namespace NKAP_API_2.Controllers
                 //attributes in table 
                 SupplierInvoiceDate = System.DateTime.Now,
                 SupplierInvoiceTotal = model.SupplierInvoiceTotal,
-                //SupplierInvoicePDF = model.SupplierInvoicePDF,
+                SupplierInvoicePdf = model.SupplierInvoicePDF,
                 SupplierId = model.SupplierID,
             
             };

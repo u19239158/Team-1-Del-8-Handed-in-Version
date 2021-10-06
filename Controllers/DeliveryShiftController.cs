@@ -486,11 +486,6 @@ namespace NKAP_API_2.Controllers
                 return Ok(delShift);
                
             }
-            else
-            {
-                response = "Delivery Shift could not be deleted as it is has a delivery allocated to it";
-                return BadRequest(response);
-            }
             catch (Exception)
             {
                 response = "Delivery Shift could not be deleted as it is has a delivery allocated to it";
