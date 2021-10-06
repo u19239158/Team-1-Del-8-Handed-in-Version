@@ -287,18 +287,20 @@ namespace NKAP_API_2.Controllers
             _db.SaveChanges();
             var prod = _db.ProductItems.Find(model.ProductItemId);
             var discount = _db.Discounts.FirstOrDefault(zz => zz.DiscountId == model.DiscountId);
-            ProductSpecial PSpecial = new ProductSpecial();
+
+            var prodspec = _db.ProductSpecials.FirstOrDefault(ss => ss.SpecialId == model.SpecialID);
             {
-                PSpecial.ProductItemId = model.ProductItemId;
-                PSpecial.SpecialId = special.SpecialId;
-                PSpecial.SpecialPrice =  model.ProductItemCost - Convert.ToInt32(model.ProductItemCost) * discount.DiscountPercentage;
+                prodspec.ProductItemId = model.ProductItemId;
+                prodspec.SpecialId = special.SpecialId;
+                prodspec.SpecialPrice = model.ProductItemCost - Convert.ToInt32(model.ProductItemCost) * discount.DiscountPercentage;
             }
+           
 
-            _db.ProductSpecials.Attach(PSpecial);
+            _db.ProductSpecials.Attach(prodspec);
             _db.SaveChanges();
 
-            _db.Specials.Attach(special); //Attach Record
-            _db.SaveChanges();
+            //_db.Specials.Attach(special); //Attach Record
+            //_db.SaveChanges();
 
             var user = _db.Users.Find(model.UsersID);
             AuditTrail audit = new AuditTrail();
@@ -312,7 +314,7 @@ namespace NKAP_API_2.Controllers
             _db.AuditTrails.Add(audit);
             _db.SaveChanges();
 
-            return Ok(special);
+            return Ok();
 
 
         }

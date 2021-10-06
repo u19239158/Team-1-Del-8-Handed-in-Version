@@ -37,7 +37,7 @@ namespace NKAP_API_2.Controllers
                     SupplierName = so.SupplierName,
                     OrderDatePlaced = su.OrderDatePlaced, //attributes in table
                     OrderDateReceived = su.OrderDateReceived,
-                  
+                    SupplierOrderTotal = su.SupplierOrderTotal,
                     SupplierOrderStatusId = su.SupplierOrderStatusId
 
                 }).Join(_db.SupplierOrderStatuses,
@@ -51,25 +51,11 @@ namespace NKAP_API_2.Controllers
                     SupplierID = sor.SupplierID,
                     OrderDatePlaced = sor.OrderDatePlaced,
                     OrderDateReceived = sor.OrderDateReceived,
-              
+                    SupplierOrderTotal= sor.SupplierOrderTotal,
 
-                })
-                .Join(_db.SupplierInvoices,
-                sor => sor.SupplierID,
-                sd => sd.SupplierId,
-                (sor, sd) => new
-                {
-                    SupplierOrderID = sor.SupplierOrderID,
-                    SupplierOrderStatusDesc = sor.SupplierOrderStatusDesc,
-                    SupplierName = sor.SupplierName,
-                    SupplierOrderStatusId = sor.SupplierOrderStatusId,
-                    SupplierID = sor.SupplierID,
-                    OrderDatePlaced = sor.OrderDatePlaced,
-                    OrderDateReceived = sor.OrderDateReceived,
-                    SupplierOrderTotal = sd.SupplierInvoiceTotal,
-               
 
                 });
+                
 
             return Ok(SupplierOrders);
 
@@ -223,7 +209,7 @@ namespace NKAP_API_2.Controllers
             SupplierOrder suppOrder = _db.SupplierOrders.Find(model.SupplierOrderID);
             {
               suppOrder.OrderDateReceived = System.DateTime.Now;
-               
+                suppOrder.SupplierOrderTotal = model.SupplierInvoiceTotal;
                 suppOrder.SupplierOrderStatusId = 2;
             };
 
