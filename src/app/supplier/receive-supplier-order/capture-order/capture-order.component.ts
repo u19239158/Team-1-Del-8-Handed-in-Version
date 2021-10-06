@@ -115,33 +115,44 @@ export class CaptureOrderComponent implements OnInit {
     this.router.navigateByUrl("receiveSupplierOrder");
   }
 
-  finalOrder() {
+  async finalOrder() {
     const receiveOrder: ReceiveSupplierOrder = this.form.value;
-  receiveOrder.usersId = this.userid
-    console.log(this.list);
-    const Data = {
-      supplierInvoiceTotal : receiveOrder.invoiceTotal,
-      InvoiceLineList : this.list,
-      supplierId: this.supplierId,
-      supplierOrderId: this.SupplierOrderId,
-      usersid : receiveOrder.usersId
-    }
+    receiveOrder.usersId = this.userid
+    const img = await this.uploadImage();
 
-    this.receiveSupplierService.ReceiveSupplierOrder(Data).subscribe(res => {
-      console.log(res)
-      // this.loading = false
-      this.router.navigateByUrl('receiveSupplierOrder');
+    img.subscribe(imgpath =>{
+      const Data = {
+        supplierInvoiceTotal : receiveOrder.invoiceTotal,
+        InvoiceLineList : this.list,
+        supplierId: this.supplierId,
+        supplierOrderId: this.SupplierOrderId,
+        usersid : receiveOrder.usersId,
+        supplierInvoicePdf: imgpath
+      }
+      this.receiveSupplierService.ReceiveSupplierOrder(Data).subscribe(res => {
+        console.log(res)
+        this.router.navigateByUrl('receiveSupplierOrder')
+      })
+      this.snack.open('Order Successfuly Captured! ', 'OK', 
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        duration: 4000
+      });
+     })
+    
+  
+   
+  
+    // const Data = {
+    //   supplierInvoiceTotal : receiveOrder.invoiceTotal,
+    //   InvoiceLineList : this.list,
+    //   supplierId: this.supplierId,
+    //   supplierOrderId: this.SupplierOrderId,
+    //   usersid : receiveOrder.usersId,
+    // }
 
-      // this.list.forEach(order => {
-      //     console.log(order);
-      // }); 
-    })
-    this.snack.open('Order Successfuly Captured! ', 'OK', 
-    {
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-      duration: 4000
-    });
+   
   }
 
   
