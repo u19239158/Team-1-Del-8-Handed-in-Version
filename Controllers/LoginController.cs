@@ -436,10 +436,9 @@ namespace NKAP_API_2.Controllers
 
             try
             {
-                //_db.Users.Add(newUser);
-                //_db.Admins.Add(newAdmin);
+              
+               // _db.Admins.Add(newAdmin);
                  _db.Customers.Add(newCustomer);
-                // _db.PasswordHistories.Add(newpasshist);
                 _db.SaveChanges();
 
                 //add to audit trail
@@ -508,6 +507,88 @@ namespace NKAP_API_2.Controllers
             _db.SaveChanges();
 
             return Ok();
+        }
+
+        [HttpPost]
+        [Route("RegisterAdmin")]
+        public IActionResult RegisterAdmin(RegisterModel model)
+        {
+            //using var _db = new NKAP_BOLTING_DB_4Context();
+
+            if (this.UserExists(model.UserUsername))
+            {
+                return Forbid();
+            }
+
+            var newUser = new User
+            {
+                UserUsername = model.UserUsername,
+                UserPassword = ComputeSha256Hash(model.UserPassword),
+                UserRoleId = 1,
+
+
+            };
+            _db.Users.Add(newUser);
+            _db.SaveChanges();
+
+            //add to passwordHistory
+
+            PasswordHistory pass = new PasswordHistory();
+            pass.PasswordHistoryDate = System.DateTime.Now;
+            pass.UsersId = newUser.UsersId;
+            pass.PasswordHistoryText = newUser.UserPassword;
+            _db.PasswordHistories.Add(pass);
+            _db.SaveChanges();
+
+
+            //var newCustomer = new Customer
+            //{
+            //    TitleId = model.TitleID,
+            //    CustomerName = model.CustomerName,
+            //    CustomerSurname = model.CustomerSurname,
+            //    CustomerCellphoneNumber = model.CustomerCellphoneNumber,
+            //    CustomerEmailAddress = model.CustomerEmailAddress,
+            //    CustomerBusinessName = model.CustomerBusinessName,
+            //    CustomerVatreg = model.CustomerVatReg,
+            //    UsersId = newUser.UsersId
+            //};
+
+            var newAdmin = new Admin
+            {
+                TitleId = model.TitleID,
+                AdminName = model.CustomerName,
+                AdminSurname = model.CustomerSurname,
+                AdminCellphoneNumber = model.CustomerCellphoneNumber,
+                AdminEmailAddress = model.CustomerEmailAddress,
+                UsersId = newUser.UsersId
+            };
+
+
+            try
+            {
+
+                _db.Admins.Add(newAdmin);
+                // _db.Customers.Add(newCustomer);
+                _db.SaveChanges();
+
+                //add to audit trail
+                var user = _db.Users.Find(newUser.UsersId);
+                AuditTrail audit = new AuditTrail();
+                audit.AuditTrailDescription = newUser.UserUsername + " Registered a new Account";
+                audit.AuditTrailDate = System.DateTime.Now;
+                TimeSpan timeNow = DateTime.Now.TimeOfDay;
+                audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+                audit.UsersId = newUser.UsersId;
+                _db.AuditTrails.Add(audit);
+                _db.SaveChanges();
+
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }
