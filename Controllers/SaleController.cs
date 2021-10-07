@@ -781,6 +781,57 @@ namespace NKAP_API_2.Controllers
             return Ok(Sale);
         }
 
+        [Route("OnlineSales")] //route
+        [HttpGet]
+        //get Sales by ID (Read)
+        public IActionResult OnlineSales()
+        {
+            var Sale = _db.Sales.Join(_db.OrderStatuses,
+                su => su.OrderStatusId,
+                so => so.OrderStatusId,
+
+                (su, so) => new
+                {
+                    SaleID = su.SaleId,
+                    // SaleDescription = su.SaleOrderDescription,
+                    SaleOrderDate = su.SaleOrderDate,
+                    //SaleAssign = su.SaleOrderAssign,
+                    SaleOrderRecieveType = su.SaleOrderRecieveType,
+                    //SalePaymentDate = su.PaymentDate,
+                    //SalePaymentAmount = su.PaymentAmount,
+                    OrderStatusID = so.OrderStatusId,
+                    OrderStatusDescription = so.OrderStatusDescription,
+                    //PaymentTypeID = su.PaymentTypeId,
+                    CustomerId = su.CustomerId
+
+                    //attributes in table
+                }).Join(_db.Customers,
+                sor => sor.CustomerId,
+                sd => sd.CustomerId,
+                (sor, sd) => new
+                {
+                    CustomerId = sor.CustomerId,
+                    //SaleDescription = sor.SaleDescription,
+                    SaleOrderDate = sor.SaleOrderDate,
+                    //SaleAssign = sor.SaleAssign,
+                    SaleOrderRecieveType = sor.SaleOrderRecieveType == true ? "Collection" : "Delivery",
+                    // SalePaymentDate = sor.SalePaymentDate,
+                    //SalePaymentAmount = sor.SalePaymentAmount,
+                    OrderStatusID = sor.OrderStatusID,
+                    OrderStatusDescription = sor.OrderStatusDescription,
+                    //PaymentTypeID = sor.PaymentTypeID,
+                    //PaymentTypeDescription = sor.PaymentTypeDescription,
+                    CustomerName = sd.CustomerName,
+                    CustomerSurname = sd.CustomerSurname,
+                    CustomerBusinessName = sd.CustomerBusinessName,
+                    CustomerCellphoneNumber = sd.CustomerCellphoneNumber,
+                    SaleID = sor.SaleID
+
+                }).Distinct();
+
+            return Ok(Sale);
+        }
+
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("UpdateOrderCollected")] //route
         [HttpPut]
