@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Customer, CustomerService } from 'src/app/services/customer/customer.service';
 import { Component, OnInit, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -29,7 +30,8 @@ export class EditCustProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private customerService: CustomerService,
-    private http: HttpClient
+    private http: HttpClient,
+    private snack: MatSnackBar
 
   ) { }
 
@@ -42,7 +44,7 @@ export class EditCustProfileComponent implements OnInit {
     this.customerService.GetProfile(this.userid).subscribe(res => {
       this.Customer = res
       this.form = this.formBuilder.group({
-        titleID: [this.Customer.titleDesc, [Validators.required]],
+        titleID: [this.Customer.titleID, [Validators.required]],
         customerName: [this.Customer.customerName, [Validators.required]],
         customerSurname: [this.Customer.customerSurname, [Validators.required]],
         customerEmailAddress: [this.Customer.customerEmailAddress, [Validators.required, Validators.email]],
@@ -50,7 +52,7 @@ export class EditCustProfileComponent implements OnInit {
         //customerUsername: [this.Customer.customerUserName, [Validators.required]],
         customerBusinessName: [this.Customer.customerBusinessName, [Validators.maxLength(50)]],
         customerVATReg: [this.Customer.customerVATReg, [Validators.minLength(10), Validators.maxLength(10)]],
-        titleDesc: [this.Customer.titleDesc, [Validators.maxLength(50)]],
+       // titleDesc: [this.Customer.titleDesc, [Validators.maxLength(50)]],
         // customerPassword: ['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
         // customerConfirmPassword: ['', this.isAddMode ? Validators.required : Validators.nullValidator]
       }, formOptions);
@@ -71,6 +73,12 @@ export class EditCustProfileComponent implements OnInit {
     customer.usersId = this.userid
     this.customerService.UpdateProfile(customer).subscribe(res => {
       console.log(res)
+      this.snack.open('Successfully Updated Your Profile! ', 'OK',
+            {
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
+              duration: 3000
+            });
       //this.form.reset();
       this.router.navigateByUrl('/customer');
     });

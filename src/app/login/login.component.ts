@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
   //     }
   // }
 
-  forgotPassword() {
+  forgotPassword(): void {
     const confirm = this.dialog.open(ForgotUsernameComponent, {
       disableClose: true,
     });

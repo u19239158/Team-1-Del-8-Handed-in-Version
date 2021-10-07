@@ -25,6 +25,7 @@ export interface Address {
   AddressLine2: string;
   AddressLine3: string;
   AddressPostalCode: string;
+  addressId: number;
 }
 
 export interface Collection {
@@ -37,7 +38,10 @@ export interface Delivery {
   DeliveryID: number;
 }
 
-
+export class order{
+  num : number;
+  productitemid: number;
+}
 
 @Component({
   selector: 'app-cart',
@@ -51,13 +55,15 @@ export class CartComponent implements OnInit {
   addressform: FormGroup;
 
   isSubmitted = false;
-  public products : any = [];
+  public products : order[] = [];
   public transaction : any =[];
   public vatTotals !: number;
   public grandTotal !: number;
   public  coordinates: Coordinates;
   Customer: Customer;
   userid : number;
+  addy: Address
+  addyID : number;
   constructor(
     private router: Router,
     private cartService : CartService,
@@ -72,7 +78,7 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
 
-    const formOptions: AbstractControlOptions = { };
+   
     const AddressformOptions: AbstractControlOptions = {};
     this.addressform = this.formBuilder.group({
     AddressLine1 : new FormControl('', [Validators.required]),
@@ -206,6 +212,7 @@ reloadCurrentPage(){
   openmodal(){
     document.querySelector('.modal').classList.add('is-active')
   }
+  
   close(){
     document.querySelector('.modal').classList.remove('is-active')
   }
@@ -247,46 +254,66 @@ reloadCurrentPage(){
       const customerEmail = this.Customer.customerEmailAddress
       console.log("else if",form.value)
       console.log(customerEmail)
-      
+
+      this.cartService.GetAddressByCustID(this.Customer.customerId).subscribe(res => {
+        this.addy = res
+        console.log(res)
+      })
+
       document.querySelector('#deliveryModal').classList.add('is-active')
       document.querySelector('.modal').classList.remove('is-active')
       const delivery: Delivery = form.value;
-      this.cartService.postDelivery(delivery)
-      .subscribe(res => {
-        console.log(res)
-      })
     }
     else{
       const customerEmail = this.Customer.customerEmailAddress
       
       console.log("else",form.value)
       console.log(customerEmail)
-      
       document.querySelector('.modal').classList.remove('is-active')
-      // this.cartService.getProducts().subscribe(res =>
-      //   {
-      //     this.products = res
-      //   })
       console.log(this.products)
-      const test1= this.products.map(y => y.productitemid)
-      const ProductItemname= this.products.map(y => y.ProductItemname)
-      const num= this.products.map(y => y.num)
-      console.log(test1)
-      const OnlineSale: OnlineSale = form.value;
-      OnlineSale.customerId = this.Customer.customerId;
-      OnlineSale.paymentAmount = this.grandTotal;
-     OnlineSale.productItemId = test1
-       OnlineSale.salelineQuantity = num;
-       OnlineSale.productItemName = ProductItemname;
-       console.log(OnlineSale)
-      this.cartService.postCollection(OnlineSale)
-      .subscribe(res => {
-        console.log(res)
+      const Sale = {
+        customerId : this.Customer.customerId,
+        paymentAmount : this.grandTotal,
+        saleLists: this.products
+      }
+       console.log(Sale)
+      this.cartService.CollectionCheckout(Sale).subscribe(res => {
       })
-      // this.makePayment()
+       this.makePayment()
     }
   }
 
+  // OpenDeliveryModal(){
+  //   const AddressformOptions: AbstractControlOptions = {};
+  //   this.addressform = this.formBuilder.group({
+  //   AddressLine1 : new FormControl(this.addy.AddressLine1, [Validators.required]),
+  //   addressline2 : new FormControl(this.addy.AddressLine2, [Validators.required]),
+  //   addressline3 : new FormControl(this.addy.AddressLine1),
+  //   cityDescription : new FormControl(this.addy.AddressLine1, [Validators.required]),
+  //   provinceDescription : new FormControl(this.addy.provinceDescription, [Validators.required]),
+  //   addressPostalCode : new FormControl(this.addy.AddressPostalCode, [Validators.required,Validators.maxLength(4)])
+  // }, AddressformOptions);
+  // }
+
+  DeliveryCheckout(){
+
+    this.cartService.GetAddressByCustID(this.Customer.customerId). subscribe(res => {
+      console.log(res)
+      // this.addyID = res.addressId
+      // console.log(this.addyID)
+  
+    const Sale = {
+      customerId : this.Customer.customerId,
+      paymentAmount : this.grandTotal,
+      addressid: res.addressId,
+      saleLists: this.products
+    }
+    this.cartService.Checkout(Sale)
+    .subscribe(data => {
+      console.log(data)
+    })
+    })
+  }
   submitAddressForm() {
 
       const address: Address = this.addressform.value;
@@ -294,7 +321,8 @@ reloadCurrentPage(){
       
       console.log(address)
       this.cartService.AddCustomerAddress(address).subscribe(res => {
-        console.log(res)
+       
+        
 
         document.querySelector('.modal').classList.remove('is-active')
 

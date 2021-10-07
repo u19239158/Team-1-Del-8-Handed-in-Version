@@ -3,6 +3,7 @@ import { Injectable, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export interface Sale 
 {
@@ -27,6 +28,7 @@ export interface Sale
 }
 
 export interface Address {
+  addressId: number;
   //customerId: number;
   provinceDescription: string;
   AddressLine1: string;
@@ -88,21 +90,28 @@ export class CartService {
     return this.http.post<any>('https://api.paystack.co/transaction/initialize',item, this.headers)
   }
 
-  Checkout(Sale:Sale){
+  Checkout(Sale:any){
     return this.http.post<any>(`${this.server}Checkout/Checkout`, Sale,this.httpOptions)
   }
 
-  AddCustomerAddress(Address:Address):Observable<Address[]>  {
-    return this.http.post<Address[]>(`${this.server}Checkout/AddAddress`, Address,this.httpOptions);
+  GetAddressByCustID(customerid):  Observable<any>  {
+    return this.http.get<any>(`${this.server}Address/GetAddressByCustID/${customerid}`).pipe(map(res => res));
+  }
+
+  AddCustomerAddress(Address:Address):Observable<Address>  {
+    return this.http.post<Address>(`${this.server}Checkout/AddAddress`, Address,this.httpOptions);
   }
 
   postDelivery(Delivery:Delivery):Observable<Delivery[]>{
     return this.http.post<Delivery[]>(`${this.server}Checkout/Delivery`,Delivery ,this.httpOptions);
 
   }
-  postCollection(OnlineSale:OnlineSale):Observable<OnlineSale[]>{
-    return this.http.post<OnlineSale[]>(`${this.server}Checkout/CollectionCheckout`, OnlineSale,this.httpOptions);
+  postCollection(Sale:any):Observable<any>{
+    return this.http.post<any>(`${this.server}Checkout/CollectionCheckout`, Sale,this.httpOptions);
+  }
 
+  CollectionCheckout(place:any):  Observable<any>  {
+    return this.http.post<any>(`${this.server}Checkout/CollectionCheckout`, place,this.httpOptions);
   }
   getProducts(){
     return this.productList.asObservable();
