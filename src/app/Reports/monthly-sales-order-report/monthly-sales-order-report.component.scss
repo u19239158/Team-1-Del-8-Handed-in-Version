@@ -1,12 +1,30 @@
+// #saleTable{
+//   width: 25%;
+//   left: 0px;
+// }
+
+#otherTable{
+  width: 25%;
+  left: 10px;
+}
 
 .column {
     float: left;
     padding: 10px;
     text-align: center;
+    width: 60%;
+    // margin-right: 10px;
+  }
+
+  .column1 {
+    float: left;
+    padding: 10px;
+    text-align: center;
+    width: 20%;
   }
   
   .left, .right{
-    width: 40%;
+    right: 5px;
   }
 
   .example-month-picker .mat-calendar-period-button {

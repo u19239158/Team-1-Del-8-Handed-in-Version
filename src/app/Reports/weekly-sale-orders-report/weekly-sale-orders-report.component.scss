@@ -1,44 +1,70 @@
+// #saleTable{
+//   width: 25%;
+//   left: 0px;
+// }
+
+#otherTable{
+  width: 25%;
+  left: 10px;
+}
 
 .column {
-  float: left;
-  padding: 10px;
-  text-align: center;
-}
+    float: left;
+    padding: 10px;
+    text-align: center;
+    width: 60%;
+    // margin-right: 10px;
+  }
 
-.left, .right{
-  width: 40%;
-}
+  .column1 {
+    float: left;
+    padding: 10px;
+    text-align: center;
+    width: 20%;
+  }
+  
+  .left, .right{
+    right: 5px;
+  }
+
+  .example-month-picker .mat-calendar-period-button {
+    pointer-events: none;
+  }
+  
+  .example-month-picker .mat-calendar-arrow {
+    display: none;
+  }
+  
+    
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    // margin-left: auto;
+    // margin-right: auto;
+  }
 
   
-table {
-  border-collapse: collapse;
-  width: 100%;
-  // margin-left: auto;
-  // margin-right: auto;
-}
-
-
 th.mat-sort-header-sorted {
-color: black;
-}
-
-th, td {
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even){background-color: #f2f2f2}
-
-th {
-  // background-color: #2326caa6;
-  background-color: #3273DC;
   color: black;
-  font-weight: 40;
-  font-size: 20px;
 }
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even){background-color: #f2f2f2}
 
-.help{
-  position: absolute;
-  right: 20px;
-  top: 75px;
-}
+  th {
+    // background-color: #2326caa6;
+    background-color: #3273DC;
+    color: black;
+    font-weight: 40;
+    font-size: 20px;
+  }
+
+  .help{
+    position: absolute;
+    right: 20px;
+    top: 75px;
+  }
