@@ -134,7 +134,7 @@
           <button type="button" class="btn-close btn-close-black" (click)=closeDeliveryModal()></button>
        </h3>
       </div>
-			<form [formGroup]="addressform" (ngSubmit)="submitAddressForm()">
+			<form [formGroup]="addressform" (submit)="submitAddressForm()">
               <div class="control"></div>
                 <!-- Customer addressline -->
                 <div>
@@ -148,52 +148,50 @@
                 <div>
                   <label class="label">Please enter your address:</label>
                   <!-- <div class="control"> -->
-                    <input class="input" formControlName="addressline2" type="text" placeholder="Address" ngModel required>
+                    <input class="input" formControlName="addressline2" type="text" placeholder="Address">
                   <!-- </div> -->
                 </div>  
                 <!-- Customer addressline2 -->
                 <div>
                   <label class="label">Please enter your address(optional):</label>
                   <!-- <div class="control"> -->
-                    <input class="input" formControlName="addressline3" type="text" placeholder="Address" ngModel required>
+                    <input class="input" formControlName="addressline3" type="text" placeholder="Address">
+                  <!-- </div> -->
+                </div> 
+                
+                <!-- Customer Province -->
+                <div>
+                  <label class="label">Please enter your Province:</label>
+                  <!-- <div class="control"> -->
+                    <input  (blur) = 'onBlur()' [(ngModel)]="selectedOption" name="province" list="provincename" class="input" formControlName="province" type="text" placeholder="Province">
+                    <datalist id="provincename">
+                      <option  *ngFor="let province of provinceList" value="{{province.state_name}}">
+                    </datalist>
                   <!-- </div> -->
                 </div> 
 
                 <!-- Customer city -->
                 <div>
                   <label class="label">Please enter your City:</label>
-                  <!-- <div class="control"> -->
-                    <input class="input" formControlName="city" type="text" placeholder="City" ngModel required>
-                  <!-- </div> -->
-                </div>                
-                <!-- Customer Province -->
-                <div>
-                  <label class="label">Please enter your Province:</label>
-                  <!-- <div class="control"> -->
-                    <input name="city" list="provincename" class="input" formControlName="province" type="text" placeholder="Province" ngModel required>
-                    <datalist id="provincename">
-                      <option value="Eastern Cape">
-                      <option value="Free State">
-                      <option value="Gauteng">
-                      <option value="KwaZulu-Natal">
-                      <option value="Limpopo">
-                      <option value="Mpumalanga">
-                      <option value="North West">
-                      <option value="Northern Cape">
-                      <option value="Western Cape">
+                  <!-- <div class="control"> 
+                   onclick="populateCities()"  
+                  -->
+                    <input [(ngModel)]="selectedOption2" name="city" list="cityname" class="input" formControlName="city" type="text" placeholder="City">
+                    <datalist id="cityname">
+                      <option  *ngFor="let city of cityList" value="{{city.city_name}}">
                     </datalist>
+                    <p >Selected option: {{ selectedOption2 }}</p>
                   <!-- </div> -->
-                </div>                
+                </div>             
+
                 <!-- Customer Postal Code -->
                 <div>
                   <label class="label">Please enter your Postal Code:</label>
                   <!-- <div class="control"> -->
-                    <input class="input" formControlName="postalCode" type="text" placeholder="Postal Code" ngModel required>
+                    <input class="input" formControlName="postalCode" type="text" placeholder="Postal Code">
                   <!-- </div> -->
                 </div>
-                  <!-- <div *ngIf="isSubmitted && myForm.invalid">
-                    <p>Please enter corret value</p>
-                  </div>  -->
+
                   
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)=closeDeliveryModal()>Close</button>

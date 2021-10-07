@@ -28,7 +28,7 @@ export interface Sale
 
 export interface Address {
   //customerId: number;
-  ProvinceID: number;
+  ProvinceDescription: string;
   AddressLine1: string;
   AddressLine2: string;
   AddressLine3: string;
@@ -61,24 +61,38 @@ export class CartService {
   //for the producst page
   public productList = new BehaviorSubject<any>([]);
    headers={
+    //  headers: new HttpHeaders({
+    //   'Authorization':`Bearer sk_test_75906ab3946da8788599654f00b956f1dc111a72`,
+    //   'Content-Type': `application/json`,
+    //  }),    
      headers: new HttpHeaders({
-      'Authorization':`Bearer sk_test_75906ab3946da8788599654f00b956f1dc111a72`,
-      'Content-Type': `application/json`
-     })
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ1MTkwNzI5MTJAdHVrcy5jby56YSIsImFwaV90b2tlbiI6Im8xWkNzVmtmdnFTS3ZNNHNxd0RRZE90d0FmNVZ3NzFvNDgtV3FJUHF6ZjZlUkJWUUdrT1YtZUdYYmlnTkVDYnhSdXcifSwiZXhwIjoxNjMzNjU4OTA5fQ.qbDSBb64eHD_Qh8AI6osIIl9LY8uuAjKpqZilNU1FTc",
+        "Accept": "application/json",
+        //"api-token": "o1ZCsVkfvqSKvM4sqwDQdOtwAf5Vw71o48-WqIPqzf6eRBVQGkOV-eGXbigNECbxRuw",
+        //"user-email": "u19072912@tuks.co.za"
+     }) 
    }
-  
+ 
   constructor(
     private http:HttpClient) { 
       { idKey: 'productId' };
     }
-
-  
+//https://www.universal-tutorial.com/api/states/South Africa
+//https://www.universal-tutorial.com/api/cities/Gauteng
 //post req
   paymentInit(item:any){
     console.log(item)
     return this.http.post<any>('https://api.paystack.co/transaction/initialize',item, this.headers)
   }
+  
+  Provinces(){
+    return this.http.get<any>("https://www.universal-tutorial.com/api/states/South Africa", this.headers)  
+  }
 
+  Cities(province:any){
+    return this.http.get<any>(`https://www.universal-tutorial.com/api/cities/${province}`, this.headers)  
+  }
+  
   Checkout(Sale:Sale){
     return this.http.post<any>(`${this.server}Checkout/Checkout`, Sale,this.httpOptions)
   }
