@@ -65,7 +65,7 @@ export class OnlineSalesComponent implements OnInit {
   readOnlineSales(): void {
 
     //this.dataSource = new MatTableDataSource<UserRole[]>(this.UserRoleService.GetUserRole());
-    this.OnlineSalesService.ViewAllSales().subscribe(res => {
+    this.OnlineSalesService.OnlineSales().subscribe(res => {
       console.log(res)
       this.dataSource = new MatTableDataSource(res)
       this.dataSource.sort = this.sort;

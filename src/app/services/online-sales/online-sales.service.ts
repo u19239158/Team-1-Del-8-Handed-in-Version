@@ -28,6 +28,10 @@ export class OnlineSalesService {
     return this.http.get<OnlineSales[]>(`${this.server}Sale/ViewAllSales`).pipe(map(res => res));
   }
 
+  OnlineSales(): Observable<OnlineSales[]> {
+    return this.http.get<OnlineSales[]>(`${this.server}Sale/OnlineSales`).pipe(map(res => res));
+  }
+
   SearchSales(OrderStatusId): Observable<OnlineSales> {
     return this.http.get<OnlineSales>(`${this.server}Sale/SearchSales/${OrderStatusId}`).pipe(map(res => res));
   }
