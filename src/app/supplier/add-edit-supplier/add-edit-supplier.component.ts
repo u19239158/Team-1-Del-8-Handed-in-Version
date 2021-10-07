@@ -51,22 +51,22 @@ export class AddEditSupplierComponent implements OnInit {
       supplierPostalCode: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
     }, formOptions);
 
-    // if (!this.isAddMode) {
-    //   this.SupplierService.getSupplierByID(this.id).subscribe(res => {
-    //     this.supplier = res
-    //     console.log(res)
-    //     this.form = this.formBuilder.group({
-    //       supplierName: [this.supplier.supplierName, [Validators.required]],
-    //       supplierEmail: [this.supplier.supplierEmail, [Validators.required, Validators.email]],
-    //       supplierNumber: [this.supplier.supplierNumber, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.minLength(10), Validators.maxLength(10)]],
-    //       supplierAddressLine1: [this.supplier.supplierAddressLine1, [Validators.required]],
-    //       supplierAddressLine2: [this.supplier.supplierAddressLine2, [Validators.required]],
-    //       supplierAddressLine3: [this.supplier.supplierAddressLine3],
-    //       supplierCityTown: [this.supplier.supplierCityTown, [Validators.required]],
-    //       supplierPostalCode: [this.supplier.supplierPostalCode, [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
-    //     }, formOptions);
-    //   });
-    // }
+    if (!this.isAddMode) {
+      this.SupplierService.getSupplierByID(this.id).subscribe(res => {
+        this.supplier = res
+        console.log(res)
+        this.form = this.formBuilder.group({
+          supplierName: [this.supplier.supplierName, [Validators.required]],
+          supplierEmail: [this.supplier.supplierEmail, [Validators.required, Validators.email]],
+          supplierNumber: [this.supplier.supplierNumber, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.minLength(10), Validators.maxLength(10)]],
+          supplierAddressLine1: [this.supplier.supplierAddressLine1, [Validators.required]],
+          supplierAddressLine2: [this.supplier.supplierAddressLine2, [Validators.required]],
+          supplierAddressLine3: [this.supplier.supplierAddressLine3],
+          supplierCityTown: [this.supplier.supplierCityTown, [Validators.required]],
+          supplierPostalCode: [this.supplier.supplierPostalCode, [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
+        }, formOptions);
+      });
+    }
   }
 
 
