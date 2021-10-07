@@ -1,6 +1,6 @@
 import { AutofillMonitor } from '@angular/cdk/text-field';
 import { Component, OnInit } from '@angular/core';
-import { CartService, Sale } from 'src/app/services/service/cart.service';
+import { CartService, OnlineSale, Sale,  } from 'src/app/services/service/cart.service';
 import { AbstractControlOptions ,FormBuilder, FormGroup, NgForm, Validators, FormControl } from '@angular/forms';
 import { SafeMethodCall } from '@angular/compiler';
 import { Observable } from 'rxjs';
@@ -9,6 +9,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Customer,CustomerService } from 'src/app/services/customer/customer.service';
+import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 
 
 export interface Coordinates {
@@ -23,6 +25,7 @@ export interface Address {
   AddressLine2: string;
   AddressLine3: string;
   AddressPostalCode: string;
+  addressId: number;
 }
 
 export interface Collection {
@@ -35,7 +38,10 @@ export interface Delivery {
   DeliveryID: number;
 }
 
-
+export class order{
+  num : number;
+  productitemid: number;
+}
 
 @Component({
   selector: 'app-cart',
@@ -50,7 +56,7 @@ export class CartComponent implements OnInit {
   
 
   isSubmitted = false;
-  public products : any = [];
+  public products : order[] = [];
   public transaction : any =[];
   public vatTotals !: number;
   public grandTotal !: number;
@@ -61,12 +67,17 @@ export class CartComponent implements OnInit {
   selectedOption: string;
   selectedOption2: string;
 
+  Customer: Customer;
+  userid : number;
+  addy: Address
+  addyID : number;
   constructor(
     private router: Router,
     private cartService : CartService,
     private snack : MatSnackBar,
     private formBuilder: FormBuilder,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private customerService: CustomerService,
   ) {
     this.coordinates = {} as Coordinates;
   }
@@ -74,18 +85,16 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
 
-
-    const formOptions: AbstractControlOptions = { };
-
+   
     const AddressformOptions: AbstractControlOptions = {};
     this.addressform = this.formBuilder.group({
     AddressLine1 : new FormControl('', [Validators.required]),
     addressline2 : new FormControl('', [Validators.required]),
     addressline3 : new FormControl(''),
-    city : new FormControl('', [Validators.required]),
-    province : new FormControl('', [Validators.required]),
-    postalCode : new FormControl('', [Validators.required,Validators.maxLength(4)])
-  }, AddressformOptions );
+    cityDescription : new FormControl('', [Validators.required]),
+    provinceDescription : new FormControl('', [Validators.required]),
+    addressPostalCode : new FormControl('', [Validators.required,Validators.maxLength(4)])
+  }, AddressformOptions);
 
     
     //show products in cart
@@ -105,7 +114,14 @@ export class CartComponent implements OnInit {
       this.provinceList = res;
       return this.provinceList;    
     })
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   this.userid = obj.userId
+   this.customerService.GetProfile(this.userid).subscribe(res => {
+    this.Customer = res})
   }
+  
+
 
 
 //OUTSIDE ngOnInit
@@ -155,6 +171,7 @@ reloadCurrentPage(){
   openmodal(){
     document.querySelector('.modal').classList.add('is-active')
   }
+  
   close(){
     document.querySelector('.modal').classList.remove('is-active')
   }
@@ -171,37 +188,74 @@ reloadCurrentPage(){
 
     } else if(form.value.method=="delivery"){
       
-      const customerEmail = this.email.value
+      const customerEmail = this.Customer.customerEmailAddress
       console.log("else if",form.value)
       console.log(customerEmail)
-      
+
+      this.cartService.GetAddressByCustID(this.Customer.customerId).subscribe(res => {
+        this.addy = res
+        console.log(res)
+      })
+
       document.querySelector('#deliveryModal').classList.add('is-active')
       document.querySelector('.modal').classList.remove('is-active')
       const delivery: Delivery = form.value;
-      this.cartService.postDelivery(delivery)
-      .subscribe(res => {
-        console.log(res)
-      })
     }
     else{
-      const customerEmail = this.email.value
+      const customerEmail = this.Customer.customerEmailAddress
       
       console.log("else",form.value)
       console.log(customerEmail)
-      
       document.querySelector('.modal').classList.remove('is-active')
-      const collection: Collection = form.value;
-      this.cartService.postCollection(collection)
-      .subscribe(res => {
-        console.log(res)
+      console.log(this.products)
+      const Sale = {
+        customerId : this.Customer.customerId,
+        paymentAmount : this.grandTotal,
+        saleLists: this.products
+      }
+       console.log(Sale)
+      this.cartService.CollectionCheckout(Sale).subscribe(res => {
       })
-      this.makePayment()
+       this.makePayment()
     }
   }
 
+  // OpenDeliveryModal(){
+  //   const AddressformOptions: AbstractControlOptions = {};
+  //   this.addressform = this.formBuilder.group({
+  //   AddressLine1 : new FormControl(this.addy.AddressLine1, [Validators.required]),
+  //   addressline2 : new FormControl(this.addy.AddressLine2, [Validators.required]),
+  //   addressline3 : new FormControl(this.addy.AddressLine1),
+  //   cityDescription : new FormControl(this.addy.AddressLine1, [Validators.required]),
+  //   provinceDescription : new FormControl(this.addy.provinceDescription, [Validators.required]),
+  //   addressPostalCode : new FormControl(this.addy.AddressPostalCode, [Validators.required,Validators.maxLength(4)])
+  // }, AddressformOptions);
+  // }
+
+  DeliveryCheckout(){
+
+    this.cartService.GetAddressByCustID(this.Customer.customerId). subscribe(res => {
+      console.log(res)
+      // this.addyID = res.addressId
+      // console.log(this.addyID)
+  
+    const Sale = {
+      customerId : this.Customer.customerId,
+      paymentAmount : this.grandTotal,
+      addressid: res.addressId,
+      saleLists: this.products
+    }
+    this.cartService.Checkout(Sale)
+    .subscribe(data => {
+      console.log(data)
+    })
+    })
+  }
   submitAddressForm() {
 
       const address: Address = this.addressform.value;
+      address.customerId = this.Customer.customerId;
+      
       console.log(address)
       this.cartService.AddCustomerAddress(address).subscribe(res => {
         console.log(res)
@@ -224,7 +278,7 @@ reloadCurrentPage(){
 
   makePayment(){
     const data = {
-      email: this.email.value,
+      email: this.Customer.customerEmailAddress,
       amount: this.grandTotal*100
     }
     this.cartService.paymentInit(data)

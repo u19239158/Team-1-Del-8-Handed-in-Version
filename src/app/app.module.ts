@@ -6,6 +6,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from './material/material/material.module';
@@ -20,22 +22,25 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 import { FilterPipe } from './services/service/filter.pipe';
 import { EditCustProfileComponent } from './pages/edit-cust-profile/edit-cust-profile.component';
 import { NewregisterComponent } from './pages/newregister/newregister.component';
+// import { MatFormFieldModule } from '@angular/material/form-field/form-field-module';
+import { ForgotUsernameComponent } from './forgot-username/forgot-username.component';
 
 @NgModule({
   declarations: [
-      AppComponent,      
-      GlobalErrorComponent,
-      GlobalConfirmComponent,
-      ProductsComponent,
-      CartComponent,
-      HeaderComponent,
-      SidenavListComponent,
-      PromotionsComponent,
-      FilterPipe,
-      EditCustProfileComponent,
-      //GoogleMapsComponent,
-      NewregisterComponent,
-      
+    AppComponent,
+    GlobalErrorComponent,
+    GlobalConfirmComponent,
+    ProductsComponent,
+    CartComponent,
+    HeaderComponent,
+    SidenavListComponent,
+    PromotionsComponent,
+    FilterPipe,
+    EditCustProfileComponent,
+    //GoogleMapsComponent,
+    NewregisterComponent,
+    ForgotUsernameComponent
+
   ],
   imports: [
     BrowserModule,
@@ -48,16 +53,19 @@ import { NewregisterComponent } from './pages/newregister/newregister.component'
     AppRoutingModule,
     MaterialModule,
     NgbModule,
+    MatDialogModule,
+    MatInputModule,
+    // MatFormFieldModule
     // AgmCoreModule.forRoot({
     //   apiKey: 'AIzaSyDqVP00cbOxrgdmqsSZ591CfwyjRZstNfM',
     //   libraries: ['places']
     // })
-    
+
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule { 
+export class AppModule {
   options: FormGroup;
 
   constructor(fb: FormBuilder) {

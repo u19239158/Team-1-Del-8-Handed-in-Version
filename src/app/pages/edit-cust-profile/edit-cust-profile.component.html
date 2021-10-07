@@ -1,86 +1,145 @@
-<div class="main">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="box">
+<div class="content" align="center">
 
-      <div class="field">
-        <label class="label">Title</label>
-        <div class="control">
-          <div class="select">
-            <select formControlName="titleID">
-              <option *ngFor="let c of collection" [value]="c.titleID">{{c.titleDescription}}</option>
-            </select>
+<div class="help">
+  <button  routerLink="/products" class="button is-info is-rounded my-float">
+    <a href="http://localhost:8080/PlaceSupplierOrder.html" target="_blank">
+               <i class="fa fa-question-circle" aria-hidden="true"></i>
+              </a>
+  </button>
+</div>
+
+  <h2>Register Customer</h2>
+
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+
+    <!-- Title -->
+    <div class="mat-row">
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Title </mat-label>
+          <mat-select formControlName="titleID">
+            <mat-option *ngFor="let c of collection" [value]="c.titleId">{{c.titleDescription}}</mat-option>
+          </mat-select>
+          <mat-hint>Select customer title</mat-hint>
+          <mat-error *ngIf="form.controls['titleID'].invalid">Please Select a Title</mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Customer Name -->
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Customer Name</mat-label>
+          <input type="text" matInput placeholder="Customer Name" formControlName="customerName">
+          <mat-hint>Enter customer name</mat-hint>
+          <mat-error *ngIf="form.controls['customerName'].invalid">Please enter Customer Name</mat-error>
+        </mat-form-field>
+      </div>
+
+    </div>
+
+
+    <div class="mat-row">
+      <!-- Customer Surname -->
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Customer Surname</mat-label>
+          <input type="text" matInput placeholder="Customer surname" formControlName="customerSurname">
+          <mat-hint>Enter customer surname</mat-hint>
+          <mat-error *ngIf="form.controls['customerSurname'].invalid">Please enter Customer Surname
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Customer Business Name -->
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Customer Business Name </mat-label>
+          <input type="text" matInput placeholder="Customer Business Name " formControlName="customerBusinessName">
+          <mat-hint>Enter customer business name</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="mat-row">
+      <!-- Customer email address -->
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Customer Email Address</mat-label>
+          <input type="text" matInput placeholder="Customer Email Address" formControlName="customerEmailAddress">
+          <mat-hint>Enter customer email address</mat-hint>
+          <mat-error *ngIf="form.controls['customerEmailAddress'].invalid">Please enter Customer Email
+            Address
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>VAT Registration number</mat-label>
+          <input formControlName="customerVATReg" matInput>
+          <mat-error *ngIf="form.controls['customerVATReg'].invalid">Please enter a valid VAT Registration
+            number
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="mat-row">
+      <!-- Customer Username-->
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Customer Username</mat-label>
+          <input type="text" matInput placeholder="Customer Username" formControlName="userUsername">
+        </mat-form-field>
+      </div>
+
+      <!-- Customer Contact Number -->
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Customer Number</mat-label>
+          <input type="text" matInput placeholder="Customer Contact Number" formControlName="customerCellphoneNumber">
+          <mat-hint>Enter customer contact number</mat-hint>
+          <mat-error *ngIf="form.controls['customerCellphoneNumber'].invalid">Please enter Customer
+            Contact Number</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="mat-row">
+      <!-- Customer Password -->
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Customer Password</mat-label>
+          <input type="text" matInput placeholder="Customer Password" formControlName="userPassword">
+          <mat-error *ngIf="form.controls['userPassword'].invalid">Password must be
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Customer Confirm Password -->
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Confirm Customer Password</mat-label>
+          <input type="text" matInput placeholder="Confirm Customer Password" formControlName="customerConfirmPassword">
+        </mat-form-field>
+      </div>
+    </div>
+
+
+    <div class="mat-row">
+
+      <!-- Customer buttons -->
+      <div class="mat-col-quarter">
+        <div class="control-m">
+          <div class="form-group">
+            <button mat-raised-button color="primary" [disabled]="loading">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+              Save
+            </button>
+            <a (click)="Cancel()" mat-button>Cancel</a>
           </div>
         </div>
       </div>
-
-      <div class="mat-row">
-        <div class="mat-col-quarter">
-          <mat-form-field appearance="outline" class="control-m-s">
-            <mat-label>Title</mat-label>
-            <mat-select formControlName="titleID">
-              <mat-option *ngFor="let c of collection" [value]="c.titleID">{{c.titleDescription}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-
-
-      <div class="field">
-        <label class="label">Name</label>
-        <div class="control">
-          <input formControlName="customerName" class="input" type="text" placeholder="Name">
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Surname</label>
-        <div class="control">
-          <input formControlName="customerSurname" class="input" type="text" placeholder="Surname">
-        </div>
-      </div>
-
-
-      <div class="field">
-        <label class="label">Business Name</label>
-        <div class="control">
-          <input formControlName="customerBusinessName" class="input" type="text" placeholder="Business Name">
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Cellphone Number</label>
-        <div class="control">
-          <input formControlName="customerCellphoneNumber" class="input" type="text" placeholder="xxx xxx xxxx">
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">VAT Reg</label>
-        <div class="control">
-          <input formControlName="customerVATReg" class="input" type="text" placeholder="customerVATReg">
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Email Address</label>
-        <div class="control has-icons-left has-icons-right">
-          <input formControlName="customerEmailAddress" class="input" type="email" placeholder="Email input" value="hello@">
-          <span class="icon is-small is-left">
-            <i class="fas fa-envelope"></i>
-          </span>
-        </div>
-      </div>
     </div>
-
-
-    <div class="field is-grouped">
-      <div class="control">
-        <button class="button is-link" (click)="editCustomer()">Submit</button>
-      </div>
-      <div class="control">
-        <button class="button is-link is-light" (click)="Cancel()">Cancel</button>
-      </div>
-    </div>
-
-  </form>
-</div>

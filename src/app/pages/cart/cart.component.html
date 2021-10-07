@@ -58,6 +58,13 @@
     
 </ng-container>
 
+<div class="help">
+  <button  routerLink="/products" class="button is-info is-rounded my-float">
+    <a href="http://localhost:8080/PlaceSupplierOrder.html" target="_blank">
+               <i class="fa fa-question-circle" aria-hidden="true"></i>
+              </a>
+  </button>
+</div>
 
 <ng-container *ngIf="products.length ==0">
     <div class="container has-text-centered is-large">
@@ -195,7 +202,7 @@
                   
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)=closeDeliveryModal()>Close</button>
-        <button type="submit" class="btn btn-primary">Checkout</button>
+        <button type="submit" class="btn btn-primary" (click)=DeliveryCheckout()>Checkout</button>
       </div>
       </form>
     </div>

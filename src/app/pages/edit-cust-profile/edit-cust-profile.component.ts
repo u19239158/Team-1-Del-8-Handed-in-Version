@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Customer, CustomerService } from 'src/app/services/customer/customer.service';
 import { Component, OnInit, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -22,38 +23,26 @@ export class EditCustProfileComponent implements OnInit {
   customers: Observable<Customer[]>;
   collection = [];
   selected: string;
-  userid : number;
+  userid: number;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private customerService: CustomerService,
-    private http: HttpClient
+    private http: HttpClient,
+    private snack: MatSnackBar
 
   ) { }
 
   ngOnInit(): void {
-    const formOptions: AbstractControlOptions = {};
-    this.id = +this.route.snapshot.params['id'];
-    this.isAddMode = !this.id;
     this.getCollection();
-    const passwordValidators = [Validators.minLength(6)];
-
     var ids = localStorage.getItem('user')
     const obj = JSON.parse(ids)
-   console.log(obj.userId) 
-   this.userid = obj.userId
-    console.log(obj)
-
-
-    // if (this.isAddMode) {
-    //     passwordValidators.push(Validators.required);
-    // }
-    //if (!this.isAddMode) {
+    this.userid = obj.userId
+    const formOptions: AbstractControlOptions = {};
     this.customerService.GetProfile(this.userid).subscribe(res => {
       this.Customer = res
-      console.log(res)
       this.form = this.formBuilder.group({
         titleID: [this.Customer.titleID, [Validators.required]],
         customerName: [this.Customer.customerName, [Validators.required]],
@@ -62,11 +51,13 @@ export class EditCustProfileComponent implements OnInit {
         customerCellphoneNumber: [this.Customer.customerCellphoneNumber, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
         //customerUsername: [this.Customer.customerUserName, [Validators.required]],
         customerBusinessName: [this.Customer.customerBusinessName, [Validators.maxLength(50)]],
-        customerVATReg: [this.Customer.customerVATReg, [Validators.maxLength(10)]],
-        titleDesc: [this.Customer.titleDesc, [Validators.maxLength(50)]],
+        customerVATReg: [this.Customer.customerVATReg, [Validators.minLength(10), Validators.maxLength(10)]],
+       // titleDesc: [this.Customer.titleDesc, [Validators.maxLength(50)]],
         // customerPassword: ['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
         // customerConfirmPassword: ['', this.isAddMode ? Validators.required : Validators.nullValidator]
       }, formOptions);
+      const passwordValidators = [Validators.minLength(6)];
+      console.log(obj)
     })
     // }
   }
@@ -79,9 +70,15 @@ export class EditCustProfileComponent implements OnInit {
 
   editCustomer() {
     const customer: Customer = this.form.value;
-    customer.customerId = this.Customer.customerId;
+    customer.usersId = this.userid
     this.customerService.UpdateProfile(customer).subscribe(res => {
       console.log(res)
+      this.snack.open('Successfully Updated Your Profile! ', 'OK',
+            {
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
+              duration: 3000
+            });
       //this.form.reset();
       this.router.navigateByUrl('/customer');
     });
