@@ -29,8 +29,10 @@ export interface User {
   customerVATReg: number;
   customerBusinessName: string;
   userPassword: string;
+  customerConfirmPassword: string;
   titleID: number;
   titleDesc: string;
+
 }
 
 
@@ -79,12 +81,12 @@ export class CustomerService {
     return this.http.put<Customer[]>(`${this.server}Customer/UpdateProfile`, Customer, this.httpOptions);
   }
 
-    DeleteCustomer(customerId):  Observable<Customer>  {
+  DeleteCustomer(customerId): Observable<Customer> {
     return this.http.delete<Customer>(`${this.server}Customer/DeleteCustomer/${customerId}`).pipe(map(res => res));
   }
 
 
-  Register(User:User):  Observable<User[]>  {
-    return this.http.post<User[]>(`${this.server}Login/Register`, User,this.httpOptions);
+  Register(User: User): Observable<User[]> {
+    return this.http.post<User[]>(`${this.server}Login/Register`, User, this.httpOptions);
   }
 }

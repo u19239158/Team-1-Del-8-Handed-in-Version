@@ -1,12 +1,15 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+// import { LoginService } from '../services/login/login-service';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MustMatch } from './must-match.validators';
-
+import { Login } from '../login/authentication.service';
+import { AuthenticationService } from '../pages/register/authentication.service';
+// import { Login } from '../interfaces';
 
 @Component({
   selector: 'app-forgot-username',
@@ -20,23 +23,28 @@ export class ForgotUsernameComponent implements OnInit {
      */
 
   form: FormGroup;
-
+  username: string;
+  login: Login
   constructor(
     private dialogRef: MatDialogRef<ForgotUsernameComponent>,
     private formBuilder: FormBuilder,
-    private formGroup: FormGroup,
     private snack: MatSnackBar,
     private route: ActivatedRoute,
-    private router: Router,) {
+    private router: Router,
+    private log: AuthenticationService
+  ) {
 
   }
 
   ngOnInit(): void {
+    var user = localStorage.getItem('username')
 
-    const formOptions: AbstractControlOptions = { validators: MustMatch('newPassword', 'confirmNewPassword') };
+    this.username = user
+    console.log(this.username)
+    const formOptions: AbstractControlOptions = { validators: MustMatch('userPassword', 'confirmNewPassword') };
     this.form = this.formBuilder.group({
       otp: ['', [Validators.minLength(6), Validators.required]],
-      newPassword: ['', [Validators.minLength(6), Validators.required]],
+      userPassword: ['', [Validators.minLength(6), Validators.required]],
       confirmNewPassword: ['', [Validators.minLength(6), Validators.required]],
 
     }, formOptions);
@@ -44,6 +52,30 @@ export class ForgotUsernameComponent implements OnInit {
 
   Confirm(): void {
     // window.localStorage.removeItem("user");
+    const Login: Login = this.form.value;
+    Login.userUsername = this.username;
+    // this.log.ResetPasswordOTP(Login).subscribe(res => {
+
+    //   this.snack.open('Successfully reset password! Please log in again ', 'OK',
+    //     {
+    //       verticalPosition: 'top',
+    //       horizontalPosition: 'center',
+    //       duration: 4000
+    //     });
+    // }, (error: HttpErrorResponse) => {
+    //   console.log(error.error, "test")
+    //   if (error.status === 400) {
+    //     this.snack.open(error.error, 'OK',
+    //       {
+    //         verticalPosition: 'top',
+    //         horizontalPosition: 'center',
+    //         duration: 4000
+    //       });
+    //     return;
+    //   }
+    // })
+
+
     this.dialogRef.close();
   }
 

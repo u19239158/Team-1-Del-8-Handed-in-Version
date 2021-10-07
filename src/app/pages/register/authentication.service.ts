@@ -9,9 +9,9 @@ import { DateService } from '../../services/service/date.service';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
 
-    constructor(private http: HttpClient, private dateService: DateService) {}
+    constructor(private http: HttpClient, private dateService: DateService) { }
 
-    register(username: string, password: string, name: string, surname: string, cellnumber: number, vat: number, businessname: string, email: string, confirmpassword: string ): Observable<JwtResponse> {
+    register(username: string, password: string, name: string, surname: string, cellnumber: number, vat: number, businessname: string, email: string, confirmpassword: string): Observable<JwtResponse> {
         let jwtRequest: JwtRequest = { username: username, password: password };
         //name: name, surname: surname, cellnumber: cellnumber, vat: vat, businessname: businessname, email: email, confirmpassword: confirmpassword
         return this.http.post<JwtResponse>('http://localhost:8080/authenticate',
@@ -47,5 +47,13 @@ export class AuthenticationService {
         const expiration = localStorage.getItem("expires_at");
         const expiresAt = JSON.parse(expiration);
         return expiresAt;
-    }    
+    }
+
+    // ResetPassword(user: Login) {
+    //     return this.http.post(`${this.server}Login/ForgotResetPassword`, user, this.httpOptions);
+    //   }
+
+    //   ResetPasswordOTP(user: Login) {
+    //     return this.http.post(`${this.server}Login/ResetPasswordOTP`, user, this.httpOptions);
+    //   }
 }

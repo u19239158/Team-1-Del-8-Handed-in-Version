@@ -1,23 +1,40 @@
-.split {
-    height: 100%;
-    width: 50%;
-    position: fixed;
-    top: 0%;
-    background-color: white;
-    min-height: 100%;
-  }
-  
-  .picture {
-    top: 0;
-    bottom: 0%;
-    left: 0;
-    background-color: white;
-  }
-  
-  .information {
-    top: 40px;
-    right: 0;
-    text-align: center;
-    background-color: white;
-  }
+/* 
+.content{
+  background-color: white;
+} */
 
+.split {
+  width: 50%;
+  position: fixed;
+  /* top: 0%; */
+  background-color: white;
+  min-height: 100%;
+}
+
+.picture {
+  height: 100%;
+  width: 50%;
+  /* top: 0; */
+  bottom: 0%;
+  left: 0;
+  background-color: white;
+  height: 100%;
+}
+
+.information {
+  /* top: 0; */
+  bottom: 0%;
+  right: 0;
+  text-align: center;
+  background-color: white;
+}
+
+h1 {
+  /* top:50px; */
+}
+
+.help{
+  position: absolute;
+  right: 20px;
+  bottom: 75px;
+}
