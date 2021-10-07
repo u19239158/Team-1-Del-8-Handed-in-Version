@@ -4,7 +4,7 @@
 
 <h1>Weekly Sales Report</h1>
 
-<div class="column left">
+<div class="column1">
   <div class="parameters">
     <h2>Report Parameters</h2>
     <h3>Select a Date Range</h3>
@@ -70,8 +70,8 @@
 </div>
 
 
-<div id="htmlData" class=" column right" *ngIf="created">
-
+<div id="htmlData" *ngIf="created">
+<div class=" column ">
   <h2>Total Sales For the Week: R{{total | number:'1.1-2'}}</h2> 
   <h2>Average Sale Amount : R{{aveg | number:'1.1-2'}}</h2>
 
@@ -124,7 +124,9 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+</div>
 
+<div class="column1">
     <table mat-table [dataSource]="dataSauce" matSort id="saleTable">
 
     <ng-container matColumnDef="ProductCategory">
@@ -144,7 +146,7 @@
   <app-sales-overview-grap></app-sales-overview-grap>
   <app-visiter-graph></app-visiter-graph>
 </div>
-
+</div>
 <!-- <div class="column right">
   <div *ngIf="created">
     <div style="align-content: center;">

@@ -51,8 +51,8 @@
       </div>
     </mat-card>
 
-  
-    <form [formGroup]="form" class="main">
+<div class="main">
+    <form [formGroup]="form">
 <div class="mat-row">
     <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m" >
@@ -77,14 +77,16 @@
   <br>
 
   <div class="mat-row">
-    <div class="form-group" class="buttons">
+    <div class="mat-col-quarter">
       <button mat-raised-button color ="primary" (click)="finalOrder()">
           Save
       </button>
       <a (click)="Close()" mat-button>Cancel</a>
     </div>
   </div>
+
   </form>
+  </div>
   </div>
 
   
