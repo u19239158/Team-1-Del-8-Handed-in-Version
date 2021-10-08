@@ -20,7 +20,7 @@ export interface Coordinates {
 }
 export interface Address {
   customerId: number;
-  provinceDescription: string;
+  ProvinceDescription: string;
   AddressLine1: string;
   AddressLine2: string;
   AddressLine3: string;
@@ -53,6 +53,7 @@ export class CartComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
 
   addressform: FormGroup;
+  
 
   isSubmitted = false;
   public products : order[] = [];
@@ -60,6 +61,12 @@ export class CartComponent implements OnInit {
   public vatTotals !: number;
   public grandTotal !: number;
   public  coordinates: Coordinates;
+  public provinceList : any = [];
+  public cityList : any = [];
+  Address: Address;
+  selectedOption: string;
+  selectedOption2: string;
+
   Customer: Customer;
   userid : number;
   addy: Address
@@ -89,7 +96,7 @@ export class CartComponent implements OnInit {
     addressPostalCode : new FormControl('', [Validators.required,Validators.maxLength(4)])
   }, AddressformOptions);
 
-      
+    
     //show products in cart
     this.cartService.getProducts()
     .subscribe(res=>{
@@ -101,86 +108,38 @@ export class CartComponent implements OnInit {
       console.log(this.products)
     })
     
+    //populateProvince
+    this.cartService.Provinces()
+    .subscribe(res=>{
+      this.provinceList = res;
+      return this.provinceList;    
+    })
     var ids = localStorage.getItem('user')
     const obj = JSON.parse(ids)
    this.userid = obj.userId
    this.customerService.GetProfile(this.userid).subscribe(res => {
     this.Customer = res})
+  }
   
-//this.cartService.Checkout() {
-  // const componentForm = [
-  //   'location',
-  //   'locality',
-  //   'administrative_area_level_1',
-  //   'country',
-  //   'postal_code',
-  // ];
-  // const map = new google.maps.Map(document.getElementById("map"), {
-  //   zoom: 11,
-  //   center: { lat: 37.4221, lng: -122.0841 },
-  //   mapTypeControl: false,
-  //   fullscreenControl: true,
-  //   zoomControl: true,
-  //   streetViewControl: true
-  // });
-  // const marker = new google.maps.Marker({map: map, draggable: false});
-  // const autocompleteInput = document.getElementById('location') as HTMLInputElement;
-  // const autocomplete = new google.maps.places.Autocomplete(autocompleteInput);
-  // autocomplete.addListener('place_changed', function () {
-  //   marker.setVisible(false);
-  //   const place = autocomplete.getPlace();
-  //   if (!place.geometry) {
-  //     // User entered the name of a Place that was not suggested and
-  //     // pressed the Enter key, or the Place Details request failed.
-  //     window.alert('No details available for input: \'' + place.name + '\'');
-  //     return;
-  //   }
-  //   renderAddress(place);
-  //   fillInAddress(place);
-  // });
-
-  // function fillInAddress(place) {  // optional parameter
-  //   const addressNameFormat = {
-  //     'street_number': 'short_name',
-  //     'route': 'long_name',
-  //     'locality': 'long_name',
-  //     'administrative_area_level_1': 'short_name',
-  //     'country': 'long_name',
-  //     'postal_code': 'short_name',
-  //   };
-  //   const getAddressComp = function (type) {
-  //     for (const component of place.address_components) {
-  //       if (component.types[0] === type) {
-  //         return component[addressNameFormat[type]];
-  //       }
-  //     }
-  //     return '';
-  //   };
-  //   (<HTMLInputElement>document.getElementById('location')).value = getAddressComp('street_number') + ' '
-  //             + getAddressComp('route');
-  //   for (const component of componentForm) {
-  //     // Location field is handled separately above as it has different logic.
-  //     if (component !== 'location') {
-  //       (<HTMLInputElement>document.getElementById(component)).value = getAddressComp(component);
-  //     }
-  //   }
-  // }
-
-  // function renderAddress(place) {
-  //   map.setCenter(place.geometry.location);
-  //   marker.setPosition(place.geometry.location);
-  //   marker.setVisible(true);
-  // }
-}
 
 
 
 //OUTSIDE ngOnInit
+  populateCities(){
+    this.cartService.Cities(this.selectedOption)
+    .subscribe(res=>{
+      this.cityList = res;
+    })
+  }
+
+  onBlur(){
+    console.log('blurred lines')
+    this.populateCities()    
+  }
 
 reloadCurrentPage(){
   this.router.navigate([this.router.url]);
   this.cartService.getTotalPrice();
-  console.log(this.products)
   this.grandTotal = this.cartService.getTotalPrice();      
   this.vatTotals = this.cartService.getVATPrice();
 }
@@ -220,28 +179,6 @@ reloadCurrentPage(){
   closeDeliveryModal(){
     document.querySelector('#deliveryModal').classList.remove('is-active')
   }
-
-
-  // openGoogelMapsModal() {
-  //   const modalRef = this.modalService.open(GoogleMapsComponent,
-  //     {
-  //       scrollable: true,
-  //       // windowClass: 'myCustomModalClass',
-  //       // keyboard: false,
-  //       // backdrop: 'static'
-  //     });
-  //   let data = {
-  //     prop1: 'Some Data',
-  //     prop2: 'From Parent Component',
-  //     prop3: 'This Can be anything'
-  //   }
-
-  //   modalRef.componentInstance.fromParent = data;
-  //   modalRef.result.then((result) => {
-  //     this.coordinates = result;
-  //   }, (reason) => {
-  //   });
-  // }
 
   submitForm(form: NgForm) {
     this.isSubmitted = true;
@@ -321,9 +258,17 @@ reloadCurrentPage(){
       
       console.log(address)
       this.cartService.AddCustomerAddress(address).subscribe(res => {
-       
-        
-
+        console.log(res)
+        if(!this.addressform.valid) {
+          return false;
+    
+        } else if(this.addressform.value.city=="Port Shepstone"){
+          //Port Shepstone, Margate, Hibberdene, Port Edward, South Broom, Shelley Beach, Umtentweni, Ramsgate
+          console.log("local things")
+        }
+        else{
+          console.log("courier vibes")
+        }
         document.querySelector('.modal').classList.remove('is-active')
 
       //this.cartService.Checkout(form);
@@ -331,8 +276,6 @@ reloadCurrentPage(){
     })
   }
 
-
- 
   makePayment(){
     const data = {
       email: this.Customer.customerEmailAddress,
@@ -346,3 +289,5 @@ reloadCurrentPage(){
   }
 
 }
+
+
