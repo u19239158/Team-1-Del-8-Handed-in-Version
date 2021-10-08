@@ -86,8 +86,8 @@
 
 <div id="htmlData" *ngIf="created">
 <div class=" column" >
-<h2>Total Sales For the Month: R{{total | number:'1.1-2'}}</h2> 
-<h2>Average Sale Amount : R{{aveg | number:'1.1-2'}}</h2>
+<h2>Total Sales For the Month: R{{total | number:'1.1-2'}}   Average Sale Amount: R{{aveg | number:'1.1-2'}}</h2> 
+
 
   <table mat-table [dataSource]="dataSource" matSort id="saleTable">
 
@@ -143,6 +143,7 @@
 </div>
 
 <div class="column1" >
+<h2>Sales Breakdown</h2> 
   <table mat-table [dataSource]="dataSauce" matSort id="otherTable">
 
     <ng-container matColumnDef="ProductCategory">

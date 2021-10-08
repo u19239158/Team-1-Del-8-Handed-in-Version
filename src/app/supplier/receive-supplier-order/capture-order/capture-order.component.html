@@ -60,8 +60,9 @@
 <div class="mat-row">
     <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m" >
+        <span matPrefix>R &nbsp;</span>
              <mat-label  >Invoive Total</mat-label> 
-            <input type="number" matInput placeholder="Enter invoice total amount" formControlName="invoiceTotal" ngModel required>
+            <input type="number" matInput placeholder="Enter invoice total amount" matInput placeholder="e.g. 25.50" formControlName="invoiceTotal" ngModel required>
             <mat-hint >Enter invoice total</mat-hint>
         </mat-form-field>
     </div>

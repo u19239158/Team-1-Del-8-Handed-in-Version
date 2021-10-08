@@ -52,6 +52,10 @@ export class OnlineSalesService {
     return this.http.get<OnlineSales>(`${this.server}Sale/GetSaleByID/${saleID}`).pipe(map(res => res));
   }
 
+  ViewSaleboo(saleID): Observable<OnlineSales> {
+    return this.http.get<OnlineSales>(`${this.server}Sale/ViewSaleboo/${saleID}`).pipe(map(res => res));
+  }
+
   updateToCollected(sale: OnlineSales): Observable<OnlineSales[]> {
     return this.http.put<OnlineSales[]>(`${this.server}Sale/UpdateOrderCollected`, sale, this.httpOptions);
   }

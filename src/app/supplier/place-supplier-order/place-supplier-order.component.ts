@@ -174,7 +174,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
     this.placeSupplierOrderService.PlaceSupplierOrder(Data).subscribe(res => {
       console.log(res)
       this.loading = false
-      this.router.navigateByUrl('placeSupplierOrder');
+      
     })
     this.snack.open('Order Successfuly Placed! ', 'OK', 
     {
@@ -182,6 +182,7 @@ export class PlaceSupplierOrderComponent implements OnInit {
       horizontalPosition: 'center',
       duration: 4000
     });
+    this.router.navigateByUrl('receiveSupplierOrder');
   }
 
   clearOrder() {

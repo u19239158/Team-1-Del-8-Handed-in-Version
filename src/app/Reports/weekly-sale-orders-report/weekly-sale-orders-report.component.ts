@@ -63,7 +63,7 @@ export class WeekSelectionStrategy<D>
 export class WeeklySaleOrdersReportComponent implements OnInit {
   dataSource = new MatTableDataSource<Reports>();
   dataSauce = new MatTableDataSource<Reports>();
-  displayedColumns: string[] = ['saleId', 'saleOrderDate', 'customerId', 'customerName', 'customerCellphoneNumber', 'customerBusinessName', 'salePaymentAmount'];
+  displayedColumns: string[] = ['saleId', 'saleOrderDate', 'customerName', 'customerCellphoneNumber', 'customerBusinessName', 'salePaymentAmount'];
   displayed: string[] = ['ProductCategory', 'NumberOfSales'];
   tableData: any;
   aveg: any;

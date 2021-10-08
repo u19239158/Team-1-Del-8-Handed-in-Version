@@ -77,7 +77,7 @@ export class ViewSaleComponent implements OnInit {
     this.id = this.data.id;
     this.getCollection();
 
-    this.OnlineSalesService.ViewSale(this.id).subscribe(res => {
+    this.OnlineSalesService.ViewSaleboo(this.id).subscribe(res => {
       this.sale = res
       console.log(res)
 
