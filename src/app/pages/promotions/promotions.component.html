@@ -45,7 +45,7 @@
               <span class="tag is-danger">Sale ends</span>
               <span class="tag is-danger is-light">{{specials.specialenddate | date:"dd/MM/yy"}}</span>
             </div>
-            <button class="button is-info is-rounded" (click)=addtocart(category)>Add to Cart</button>
+            <button class="button is-info is-rounded" (click)=addtocart(specials)>Add to Cart</button>
             
             <button class="button is-danger is-rounded"  routerLink="/products">Go to Products</button>               
 
@@ -98,8 +98,8 @@
 <div>  
 <footer class="modal-card-foot">
     <ng-container *ngFor="let item of promoproducts">
-    <button class="button is-info is-rounded" (click)=addtocart(category)>Add to cart</button>
-    <button class="button is-danger is-rounded" (click)=closemodal(category)>Close</button>
+    <button class="button is-info is-rounded" (click)=addtocart(item)>Add to cart</button>
+    <button class="button is-danger is-rounded" (click)=closemodal(item)>Close</button>
     </ng-container>
 </footer>
 </div>

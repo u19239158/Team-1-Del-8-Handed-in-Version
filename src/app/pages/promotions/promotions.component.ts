@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, Injectable, OnInit, ViewEncapsulation  } from '@angular/core';
 import { of } from 'rxjs/internal/observable/of';
 import { ApiService, CategoryType} from 'src/app/services/service/api.service';
@@ -19,8 +20,11 @@ export class PromotionsComponent implements OnInit {
   public promoproducts : any = [];
   public promoProductItems : any = [];
   public discountprices : any = [];
+  public productItems : any = [];
   modalItems: any = [];
-  constructor(private api : ApiService, private cartService : CartService) { }
+  constructor(private api : ApiService, private cartService : CartService,
+    private snack : MatSnackBar
+    ) { }
 
   ngOnInit(): void {
 
@@ -49,11 +53,11 @@ export class PromotionsComponent implements OnInit {
     //   console.log(this.discountprices);
     // })
 
-    this.api.getAllItems()
-    .subscribe(res=>{
-      this.specials=res.withspecial;
-      console.log(this.specials);
-    })
+    // this.api.getAllItems()
+    // .subscribe(res=>{
+    //   this.specials=res.withspecial;
+    //   console.log(this.specials);
+    // })
 
     //modal product type dropdown
     this.api.getProductItem()
@@ -66,6 +70,11 @@ export class PromotionsComponent implements OnInit {
       // });
     })
 
+    this.api.getAllItems()
+    .subscribe(res=>{      
+      this.specials= res.withspecial.map( (data, number) => ({...data, num:1}) );      
+      console.log(this.promoproducts);
+    })
     
     // this.cartService.getModalProduct()
     // .subscribe(res=>{
@@ -76,6 +85,18 @@ export class PromotionsComponent implements OnInit {
   //outside ng oninit
   addtocart(item: any){
     this.cartService.addtoCart(item);
+    this.cartService.addtoCart(item);
+    localStorage.setItem(item.productItemId, JSON.stringify(1));
+
+    var itemList = JSON.parse(localStorage.getItem(item.productItemId)) || [];
+    localStorage.setItem(item.productItemId, JSON.stringify(itemList));
+    
+    this.snack.open('Item added to cart! ', 'OK', 
+    {
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      duration: 2000
+    });
   }
 
   // openmodal(item: any){
