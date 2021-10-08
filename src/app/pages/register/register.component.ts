@@ -1,6 +1,8 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './authentication.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,7 +14,11 @@ export class RegisterComponent implements OnInit {
     form: FormGroup;
     formSubmitted: boolean = false;
 
-    constructor(private fb: FormBuilder, private authenticationService: AuthenticationService) { }
+    constructor(private fb: FormBuilder,
+         private authenticationService: AuthenticationService,
+        private snack: MatSnackBar,
+        private router: Router,
+        ) { }
 
     ngOnInit() {
         this.form = this.fb.group({
@@ -48,7 +54,14 @@ export class RegisterComponent implements OnInit {
             newuser$.subscribe(
                 (data: any) => console.log(data),
                 err => console.error(err)
-            );
+                
+            ), this.snack.open('Succesfully registered. Please Login ', 'OK', 
+            {
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
+              duration: 4000
+            });;
+            this.router.navigateByUrl('login')
         } else {
             console.log("The form is not valid");
             this.formSubmitted = false;

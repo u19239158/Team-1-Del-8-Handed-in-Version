@@ -61,8 +61,15 @@ export class NewregisterComponent implements OnInit {
     this.CustomerService.Register(customer).subscribe(res => {
       console.log(res)
       this.loading = false
-      this.router.navigateByUrl('customer');
-    })
+     
+      this.router.navigateByUrl('login');
+ 
+    }), this.snack.open('Succesfully registered. Please Login ', 'OK', 
+    {
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      duration: 4000
+    });
   }
 
   getCollection() {
