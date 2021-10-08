@@ -120,7 +120,7 @@ export class LoginComponent implements OnInit {
              });
    
             confirm.afterClosed().subscribe(res => {
-              // this.router.navigateByUrl('');
+               this.router.navigateByUrl('login');
         
                 })
           },

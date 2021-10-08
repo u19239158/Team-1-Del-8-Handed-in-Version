@@ -42,8 +42,7 @@ export class DashboardComponent implements OnInit {
   public barChartLegend = true;
 
   public barChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
+ 
   ];
 
   public barChartOpt: ChartOptions = {
@@ -61,15 +60,14 @@ export class DashboardComponent implements OnInit {
       }
     }
   };
-  public barChartLabe: Label[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+  public barChartLabe: Label[] = [];
   public barChartTy: ChartType = 'bar';
   public barChartLeg = true;
   
   //public barChartPlugins = [pluginDataLabels];
 
   public barChartDat: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
+
   ];
 
   //Piechart
@@ -105,7 +103,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.generateReport();
-    this.readDeliveryReport()
+    //this.readDeliveryReport()
   }
   // events
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
@@ -128,12 +126,12 @@ export class DashboardComponent implements OnInit {
       40 ];
   }
 
-  readDeliveryReport(): void {
-    this.serv.DashboardSales().subscribe(res => {
-      console.log(res)
-      //this.dataSource = new MatTableDataSource(res)
-    })
-  }
+  // readDeliveryReport(): void {
+  //   this.serv.DashboardSales().subscribe(res => {
+  //     console.log(res)
+  //     //this.dataSource = new MatTableDataSource(res)
+  //   })
+  // }
 
 
   generateReport() {
@@ -155,6 +153,18 @@ export class DashboardComponent implements OnInit {
     this.generateChart(ProductCategory, NumberOfSales)
     // Call table data method
    // this.generateTables(data);
+  }, (error: HttpErrorResponse) => {
+    console.log(error.error, "test")
+    if (error.status === 400) {
+      this.snack.open(error.error, 'OK',
+        {
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          duration: 5000
+        });
+      return;
+    }
+
   })
 
   this.serv.DashboardPieSales().subscribe(data => {
