@@ -228,6 +228,14 @@ namespace NKAP_API_2.Controllers
             _db.SupplierInvoices.Add(supInvoice);
             _db.SaveChanges();
 
+            Supplier Balance = _db.Suppliers.Find(model.SupplierID);
+            {
+                Balance.SupplierBalance = Balance.SupplierBalance + model.SupplierInvoiceTotal;
+            };
+
+            _db.Suppliers.Attach(Balance);
+            _db.SaveChanges();
+
             foreach (var item in model.InvoiceLineList)
             {
                 SupplierInvoiceLine SIline = new SupplierInvoiceLine();

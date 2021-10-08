@@ -44,9 +44,9 @@ namespace NKAP_API_2.Controllers
                      OrderStatusID = so.OrderStatusId,
                      OrderStatusDesc = so.OrderStatusDescription,
                      PaymentTypeID = su.PaymentTypeId
-      
-                    //attributes in table
-                }).Join(_db.PaymentTypes,
+
+                     //attributes in table
+                 }).Join(_db.PaymentTypes,
                  sor => sor.PaymentTypeID,
                  sd => sd.PaymentTypeId,
                  (sor, sd) => new
@@ -92,8 +92,8 @@ namespace NKAP_API_2.Controllers
                     OrderStatusDesc = so.OrderStatusDescription,
                     PaymentTypeID = su.PaymentTypeId
 
-                     //attributes in table
-                 }).Join(_db.PaymentTypes,
+                    //attributes in table
+                }).Join(_db.PaymentTypes,
                 sor => sor.PaymentTypeID,
                 sd => sd.PaymentTypeId,
                 (sor, sd) => new
@@ -202,8 +202,8 @@ namespace NKAP_API_2.Controllers
                      OrderStatusDesc = so.OrderStatusDescription,
                      PaymentTypeID = su.PaymentTypeId
 
-                    //attributes in table
-                }).Join(_db.PaymentTypes,
+                     //attributes in table
+                 }).Join(_db.PaymentTypes,
                  sor => sor.PaymentTypeID,
                  sd => sd.PaymentTypeId,
                  (sor, sd) => new
@@ -223,7 +223,7 @@ namespace NKAP_API_2.Controllers
                  }).Where(ss => ss.SaleDate == SaleOrderdate);
 
             return Ok(Sale);
-            
+
         }
 
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
@@ -316,7 +316,7 @@ namespace NKAP_API_2.Controllers
                      PaymentTypeDescription = sd.PaymentTypeDescription,
                      StartDate = model.StartDate,
                      EndDate = model.EndDate
-                     
+
                  }).Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).Where(ss => ss.OrderStatusID == OrderStatusId);
 
             return Ok(Sale);
@@ -445,7 +445,7 @@ namespace NKAP_API_2.Controllers
                     SaleOrderDescription = sor.SaleOrderDescription,
                     SaleOrderDate = sor.SaleOrderDate,
                     SaleOrderAssign = sor.SaleOrderAssign,
-                    SaleOrderRecieveType = sor.SaleOrderRecieveType ,
+                    SaleOrderRecieveType = sor.SaleOrderRecieveType,
                     SalePaymentDate = sor.SalePaymentDate,
                     SalePaymentAmount = sor.SalePaymentAmount,
                     OrderStatusID = sor.OrderStatusID,
@@ -468,7 +468,7 @@ namespace NKAP_API_2.Controllers
                     SaleOrderDate = sor.SaleOrderDate,
                     SaleOrderAssign = sor.SaleOrderAssign,
                     // SaleReceiveType = sor.SaleReceiveType,
-                     SalePaymentDate = sor.SalePaymentDate,
+                    SalePaymentDate = sor.SalePaymentDate,
                     SaleOrderRecieveType = sor.SaleOrderRecieveType,
                     SalePaymentAmount = sor.SalePaymentAmount,
                     OrderStatusID = sor.OrderStatusID,
@@ -482,7 +482,7 @@ namespace NKAP_API_2.Controllers
                     SaleID = sor.SaleID,
                     AddressLine1 = sd.AddressLine1,
                     AddressLine2 = sd.AddressLine2,
-                  
+
                     AddressPostalCode = sd.AddressPostalCode
 
                 }).Join(_db.SaleLines,
@@ -509,7 +509,7 @@ namespace NKAP_API_2.Controllers
                     SaleID = sor.SaleID,
                     AddressLine1 = sor.AddressLine1,
                     AddressLine2 = sor.AddressLine2,
-                 
+
                     AddressPostalCode = sor.AddressPostalCode,
                     ProductItemId = sd.ProductItemId,
                 }).Join(_db.ProductItems,
@@ -536,7 +536,7 @@ namespace NKAP_API_2.Controllers
                     SaleID = sor.SaleID,
                     AddressLine1 = sor.AddressLine1,
                     AddressLine2 = sor.AddressLine2,
-                    
+
                     AddressPostalCode = sor.AddressPostalCode,
                     ProductItemId = sd.ProductItemId,
                     ProductItemName = sd.ProductItemName
@@ -573,8 +573,8 @@ namespace NKAP_API_2.Controllers
                    PaymentTypeID = su.PaymentTypeId,
                    CustomerID = su.CustomerId
 
-                    //attributes in table
-                }).Join(_db.PaymentTypes,
+                   //attributes in table
+               }).Join(_db.PaymentTypes,
                sor => sor.PaymentTypeID,
                sd => sd.PaymentTypeId,
                (sor, sd) => new
@@ -624,8 +624,8 @@ namespace NKAP_API_2.Controllers
                    SaleOrderDescription = sor.SaleOrderDescription,
                    SaleOrderDate = sor.SaleOrderDate,
                    SaleOrderAssign = sor.SaleOrderAssign,
-                    // SaleReceiveType = sor.SaleReceiveType,
-                    SalePaymentDate = sor.SalePaymentDate,
+                   // SaleReceiveType = sor.SaleReceiveType,
+                   SalePaymentDate = sor.SalePaymentDate,
                    SaleOrderRecieveType = sor.SaleOrderRecieveType == true ? "Collection" : "Delivery",
                    SalePaymentAmount = sor.SalePaymentAmount,
                    OrderStatusID = sor.OrderStatusID,
@@ -639,7 +639,7 @@ namespace NKAP_API_2.Controllers
                    SaleID = sor.SaleID,
                    AddressLine1 = sd.AddressLine1,
                    AddressLine2 = sd.AddressLine2,
-                   
+
                    AddressPostalCode = sd.AddressPostalCode
 
                }).First(ss => ss.SaleID == saleid);
@@ -651,9 +651,9 @@ namespace NKAP_API_2.Controllers
                 return BadRequest(response);
                 throw;
             }
-           
 
-            
+
+
         }
         string response;
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
@@ -663,7 +663,7 @@ namespace NKAP_API_2.Controllers
         public IActionResult Collection(SaleModel model)
         {
             var PackOrder = _db.Sales.Find(model.SaleID);
-            if (PackOrder.OrderStatusId ==1 && PackOrder.SaleOrderRecieveType == true)
+            if (PackOrder.OrderStatusId == 1 && PackOrder.SaleOrderRecieveType == true)
             {
                 PackOrder.OrderStatusId = 2;
                 _db.Sales.Attach(PackOrder); //Attach Record
@@ -681,7 +681,7 @@ namespace NKAP_API_2.Controllers
 
         }
 
-      //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
+        //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
         [Route("Delivery")] //route
         [HttpPut]
         //Update Order Status
@@ -700,7 +700,7 @@ namespace NKAP_API_2.Controllers
                 response = "Order has already been packed ";
                 return BadRequest(response);
             }
-          
+
         }
 
         //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
@@ -773,7 +773,7 @@ namespace NKAP_API_2.Controllers
                     SaleID = sor.SaleID,
                     AddressLine1 = sd.AddressLine1,
                     AddressLine2 = sd.AddressLine2,
-                   
+
                     AddressPostalCode = sd.AddressPostalCode
 
                 }).Distinct();
@@ -894,7 +894,7 @@ namespace NKAP_API_2.Controllers
         //Create a Model for table
         public IActionResult AddSaleLine(SaleModel model) //reference the model
         {
-           
+
             SaleLine Sline = new SaleLine();
             Sline.ProductItemId = model.ProductItemId;
             Sline.SaleLineQuantity = model.SaleLineQuantity;
@@ -963,7 +963,7 @@ namespace NKAP_API_2.Controllers
                     CustomerEmailAddress = sor.CustomerEmailAddress,
                     AddressLine1 = sd.AddressLine1,
                     AddressLine2 = sd.AddressLine2,
-                    
+
                     AddressPostalCode = sd.AddressPostalCode
 
                 }).First(ss => ss.SaleID == saleid);
@@ -971,6 +971,76 @@ namespace NKAP_API_2.Controllers
             return Ok(Sale);
         }
 
-    }
+        //[Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin,Employee")]
+        [Route("ViewSaleboo/{saleid}")] //route
+        [HttpGet]
+        //get Sales by ID (Read)
+        public IActionResult ViewSaleboo(int saleid)
+        {
+           var Sale = _db.Sales.Join(_db.OrderStatuses,
+           su => su.OrderStatusId,
+           so => so.OrderStatusId,
 
+           (su, so) => new
+           {
+               SaleID = su.SaleId,
+               SaleOrderDescription = su.SaleOrderDescription,
+               SaleOrderDate = su.SaleOrderDate,
+               SaleOrderAssign = su.SaleOrderAssign,
+               SaleOrderRecieveType = su.SaleOrderRecieveType,
+               SalePaymentDate = su.PaymentDate,
+               SalePaymentAmount = su.PaymentAmount,
+               OrderStatusID = so.OrderStatusId,
+               OrderStatusDescription = so.OrderStatusDescription,
+               PaymentTypeID = su.PaymentTypeId,
+               CustomerID = su.CustomerId
+
+               //attributes in table
+           }).Join(_db.PaymentTypes,
+           sor => sor.PaymentTypeID,
+           sd => sd.PaymentTypeId,
+           (sor, sd) => new
+           {
+               SaleID = sor.SaleID,
+               SaleOrderDescription = sor.SaleOrderDescription,
+               SaleOrderDate = sor.SaleOrderDate,
+               SaleOrderAssign = sor.SaleOrderAssign,
+               SaleOrderRecieveType = sor.SaleOrderRecieveType,
+               SalePaymentDate = sor.SalePaymentDate,
+               SalePaymentAmount = sor.SalePaymentAmount,
+               OrderStatusID = sor.OrderStatusID,
+               OrderStatusDescription = sor.OrderStatusDescription,
+               PaymentTypeID = sor.PaymentTypeID,
+               PaymentTypeDescription = sd.PaymentTypeDescription,
+               CustomerID = sor.CustomerID
+
+
+           }).Join(_db.Customers,
+           sor => sor.CustomerID,
+           sd => sd.CustomerId,
+           (sor, sd) => new
+           {
+               CustomerID = sor.CustomerID,
+               SaleOrderDescription = sor.SaleOrderDescription,
+               SaleOrderDate = sor.SaleOrderDate,
+               SaleOrderAssign = sor.SaleOrderAssign,
+               SaleOrderRecieveType = sor.SaleOrderRecieveType == true ? "Collection" : "Delivery",
+               SalePaymentDate = sor.SalePaymentDate,
+               SalePaymentAmount = sor.SalePaymentAmount,
+               OrderStatusID = sor.OrderStatusID,
+               OrderStatusDescription = sor.OrderStatusDescription,
+               PaymentTypeID = sor.PaymentTypeID,
+               PaymentTypeDescription = sor.PaymentTypeDescription,
+               CustomerName = sd.CustomerName,
+               CustomerCellphoneNumber = sd.CustomerCellphoneNumber,
+               CustomerSurname = sd.CustomerSurname,
+               CustomerBusinessName = sd.CustomerBusinessName,
+               SaleID = sor.SaleID
+
+           }).First(ss => ss.SaleID == saleid);
+            
+            return Ok(Sale);
+
+        }
+    }
 }
