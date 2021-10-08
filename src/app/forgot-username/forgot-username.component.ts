@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MustMatch } from './must-match.validators';
 import { Login } from '../login/authentication.service';
-import { AuthenticationService } from '../pages/register/authentication.service';
+import { AuthenticationService } from '../login/authentication.service';
 // import { Login } from '../interfaces';
 
 @Component({
@@ -54,26 +54,26 @@ export class ForgotUsernameComponent implements OnInit {
     // window.localStorage.removeItem("user");
     const Login: Login = this.form.value;
     Login.userUsername = this.username;
-    // this.log.ResetPasswordOTP(Login).subscribe(res => {
+     this.log.ResetPasswordOTP(Login).subscribe(res => {
 
-    //   this.snack.open('Successfully reset password! Please log in again ', 'OK',
-    //     {
-    //       verticalPosition: 'top',
-    //       horizontalPosition: 'center',
-    //       duration: 4000
-    //     });
-    // }, (error: HttpErrorResponse) => {
-    //   console.log(error.error, "test")
-    //   if (error.status === 400) {
-    //     this.snack.open(error.error, 'OK',
-    //       {
-    //         verticalPosition: 'top',
-    //         horizontalPosition: 'center',
-    //         duration: 4000
-    //       });
-    //     return;
-    //   }
-    // })
+      this.snack.open('Successfully reset password! Please log in again ', 'OK',
+        {
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          duration: 4000
+        });
+    }, (error: HttpErrorResponse) => {
+      console.log(error.error, "test")
+      if (error.status === 400) {
+        this.snack.open(error.error, 'OK',
+          {
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            duration: 4000
+          });
+        return;
+      }
+    })
 
 
     this.dialogRef.close();

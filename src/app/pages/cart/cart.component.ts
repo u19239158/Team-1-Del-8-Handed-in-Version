@@ -169,6 +169,17 @@ reloadCurrentPage(){
 
 
   openmodal(){
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+    if(obj == null){
+      this.snack.open('You are not logged in. Please login to checkout.', 'OK',
+        {
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          duration: 5000
+        });
+        this.router.navigateByUrl('/login')
+    }
     document.querySelector('.modal').classList.add('is-active')
   }
   
@@ -218,6 +229,14 @@ reloadCurrentPage(){
       })
        this.makePayment()
     }
+     this.cartService.removeAllCart();
+     this.snack.open('Order Placed! Shop Again!', 'OK', 
+    {
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      duration: 2000
+    });
+    this.router.navigateByUrl('products')
   }
 
   // OpenDeliveryModal(){
@@ -250,6 +269,14 @@ reloadCurrentPage(){
       console.log(data)
     })
     })
+    this.cartService.removeAllCart();
+    this.snack.open('Order Placed! Shop Again!', 'OK', 
+    {
+      verticalPosition: 'top',
+      horizontalPosition: 'center',
+      duration: 2000
+    });
+    this.router.navigateByUrl('products')
   }
   submitAddressForm() {
 

@@ -9,6 +9,10 @@ import { DateService } from '../services/service/date.service';
 export interface Login {
     userUsername: string;
     userPassword: string;
+    token : string;
+    userId: number;
+    userRoleId: number;
+    otp: number
   }
 
 @Injectable({ providedIn: 'root' })
@@ -31,6 +35,14 @@ export class AuthenticationService {
 
       Logout(UsersID: any) {
         return this.http.post(`${this.server}Login/Logout/${UsersID}`, UsersID, this.httpOptions);
+      }
+      
+      ResetPassword(user: Login) {
+        return this.http.post(`${this.server}Login/ForgotResetPassword`, user, this.httpOptions);
+      }
+    
+      ResetPasswordOTP(user: Login) {
+        return this.http.post(`${this.server}Login/ResetPasswordOTP`, user, this.httpOptions);
       }
 
     // login(username: string, password: string): Observable<JwtResponse> {
