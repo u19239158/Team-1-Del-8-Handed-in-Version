@@ -654,78 +654,86 @@ namespace NKAP_API_2.Controllers
         [HttpGet]
         public IActionResult DashboardSales()
         {
-
-            var dashy = _db.Sales.Join(_db.SaleLines,
-                a => a.SaleId,
-                t => t.SaleId,
-                (a, t) => new
-                {
-                    SaleOrderDate = a.SaleOrderDate,
-                    SaleId = a.SaleId,
-                    ProductItemId = t.ProductItemId,
-
-                }).Join(_db.ProductItems,
-                a => a.ProductItemId,
-                t => t.ProductItemId,
-                (a, t) => new
-                {
-                    SaleOrderDate = a.SaleOrderDate,
-                    SaleId = a.SaleId,
-
-                    ProductItemId = t.ProductItemId,
-                    CategoryTypeId = t.CategoryTypeId
-
-                })
-                .Join(_db.CategoryTypes,
-                a => a.CategoryTypeId,
-                t => t.CategoryTypeId,
-                (a, t) => new
-                {
-                    SaleOrderDate = a.SaleOrderDate,
-                    SaleId = a.SaleId,
-
-                    ProductItemId = a.ProductItemId,
-                    CategoryTypeId = t.CategoryTypeId,
-                    ProductCategoryId = t.ProductCategoryId
-
-                }).Join(_db.ProductCategories,
-                a => a.ProductCategoryId,
-                t => t.ProductCategoryId,
-                (a, t) => new
-                {
-                    SaleOrderDate = a.SaleOrderDate,
-                    SaleId = a.SaleId,
-
-                    ProductItemId = a.ProductItemId,
-                    CategoryTypeId = a.CategoryTypeId,
-                    ProductCategoryId = t.ProductCategoryId,
-                    ProductCategoryDescription = t.ProductCategoryDescription
-
-                }).AsEnumerable().GroupBy(zz => zz.ProductCategoryId);
-                //.Where((ss => ss.SaleOrderDate == System.DateTime.Now);
-            //.AsEnumerable().Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).GroupBy(zz => zz.ProductCategoryId);
-            //string bad;
-
-           // var results = _db.Sales.Where((ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate));
-
-            List<dynamic> salesdata = new List<dynamic>();
-            
-           // int maxAge = salesdata.Max(t => t.NumberOfSales);
-
-            foreach (var item in dashy)
+            try
             {
-                dynamic province = new ExpandoObject();
-                province.NumberOfSales = item.Count();
-                
-               
-                province.ProductCategory = item.Select(zz => zz.ProductCategoryDescription).FirstOrDefault();
-                salesdata.Add(province);
+                var dashy = _db.Sales.Join(_db.SaleLines,
+              a => a.SaleId,
+              t => t.SaleId,
+              (a, t) => new
+              {
+                  SaleOrderDate = a.SaleOrderDate,
+                  SaleId = a.SaleId,
+                  ProductItemId = t.ProductItemId,
 
+              }).Join(_db.ProductItems,
+              a => a.ProductItemId,
+              t => t.ProductItemId,
+              (a, t) => new
+              {
+                  SaleOrderDate = a.SaleOrderDate,
+                  SaleId = a.SaleId,
+
+                  ProductItemId = t.ProductItemId,
+                  CategoryTypeId = t.CategoryTypeId
+
+              })
+              .Join(_db.CategoryTypes,
+              a => a.CategoryTypeId,
+              t => t.CategoryTypeId,
+              (a, t) => new
+              {
+                  SaleOrderDate = a.SaleOrderDate,
+                  SaleId = a.SaleId,
+
+                  ProductItemId = a.ProductItemId,
+                  CategoryTypeId = t.CategoryTypeId,
+                  ProductCategoryId = t.ProductCategoryId
+
+              }).Join(_db.ProductCategories,
+              a => a.ProductCategoryId,
+              t => t.ProductCategoryId,
+              (a, t) => new
+              {
+                  SaleOrderDate = a.SaleOrderDate,
+                  SaleId = a.SaleId,
+
+                  ProductItemId = a.ProductItemId,
+                  CategoryTypeId = a.CategoryTypeId,
+                  ProductCategoryId = t.ProductCategoryId,
+                  ProductCategoryDescription = t.ProductCategoryDescription
+
+              }).AsEnumerable().Where(ss => ss.SaleOrderDate == DateTime.Today).GroupBy(zz => zz.ProductCategoryId);
+                //.Where((ss => ss.SaleOrderDate == System.DateTime.Now);
+                //.AsEnumerable().Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).GroupBy(zz => zz.ProductCategoryId);
+                //string bad;
+
+                // var results = _db.Sales.Where((ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate));
+
+                List<dynamic> salesdata = new List<dynamic>();
+
+                // int maxAge = salesdata.Max(t => t.NumberOfSales);
+
+                foreach (var item in dashy)
+                {
+                    dynamic province = new ExpandoObject();
+                    province.NumberOfSales = item.Count();
+
+
+                    province.ProductCategory = item.Select(zz => zz.ProductCategoryDescription).FirstOrDefault();
+                    salesdata.Add(province);
+
+                }
+
+                int max = salesdata.Max(t => t.NumberOfSales);
+
+                return Ok(salesdata);
             }
-
-            int max = salesdata.Max(t => t.NumberOfSales);
-
-            return Ok(salesdata);
+            catch (Exception)
+            {
+                return BadRequest("There are currently no sales to display for today.");
+                throw;
+            }
+          
 
         }
 
@@ -901,66 +909,74 @@ namespace NKAP_API_2.Controllers
         [HttpGet]
         public IActionResult DashboardPieSales()
         {
-
-            var dashy = _db.Sales.Join(_db.SaleLines,
-                a => a.SaleId,
-                t => t.SaleId,
-                (a, t) => new
-                {
-                    SaleOrderDate = a.SaleOrderDate,
-                    SaleId = a.SaleId,
-                    ProductItemId = t.ProductItemId,
-
-                }).Join(_db.ProductItems,
-                a => a.ProductItemId,
-                t => t.ProductItemId,
-                (a, t) => new
-                {
-                    SaleOrderDate = a.SaleOrderDate,
-                    SaleId = a.SaleId,
-
-                    ProductItemId = t.ProductItemId,
-                    CategoryTypeId = t.CategoryTypeId
-
-                })
-                .Join(_db.CategoryTypes,
-                a => a.CategoryTypeId,
-                t => t.CategoryTypeId,
-                (a, t) => new
-                {
-                    SaleOrderDate = a.SaleOrderDate,
-                    SaleId = a.SaleId,
-
-                    ProductItemId = a.ProductItemId,
-                    CategoryTypeId = t.CategoryTypeId,
-                    ProductCategoryId = t.ProductCategoryId,
-                    CategoryTypeDescription = t.CategoryTypeDescription
-
-                }).AsEnumerable().GroupBy(zz => zz.CategoryTypeId);
-            //.Where((ss => ss.SaleOrderDate == System.DateTime.Now);
-            //.AsEnumerable().Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).GroupBy(zz => zz.ProductCategoryId);
-            //string bad;
-
-            // var results = _db.Sales.Where((ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate));
-
-            List<dynamic> salesdata = new List<dynamic>();
-
-            // int maxAge = salesdata.Max(t => t.NumberOfSales);
-
-            foreach (var item in dashy)
+            try
             {
-                dynamic province = new ExpandoObject();
-                province.NumberOfSales = item.Count();
+                var dashy = _db.Sales.Join(_db.SaleLines,
+             a => a.SaleId,
+             t => t.SaleId,
+             (a, t) => new
+             {
+                 SaleOrderDate = a.SaleOrderDate,
+                 SaleId = a.SaleId,
+                 ProductItemId = t.ProductItemId,
+
+             }).Join(_db.ProductItems,
+             a => a.ProductItemId,
+             t => t.ProductItemId,
+             (a, t) => new
+             {
+                 SaleOrderDate = a.SaleOrderDate,
+                 SaleId = a.SaleId,
+
+                 ProductItemId = t.ProductItemId,
+                 CategoryTypeId = t.CategoryTypeId
+
+             })
+             .Join(_db.CategoryTypes,
+             a => a.CategoryTypeId,
+             t => t.CategoryTypeId,
+             (a, t) => new
+             {
+                 SaleOrderDate = a.SaleOrderDate,
+                 SaleId = a.SaleId,
+
+                 ProductItemId = a.ProductItemId,
+                 CategoryTypeId = t.CategoryTypeId,
+                 ProductCategoryId = t.ProductCategoryId,
+                 CategoryTypeDescription = t.CategoryTypeDescription
+
+             }).AsEnumerable().Where(ss => ss.SaleOrderDate == System.DateTime.Today).GroupBy(zz => zz.CategoryTypeId);
+                //.Where((ss => ss.SaleOrderDate == System.DateTime.Now);
+                //.AsEnumerable().Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).GroupBy(zz => zz.ProductCategoryId);
+                //string bad;
+
+                // var results = _db.Sales.Where((ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate));
+
+                List<dynamic> salesdata = new List<dynamic>();
+
+                // int maxAge = salesdata.Max(t => t.NumberOfSales);
+
+                foreach (var item in dashy)
+                {
+                    dynamic province = new ExpandoObject();
+                    province.NumberOfSales = item.Count();
 
 
-                province.CategoryType = item.Select(zz => zz.CategoryTypeDescription).FirstOrDefault();
-                salesdata.Add(province);
+                    province.CategoryType = item.Select(zz => zz.CategoryTypeDescription).FirstOrDefault();
+                    salesdata.Add(province);
 
+                }
+
+                int max = salesdata.Max(t => t.NumberOfSales);
+
+                return Ok(salesdata);
             }
-
-            int max = salesdata.Max(t => t.NumberOfSales);
-
-            return Ok(salesdata);
+            catch (Exception)
+            {
+                return BadRequest("You suck");
+                throw;
+            }
+         ;
 
         }
     }

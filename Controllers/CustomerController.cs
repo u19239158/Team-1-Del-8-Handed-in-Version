@@ -91,28 +91,38 @@ namespace NKAP_API_2.Controllers
         public IActionResult GetProfile(int userid)
         {
             //var Customer = _db.Customers.Find(customerid);
+            try
+            {
+                var Custitle = _db.Customers.Join(_db.Titles,
+                             c => c.TitleId,
+                             t => t.TitleId,
+                             (c, t) => new
+                             {
+                                 CustomerId = c.CustomerId,
 
-            var Custitle = _db.Customers.Join(_db.Titles,
-              c => c.TitleId,
-              t => t.TitleId,
-              (c, t) => new
-              {
-                  CustomerId = c.CustomerId,
+                                 TitleID = c.TitleId,
+                                 TitleDesc = t.TitleDescription,
+                                 CustomerID = c.CustomerId,
+                                 CustomerName = c.CustomerName,
+                                 CustomerSurname = c.CustomerSurname,
+                                 CustomerCellphoneNumber = c.CustomerCellphoneNumber,
+                                 CustomerEmailAddress = c.CustomerEmailAddress,
+                                 CustomerVATReg = c.CustomerVatreg,
+                                 CustomerBusinessName = c.CustomerBusinessName,
+                                 UsersId = c.UsersId
 
-                  TitleID = c.TitleId,
-                  TitleDesc = t.TitleDescription,
-                  CustomerID = c.CustomerId,
-                  CustomerName = c.CustomerName,
-                  CustomerSurname = c.CustomerSurname,
-                  CustomerCellphoneNumber = c.CustomerCellphoneNumber,
-                  CustomerEmailAddress = c.CustomerEmailAddress,
-                  CustomerVATReg = c.CustomerVatreg,
-                  CustomerBusinessName = c.CustomerBusinessName,
-                  UsersId = c.UsersId
+                             }).First(cn => cn.UsersId == userid);
+                return Ok(Custitle);
+            }
+            catch (Exception)
+            {
+                return BadRequest("You are not logged in. " +
+                    "Please login to view your profile");
+                throw;
+            }
+           
 
-              }).First(cn => cn.UsersId == userid);
-
-            return Ok(Custitle);
+           
         }
 
         //   [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
