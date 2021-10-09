@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Customer, CustomerService } from 'src/app/services/customer/customer.service';
 import { Component, OnInit, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -21,11 +22,22 @@ export class CustomersComponent implements OnInit {
   constructor(
     private customerService: CustomerService,
     private httpClient: HttpClient,
-    private router: Router) { }
+    private router: Router,
+    private snack: MatSnackBar
+    ) { }
 
   ngOnInit(): void {
     var ids = localStorage.getItem('user')
     const obj = JSON.parse(ids)
+    if(obj == null){
+      this.snack.open('You are not logged in. Please login to view your profile.', 'OK',
+        {
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          duration: 5000
+        });
+        this.router.navigateByUrl('/login')
+    }
    console.log(obj.userId) 
    this.userid = obj.userId
     console.log(obj)

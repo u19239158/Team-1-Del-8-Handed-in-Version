@@ -76,14 +76,28 @@ export class LoginComponent implements OnInit {
   // }
 
   forgotPassword(): void {
-    const confirm = this.dialog.open(ForgotUsernameComponent, {
-      disableClose: true,
-    });
-
-    confirm.afterClosed().subscribe(res => {
-      this.router.navigateByUrl('login');
-
-    })
+    this.AuthenticationService.ResetPassword(this.form.value).subscribe(res =>{
+      const confirm = this.dialog.open(ForgotUsernameComponent, {
+        disableClose: true,
+      });
+  
+      confirm.afterClosed().subscribe(res => {
+        this.router.navigateByUrl('login');
+      })
+    }
+     , (error: HttpErrorResponse) => {
+            console.log(error.error, "test")
+            if (error.status === 400) {
+              this.snack.open(error.error, 'OK',
+                {
+                  verticalPosition: 'top',
+                  horizontalPosition: 'center',
+                  duration: 4000
+                });
+              return;
+            }
+          }),
+          localStorage.setItem('username' ,this.form.value.userUsername)
   }
 
 }

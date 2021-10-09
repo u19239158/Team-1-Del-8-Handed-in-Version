@@ -24,6 +24,7 @@ import { EditCustProfileComponent } from './pages/edit-cust-profile/edit-cust-pr
 import { NewregisterComponent } from './pages/newregister/newregister.component';
 // import { MatFormFieldModule } from '@angular/material/form-field/form-field-module';
 import { ForgotUsernameComponent } from './forgot-username/forgot-username.component';
+import { LearnMoreComponent } from './pages/learn-more/learn-more.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ForgotUsernameComponent } from './forgot-username/forgot-username.compo
     EditCustProfileComponent,
     //GoogleMapsComponent,
     NewregisterComponent,
-    ForgotUsernameComponent
+    ForgotUsernameComponent,
+    LearnMoreComponent
 
   ],
   imports: [
