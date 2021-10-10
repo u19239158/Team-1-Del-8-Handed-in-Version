@@ -221,7 +221,14 @@ namespace NKAP_API_2.Controllers
         {
             string resp;
             var special1 = _db.ProductSpecials.FirstOrDefault(ss => ss.ProductItemId == model.ProductItemId);
-            if (special1 == null)
+            var pitem = _db.ProductItems.Find( model.ProductItemId);
+            if (pitem.QuantityOnHand == 0 )
+            {
+                resp = "No stock on hand for this product.";
+                return BadRequest(resp);
+
+            }
+            else if (special1 == null)
             {
                 var prod = _db.ProductItems.Find(model.ProductItemId);
 

@@ -380,6 +380,7 @@ namespace NKAP_API_2.Controllers
                 PItem.ProductItemName = model.ProductItemName; //attributes in table
                 PItem.ProductItemCost = model.ProductItemCost;
                 PItem.CategoryTypeId = model.CategoryTypeID;
+                PItem.QuantityOnHand = 0;
             }
           //  PItem.QuantityOnHand = model.QuantityOnHand;
             _db.ProductItems.Add(PItem);
@@ -457,37 +458,52 @@ namespace NKAP_API_2.Controllers
         //Delete Product Item
         public IActionResult DeleteProductItem(ProductItemModel model)
         {
-            var ProdSpec = _db.ProductSpecials.FirstOrDefault(zz => zz.ProductItemId == model.ProductItemId);
-            if (ProdSpec == null)
+            
+                var ProdSpec = _db.ProductSpecials.FirstOrDefault(zz => zz.ProductItemId == model.ProductItemId);
+            var item = _db.SupplierOrderLines.FirstOrDefault(zz => zz.ProductItemId == model.ProductItemId);
+            var items = _db.SaleLines.FirstOrDefault(zz => zz.ProductItemId == model.ProductItemId);
+            var ite = _db.ProductItemStockTakes.FirstOrDefault(zz => zz.ProductItemId == model.ProductItemId);
+            var it = _db.ProductItemWrittenOffStocks.FirstOrDefault(zz => zz.ProductItemId == model.ProductItemId);
+
+            if (item != null || items != null || ite != null || it != null)
             {
-                var ItemPrice = _db.Prices.FirstOrDefault(zz => zz.ProductItemId == model.ProductItemId);
-                var Pitem = _db.ProductItems.Find(model.ProductItemId);
-                _db.Prices.Remove(ItemPrice);
-                _db.SaveChanges();
-                _db.ProductItems.Remove(Pitem);  //Delete Record
-                _db.SaveChanges();
-
-                //add to audit trail
-                var user = _db.Users.Find(model.UsersID);
-                AuditTrail audit = new AuditTrail();
-                audit.AuditTrailDescription = user.UserUsername + " deleted the Product Item: " + model.ProductItemName;
-                audit.AuditTrailDate = System.DateTime.Now;
-                TimeSpan timeNow = DateTime.Now.TimeOfDay;
-                audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
-                audit.UsersId = user.UsersId;
-                _db.AuditTrails.Add(audit);
-                _db.SaveChanges();
-
-                return Ok();
-                
-            }
-
-            else 
-                {
-                response = "Product Item could not be deleted as it belongs to a Special";
+                response = "Product Item could not be deleted due to existing dependencies";
                 return BadRequest(response);
-                
             }
+                else if (ProdSpec == null)
+                {
+                    var ItemPrice = _db.Prices.FirstOrDefault(zz => zz.ProductItemId == model.ProductItemId);
+                    var Pitem = _db.ProductItems.Find(model.ProductItemId);
+                    _db.Prices.Remove(ItemPrice);
+                    _db.SaveChanges();
+                    _db.ProductItems.Remove(Pitem);  //Delete Record
+                    _db.SaveChanges();
+
+                    //add to audit trail
+                    var user = _db.Users.Find(model.UsersID);
+                    AuditTrail audit = new AuditTrail();
+                    audit.AuditTrailDescription = user.UserUsername + " deleted the Product Item: " + model.ProductItemName;
+                    audit.AuditTrailDate = System.DateTime.Now;
+                    TimeSpan timeNow = DateTime.Now.TimeOfDay;
+                    audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+                    audit.UsersId = user.UsersId;
+                    _db.AuditTrails.Add(audit);
+                    _db.SaveChanges();
+
+                    return Ok();
+
+                }
+                else
+                {
+                    response = "Product Item could not be deleted as it belongs to a Special";
+                    return BadRequest(response);
+
+                }
+           
+              
+                
+            
+         
 
             
         }

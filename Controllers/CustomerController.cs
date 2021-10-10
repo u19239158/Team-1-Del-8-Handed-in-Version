@@ -362,14 +362,18 @@ namespace NKAP_API_2.Controllers
         {
             try
             {
-                var customer = _db.Customers.Find(model.CustomerID);
-                _db.Customers.Remove(customer); //Delete Record
+                var customer = _db.Users.Find(model.UsersID);
+                {
+                    customer.UserUsername = new Random().Next(100000, 1000000).ToString();
+                    customer.UserPassword = new Random().Next(100000, 1000000).ToString();
+                }
+                _db.Users.Update(customer);
                 _db.SaveChanges();
 
                 //add to audit trail
                 var user = _db.Users.Find(model.UsersID);
                 AuditTrail audit = new AuditTrail();
-                audit.AuditTrailDescription = user.UserUsername + "deleted their profile";
+                audit.AuditTrailDescription = user.UserUsername + " deleted their profile";
                 audit.AuditTrailDate = System.DateTime.Now;
                 TimeSpan timeNow = DateTime.Now.TimeOfDay;
                 audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
