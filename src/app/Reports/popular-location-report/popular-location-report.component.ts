@@ -123,11 +123,9 @@ export class PopularLocationReportComponent implements OnInit {
   }
 
   generateReport() {
-
     let provinceDescription: any[] = [];
     let provincesales: number[] = [];
     const counts: any[] = [];
-
     this.serv.PopularLocationReport(this.form.value).subscribe(data => {
       this.created = false;
       // Restructure data for chart
@@ -136,8 +134,6 @@ export class PopularLocationReportComponent implements OnInit {
 
       // Generate Chart
       this.generateChart(provinceDescription, provincesales)
-
-
       // Call table data method
       // this.generateTables(data);
     }, (error: HttpErrorResponse) => {

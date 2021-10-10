@@ -137,19 +137,19 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
         console.log(res)
         this.total = res
       })
-
+      this.generateTables(data);
       console.log(data);
       this.dataSource = new MatTableDataSource(data)
       this.dataSource.sort = this.sort;
-      this.generateTables(data);
-    });
+    
+    
 
     this.serv.SalesReportAvg(this.form.value).subscribe(res => {
       console.log(res)
       this.aveg = res;
       this.serv.SalesControl(this.form.value).subscribe(res => {
         this.dataSauce = new MatTableDataSource(res)
-        this.dataSource.sort = this.sort;
+        this.dataSauce.sort = this.sort;
         console.log(res);
       })
     }, (error: HttpErrorResponse) => {
@@ -163,6 +163,7 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
           });
         return;
       }
+    });
     })
   }
 

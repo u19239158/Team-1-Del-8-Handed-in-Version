@@ -154,7 +154,7 @@ export class MonthlySalesOrderReportComponent implements OnInit {
           this.aveg = res;
           this.serv.SalesControl(this.form.value).subscribe(res => {
             this.dataSauce = new MatTableDataSource(res)
-            this.dataSource.sort = this.sort;
+            this.dataSauce.sort = this.sort;
             console.log(res);
           })
         }, (error: HttpErrorResponse) => {
