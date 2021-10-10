@@ -50,7 +50,7 @@ export class order{
 })
 export class CartComponent implements OnInit {
 
-  email = new FormControl('', [Validators.required, Validators.email]);
+  //email = new FormControl('', [Validators.required, Validators.email]);
 
   addressform: FormGroup;
   
@@ -64,6 +64,7 @@ export class CartComponent implements OnInit {
   public provinceList : any = [];
   public cityList : any = [];
   Address: Address;
+
   selectedOption: string;
   selectedOption2: string;
 
@@ -71,6 +72,7 @@ export class CartComponent implements OnInit {
   userid : number;
   addy: Address
   addyID : number;
+
   constructor(
     private router: Router,
     private cartService : CartService,
@@ -114,6 +116,7 @@ export class CartComponent implements OnInit {
       this.provinceList = res;
       return this.provinceList;    
     })
+    
     var ids = localStorage.getItem('user')
     const obj = JSON.parse(ids)
    this.userid = obj.userId
@@ -167,8 +170,19 @@ reloadCurrentPage(){
     });
   }
 
+  userLogin(){   
+    document.querySelector('#loginModal').classList.add('is-active')
+  }
 
   openmodal(){
+    // if(this.Customer.usersId=null){
+    //   console.log('not logged in')
+    //   this.userLogin()      
+    // }
+    // else{
+    //   document.querySelector('.modal').classList.add('is-active')
+    //   console.log('logged in')
+    // }
     var ids = localStorage.getItem('user')
     const obj = JSON.parse(ids)
     if(obj == null){
@@ -199,9 +213,7 @@ reloadCurrentPage(){
 
     } else if(form.value.method=="delivery"){
       
-      const customerEmail = this.Customer.customerEmailAddress
       console.log("else if",form.value)
-      console.log(customerEmail)
 
       this.cartService.GetAddressByCustID(this.Customer.customerId).subscribe(res => {
         this.addy = res
@@ -213,10 +225,8 @@ reloadCurrentPage(){
       const delivery: Delivery = form.value;
     }
     else{
-      const customerEmail = this.Customer.customerEmailAddress
       
       console.log("else",form.value)
-      console.log(customerEmail)
       document.querySelector('.modal').classList.remove('is-active')
       console.log(this.products)
       const Sale = {
@@ -228,15 +238,18 @@ reloadCurrentPage(){
       this.cartService.CollectionCheckout(Sale).subscribe(res => {
       })
        this.makePayment()
+
+       this.cartService.removeAllCart();
+       this.snack.open('Order Placed! Shop Again!', 'OK', 
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        duration: 2000
+      });
+      this.router.navigateByUrl('products')
     }
-     this.cartService.removeAllCart();
-     this.snack.open('Order Placed! Shop Again!', 'OK', 
-    {
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-      duration: 2000
-    });
-    this.router.navigateByUrl('products')
+
+
   }
 
   // OpenDeliveryModal(){
@@ -278,6 +291,7 @@ reloadCurrentPage(){
     });
     this.router.navigateByUrl('products')
   }
+
   submitAddressForm() {
 
       const address: Address = this.addressform.value;

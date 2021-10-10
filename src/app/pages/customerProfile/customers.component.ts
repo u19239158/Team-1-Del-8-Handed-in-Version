@@ -17,10 +17,7 @@ export class CustomersComponent implements OnInit {
   customer: Customer = {} as Customer;
   isSubmitted = false;
   userid : number;
-  //customers: Customer[] = [];
-  //Customer: Customer;
   customers: Observable<Customer[]>;
-  public topCustomers: any = [];
 
   constructor(
     private customerService: CustomerService,
@@ -45,15 +42,17 @@ export class CustomersComponent implements OnInit {
    this.userid = obj.userId
     console.log(obj)
 
-    // this.customerService.getCustomerByID(1)
+    // this.customerService.GetProfile(1)
     //   .subscribe(res => {
-    //     this.topCustomers = res;
-    //     console.log(this.topCustomers);
+    //     this.customer = res;
+    //     console.log(this.customer);
     //   })
 
-    this.customerService.GetProfile(obj.userId).subscribe(res => {
+    this.customerService.GetProfile(obj.userId)
+    .subscribe(res => {
       this.customer = res
       console.log(res)
+      console.log(this.customer)
     });
 
 

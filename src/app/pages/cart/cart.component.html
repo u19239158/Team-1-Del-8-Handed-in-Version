@@ -83,6 +83,36 @@
 
 </ng-container>
 
+
+<!-- Please Log in -->
+  <!-- <button class="button is-success is-rounded is-outlined" (click)=userLogin() id="launchModal">Checkout</button>
+
+  <div id="loginModal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">
+            Log in or Register
+         </h3>
+         <button type="button" class="btn-close btn-close-black" (click)=close()></button>
+        </div>
+
+        <div>
+          <label class="label">Please Log in or register before proceeding to Checkout</label>
+        
+          <button routerLink="/login" class="button is-dark is-rounded is-outlined">Log In</button>
+          <button routerLink="/newregister" class="button is-dark is-rounded is-outlined">Register</button>
+        </div>
+ 
+    </div>
+  </div> -->
+  
+  
+
+
+
+
+
 <!-- Modal -->
 <div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -96,13 +126,12 @@
 			<form #myForm="ngForm" (submit)="submitForm(myForm)" novalidate>
               <div class="control">
                 <!-- Customer Email -->
-                <div>
+               <!--  <div>
                   <label class="label">Please enter your email address:</label>
-                  <!-- <div class="control"> -->
-                    <input class="input" type="email" [formControl]="email" placeholder="hello@mymail.com" ngModel required>
-                  <!-- </div> -->
-                </div>
-
+                  <div class="control"> -->
+                   <!-- <input class="input" type="email" [formControl]="email" placeholder="hello@mymail.com" ngModel required>
+                   </div> 
+                </div>-->
 
                   <!-- ReceiveType -->
                   <div>
@@ -172,7 +201,7 @@
                 <div>
                   <label class="label">Please enter your Province:</label>
                   <!-- <div class="control"> -->
-                    <input  (blur) = 'onBlur()' [(ngModel)]="selectedOption" name="province" list="provincename" class="input" formControlName="province" type="text" placeholder="Province">
+                    <input  (blur) = 'onBlur()' [(ngModel)]="selectedOption" name="province" list="provincename" class="input" formControlName="provinceDescription" type="text" placeholder="Province">
                     <datalist id="provincename">
                       <option  *ngFor="let province of provinceList" value="{{province.state_name}}">
                     </datalist>
@@ -185,7 +214,7 @@
                   <!-- <div class="control"> 
                    onclick="populateCities()"  
                   -->
-                    <input [(ngModel)]="selectedOption2" name="city" list="cityname" class="input" formControlName="city" type="text" placeholder="City">
+                    <input [(ngModel)]="selectedOption2" name="city" list="cityname" class="input" formControlName="cityDescription" type="text" placeholder="City">
                     <datalist id="cityname">
                       <option  *ngFor="let city of cityList" value="{{city.city_name}}">
                     </datalist>
@@ -197,7 +226,7 @@
                 <div>
                   <label class="label">Please enter your Postal Code:</label>
                   <!-- <div class="control"> -->
-                    <input class="input" formControlName="postalCode" type="text" placeholder="Postal Code">
+                    <input class="input" formControlName="addressPostalCode" type="text" placeholder="Postal Code">
                   <!-- </div> -->
                 </div>
 
