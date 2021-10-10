@@ -91,6 +91,7 @@ export class CartService {
 //https://www.universal-tutorial.com/api/states/South Africa
 //https://www.universal-tutorial.com/api/cities/Gauteng
 //post req
+
   paymentInit(item:any){
     console.log(item)
     return this.http.post<any>('https://api.paystack.co/transaction/initialize',item, this.headers)

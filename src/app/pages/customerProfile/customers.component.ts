@@ -42,18 +42,18 @@ export class CustomersComponent implements OnInit {
    this.userid = obj.userId
     console.log(obj)
 
-    this.customerService.GetProfile(1)
-      .subscribe(res => {
-        this.customer = res;
-        console.log(this.customer);
-      })
+    // this.customerService.GetProfile(1)
+    //   .subscribe(res => {
+    //     this.customer = res;
+    //     console.log(this.customer);
+    //   })
 
-    // this.customerService.GetProfile(obj.userId)
-    // .subscribe(res => {
-    //   this.customer = res
-    //   console.log(res)
-    //   console.log(this.customer)
-    // });
+    this.customerService.GetProfile(obj.userId)
+    .subscribe(res => {
+      this.customer = res
+      console.log(res)
+      console.log(this.customer)
+    });
 
 
   }

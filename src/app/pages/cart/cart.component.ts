@@ -116,10 +116,11 @@ export class CartComponent implements OnInit {
       this.provinceList = res;
       return this.provinceList;    
     })
+    
     var ids = localStorage.getItem('user')
     const obj = JSON.parse(ids)
    this.userid = obj.userId
-   this.customerService.GetProfile(1).subscribe(res => {
+   this.customerService.GetProfile(this.userid).subscribe(res => {
     this.Customer = res})
   }
   
@@ -174,14 +175,14 @@ reloadCurrentPage(){
   }
 
   openmodal(){
-    if(this.Customer.usersId=null){
-      console.log('not logged in')
-      this.userLogin()      
-    }
-    else{
-      document.querySelector('.modal').classList.add('is-active')
-      console.log('logged in')
-    }
+    // if(this.Customer.usersId=null){
+    //   console.log('not logged in')
+    //   this.userLogin()      
+    // }
+    // else{
+    //   document.querySelector('.modal').classList.add('is-active')
+    //   console.log('logged in')
+    // }
     var ids = localStorage.getItem('user')
     const obj = JSON.parse(ids)
     if(obj == null){
@@ -237,15 +238,18 @@ reloadCurrentPage(){
       this.cartService.CollectionCheckout(Sale).subscribe(res => {
       })
        this.makePayment()
+
+       this.cartService.removeAllCart();
+       this.snack.open('Order Placed! Shop Again!', 'OK', 
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        duration: 2000
+      });
+      this.router.navigateByUrl('products')
     }
-     this.cartService.removeAllCart();
-     this.snack.open('Order Placed! Shop Again!', 'OK', 
-    {
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-      duration: 2000
-    });
-    this.router.navigateByUrl('products')
+
+
   }
 
   // OpenDeliveryModal(){
