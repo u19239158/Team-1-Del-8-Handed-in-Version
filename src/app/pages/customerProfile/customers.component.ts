@@ -73,6 +73,10 @@ export class CustomersComponent implements OnInit {
     this.router.navigateByUrl('/editProfile')
   }
 
+  deleteProfile(){
+    
+  }
+
   
 
   // readCustomers(): void {

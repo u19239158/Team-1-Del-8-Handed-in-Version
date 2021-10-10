@@ -85,6 +85,10 @@ export class CustomerService {
     return this.http.delete<Customer>(`${this.server}Customer/DeleteCustomer/${customerId}`).pipe(map(res => res));
   }
 
+  DeleteProfile(customerId): Observable<Customer> {
+    return this.http.delete<Customer>(`${this.server}Customer/DeleteCustomer/${customerId}`).pipe(map(res => res));
+  }
+
 
   Register(User: User): Observable<User[]> {
     return this.http.post<User[]>(`${this.server}Login/Register`, User, this.httpOptions);
