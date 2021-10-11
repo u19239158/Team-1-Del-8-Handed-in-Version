@@ -18,6 +18,7 @@ namespace NKAP_API_2.EF
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
         public int AddressPostalCode { get; set; }
+        public string City { get; set; }
 
         public virtual Customer Customer { get; set; }
         public virtual Province Province { get; set; }

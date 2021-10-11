@@ -189,8 +189,15 @@ namespace NKAP_API_2.Controllers
             {
                 var delemployee = _db.Employees.Find(model.Employee_ID);    //Delete Record
                 var user = _db.Users.FirstOrDefault(zz => zz.UsersId == delemployee.UsersId);
+                var pass = _db.PasswordHistories.Select(zz => zz.UsersId == delemployee.UsersId);
+                var audit1 = _db.AuditTrails.Select(zz => zz.UsersId == delemployee.UsersId);
+                _db.AuditTrails.Remove((AuditTrail)audit1);
+                _db.PasswordHistories.Remove((PasswordHistory)pass);
+                
+               
                 _db.Users.Remove(user);
                 _db.Employees.Remove(delemployee);
+
                 _db.SaveChanges();
                 //add to audit trail
                 var users = _db.Users.Find(model.UsersID);

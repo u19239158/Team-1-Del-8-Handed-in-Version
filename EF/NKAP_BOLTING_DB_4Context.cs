@@ -95,6 +95,11 @@ namespace NKAP_API_2.EF
 
                 entity.Property(e => e.AddressPostalCode).HasColumnName("Address_PostalCode");
 
+                entity.Property(e => e.City)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("city");
+
                 entity.Property(e => e.CustomerId).HasColumnName("Customer_ID");
 
                 entity.Property(e => e.ProvinceId).HasColumnName("Province_ID");

@@ -463,7 +463,7 @@ namespace NKAP_API_2.Controllers
             var VAT = _db.Vats.FirstOrDefault(zz => zz.VatId == 2);
             var ActiveSpec = _db.Specials.Where(ss => ss.SpecialStartDate <= System.DateTime.Now && ss.SpecialEndDate >= System.DateTime.Now);
             var productspecial = _db.ProductSpecials.Include(zz => zz.Special).Include(zz => zz.ProductItem).ThenInclude(zz => zz.CategoryType).Include(zz => zz.ProductItem.Prices)
-                .Where(ss => ss.Special.SpecialStartDate <= System.DateTime.Now && ss.Special.SpecialEndDate >= System.DateTime.Now).Select(zz => new ProductItemModel
+                .Where(ss => ss.Special.SpecialStartDate <= System.DateTime.Now && ss.Special.SpecialEndDate >= System.DateTime.Now ).Select(zz => new ProductItemModel
                 {
                     CategoryTypeID = (int)zz.ProductItem.CategoryTypeId,
                     CategoryTypeImage = zz.ProductItem.CategoryType.CategoryTypeImage,
@@ -482,7 +482,8 @@ namespace NKAP_API_2.Controllers
                 }).
                 ToList();
             var products = _db.ProductItems.Include(zz => zz.CategoryType).Include(zz => zz.Prices).Include(zz => zz.ProductSpecials).ThenInclude(zz => zz.Special)
-                .Where(zz => zz.ProductSpecials.Any(xx => xx.ProductItemId == zz.ProductItemId && xx.Special.SpecialStartDate <= System.DateTime.Now && xx.Special.SpecialEndDate >= System.DateTime.Now)== false).Select(zz => new ProductItemModel
+                .Where(zz => zz.ProductSpecials.Any(xx => xx.ProductItemId == zz.ProductItemId && xx.Special.SpecialStartDate <= System.DateTime.Now && xx.Special.SpecialEndDate >= System.DateTime.Now && xx.ProductItem.QuantityOnHand == 0) == false)
+                .Select(zz => new ProductItemModel
                 {
                     CategoryTypeID = (int)zz.CategoryTypeId,
                     CategoryTypeImage = zz.CategoryType.CategoryTypeImage,
@@ -593,6 +594,7 @@ namespace NKAP_API_2.Controllers
             {
                 addy.AddressLine1 = model.AddressLine1; //attributes in table
                 addy.AddressLine2 = model.AddressLine2;
+                addy.City = model.cityDescription;
 
                 addy.AddressPostalCode = model.AddressPostalCode;
                 addy.CustomerId = model.CustomerID;
