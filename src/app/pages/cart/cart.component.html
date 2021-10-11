@@ -24,7 +24,8 @@
                                 <td style="width: 12%;">                                  
                                   <input id="quantity" type="number" class="no-spinners" placeholder="1"  [value]="item.num" [(ngModel)]="item.num" min="1" (click)="reloadCurrentPage()"/>
                                 </td>
-                                <td style="width: 12%;">R{{item.VATInc | number:'0.1-2'}}</td>
+                                <td *ngIf ="item.Specialprice" style="width: 12%;">R{{item.Specialprice | number:'0.1-2'}}</td>
+                                <td *ngIf ="item.Specialprice === 0" style="width: 12%;">R{{item.VATInc | number:'0.1-2'}}</td>
                                
                                 <!-- multiply price by the Quantity.value of the numeric up down -->
                                 <td>

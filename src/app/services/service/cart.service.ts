@@ -179,8 +179,16 @@ export class CartService {
   getTotalPrice() : number{
     let grandTotal = 0;
     let currentCart = this.productList.value;
+    
     currentCart.map((a:any)=>{
-      grandTotal += a.num*a.VATInc;
+      if(a.Specialprice >0)
+      {
+        grandTotal += a.num*a.Specialprice;
+      }
+      else{
+        grandTotal += a.num*a.VATInc;
+      }
+      
     })
     console.log(grandTotal);
     return grandTotal;
