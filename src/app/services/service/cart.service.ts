@@ -116,8 +116,8 @@ export class CartService {
     return this.http.get<any>(`https://www.universal-tutorial.com/api/cities/${province}`, this.AddresshttpOptions)  
   }
   
-  Checkout(Sale:any){
-    return this.http.post<any>(`${this.server}Checkout/Checkout`, Sale,this.paystackhttpOptions)
+  Checkout(place:any){
+    return this.http.post<any>(`${this.server}Checkout/Checkout`, place,this.paystackhttpOptions)
   }
 
   GetAddressByCustID(customerid):  Observable<any>  {

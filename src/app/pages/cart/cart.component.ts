@@ -266,10 +266,6 @@ reloadCurrentPage(){
 
   DeliveryCheckout(){
 
-    this.cartService.GetAddressByCustID(this.Customer.customerId).subscribe(res => {
-      //console.log(res)
-    })
-
     
     const address: Address = this.addressform.value;
     address.customerId = this.Customer.customerId;
@@ -277,8 +273,20 @@ reloadCurrentPage(){
     console.log(address)
     this.cartService.AddCustomerAddress(address).subscribe(res => {
       console.log(res)
-
     })
+
+    this.cartService.GetAddressByCustID(this.Customer.customerId).subscribe(res => {
+      this.addy = res
+    })
+      const Sale = {
+        customerId : this.Customer.customerId,
+        paymentAmount : this.grandTotal,
+        saleLists: this.products,
+        addressid: this.addy.addressId
+      }
+    this.cartService.Checkout(Sale).subscribe(data => {
+    })
+ 
 
     this.cartService.removeAllCart();
     this.snack.open('Order Placed! Shop Again!', 'OK', 
@@ -310,7 +318,7 @@ reloadCurrentPage(){
   //       }
   //       document.querySelector('.modal').classList.remove('is-active')
 
-  //     //this.cartService.Checkout(form);
+      //this.cartService.Checkout(form);
   //     //this.makePayment();
   //   })
   // }
