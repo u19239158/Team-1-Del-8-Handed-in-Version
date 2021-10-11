@@ -186,7 +186,6 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
 
       const contentDataURL = canvas.toDataURL('image/png')
 
-
       let PDF = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4', });
       let topPosition = 10;
       let leftPosition = 0;
@@ -194,20 +193,11 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
       PDF.save('Weekly Sales Report.pdf');
     });
   }
-
-  //getGrandAverage() {
-  //const len = this.averages.length;
-  //  let sum = 0;
-
-  //  sum = this.averages.reduce((acc, current) => acc + current);
-  //  this.grandAverage = Math.round(sum / len)  ;
-  //}
-
+  
   generateTables(data) {
     this.tableData = data;
     this.created = true;
-    // this.averages = data.map(avg => avg.AverageQuantityOrdered);
-    // this.getGrandAverage();
+  
   }
   exportexcel(): void {
     /* table id is passed over here */
@@ -234,15 +224,5 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
     XLSX.writeFile(wb, this.fileName);
 
   }
-  // public randomize(): void {
-  //   // Only Change 3 values
-  //   this.barChartData[0].data = [
-  //     Math.round(Math.random() * 100),
-  //     59,
-  //     80,
-  //     (Math.random() * 100),
-  //     56,
-  //     (Math.random() * 100),
-  //     40];
-  // }
+
 }
