@@ -267,21 +267,19 @@ reloadCurrentPage(){
   DeliveryCheckout(){
 
     this.cartService.GetAddressByCustID(this.Customer.customerId).subscribe(res => {
+      //console.log(res)
+    })
+
+    
+    const address: Address = this.addressform.value;
+    address.customerId = this.Customer.customerId;
+    
+    console.log(address)
+    this.cartService.AddCustomerAddress(address).subscribe(res => {
       console.log(res)
-      // this.addyID = res.addressId
-      // console.log(this.addyID)
-  
-    const Sale = {
-      customerId : this.Customer.customerId,
-      paymentAmount : this.grandTotal,
-      addressid: res.addressId,
-      saleLists: this.products
-    }
-    this.cartService.Checkout(Sale)
-    .subscribe(data => {
-      console.log(data)
+
     })
-    })
+
     this.cartService.removeAllCart();
     this.snack.open('Order Placed! Shop Again!', 'OK', 
     {
@@ -292,30 +290,30 @@ reloadCurrentPage(){
     this.router.navigateByUrl('products')
   }
 
-  submitAddressForm() {
+  // submitAddressForm() {
 
-      const address: Address = this.addressform.value;
-      address.customerId = this.Customer.customerId;
+  //     const address: Address = this.addressform.value;
+  //     address.customerId = this.Customer.customerId;
       
-      console.log(address)
-      this.cartService.AddCustomerAddress(address).subscribe(res => {
-        console.log(res)
-        if(!this.addressform.valid) {
-          return false;
+  //     console.log(address)
+  //     this.cartService.AddCustomerAddress(address).subscribe(res => {
+  //       console.log(res)
+  //       if(!this.addressform.valid) {
+  //         return false;
     
-        } else if(this.addressform.value.city=="Port Shepstone"){
-          //Port Shepstone, Margate, Hibberdene, Port Edward, South Broom, Shelley Beach, Umtentweni, Ramsgate
-          console.log("local things")
-        }
-        else{
-          console.log("courier vibes")
-        }
-        document.querySelector('.modal').classList.remove('is-active')
+  //       } else if(this.addressform.value.city=="Port Shepstone"){
+  //         //Port Shepstone, Margate, Hibberdene, Port Edward, South Broom, Shelley Beach, Umtentweni, Ramsgate
+  //         console.log("local things")
+  //       }
+  //       else{
+  //         console.log("courier vibes")
+  //       }
+  //       document.querySelector('.modal').classList.remove('is-active')
 
-      //this.cartService.Checkout(form);
-      //this.makePayment();
-    })
-  }
+  //     //this.cartService.Checkout(form);
+  //     //this.makePayment();
+  //   })
+  // }
 
   makePayment(){
     const data = {

@@ -172,7 +172,7 @@
           <button type="button" class="btn-close btn-close-black" (click)=closeDeliveryModal()></button>
        </h3>
       </div>
-			<form [formGroup]="addressform" (submit)="submitAddressForm()">
+			<form [formGroup]="addressform" (submit)="DeliveryCheckout()">
               <div class="control"></div>
                 <!-- Customer addressline -->
                 <div>
@@ -218,7 +218,9 @@
                     <datalist id="cityname">
                       <option  *ngFor="let city of cityList" value="{{city.city_name}}">
                     </datalist>
-                    <!-- <p >Selected option: {{ selectedOption2 }}</p> -->
+                    <p >{{selectedOption2}}</p>
+                    <!-- <p *ngIf= "{{selectedOption2}}='Port Shepstone'" >LOCAL</p> -->
+                    <!--Port Shepstone, Margate, Hibberdene, Port Edward, South Broom, Shelley Beach, Umtentweni, Ramsgate-->
                   <!-- </div> -->
                 </div>             
 
@@ -233,7 +235,7 @@
                   
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)=closeDeliveryModal()>Close</button>
-        <button type="submit" class="btn btn-primary" (click)=DeliveryCheckout()>Checkout</button>
+        <button type="submit" class="btn btn-primary">Checkout</button>
       </div>
       </form>
     </div>

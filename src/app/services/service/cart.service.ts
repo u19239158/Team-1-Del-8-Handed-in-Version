@@ -56,33 +56,44 @@ export interface Delivery {
   DeliveryID: number;
 }
 
+export class User {
+  id: number;
+  username: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  jwtToken?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
     server = "https://localhost:44393/api/";
 
-    httpOptions = {
-      headers: new HttpHeaders({
-        ContentType: 'application/json'
-      })
-  };
+    // httpOptions = {
+    //   headers: new HttpHeaders({
+    //     ContentType: 'application/json'
+    //   })
+  //};
   public cartItemList : any =[]
   public qtyProd = new BehaviorSubject<any>([]);
   //for the producst page
   public productList = new BehaviorSubject<any>([]);
-   headers={
-    //  headers: new HttpHeaders({
-    //   'Authorization':`Bearer sk_test_75906ab3946da8788599654f00b956f1dc111a72`,
-    //   'Content-Type': `application/json`,
-    //  })    
+
+   paystackhttpOptions={
      headers: new HttpHeaders({
-      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ1MTkwNzI5MTJAdHVrcy5jby56YSIsImFwaV90b2tlbiI6Im8xWkNzVmtmdnFTS3ZNNHNxd0RRZE90d0FmNVZ3NzFvNDgtV3FJUHF6ZjZlUkJWUUdrT1YtZUdYYmlnTkVDYnhSdXcifSwiZXhwIjoxNjM0MDIyMzQxfQ.Xkk4dcy6kjMtU7V-LZgecgyhS9J_ZH9nDNMx03OHCvU",
-        "Accept": "application/json",
-        // "api-token": "o1ZCsVkfvqSKvM4sqwDQdOtwAf5Vw71o48-WqIPqzf6eRBVQGkOV-eGXbigNECbxRuw",
-        // "user-email": "u19072912@tuks.co.za"
-     }) 
+      'Authorization':`Bearer sk_test_75906ab3946da8788599654f00b956f1dc111a72`,
+      'Content-Type': `application/json`,
+     })    
    }
+
+   AddresshttpOptions = {
+    headers: new HttpHeaders({
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ1MTkwNzI5MTJAdHVrcy5jby56YSIsImFwaV90b2tlbiI6Im8xWkNzVmtmdnFTS3ZNNHNxd0RRZE90d0FmNVZ3NzFvNDgtV3FJUHF6ZjZlUkJWUUdrT1YtZUdYYmlnTkVDYnhSdXcifSwiZXhwIjoxNjM0MDIyMzQxfQ.Xkk4dcy6kjMtU7V-LZgecgyhS9J_ZH9nDNMx03OHCvU`
+    })
+    
+  };
  
   constructor(
     private http:HttpClient) { 
@@ -94,19 +105,19 @@ export class CartService {
 
   paymentInit(item:any){
     console.log(item)
-    return this.http.post<any>('https://api.paystack.co/transaction/initialize',item, this.headers)
+    return this.http.post<any>('https://api.paystack.co/transaction/initialize',item, this.paystackhttpOptions)
   }
   
   Provinces(){
-    return this.http.get<any>("https://www.universal-tutorial.com/api/states/South Africa", this.headers)  
+    return this.http.get<any>("https://www.universal-tutorial.com/api/states/South Africa", this.AddresshttpOptions)  
   }
 
   Cities(province:any){
-    return this.http.get<any>(`https://www.universal-tutorial.com/api/cities/${province}`, this.headers)  
+    return this.http.get<any>(`https://www.universal-tutorial.com/api/cities/${province}`, this.AddresshttpOptions)  
   }
   
   Checkout(Sale:any){
-    return this.http.post<any>(`${this.server}Checkout/Checkout`, Sale,this.httpOptions)
+    return this.http.post<any>(`${this.server}Checkout/Checkout`, Sale,this.paystackhttpOptions)
   }
 
   GetAddressByCustID(customerid):  Observable<any>  {
@@ -114,19 +125,19 @@ export class CartService {
   }
 
   AddCustomerAddress(Address:Address):Observable<Address>  {
-    return this.http.post<Address>(`${this.server}Checkout/AddAddress`, Address,this.httpOptions);
+    return this.http.post<Address>(`${this.server}Checkout/AddAddress`, Address);
   }
 
   postDelivery(Delivery:Delivery):Observable<Delivery[]>{
-    return this.http.post<Delivery[]>(`${this.server}Checkout/Delivery`,Delivery ,this.httpOptions);
+    return this.http.post<Delivery[]>(`${this.server}Checkout/Delivery`,Delivery ,this.AddresshttpOptions);
 
   }
   postCollection(Sale:any):Observable<any>{
-    return this.http.post<any>(`${this.server}Checkout/CollectionCheckout`, Sale,this.httpOptions);
+    return this.http.post<any>(`${this.server}Checkout/CollectionCheckout`, Sale,this.AddresshttpOptions);
   }
 
   CollectionCheckout(place:any):  Observable<any>  {
-    return this.http.post<any>(`${this.server}Checkout/CollectionCheckout`, place,this.httpOptions);
+    return this.http.post<any>(`${this.server}Checkout/CollectionCheckout`, place,this.AddresshttpOptions);
   }
   getProducts(){
     return this.productList.asObservable();
@@ -191,7 +202,7 @@ export class CartService {
 console.log(currentCart)
     this.productList.next(currentCart);
   }
-  
+
   removeAllCart(){
     let currentCart = this.productList.value;
     currentCart = []
