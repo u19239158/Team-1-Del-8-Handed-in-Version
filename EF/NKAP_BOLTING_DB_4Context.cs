@@ -987,6 +987,10 @@ namespace NKAP_API_2.EF
 
                 entity.Property(e => e.SupplierOrderTotal).HasColumnType("money");
 
+                entity.Property(e => e.SupplierTotalPdf)
+                    .IsUnicode(false)
+                    .HasColumnName("SupplierTotalPDF");
+
                 entity.HasOne(d => d.Supplier)
                     .WithMany(p => p.SupplierOrders)
                     .HasForeignKey(d => d.SupplierId)

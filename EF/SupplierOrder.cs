@@ -18,6 +18,7 @@ namespace NKAP_API_2.EF
         public DateTime OrderDatePlaced { get; set; }
         public DateTime? OrderDateReceived { get; set; }
         public decimal? SupplierOrderTotal { get; set; }
+        public string SupplierTotalPdf { get; set; }
 
         public virtual Supplier Supplier { get; set; }
         public virtual SupplierOrderStatus SupplierOrderStatus { get; set; }
