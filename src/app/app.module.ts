@@ -25,6 +25,7 @@ import { NewregisterComponent } from './pages/newregister/newregister.component'
 // import { MatFormFieldModule } from '@angular/material/form-field/form-field-module';
 import { ForgotUsernameComponent } from './forgot-username/forgot-username.component';
 import { LearnMoreComponent } from './pages/learn-more/learn-more.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { LearnMoreComponent } from './pages/learn-more/learn-more.component';
     //GoogleMapsComponent,
     NewregisterComponent,
     ForgotUsernameComponent,
-    LearnMoreComponent
+    LearnMoreComponent,
+    LogoutComponent
 
   ],
   imports: [

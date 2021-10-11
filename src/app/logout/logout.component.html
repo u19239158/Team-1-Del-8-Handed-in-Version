@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>
+    <a mat-mini-fab color="primary" href="http://localhost:8080/Logout.html" target="_blank"
+        aria-label="Example icon button with a menu icon" class="help">
+        <mat-icon>help</mat-icon>
+    </a>
+    Confirm Logout
+</h2>
+<mat-dialog-content class="mat-typography">
+    <p>
+        Are you sure you want to logout?
+    </p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="Cancel()" >No</button>
+    <button mat-raised-button type="submit" color="primary" cdkFocusInitial (click)="Logout()">Yes</button>
+</mat-dialog-actions>
