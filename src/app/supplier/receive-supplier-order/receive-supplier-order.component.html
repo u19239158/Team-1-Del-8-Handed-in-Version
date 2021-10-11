@@ -61,7 +61,7 @@
           <td mat-cell *matCellDef="let element">
             <div class="example-button-container">
             
-                <a href="https://firebasestorage.googleapis.com/v0/b/nkap-storage.appspot.com/o/files0.22887191265548856INVOICE1.pdf?alt=media&token=6fa8054b-9c8b-49c3-aafa-31e79b90410e" target="_blank" aria-label="Example icon button with a menu icon" (click)="showInvoice()"> 
+                <a href={{element.supplierTotalPdf}} target="_blank" aria-label="Example icon button with a menu icon" (click)="showInvoice()"> 
                   <mat-icon>image</mat-icon>
                 </a>
            
