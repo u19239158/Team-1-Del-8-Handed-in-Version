@@ -266,7 +266,7 @@ reloadCurrentPage(){
 
   DeliveryCheckout(){
 
-    this.cartService.GetAddressByCustID(this.Customer.customerId). subscribe(res => {
+    this.cartService.GetAddressByCustID(this.Customer.customerId).subscribe(res => {
       console.log(res)
       // this.addyID = res.addressId
       // console.log(this.addyID)

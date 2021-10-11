@@ -75,12 +75,12 @@ export class CartService {
     //  headers: new HttpHeaders({
     //   'Authorization':`Bearer sk_test_75906ab3946da8788599654f00b956f1dc111a72`,
     //   'Content-Type': `application/json`,
-    //  }),    
+    //  })    
      headers: new HttpHeaders({
-      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ1MTkwNzI5MTJAdHVrcy5jby56YSIsImFwaV90b2tlbiI6Im8xWkNzVmtmdnFTS3ZNNHNxd0RRZE90d0FmNVZ3NzFvNDgtV3FJUHF6ZjZlUkJWUUdrT1YtZUdYYmlnTkVDYnhSdXcifSwiZXhwIjoxNjMzNjU4OTA5fQ.qbDSBb64eHD_Qh8AI6osIIl9LY8uuAjKpqZilNU1FTc",
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ1MTkwNzI5MTJAdHVrcy5jby56YSIsImFwaV90b2tlbiI6Im8xWkNzVmtmdnFTS3ZNNHNxd0RRZE90d0FmNVZ3NzFvNDgtV3FJUHF6ZjZlUkJWUUdrT1YtZUdYYmlnTkVDYnhSdXcifSwiZXhwIjoxNjM0MDIyMzQxfQ.Xkk4dcy6kjMtU7V-LZgecgyhS9J_ZH9nDNMx03OHCvU",
         "Accept": "application/json",
-        //"api-token": "o1ZCsVkfvqSKvM4sqwDQdOtwAf5Vw71o48-WqIPqzf6eRBVQGkOV-eGXbigNECbxRuw",
-        //"user-email": "u19072912@tuks.co.za"
+        // "api-token": "o1ZCsVkfvqSKvM4sqwDQdOtwAf5Vw71o48-WqIPqzf6eRBVQGkOV-eGXbigNECbxRuw",
+        // "user-email": "u19072912@tuks.co.za"
      }) 
    }
  
@@ -187,10 +187,11 @@ export class CartService {
 
   removeCartItem(product: any){
     let currentCart = this.productList.value;
-    currentCart = currentCart.filter(x=>x.productItemId!==product.productItemId)
-
+    currentCart = currentCart.filter(x=>x.productitemid!==product.productitemid)
+console.log(currentCart)
     this.productList.next(currentCart);
   }
+  
   removeAllCart(){
     let currentCart = this.productList.value;
     currentCart = []
