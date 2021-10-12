@@ -56,7 +56,7 @@
     </mat-card>
 
 <div class="main">
-    <form [formGroup]="form">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
 <div class="mat-row">
     <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m" >
@@ -83,7 +83,7 @@
 
   <div class="mat-row">
     <div class="mat-col-quarter">
-       <button mat-raised-button color ="primary" (click)="finalOrder()" [disabled]="loading">
+       <button mat-raised-button color ="primary" [disabled]="loading" (click)="finalOrder()">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Save
       </button>

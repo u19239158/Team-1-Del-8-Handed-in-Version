@@ -1,12 +1,14 @@
 <div class="content">
 
- <a *ngIf="isAddMode" mat-mini-fab color="primary" href="http://localhost:8080/AddEmployee1.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
-                <mat-icon>help</mat-icon>
-              </a>
+    <a *ngIf="isAddMode" mat-mini-fab color="primary" href="http://localhost:8080/AddEmployee1.html" target="_blank"
+        aria-label="Example icon button with a menu icon" class="help">
+        <mat-icon>help</mat-icon>
+    </a>
 
-              <a *ngIf="!isAddMode" mat-mini-fab color="primary" href="http://localhost:8080/UpdateEmployee1.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
-                <mat-icon>help</mat-icon>
-              </a>
+    <a *ngIf="!isAddMode" mat-mini-fab color="primary" href="http://localhost:8080/UpdateEmployee1.html" target="_blank"
+        aria-label="Example icon button with a menu icon" class="help">
+        <mat-icon>help</mat-icon>
+    </a>
 
     <h2 *ngIf="isAddMode">Add Employee</h2>
     <h2 *ngIf="!isAddMode">Edit Employee</h2>
