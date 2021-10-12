@@ -25,6 +25,7 @@ export class LogoutComponent implements OnInit {
     this.UsersID = obj.userId
     this.auth.Logout(this.UsersID).subscribe();
     window.localStorage.removeItem("user");
+    window.localStorage.removeItem("token");
     this.dialogRef.close(true);
     this.router.navigateByUrl('');
 

@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Customer,CustomerService } from 'src/app/services/customer/customer.service';
 import { throwToolbarMixedModesError } from '@angular/material/toolbar';
+import { TokenType } from '@angular/compiler/src/ml_parser/lexer';
 
 
 export interface Coordinates {
@@ -51,7 +52,7 @@ export class order{
 export class CartComponent implements OnInit {
 
   addressform: FormGroup; 
-
+  tokeny = localStorage.getItem('token')
   isSubmitted = false;
   public products : order[] = [];
   public transaction : any =[];
@@ -115,8 +116,9 @@ export class CartComponent implements OnInit {
    this.token = obj.auth
    //console.log(this.token)
    localStorage.setItem('token',this.token)
-   var tokenm = localStorage.getItem('token')
-   console.log(tokenm)
+   
+   console.log(this.tokeny)
+  
 
     //populateProvince
     this.cartService.Provinces()
