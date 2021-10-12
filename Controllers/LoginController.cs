@@ -213,19 +213,20 @@ namespace NKAP_API_2.Controllers
                 }
                 else
                 {
-
+                  
                     var tokens = token.CusGenerateToken(model);
                     var username = user.UserUsername;
                     string toke = await GetToken();
                     var trim = toke.Substring(toke.IndexOf(':') + 1);
                     var endtrim = trim.Substring(1);
+                    var strings = endtrim.Substring(0, endtrim.Length - 2);
                     //var fintrim = endtrim.Substring(endtrim.Length-3);
                     var x = new helperclass();
                     x.token = tokens;
                     x.userUsername = username;
                     x.userId = user.UsersId;
                     x.userRoleID = (int)user.UserRoleId;
-                    x.auth = endtrim;
+                    x.auth = strings;
                     return Ok(x);
                 }
 
