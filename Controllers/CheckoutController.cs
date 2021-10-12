@@ -338,8 +338,8 @@ namespace NKAP_API_2.Controllers
                     // PriceDescription = zz.ProductItem.pr
                 }).
                 ToList();
-            var products = _db.ProductItems.Include(zz => zz.CategoryType).Include(zz => zz.Prices).Include(zz => zz.ProductSpecials).ThenInclude(zz => zz.Special)
-                .Where(zz => zz.ProductSpecials.Where(xx => xx.ProductItem.QuantityOnHand >= 1).Any(xx => xx.ProductItemId == zz.ProductItemId && xx.Special.SpecialStartDate <= System.DateTime.Now && xx.Special.SpecialEndDate >= System.DateTime.Now) == false)
+            var products = _db.ProductItems.Include(zz => zz.CategoryType).Include(zz => zz.Prices).Include(zz => zz.ProductSpecials).ThenInclude(zz => zz.Special).Where(xx => xx.QuantityOnHand >= 1)
+                .Where(zz => zz.ProductSpecials.Any(xx => xx.ProductItemId == zz.ProductItemId && xx.Special.SpecialStartDate <= System.DateTime.Now && xx.Special.SpecialEndDate >= System.DateTime.Now) == false)
                 .Select(zz => new ProductItemModel
                 {
                     CategoryTypeID = (int)zz.CategoryTypeId,
@@ -388,7 +388,7 @@ namespace NKAP_API_2.Controllers
                     // PriceDescription = zz.ProductItem.pr
                 }).
                 ToList();
-            var products = _db.ProductItems.Include(zz => zz.CategoryType).Include(zz => zz.Prices).Include(zz => zz.ProductSpecials).ThenInclude(zz => zz.Special)
+            var products = _db.ProductItems.Include(zz => zz.CategoryType).Include(zz => zz.Prices).Include(zz => zz.ProductSpecials).ThenInclude(zz => zz.Special).Where(xx => xx.QuantityOnHand >= 1)
                 .Where(zz => zz.ProductSpecials.Any(xx => xx.ProductItemId == zz.ProductItemId && xx.Special.SpecialStartDate <= System.DateTime.Now && xx.Special.SpecialEndDate >= System.DateTime.Now ) == false ).Select(zz => new ProductItemModel
                 {
                     CategoryTypeID = (int)zz.CategoryTypeId,

@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/nkapdbserver/databases/NKAP_BOLTING_DB_4",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:NKAP_DB",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}
