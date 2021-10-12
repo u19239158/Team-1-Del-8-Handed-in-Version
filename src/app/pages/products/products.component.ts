@@ -43,12 +43,12 @@ export class ProductsComponent implements OnInit {
   }
   
   //outside ng oninit
-  loadbyCat(item){
+  loadbyCat(item){  
+    document.getElementById('allProducts').classList.add('hide')
+
     this.api.getProductByCategoryTypeID(item.productCategoryId)
     .subscribe(res=>{
-      this.categoryTypes= res.withoutspecial.map( (data, number) => ({...data, num:1}) );      
-
-    document.getElementById('allProducts').classList.toggle('hide')
+      this.categoryTypes= res.withoutspecial.map( (data, number) => ({...data, num:1}) );    
     })
 
   }
