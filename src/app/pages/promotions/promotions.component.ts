@@ -28,21 +28,21 @@ export class PromotionsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    //Home page different categories of products
-    this.api.getProductCategory()
-    .subscribe(res=>{
-      this.promoCategories=res;
-      console.log(this.promoCategories);
+    // //Home page different categories of products
+    // this.api.getProductCategory()
+    // .subscribe(res=>{
+    //   this.promoCategories=res;
+    //   console.log(this.promoCategories);
 
-    })
+    // })
     
-    //product page content
-    this.api.getCategoryType()
-    .subscribe(res=>{
-      this.categoryPromoTypes=res;
-      console.log(this.categoryPromoTypes);
+    // //product page content
+    // this.api.getCategoryType()
+    // .subscribe(res=>{
+    //   this.categoryPromoTypes=res;
+    //   console.log(this.categoryPromoTypes);
 
-    })
+    // })
 
 
     //getDiscount
@@ -60,15 +60,15 @@ export class PromotionsComponent implements OnInit {
     // })
 
     //modal product type dropdown
-    this.api.getProductItem()
-    .subscribe(res=>{
-      this.promoProductItems = res;
-      console.log(this.promoProductItems);
+    // this.api.getProductItem()
+    // .subscribe(res=>{
+    //   this.promoProductItems = res;
+    //   console.log(this.promoProductItems);
 
     // this.products.forEach((a:any) => {
     //     Object.assign(a,{quantity:1,total:a.price});      
       // });
-    })
+    //})
 
     this.api.getAllItems()
     .subscribe(res=>{      

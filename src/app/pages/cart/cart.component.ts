@@ -50,10 +50,7 @@ export class order{
 })
 export class CartComponent implements OnInit {
 
-  //email = new FormControl('', [Validators.required, Validators.email]);
-
-  addressform: FormGroup;
-  
+  addressform: FormGroup; 
 
   isSubmitted = false;
   public products : order[] = [];
@@ -67,6 +64,9 @@ export class CartComponent implements OnInit {
 
   selectedOption: string;
   selectedOption2: string;
+
+  public localPlaces : any =['Port Shepstone, Margate, Hibberdene, Port Edward, South Broom, Shelley Beach, Umtentweni, Ramsgate'];
+  // yesLocal = true;
 
   Customer: Customer;
   userid : number;
@@ -84,10 +84,8 @@ export class CartComponent implements OnInit {
     this.coordinates = {} as Coordinates;
   }
 
-
   ngOnInit() {
-
-   
+        
     const AddressformOptions: AbstractControlOptions = {};
     this.addressform = this.formBuilder.group({
     AddressLine1 : new FormControl('', [Validators.required]),
@@ -122,6 +120,8 @@ export class CartComponent implements OnInit {
    this.userid = obj.userId
    this.customerService.GetProfile(this.userid).subscribe(res => {
     this.Customer = res})
+
+
   }
   
 
@@ -136,16 +136,32 @@ export class CartComponent implements OnInit {
   }
 
   onBlur(){
-    console.log('blurred lines')
     this.populateCities()    
   }
 
-reloadCurrentPage(){
-  this.router.navigate([this.router.url]);
-  this.cartService.getTotalPrice();
-  this.grandTotal = this.cartService.getTotalPrice();      
-  this.vatTotals = this.cartService.getVATPrice();
-}
+  onBlurCity(){        
+      if(this.selectedOption2=='Port Shepstone'||this.selectedOption2=='Margate'||this.selectedOption2=='Hibberdene'||this.selectedOption2=='Port Edward'||this.selectedOption2=='South Broom'||this.selectedOption2=='Shelley Beach'||this.selectedOption2=='Umtentweni'||this.selectedOption2=='Ramsgate'){
+//||'Margate'||'Hibberdene'||'Port Edward'||'South Broom'||'Shelley Beach'||'Umtentweni'||'Ramsgate'
+      console.log(this.selectedOption2)
+      console.log('Local')
+      this.grandTotal+=50;
+      console.log(this.grandTotal)
+    }
+    else{
+      console.log(this.selectedOption2)
+      console.log('Courier')
+      this.grandTotal+=100;
+      console.log(this.grandTotal)
+    }
+  }
+ 
+
+  reloadCurrentPage(){
+    this.router.navigate([this.router.url]);
+    this.cartService.getTotalPrice();
+    this.grandTotal = this.cartService.getTotalPrice();      
+    this.vatTotals = this.cartService.getVATPrice();
+  }
 
 //CART METHODS - Remove, clear items
   removeItem(item: any){
@@ -161,6 +177,7 @@ reloadCurrentPage(){
   }
   emptycart(){
     this.cartService.removeAllCart();
+    this.router.navigate([this.router.url]);
 
     this.snack.open('Cart emptied', 'OK', 
     {
@@ -175,14 +192,6 @@ reloadCurrentPage(){
   }
 
   openmodal(){
-    // if(this.Customer.usersId=null){
-    //   console.log('not logged in')
-    //   this.userLogin()      
-    // }
-    // else{
-    //   document.querySelector('.modal').classList.add('is-active')
-    //   console.log('logged in')
-    // }
     var ids = localStorage.getItem('user')
     const obj = JSON.parse(ids)
     if(obj == null){
@@ -240,6 +249,8 @@ reloadCurrentPage(){
        this.makePayment()
 
        this.cartService.removeAllCart();
+       this.router.navigate([this.router.url]);
+
        this.snack.open('Order Placed! Shop Again!', 'OK', 
       {
         verticalPosition: 'top',
@@ -286,8 +297,7 @@ reloadCurrentPage(){
       }
     this.cartService.Checkout(Sale).subscribe(data => {
     })
- 
-
+    this.makePayment();
     this.cartService.removeAllCart();
     this.snack.open('Order Placed! Shop Again!', 'OK', 
     {

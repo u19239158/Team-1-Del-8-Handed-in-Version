@@ -202,7 +202,7 @@
                 <div>
                   <label class="label">Please enter your Province:</label>
                   <!-- <div class="control"> -->
-                    <input  (blur) = 'onBlur()' [(ngModel)]="selectedOption" name="province" list="provincename" class="input" formControlName="provinceDescription" type="text" placeholder="Province">
+                    <input  (blur)='onBlur()' [(ngModel)]="selectedOption" name="province" list="provincename" class="input" formControlName="provinceDescription" type="text" placeholder="Province">
                     <datalist id="provincename">
                       <option  *ngFor="let province of provinceList" value="{{province.state_name}}">
                     </datalist>
@@ -215,14 +215,19 @@
                   <!-- <div class="control"> 
                    onclick="populateCities()"  
                   -->
-                    <input [(ngModel)]="selectedOption2" name="city" list="cityname" class="input" formControlName="cityDescription" type="text" placeholder="City">
+                    <input (blur)='onBlurCity()' [(ngModel)]="selectedOption2" name="city" list="cityname" class="input" formControlName="cityDescription" type="text" placeholder="City">
                     <datalist id="cityname">
                       <option  *ngFor="let city of cityList" value="{{city.city_name}}">
                     </datalist>
-                    <p >{{selectedOption2}}</p>
-                    <!-- <p *ngIf= "{{selectedOption2}}='Port Shepstone'" >LOCAL</p> -->
-                    <!--Port Shepstone, Margate, Hibberdene, Port Edward, South Broom, Shelley Beach, Umtentweni, Ramsgate-->
-                  <!-- </div> -->
+                    
+                    <div *ngIf="selectedOption2==='Port Shepstone' || selectedOption2==='Margate'|| selectedOption2==='Hibberdene'
+                    || selectedOption2=== 'Port Edward'|| selectedOption2=== 'South Broom'|| selectedOption2=== 'Shelley Beach'|| selectedOption2=== 'Umtentweni'
+                    || selectedOption2=== 'Ramsgate'; else courier">
+                      This is a local delivery. R50 will be added to total
+                   </div>                   
+                   <ng-template #courier>
+                    This is a courier delivery. R100 will be added to total
+                   </ng-template>
                 </div>             
 
                 <!-- Customer Postal Code -->
