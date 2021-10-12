@@ -482,7 +482,7 @@ namespace NKAP_API_2.Controllers
                 }).
                 ToList();
             var products = _db.ProductItems.Include(zz => zz.CategoryType).Include(zz => zz.Prices).Include(zz => zz.ProductSpecials).ThenInclude(zz => zz.Special)
-                .Where(zz => zz.ProductSpecials.Any(xx => xx.ProductItemId == zz.ProductItemId && xx.Special.SpecialStartDate <= System.DateTime.Now && xx.Special.SpecialEndDate >= System.DateTime.Now && xx.ProductItem.QuantityOnHand == 0) == false)
+                .Where(zz => zz.ProductSpecials.Any(xx => xx.ProductItemId == zz.ProductItemId && xx.Special.SpecialStartDate <= System.DateTime.Now && xx.Special.SpecialEndDate >= System.DateTime.Now) == false).Where(xx => xx.QuantityOnHand > 0)
                 .Select(zz => new ProductItemModel
                 {
                     CategoryTypeID = (int)zz.CategoryTypeId,

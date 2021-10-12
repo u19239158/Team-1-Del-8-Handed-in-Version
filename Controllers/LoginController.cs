@@ -35,6 +35,7 @@ namespace NKAP_API_2.Controllers
     public class LoginController : ControllerBase
     {
         readonly TokenController token = new TokenController();
+        private static readonly HttpClient _httpClient = new HttpClient();
 
         private NKAP_BOLTING_DB_4Context _db; //dependency injection for db
         public LoginController(NKAP_BOLTING_DB_4Context db)
@@ -199,72 +200,104 @@ namespace NKAP_API_2.Controllers
             using var db = new NKAP_BOLTING_DB_4Context();
 
             var hashedPassword = this.ComputeSha256Hash(model.UserPassword);
-
-            model.UserRoleName = "Customer";
-            var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
-            var custy = _db.Customers.FirstOrDefault(zz => zz.UsersId == user.UsersId);
-
-            if (custy == null)
+            try
             {
-                string request = "Invalid Credentials";
-                return BadRequest(request);
-            }
-            else
-            {
+                model.UserRoleName = "Customer";
+                var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
+                var custy = _db.Customers.FirstOrDefault(zz => zz.UsersId == user.UsersId);
 
-                var tokens = token.CusGenerateToken(model);
-                var username = user.UserUsername;
-                string toke = await model.GetToken();
-                var trim = toke.Substring(toke.IndexOf(':') + 1); 
-                var endtrim = trim.Substring(1);
-                //var fintrim = endtrim.Substring(endtrim.Length-3);
-                var x = new helperclass();
-                x.token = tokens;
-                x.userUsername = username;
-                x.userId = user.UsersId;
-                x.userRoleID = (int)user.UserRoleId;
-                x.auth = endtrim;
-                return Ok(x);
+                if (custy == null)
+                {
+                    string request = "Invalid Credentials";
+                    return BadRequest(request);
+                }
+                else
+                {
+
+                    var tokens = token.CusGenerateToken(model);
+                    var username = user.UserUsername;
+                    string toke = await GetToken();
+                    var trim = toke.Substring(toke.IndexOf(':') + 1);
+                    var endtrim = trim.Substring(1);
+                    //var fintrim = endtrim.Substring(endtrim.Length-3);
+                    var x = new helperclass();
+                    x.token = tokens;
+                    x.userUsername = username;
+                    x.userId = user.UsersId;
+                    x.userRoleID = (int)user.UserRoleId;
+                    x.auth = endtrim;
+                    return Ok(x);
+                }
+
             }
+
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+
 
 
         }
 
-    //    [HttpPost]
-    //    [Route("GetToken")]
+      
+        public async Task<string> GetToken()
+        {
+            if(_httpClient.BaseAddress == null)
+            {
+                _httpClient.BaseAddress = new Uri("https://www.universal-tutorial.com/api/getaccesstoken");
+                _httpClient.DefaultRequestHeaders.Add("user-email", "u19072912@tuks.co.za");
+                _httpClient.DefaultRequestHeaders.Add("api-token", "o1ZCsVkfvqSKvM4sqwDQdOtwAf5Vw71o48 -WqIPqzf6eRBVQGkOV-eGXbigNECbxRuw");
 
-    //    // public static void GetToken()
+            }
 
-    //    private static readonly HttpClient _httpClient = new HttpClient();
-    //{
-    //     public LoginController()
-    //    {
-    //        _httpClient.BaseAddress = new Uri("https://www.universal-tutorial.com/api/getaccesstoken");
-    //        _httpClient.DefaultRequestHeaders.Add("user-email", "u19072912@tuks.co.za");
-    //        _httpClient.DefaultRequestHeaders.Add("api-token ", "o1ZCsVkfvqSKvM4sqwDQdOtwAf5Vw71o48 -WqIPqzf6eRBVQGkOV-eGXbigNECbxRuw");
-    //    }
-
-    //    public async Task Execute()
-    //    {
-    //    }
-
-    //    public async Task GetToken()
-    //    {
-    //        var response = await _httpClient.GetAsync("");
-    //        response.EnsureSuccessStatusCode();
-
-    //        var content = await response.Content.ReadAsStringAsync();
-    //        //var companies = JsonSerializer.Deserialize<List<CompanyDto>>(content, _options);
-    //    }
-    //}
-
-       
-    
-        
+            //_httpClient.BaseAddress = new Uri("https://www.universal-tutorial.com/api/getaccesstoken");
          
+            var response = await _httpClient.GetAsync("");
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+            //var companies = JsonSerializer.Deserialize<List<CompanyDto>>(content, _options);
+
+            return content;
+        }
+
+        //    [HttpPost]
+        //    [Route("GetToken")]
+
+        //    // public static void GetToken()
+
+        //    private static readonly HttpClient _httpClient = new HttpClient();
+        //{
+        //     public LoginController()
+        //    {
+        //        _httpClient.BaseAddress = new Uri("https://www.universal-tutorial.com/api/getaccesstoken");
+        //        _httpClient.DefaultRequestHeaders.Add("user-email", "u19072912@tuks.co.za");
+        //        _httpClient.DefaultRequestHeaders.Add("api-token ", "o1ZCsVkfvqSKvM4sqwDQdOtwAf5Vw71o48 -WqIPqzf6eRBVQGkOV-eGXbigNECbxRuw");
+        //    }
+
+        //    public async Task Execute()
+        //    {
+        //    }
+
+        //    public async Task GetToken()
+        //    {
+        //        var response = await _httpClient.GetAsync("");
+        //        response.EnsureSuccessStatusCode();
+
+        //        var content = await response.Content.ReadAsStringAsync();
+        //        //var companies = JsonSerializer.Deserialize<List<CompanyDto>>(content, _options);
+        //    }
+        //}
 
 
-    [HttpPost]
+
+
+
+
+
+        [HttpPost]
         [Route("ForgotResetPassword")]
         public IActionResult ForgotResetPassword(RegisterModel model)
         {
