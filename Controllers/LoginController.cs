@@ -22,7 +22,7 @@ using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Rest.Verify.V2;
 using Twilio.Types;
-using RestSharp;
+//using RestSharp;
 using System.Net;
 using System.Reflection;
 using System.Net.Http;
@@ -94,6 +94,7 @@ namespace NKAP_API_2.Controllers
             public string userUsername;
             public int userId;
             public int userRoleID;
+            public string auth;
         }
 
         //Login Admin/Emp SIDE after new db
@@ -105,9 +106,9 @@ namespace NKAP_API_2.Controllers
 
             var hashedPassword = this.ComputeSha256Hash(model.UserPassword);
             // model.UserRoleName = "Admin";
-            var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername ).FirstOrDefault();
+            var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername).FirstOrDefault();
             var log = _db.Users.FirstOrDefault(zz => zz.UserUsername == model.UserUsername);
-   
+
 
             if (user == null)
             {
@@ -118,16 +119,16 @@ namespace NKAP_API_2.Controllers
 
             var admin = _db.Admins.FirstOrDefault(zz => zz.UsersId == log.UsersId);
             var emp = _db.Employees.FirstOrDefault(zz => zz.UsersId == log.UsersId);
-             if (admin != null)
+            if (admin != null)
             {
                 model.UserRoleName = "Admin";
-                if (user.UserPassword !=ComputeSha256Hash( model.UserPassword))
+                if (user.UserPassword != ComputeSha256Hash(model.UserPassword))
                 {
-                   
+
                     request = "Incorrect Password";
                     return BadRequest(request);
                     // return ;
-                    
+
                 }
                 else
                 {
@@ -190,129 +191,12 @@ namespace NKAP_API_2.Controllers
 
         }
 
-        //[HttpPost]
-        //[Route("CustomerLogin")]
-        //public string CustomerLogin(RegisterModel model)
-        //{
-        //    //using var db = new NKAP_BOLTING_DB_4Context();
-
-        //    var hashedPassword = this.ComputeSha256Hash(model.UserPassword);
-        //    model.UserRoleName = "Customer";
-        //    var user = _db.Users.Where(zz => zz.UserUsername == model.UserUsername && zz.UserPassword == hashedPassword).FirstOrDefault();
-        //    if (user == null)
-        //    {
-        //       return BadRequest(request);
-        //        return request;
-        //    }
-        //    else
-        //    {
-        //        return token.GenerateToken(model);
-        //    }
-
-        //}
-
-        [HttpGet]
-        [Route("Customer")]
-        public static void Customer()
-        {
-            
-            Uri baseUrl = new Uri("https://www.universal-tutorial.com/api/getaccesstoken");
-            IRestClient client = new RestClient(baseUrl);
-            IRestRequest request = new RestRequest("get", Method.GET);
-
-            
-            request.AddHeader("user-email", "u19072912@tuks.co.za");
-            request.AddHeader("api-token", "o1ZCsVkfvqSKvM4sqwDQdOtwAf5Vw71o48 -WqIPqzf6eRBVQGkOV-eGXbigNECbxRuw");
-            IRestResponse response = client.Execute(request);
-
-            if (response.IsSuccessful)
-            {
-
-                var success = "";
-                success = response.Content;
-                Console.WriteLine(success);
-
-            }
-            else
-            {
-                Console.WriteLine(response.ErrorMessage);
-            }
-        }
 
         [HttpPost]
         [Route("CustomerLogin")]
-
-        //public static void test()
-        //{
-        //    var success = "";
-        //    Uri baseUrl = new Uri("https://www.universal-tutorial.com/api/getaccesstoken");
-        //    IRestClient client = new RestClient(baseUrl);
-        //    IRestRequest request = new RestRequest("get", Method.GET);
-
-        //   // request.ContentType = "application/json";
-        //    request.AddHeader("email", "u19072912@tuks.co.za");
-        //    request.AddHeader("api-token ","o1ZCsVkfvqSKvM4sqwDQdOtwAf5Vw71o48 -WqIPqzf6eRBVQGkOV-eGXbigNECbxRuw");
-        //    IRestResponse response = client.Execute(request);
-
-        //    if (response.IsSuccessful)
-        //    {
-                
-
-        //        success = response.Content;
-        //        Console.WriteLine(success);
-              
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine(response.ErrorMessage);
-        //    }
-        //}
-
-        //public class Args
-        //{
-        //    public string clientId { get; set; }
-        //}
-
-        //public class Headers
-        //{
-        //    public string Accept { get; set; }
-
-        //    public string AcceptEncoding { get; set; }
-
-        //    public string AcceptLanguage { get; set; }
-
-        //    public string Authorization { get; set; }
-
-        //    public string Connection { get; set; }
-
-        //    public string Dnt { get; set; }
-
-        //    public string Host { get; set; }
-
-        //    public string Origin { get; set; }
-
-        //    public string Referer { get; set; }
-
-        //    public string UserAgent { get; set; }
-        //}
-
-        //public class RootObject
-        //{
-        //    public Args args { get; set; }
-
-        //    public Headers headers { get; set; }
-
-        //    public string origin { get; set; }
-
-        //    public string url { get; set; }
-
-        //    public string data { get; set; }
-
-        //    public Dictionary<string, string> files { get; set; }
-        //}
-        public IActionResult CustomerLogin(RegisterModel model)
+        public async Task<IActionResult> CustomerLoginAsync(RegisterModel model)
         {
-            //using var db = new NKAP_BOLTING_DB_4Context();
+            using var db = new NKAP_BOLTING_DB_4Context();
 
             var hashedPassword = this.ComputeSha256Hash(model.UserPassword);
 
@@ -330,20 +214,54 @@ namespace NKAP_API_2.Controllers
 
                 var tokens = token.GenerateToken(model);
                 var username = user.UserUsername;
-
+                string toke = await model.GetToken();
                 var x = new helperclass();
                 x.token = tokens;
                 x.userUsername = username;
                 x.userId = user.UsersId;
                 x.userRoleID = (int)user.UserRoleId;
-
+                x.auth = toke;
                 return Ok(x);
             }
 
+
         }
 
+    //    [HttpPost]
+    //    [Route("GetToken")]
 
-        [HttpPost]
+    //    // public static void GetToken()
+
+    //    private static readonly HttpClient _httpClient = new HttpClient();
+    //{
+    //     public LoginController()
+    //    {
+    //        _httpClient.BaseAddress = new Uri("https://www.universal-tutorial.com/api/getaccesstoken");
+    //        _httpClient.DefaultRequestHeaders.Add("user-email", "u19072912@tuks.co.za");
+    //        _httpClient.DefaultRequestHeaders.Add("api-token ", "o1ZCsVkfvqSKvM4sqwDQdOtwAf5Vw71o48 -WqIPqzf6eRBVQGkOV-eGXbigNECbxRuw");
+    //    }
+
+    //    public async Task Execute()
+    //    {
+    //    }
+
+    //    public async Task GetToken()
+    //    {
+    //        var response = await _httpClient.GetAsync("");
+    //        response.EnsureSuccessStatusCode();
+
+    //        var content = await response.Content.ReadAsStringAsync();
+    //        //var companies = JsonSerializer.Deserialize<List<CompanyDto>>(content, _options);
+    //    }
+    //}
+
+       
+    
+        
+         
+
+
+    [HttpPost]
         [Route("ForgotResetPassword")]
         public IActionResult ForgotResetPassword(RegisterModel model)
         {
