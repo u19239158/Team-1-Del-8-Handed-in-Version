@@ -606,21 +606,25 @@ namespace NKAP_API_2.Controllers
 
                 return Ok(addy.AddressId);
             }
-            else
+            else if (addy == null)
             {
 
                 Address address = new Address();
                 address.AddressLine1 = model.AddressLine1; //attributes in table
                 address.AddressLine2 = model.AddressLine2;
-
+                address.City = model.cityDescription;
                 address.AddressPostalCode = model.AddressPostalCode;
                 address.CustomerId = model.CustomerID;
 
                 var provy = _db.Provinces.FirstOrDefault(zz => zz.ProvinceDescription == model.ProvinceDescription);
                 address.ProvinceId = provy.ProvinceId;
-                _db.Addresses.Attach(address);
+                _db.Addresses.Add(address);
                 _db.SaveChanges();
-                return Ok(addy.AddressId);
+                return Ok(address.AddressId);
+            }
+            else
+            {
+                return BadRequest("Your order could not be placed.");
             }
            
         }
