@@ -44,10 +44,8 @@ GetFullSaleByID(saleID):  Observable<OnlineSales>  {
 }
 
 AssignCourier(id: any):  Observable<Courier[]>  {
-const data = {
-  saleID : id
-}
-  return this.http.put<Courier[]>(`${this.server}Delivery/AssignCourier`, data,this.httpOptions);
+
+  return this.http.put<Courier[]>(`${this.server}Delivery/AssignCourier`, id,this.httpOptions);
 }
 
 

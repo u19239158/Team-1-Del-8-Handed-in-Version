@@ -79,16 +79,16 @@ export class DeliveryshiftService {
     return this.http.get<Deliveryshift[]>(`${this.server}Delivery/GetUnassignedDeliveries`).pipe(map(res => res));
   }
 
-  GetAssigned(employeeShiftId): Observable<Deliveryshift> {
-    return this.http.get<Deliveryshift>(`${this.server}Deliveryshift/GetAssigned/${employeeShiftId}`).pipe(map(res => res));
+  GetAssigned(employeeShiftId): Observable<Deliveryshift[]> {
+    return this.http.get<Deliveryshift[]>(`${this.server}Deliveryshift/GetAssigned/${employeeShiftId}`).pipe(map(res => res));
   }
 
   AssignLocalDelivery(OnlineSales: OnlineSales): Observable<OnlineSales[]> {
     return this.http.put<OnlineSales[]>(`${this.server}Delivery/AssignLocalDelivery`, OnlineSales, this.httpOptions);
   }
 
-  AssignDelivery(Deliveryshift: Deliveryshift): Observable<Deliveryshift[]> {
-    return this.http.put<Deliveryshift[]>(`${this.server}Delivery/AssignDelivery`, Deliveryshift, this.httpOptions);
+  AssignDelivery(Deliveryshift: any): Observable<any> {
+    return this.http.put<any>(`${this.server}Delivery/AssignLocalDelivery`, Deliveryshift, this.httpOptions);
   }
 
   GetSaleByID(saleID):  Observable<OnlineSales>  {
