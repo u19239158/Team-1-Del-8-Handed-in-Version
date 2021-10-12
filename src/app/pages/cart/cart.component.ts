@@ -277,10 +277,6 @@ export class CartComponent implements OnInit {
 
   DeliveryCheckout(){
 
-    this.cartService.GetAddressByCustID(this.Customer.customerId).subscribe(res => {
-      //console.log(res)
-    })
-
     
     const address: Address = this.addressform.value;
     address.customerId = this.Customer.customerId;
@@ -288,7 +284,18 @@ export class CartComponent implements OnInit {
     console.log(address)
     this.cartService.AddCustomerAddress(address).subscribe(res => {
       console.log(res)
+    })
 
+    this.cartService.GetAddressByCustID(this.Customer.customerId).subscribe(res => {
+      this.addy = res
+    })
+      const Sale = {
+        customerId : this.Customer.customerId,
+        paymentAmount : this.grandTotal,
+        saleLists: this.products,
+        addressid: this.addy.addressId
+      }
+    this.cartService.Checkout(Sale).subscribe(data => {
     })
     this.makePayment();
     this.cartService.removeAllCart();
@@ -321,7 +328,7 @@ export class CartComponent implements OnInit {
   //       }
   //       document.querySelector('.modal').classList.remove('is-active')
 
-  //     //this.cartService.Checkout(form);
+      //this.cartService.Checkout(form);
   //     //this.makePayment();
   //   })
   // }
