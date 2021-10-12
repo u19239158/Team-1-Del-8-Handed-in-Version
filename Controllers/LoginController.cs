@@ -194,7 +194,7 @@ namespace NKAP_API_2.Controllers
 
         [HttpPost]
         [Route("CustomerLogin")]
-        public async Task<IActionResult> CustomerLoginAsync(RegisterModel model)
+        public async Task<IActionResult> CustomerLoginAsync(MapClass model)
         {
             using var db = new NKAP_BOLTING_DB_4Context();
 
@@ -212,15 +212,18 @@ namespace NKAP_API_2.Controllers
             else
             {
 
-                var tokens = token.GenerateToken(model);
+                var tokens = token.CusGenerateToken(model);
                 var username = user.UserUsername;
                 string toke = await model.GetToken();
+                var trim = toke.Substring(toke.IndexOf(':') + 1); 
+                var endtrim = trim.Substring(1);
+                //var fintrim = endtrim.Substring(endtrim.Length-3);
                 var x = new helperclass();
                 x.token = tokens;
                 x.userUsername = username;
                 x.userId = user.UsersId;
                 x.userRoleID = (int)user.UserRoleId;
-                x.auth = toke;
+                x.auth = endtrim;
                 return Ok(x);
             }
 

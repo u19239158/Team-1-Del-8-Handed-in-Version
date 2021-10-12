@@ -34,6 +34,20 @@ namespace NKAP_API_2.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token).ToString();
         }
 
+        public string CusGenerateToken(MapClass model)
+        {
+            var token = new JwtSecurityToken(claims: new Claim[]
+            {
+            new Claim(ClaimTypes.Name, model.UserUsername),
+            new Claim(ClaimTypes.Role, model.UserRoleName),
+            },
+            notBefore: new DateTimeOffset(DateTime.Now).DateTime,
+            expires: new DateTimeOffset(DateTime.Now.AddMinutes(60)).DateTime,
+            signingCredentials: new SigningCredentials(SIGNING_KEY, SecurityAlgorithms.HmacSha256)
+            );
+            return new JwtSecurityTokenHandler().WriteToken(token).ToString();
+        }
+
 
     }
 }

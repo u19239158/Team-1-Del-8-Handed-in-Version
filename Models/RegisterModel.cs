@@ -89,30 +89,5 @@ namespace NKAP_API_2.Models
         public int otp
         { get; set; }
 
-        public static readonly HttpClient _httpClient = new HttpClient();
-        
-
-        public RegisterModel()
-        {
-            _httpClient.BaseAddress = new Uri("https://www.universal-tutorial.com/api/getaccesstoken");
-            _httpClient.DefaultRequestHeaders.Add("user-email", "u19072912@tuks.co.za");
-            _httpClient.DefaultRequestHeaders.Add("api-token", "o1ZCsVkfvqSKvM4sqwDQdOtwAf5Vw71o48 -WqIPqzf6eRBVQGkOV-eGXbigNECbxRuw");
-        }
-
-        public async Task Execute()
-        {
-            await GetToken();
-        }
-
-        public async Task<string> GetToken()
-        {
-            var response = await _httpClient.GetAsync("");
-            response.EnsureSuccessStatusCode();
-
-            var content = await response.Content.ReadAsStringAsync();
-            //var companies = JsonSerializer.Deserialize<List<CompanyDto>>(content, _options);
-
-            return content;
-        }
     }
 }
