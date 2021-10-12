@@ -2,7 +2,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Customer, CustomerService } from 'src/app/services/customer/customer.service';
 import { Component, OnInit, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
@@ -73,6 +73,18 @@ export class CustomersComponent implements OnInit {
   }
 
   deleteProfile(){
+    this.customerService.DeleteProfile(this.customer).subscribe( res =>{},
+      (error: HttpErrorResponse)=>
+      {
+      if (error.status === 400)
+        {
+          this.snack.open(error.error, 'OK',
+          {
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+              duration: 4000
+          });
+      }})
     
   }
 
