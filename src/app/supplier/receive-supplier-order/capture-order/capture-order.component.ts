@@ -29,6 +29,7 @@ export class CaptureOrderComponent implements OnInit {
   public list: place[]=[];
   quant: number;
   supplierId: number;
+  loading = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   form = this.FB.group({
     invoiceTotal: [null, Validators.required],

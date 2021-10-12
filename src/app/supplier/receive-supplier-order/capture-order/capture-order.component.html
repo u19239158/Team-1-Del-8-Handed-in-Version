@@ -83,7 +83,8 @@
 
   <div class="mat-row">
     <div class="mat-col-quarter">
-      <button mat-raised-button color ="primary" (click)="finalOrder()">
+       <button mat-raised-button color ="primary" (click)="finalOrder()" [disabled]="loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Save
       </button>
       <a (click)="Close()" mat-button>Cancel</a>

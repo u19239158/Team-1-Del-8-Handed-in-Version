@@ -70,8 +70,8 @@
 </div>
 
 
-<div id="htmlData" *ngIf="created">
-<div class=" column ">
+<div id="htmlData" *ngIf="created" class="column" >
+
  <h2>Total Sales For the Month: R{{total | number:'1.1-2'}}   Average Sale Amount: R{{aveg | number:'1.1-2'}}</h2> 
 
 
@@ -119,11 +119,9 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-</div>
 
-<div class="column1">
 <h2>Sales Breakdown</h2> 
-    <table mat-table [dataSource]="dataSauce" matSort id="saleTable">
+    <table mat-table [dataSource]="dataSauce" matSort id="saleTable" class="column1">
 
     <ng-container matColumnDef="ProductCategory">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Product Category</th>
@@ -141,21 +139,5 @@
 
   <app-sales-overview-grap></app-sales-overview-grap>
   <app-visiter-graph></app-visiter-graph>
-</div>
-</div>
-<!-- <div class="column right">
-  <div *ngIf="created">
-    <div style="align-content: center;">
-      <canvas baseChart
-        [datasets]="barChartData"
-        [labels]="barChartLabels"
-        [options]="barChartOptions"
-        [plugins]="barChartPlugins"
-        [legend]="barChartLegend"
-        [chartType]="barChartType">
-      </canvas>
-    </div>
-    <button mat-button mat-raised-button color="primary" (click)="randomize()">Update</button>
 
-  </div>
-</div> -->
+</div>
