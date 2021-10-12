@@ -26,6 +26,7 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
 
+
     //all product items for main page
     this.api.getAllItems()
     .subscribe(res=>{      
@@ -46,10 +47,10 @@ export class ProductsComponent implements OnInit {
     this.api.getProductByCategoryTypeID(item.productCategoryId)
     .subscribe(res=>{
       this.categoryTypes= res.withoutspecial.map( (data, number) => ({...data, num:1}) );      
-      // console.log(this.categoryTypes);
-      
-      // console.log(res);
+
+    document.getElementById('allProducts').classList.toggle('hide')
     })
+
   }
 
   addtocart(item: any){

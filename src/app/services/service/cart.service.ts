@@ -90,7 +90,7 @@ export class CartService {
 
    AddresshttpOptions = {
     headers: new HttpHeaders({
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ1MTkwNzI5MTJAdHVrcy5jby56YSIsImFwaV90b2tlbiI6Im8xWkNzVmtmdnFTS3ZNNHNxd0RRZE90d0FmNVZ3NzFvNDgtV3FJUHF6ZjZlUkJWUUdrT1YtZUdYYmlnTkVDYnhSdXcifSwiZXhwIjoxNjM0MDIyMzQxfQ.Xkk4dcy6kjMtU7V-LZgecgyhS9J_ZH9nDNMx03OHCvU`
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ1MTkwNzI5MTJAdHVrcy5jby56YSIsImFwaV90b2tlbiI6Im8xWkNzVmtmdnFTS3ZNNHNxd0RRZE90d0FmNVZ3NzFvNDgtV3FJUHF6ZjZlUkJWUUdrT1YtZUdYYmlnTkVDYnhSdXcifSwiZXhwIjoxNjM0MTEzNDQ5fQ.v9mYzmXSniw5izY_7FqfWyYI5XLpfDRtOrkrLobVohM`
     })
     
   };
@@ -99,9 +99,7 @@ export class CartService {
     private http:HttpClient) { 
       { idKey: 'productId' };
     }
-//https://www.universal-tutorial.com/api/states/South Africa
-//https://www.universal-tutorial.com/api/cities/Gauteng
-//post req
+
 
   paymentInit(item:any){
     console.log(item)
@@ -116,9 +114,7 @@ export class CartService {
     return this.http.get<any>(`https://www.universal-tutorial.com/api/cities/${province}`, this.AddresshttpOptions)  
   }
   
-  Checkout(Sale:any){
-    return this.http.post<any>(`${this.server}Checkout/Checkout`, Sale,this.paystackhttpOptions)
-  }
+
 
   GetAddressByCustID(customerid):  Observable<any>  {
     return this.http.get<any>(`${this.server}Address/GetAddressByCustID/${customerid}`).pipe(map(res => res));
@@ -138,6 +134,9 @@ export class CartService {
 
   CollectionCheckout(place:any):  Observable<any>  {
     return this.http.post<any>(`${this.server}Checkout/CollectionCheckout`, place,this.AddresshttpOptions);
+  }
+  DeliveryCheckout(Sale:any){
+    return this.http.post<any>(`${this.server}Checkout/Checkout`, Sale,this.paystackhttpOptions)
   }
   getProducts(){
     return this.productList.asObservable();
