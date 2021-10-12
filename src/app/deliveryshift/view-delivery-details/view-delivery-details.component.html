@@ -43,7 +43,7 @@
                 <!-- Customer Name Column -->
                 <ng-container matColumnDef="customerName">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer</th>
-                    <td mat-cell *matCellDef="let element">{{element.customerName}} </td>
+                    <td mat-cell *matCellDef="let element">{{element.customerName}} {{element.customerSurname}} </td>
                 </ng-container>
 
                 <!-- Customer Business Name Column -->
