@@ -19,12 +19,7 @@ export class SidenavListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    var ids = localStorage.getItem('user')
-    const obj = JSON.parse(ids)
-    console.log(obj.userId)
-    this.UsersID = obj.userId
-    this.auth.Logout(this.UsersID).subscribe();
-    window.localStorage.removeItem("user");
+   
  
   }
   
@@ -33,6 +28,7 @@ export class SidenavListComponent implements OnInit {
   }
 
   logout() {
+    
 
     const logout = this.dialog.open(LogoutComponent, {
       disableClose: true
