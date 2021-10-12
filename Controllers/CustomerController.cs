@@ -362,12 +362,18 @@ namespace NKAP_API_2.Controllers
         {
             try
             {
-                var customer = _db.Users.Find(model.UsersID);
-                {
-                    customer.UserUsername = new Random().Next(100000, 1000000).ToString();
-                    customer.UserPassword = new Random().Next(100000, 1000000).ToString();
-                }
-                _db.Users.Update(customer);
+                //var customer = _db.Users.Find(model.UsersID);
+                //{
+                //    customer.UserUsername = new Random().Next(100000, 1000000).ToString();
+                //    customer.UserPassword = new Random().Next(100000, 1000000).ToString();
+                //}
+                //_db.Users.Update(customer);
+                //_db.SaveChanges();
+
+                var customer = _db.Customers.Find(model.CustomerID);
+                var use = _db.Users.FirstOrDefault(zz => zz.UsersId == customer.UsersId);
+                _db.Customers.Remove(customer); //Delete Record
+
                 _db.SaveChanges();
 
                 //add to audit trail
@@ -384,7 +390,7 @@ namespace NKAP_API_2.Controllers
             }
             catch (Exception)
             {
-                response = "Customer could not be deleted due to existing dependencies linked to the particular account";
+                response = "Profile could not be deleted due to existing dependencies linked to the particular account";
                 return BadRequest(response);
                 throw;
             }

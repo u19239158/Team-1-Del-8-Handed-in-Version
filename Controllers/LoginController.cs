@@ -263,39 +263,6 @@ namespace NKAP_API_2.Controllers
             return content;
         }
 
-        //    [HttpPost]
-        //    [Route("GetToken")]
-
-        //    // public static void GetToken()
-
-        //    private static readonly HttpClient _httpClient = new HttpClient();
-        //{
-        //     public LoginController()
-        //    {
-        //        _httpClient.BaseAddress = new Uri("https://www.universal-tutorial.com/api/getaccesstoken");
-        //        _httpClient.DefaultRequestHeaders.Add("user-email", "u19072912@tuks.co.za");
-        //        _httpClient.DefaultRequestHeaders.Add("api-token ", "o1ZCsVkfvqSKvM4sqwDQdOtwAf5Vw71o48 -WqIPqzf6eRBVQGkOV-eGXbigNECbxRuw");
-        //    }
-
-        //    public async Task Execute()
-        //    {
-        //    }
-
-        //    public async Task GetToken()
-        //    {
-        //        var response = await _httpClient.GetAsync("");
-        //        response.EnsureSuccessStatusCode();
-
-        //        var content = await response.Content.ReadAsStringAsync();
-        //        //var companies = JsonSerializer.Deserialize<List<CompanyDto>>(content, _options);
-        //    }
-        //}
-
-
-
-
-
-
 
         [HttpPost]
         [Route("ForgotResetPassword")]

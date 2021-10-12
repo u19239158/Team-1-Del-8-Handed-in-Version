@@ -303,7 +303,7 @@ namespace NKAP_API_2.Controllers
 
       //  [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
         [Route("AssignLocalDelivery")] //route
-        [HttpPut]
+        [HttpPost]
         //Update Order Status
         public IActionResult AssignLocalDelivery(DeliveryShiftModel model)
         {
@@ -312,7 +312,7 @@ namespace NKAP_API_2.Controllers
             var md = _db.MaxDeliveries.FirstOrDefault(zz => zz.MaxId == 1);
             if (ds.NoOfDeliveries < md.MaxNumber)
             {
-                ds.NoOfDeliveries = +1;
+                ds.NoOfDeliveries = ds.NoOfDeliveries + 1;
                 _db.EmployeeShifts.Attach(ds); //Attach Record
                 _db.SaveChanges();
 
@@ -336,7 +336,7 @@ namespace NKAP_API_2.Controllers
                 _db.SaveChanges();
 
 
-                return Ok(sd);
+                return Ok();
             }
             else
             {

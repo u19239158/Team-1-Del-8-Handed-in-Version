@@ -223,6 +223,79 @@ namespace NKAP_API_2.Controllers
 
         }
 
+        [Route("GetDeliveryShiftNew")] //route
+        [HttpGet]
+        //get Delivery Shift (Read)
+        public IActionResult GetDeliveryShiftNew()
+        {
+            //var Admins = _db.Admins.ToList();
+            try
+            {
+                var DeliveryShift = _db.Shifts.Join(_db.EmployeeShifts,
+                a => a.ShiftId,
+                t => t.ShiftId,
+                (a, t) => new
+                {
+                    ShiftId = a.ShiftId,
+                    EmployeeId = t.EmployeeId,
+                    DateId = a.DateId,
+                    TimeId = a.TimeId,
+                    EmployeeShiftId = t.EmployeeShiftId,
+                    NoOfDeliveries = t.NoOfDeliveries
+                }).Join(_db.Dates,
+                 sor => sor.DateId,
+                 sd => sd.DateId,
+                 (sor, sd) => new
+                 {
+                     DateId = sor.DateId,
+                     EmployeeID = sor.EmployeeId,
+                     TimeId = sor.TimeId,
+                     ShiftId = sor.ShiftId,
+                     DayOfTheWeek = sd.DayOfTheWeek.ToString("dd/MM/yyyy"),
+                     EmployeeShiftId = sor.EmployeeShiftId,
+                     NoOfDeliveries = sor.NoOfDeliveries
+                 }).Join(_db.Times,
+                 sor => sor.TimeId,
+                 sd => sd.TimeId,
+                 (sor, sd) => new
+                 {
+                     TimeId = sor.TimeId,
+                     EmployeeID = sor.EmployeeID,
+                     DateId = sor.DateId,
+                     ShiftId = sor.ShiftId,
+                     DayOfTheWeek = sor.DayOfTheWeek,
+                     StartTime = sd.StartTime,
+                     EndTime = sd.EndTime,
+                     EmployeeShiftId = sor.EmployeeShiftId,
+                     NoOfDeliveries = sor.NoOfDeliveries
+                 }).Join(_db.Employees,
+                 sor => sor.EmployeeID,
+                 sd => sd.EmployeeId,
+                 (sor, sd) => new
+                 {
+                     ShiftId = sor.ShiftId,
+                     EmployeeID = sd.EmployeeId,
+                     EmployeeName = sd.EmployeeName,
+                     EmployeeSurame = sd.EmployeeSurname,
+                     TimeId = sor.TimeId,
+                     DateId = sor.DateId,
+                     DayOfTheWeek = sor.DayOfTheWeek,
+                     StartTime = sor.StartTime,
+                     EndTime = sor.EndTime,
+                     EmployeeShiftId = sor.EmployeeShiftId,
+                     NoOfDeliveries = sor.NoOfDeliveries
+                 });
+
+                return Ok(DeliveryShift);
+            }
+            
+            catch
+            {
+                return BadRequest("No Available Shifts.");
+            }
+
+        }
+
         [Route("GetDeliveryShiftWSale")] //route
         [HttpGet]
         //get Delivery Shift (Read)
