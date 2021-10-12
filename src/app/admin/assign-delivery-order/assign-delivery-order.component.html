@@ -73,16 +73,15 @@
                 </button>
                 <mat-menu #menu="matMenu" xPosition="after">
                     <button mat-menu-item [routerLink]="['/assignlocaldelivery', element.saleId]" *ngIf="element.city== 'Port Shepstone' || element.city=== 'Margate'|| element.city=== 'Hibberdene'
-                    || element.city=== 'Port Edward'|| element.city=== 'South Broom'|| element.city=== 'Shelley Beach'|| element.city=== 'Umtentweni'
-                    || element.city=== 'Ramsgate'">
-                    Assign
-                        Delivery</button>
-                    <button mat-menu-item  [routerLink]="['/assigncourierdelivery', element.saleId]" 
-                    *ngIf="element.city == '!Port Shepstone' || element.city== '!Margate'|| element.city== '!Hibberdene'
-                    || element.city== '!Port Edward'|| element.city== '!South Broom'|| element.city== '!Shelley Beach'|| element.city== '!Umtentweni'
-                    || element.city== '!Ramsgate'"
-                     >Assign
-                        Courier</button>
+                                    || element.city=== 'Port Edward'|| element.city=== 'South Broom'|| element.city=== 'Shelley Beach'|| element.city=== 'Umtentweni'
+                                    || element.city=== 'Ramsgate' ;else courier">
+                        Assign Delivery</button>
+                    <ng-template #courier>
+                        <button mat-menu-item [routerLink]="['/assigncourierdelivery', element.saleId]">Assign
+                            Courier</button>
+                
+                    </ng-template>
+                
                 </mat-menu>
                 <!-- <mat-menu #menu="matMenu" xPosition="after">
                     <button mat-menu-item *ngIf="parseInteger(element.deliveryDistance.slice(0, -2)) <=50"
