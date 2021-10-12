@@ -95,7 +95,7 @@ export class DeliveryshiftsComponent implements OnInit {
     this.dataSource = new MatTableDataSource(data)
   }
 
-  deleteDeliveryshift(Deliveryshift: Deliveryshift) {
+  deleteDeliveryshift(Deliveryshift: any) {
     Deliveryshift.usersId = this.userid
     const confirm = this.dialog.open(GlobalConfirmComponent, {
       disableClose: true,

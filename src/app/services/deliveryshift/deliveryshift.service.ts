@@ -23,6 +23,11 @@ export class DeliveryshiftService {
   GetDeliveryShift(): Observable<Deliveryshift[]> {
     return this.http.get<Deliveryshift[]>(`${this.server}Deliveryshift/GetDeliveryShift`).pipe(map(res => res));
   }
+
+  GetDeliveryShiftNew(): Observable<Deliveryshift[]> {
+    return this.http.get<Deliveryshift[]>(`${this.server}Deliveryshift/GetDeliveryShiftNew`).pipe(map(res => res));
+  }
+
   GetDeliveryShiftWSale(): Observable<Deliveryshift[]> {
     return this.http.get<Deliveryshift[]>(`${this.server}Deliveryshift/GetDeliveryShiftWSale`).pipe(map(res => res));
   }
@@ -63,8 +68,8 @@ export class DeliveryshiftService {
     return this.http.get<dshift>(`${this.server}Deliveryshift/GetMaxD/${id}`).pipe(map(res => res));
   }
   
-  DeleteDeliveryShift(Deliveryshift: Deliveryshift): Observable<Deliveryshift[]> {
-    return this.http.post<Deliveryshift[]>(`${this.server}Deliveryshift/DeleteDeliveryShift`, Deliveryshift, this.httpOptions);
+  DeleteDeliveryShift(Deliveryshift: any): Observable<any> {
+    return this.http.post<any>(`${this.server}Deliveryshift/DeleteDeliveryShift`, Deliveryshift, this.httpOptions);
   }
 
   // DeleteDeliveryShift(deliveryShiftId): Observable<Deliveryshift> {
@@ -83,12 +88,12 @@ export class DeliveryshiftService {
     return this.http.get<Deliveryshift[]>(`${this.server}Deliveryshift/GetAssigned/${employeeShiftId}`).pipe(map(res => res));
   }
 
-  AssignLocalDelivery(OnlineSales: OnlineSales): Observable<OnlineSales[]> {
-    return this.http.put<OnlineSales[]>(`${this.server}Delivery/AssignLocalDelivery`, OnlineSales, this.httpOptions);
-  }
+  // AssignLocalDelivery(OnlineSales: OnlineSales): Observable<OnlineSales[]> {
+  //   return this.http.post<OnlineSales[]>(`${this.server}Delivery/AssignLocalDelivery`, OnlineSales, this.httpOptions);
+  // }
 
   AssignDelivery(Deliveryshift: any): Observable<any> {
-    return this.http.put<any>(`${this.server}Delivery/AssignLocalDelivery`, Deliveryshift, this.httpOptions);
+    return this.http.post<any>(`${this.server}Delivery/AssignLocalDelivery`, Deliveryshift, this.httpOptions);
   }
 
   GetSaleByID(saleID):  Observable<OnlineSales>  {

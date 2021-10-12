@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Deliveryshift } from 'src/app/interfaces';
 import { DeliveryAssignedComponent } from 'src/app/modals/globals/delivery-assigned/delivery-assigned.component';
 import { DeliveryshiftService } from 'src/app/services/deliveryshift/deliveryshift.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/global-confirm.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -92,7 +92,7 @@ export class AssignLocalDeliveryComponent implements OnInit {
 
   readDeliveryshifts(): void {
 
-    this.deliveryshiftService.GetDeliveryShift().subscribe(res => {
+    this.deliveryshiftService.GetDeliveryShiftNew().subscribe(res => {
       console.log("resss", res)
       this.dataSource = new MatTableDataSource(res)
       this.dataSource.sort = this.sort;
@@ -115,16 +115,29 @@ export class AssignLocalDeliveryComponent implements OnInit {
       console.log(this.emp)
       this.deliveryshiftService.AssignDelivery(any).subscribe(data => {
         console.log(data)
+        this.snack.open('Delivery Succesfully Assigned!', 'OK',
+        {
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          duration: 4000
+        });
+      }, (error: HttpErrorResponse) => {
+        console.log(error.error, "test")
+        if (error.status === 400) {
+          this.snack.open(error.error, 'OK',
+            {
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
+              duration: 4000
+            });
+
+
+          return;
+        }
       });
     });
-    // this.deliveryshiftService.AssignLocalDelivery(this.sales).subscribe(data=>{
-    //   console.log(data)});
-    this.snack.open('Delivery Succesfully Assigned!', 'OK',
-      {
-        verticalPosition: 'top',
-        horizontalPosition: 'center',
-        duration: 4000
-      });
+
+   
   }
 
   filter() {
