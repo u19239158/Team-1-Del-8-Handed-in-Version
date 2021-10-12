@@ -90,6 +90,17 @@ export class CaptureOrderComponent implements OnInit {
     })
   }
 
+  onSubmit() {
+
+    if (this.form.invalid) {
+      return;
+    }
+
+    this.loading = true;
+    
+  }
+
+
   async upload(event) {    
     this.path = event.target.files[0]
   }
@@ -136,6 +147,7 @@ export class CaptureOrderComponent implements OnInit {
       }
       this.receiveSupplierService.ReceiveSupplierOrder(Data).subscribe(res => {
         console.log(res)
+        this.loading = false
         this.router.navigateByUrl('receiveSupplierOrder')
       })
       this.snack.open('Order Successfuly Captured! ', 'OK', 
