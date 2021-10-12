@@ -53,7 +53,7 @@ export class ViewDeliveryDetailsComponent implements OnInit {
     this.readDeliveryshifts();
 
     this.deliveryshiftService.GetDeliveryShiftWSale().subscribe((result: Deliveryshift[]) => {
-      this.DeliveryShifts = result;
+     
     });
 
     this.breakpoint = (window.innerWidth <= 600) ? 1 : 2;
@@ -63,7 +63,9 @@ export class ViewDeliveryDetailsComponent implements OnInit {
 
     this.deliveryshiftService.GetAssigned(this.id).subscribe(res => {
       if (res) {
-        this.dshift = res
+        this.dataSource = new MatTableDataSource(res)
+       // this.dataSource.sort = this.sort;
+        // this.dshift = res
         console.log(res),
           (error: HttpErrorResponse) => {
             console.log(error.error, "test")
@@ -84,14 +86,14 @@ export class ViewDeliveryDetailsComponent implements OnInit {
   readDeliveryshifts(): void {
     this.deliveryshiftService.GetDeliveryShiftWSale().subscribe(res => {
       console.log(res)
-      this.dataSource = new MatTableDataSource(res)
-      this.dataSource.sort = this.sort;
+    
+      
     })
   }
 
-  onResize(event) {
-    this.breakpoint = (event.target.innerWidth <= 600) ? 1 : 2;
-  }
+  // onResize(event) {
+  //   this.breakpoint = (event.target.innerWidth <= 600) ? 1 : 2;
+  // }
 
   Close() {
     this.router.navigateByUrl('viewDeliveryShiftSchedule');
@@ -112,7 +114,7 @@ export class ViewDeliveryDetailsComponent implements OnInit {
         e.addressPostalCode && e.addressPostalCode.toLowerCase().includes(this.searchWord.toLowerCase())
     }
     const data = (this.DeliveryShifts.filter(filter))
-    this.dataNotFound = data.length === 0
+  //  this.dataNotFound = data.length === 0
     this.dataSource = new MatTableDataSource(data)
   }
 

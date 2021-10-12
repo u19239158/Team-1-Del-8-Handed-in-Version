@@ -122,10 +122,14 @@ export class AssignCourierDeliveryComponent implements OnInit {
     // this.AssignCourierDeliveryService.GetFullSaleByID(this.id).subscribe(res=>{
     //   this.sales =res;
     //   console.log("Result" ,this.sales)});
-
-    this.AssignCourierDeliveryService.AssignCourier(this.id).subscribe(data => {
+    const data = {
+      saleID : this.id,
+      usersId : this.userid,
+      EmployeeName: this.couriers.courierName
+        }
+    this.AssignCourierDeliveryService.AssignCourier(data).subscribe(data => {
       console.log(data)
-      usersId : this.userid
+      
 
     });
 

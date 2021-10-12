@@ -31,6 +31,7 @@ export class AssignLocalDeliveryComponent implements OnInit {
   searchWord: string;
   dataNotFound: boolean;
   id: number;
+  userid: number;
   deliveryshift: Deliveryshift[] = [];
   public sales: any = [];
   public delivery: any = [];
@@ -66,6 +67,12 @@ export class AssignLocalDeliveryComponent implements OnInit {
       this.DeliveryShifts = result;
     });
 
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   console.log(obj.userId) 
+   this.userid = obj.userId
+    console.log(obj)
+
   }
 
   check_box_type = CheckBoxType;
@@ -97,8 +104,16 @@ export class AssignLocalDeliveryComponent implements OnInit {
     setTimeout(() => this.dataSource.paginator = this.paginator);
     this.deliveryshiftService.GetDeliveryShiftByEmpShiftID(employeeShiftId).subscribe(res => {
       this.emp = res;
+      this.emp
+      const any ={
+        
+        employeeshiftId: this.emp.employeeShiftId,
+        saleId : this.sales.saleID,
+        usersId : this.userid 
+
+      }
       console.log(this.emp)
-      this.deliveryshiftService.AssignDelivery(this.emp).subscribe(data => {
+      this.deliveryshiftService.AssignDelivery(any).subscribe(data => {
         console.log(data)
       });
     });

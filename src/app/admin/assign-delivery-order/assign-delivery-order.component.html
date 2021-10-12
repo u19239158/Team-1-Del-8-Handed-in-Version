@@ -46,17 +46,17 @@
             <td mat-cell *matCellDef="let element"> {{element.customerBusinessName}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="deliveryDistance">
+        <!-- <ng-container matColumnDef="deliveryDistance">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Distance </th>
             <td mat-cell *matCellDef="let element"> {{element.deliveryDistance}} </td>
-        </ng-container>
+        </ng-container> -->
 
         <ng-container matColumnDef="provinceDescription">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
             <td mat-cell *matCellDef="let element">
                 {{element.addressLine1}} <br>
                 {{element.addressLine2}} <br>
-                {{element.addressLine3}} <br>
+                {{element.city}}<br>
                 {{element.addressPostalCode}} <br>
                 {{element.provinceDescription}}
             </td>
@@ -72,13 +72,26 @@
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu" xPosition="after">
+                    <button mat-menu-item [routerLink]="['/assignlocaldelivery', element.saleId]" *ngIf="element.city== 'Port Shepstone' || element.city=== 'Margate'|| element.city=== 'Hibberdene'
+                    || element.city=== 'Port Edward'|| element.city=== 'South Broom'|| element.city=== 'Shelley Beach'|| element.city=== 'Umtentweni'
+                    || element.city=== 'Ramsgate'">
+                    Assign
+                        Delivery</button>
+                    <button mat-menu-item  [routerLink]="['/assigncourierdelivery', element.saleId]" 
+                    *ngIf="element.city == '!Port Shepstone' || element.city== '!Margate'|| element.city== '!Hibberdene'
+                    || element.city== '!Port Edward'|| element.city== '!South Broom'|| element.city== '!Shelley Beach'|| element.city== '!Umtentweni'
+                    || element.city== '!Ramsgate'"
+                     >Assign
+                        Courier</button>
+                </mat-menu>
+                <!-- <mat-menu #menu="matMenu" xPosition="after">
                     <button mat-menu-item *ngIf="parseInteger(element.deliveryDistance.slice(0, -2)) <=50"
                         [routerLink]="parseInteger(element.deliveryDistance.slice(0, -2)) >50? []: ['/assignlocaldelivery', element.saleId]">Assign
                         Delivery</button>
                     <button mat-menu-item *ngIf="parseInteger(element.deliveryDistance.slice(0, -2)) >50"
                         [routerLink]="parseInteger(element.deliveryDistance.slice(0, -2)) <=50? []: ['/assigncourierdelivery' , element.saleId]">Assign
                         Courier</button>
-                </mat-menu>
+                </mat-menu> -->
             </td>
         </ng-container>
 

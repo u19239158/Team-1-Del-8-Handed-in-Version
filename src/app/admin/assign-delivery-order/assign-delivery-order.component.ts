@@ -31,7 +31,7 @@ export class AssignDeliveryOrderComponent implements OnInit {
   unscheduleddelivery: Observable<Deliveryshift[]>;
   dataSource = new MatTableDataSource<Deliveryshift>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['saleId', 'customerName', 'customerBusinessName', 'deliveryDistance', 'provinceDescription', 'deliverycourier'];
+  displayedColumns: string[] = ['saleId', 'customerName', 'customerBusinessName', 'provinceDescription', 'deliverycourier'];
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private DeliveryshiftService: DeliveryshiftService,
