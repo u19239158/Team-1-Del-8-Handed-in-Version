@@ -104,6 +104,10 @@ export class AddEditProductcategorysComponent implements OnInit {
   }
 
   async createProductcategory() {
+    if (!this.path || !this.path.name) {
+      this.imageError = true;
+      return
+    }
     this.loading = true;
     const img = await this.uploadImage();
     img.subscribe(imgpath => {
@@ -129,11 +133,13 @@ export class AddEditProductcategorysComponent implements OnInit {
   }
 
   async updateProductcategory() {
+    // start image validation
     if (!this.path || !this.path.name) {
       this.imageError = true;
       return
     }
     this.loading = true;
+    //end image validation
     const img = await this.uploadImage();
     img.subscribe(imgpath => {
       const productcategory: Productcategory = {

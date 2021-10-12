@@ -52,10 +52,12 @@ export class AddEditEmployeesComponent implements OnInit {
     this.userid = obj.userId
     console.log(obj)
 
+    // start password code
     const passwordValidators = [Validators.minLength(6)];
     if (this.isAddMode) {
       passwordValidators.push(Validators.required);
     }
+    // end password code
 
     const formOptions: AbstractControlOptions = { validators: MustMatch('userPassword', 'employeeConfirmPassword') };
     this.form = this.formBuilder.group({
@@ -68,8 +70,10 @@ export class AddEditEmployeesComponent implements OnInit {
       employeeAddressLine1: ['', [Validators.required]],
       employeeAddressLine2: ['',],
       userUsername: ['', [Validators.required]],
+      // start password code
       userPassword: ['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
       employeeConfirmPassword: ['', this.isAddMode ? Validators.required : Validators.nullValidator]
+      // end password code
     }, formOptions);
 
     console.log("notAddMode", !this.isAddMode)
@@ -91,8 +95,10 @@ export class AddEditEmployeesComponent implements OnInit {
           employeeAddressLine2: [this.employee.employeeAddressLine2,],
           // { value: this.employee.userUsername, disabled: true },
           userUsername: { value: this.employee.userUsername, disabled: true },
+          // start password code
           userPassword: { value: this.employee.userPassword, disabled: true },
           employeeConfirmPassword: { value: this.employee.employeeConfirmPassword, disabled: true },
+          // end password code
         }, formOptions);
 
       });
