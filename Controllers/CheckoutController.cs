@@ -604,7 +604,7 @@ namespace NKAP_API_2.Controllers
                 _db.Addresses.Attach(addy);
                 _db.SaveChanges();
 
-                return Ok();
+                return Ok(addy.AddressId);
             }
             else
             {
@@ -620,7 +620,7 @@ namespace NKAP_API_2.Controllers
                 address.ProvinceId = provy.ProvinceId;
                 _db.Addresses.Attach(address);
                 _db.SaveChanges();
-                return Ok();
+                return Ok(addy.AddressId);
             }
            
         }

@@ -166,26 +166,28 @@ namespace NKAP_API_2.Controllers
 
 
                     //attributes in table
-                }).Join(_db.Couriers,
-                sor => sor.CourierId,
-                sd => sd.CourierId,
-                (sor, sd) => new
-                {
+                })
+                //.Join(_db.Couriers,
+                //sor => sor.CourierId,
+                //sd => sd.CourierId,
+                //(sor, sd) => new
+                //{
 
-                    CustomerId = sor.CustomerId,
-                    CourierEmail = sd.CourierEmail,
-                    CourierName = sd.CourierName,
-                    CourierNumber = sd.CourierNumber,
-                    SaleID = sor.SaleID
+                //    CustomerId = sor.CustomerId,
+                //    CourierEmail = sd.CourierEmail,
+                //    CourierName = sd.CourierName,
+                //    CourierNumber = sd.CourierNumber,
+                //    SaleID = sor.SaleID
 
-                }).Join(_db.Customers,
+                //})
+                .Join(_db.Customers,
                 sor => sor.CustomerId,
                 sd => sd.CustomerId,
                 (sor, sd) => new
                 {
-                    CourierEmail = sor.CourierEmail,
-                    CourierName = sor.CourierName,
-                    CourierNumber = sor.CourierNumber,
+                   // CourierEmail = sor.CourierEmail,
+                    //CourierName = sor.CourierName,
+                    //CourierNumber = sor.CourierNumber,
                     CustomerId = sor.CustomerId,
                     CustomerName = sd.CustomerName,
                     CustomerSurname = sd.CustomerSurname,
@@ -199,9 +201,9 @@ namespace NKAP_API_2.Controllers
                 sd => sd.CustomerId,
                 (sor, sd) => new
                 {
-                    CourierEmail = sor.CourierEmail,
-                    CourierName = sor.CourierName,
-                    CourierNumber = sor.CourierNumber,
+                    //CourierEmail = sor.CourierEmail,
+                    //CourierName = sor.CourierName,
+                    //CourierNumber = sor.CourierNumber,
                     SaleID = sor.SaleID,
                     CustomerId = sor.CustomerId,
                     CustomerName = sor.CustomerName,

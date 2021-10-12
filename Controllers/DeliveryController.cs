@@ -247,7 +247,7 @@ namespace NKAP_API_2.Controllers
                      AddressId = sd.AddressId,
                      AddressLine1 = sd.AddressLine1,
                      AddressLine2 = sd.AddressLine2,
-                     
+                     City = sd.City,
                      AddressPostalCode = sd.AddressPostalCode,
                      ProvinceId = sd.ProvinceId
 
@@ -267,14 +267,14 @@ namespace NKAP_API_2.Controllers
                      AddressId = sor.AddressId,
                      AddressLine1 = sor.AddressLine1,
                      AddressLine2 = sor.AddressLine2,
-                     
+                     City = sor.City,
                      AddressPostalCode = sor.AddressPostalCode,
                      ProvinceId = sd.ProvinceId,
                      ProvinceDescription = sd.ProvinceDescription,
 
                  }).Where(ss => ss.OrderStatusId == 3).Join(_db.Deliveries,
-                 sor => sor.AddressId,
-                 sd => sd.AddressId,
+                 sor => sor.SaleId,
+                 sd => sd.SaleId,
                     (sor, sd) => new
                     {
                         SaleId = sor.SaleId,
@@ -288,7 +288,7 @@ namespace NKAP_API_2.Controllers
                         AddressId = sor.AddressId,
                         AddressLine1 = sor.AddressLine1,
                         AddressLine2 = sor.AddressLine2,
-                       
+                        City = sor.City,
                         AddressPostalCode = sor.AddressPostalCode,
                         ProvinceId = sor.ProvinceId,
                         ProvinceDescription = sor.ProvinceDescription,
@@ -321,7 +321,7 @@ namespace NKAP_API_2.Controllers
                 _db.Sales.Attach(sd); //Attach Record
                 _db.SaveChanges();
 
-                var dd = _db.Deliveries.Find(model.DeliveryId);
+                var dd = _db.Deliveries.FirstOrDefault(ss => ss.SaleId == model.SaleID);
                 dd.EmployeeShiftId = model.EmployeeShiftId;
                 _db.Deliveries.Attach(dd);
 
@@ -385,8 +385,9 @@ namespace NKAP_API_2.Controllers
 
             //add to audit trail
             var user = _db.Users.Find(model.UsersID);
+           
             AuditTrail audit = new AuditTrail();
-            audit.AuditTrailDescription = user.UserUsername + " assigned a Courier to a Delivery";
+            audit.AuditTrailDescription = user.UserUsername + " sent a request to " +model.EmployeeName + " to deliver sale number "+ model.SaleID;
             audit.AuditTrailDate = System.DateTime.Now;
             TimeSpan timeNow = DateTime.Now.TimeOfDay;
             audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);

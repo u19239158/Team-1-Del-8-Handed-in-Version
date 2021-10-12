@@ -704,11 +704,11 @@ namespace NKAP_API_2.Controllers
                     SaleID = sor.SaleID,
                     AddressLine1 = sd.AddressLine1,
                     AddressLine2 = sd.AddressLine2,
-                 
+                    City =  sd.City,
                     AddressPostalCode = sd.AddressPostalCode,
                     EmployeeShiftId = sor.EmployeeShiftId
 
-                }).FirstOrDefault(zz => zz.EmployeeShiftId == employeeshiftId);
+                }).Where(zz => zz.EmployeeShiftId == employeeshiftId);
 
             return Ok(DeliveryShift);
 
