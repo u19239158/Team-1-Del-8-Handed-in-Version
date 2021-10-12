@@ -1,55 +1,60 @@
 <div class="content">
 
-<a *ngIf="isAddMode" mat-mini-fab color="primary" href="http://localhost:8080/AddProductCategory1.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
-                <mat-icon>help</mat-icon>
-              </a>
+  <a *ngIf="isAddMode" mat-mini-fab color="primary" href="http://localhost:8080/AddProductCategory1.html"
+    target="_blank" aria-label="Example icon button with a menu icon" class="help">
+    <mat-icon>help</mat-icon>
+  </a>
 
-              <a *ngIf="!isAddMode" mat-mini-fab color="primary" href="http://localhost:8080/UpdateProductCategory1.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
-                <mat-icon>help</mat-icon>
-              </a>
+  <a *ngIf="!isAddMode" mat-mini-fab color="primary" href="http://localhost:8080/UpdateProductCategory1.html"
+    target="_blank" aria-label="Example icon button with a menu icon" class="help">
+    <mat-icon>help</mat-icon>
+  </a>
 
-<h2 *ngIf="isAddMode">Add Product Category</h2>
-<h2 *ngIf="!isAddMode">Edit Product Category</h2>
+  <h2 *ngIf="isAddMode">Add Product Category</h2>
+  <h2 *ngIf="!isAddMode">Edit Product Category</h2>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class = "main">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="main">
 
-<div class="mat-row">
+    <div class="mat-row">
       <!-- Choose product category image -->
-      <div appearance="outline" class="mat-col-quarter">
+      <div appearance="outline" [ngClass]="imageError ? 'mat-col-quarter image-error' : 'mat-col-quarter image-border'">
         <label class="image-upload-container btn btn-bwm">
           <span>Select Image</span>
           <input #fileInput type="file" accept=".png,.jpg" (change)="upload($event)">
           <br>
-          <mat-hint>Select an image</mat-hint>
+
         </label>
       </div>
     </div>
 
     <div class="mat-row">
-        <div class="mat-col-quarter">
-            <mat-form-field appearance="outline" class="control-m" >
-                <mat-label>Product Category Name</mat-label>
-                <input type="text" matInput placeholder="Product Category Name" formControlName="productCategoryDescription">
-                <mat-hint>Enter product category name</mat-hint>
-                <mat-error *ngIf="form.controls['productCategoryDescription'].invalid">Please enter the Product Category Name</mat-error> 
-            </mat-form-field>
-        </div>
+      <div [ngClass]="imageError ? 'image-error-message' : ''">
+        Please Select an Image
+      </div>
     </div>
 
-    
-    
-  <div class="mat-row">
-    <div class="form-group" class="control-m">
-      <button mat-raised-button color ="primary" [disabled]="loading">
+    <div class="mat-row">
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Product Category Name</mat-label>
+          <input type="text" matInput placeholder="Product Category Name" formControlName="productCategoryDescription">
+          <mat-hint>Enter product category name</mat-hint>
+          <mat-error *ngIf="form.controls['productCategoryDescription'].invalid">Please enter the Product Category Name
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+
+
+    <div class="mat-row">
+      <div class="form-group" class="control-m">
+        <button mat-raised-button color="primary" [disabled]="loading">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Save
-      </button>
-      <a (click)="Close()" mat-button>Cancel</a>
-  </div>
+        </button>
+        <a (click)="Close()" mat-button>Cancel</a>
+      </div>
     </div>
-</form>
+  </form>
 </div>
-
-
-
-

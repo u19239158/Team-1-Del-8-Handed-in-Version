@@ -105,7 +105,31 @@ export class AddEditEmployeesComponent implements OnInit {
       return;
     }
 
+    const employee: Employee = this.form.value;
+    const DOBidNumber = employee.employeeIdnumber.toString().slice(0, 6);
+    const DOB = moment(employee.employeeDob).format('YYMMDD');
+    console.log(DOBidNumber, DOB)
+    if (DOBidNumber !== DOB) {
+      this.snack.open('ID Number does not match Date of Birth', 'OK',
+        {
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          duration: 4000
+        });
+      this.form.controls['employeeIdnumber'].setErrors({ 'incorrect': true });
+      this.form.controls['employeeIdnumber'].reset();
+      this.form.controls['employeeIdnumber'].setValue(employee.employeeIdnumber);
+
+      this.form.controls['employeeDob'].setErrors({ 'incorrect': true });
+      this.form.controls['employeeDob'].reset();
+      this.form.controls['employeeDob'].setValue(employee.employeeDob);
+      return
+    }
+
+    this.form.controls['employeeIdnumber'].setErrors({ 'incorrect': false });
+    this.form.controls['employeeDob'].setErrors({ 'incorrect': false });
     this.loading = true;
+
     if (this.isAddMode) {
       this.createEmployee();
     } else {
