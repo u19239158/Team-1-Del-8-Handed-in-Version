@@ -63,12 +63,16 @@ export class User {
   firstName: string;
   lastName: string;
   jwtToken?: string;
+   
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
+  token = localStorage.getItem('token')
+ 
+  
     server = "https://localhost:44393/api/";
 
     // httpOptions = {
@@ -90,7 +94,9 @@ export class CartService {
 
    AddresshttpOptions = {
     headers: new HttpHeaders({
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ1MTkwNzI5MTJAdHVrcy5jby56YSIsImFwaV90b2tlbiI6Im8xWkNzVmtmdnFTS3ZNNHNxd0RRZE90d0FmNVZ3NzFvNDgtV3FJUHF6ZjZlUkJWUUdrT1YtZUdYYmlnTkVDYnhSdXcifSwiZXhwIjoxNjM0MTEzNDQ5fQ.v9mYzmXSniw5izY_7FqfWyYI5XLpfDRtOrkrLobVohM`
+     Authorization: `Bearer .eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ1MTkwNzI5MTJAdHVrcy5jby56YSIsImFwaV90b2tlbiI6Im8xWkNzVmtmdnFTS3ZNNHNxd0RRZE90d0FmNVZ3NzFvNDgtV3FJUHF6ZjZlUkJWUUdrT1YtZUdYYmlnTkVDYnhSdXcifSwiZXhwIjoxNjM0MTEzNDQ5fQ.v9mYzmXSniw5izY_7FqfWyYI5XLpfDRtOrkrLobVohM`
+
+     // Authorization:  this.token
     })
     
   };

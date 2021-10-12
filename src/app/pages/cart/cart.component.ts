@@ -70,6 +70,7 @@ export class CartComponent implements OnInit {
 
   Customer: Customer;
   userid : number;
+  token : string;
   addy: Address
   addyID : number;
 
@@ -108,6 +109,15 @@ export class CartComponent implements OnInit {
       console.log(this.products)
     })
     
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   this.userid = obj.userId
+   this.token = obj.auth
+   //console.log(this.token)
+   localStorage.setItem('token',this.token)
+   var tokenm = localStorage.getItem('token')
+   console.log(tokenm)
+
     //populateProvince
     this.cartService.Provinces()
     .subscribe(res=>{
@@ -115,9 +125,7 @@ export class CartComponent implements OnInit {
       return this.provinceList;    
     })
     
-    var ids = localStorage.getItem('user')
-    const obj = JSON.parse(ids)
-   this.userid = obj.userId
+    
    this.customerService.GetProfile(this.userid).subscribe(res => {
     this.Customer = res})
 
