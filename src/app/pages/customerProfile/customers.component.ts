@@ -73,7 +73,17 @@ export class CustomersComponent implements OnInit {
   }
 
   deleteProfile(){
-    this.customerService.DeleteProfile(this.customer).subscribe( res =>{},
+    this.customerService.DeleteProfile(this.customer).subscribe( res =>{
+      window.localStorage.removeItem("user");
+      window.localStorage.removeItem("token");
+      this.router.navigateByUrl('');
+      this.snack.open('You have successfully deleted your profile', 'OK',
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+          duration: 4000
+      });
+    },
       (error: HttpErrorResponse)=>
       {
       if (error.status === 400)

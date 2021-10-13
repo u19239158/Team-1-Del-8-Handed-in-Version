@@ -261,12 +261,12 @@ export class CartComponent implements OnInit {
        this.cartService.removeAllCart();
        this.router.navigate([this.router.url]);
 
-       this.snack.open('Order Placed! Shop Again!', 'OK', 
-      {
-        verticalPosition: 'top',
-        horizontalPosition: 'center',
-        duration: 2000
-      });
+      //  this.snack.open('Order Placed! Shop Again!', 'OK', 
+      // {
+      //   verticalPosition: 'top',
+      //   horizontalPosition: 'center',
+      //   duration: 2000
+      // });
       this.router.navigateByUrl('products')
     }
 
@@ -309,12 +309,12 @@ export class CartComponent implements OnInit {
     })
     this.makePayment();
     this.cartService.removeAllCart();
-    this.snack.open('Order Placed! Shop Again!', 'OK', 
-    {
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-      duration: 2000
-    });
+    // this.snack.open('Order Placed! Shop Again!', 'OK', 
+    // {
+    //   verticalPosition: 'top',
+    //   horizontalPosition: 'center',
+    //   duration: 2000
+    // });
     this.router.navigateByUrl('products')
   }
 
