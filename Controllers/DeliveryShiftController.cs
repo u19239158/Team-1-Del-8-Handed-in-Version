@@ -251,7 +251,7 @@ namespace NKAP_API_2.Controllers
                      EmployeeID = sor.EmployeeId,
                      TimeId = sor.TimeId,
                      ShiftId = sor.ShiftId,
-                     DayOfTheWeek = sd.DayOfTheWeek.ToString("dd/MM/yyyy"),
+                     DayOfTheWeek = sd.DayOfTheWeek,
                      EmployeeShiftId = sor.EmployeeShiftId,
                      NoOfDeliveries = sor.NoOfDeliveries
                  }).Join(_db.Times,
@@ -284,7 +284,7 @@ namespace NKAP_API_2.Controllers
                      EndTime = sor.EndTime,
                      EmployeeShiftId = sor.EmployeeShiftId,
                      NoOfDeliveries = sor.NoOfDeliveries
-                 });
+                 }).Where(ss => ss.DayOfTheWeek >= DateTime.Today);
 
                 return Ok(DeliveryShift);
             }
@@ -603,7 +603,7 @@ namespace NKAP_API_2.Controllers
             Date Dates = new Date
             {
                 //attributes in table 
-                DayOfTheWeek = model.DayOfTheWeek.AddDays(1)
+                DayOfTheWeek = model.DayOfTheWeek
             };
             _db.Dates.Add(Dates);
             _db.SaveChanges();
