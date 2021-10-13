@@ -1,6 +1,6 @@
 import { AutofillMonitor } from '@angular/cdk/text-field';
 import { Component, OnInit } from '@angular/core';
-import { CartService, OnlineSale, Sale,  } from 'src/app/services/service/cart.service';
+import { CartService, OnlineSale, Sale, User,  } from 'src/app/services/service/cart.service';
 import { AbstractControlOptions ,FormBuilder, FormGroup, NgForm, Validators, FormControl } from '@angular/forms';
 import { SafeMethodCall } from '@angular/compiler';
 import { Observable } from 'rxjs';
@@ -11,6 +11,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Customer,CustomerService } from 'src/app/services/customer/customer.service';
 import { throwToolbarMixedModesError } from '@angular/material/toolbar';
+import { __values } from 'tslib';
+// import { setFlagsFromString } from 'v8';
 
 
 export interface Coordinates {
@@ -73,6 +75,10 @@ export class CartComponent implements OnInit {
   addy: Address
   addyID : number;
 
+  // auth= localStorage.getItem('user')
+  // public authy = JSON.parse(this.auth);
+  // public Auth = this.authy.auth
+
   constructor(
     private router: Router,
     private cartService : CartService,
@@ -84,8 +90,8 @@ export class CartComponent implements OnInit {
     this.coordinates = {} as Coordinates;
   }
 
+
   ngOnInit() {
-        
     const AddressformOptions: AbstractControlOptions = {};
     this.addressform = this.formBuilder.group({
     AddressLine1 : new FormControl('', [Validators.required]),
@@ -95,7 +101,6 @@ export class CartComponent implements OnInit {
     provinceDescription : new FormControl('', [Validators.required]),
     addressPostalCode : new FormControl('', [Validators.required,Validators.maxLength(4)])
   }, AddressformOptions);
-
     
     //show products in cart
     this.cartService.getProducts()
@@ -144,12 +149,19 @@ export class CartComponent implements OnInit {
 //||'Margate'||'Hibberdene'||'Port Edward'||'South Broom'||'Shelley Beach'||'Umtentweni'||'Ramsgate'
       console.log(this.selectedOption2)
       console.log('Local')
+      //creat 2min
+      let toMinus = 50;
+      this.grandTotal-=toMinus
+      //minus 2min
       this.grandTotal+=50;
+      //set to R50 ir R100
       console.log(this.grandTotal)
     }
     else{
       console.log(this.selectedOption2)
       console.log('Courier')
+      let toMinus = 50;
+      this.grandTotal-=toMinus
       this.grandTotal+=100;
       console.log(this.grandTotal)
     }
@@ -249,7 +261,6 @@ export class CartComponent implements OnInit {
        this.makePayment()
 
        this.cartService.removeAllCart();
-       this.router.navigate([this.router.url]);
 
        this.snack.open('Order Placed! Shop Again!', 'OK', 
       {
@@ -296,6 +307,7 @@ export class CartComponent implements OnInit {
         addressid: this.addy.addressId
       }
     this.cartService.Checkout(Sale).subscribe(data => {
+      console.log(data)
     })
     this.makePayment();
     this.cartService.removeAllCart();

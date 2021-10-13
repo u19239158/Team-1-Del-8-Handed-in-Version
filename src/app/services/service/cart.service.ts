@@ -71,15 +71,11 @@ export class User {
 export class CartService {
     server = "https://localhost:44393/api/";
 
-    // httpOptions = {
-    //   headers: new HttpHeaders({
-    //     ContentType: 'application/json'
-    //   })
-  //};
   public cartItemList : any =[]
   public qtyProd = new BehaviorSubject<any>([]);
   //for the producst page
-  public productList = new BehaviorSubject<any>([]);
+ public productList = new BehaviorSubject<any>([]);
+// public addressAUTH = localStorage.getItem('addressAuth');
 
    paystackhttpOptions={
      headers: new HttpHeaders({
@@ -90,7 +86,8 @@ export class CartService {
 
    AddresshttpOptions = {
     headers: new HttpHeaders({
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ1MTkwNzI5MTJAdHVrcy5jby56YSIsImFwaV90b2tlbiI6Im8xWkNzVmtmdnFTS3ZNNHNxd0RRZE90d0FmNVZ3NzFvNDgtV3FJUHF6ZjZlUkJWUUdrT1YtZUdYYmlnTkVDYnhSdXcifSwiZXhwIjoxNjM0MTEzNDQ5fQ.v9mYzmXSniw5izY_7FqfWyYI5XLpfDRtOrkrLobVohM`
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ1MTkwNzI5MTJAdHVrcy5jby56YSIsImFwaV90b2tlbiI6Im8xWkNzVmtmdnFTS3ZNNHNxd0RRZE90d0FmNVZ3NzFvNDgtV3FJUHF6ZjZlUkJWUUdrT1YtZUdYYmlnTkVDYnhSdXcifSwiZXhwIjoxNjM0MTk5MjU2fQ.zbnhX4rSGFADNBkdXKwenZwRYZ47cMx5lByNkEYBkFQ`
+      //Authorization: `Bearer ${this.addressAUTH}`
     })
     
   };

@@ -17,6 +17,7 @@ export interface Customer {
   titleID: number;
   titleDesc: string;
   usersId: number;
+  auth: string;
 }
 
 export interface User {

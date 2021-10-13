@@ -49,6 +49,11 @@ export class LoginComponent implements OnInit {
         // route to home
         
         localStorage.setItem('user', JSON.stringify(res));
+        
+        // let auth= localStorage.getItem('user')
+        // let authy = JSON.parse(auth);
+        // localStorage.setItem('addressAuth',authy.auth);
+
         this.router.navigateByUrl('/');
       },(error: HttpErrorResponse)=>
       {

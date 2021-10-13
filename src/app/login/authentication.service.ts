@@ -17,14 +17,26 @@ export interface Login {
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
+
+  
+  // auth= localStorage.getItem('user')
+  // public authy = JSON.parse(this.auth);
+  // public Auth = this.authy.auth
     server = "https://localhost:44393/api/";
+
 
     httpOptions = {
       headers: new HttpHeaders({
         ContentType: 'application/json'
       })
     };
-  
+
+    // AddresshttpOptions = {
+    //   headers: new HttpHeaders({
+    //     Authorization: `Bearer ${this.Auth}`
+    //   })
+    // }
+
     constructor(private http: HttpClient, 
         private dateService: DateService
         ) {}

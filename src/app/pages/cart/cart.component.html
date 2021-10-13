@@ -193,32 +193,28 @@
                 <!-- Customer addressline2 -->
                 <div>
                   <label class="label">Please enter your address(optional):</label>
-                  <!-- <div class="control"> -->
+
                     <input class="input" formControlName="addressline3" type="text" placeholder="Address">
-                  <!-- </div> -->
+ 
                 </div> 
                 
                 <!-- Customer Province -->
                 <div>
                   <label class="label">Please enter your Province:</label>
-                  <!-- <div class="control"> -->
-                    <input  (blur)='onBlur()' [(ngModel)]="selectedOption" name="province" list="provincename" class="input" formControlName="provinceDescription" type="text" placeholder="Province">
-                    <datalist id="provincename">
-                      <option  *ngFor="let province of provinceList" value="{{province.state_name}}">
-                    </datalist>
-                  <!-- </div> -->
+ 
+                    <select (blur)='onBlur()' [(ngModel)]="selectedOption" name="province" list="provincename" class="input" formControlName="provinceDescription" type="text" placeholder="Province">
+                      <option id="provincename" *ngFor="let province of provinceList" >{{province.state_name}}</option>
+                    </select>
                 </div> 
 
                 <!-- Customer city -->
                 <div>
                   <label class="label">Please enter your City:</label>
-                  <!-- <div class="control"> 
-                   onclick="populateCities()"  
-                  -->
-                    <input (blur)='onBlurCity()' [(ngModel)]="selectedOption2" name="city" list="cityname" class="input" formControlName="cityDescription" type="text" placeholder="City">
-                    <datalist id="cityname">
-                      <option  *ngFor="let city of cityList" value="{{city.city_name}}">
-                    </datalist>
+ 
+                  <select (click)='onBlurCity()' [(ngModel)]="selectedOption2" name="city" list="cityname" class="input" formControlName="cityDescription" type="text" placeholder="City">
+                    <option id="cityname" *ngFor="let city of cityList">{{city.city_name}}</option>
+                  </select>
+
                     
                     <div *ngIf="selectedOption2==='Port Shepstone' || selectedOption2==='Margate'|| selectedOption2==='Hibberdene'
                     || selectedOption2=== 'Port Edward'|| selectedOption2=== 'South Broom'|| selectedOption2=== 'Shelley Beach'|| selectedOption2=== 'Umtentweni'
