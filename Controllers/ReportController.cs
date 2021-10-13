@@ -463,7 +463,7 @@ namespace NKAP_API_2.Controllers
 
 
     //    [Authorize(AuthenticationSchemes = "JwtBearer", Roles = "Admin")]
-        [Route("GetFastSellingProducts")] //route
+        [Route("GetFastProducts")] //route
         [HttpPost]
         //get Fast Selling Products (Read)
         public IActionResult getFastSellingProducts(ReportModel model)
