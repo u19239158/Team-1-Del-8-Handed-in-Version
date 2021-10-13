@@ -328,12 +328,16 @@ namespace NKAP_API_2.Controllers
             {
                 var customer = _db.Customers.Find(model.CustomerID);
                 var use = _db.Users.FirstOrDefault(zz => zz.UsersId == customer.UsersId);
+                var pass = _db.PasswordHistories.FirstOrDefault(zz => zz.UsersId == customer.UsersId);
+                _db.AuditTrails.RemoveRange(_db.AuditTrails.Where(zz => zz.UsersId == customer.UsersId));
+                _db.PasswordHistories.Remove((PasswordHistory)pass);
+              
                 _db.Customers.Remove(customer); //Delete Record
 
                 _db.SaveChanges();
 
                // add to audit trail
-                var user = _db.Users.Find(model.UsersID);
+                var user = _db.Users.Find(model.AdminID);
                 AuditTrail audit = new AuditTrail();
                 audit.AuditTrailDescription = user.UserUsername + "deleted the Customer " + model.CustomerName + " " + model.CustomerSurname;
                 audit.AuditTrailDate = System.DateTime.Now;
@@ -341,6 +345,7 @@ namespace NKAP_API_2.Controllers
                 audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
                 audit.UsersId = user.UsersId;
                 _db.AuditTrails.Add(audit);
+                _db.Users.Remove(use);
                 _db.SaveChanges();
                 return Ok(customer);
             }
@@ -362,16 +367,13 @@ namespace NKAP_API_2.Controllers
         {
             try
             {
-                //var customer = _db.Users.Find(model.UsersID);
-                //{
-                //    customer.UserUsername = new Random().Next(100000, 1000000).ToString();
-                //    customer.UserPassword = new Random().Next(100000, 1000000).ToString();
-                //}
-                //_db.Users.Update(customer);
-                //_db.SaveChanges();
-
+             
                 var customer = _db.Customers.Find(model.CustomerID);
-                var use = _db.Users.FirstOrDefault(zz => zz.UsersId == customer.UsersId);
+                var use = _db.Users.FirstOrDefault(zz => zz.UsersId == customer.UsersId); 
+                var pass = _db.PasswordHistories.FirstOrDefault(zz => zz.UsersId == customer.UsersId);
+                 _db.AuditTrails.RemoveRange(_db.AuditTrails.Where(zz => zz.UsersId == customer.UsersId));
+                _db.PasswordHistories.Remove(pass);
+                
                 _db.Customers.Remove(customer); //Delete Record
 
                 _db.SaveChanges();
@@ -385,6 +387,7 @@ namespace NKAP_API_2.Controllers
                 audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
                 audit.UsersId = user.UsersId;
                 _db.AuditTrails.Add(audit);
+                _db.Users.Remove(use);
                 _db.SaveChanges();
                 return Ok(customer);
             }

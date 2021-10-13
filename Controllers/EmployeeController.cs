@@ -189,25 +189,28 @@ namespace NKAP_API_2.Controllers
             {
                 var delemployee = _db.Employees.Find(model.Employee_ID);    //Delete Record
                 var user = _db.Users.FirstOrDefault(zz => zz.UsersId == delemployee.UsersId);
-                var pass = _db.PasswordHistories.Select(zz => zz.UsersId == delemployee.UsersId);
-                var audit1 = _db.AuditTrails.Select(zz => zz.UsersId == delemployee.UsersId);
-                _db.AuditTrails.Remove((AuditTrail)audit1);
-                _db.PasswordHistories.Remove((PasswordHistory)pass);
+                _db.PasswordHistories.RemoveRange(_db.PasswordHistories.Where(zz => zz.UsersId == delemployee.UsersId));
+                _db.AuditTrails.RemoveRange(_db.AuditTrails.Where(zz => zz.UsersId == delemployee.UsersId));
+                // var pass = _db.PasswordHistories.FirstOrDefault(zz => zz.UsersId == delemployee.UsersId);
+                //var audit1 = _db.AuditTrails.Where(zz => zz.UsersId == delemployee.UsersId);
+                //_db.AuditTrails.Remove((AuditTrail)audit1);
+               // _db.PasswordHistories.Remove((PasswordHistory)pass);
                 
                
-                _db.Users.Remove(user);
+              
                 _db.Employees.Remove(delemployee);
 
                 _db.SaveChanges();
                 //add to audit trail
-                var users = _db.Users.Find(model.UsersID);
+                var users = _db.Users.Find(model.AdminID);
                 AuditTrail audit = new AuditTrail();
-                audit.AuditTrailDescription = user.UserUsername + "deleted the Employee: " + model.EmployeeName + " " + model.EmployeeSurName;
+                audit.AuditTrailDescription = users.UserUsername + " deleted the Employee: " + model.EmployeeName + " " + model.EmployeeSurName;
                 audit.AuditTrailDate = System.DateTime.Now;
                 TimeSpan timeNow = DateTime.Now.TimeOfDay;
                 audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
                 audit.UsersId = users.UsersId;
                 _db.AuditTrails.Add(audit);
+                _db.Users.Remove(user);
                 _db.SaveChanges();
                 return Ok(delemployee);
             }

@@ -56,6 +56,8 @@ namespace NKAP_API_2.Models
         public int UserRoleID
         { get; set; }
 
-        
+        [JsonProperty("adminid")]
+        public int AdminID
+        { get; set; }
     }
 }
