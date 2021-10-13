@@ -4,6 +4,25 @@
   margin-right: auto;
 }
 
+// start image validation code
+
+.image-error{
+  border: 1px solid red;
+border-radius: 6px ;
+}
+
+.image-border{
+  border: 1px solid grey;
+  border-radius: 6px ;
+}
+
+// end image validation code
+
+.image-error-message{
+  color:red
+}
+
+
 h2 {
   text-align: center;
   font-weight: 400;

@@ -15,7 +15,24 @@ h2 {
       width: 50%;
       position: fixed;
     }
-  
+
+    // start image validation code
+
+.image-error{
+  border: 1px solid red;
+border-radius: 6px ;
+}
+
+.image-border{
+  border: 1px solid grey;
+  border-radius: 6px ;
+}
+
+.image-error-message{
+  color:red
+}
+  // end image validation code
+
     mat-card{
       right: 0px;
       width: 50%;
@@ -34,13 +51,6 @@ h2 {
       width: 500px;
     }
 
-    // .buttons {
-    //   right: 20px;
-    //   bottom: 100px;
-    //   margin-top: 20px;
-    //   margin-right: 20;
-    //   width: 500px;
-    // }
 
     .mat-col-quarter {
       // margin-top: 20px;
@@ -85,8 +95,9 @@ h2 {
         display: inline-block;
     }
     button {
-        float: right;
+      margin-left: 60px;
     }
+
   
     .more-button {
         text-align: center;

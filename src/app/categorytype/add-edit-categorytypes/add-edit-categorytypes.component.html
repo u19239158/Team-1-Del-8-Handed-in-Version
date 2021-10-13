@@ -15,13 +15,19 @@
 
     <div class="mat-row">
       <!-- Choose category image -->
-      <div appearance="outline" class="mat-col-quarter">
+      <div appearance="outline" [ngClass]="imageError ? 'mat-col-quarter image-error' : 'mat-col-quarter image-border'" class="mat-col-quarter">
         <label class="image-upload-container btn btn-bwm">
           <span>Select Image</span>
           <input #fileInput type="file" accept=".png,.jpg,.jpeg" (change)="upload($event)">
           <br>
           <mat-hint>Select category type image</mat-hint>
         </label>
+      </div>
+    </div>
+
+     <div class="mat-row">
+      <div [ngClass]="imageError ? 'image-error-message' : ''">
+        Please Select an Image
       </div>
     </div>
 

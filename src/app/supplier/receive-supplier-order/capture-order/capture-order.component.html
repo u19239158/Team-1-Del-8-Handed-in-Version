@@ -68,7 +68,7 @@
     </div>
 
    <div class="mat-col-quarter">
-      <div appearance="outline" class="upload">
+      <div appearance="outline" [ngClass]="imageError ? 'mat-col-quarter image-error' : 'mat-col-quarter image-border'" class="upload">
         <label class="image-upload-container btn btn-bwm">
           <span>Upload Invoice</span>
           <input #fileInput type="file" accept=".pdf" (change)="upload($event)">
@@ -77,12 +77,16 @@
         </label>
       </div>
     </div>
+
+    <div class="mat-col-quarter">
+      <div [ngClass]="imageError ? 'image-error-message' : ''">
+        Please Select an Image
+      </div>
+    </div>
   </div>
 
-  <br>
-
-  <div class="mat-row">
-    <div class="mat-col-quarter">
+  <div>
+    <div>
        <button mat-raised-button color ="primary" [disabled]="loading" (click)="finalOrder()">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Save

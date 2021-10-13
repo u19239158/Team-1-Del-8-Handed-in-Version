@@ -25,6 +25,7 @@ export class CaptureOrderComponent implements OnInit {
   userid: number;
   path: File;
   SupplierOrderId: any;
+  imageError: boolean;
   id: number;
   public list: place[]=[];
   quant: number;
@@ -134,6 +135,11 @@ export class CaptureOrderComponent implements OnInit {
   async finalOrder() {
     const receiveOrder: ReceiveSupplierOrder = this.form.value;
     receiveOrder.usersId = this.userid
+    if (!this.path || !this.path.name) {
+      this.imageError = true;
+      return
+    }
+    this.loading = true;
     const img = await this.uploadImage();
 
     img.subscribe(imgpath =>{

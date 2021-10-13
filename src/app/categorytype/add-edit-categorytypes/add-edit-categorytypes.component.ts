@@ -139,6 +139,13 @@ console.log(this.path)
   }
 
   async createCategorytype() {
+      // start image validation
+      if (!this.path || !this.path.name) {
+        this.imageError = true;
+        return
+      }
+      this.loading = true;
+      //end image validation
    const img = await this.uploadImage();
 
    img.subscribe(imgpath =>{
