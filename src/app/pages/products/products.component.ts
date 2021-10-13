@@ -31,14 +31,14 @@ export class ProductsComponent implements OnInit {
     this.api.getAllItems()
     .subscribe(res=>{      
       this.productItems= res.withoutspecial.map( (data, number) => ({...data, num:1}) );      
-      //console.log(this.productItems);
+      console.log(this.productItems);
     })
     
     //Home page different categories of products (TABS)
     this.api.getProductCategory()
     .subscribe(res=>{
       this.productCategories=res;
-      //console.log(res);
+      console.log(res);
     })
   }
   
@@ -54,19 +54,22 @@ export class ProductsComponent implements OnInit {
   }
 
   addtocart(item: any){
-    this.cartService.addtoCart(item);
-    localStorage.setItem(item.productItemId, JSON.stringify(1));
 
-    var itemList = JSON.parse(localStorage.getItem(item.productItemId)) || [];
-    localStorage.setItem(item.productItemId, JSON.stringify(itemList));
-    
-    this.snack.open('Item added to cart! ', 'OK', 
-    {
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-      duration: 2000
-    });
-  }
+      this.cartService.addtoCart(item);
+      localStorage.setItem(item.productItemId, JSON.stringify(1));
+  
+      var itemList = JSON.parse(localStorage.getItem(item.productItemId)) || [];
+      localStorage.setItem(item.productItemId, JSON.stringify(itemList));
+      
+      this.snack.open('Item added to cart! ', 'OK', 
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        duration: 2000
+      });
+    }
+  
+  
 
     
   Itemdropdown(){

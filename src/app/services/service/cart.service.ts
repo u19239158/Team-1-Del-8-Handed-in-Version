@@ -1,3 +1,4 @@
+import { HeaderRowOutlet } from '@angular/cdk/table';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
@@ -63,12 +64,16 @@ export class User {
   firstName: string;
   lastName: string;
   jwtToken?: string;
+   
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
+  token = localStorage.getItem('token')
+ 
+  
     server = "https://localhost:44393/api/";
 
   public cartItemList : any =[]
@@ -89,8 +94,16 @@ export class CartService {
       Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ1MTkwNzI5MTJAdHVrcy5jby56YSIsImFwaV90b2tlbiI6Im8xWkNzVmtmdnFTS3ZNNHNxd0RRZE90d0FmNVZ3NzFvNDgtV3FJUHF6ZjZlUkJWUUdrT1YtZUdYYmlnTkVDYnhSdXcifSwiZXhwIjoxNjM0MTk5MjU2fQ.zbnhX4rSGFADNBkdXKwenZwRYZ47cMx5lByNkEYBkFQ`
       //Authorization: `Bearer ${this.addressAUTH}`
     })
-    
+   
   };
+
+  // getLoggedInUser(token): Observable<any> {
+  //   const pheaders = new Headers({
+  //     'Content-Type': 'application/json',
+  //     'Authorization': `Bearer ${token}`
+  //   })
+  //   return this.http.get<any>("https://www.universal-tutorial.com/api/states/South Africa", {pheaders : pheaders})  
+  // }
  
   constructor(
     private http:HttpClient) { 

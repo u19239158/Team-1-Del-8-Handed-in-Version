@@ -87,7 +87,7 @@ export class CustomerService {
   }
 
   DeleteProfile(customer: any): Observable<Customer> {
-    return this.http.delete<Customer>(`${this.server}Customer/DeleteCustomer`).pipe(map(res => res));
+    return this.http.post<Customer>(`${this.server}Customer/DeleteProfile`, customer).pipe(map(res => res));
   }
 
 

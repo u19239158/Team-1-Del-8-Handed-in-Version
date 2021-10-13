@@ -13,6 +13,7 @@ import { Customer,CustomerService } from 'src/app/services/customer/customer.ser
 import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 import { __values } from 'tslib';
 // import { setFlagsFromString } from 'v8';
+import { TokenType } from '@angular/compiler/src/ml_parser/lexer';
 
 
 export interface Coordinates {
@@ -53,7 +54,7 @@ export class order{
 export class CartComponent implements OnInit {
 
   addressform: FormGroup; 
-
+  tokeny = localStorage.getItem('token')
   isSubmitted = false;
   public products : order[] = [];
   public transaction : any =[];
@@ -72,6 +73,7 @@ export class CartComponent implements OnInit {
 
   Customer: Customer;
   userid : number;
+  token : string;
   addy: Address
   addyID : number;
 
@@ -113,6 +115,16 @@ export class CartComponent implements OnInit {
       console.log(this.products)
     })
     
+    var ids = localStorage.getItem('user')
+    const obj = JSON.parse(ids)
+   this.userid = obj.userId
+   this.token = obj.auth
+   //console.log(this.token)
+   localStorage.setItem('token',this.token)
+   
+   console.log(this.tokeny)
+  
+
     //populateProvince
     this.cartService.Provinces()
     .subscribe(res=>{
@@ -120,9 +132,7 @@ export class CartComponent implements OnInit {
       return this.provinceList;    
     })
     
-    var ids = localStorage.getItem('user')
-    const obj = JSON.parse(ids)
-   this.userid = obj.userId
+    
    this.customerService.GetProfile(this.userid).subscribe(res => {
     this.Customer = res})
 
@@ -262,12 +272,12 @@ export class CartComponent implements OnInit {
 
        this.cartService.removeAllCart();
 
-       this.snack.open('Order Placed! Shop Again!', 'OK', 
-      {
-        verticalPosition: 'top',
-        horizontalPosition: 'center',
-        duration: 2000
-      });
+      //  this.snack.open('Order Placed! Shop Again!', 'OK', 
+      // {
+      //   verticalPosition: 'top',
+      //   horizontalPosition: 'center',
+      //   duration: 2000
+      // });
       this.router.navigateByUrl('products')
     }
 
@@ -311,12 +321,12 @@ export class CartComponent implements OnInit {
     })
     this.makePayment();
     this.cartService.removeAllCart();
-    this.snack.open('Order Placed! Shop Again!', 'OK', 
-    {
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-      duration: 2000
-    });
+    // this.snack.open('Order Placed! Shop Again!', 'OK', 
+    // {
+    //   verticalPosition: 'top',
+    //   horizontalPosition: 'center',
+    //   duration: 2000
+    // });
     this.router.navigateByUrl('products')
   }
 
