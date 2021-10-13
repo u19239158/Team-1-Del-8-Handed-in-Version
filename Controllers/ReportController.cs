@@ -481,6 +481,7 @@ namespace NKAP_API_2.Controllers
                      SaleId = so.SaleId,
                      ProductItemName = su.ProductItemName,
                      CategoryTypeId = su.CategoryTypeId,
+                     ProductItemCost = su.ProductItemCost
 
                  }).Join(_db.Sales,
                  su => su.SaleId,
@@ -496,6 +497,7 @@ namespace NKAP_API_2.Controllers
                      ProductItemName = su.ProductItemName,
                      PaymentAmount = so.PaymentAmount,
                       CategoryTypeId = su.CategoryTypeId,
+                     ProductItemCost = su.ProductItemCost
                  }).Join(_db.CategoryTypes,
                  su => su.CategoryTypeId,
                  so => so.CategoryTypeId,
@@ -511,6 +513,25 @@ namespace NKAP_API_2.Controllers
                      PaymentAmount = su.PaymentAmount,
                      CategoryTypeId = su.CategoryTypeId,
                      CategoryTypeDescription = so.CategoryTypeDescription,
+                      ProductItemCost = su.ProductItemCost
+                 })
+                 .Join(_db.Prices,
+                 su => su.ProductItemId,
+                 so => so.ProductItemId,
+
+                 (su, so) => new
+                 {
+                     SaleOrderDate = su.SaleOrderDate,
+                     ProductItemId = su.ProductItemId,
+                     SaleLineId = su.SaleLineId,
+                     SaleLineQuantity = su.SaleLineQuantity,
+                     SaleId = su.SaleId,
+                     ProductItemName = su.ProductItemName,
+                     PaymentAmount = su.PaymentAmount,
+                     CategoryTypeId = su.CategoryTypeId,
+                     CategoryTypeDescription = su.CategoryTypeDescription,
+                     ProductItemCost = su.ProductItemCost,
+                     PriceDescription = so.PriceDescription
                  })
                  .Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate);
 
@@ -521,10 +542,12 @@ namespace NKAP_API_2.Controllers
         {
             CategoryTypeName = g.Key,
             NumberofSales = g.Count(),
-            TotalAmountSold = g.Sum(pv => pv.PaymentAmount),
+            TotalAmountSold = g.Sum(pv => pv.ProductItemCost * pv.SaleLineQuantity * Convert.ToDecimal(1.15)),
+            Price = g.Sum(pv => pv.PriceDescription * pv.SaleLineQuantity * Convert.ToDecimal(1.15)),
+            ProfitPerCategory = g.Sum(pv => pv.PriceDescription * pv.SaleLineQuantity * Convert.ToDecimal(1.15)) - g.Sum(pv => pv.ProductItemCost * pv.SaleLineQuantity * Convert.ToDecimal(1.15)),
             NumberOfItemsSold = g.Sum(pv => pv.SaleLineQuantity),
         })
-        .OrderByDescending(x => x.NumberofSales).ToList();
+        .OrderByDescending(x => x.NumberOfItemsSold).ToList();
 
             return Ok(productListResult);
 
@@ -686,8 +709,8 @@ namespace NKAP_API_2.Controllers
         }
 
         [Route("DashboardSales")] //route
-        [HttpGet]
-        public IActionResult DashboardSales()
+        [HttpPost]
+        public IActionResult DashboardSales(ProductCategoryModel model)
         {
             try
             {
@@ -697,6 +720,7 @@ namespace NKAP_API_2.Controllers
               (a, t) => new
               {
                   SaleOrderDate = a.SaleOrderDate,
+                  SaleLineQuantity = t.SaleLineQuantity,
                   SaleId = a.SaleId,
                   ProductItemId = t.ProductItemId,
 
@@ -707,7 +731,9 @@ namespace NKAP_API_2.Controllers
               {
                   SaleOrderDate = a.SaleOrderDate,
                   SaleId = a.SaleId,
-
+                  SaleLineQuantity = a.SaleLineQuantity,
+                  ProductItemCost = t.ProductItemCost,
+                  QuantityOnHand = t.QuantityOnHand,
                   ProductItemId = t.ProductItemId,
                   CategoryTypeId = t.CategoryTypeId
 
@@ -719,10 +745,13 @@ namespace NKAP_API_2.Controllers
               {
                   SaleOrderDate = a.SaleOrderDate,
                   SaleId = a.SaleId,
-
+                  SaleLineQuantity = a.SaleLineQuantity,
+                  ProductItemCost = a.ProductItemCost,
+                  QuantityOnHand = a.QuantityOnHand,
                   ProductItemId = a.ProductItemId,
                   CategoryTypeId = t.CategoryTypeId,
-                  ProductCategoryId = t.ProductCategoryId
+                  ProductCategoryId = t.ProductCategoryId,
+                  CategoryTypeDescription = t.CategoryTypeDescription
 
               }).Join(_db.ProductCategories,
               a => a.ProductCategoryId,
@@ -731,38 +760,70 @@ namespace NKAP_API_2.Controllers
               {
                   SaleOrderDate = a.SaleOrderDate,
                   SaleId = a.SaleId,
-
+                  SaleLineQuantity = a.SaleLineQuantity,
+                  ProductItemCost = a.ProductItemCost,
+                  QuantityOnHand = a.QuantityOnHand,
                   ProductItemId = a.ProductItemId,
                   CategoryTypeId = a.CategoryTypeId,
                   ProductCategoryId = t.ProductCategoryId,
-                  ProductCategoryDescription = t.ProductCategoryDescription
+                  ProductCategoryDescription = t.ProductCategoryDescription,
+                  CategoryTypeDescription = a.CategoryTypeDescription
 
-              }).AsEnumerable().Where(ss => ss.SaleOrderDate == DateTime.Today).GroupBy(zz => zz.ProductCategoryId);
-                //.Where((ss => ss.SaleOrderDate == System.DateTime.Now);
-                //.AsEnumerable().Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).GroupBy(zz => zz.ProductCategoryId);
-                //string bad;
+              }).Join(_db.Prices,
+              a => a.ProductItemId,
+              t => t.ProductItemId,
+              (a, t) => new
+              {
+                  SaleOrderDate = a.SaleOrderDate,
+                  SaleId = a.SaleId,
+                  SaleLineQuantity = a.SaleLineQuantity,
+                  ProductItemCost = a.ProductItemCost,
+                  QuantityOnHand = a.QuantityOnHand,
+                  ProductItemId = a.ProductItemId,
+                  CategoryTypeId = a.CategoryTypeId,
+                  ProductCategoryId = a.ProductCategoryId,
+                  PriceDescription = t.PriceDescription,
+                  ProductCategoryDescription = a.ProductCategoryDescription,
+                  CategoryTypeDescription = a.CategoryTypeDescription
 
-                // var results = _db.Sales.Where((ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate));
+              })
+              .AsEnumerable()
+              .Where(ss => ss.ProductCategoryId == model.ProductCategoryID);
+              //.GroupBy(zz => zz.ProductCategoryId);
 
-                List<dynamic> salesdata = new List<dynamic>();
+                var productListResult = dashy
+                .GroupBy(pv => pv.CategoryTypeDescription)
+                  .Select(g => new
+                 {
+                      CategoryTypeDescription = g.Key,
+                 NumberofSales = g.Count(),
+                 TotalAmountSold = g.Sum(pv => pv.ProductItemCost * pv.SaleLineQuantity * Convert.ToDecimal(1.15)),
+                 Price = g.Sum(pv => pv.PriceDescription * pv.SaleLineQuantity * Convert.ToDecimal(1.15)),
+                 ProfitPerCategory = g.Sum(pv => pv.PriceDescription * pv.SaleLineQuantity * Convert.ToDecimal(1.15)) - g.Sum(pv => pv.ProductItemCost * pv.SaleLineQuantity * Convert.ToDecimal(1.15)),
+                 NumberOfItemsSold = g.Sum(pv => pv.SaleLineQuantity),
+                 })
+                 .OrderByDescending(x => x.NumberOfItemsSold).ToList();
 
-                // int maxAge = salesdata.Max(t => t.NumberOfSales);
 
-                foreach (var item in dashy)
-                {
-                    dynamic province = new ExpandoObject();
-                    province.NumberOfSales = item.Count();
+                //List<dynamic> salesdata = new List<dynamic>();
+
+                //// int maxAge = salesdata.Max(t => t.NumberOfSales);
+
+                //foreach (var item in dashy)
+                //{
+                //    dynamic province = new ExpandoObject();
+                //    province.NumberOfSales = item.Count();
 
 
 
-                    province.ProductCategory = item.Select(zz => zz.ProductCategoryDescription).FirstOrDefault();
-                    salesdata.Add(province);
+                //    province.ProductCategory = item.Select(zz => zz.ProductCategoryDescription).FirstOrDefault();
+                //    salesdata.Add(province);
 
-                }
+                //}
 
-                int max = salesdata.Max(t => t.NumberOfSales);
+                //int max = salesdata.Max(t => t.NumberOfSales);
 
-                return Ok(salesdata);
+                return Ok(productListResult);
             }
             catch (Exception)
             {
