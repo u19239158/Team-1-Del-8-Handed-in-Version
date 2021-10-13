@@ -84,7 +84,7 @@ export class MonthlySalesOrderReportComponent implements OnInit {
   dataSource = new MatTableDataSource<Reports>();
   dataSauce = new MatTableDataSource<Reports>();
   displayedColumns: string[] = ['saleId', 'saleOrderDate', 'customerName', 'customerCellphoneNumber', 'customerBusinessName', 'salePaymentAmount'];
-  displayed: string[] = ['ProductCategory', 'NumberOfSales'];
+  displayed: string[] = ['categoryTypeName', 'numberOfSales', 'totalAmountSold', 'numberOfItemsSold'];
   tableData: any;
   Sales: any;
   aveg: any;

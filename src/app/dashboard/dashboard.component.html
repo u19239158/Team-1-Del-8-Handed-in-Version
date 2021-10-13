@@ -7,23 +7,26 @@
 <mat-card  class="split left">
 <div>
   <h2>Daily Sales Per Product Category</h2>
-  <div id="htmlData" class=" column right" *ngIf="created">
+  <div id="htmlData" class="column right" *ngIf="created">
+   
     <div style="display: block">
-      <canvas baseChart
-        [datasets]="barChartData"
-        [labels]="barChartLabels"
-        [options]="barChartOptions"
-        [plugins]="barChartPlugins"
-        [legend]="barChartLegend"
-        [chartType]="barChartType">
+      <div class="chart">
+        <canvas baseChart
+        [data]="pieChartData"
+        [labels]="pieChartLabels"
+        [chartType]="pieChartType"
+        [options]="pieChartOptions"
+        [plugins]="pieChartPlugins"
+        [colors]="pieChartColors"
+        [legend]="pieChartLegend">
       </canvas>
     </div>
-    <!-- <button mat-button mat-raised-button color="primary" (click)="randomize()">Update</button> -->
+  </div>
   </div>
 </div>
 </mat-card>
 
-<mat-card  class="split right">
+<mat-card class="split right">
 <div>
   <h2>Daily Sales Per Category Type</h2>
   <div id="htmlData" class=" column right" *ngIf="created">

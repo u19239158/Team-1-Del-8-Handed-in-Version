@@ -85,8 +85,8 @@ export class DashboardComponent implements OnInit {
       },
     }
   };
-  public pieChartLabels: Label[] = [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'];
-  public pieChartData: number[] = [300, 500, 100];
+  public pieChartLabels: Label[] = [];
+  public pieChartData: ChartDataSets[] = [];
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
   //public pieChartPlugins = [pluginDataLabels];
@@ -185,13 +185,13 @@ export class DashboardComponent implements OnInit {
 generateChart(ProductCategory, NumberOfSales) {
   console.log(ProductCategory, NumberOfSales);
   if (this.salegraph) {this.salegraph.destroy(); }
-  this.barChartData = [];
-  this.barChartData.push({
+  this.pieChartData = [];
+  this.pieChartData.push({
     data: NumberOfSales,
     label: 'Sales Per Product Category'
   });
 
-  this.barChartLabels = ProductCategory;
+  this.pieChartLabels = ProductCategory;
   this.created = true;
 }
 

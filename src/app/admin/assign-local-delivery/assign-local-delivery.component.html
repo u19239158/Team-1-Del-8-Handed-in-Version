@@ -94,8 +94,15 @@
       </mat-paginator>
 
         </div>
+
+        <div class="mat-row">
+    <div class="form-group" class="control-m">
+      <button mat-raised-button color ="primary" [routerLink]="['/assigndeliveryorder']">
+          Done
+      </button>
+      <a [routerLink]="['/assigndeliveryorder']" mat-button>Back</a>
+    </div>
+  </div>
         <!-- Done button must show the delivery assigned modal(the delivery assigned modal is not in the ts) -->
-        <div class="form-group" class="control-m"></div>
-        <button mat-raised-button color="primary" [routerLink]="['/assigndeliveryorder']">Done</button>
-        <button mat-raised-button color="secondary"[routerLink]="['/assigndeliveryorder']">Back</button> 
-        </div>
+       
+            
