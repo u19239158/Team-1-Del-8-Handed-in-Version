@@ -30,6 +30,7 @@ export interface Employee {
   userPassword: string;
   employeeConfirmPassword: string;
   usersId: number;
+  adminId: number;
 }
 
 export interface Supplier {
