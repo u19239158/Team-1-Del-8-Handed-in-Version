@@ -50,6 +50,7 @@ export class ViewdeliveryshiftscheduleComponent {
         })
         console.log("try", item)
       }
+       console.log(this.newData)
     });
 
     // this.OnlineSalesService.ViewAllSales().subscribe(res => {
@@ -79,11 +80,13 @@ export class ViewdeliveryshiftscheduleComponent {
 
     dataSource: this.newData
 
+    
 
   }
 
   ToTable() {
     this.router.navigateByUrl('viewEmployeeDeliveryShifts');
+   
   }
 
 }
