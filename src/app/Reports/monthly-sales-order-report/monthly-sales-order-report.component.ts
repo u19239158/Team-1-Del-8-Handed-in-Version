@@ -89,6 +89,7 @@ export class MonthlySalesOrderReportComponent implements OnInit {
   Sales: any;
   aveg: any;
   total: any;
+  yeartot: any;
   fileName = 'MonthlySales.xlsx';
   ReportParams: ReportParameters = {
     startDate: null,
@@ -140,6 +141,9 @@ export class MonthlySalesOrderReportComponent implements OnInit {
 
   generateReport() {
     this.serv.SalesReport(this.form.value).subscribe(data => {
+      this.serv.YearSales().subscribe( menace => {
+        this.yeartot = menace
+      })
       this.created = true;
       //this.Sales = true;
       console.log(data);
