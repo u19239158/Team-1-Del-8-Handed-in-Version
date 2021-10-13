@@ -64,7 +64,7 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
   dataSource = new MatTableDataSource<Reports>();
   dataSauce = new MatTableDataSource<Reports>();
   displayedColumns: string[] = ['saleId', 'saleOrderDate', 'customerName', 'customerCellphoneNumber', 'customerBusinessName', 'salePaymentAmount'];
-  displayed: string[] = ['categoryTypeName', 'numberOfSales', 'totalAmountSold', 'numberOfItemsSold'];
+  displayed: string[] = ['categoryTypeName', 'numberOfSales', 'numberOfItemsSold', 'totalAmountSold'];
   tableData: any;
   aveg: any;
   total: any;
@@ -147,7 +147,7 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
     this.serv.SalesReportAvg(this.form.value).subscribe(res => {
       console.log(res)
       this.aveg = res;
-      this.serv.SalesControl(this.form.value).subscribe(res => {
+      this.serv.GetFastProducts(this.form.value).subscribe(res => {
         this.dataSauce = new MatTableDataSource(res)
         this.dataSauce.sort = this.sort;
         console.log(res);

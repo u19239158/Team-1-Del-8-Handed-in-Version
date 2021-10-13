@@ -131,18 +131,20 @@
 
                 <ng-container matColumnDef="numberOfSales">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Number Of Sales </th>
-                    <td mat-cell *matCellDef="let element"> {{element.numberOfSales}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="totalAmountSold">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Amount Sold </th>
-                    <td mat-cell *matCellDef="let element"> {{element.totalAmountSold}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.numberofSales}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="numberOfItemsSold">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Number Of Items Sold </th>
-                    <td mat-cell *matCellDef="let element"> {{element.numberOfItemsSold}} </td>
-                </ng-container>           
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Number Of Items Sold </th>
+                  <td mat-cell *matCellDef="let element"> {{element.numberOfItemsSold}} </td>
+              </ng-container>    
+
+                <ng-container matColumnDef="totalAmountSold">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Amount Sold </th>
+                    <td mat-cell *matCellDef="let element"> {{element.price | number:'1.1-2'}} </td>
+                </ng-container>
+
+                       
 
                 <tr mat-header-row *matHeaderRowDef="displayed"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayed;"></tr>
