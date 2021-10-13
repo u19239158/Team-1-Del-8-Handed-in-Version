@@ -80,7 +80,7 @@ export class CartService {
   public qtyProd = new BehaviorSubject<any>([]);
   //for the producst page
  public productList = new BehaviorSubject<any>([]);
-// public addressAUTH = localStorage.getItem('addressAuth');
+  public addressAUTH = localStorage.getItem('token');
 
    paystackhttpOptions={
      headers: new HttpHeaders({
@@ -91,8 +91,8 @@ export class CartService {
 
    AddresshttpOptions = {
     headers: new HttpHeaders({
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ1MTkwNzI5MTJAdHVrcy5jby56YSIsImFwaV90b2tlbiI6Im8xWkNzVmtmdnFTS3ZNNHNxd0RRZE90d0FmNVZ3NzFvNDgtV3FJUHF6ZjZlUkJWUUdrT1YtZUdYYmlnTkVDYnhSdXcifSwiZXhwIjoxNjM0MTk5MjU2fQ.zbnhX4rSGFADNBkdXKwenZwRYZ47cMx5lByNkEYBkFQ`
-      //Authorization: `Bearer ${this.addressAUTH}`
+      //Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ1MTkwNzI5MTJAdHVrcy5jby56YSIsImFwaV90b2tlbiI6Im8xWkNzVmtmdnFTS3ZNNHNxd0RRZE90d0FmNVZ3NzFvNDgtV3FJUHF6ZjZlUkJWUUdrT1YtZUdYYmlnTkVDYnhSdXcifSwiZXhwIjoxNjM0MjIwMDkyfQ.wGwqTEt9RwWyWEabtgk-ix4d72xOCfXsIV7B8092VG4`
+      Authorization: `Bearer ${this.addressAUTH}`
     })
    
   };

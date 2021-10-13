@@ -119,11 +119,19 @@ export class CartComponent implements OnInit {
     const obj = JSON.parse(ids)
    this.userid = obj.userId
    this.token = obj.auth
-   //console.log(this.token)
+
+   //THIS IS THE ADDRESS AUTHENTICATION
    localStorage.setItem('token',this.token)
+   localStorage.getItem('token')
+   console.log(this.token)
    
-   console.log(this.tokeny)
-  
+  //  const addressAUTH = localStorage.getItem('addressAuth');
+  //  console.log(addressAUTH)
+  //  //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJ1MTkwNzI5MTJAdHVrcy5jby56YSIsImFwaV90b2tlbiI6Im8xWkNzVmtmdnFTS3ZNNHNxd0RRZE90d0FmNVZ3NzFvNDggLVdxSVBxemY2ZVJCVlFHa09WLWVHWGJpZ05FQ2J4UnV3In0sImV4cCI6MTYzNDIyMDAzOX0.JxWReSLlLCpbGSFQeTicFNnkpKF2j6BPkAEgIoxQy1M
+  //  let auth= localStorage.getItem('user')
+  //  let authy = JSON.parse(auth);
+  //  let Auth = authy.auth
+  //  console.log(Auth)
 
     //populateProvince
     this.cartService.Provinces()

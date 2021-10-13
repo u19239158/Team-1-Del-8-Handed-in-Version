@@ -19,9 +19,7 @@ export interface Login {
 export class AuthenticationService {
 
   
-  // auth= localStorage.getItem('user')
-  // public authy = JSON.parse(this.auth);
-  // public Auth = this.authy.auth
+
     server = "https://localhost:44393/api/";
 
 
