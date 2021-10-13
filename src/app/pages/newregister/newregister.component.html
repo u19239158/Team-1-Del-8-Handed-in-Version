@@ -81,6 +81,7 @@
                 <mat-form-field appearance="outline" class="control-m">
                     <mat-label>VAT Registration number</mat-label>
                     <input formControlName="customerVATReg" matInput>
+                    <mat-hint>Enter customer VAT registration number</mat-hint>
                     <mat-error *ngIf="form.controls['customerVATReg'].invalid">Please enter a valid VAT Registration
                         number
                     </mat-error>
@@ -93,7 +94,10 @@
             <div class="mat-col-quarter">
                 <mat-form-field appearance="outline" class="control-m">
                     <mat-label>Customer Username</mat-label>
+                    <mat-hint>Enter your username</mat-hint>
                     <input type="text" matInput placeholder="Customer Username" formControlName="userUsername">
+                    <mat-error *ngIf="form.controls['userUsername'].invalid">Please enter Customer
+                        Username</mat-error>
                 </mat-form-field>
             </div>
 
@@ -116,6 +120,7 @@
                 <mat-form-field appearance="outline" class="control-m">
                     <mat-label>Customer Password</mat-label>
                     <input type="password" matInput placeholder="Customer Password" formControlName="userPassword">
+                    <mat-hint>Enter customer password</mat-hint>
                     <mat-error *ngIf="form.controls['userPassword'].invalid">Password must be
                     </mat-error>
                 </mat-form-field>
@@ -127,6 +132,8 @@
                     <mat-label>Confirm Customer Password</mat-label>
                     <input type="password" matInput placeholder="Confirm Customer Password"
                         formControlName="customerConfirmPassword">
+                        <mat-hint>Confirm customer password</mat-hint>
+                    <mat-error *ngIf="form.controls['customerConfirmPassword'].invalid">Please confirm your password</mat-error>
                 </mat-form-field>
             </div>
         </div>
