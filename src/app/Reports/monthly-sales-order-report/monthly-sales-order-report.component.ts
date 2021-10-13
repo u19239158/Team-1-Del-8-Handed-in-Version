@@ -156,7 +156,7 @@ export class MonthlySalesOrderReportComponent implements OnInit {
         this.serv.SalesReportAvg(this.form.value).subscribe(res => {
           console.log(res)
           this.aveg = res;
-          this.serv.SalesControl(this.form.value).subscribe(res => {
+          this.serv.GetFastProducts(this.form.value).subscribe(res => {
             this.dataSauce = new MatTableDataSource(res)
             this.dataSauce.sort = this.sort;
             console.log(res);
