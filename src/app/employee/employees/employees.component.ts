@@ -74,7 +74,7 @@ export class EmployeesComponent implements OnInit {
   }
 
   deleteEmployee(Employee: Employee) {
-    Employee.usersId = this.userid
+    Employee.adminId = this.userid
     const confirm = this.dialog.open(GlobalConfirmComponent, {
       disableClose: true,
     });
