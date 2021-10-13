@@ -124,7 +124,6 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
     this.loading = true;
     if (this.isAddMode) {
       this.AssignDeliveryShifts();
-      console.log("ff", this.form.value)
     } else {
       this.updateDeliveryshift();
     }
@@ -196,10 +195,11 @@ export class AddEditDeliveryshiftsComponent implements OnInit {
   }
 
   AssignDeliveryShifts() {
+
     const deliveryshift: Deliveryshift = this.form.value;
+    console.log("check", deliveryshift)
     deliveryshift.usersId = this.userid
     this.DeliveryShiftService.AssignDeliveryShifts(deliveryshift).subscribe(res => {
-      console.log("check", deliveryshift)
       this.loading = false
       this.router.navigateByUrl('deliveryShift');
     });

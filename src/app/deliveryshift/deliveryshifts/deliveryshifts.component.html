@@ -1,9 +1,10 @@
 <div class="main">
     <div>
 
-    <a mat-mini-fab color="primary" href="http://localhost:8080/DeliveryShifts.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
-                <mat-icon>help</mat-icon>
-              </a>
+        <a mat-mini-fab color="primary" href="http://localhost:8080/DeliveryShifts.html" target="_blank"
+            aria-label="Example icon button with a menu icon" class="help">
+            <mat-icon>help</mat-icon>
+        </a>
 
         <h2>Delivery Shifts</h2>
 
@@ -78,7 +79,8 @@
                             <button mat-menu-item *ngIf="canBeUpdated(element)"
                                 [routerLink]="['/editDeliveryShift', element.shiftId]">Update Delivery
                                 Shift</button>
-                            <button mat-menu-item (click)="deleteDeliveryshift(element)">Delete Delivery
+                            <button mat-menu-item (click)="deleteDeliveryshift(element)"
+                                *ngIf="element.noOfDeliveries <= 0">Delete Delivery
                                 Shift</button>
                         </mat-menu>
                     </td>

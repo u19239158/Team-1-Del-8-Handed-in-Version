@@ -103,8 +103,11 @@ export class DeliveryshiftsComponent implements OnInit {
 
     confirm.afterClosed().subscribe(res => {
       setTimeout(() => this.dataSource.paginator = this.paginator);
+      console.log('delshift', Deliveryshift)
       if (res) {
+        delete Deliveryshift.dayOfTheWeek
         this.deliveryshiftService.DeleteDeliveryShift(Deliveryshift).subscribe(res => {
+
           this.readDeliveryshifts();
           this.snack.open('Successfully Deleted Delivery Shift! ', 'OK',
             {
@@ -112,6 +115,7 @@ export class DeliveryshiftsComponent implements OnInit {
               horizontalPosition: 'center',
               duration: 4000
             });
+          // window.location.reload();
         }, (error: HttpErrorResponse) => {
           console.log(error.error, "test")
           if (error.status === 400) {
