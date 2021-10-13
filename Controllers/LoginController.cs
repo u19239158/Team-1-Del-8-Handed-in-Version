@@ -234,7 +234,7 @@ namespace NKAP_API_2.Controllers
 
             catch(Exception e)
             {
-                return BadRequest(e.Message);
+                return BadRequest("Invalid Credentials");
             }
 
 
@@ -250,6 +250,7 @@ namespace NKAP_API_2.Controllers
                 _httpClient.BaseAddress = new Uri("https://www.universal-tutorial.com/api/getaccesstoken");
                 _httpClient.DefaultRequestHeaders.Add("user-email", "u19072912@tuks.co.za");
                 _httpClient.DefaultRequestHeaders.Add("api-token", "o1ZCsVkfvqSKvM4sqwDQdOtwAf5Vw71o48 -WqIPqzf6eRBVQGkOV-eGXbigNECbxRuw");
+                _httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
 
             }
 

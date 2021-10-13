@@ -151,34 +151,7 @@ namespace NKAP_API_2.Controllers
                     ProvinceDescription = t.ProvinceDescription,
 
                 }).Where(oo => oo.OrderStatusId == 3);
-                //.Join(_db.Cities,
-                //a => a.,
-                //t => t.ProvinceId,
-                //(a, t) => new
-                //{
-                //    AddressID = a.AddressID,
-                //    OrderStatusId = a.OrderStatusId,
-                //    SaleId = a.SaleId,
-                //    SaleOrderDescription = a.SaleOrderDescription,
-                //    SaleOrderDate = a.SaleOrderDate,
-                //    SaleOrderRecieveType = a.SaleOrderRecieveType,
-                //    SaleOrderAssign = a.SaleOrderAssign,
-                //    PaymentDate = a.PaymentDate,
-                //    OrderStatusDescription = a.OrderStatusDescription,
-                //    CustomerName = a.CustomerName,
-                //    CustomerSurname = a.CustomerSurname,
-                //    CustomerEmailAddress = a.CustomerEmailAddress,
-                //    CustomerCellphoneNumber = a.CustomerCellphoneNumber,
-                //    AddressLine1 = a.AddressLine1,
-                //    AddressLine2 = a.AddressLine2,
-                //    AddressLine3 = a.AddressLine3,
-                //    AddressPostalCode = a.AddressPostalCode,
-                //    ProvinceID = a.ProvinceID,
-                //    ProvinceDescription = a.ProvinceDescription,
-                //    CityID = t.CityId,
-                //    CityDescription = t.CityDescription
-
-                //});
+               
 
             return Ok(ReadyForDeliveryOrder);
         }
@@ -211,6 +184,37 @@ namespace NKAP_API_2.Controllers
                      EndDate = model.EndDate,
                     
                  }).Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).Sum(zz => zz.SalePaymentAmount);
+            Total = Sales;
+            return Ok(Total);
+
+        }
+
+        [Route("YearSales")] //route
+        [HttpGet]
+        //get Sales by Date (Read)
+        public IActionResult YearSales( )
+        {
+            decimal Total = 0;
+           
+            var Sales = _db.Sales.Join(_db.Customers,
+                 su => su.CustomerId,
+                 so => so.CustomerId,
+
+                 (su, so) => new
+                 {
+                     SaleID = su.SaleId,
+                     SaleDescription = su.SaleOrderDescription, //attributes in table
+                     SaleOrderDate = su.SaleOrderDate,
+                     SalePaymentDate = su.PaymentDate,
+                     SalePaymentAmount = su.PaymentAmount,
+                     CustomerId = so.CustomerId,
+                     CustomerName = so.CustomerName,
+                     CustomerCellphoneNumber = so.CustomerCellphoneNumber,
+                     CustomerBusinessName = so.CustomerBusinessName,
+                     CustomerEmailAddress = so.CustomerEmailAddress,
+                   
+
+                 }).Where(ss => ss.SaleOrderDate.Year == DateTime.Today.Year).Sum(zz => zz.SalePaymentAmount);
             Total = Sales;
             return Ok(Total);
 
@@ -286,6 +290,7 @@ namespace NKAP_API_2.Controllers
 
 
                  }).Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate);
+
 
             return Ok(Sales);
 
@@ -475,6 +480,7 @@ namespace NKAP_API_2.Controllers
                      SaleLineQuantity = so.SaleLineQuantity,
                      SaleId = so.SaleId,
                      ProductItemName = su.ProductItemName,
+                     CategoryTypeId = su.CategoryTypeId,
 
                  }).Join(_db.Sales,
                  su => su.SaleId,
@@ -488,10 +494,39 @@ namespace NKAP_API_2.Controllers
                      SaleLineQuantity = su.SaleLineQuantity,
                      SaleId = so.SaleId,
                      ProductItemName = su.ProductItemName,
+                     PaymentAmount = so.PaymentAmount,
+                      CategoryTypeId = su.CategoryTypeId,
+                 }).Join(_db.CategoryTypes,
+                 su => su.CategoryTypeId,
+                 so => so.CategoryTypeId,
 
-                 }).Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate);
+                 (su, so) => new
+                 {
+                     SaleOrderDate = su.SaleOrderDate,
+                     ProductItemId = su.ProductItemId,
+                     SaleLineId = su.SaleLineId,
+                     SaleLineQuantity = su.SaleLineQuantity,
+                     SaleId = su.SaleId,
+                     ProductItemName = su.ProductItemName,
+                     PaymentAmount = su.PaymentAmount,
+                     CategoryTypeId = su.CategoryTypeId,
+                     CategoryTypeDescription = so.CategoryTypeDescription,
+                 })
+                 .Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate);
 
-            return Ok(FastSellingP);
+
+            var productListResult = FastSellingP
+        .GroupBy(pv => pv.CategoryTypeDescription)
+        .Select(g => new
+        {
+            CategoryTypeName = g.Key,
+            NumberofSales = g.Count(),
+            TotalAmountSold = g.Sum(pv => pv.PaymentAmount),
+            NumberOfItemsSold = g.Sum(pv => pv.SaleLineQuantity),
+        })
+        .OrderByDescending(x => x.NumberofSales).ToList();
+
+            return Ok(productListResult);
 
         }
 
@@ -717,6 +752,7 @@ namespace NKAP_API_2.Controllers
                 {
                     dynamic province = new ExpandoObject();
                     province.NumberOfSales = item.Count();
+
 
 
                     province.ProductCategory = item.Select(zz => zz.ProductCategoryDescription).FirstOrDefault();
