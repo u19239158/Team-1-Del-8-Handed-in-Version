@@ -8,6 +8,21 @@
   padding-top: 20px;
 }
 
+.column1 {
+  float: left;
+  padding: 10px;
+  text-align: center;
+  width: 20%;
+}
+
+.column {
+  float: left;
+  padding: 10px;
+  text-align: center;
+  width: 80%;
+  // margin-right: 10px;
+}
+
 
 .help{
   position: absolute;
@@ -16,11 +31,13 @@
 }
 
 .left {
-  left: 0;
+  width: 40%;
+  left: 20%;
   background-color: white;
 }
 
 .right {
+  width: 40%;
   right: 0;
   background-color: white;
 }
