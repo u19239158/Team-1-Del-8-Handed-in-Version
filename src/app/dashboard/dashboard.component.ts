@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
 
-  public barChartData: ChartDataSets[] = [
+  public barChartData: ChartDataSets[] = [ 
  
   ];
 
@@ -182,7 +182,7 @@ export class DashboardComponent implements OnInit {
     this.created = false;
     // Restructure data for chart
     CategoryType = data.map(x => x.CategoryType);
-    NumbOfSales = data.map(x => x.NumberOfSales)
+    NumbOfSales = data.map(x => x.Price)
     // Generate Chart
     this.generatePChart(CategoryType, NumbOfSales)
     // Call table data method
@@ -223,7 +223,7 @@ generatePChart(CategoryType,NumbOfSales) {
   this.barChartDat = [];
   this.barChartDat.push({
     data: NumbOfSales,
-    label: 'Sales Per Category Type'
+    label: 'Sales in Rands Per Product Category'
   });
 
   this.barChartLabe = CategoryType;

@@ -4,7 +4,6 @@
 
 <h1>Daily Dashboard Sales</h1>
 <div class="column1">
-  <button class="button1" mat-raised-button color="primary" type="submit" (click) = "generateReport()"> Generate </button>
 <form [formGroup]="form">
     <div class="mat-row">
       <div class="mat-col-quarter">
@@ -27,12 +26,12 @@
  <div  class="column"> 
 <mat-card class="split left">
 <div>
-  <h2>Daily Items Sold Per Product Category</h2>
+  <h2>Items Sold Per Product Category</h2>
   <div id="htmlData" class="column right" *ngIf="created">
     <div style="display: block">
       <div class="chart">
         <canvas baseChart
-        [data]="pieChartData"
+        [data]="pieChartData "
         [labels]="pieChartLabels"
         [chartType]="pieChartType"
         [options]="pieChartOptions"
@@ -48,7 +47,7 @@
 
 <mat-card class="split right">
 <div>
-  <h2>Daily Sales Per Category Type</h2>
+  <h2>Sales Per Category Type</h2>
   <div id="htmlData" class=" column right" *ngIf="created">
     <div style="display: block">
       <canvas baseChart
