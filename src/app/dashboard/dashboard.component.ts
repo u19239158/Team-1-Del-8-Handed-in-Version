@@ -85,14 +85,14 @@ export class DashboardComponent implements OnInit {
       },
     }
   };
-  public pieChartLabels: Label[] = [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'];
-  public pieChartData: number[] = [300, 500, 100];
+  public pieChartLabels: Label[] = [];
+  public pieChartData: ChartDataSets[] = [];
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
   //public pieChartPlugins = [pluginDataLabels];
   public pieChartColors = [
     {
-      backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)'],
+      backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)',  'rgba(0,0,255,0.4)'],
     },
   ];
 
@@ -147,10 +147,10 @@ export class DashboardComponent implements OnInit {
     console.log(data)
     this.created = false;
     // Restructure data for chart
-    ProductCategory = data.map(x => x.ProductCategory);
-     NumberOfSales = data.map(x => x.NumberOfSales)
+    ProductCategory = data.map(x => x.productCategoryDescription);
+     NumberOfSales = data.map(x => x.price)
     // Generate Chart
-    this.generateChart(ProductCategory, NumberOfSales)
+    this.generatePie(ProductCategory, NumberOfSales)
     // Call table data method
    // this.generateTables(data);
   }, (error: HttpErrorResponse) => {
@@ -185,13 +185,13 @@ export class DashboardComponent implements OnInit {
 generateChart(ProductCategory, NumberOfSales) {
   console.log(ProductCategory, NumberOfSales);
   if (this.salegraph) {this.salegraph.destroy(); }
-  this.barChartData = [];
-  this.barChartData.push({
+  this.pieChartData = [];
+  this.pieChartData.push({
     data: NumberOfSales,
     label: 'Sales Per Product Category'
   });
 
-  this.barChartLabels = ProductCategory;
+  this.pieChartLabels = ProductCategory;
   this.created = true;
 }
 
@@ -208,16 +208,16 @@ generatePChart(CategoryType,NumbOfSales) {
   this.created = true;
 }
 
-generatePie(CategoryType, pieSales) {
-  console.log(CategoryType, pieSales);
+generatePie(ProductCategory, NumberOfSales) {
+  console.log(ProductCategory, NumberOfSales);
   if (this.pie) {this.pie.destroy(); }
   this.pieChartData = [];
   this.pieChartData.push(
-     pieSales
+    NumberOfSales
  
   );
 
-  this.pieChartLabels = CategoryType;
+  this.pieChartLabels = ProductCategory;
   this.created = true;
 }
 }

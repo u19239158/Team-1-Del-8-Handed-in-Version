@@ -92,6 +92,7 @@ export class ProductitemsComponent implements OnInit {
     const data = (this.Productitems.filter(filter))
     this.dataNotFound = data.length === 0
     this.dataSource = new MatTableDataSource(data)
+    setTimeout(() => this.dataSource.paginator = this.paginator);
   }
 
   deleteProductitem(Productitem: Productitem) {

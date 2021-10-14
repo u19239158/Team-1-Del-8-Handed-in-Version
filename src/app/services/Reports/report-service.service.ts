@@ -37,8 +37,16 @@ export class ReportServiceService {
     return this.http.get(`${this.server}Report/GetDeliveryReportData`).pipe(map(res => res))
   }
 
+  YearSales(): Observable<any> {
+    return this.http.get(`${this.server}Report/YearSales`).pipe(map(res => res))
+  }
+
   SalesReport(ReportParams: ReportParameters): Observable<any> {
     return this.http.post(`${this.server}Report/GenerateSalesReport`, ReportParams).pipe(map(res => res))
+  }
+
+  GetFastProducts(ReportParams: ReportParameters): Observable<any> {
+    return this.http.post(`${this.server}Report/GetFastProducts`, ReportParams).pipe(map(res => res))
   }
 
   

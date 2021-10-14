@@ -84,11 +84,12 @@ export class MonthlySalesOrderReportComponent implements OnInit {
   dataSource = new MatTableDataSource<Reports>();
   dataSauce = new MatTableDataSource<Reports>();
   displayedColumns: string[] = ['saleId', 'saleOrderDate', 'customerName', 'customerCellphoneNumber', 'customerBusinessName', 'salePaymentAmount'];
-  displayed: string[] = ['ProductCategory', 'NumberOfSales'];
+  displayed: string[] = ['categoryTypeName', 'numberOfSales', 'totalAmountSold', 'numberOfItemsSold'];
   tableData: any;
   Sales: any;
   aveg: any;
   total: any;
+  yeartot: any;
   fileName = 'MonthlySales.xlsx';
   ReportParams: ReportParameters = {
     startDate: null,
@@ -140,6 +141,9 @@ export class MonthlySalesOrderReportComponent implements OnInit {
 
   generateReport() {
     this.serv.SalesReport(this.form.value).subscribe(data => {
+      this.serv.YearSales().subscribe( menace => {
+        this.yeartot = menace
+      })
       this.created = true;
       //this.Sales = true;
       console.log(data);
@@ -152,7 +156,7 @@ export class MonthlySalesOrderReportComponent implements OnInit {
         this.serv.SalesReportAvg(this.form.value).subscribe(res => {
           console.log(res)
           this.aveg = res;
-          this.serv.SalesControl(this.form.value).subscribe(res => {
+          this.serv.GetFastProducts(this.form.value).subscribe(res => {
             this.dataSauce = new MatTableDataSource(res)
             this.dataSauce.sort = this.sort;
             console.log(res);

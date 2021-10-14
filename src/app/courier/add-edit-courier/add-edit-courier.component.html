@@ -53,7 +53,7 @@
                 <mat-label>Courier Contact Number</mat-label>
                 <input type="text" matInput placeholder="contactNumber" formControlName="courierNumber">
                 <mat-hint>Enter courier contact number</mat-hint>
-                 <mat-error *ngIf="form.controls['courierNumber'].invalid">Please enter Courier Contact Number</mat-error>
+                 <mat-error *ngIf="form.controls['courierNumber'].invalid">Courier Contact Number should be 10 digits</mat-error>
             </mat-form-field>
         </div>
     </div>

@@ -34,8 +34,15 @@ h2 {
   }
   button {
       float: right;
+      bottom: 70%;
+      margin-left: 50%;
+    margin-right: 50%;
   }
 
+  a {
+    margin-left: 50%;
+    margin-right: 50%;
+  }
   .more-button {
       text-align: center;
   }
@@ -52,8 +59,4 @@ h2 {
     top: 75px;
   }
 
-  .mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
-    background-color: #3f51b5;
-    margin-left: 50%;
-    margin-right: 50%;
-}
+
