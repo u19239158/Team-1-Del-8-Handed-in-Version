@@ -788,7 +788,7 @@ namespace NKAP_API_2.Controllers
 
               })
               .AsEnumerable()
-              .Where(ss => ss.ProductCategoryId == model.ProductCategoryID);
+              .Where(ss => ss.ProductCategoryId == model.ProductCategoryID && ss.SaleOrderDate == System.DateTime.Today);
               //.GroupBy(zz => zz.ProductCategoryId);
 
                 var productListResult = dashy
@@ -802,7 +802,7 @@ namespace NKAP_API_2.Controllers
                  ProfitPerCategory = g.Sum(pv => pv.PriceDescription * pv.SaleLineQuantity * Convert.ToDecimal(1.15)) - g.Sum(pv => pv.ProductItemCost * pv.SaleLineQuantity * Convert.ToDecimal(1.15)),
                  NumberOfItemsSold = g.Sum(pv => pv.SaleLineQuantity),
                  })
-                 .OrderByDescending(x => x.NumberOfItemsSold).ToList();
+                .OrderByDescending(x => x.NumberOfItemsSold).ToList();
 
 
                 //List<dynamic> salesdata = new List<dynamic>();
@@ -1016,6 +1016,7 @@ namespace NKAP_API_2.Controllers
                  SaleOrderDate = a.SaleOrderDate,
                  SaleId = a.SaleId,
                  ProductItemId = t.ProductItemId,
+                 SaleLineQuantity = t.SaleLineQuantity,
 
              }).Join(_db.ProductItems,
              a => a.ProductItemId,
@@ -1026,7 +1027,8 @@ namespace NKAP_API_2.Controllers
                  SaleId = a.SaleId,
 
                  ProductItemId = t.ProductItemId,
-                 CategoryTypeId = t.CategoryTypeId
+                 CategoryTypeId = t.CategoryTypeId,
+                 SaleLineQuantity = a.SaleLineQuantity,
 
              })
              .Join(_db.CategoryTypes,
@@ -1040,9 +1042,39 @@ namespace NKAP_API_2.Controllers
                  ProductItemId = a.ProductItemId,
                  CategoryTypeId = t.CategoryTypeId,
                  ProductCategoryId = t.ProductCategoryId,
-                 CategoryTypeDescription = t.CategoryTypeDescription
+                 CategoryTypeDescription = t.CategoryTypeDescription,
+                 SaleLineQuantity = a.SaleLineQuantity,
 
-             }).AsEnumerable().Where(ss => ss.SaleOrderDate == System.DateTime.Today).GroupBy(zz => zz.CategoryTypeId);
+             }).Join(_db.Prices,
+              a => a.ProductItemId,
+              t => t.ProductItemId,
+              (a, t) => new
+              {
+                  SaleOrderDate = a.SaleOrderDate,
+                  SaleId = a.SaleId,
+                  ProductItemId = a.ProductItemId,
+                  CategoryTypeId = a.CategoryTypeId,
+                  ProductCategoryId = a.ProductCategoryId,
+                  PriceDescription = t.PriceDescription,
+                  SaleLineQuantity = a.SaleLineQuantity,
+                  CategoryTypeDescription = a.CategoryTypeDescription
+
+              }).Join(_db.ProductCategories,
+              a => a.ProductCategoryId,
+              t => t.ProductCategoryId,
+              (a, t) => new
+              {
+                  SaleOrderDate = a.SaleOrderDate,
+                  SaleId = a.SaleId,
+                  SaleLineQuantity = a.SaleLineQuantity,
+                  ProductItemId = a.ProductItemId,
+                  CategoryTypeId = a.CategoryTypeId,
+                  ProductCategoryId = t.ProductCategoryId,
+                  ProductCategoryDescription = t.ProductCategoryDescription,
+                  CategoryTypeDescription = a.CategoryTypeDescription,
+                  PriceDescription = a.PriceDescription,
+
+              }).AsEnumerable().Where(ss => ss.SaleOrderDate == System.DateTime.Today).GroupBy(zz => zz.ProductCategoryId);
                 //.Where((ss => ss.SaleOrderDate == System.DateTime.Now);
                 //.AsEnumerable().Where(ss => ss.SaleOrderDate > model.StartDate && ss.SaleOrderDate < model.EndDate).GroupBy(zz => zz.ProductCategoryId);
                 //string bad;
@@ -1058,8 +1090,8 @@ namespace NKAP_API_2.Controllers
                     dynamic province = new ExpandoObject();
                     province.NumberOfSales = item.Count();
 
-
-                    province.CategoryType = item.Select(zz => zz.CategoryTypeDescription).FirstOrDefault();
+                    province.Price = Math.Round(item.Sum(pv => pv.PriceDescription * Convert.ToDecimal(1.15)), 2);
+                    province.CategoryType = item.Select(zz => zz.ProductCategoryDescription).FirstOrDefault();
                     salesdata.Add(province);
 
                 }

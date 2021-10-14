@@ -284,7 +284,7 @@ namespace NKAP_API_2.Controllers
                      EndTime = sor.EndTime,
                      EmployeeShiftId = sor.EmployeeShiftId,
                      NoOfDeliveries = sor.NoOfDeliveries
-                 }).Where(ss => ss.DayOfTheWeek >= DateTime.Today);
+                 }).Where(ss => ss.DayOfTheWeek >= DateTime.Now);
 
                 return Ok(DeliveryShift);
             }
