@@ -77,7 +77,7 @@ namespace NKAP_API_2.Controllers
             var customer = _db.Customers.Find(model.CustomerID);
             var user = _db.Users.FirstOrDefault(zz => zz.UsersId == customer.UsersId);
             AuditTrail audit = new AuditTrail();
-            audit.AuditTrailDescription = user.UserUsername + " made a sale worth: " + 'R' + model.PaymentAmount;
+            audit.AuditTrailDescription = user.UserUsername + " made a sale worth: " + 'R' + Math.Round(model.PaymentAmount,2);
             audit.AuditTrailDate = System.DateTime.Now;
             TimeSpan timeNow = DateTime.Now.TimeOfDay;
             audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
@@ -130,7 +130,7 @@ namespace NKAP_API_2.Controllers
             var customer = _db.Customers.Find(model.CustomerID);
             var user = _db.Users.FirstOrDefault(zz => zz.UsersId == customer.UsersId);
             AuditTrail audit = new AuditTrail();
-            audit.AuditTrailDescription = user.UserUsername + " made a sale worth: " + 'R' + sale.PaymentAmount;
+            audit.AuditTrailDescription = user.UserUsername + " made a sale worth: " + 'R' + Math.Round(sale.PaymentAmount,2);
             audit.AuditTrailDate = System.DateTime.Now;
             TimeSpan timeNow = DateTime.Now.TimeOfDay;
             audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
