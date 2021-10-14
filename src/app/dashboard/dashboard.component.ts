@@ -153,12 +153,12 @@ export class DashboardComponent implements OnInit {
     let pieSales: number[] =  [];
     const counts: any[] =  [];
 
-  this.serv.DashboardSales().subscribe(data => {
+  this.serv.DashboardSales(this.form.value).subscribe(data => {
     console.log(data)
     this.created = false;
     // Restructure data for chart
-    ProductCategory = data.map(x => x.productCategoryDescription);
-     NumberOfSales = data.map(x => x.price)
+    ProductCategory = data.map(x => x.categoryTypeDescription);
+     NumberOfSales = data.map(x => x.numberOfItemsSold)
     // Generate Chart
     this.generatePie(ProductCategory, NumberOfSales)
     // Call table data method
@@ -177,7 +177,7 @@ export class DashboardComponent implements OnInit {
 
   })
 
-  this.serv.DashboardPieSales(this.form.value).subscribe(data => {
+  this.serv.DashboardPieSales().subscribe(data => {
     console.log(data)
     this.created = false;
     // Restructure data for chart
