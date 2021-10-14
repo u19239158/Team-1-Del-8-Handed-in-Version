@@ -9,7 +9,7 @@
       <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m">
           <mat-label>Product Category </mat-label>
-          <mat-select (click) = "generateReport()" [(value)]="selected" formControlName="productCategoryId">
+          <mat-select [(value)]="selected" formControlName="productCategoryId">
             <mat-option *ngFor="let ProductCategory of collection" [value]="ProductCategory.productCategoryId">
               {{ProductCategory.productCategoryDescription}}
             </mat-option>
@@ -47,7 +47,7 @@
 
 <mat-card class="split right">
 <div>
-  <h2>Sales Per Category Type</h2>
+  <h2>Sales Per Product Category</h2>
   <div id="htmlData" class=" column right" *ngIf="created">
     <div style="display: block">
       <canvas baseChart
