@@ -98,7 +98,6 @@ export class CartComponent implements OnInit {
     this.addressform = this.formBuilder.group({
     AddressLine1 : new FormControl('', [Validators.required]),
     addressline2 : new FormControl('', [Validators.required]),
-    addressline3 : new FormControl(''),
     cityDescription : new FormControl('', [Validators.required]),
     provinceDescription : new FormControl('', [Validators.required]),
     addressPostalCode : new FormControl('', [Validators.required,Validators.maxLength(4)])
@@ -162,7 +161,7 @@ export class CartComponent implements OnInit {
     this.populateCities()    
   }
 
-  onBlurCity(){        
+  TotalPrice(){        
       if(this.selectedOption2=='Port Shepstone'||this.selectedOption2=='Margate'||this.selectedOption2=='Hibberdene'||this.selectedOption2=='Port Edward'||this.selectedOption2=='South Broom'||this.selectedOption2=='Shelley Beach'||this.selectedOption2=='Umtentweni'||this.selectedOption2=='Ramsgate'){
 //||'Margate'||'Hibberdene'||'Port Edward'||'South Broom'||'Shelley Beach'||'Umtentweni'||'Ramsgate'
       console.log(this.selectedOption2)
@@ -183,7 +182,7 @@ export class CartComponent implements OnInit {
       this.grandTotal+=50;
       //console.log(this.grandTotal)
     }    
-    document.querySelector('#totalModal').classList.add('is-active')
+    //document.querySelector('#totalModal').classList.add('is-active')
   }
  
 
@@ -309,9 +308,7 @@ export class CartComponent implements OnInit {
   // }, AddressformOptions);
   // }
 
-  DeliveryCheckout(){
-
-    
+  DeliveryCheckout(){    
     const address: Address = this.addressform.value;
     address.customerId = this.Customer.customerId;
     
@@ -332,6 +329,8 @@ export class CartComponent implements OnInit {
     this.cartService.Checkout(Sale).subscribe(data => {
       console.log(data)
     })
+    this.TotalPrice()
+    console.log(this.grandTotal)
     this.makePayment();
     this.cartService.removeAllCart();
     // this.snack.open('Order Placed! Shop Again!', 'OK', 
