@@ -5,18 +5,16 @@ h2 {
   left: 40px;
 }
 
-
 .help{
 	position:fixed;
 	width:90px;
 	height:60px;
-	bottom:40px;
-	left:90px;
-	/* background-color:#0C9; */
 	color:#FFF;
 	border-radius:50px;
 	text-align:center;
-	/* box-shadow: 2px 2px 3px #999; */
+	position: absolute;
+  left: 20px;
+  top: 45px;
 }
 
 a {
@@ -36,10 +34,7 @@ align-items: center;
     margin-left: auto;
     display: inline-block;
 }
-button {
-    float: right;
-    margin-bottom: 5px;
-}
+
 
 .more-button {
     text-align: center;
