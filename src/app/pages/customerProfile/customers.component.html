@@ -1,11 +1,16 @@
 <div class="main">
 
-<div class="help">
-  <button  routerLink="/products" class="button is-info is-rounded my-float">
+
+  <button routerLink="/products" class="button is-info is-rounded my-float">
     <a href="http://localhost:8080/Profile.html" target="_blank">
                <i class="fa fa-question-circle" aria-hidden="true"></i>
               </a>
   </button>
+
+<div class="help">
+ <a mat-mini-fab color="primary" href="http://localhost:8080/Profile.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
+                <i class="fa fa-question-circle" aria-hidden="true"></i>
+              </a> 
 </div>
 
     <div class="container emp-profile">
@@ -90,6 +95,6 @@
                 </div>
             </div>
         </div>
-        <!-- </form>-->
+        <p><button type="submit" align="right" (click)="back()" class="button is-link is-rounded">Back</button></p>
     </div>
 </div>

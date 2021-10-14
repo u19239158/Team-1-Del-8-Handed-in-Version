@@ -36,12 +36,15 @@ export class EditCustProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getCollection();
     var ids = localStorage.getItem('user')
     const obj = JSON.parse(ids)
     this.userid = obj.userId
+
+    this.getCollection();
+    
     const formOptions: AbstractControlOptions = {};
     this.customerService.GetProfile(this.userid).subscribe(res => {
+      console.log(res);
       this.Customer = res
       this.form = this.formBuilder.group({
         titleID: [this.Customer.titleID, [Validators.required]],

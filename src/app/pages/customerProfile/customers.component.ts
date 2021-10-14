@@ -72,6 +72,10 @@ export class CustomersComponent implements OnInit {
     this.router.navigateByUrl('/editProfile')
   }
 
+  back() {
+    this.router.navigateByUrl('/')
+  }
+
   deleteProfile(){
     this.customerService.DeleteProfile(this.customer).subscribe( res =>{
       window.localStorage.removeItem("user");
