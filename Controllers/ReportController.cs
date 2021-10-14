@@ -1070,7 +1070,7 @@ namespace NKAP_API_2.Controllers
             }
             catch (Exception)
             {
-                return BadRequest("You suck");
+                return BadRequest("There are currently no sales to display for today.");
                 throw;
             }
          ;

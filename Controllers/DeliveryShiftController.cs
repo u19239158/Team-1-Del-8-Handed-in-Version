@@ -603,7 +603,7 @@ namespace NKAP_API_2.Controllers
             Date Dates = new Date
             {
                 //attributes in table 
-                DayOfTheWeek = model.DayOfTheWeek
+                DayOfTheWeek = model.DayOfTheWeek.AddDays(1)
             };
             _db.Dates.Add(Dates);
             _db.SaveChanges();
