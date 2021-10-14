@@ -7,7 +7,8 @@ import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { ReportServiceService } from '../services/Reports/report-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -17,11 +18,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class DashboardComponent implements OnInit {
   //Barchart
+  form: FormGroup;
+  selected: string;
   created = false;
   Productcategory: Productcategory = {} as Productcategory;
   salegraph : Chart;
   salgraph : Chart;
   pie : Chart;
+  collection = [];
   public barChartOptions: ChartOptions = {
     responsive: true,
     // We use these empty structures as placeholders for dynamic theming.
@@ -99,10 +103,16 @@ export class DashboardComponent implements OnInit {
 
   constructor(private serv: ReportServiceService,
     private snack : MatSnackBar,
+    private http: HttpClient,
+    private formBuilder: FormBuilder,
     ) { }
 
   ngOnInit(): void {
-    this.generateReport();
+    const formOptions: AbstractControlOptions = {};
+    this.getCollection();
+    this.form = this.formBuilder.group({
+      productCategoryId: ['', [Validators.required]],
+    }, formOptions);
     //this.readDeliveryReport()
   }
   // events
@@ -167,7 +177,7 @@ export class DashboardComponent implements OnInit {
 
   })
 
-  this.serv.DashboardPieSales().subscribe(data => {
+  this.serv.DashboardPieSales(this.form.value).subscribe(data => {
     console.log(data)
     this.created = false;
     // Restructure data for chart
@@ -177,6 +187,18 @@ export class DashboardComponent implements OnInit {
     this.generatePChart(CategoryType, NumbOfSales)
     // Call table data method
    // this.generateTables(data);
+  }, (error: HttpErrorResponse) => {
+    console.log(error.error, "test")
+    if (error.status === 400) {
+      this.snack.open(error.error, 'OK',
+        {
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          duration: 5000
+        });
+      return;
+    }
+
   })
 
 ;
@@ -220,4 +242,24 @@ generatePie(ProductCategory, NumberOfSales) {
   this.pieChartLabels = ProductCategory;
   this.created = true;
 }
+getCollection() {
+  this.http
+    .get<any>('https://localhost:44393/api/ProductCategory/GetProdCat').subscribe((res: any) => {
+      this.collection = res;
+      //console.log = res;
+    }, error => {
+      console.log({ error });
+    })
 }
+
+// select(){
+//   this.serv.DashboardPieSales(this.form.value).subscribe(data => {
+//     this.created = true;
+//     //this.Sales = true;
+//     console.log(data);
+
+//   )
+// }
+
+}
+

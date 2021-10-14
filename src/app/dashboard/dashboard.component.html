@@ -3,12 +3,29 @@
               </a>
 
 <h1>Daily Dashboard Sales</h1>
+  <button class="button1" mat-raised-button color="primary" type="submit" (click) = "generateReport()"> Generate </button>
+<form [formGroup]="form">
+    <div class="mat-row">
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Product Category </mat-label>
+          <mat-select (click) = "generateReport()" [(value)]="selected" formControlName="productCategoryId">
+            <mat-option *ngFor="let ProductCategory of collection" [value]="ProductCategory.productCategoryId">
+              {{ProductCategory.productCategoryDescription}}
+            </mat-option>
+          </mat-select>
+          <mat-hint>Select category type</mat-hint>
+          <!-- <mat-error *ngIf="form.controls['productCategoryId'].invalid">Please select a Product Category</mat-error> -->
+        </mat-form-field>
+      </div>
+    </div>
+    </form>
 
+  
 <mat-card  class="split left">
 <div>
   <h2>Daily Sales Per Product Category</h2>
   <div id="htmlData" class="column right" *ngIf="created">
-   
     <div style="display: block">
       <div class="chart">
         <canvas baseChart

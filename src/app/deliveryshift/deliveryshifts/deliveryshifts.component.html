@@ -82,6 +82,8 @@
                             <button mat-menu-item (click)="deleteDeliveryshift(element)"
                                 *ngIf="element.noOfDeliveries <= 0">Delete Delivery
                                 Shift</button>
+                                 <label mat-menu-item class = "disable"
+                                *ngIf ="cannotBeUpdated(element) && element.noOfDeliveries > 0"> No Options Available</label>
                         </mat-menu>
                     </td>
                 </ng-container>

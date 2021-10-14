@@ -61,6 +61,11 @@ export class DeliveryshiftsComponent implements OnInit {
     return +moment(element.dayOfTheWeek + ' ' + element.endTime, 'DD/MM/YYYY HH:mm:ss') > +moment()
 
   }
+  cannotBeUpdated = (element) => {
+
+    return +moment(element.dayOfTheWeek + ' ' + element.endTime, 'DD/MM/YYYY HH:mm:ss') < +moment()
+
+  }
 
   setDeliveryShifts(result) {
     this.DeliveryShifts = result;
