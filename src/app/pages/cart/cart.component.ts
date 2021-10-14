@@ -168,10 +168,10 @@ export class CartComponent implements OnInit {
       console.log(this.selectedOption2)
       console.log('Local')
       //creat 2min
-      let toMinus = 50;
-      this.grandTotal-=toMinus
+      let toMinus = 25;
+      //this.grandTotal-=toMinus
       //minus 2min
-      this.grandTotal+=50;
+      this.grandTotal+=25;
       //set to R50 ir R100
       console.log(this.grandTotal)
     }
@@ -179,10 +179,11 @@ export class CartComponent implements OnInit {
       console.log(this.selectedOption2)
       console.log('Courier')
       let toMinus = 50;
-      this.grandTotal-=toMinus
-      this.grandTotal+=100;
-      console.log(this.grandTotal)
-    }
+      //this.grandTotal-=toMinus
+      this.grandTotal+=50;
+      //console.log(this.grandTotal)
+    }    
+    document.querySelector('#totalModal').classList.add('is-active')
   }
  
 
@@ -242,6 +243,10 @@ export class CartComponent implements OnInit {
 
   closeDeliveryModal(){
     document.querySelector('#deliveryModal').classList.remove('is-active')
+  }
+
+  closeTotalModal(){
+    document.querySelector('#totalModal').classList.remove('is-active')
   }
 
   submitForm(form: NgForm) {
@@ -337,31 +342,6 @@ export class CartComponent implements OnInit {
     // });
     this.router.navigateByUrl('products')
   }
-
-  // submitAddressForm() {
-
-  //     const address: Address = this.addressform.value;
-  //     address.customerId = this.Customer.customerId;
-      
-  //     console.log(address)
-  //     this.cartService.AddCustomerAddress(address).subscribe(res => {
-  //       console.log(res)
-  //       if(!this.addressform.valid) {
-  //         return false;
-    
-  //       } else if(this.addressform.value.city=="Port Shepstone"){
-  //         //Port Shepstone, Margate, Hibberdene, Port Edward, South Broom, Shelley Beach, Umtentweni, Ramsgate
-  //         console.log("local things")
-  //       }
-  //       else{
-  //         console.log("courier vibes")
-  //       }
-  //       document.querySelector('.modal').classList.remove('is-active')
-
-      //this.cartService.Checkout(form);
-  //     //this.makePayment();
-  //   })
-  // }
 
   makePayment(){
     const data = {

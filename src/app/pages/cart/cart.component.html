@@ -202,20 +202,28 @@
                 <div>
                   <label class="label">Please enter your Province:</label>
  
-                    <select (blur)='onBlur()' [(ngModel)]="selectedOption" name="province" list="provincename" class="input" formControlName="provinceDescription" type="text" placeholder="Province">
-                      <option id="provincename" *ngFor="let province of provinceList" >{{province.state_name}}</option>
-                    </select>
+                    <!-- <select (blur)='onBlur()' [(ngModel)]="selectedOption" name="province" list="provincename" class="input" formControlName="provinceDescription" type="text" placeholder="Province">
+                      <option id="provincename" *ngFor="let province of provinceList" placeholder="Province">{{province.state_name}}</option>
+                    </select> -->
+
+                    <input (blur)='onBlur()' [(ngModel)]="selectedOption" name="province" list="provincename" class="input" formControlName="provinceDescription" type="text" placeholder="Province">
+                    <datalist id="provincename">
+                      <option *ngFor="let province of provinceList" placeholder="Province" value="{{province.state_name}}">
+                    </datalist>
                 </div> 
 
                 <!-- Customer city -->
                 <div>
                   <label class="label">Please enter your City:</label>
  
-                  <select (click)='onBlurCity()' [(ngModel)]="selectedOption2" name="city" list="cityname" class="input" formControlName="cityDescription" type="text" placeholder="City">
-                    <option id="cityname" *ngFor="let city of cityList">{{city.city_name}}</option>
-                  </select>
+                  <!-- <select  [(ngModel)]="selectedOption2" name="city" list="cityname" class="input" formControlName="cityDescription" type="text" >
+                    <option id="cityname" *ngFor="let city of cityList" placeholder="City">{{city.city_name}}</option>
+                  </select> -->
 
-                    
+                  <input [(ngModel)]="selectedOption2" name="city" list="cityname" class="input" formControlName="cityDescription" type="text">
+                  <datalist id="cityname" >
+                    <option *ngFor="let city of cityList" placeholder="City" value="{{city.city_name}}">
+                  </datalist>                   
                     <div *ngIf="selectedOption2==='Port Shepstone' || selectedOption2==='Margate'|| selectedOption2==='Hibberdene'
                     || selectedOption2=== 'Port Edward'|| selectedOption2=== 'South Broom'|| selectedOption2=== 'Shelley Beach'|| selectedOption2=== 'Umtentweni'
                     || selectedOption2=== 'Ramsgate'; else courier">
@@ -224,8 +232,10 @@
                    <ng-template #courier>
                     This is a courier delivery. R100 will be added to total
                    </ng-template>
-                </div>             
 
+
+                </div>             
+<!--(click)='onBlurCity()'-->
                 <!-- Customer Postal Code -->
                 <div>
                   <label class="label">Please enter your Postal Code:</label>
@@ -234,12 +244,57 @@
                   <!-- </div> -->
                 </div>
 
+
                   
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)=closeDeliveryModal()>Close</button>
+                
+        <!-- <div class="box">
+          <button id="btnTotal" type="button" class="btn btn-secondary" (click)="onBlurCity()">Totals:</button>
+          
+          <div id="grandTotalDelivery">
+            VAT total: R {{vatTotals | number:'0.1-2'}}<br/>
+            <strong>Grand Total : R{{grandTotal | number:'0.1-2'}}</strong>
+
+          </div>
+        </div> -->
+
+        <button type="button" class="btn btn-secondary" (click)="closeDeliveryModal()">Close</button>
+        <button id="btnTotal" type="button" class="btn btn-secondary" (click)="onBlurCity()">Totals</button>
+        
         <button type="submit" class="btn btn-primary">Checkout</button>
       </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<!--TOTAL MODAL-->
+
+
+<div class="modal" id="totalModal" tabindex="-1" role="dialog"  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          Confirm Total
+          <button type="button" class="btn-close btn-close-black" (click)=closeDeliveryModal()></button>
+       </h3>
+      </div>
+      <div class="box">
+        This is your Total:
+        
+        <div id="grandTotalDelivery">
+          VAT total: R {{vatTotals | number:'0.1-2'}}<br/>
+          <strong>Grand Total : R{{grandTotal | number:'0.1-2'}}</strong>
+
+        </div>
+
+                  
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-secondary" (click)="closeTotalModal()">Back</button>     
+
+      </div>
     </div>
   </div>
 </div>
@@ -248,6 +303,34 @@
 
 
 
+<!-- Please Log in -->
+
+<!-- <button class="button is-success is-rounded is-outlined" (click)=userLogin() id="launchModal">Display Final Price</button>
+  <div id="loginModal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">
+            Log in or Register
+         </h3>
+         <button type="button" class="btn-close btn-close-black" (click)=close()></button>
+        </div>
+
+        <div>
+          <label class="label">This is your Grant Total</label>
+        
+          <div class="box">
+            VAT total: R {{vatTotals | number:'0.1-2'}}<br/>
+            <strong>Grand Total : R{{grandTotal | number:'0.1-2'}}</strong>
+          </div>
+          <span class="tag is-large is-success is-rounded"><strong>Grand Total : R{{grandTotal | number:'0.1-2'}}</strong></span>
+            
+          <button routerLink="/login" class="button is-dark is-rounded is-outlined">Log In</button>
+          <button routerLink="/newregister" class="button is-dark is-rounded is-outlined">Register</button>
+        </div>
+ 
+    </div>
+  </div>  -->
 
 
 
