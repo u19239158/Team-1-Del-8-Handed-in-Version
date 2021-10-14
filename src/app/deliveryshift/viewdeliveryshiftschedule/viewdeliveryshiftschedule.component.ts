@@ -39,22 +39,21 @@ export class ViewdeliveryshiftscheduleComponent {
           Subject: item.employeeName,
 
           //(yyyy,  (mm+1),  dd, hr,mm):For Both Dates
-          StartTime: moment(moment(item.dayOfTheWeek + ' ' + item.startTime).utc().toDate()).format('DD/MM/YYYY HH:mm:ss'),
+          StartTime: moment(item.dayOfTheWeek + ' ' + item.startTime, 'DD/MM/YYYY HH:mm:ss').toDate(),
 
-          EndTime: moment(moment(item.dayOfTheWeek + ' ' + item.endTime).utc().toDate()).format('DD/MM/YYYY HH:mm:ss'),
+          EndTime: moment(item.dayOfTheWeek + ' ' + item.endTime, 'DD/MM/YYYY HH:mm:ss').toDate(),
 
           // Location: item.addressLine1 + ' ' + item.addressLine2 + ' ' + item.addressLine3,
 
           Description: item.saleId,
 
         })
-        console.log("try", item)
+
       }
-       console.log(this.newData)
     });
 
     // this.OnlineSalesService.ViewAllSales().subscribe(res => {
-    //   console.log("res5", res)
+    console.log("res5", this.newData)
 
     //   for (let i = 0; i < res.length; i++) {
     //     const item = res[i]
@@ -80,13 +79,13 @@ export class ViewdeliveryshiftscheduleComponent {
 
     dataSource: this.newData
 
-    
+
 
   }
 
   ToTable() {
     this.router.navigateByUrl('viewEmployeeDeliveryShifts');
-   
+
   }
 
 }
