@@ -153,8 +153,8 @@
                     <input type="password" matInput placeholder="Confirm Password"
                         formControlName="employeeConfirmPassword">
                     <mat-hint>Confirm employee password</mat-hint>
-                    <mat-error *ngIf="form.controls['employeeConfirmPassword'].invalid">Please confirm the Employee's
-                        Password</mat-error>
+                    <mat-error *ngIf="form.controls['employeeConfirmPassword'].invalid">Passwords do not match
+                    </mat-error>
                 </mat-form-field>
             </div>
         </div>
