@@ -7,7 +7,8 @@ import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { ReportServiceService } from '../services/Reports/report-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -17,11 +18,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class DashboardComponent implements OnInit {
   //Barchart
+  form: FormGroup;
+  selected: string;
   created = false;
   Productcategory: Productcategory = {} as Productcategory;
   salegraph : Chart;
   salgraph : Chart;
   pie : Chart;
+  collection = [];
   public barChartOptions: ChartOptions = {
     responsive: true,
     // We use these empty structures as placeholders for dynamic theming.
@@ -41,7 +45,7 @@ export class DashboardComponent implements OnInit {
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
 
-  public barChartData: ChartDataSets[] = [
+  public barChartData: ChartDataSets[] = [ 
  
   ];
 
@@ -99,10 +103,16 @@ export class DashboardComponent implements OnInit {
 
   constructor(private serv: ReportServiceService,
     private snack : MatSnackBar,
+    private http: HttpClient,
+    private formBuilder: FormBuilder,
     ) { }
 
   ngOnInit(): void {
-    this.generateReport();
+    const formOptions: AbstractControlOptions = {};
+    this.getCollection();
+    this.form = this.formBuilder.group({
+      productCategoryId: ['', [Validators.required]],
+    }, formOptions);
     //this.readDeliveryReport()
   }
   // events
@@ -143,12 +153,12 @@ export class DashboardComponent implements OnInit {
     let pieSales: number[] =  [];
     const counts: any[] =  [];
 
-  this.serv.DashboardSales().subscribe(data => {
+  this.serv.DashboardSales(this.form.value).subscribe(data => {
     console.log(data)
     this.created = false;
     // Restructure data for chart
-    ProductCategory = data.map(x => x.productCategoryDescription);
-     NumberOfSales = data.map(x => x.price)
+    ProductCategory = data.map(x => x.categoryTypeDescription);
+     NumberOfSales = data.map(x => x.numberOfItemsSold)
     // Generate Chart
     this.generatePie(ProductCategory, NumberOfSales)
     // Call table data method
@@ -172,11 +182,23 @@ export class DashboardComponent implements OnInit {
     this.created = false;
     // Restructure data for chart
     CategoryType = data.map(x => x.CategoryType);
-    NumbOfSales = data.map(x => x.NumberOfSales)
+    NumbOfSales = data.map(x => x.Price)
     // Generate Chart
     this.generatePChart(CategoryType, NumbOfSales)
     // Call table data method
    // this.generateTables(data);
+  }, (error: HttpErrorResponse) => {
+    console.log(error.error, "test")
+    if (error.status === 400) {
+      this.snack.open(error.error, 'OK',
+        {
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          duration: 5000
+        });
+      return;
+    }
+
   })
 
 ;
@@ -201,7 +223,7 @@ generatePChart(CategoryType,NumbOfSales) {
   this.barChartDat = [];
   this.barChartDat.push({
     data: NumbOfSales,
-    label: 'Sales Per Category Type'
+    label: 'Sales in Rands Per Product Category'
   });
 
   this.barChartLabe = CategoryType;
@@ -220,4 +242,24 @@ generatePie(ProductCategory, NumberOfSales) {
   this.pieChartLabels = ProductCategory;
   this.created = true;
 }
+getCollection() {
+  this.http
+    .get<any>('https://localhost:44393/api/ProductCategory/GetProdCat').subscribe((res: any) => {
+      this.collection = res;
+      //console.log = res;
+    }, error => {
+      console.log({ error });
+    })
 }
+
+// select(){
+//   this.serv.DashboardPieSales(this.form.value).subscribe(data => {
+//     this.created = true;
+//     //this.Sales = true;
+//     console.log(data);
+
+//   )
+// }
+
+}
+

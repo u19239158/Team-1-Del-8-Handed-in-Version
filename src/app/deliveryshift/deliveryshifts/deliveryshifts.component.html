@@ -72,7 +72,7 @@
                         </button>
                     </th>
                     <td mat-cell *matCellDef="let element">
-                        <button *ngIf="canBeUpdated(element) && element.noOfDeliveries <= 0" mat-icon-button
+                        <button  mat-icon-button
                             class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
                             <mat-icon>more_vert</mat-icon>
                         </button>
@@ -83,6 +83,8 @@
                             <button mat-menu-item (click)="deleteDeliveryshift(element)"
                                 *ngIf="element.noOfDeliveries <= 0">Delete Delivery
                                 Shift</button>
+                                 <label mat-menu-item class = "disable"
+                                *ngIf ="cannotBeUpdated(element) && element.noOfDeliveries > 0"> No Options Available</label>
                         </mat-menu>
                     </td>
                 </ng-container>

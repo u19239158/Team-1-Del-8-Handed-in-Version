@@ -3,16 +3,35 @@
               </a>
 
 <h1>Daily Dashboard Sales</h1>
-
-<mat-card  class="split left">
+<div class="column1">
+<form [formGroup]="form">
+    <div class="mat-row">
+      <div class="mat-col-quarter">
+        <mat-form-field appearance="outline" class="control-m">
+          <mat-label>Product Category </mat-label>
+          <mat-select [(value)]="selected" formControlName="productCategoryId">
+            <mat-option *ngFor="let ProductCategory of collection" [value]="ProductCategory.productCategoryId">
+              {{ProductCategory.productCategoryDescription}}
+            </mat-option>
+          </mat-select>
+          <mat-hint>Select category type</mat-hint>
+          <!-- <mat-error *ngIf="form.controls['productCategoryId'].invalid">Please select a Product Category</mat-error> -->
+        </mat-form-field>
+         <button class="button1" mat-raised-button color="primary" type="submit" (click) = "generateReport()"> Generate </button>
+      </div>
+    </div>
+    </form>
 <div>
-  <h2>Daily Sales Per Product Category</h2>
+
+ <div  class="column"> 
+<mat-card class="split left">
+<div>
+  <h2>Items Sold Per Product Category</h2>
   <div id="htmlData" class="column right" *ngIf="created">
-   
     <div style="display: block">
       <div class="chart">
         <canvas baseChart
-        [data]="pieChartData"
+        [data]="pieChartData "
         [labels]="pieChartLabels"
         [chartType]="pieChartType"
         [options]="pieChartOptions"
@@ -28,7 +47,7 @@
 
 <mat-card class="split right">
 <div>
-  <h2>Daily Sales Per Category Type</h2>
+  <h2>Sales Per Product Category</h2>
   <div id="htmlData" class=" column right" *ngIf="created">
     <div style="display: block">
       <canvas baseChart
@@ -44,7 +63,7 @@
   </div>
 </div>
 </mat-card>
-
+</div>
 
 <!-- <mat-card class="split right">
 <div>
