@@ -134,11 +134,12 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  
+ <div class="text"> 
  <h2>Total Sales For the Month: R{{total | number:'1.1-2'}}</h2>
  <h2>Average Sale Amount: R{{aveg | number:'1.1-2'}}</h2> 
  <h2>Total Sales For the Year: R{{yeartot | number:'1.1-2'}}</h2> 
-
+ </div>
+ 
  <table mat-table [dataSource]="dataSauce" matSort>
                 
                 <ng-container matColumnDef="categoryTypeName">
