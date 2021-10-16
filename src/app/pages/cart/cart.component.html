@@ -1,92 +1,96 @@
 <ng-container *ngIf="products.length !=0">
-    <div class="container">
-        <div class="card-table">
-            <div class="cart-product">
-                <table class="table table-responsive">
-                    <thead>
-                        <tr>
-                            <th>Sr.No</th>
-                            <th>Product Image</th>
-                            <th>Product Name</th>
-                            <th>Description</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                      
-                      <tr *ngFor="let item of products;let i = index">
-                                <td>{{i+1}}</td>
-                                <td><img src="{{item.categorytypeimage}}" alt=""></td>
-                                <td style="width: 25%;">{{item.ProductItemname}}</td>
-                                <td style="width: 12%;">{{item.itemdescription}}</td>
-                                <td style="width: 12%;">                                  
-                                  <input id="quantity" type="number" class="no-spinners" placeholder="1"  [value]="item.num" [(ngModel)]="item.num" min="1" (click)="reloadCurrentPage()"/>
-                                </td>
-                                <td *ngIf ="item.Specialprice" style="width: 12%;">R{{item.Specialprice | number:'0.1-2'}}</td>
-                                <td *ngIf ="item.Specialprice === 0" style="width: 12%;">R{{item.VATInc | number:'0.1-2'}}</td>
-                               
-                                <!-- multiply price by the Quantity.value of the numeric up down -->
-                                <td>
-                                    <button (click)="removeItem(item)" class="button is-rounded is-danger is-outlined"><i class="fas fa-trash-alt"></i></button>
-                                </td>
-                        </tr>
-                  
-                        <tr>
-                            <td colspan="3">
+  <div class="container">
+    <div class="card-table">
+      <div class="cart-product">
+        <table class="table table-responsive">
+          <thead>
+            <tr>
+              <th>Sr.No</th>
+              <th>Product Image</th>
+              <th>Product Name</th>
+              <th>Description</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
 
-                            </td>
-                            <td><button (click)="emptycart()" class="button is-rounded is-danger is-outlined">Empty Cart</button></td>
-                            <td><button routerLink="/products" class="button is-info is-rounded is-outlined">Shop More</button></td>
-                            <td>
-                              <button class="button is-success is-rounded is-outlined" (click)=openmodal() id="launchModal">Checkout</button>
-                            </td>
-                            <td>
-                        
-                              <div class="box">
-                                VAT total: R {{vatTotals | number:'0.1-2'}}<br/>
-                              </div>
-                              <!-- <span class="tag is-large is-success is-rounded">VAT total: R {{vatTotals | number:'0.1-2'}}</span> -->
-                              <span class="tag is-large is-success is-rounded"><strong>Grand Total : R{{grandTotal | number:'0.1-2'}}</strong></span>
-                                <!-- vatInclusive -->
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+            <tr *ngFor="let item of products;let i = index">
+              <td>{{i+1}}</td>
+              <td><img src="{{item.categorytypeimage}}" alt=""></td>
+              <td style="width: 25%;">{{item.ProductItemname}}</td>
+              <td style="width: 12%;">{{item.itemdescription}}</td>
+              <td style="width: 12%;">
+                <input id="quantity" type="number" class="no-spinners" placeholder="1" [value]="item.num"
+                  [(ngModel)]="item.num" min="1" (click)="reloadCurrentPage()" />
+              </td>
+              <td *ngIf="item.Specialprice" style="width: 12%;">R{{item.Specialprice | number:'0.1-2'}}</td>
+              <td *ngIf="item.Specialprice === 0" style="width: 12%;">R{{item.VATInc | number:'0.1-2'}}</td>
+
+              <!-- multiply price by the Quantity.value of the numeric up down -->
+              <td>
+                <button (click)="removeItem(item)" class="button is-rounded is-danger is-outlined"><i
+                    class="fas fa-trash-alt"></i></button>
+              </td>
+            </tr>
+
+            <tr>
+              <td colspan="3">
+
+              </td>
+              <td><button (click)="emptycart()" class="button is-rounded is-danger is-outlined">Empty Cart</button></td>
+              <td><button routerLink="/products" class="button is-info is-rounded is-outlined">Shop More</button></td>
+              <td>
+                <button class="button is-success is-rounded is-outlined" (click)=openmodal()
+                  id="launchModal">Checkout</button>
+              </td>
+              <td>
+
+                <div class="box">
+                  VAT total: R {{vatTotals | number:'0.1-2'}}<br />
+                </div>
+                <!-- <span class="tag is-large is-success is-rounded">VAT total: R {{vatTotals | number:'0.1-2'}}</span> -->
+                <span class="tag is-large is-success is-rounded"><strong>Grand Total : R{{grandTotal |
+                    number:'0.1-2'}}</strong></span>
+                <!-- vatInclusive -->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
 
-    
+
 </ng-container>
 
 <div class="help">
-  <button  routerLink="/products" class="button is-info is-rounded my-float">
+  <button routerLink="/products" class="button is-info is-rounded my-float">
     <a href="http://localhost:8080/Cart.html" target="_blank">
-               <i class="fa fa-question-circle" aria-hidden="true"></i>
-              </a>
+      <i class="fa fa-question-circle" aria-hidden="true"></i>
+    </a>
   </button>
 </div>
 
 <ng-container *ngIf="products.length ==0">
-    <div class="container has-text-centered is-large">
-            <div class="notification is-warning is-large">
-                <p class="title">
-                    Your cart is empty!
-                  </p>
-                  <p class="subtitle">
-                    Add item to it now
-                  </p>            
-                  <button routerLink="/products" class="button is-dark is-rounded is-outlined">Shop Now</button>
-            </div>
+  <div class="container has-text-centered is-large">
+    <div class="notification is-warning is-large">
+      <p class="title">
+        Your cart is empty!
+      </p>
+      <p class="subtitle">
+        Add item to it now
+      </p>
+      <button routerLink="/products" class="button is-dark is-rounded is-outlined">Shop Now</button>
     </div>
+  </div>
 
 </ng-container>
 
 
 <!-- Please Log in -->
-  <!-- <button class="button is-success is-rounded is-outlined" (click)=userLogin() id="launchModal">Checkout</button>
+<!-- <button class="button is-success is-rounded is-outlined" (click)=userLogin() id="launchModal">Checkout</button>
 
   <div id="loginModal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -107,8 +111,8 @@
  
     </div>
   </div> -->
-  
-  
+
+
 
 
 
@@ -122,39 +126,39 @@
         <h3 class="modal-title">
           Delivery or Collection
           <button type="button" class="btn-close btn-close-black" (click)=close()></button>
-       </h3>
+        </h3>
       </div>
-			<form #myForm="ngForm" (submit)="submitForm(myForm)" novalidate>
-              <div class="control">
-                <!-- Customer Email -->
-               <!--  <div>
+      <form #myForm="ngForm" (submit)="submitForm(myForm)" novalidate>
+        <div class="control">
+          <!-- Customer Email -->
+          <!--  <div>
                   <label class="label">Please enter your email address:</label>
                   <div class="control"> -->
-                   <!-- <input class="input" type="email" [formControl]="email" placeholder="hello@mymail.com" ngModel required>
+          <!-- <input class="input" type="email" [formControl]="email" placeholder="hello@mymail.com" ngModel required>
                    </div> 
                 </div>-->
 
-                  <!-- ReceiveType -->
-                  <div>
-                    <label class="label">Please select how you would like to receive your order:</label>
-                    <input id="delivery" type="radio" value="delivery" name="method" ngModel required>
-                    <label for="male">Delivery</label>
-                  </div>
-                  
-
-                   <div>
-                    <input id="collection" type="radio" value="collection" name="method" ngModel required>
-                    <label for="female">Collection</label>
-                  </div>
-
-                  <div *ngIf="isSubmitted && myForm.invalid">
-                    <p>Please select a value</p>
-                  </div> 
+          <!-- ReceiveType -->
+          <div>
+            <label class="label">Please select how you would like to receive your order:</label>
+            <input id="delivery" type="radio" value="delivery" name="method" ngModel required>
+            <label for="male">Delivery</label>
           </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)=close()>Close</button>
-        <button type="submit" class="btn btn-primary">Proceed</button>
-      </div>
+
+
+          <div>
+            <input id="collection" type="radio" value="collection" name="method" ngModel required>
+            <label for="female">Collection</label>
+          </div>
+
+          <div *ngIf="isSubmitted && myForm.invalid">
+            <p>Please select a value</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)=close()>Close</button>
+          <button type="submit" class="btn btn-primary">Proceed</button>
+        </div>
       </form>
     </div>
   </div>
@@ -164,84 +168,94 @@
 
 <!-- DELIVERY ADDRESS Modal -->
 
-<div class="modal" id="deliveryModal" tabindex="-1" role="dialog"  aria-hidden="true">
+<div class="modal" id="deliveryModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title">
           Delivery Address
           <button type="button" class="btn-close btn-close-black" (click)=closeDeliveryModal()></button>
-       </h3>
+        </h3>
       </div>
-			<form [formGroup]="addressform" (submit)="DeliveryCheckout()">
-              <div class="control"></div>
-                <!-- Customer addressline -->
-                <div>
-                  <label class="label">Please enter your address:</label>
-                  <!-- <div class="control"> -->
-                    <input class="input" formControlName="AddressLine1" type="text" placeholder="Address">
-                  <!-- </div> -->
-                </div>                
-                
-                <!-- Customer addressline2 -->
-                <div>
-                  <label class="label">Please enter your address:</label>
-                  <!-- <div class="control"> -->
-                    <input class="input" formControlName="addressline2" type="text" placeholder="Address">
-                  <!-- </div> -->
-                </div>  
-                                
-                <!-- Customer Province -->
-                <div>
-                  <label class="label">Please enter your Province:</label>
- 
-                    <!-- <select (blur)='onBlur()' [(ngModel)]="selectedOption" name="province" list="provincename" class="input" formControlName="provinceDescription" type="text" placeholder="Province">
-                      <option id="provincename" *ngFor="let province of provinceList" placeholder="Province">{{province.state_name}}</option>
-                    </select> -->
+      <form [formGroup]="addressform" (submit)="DeliveryCheckout()">
+        <div class="control"></div>
 
-                    <input (blur)='onBlur()' [(ngModel)]="selectedOption" name="province" list="provincename" class="input" formControlName="provinceDescription" type="text" placeholder="Province">
-                    <datalist id="provincename">
-                      <option *ngFor="let province of provinceList" placeholder="Province" value="{{province.state_name}}">
-                    </datalist>
-                </div> 
+        <!-- Customer  -->
+        <div class="mat-col-quarter">
+          <mat-form-field appearance="outline" class="control-m">
+            <mat-label>Please enter your address:</mat-label>
+            <input type="text" matInput placeholder="Address Line" formControlName="AddressLine1">
+            <mat-hint>Enter customer Address</mat-hint>
+            <mat-error *ngIf="addressform.controls['AddressLine1'].invalid">Please enter
+            </mat-error>
+          </mat-form-field>
+        </div>
 
-                <!-- Customer city -->
-                <div>
-                  <label class="label">Please enter your City:</label>
- 
-                  <!-- <select  [(ngModel)]="selectedOption2" name="city" list="cityname" class="input" formControlName="cityDescription" type="text" >
-                    <option id="cityname" *ngFor="let city of cityList" placeholder="City">{{city.city_name}}</option>
-                  </select> -->
+        <!-- Customer  -->
+        <div class="mat-col-quarter">
+          <mat-form-field appearance="outline" class="control-m">
+            <mat-label>Please enter your address:</mat-label>
+            <input type="text" matInput placeholder="Address Line 2" formControlName="addressline2">
+            <mat-hint>Enter customer Address </mat-hint>
+            <mat-error *ngIf="addressform.controls['addressline2'].invalid">Please enter
+            </mat-error>
+          </mat-form-field>
+        </div>
 
-                  <input [(ngModel)]="selectedOption2" name="city" list="cityname" class="input" formControlName="cityDescription" type="text">
-                  <datalist id="cityname" >
-                    <option *ngFor="let city of cityList" placeholder="City" value="{{city.city_name}}">
-                  </datalist>                   
-                    <div *ngIf="selectedOption2==='Port Shepstone' || selectedOption2==='Margate'|| selectedOption2==='Hibberdene'
-                    || selectedOption2=== 'Port Edward'|| selectedOption2=== 'South Broom'|| selectedOption2=== 'Shelley Beach'|| selectedOption2=== 'Umtentweni'
-                    || selectedOption2=== 'Ramsgate'; else courier">
-                      This is a local delivery. R25 will be added to total.
-                   </div>                   
-                   <ng-template #courier>
-                    This is a courier delivery. R50 will be added to total.
-                   </ng-template>
+        <!-- Customer  -->
+        <div class="mat-col-quarter">
+          <mat-form-field appearance="outline" class="control-m">
+            <mat-label>Please enter your Province:</mat-label>
+            <input (blur)='onBlur()' [(ngModel)]="selectedOption" name="province" list="provincename" matInput
+              formControlName="provinceDescription" type="text" placeholder="Province">
+            <datalist id="provincename">
+              <option *ngFor="let province of provinceList" placeholder="Province" value="{{province.state_name}}">
+            </datalist>
+            <mat-hint>Enter customer Province </mat-hint>
+            <mat-error *ngIf="addressform.controls['provinceDescription'].invalid">Please enter province
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Customer  -->
+        <div class="mat-col-quarter">
+          <mat-form-field appearance="outline" class="control-m">
+            <mat-label>Please enter your City:</mat-label>
+            <input [(ngModel)]="selectedOption2" name="city" list="cityname" matInput formControlName="cityDescription"
+              type="text">
+            <datalist id="cityname">
+              <option *ngFor="let city of cityList" placeholder="City" value="{{city.city_name}}">
+            </datalist>
+            <div *ngIf="selectedOption2==='Port Shepstone' || selectedOption2==='Margate'|| selectedOption2==='Hibberdene'
+              || selectedOption2=== 'Port Edward'|| selectedOption2=== 'South Broom'|| selectedOption2=== 'Shelley Beach'|| selectedOption2=== 'Umtentweni'
+              || selectedOption2=== 'Ramsgate'; else courier">
+              This is a local delivery. R25 will be added to total.
+            </div>
+            <ng-template #courier>
+              This is a courier delivery. R50 will be added to total.
+            </ng-template>
+
+            <mat-hint>Enter customer city</mat-hint>
+            <mat-error *ngIf="addressform.controls['cityDescription'].invalid">Please enter city
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Customer  -->
+        <div class="mat-col-quarter">
+          <mat-form-field appearance="outline" class="control-m">
+            <mat-label>Please enter your Postal Code:</mat-label>
+            <input type="text" matInput placeholder="Postal Code" formControlName="addressPostalCode">
+            <mat-hint>Enter customer PostalCode</mat-hint>
+            <mat-error *ngIf="addressform.controls['addressPostalCode'].invalid">Please enter PostalCode
+            </mat-error>
+          </mat-form-field>
+        </div>
 
 
-                </div>             
-<!--(click)='onBlurCity()'-->
-                <!-- Customer Postal Code -->
-                <div>
-                  <label class="label">Please enter your Postal Code:</label>
-                  <!-- <div class="control"> -->
-                    <input class="input" formControlName="addressPostalCode" type="text" placeholder="Postal Code">
-                  <!-- </div> -->
-                </div>
+        <div class="modal-footer">
 
-
-                  
-      <div class="modal-footer">
-                
-        <!-- <div class="box">
+          <!-- <div class="box">
           <button id="btnTotal" type="button" class="btn btn-secondary" (click)="onBlurCity()">Totals:</button>
           
           <div id="grandTotalDelivery">
@@ -251,11 +265,11 @@
           </div>
         </div> -->
 
-        <button type="button" class="btn btn-secondary" (click)="closeDeliveryModal()">Close</button>
-        <!-- <button id="btnTotal" type="button" class="btn btn-secondary" (click)="onBlurCity()">Totals</button> -->
-        
-        <button type="submit" class="btn btn-primary">Checkout</button>
-      </div>
+          <button type="button" class="btn btn-secondary" (click)="closeDeliveryModal()">Close</button>
+          <!-- <button id="btnTotal" type="button" class="btn btn-secondary" (click)="onBlurCity()">Totals</button> -->
+
+          <button type="submit" class="btn btn-primary">Checkout</button>
+        </div>
       </form>
     </div>
   </div>
@@ -264,41 +278,41 @@
 <!--TOTAL MODAL-->
 
 
-<div class="modal" id="totalModal" tabindex="-1" role="dialog"  aria-hidden="true">
+<div class="modal" id="totalModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title">
           Confirm Total
           <button type="button" class="btn-close btn-close-black" (click)=closeDeliveryModal()></button>
-       </h3>
+        </h3>
       </div>
       <div class="box">
         This is your Total:
-        
+
         <div id="grandTotalDelivery">
-          VAT total: R {{vatTotals | number:'0.1-2'}}<br/>
+          VAT total: R {{vatTotals | number:'0.1-2'}}<br />
           <strong>Grand Total : R{{grandTotal | number:'0.1-2'}}</strong>
 
         </div>
 
-                  
-      <div class="modal-footer">
 
-        <button type="button" class="btn btn-secondary" (click)="closeTotalModal()">Back</button>     
+        <div class="modal-footer">
 
+          <button type="button" class="btn btn-secondary" (click)="closeTotalModal()">Back</button>
+
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
 
 
 
-<!-- Please Log in -->
+  <!-- Please Log in -->
 
-<!-- <button class="button is-success is-rounded is-outlined" (click)=userLogin() id="launchModal">Display Final Price</button>
+  <!-- <button class="button is-success is-rounded is-outlined" (click)=userLogin() id="launchModal">Display Final Price</button>
   <div id="loginModal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -352,8 +366,8 @@
 
 
 
-<!--Open Google Maps Modal-->
-<!-- <div class="modal" id="deliveryModal" tabindex="-1" role="dialog"  aria-hidden="true">
+  <!--Open Google Maps Modal-->
+  <!-- <div class="modal" id="deliveryModal" tabindex="-1" role="dialog"  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -382,5 +396,4 @@
         </div>
   </div> 
 </div>-->
-<!--Close Google Maps Modal-->
-
+  <!--Close Google Maps Modal-->
