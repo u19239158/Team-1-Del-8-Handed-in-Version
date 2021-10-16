@@ -32,15 +32,19 @@ export class ForgotUsernameComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private log: AuthenticationService
-  ) {
-
-  }
+  ) { }
 
   ngOnInit(): void {
     var user = localStorage.getItem('username')
 
     this.username = user
     console.log(this.username)
+
+    const passwordValidators = [Validators.minLength(6)];
+    if (this.dialogRef) {
+      passwordValidators.push(Validators.required);
+    }
+
     const formOptions: AbstractControlOptions = { validators: MustMatch('userPassword', 'confirmNewPassword') };
     this.form = this.formBuilder.group({
       otp: ['', [Validators.minLength(6), Validators.required]],
@@ -52,31 +56,39 @@ export class ForgotUsernameComponent implements OnInit {
 
   Confirm(): void {
     // window.localStorage.removeItem("user");
-    const Login: Login = this.form.value;
-    Login.userUsername = this.username;
-     this.log.ResetPasswordOTP(Login).subscribe(res => {
-
-      this.snack.open('Successfully reset password! Please log in again ', 'OK',
-        {
-          verticalPosition: 'top',
-          horizontalPosition: 'center',
-          duration: 4000
-        });
-    }, (error: HttpErrorResponse) => {
-      console.log(error.error, "test")
-      if (error.status === 400) {
-        this.snack.open(error.error, 'OK',
+    if (this.form.valid) {
+      const Login: Login = this.form.value;
+      Login.userUsername = this.username;
+       this.log.ResetPasswordOTP(Login).subscribe(res => {
+  
+        this.snack.open('Successfully reset password! Please log in again ', 'OK',
           {
             verticalPosition: 'top',
             horizontalPosition: 'center',
             duration: 4000
           });
-        return;
-      }
-    })
-
-
-    this.dialogRef.close();
+      }, (error: HttpErrorResponse) => {
+        console.log(error.error, "test")
+        if (error.status === 400) {
+          this.snack.open(error.error, 'OK',
+            {
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
+              duration: 4000
+            });
+          return;
+        }
+      })
+      this.dialogRef.close();
+    }
+    else {
+      this.snack.open('Passwords do not match, please try again ', 'OK',
+          {
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            duration: 4000
+          });
+    }
   }
 
   Cancel(): void {
