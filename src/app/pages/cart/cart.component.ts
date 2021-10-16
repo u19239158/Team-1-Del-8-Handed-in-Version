@@ -327,6 +327,7 @@ export class CartComponent implements OnInit {
       saleLists: this.products,
       addressid: this.addy.addressId
     }
+    if (this.addressform.valid) {
     this.cartService.Checkout(Sale).subscribe(data => {
       console.log(data)
     })
@@ -342,6 +343,7 @@ export class CartComponent implements OnInit {
     // });
     this.router.navigateByUrl('products')
   }
+}
 
   makePayment() {
     const data = {
