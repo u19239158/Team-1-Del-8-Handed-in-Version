@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ForgotUsernameComponent } from '../forgot-username/forgot-username.component';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private _location: Location,
     private router: Router,
     private dialog: MatDialog,
     private snack: MatSnackBar,
@@ -67,6 +69,10 @@ export class LoginComponent implements OnInit {
           });
       }}
       )}
+      
+      backClicked() {
+        this._location.back();
+      }
 
   //         let user$ = this.authenticationService.Login(username, password);
 
