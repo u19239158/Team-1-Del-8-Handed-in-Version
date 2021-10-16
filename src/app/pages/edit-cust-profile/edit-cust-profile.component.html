@@ -1,12 +1,12 @@
- <button routerLink="/products" class="button is-info is-rounded my-float">
-    <a href="http://localhost:8080/UpdateProfile.html" target="_blank">
-               <i class="fa fa-question-circle" aria-hidden="true"></i>
-              </a>
-  </button>
-  
+<button routerLink="/products" class="button is-info is-rounded my-float">
+  <a href="http://localhost:8080/UpdateProfile.html" target="_blank">
+    <i class="fa fa-question-circle" aria-hidden="true"></i>
+  </a>
+</button>
+
 <div class="content" align="center">
 
- <h2>Update Customer Profile</h2>
+  <h2>Update Customer Profile</h2>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
@@ -15,11 +15,11 @@
       <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m">
           <mat-label>Title </mat-label>
-          <mat-select formControlName="titleID">
-            <mat-option *ngFor="let c of collection" [value]="c.titleId">{{c.titleDescription}}</mat-option>
+          <mat-select formControlName="titleId">
+            <mat-option *ngFor="let c of collection" value="c.titleId">{{c.titleDesc}}</mat-option>
           </mat-select>
           <mat-hint>Select customer title</mat-hint>
-          <mat-error *ngIf="form.controls['titleID'].invalid">Please Select a Title</mat-error>
+          <mat-error *ngIf="form.controls['titleId'].invalid">Please Select a Title</mat-error>
         </mat-form-field>
       </div>
 
@@ -84,7 +84,7 @@
 
     <div class="mat-row">
 
-     <!-- Customer Contact Number -->
+      <!-- Customer Contact Number -->
       <div class="mat-col-quarter">
         <mat-form-field appearance="outline" class="control-m">
           <mat-label>Customer Number</mat-label>
@@ -98,13 +98,14 @@
       <!-- Customer buttons -->
       <div class="mat-col-quarter">
         <div class="control-m">
-          <div class="form-group">
             <button mat-raised-button color="primary" [disabled]="loading">
               <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
               Save
             </button>
             <a (click)="Cancel()" mat-button>Cancel</a>
-          </div>
         </div>
       </div>
-    <div>
+    </div>
+
+  </form>
+</div>
