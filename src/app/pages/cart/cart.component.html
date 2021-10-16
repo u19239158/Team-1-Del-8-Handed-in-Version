@@ -184,9 +184,9 @@
         <div class="mat-col-quarter">
           <mat-form-field appearance="outline" class="control-m">
             <mat-label>Please enter your address:</mat-label>
-            <input type="text" matInput placeholder="Address Line" formControlName="AddressLine1">
-            <mat-hint>Enter customer Address</mat-hint>
-            <mat-error *ngIf="addressform.controls['AddressLine1'].invalid">Please enter
+            <input type="text" matInput placeholder="Address Line 1" formControlName="AddressLine1">
+            <mat-hint>Enter Address</mat-hint>
+            <mat-error *ngIf="addressform.controls['AddressLine1'].invalid">Please enter address
             </mat-error>
           </mat-form-field>
         </div>
@@ -197,7 +197,7 @@
             <mat-label>Please enter your address:</mat-label>
             <input type="text" matInput placeholder="Address Line 2" formControlName="addressline2">
             <mat-hint>Enter customer Address </mat-hint>
-            <mat-error *ngIf="addressform.controls['addressline2'].invalid">Please enter
+            <mat-error *ngIf="addressform.controls['addressline2'].invalid">Please enter address
             </mat-error>
           </mat-form-field>
         </div>
@@ -211,7 +211,7 @@
             <datalist id="provincename">
               <option *ngFor="let province of provinceList" placeholder="Province" value="{{province.state_name}}">
             </datalist>
-            <mat-hint>Enter customer Province </mat-hint>
+            <mat-hint>Enter Province </mat-hint>
             <mat-error *ngIf="addressform.controls['provinceDescription'].invalid">Please enter province
             </mat-error>
           </mat-form-field>
@@ -235,7 +235,7 @@
               This is a courier delivery. R50 will be added to total.
             </ng-template>
 
-            <mat-hint>Enter customer city</mat-hint>
+            <mat-hint>Enter city</mat-hint>
             <mat-error *ngIf="addressform.controls['cityDescription'].invalid">Please enter city
             </mat-error>
           </mat-form-field>
@@ -246,8 +246,8 @@
           <mat-form-field appearance="outline" class="control-m">
             <mat-label>Please enter your Postal Code:</mat-label>
             <input type="text" matInput placeholder="Postal Code" formControlName="addressPostalCode">
-            <mat-hint>Enter customer PostalCode</mat-hint>
-            <mat-error *ngIf="addressform.controls['addressPostalCode'].invalid">Please enter PostalCode
+            <mat-hint>Enter postal code</mat-hint>
+            <mat-error *ngIf="addressform.controls['addressPostalCode'].invalid">Invalid postal code
             </mat-error>
           </mat-form-field>
         </div>

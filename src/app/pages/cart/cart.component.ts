@@ -328,22 +328,30 @@ export class CartComponent implements OnInit {
       addressid: this.addy.addressId
     }
     if (this.addressform.valid) {
-    this.cartService.Checkout(Sale).subscribe(data => {
-      console.log(data)
-    })
-    this.TotalPrice()
-    console.log(this.grandTotal)
-    this.makePayment();
-    this.cartService.removeAllCart();
-    // this.snack.open('Order Placed! Shop Again!', 'OK', 
-    // {
-    //   verticalPosition: 'top',
-    //   horizontalPosition: 'center',
-    //   duration: 2000
-    // });
-    this.router.navigateByUrl('products')
+      this.cartService.Checkout(Sale).subscribe(data => {
+        console.log(data)
+      })
+      this.TotalPrice()
+      console.log(this.grandTotal)
+      this.makePayment();
+      this.cartService.removeAllCart();
+      // this.snack.open('Order Placed! Shop Again!', 'OK', 
+      // {
+      //   verticalPosition: 'top',
+      //   horizontalPosition: 'center',
+      //   duration: 2000
+      // });
+      this.router.navigateByUrl('products')
+    }
+    else {
+      this.snack.open('Please Enter Address to Checkout.', 'OK',
+        {
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          duration: 4000
+        });
+    }
   }
-}
 
   makePayment() {
     const data = {
