@@ -18,7 +18,7 @@
         <div class="mat-col-quarter">
             <mat-form-field appearance="outline" class="control-m">
                 <mat-label>Supplier Payment</mat-label>
-                <input type="text" matInput placeholder="Supplier Payment" formControlName="supplierAmount">
+                <input type="text" matInput placeholder="Supplier Payment" formControlName="supplierAmount" placeholder="e.g. 25.50">
                 <span matPrefix>R &nbsp;</span>
                  <mat-hint>Enter payment amount</mat-hint>
                 <mat-error *ngIf="form.controls['supplierAmount'].invalid">Please enter the payment amount</mat-error> 

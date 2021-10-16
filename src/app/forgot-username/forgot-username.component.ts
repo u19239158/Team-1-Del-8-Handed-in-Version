@@ -50,6 +50,7 @@ export class ForgotUsernameComponent implements OnInit {
 
   Confirm(): void {
     // window.localStorage.removeItem("user");
+    if (this.form.valid) {
     const Login: Login = this.form.value;
     Login.userUsername =this.username;
     this.log.ResetPasswordOTP(Login).subscribe( res => {
@@ -72,15 +73,22 @@ export class ForgotUsernameComponent implements OnInit {
         return;
       }
     })
-    
-    
     this.dialogRef.close();
   }
+  else {
+    this.snack.open('Passwords do not match, please try again ', 'OK',
+        {
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          duration: 4000
+        });
+  }
+}
 
   Cancel(): void {
     this.dialogRef.close();
   }
-
+  
 }
 function ngOnInit() {
   throw new Error('Function not implemented.');
