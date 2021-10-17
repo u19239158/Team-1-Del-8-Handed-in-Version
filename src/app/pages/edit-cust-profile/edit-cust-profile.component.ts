@@ -41,7 +41,7 @@ export class EditCustProfileComponent implements OnInit {
     this.userid = obj.userId
 
     this.getCollection();
-    
+
     const formOptions: AbstractControlOptions = {};
     this.customerService.GetProfile(this.userid).subscribe(res => {
       console.log(res);
@@ -55,7 +55,7 @@ export class EditCustProfileComponent implements OnInit {
         //customerUsername: [this.Customer.customerUserName, [Validators.required]],
         customerBusinessName: [this.Customer.customerBusinessName, [Validators.maxLength(50)]],
         customerVATReg: [this.Customer.customerVATReg, [Validators.minLength(10), Validators.maxLength(10)]],
-       // titleDesc: [this.Customer.titleDesc, [Validators.maxLength(50)]],
+        // titleDesc: [this.Customer.titleDesc, [Validators.maxLength(50)]],
         // customerPassword: ['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
         // customerConfirmPassword: ['', this.isAddMode ? Validators.required : Validators.nullValidator]
       }, formOptions);
@@ -77,11 +77,11 @@ export class EditCustProfileComponent implements OnInit {
     this.customerService.UpdateProfile(customer).subscribe(res => {
       console.log(res)
       this.snack.open('Successfully Updated Your Profile! ', 'OK',
-            {
-              verticalPosition: 'top',
-              horizontalPosition: 'center',
-              duration: 3000
-            });
+        {
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          duration: 3000
+        });
       //this.form.reset();
       this.router.navigateByUrl('/customer');
     });
@@ -92,7 +92,7 @@ export class EditCustProfileComponent implements OnInit {
     this.http
       .get<any>('https://localhost:44393/api/Title/GetTitle').subscribe((res: any) => {
         this.collection = res;
-        console.log(res);
+        console.log("title", res);
       }, error => {
         console.log({ error });
       })

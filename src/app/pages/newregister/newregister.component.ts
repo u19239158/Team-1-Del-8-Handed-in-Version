@@ -32,7 +32,7 @@ export class NewregisterComponent implements OnInit {
   ngOnInit(): void {
     this.getCollection()
 
-    
+
     // start password code
     const passwordValidators = [Validators.minLength(6)];
     // end password code
@@ -48,7 +48,7 @@ export class NewregisterComponent implements OnInit {
       customerBusinessName: ['', [Validators.maxLength(50)]],
       customerVATReg: ['', [Validators.minLength(10), Validators.maxLength(10)]],
       userPassword: ['', [Validators.minLength(6), Validators.required, Validators.nullValidator]],
-      customerConfirmPassword: ['', Validators.required , Validators.nullValidator],
+      customerConfirmPassword: ['', Validators.required, Validators.nullValidator],
     }, formOptions);
   }
 
@@ -67,15 +67,15 @@ export class NewregisterComponent implements OnInit {
     this.CustomerService.Register(customer).subscribe(res => {
       console.log(res)
       this.loading = false
-     
+
       this.router.navigateByUrl('login');
- 
-    }), this.snack.open('Succesfully registered. Please Login ', 'OK', 
-    {
-      verticalPosition: 'top',
-      horizontalPosition: 'center',
-      duration: 4000
-    });
+
+    }), this.snack.open('Succedsfully registered. Please Login ', 'OK',
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        duration: 4000
+      });
   }
 
   getCollection() {

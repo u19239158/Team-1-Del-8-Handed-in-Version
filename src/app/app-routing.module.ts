@@ -8,19 +8,20 @@ import { CustomersComponent } from './pages/customerProfile/customers.component'
 import { EditCustProfileComponent } from './pages/edit-cust-profile/edit-cust-profile.component';
 import { NewregisterComponent } from './pages/newregister/newregister.component';
 import { LearnMoreComponent } from './pages/learn-more/learn-more.component';
+import { NewEditProfileComponent } from './new-edit-profile/new-edit-profile.component';
 
 const routes: Routes = [
-  { 
-    path: '', pathMatch: 'full', redirectTo: 'home' 
+  {
+    path: '', pathMatch: 'full', redirectTo: 'home'
   },
-  { 
-    path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) 
+  {
+    path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule)
   },
-  { 
-    path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) 
+  {
+    path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   },
-  { 
-    path: 'register', loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterModule) 
+  {
+    path: 'register', loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterModule)
   },
   {
     path: 'products',
@@ -50,6 +51,11 @@ const routes: Routes = [
     path: 'learnmore',
     component: LearnMoreComponent
   },
+
+  {
+    path: 'neweditprofile',
+    component: NewEditProfileComponent
+  }
 ];
 
 @NgModule({

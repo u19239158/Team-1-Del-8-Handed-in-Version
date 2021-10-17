@@ -26,6 +26,7 @@ import { NewregisterComponent } from './pages/newregister/newregister.component'
 import { ForgotUsernameComponent } from './forgot-username/forgot-username.component';
 import { LearnMoreComponent } from './pages/learn-more/learn-more.component';
 import { LogoutComponent } from './logout/logout.component';
+import { NewEditProfileComponent } from './new-edit-profile/new-edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { LogoutComponent } from './logout/logout.component';
     NewregisterComponent,
     ForgotUsernameComponent,
     LearnMoreComponent,
-    LogoutComponent
+    LogoutComponent,
+    NewEditProfileComponent
 
   ],
   imports: [

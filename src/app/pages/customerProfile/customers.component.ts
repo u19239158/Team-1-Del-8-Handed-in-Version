@@ -16,7 +16,7 @@ import { GlobalConfirmComponent } from 'src/app/modals/globals/global-confirm/gl
 export class CustomersComponent implements OnInit {
   customer: Customer = {} as Customer;
   isSubmitted = false;
-  userid : number;
+  userid: number;
   customers: Observable<Customer[]>;
 
   constructor(
@@ -24,22 +24,22 @@ export class CustomersComponent implements OnInit {
     private httpClient: HttpClient,
     private router: Router,
     private snack: MatSnackBar
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     var ids = localStorage.getItem('user')
     const obj = JSON.parse(ids)
-    if(obj == null){
+    if (obj == null) {
       this.snack.open('You are not logged in. Please login to view your profile.', 'OK',
         {
           verticalPosition: 'top',
           horizontalPosition: 'center',
           duration: 5000
         });
-        this.router.navigateByUrl('/login')
+      this.router.navigateByUrl('/login')
     }
-   console.log(obj.userId) 
-   this.userid = obj.userId
+    console.log(obj.userId)
+    this.userid = obj.userId
     console.log(obj)
 
     // this.customerService.GetProfile(1)
@@ -49,11 +49,11 @@ export class CustomersComponent implements OnInit {
     //   })
 
     this.customerService.GetProfile(obj.userId)
-    .subscribe(res => {
-      this.customer = res
-      console.log(res)
-      console.log(this.customer)
-    });
+      .subscribe(res => {
+        this.customer = res
+        console.log(res)
+        console.log(this.customer)
+      });
 
 
   }
@@ -69,40 +69,39 @@ export class CustomersComponent implements OnInit {
   }
 
   editProfile() {
-    this.router.navigateByUrl('/editProfile')
+    this.router.navigateByUrl('/neweditprofile')
   }
 
   back() {
     this.router.navigateByUrl('/')
   }
 
-  deleteProfile(){
-    this.customerService.DeleteProfile(this.customer).subscribe( res =>{
+  deleteProfile() {
+    this.customerService.DeleteProfile(this.customer).subscribe(res => {
       window.localStorage.removeItem("user");
       window.localStorage.removeItem("token");
       this.router.navigateByUrl('');
       this.snack.open('You have successfully deleted your profile', 'OK',
-      {
-        verticalPosition: 'top',
-        horizontalPosition: 'center',
-          duration: 4000
-      });
-    },
-      (error: HttpErrorResponse)=>
-      {
-      if (error.status === 400)
         {
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          duration: 4000
+        });
+    },
+      (error: HttpErrorResponse) => {
+        if (error.status === 400) {
           this.snack.open(error.error, 'OK',
-          {
-            verticalPosition: 'top',
-            horizontalPosition: 'center',
+            {
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
               duration: 4000
-          });
-      }})
-    
+            });
+        }
+      })
+
   }
 
-  
+
 
   // readCustomers(): void {
   //    this.customerService.GetCustomer()

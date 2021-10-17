@@ -1,0 +1,121 @@
+<div class="content">
+
+    <a mat-mini-fab color="primary" href="http://localhost:8080/UpdateSpecial.html" target="_blank"
+        aria-label="Example icon button with a menu icon" class="help">
+        <mat-icon>help</mat-icon>
+    </a>
+
+    <div class="content">
+        <h2>Update Profile</h2>
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+
+            <!-- Title -->
+            <div class="mat-row">
+
+                <div class="mat-col-quarter">
+                    <mat-form-field appearance="outline" class="control-m">
+                        <mat-label>Title </mat-label>
+                        <mat-select formControlName="titleID">
+                            <mat-option *ngFor="let c of collection" [value]="c.titleId">{{c.titleDescription}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-hint>Select customer title</mat-hint>
+                        <mat-error *ngIf="form.controls['titleID'].invalid">Please Select a Title</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <!-- Customer email address -->
+                <div class="mat-col-quarter">
+                    <mat-form-field appearance="outline" class="control-m">
+                        <mat-label>Customer Email Address</mat-label>
+                        <input type="text" matInput placeholder="Customer Email Address"
+                            formControlName="customerEmailAddress">
+                        <mat-hint>Enter customer email address</mat-hint>
+                        <mat-error *ngIf="form.controls['customerEmailAddress'].invalid">Please enter Customer Email
+                            Address
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+            <div class="mat-row">
+
+                <!-- Customer Name -->
+                <div class="mat-col-quarter">
+                    <mat-form-field appearance="outline" class="control-m">
+                        <mat-label>Customer Name</mat-label>
+                        <input type="text" matInput placeholder="Customer Name" formControlName="customerName">
+                        <mat-hint>Enter customer name</mat-hint>
+                        <mat-error *ngIf="form.controls['customerName'].invalid">Please enter Customer Name</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <!-- Customer Business Name -->
+                <div class="mat-col-quarter">
+                    <mat-form-field appearance="outline" class="control-m">
+                        <mat-label>Customer Business Name </mat-label>
+                        <input type="text" matInput placeholder="Customer Business Name "
+                            formControlName="customerBusinessName">
+                        <mat-hint>Enter customer business name</mat-hint>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+            <div class="mat-row">
+                <!-- Customer Surname -->
+                <div class="mat-col-quarter">
+                    <mat-form-field appearance="outline" class="control-m">
+                        <mat-label>Customer Surname</mat-label>
+                        <input type="text" matInput placeholder="Customer surname" formControlName="customerSurname">
+                        <mat-hint>Enter customer surname</mat-hint>
+                        <mat-error *ngIf="form.controls['customerSurname'].invalid">Please enter Customer Surname
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+                <!-- Customer VAT Number -->
+                <div class="mat-col-quarter">
+                    <mat-form-field appearance="outline" class="control-m">
+                        <mat-label>Customer VAT Number</mat-label>
+                        <input type="text" matInput placeholder="Customer VAT Number" formControlName="customerVATReg">
+                        <mat-hint>Enter customer VAT number</mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="mat-row">
+
+                <!-- Customer Contact Number -->
+                <div class="mat-col-quarter">
+                    <mat-form-field appearance="outline" class="control-m">
+                        <mat-label>Customer Number</mat-label>
+                        <input type="text" matInput placeholder="Customer Contact Number"
+                            formControlName="customerCellphoneNumber">
+                        <mat-hint>Enter customer contact number</mat-hint>
+                        <mat-error *ngIf="form.controls['customerCellphoneNumber'].invalid">Please enter Customer
+                            Contact
+                            Number</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <!-- Customer buttons -->
+                <div class="mat-col-quarter">
+                    <div class="control-m">
+                        <div class="form-group">
+                            <button mat-raised-button color="primary" [disabled]="loading">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                Save
+                            </button>
+                            <a (click)="Close()" mat-button>Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
