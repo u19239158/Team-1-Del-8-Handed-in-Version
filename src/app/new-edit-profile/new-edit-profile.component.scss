@@ -11,18 +11,11 @@ h2 {
   }
 
   
-.help{
-	position:fixed;
-	width:90px;
-	height:60px;
-	bottom:40px;
-	left:90px;
-	/* background-color:#0C9; */
-	color:#FFF;
-	border-radius:50px;
-	text-align:center;
-	/* box-shadow: 2px 2px 3px #999; */
-}
+  .help{
+    position: absolute;
+    left: 20px;
+    top: 75px;
+  }
 
 a {
 	color: white;

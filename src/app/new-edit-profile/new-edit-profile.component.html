@@ -4,7 +4,7 @@
         aria-label="Example icon button with a menu icon" class="help">
         <mat-icon>help</mat-icon>
     </a>
-
+    
     <div class="content">
         <h2>Update Profile</h2>
 
@@ -107,7 +107,7 @@
                 <div class="mat-col-quarter">
                     <div class="control-m">
                         <div class="form-group">
-                            <button mat-raised-button color="primary" [disabled]="loading">
+                            <button mat-raised-button color="primary" [disabled]="loading" (click)="editCustomer()">
                                 <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                                 Save
                             </button>

@@ -53,7 +53,6 @@ export class NewEditProfileComponent implements OnInit {
     this.CustomerService.GetProfile(this.userid).subscribe(res => {
       this.customer = res;
       console.log("l54", this.customer)
-    });
 
     const formOptions: AbstractControlOptions = {};
 
@@ -66,7 +65,7 @@ export class NewEditProfileComponent implements OnInit {
       customerBusinessName: [this.customer.customerBusinessName, [Validators.maxLength(50)]],
       customerVATReg: [this.customer.customerVATReg, [Validators.minLength(10), Validators.maxLength(10)]],
     }, formOptions);
-
+  });
   }
 
 
