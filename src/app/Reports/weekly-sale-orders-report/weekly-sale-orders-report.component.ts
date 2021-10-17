@@ -151,6 +151,17 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
         this.dataSauce = new MatTableDataSource(res)
         this.dataSauce.sort = this.sort;
         console.log(res);
+      },  (error: HttpErrorResponse) => {
+        console.log(error.error, "test")
+        if (error.status === 400) {
+          this.snack.open(error.error, 'OK',
+            {
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
+              duration: 3000
+            });
+          return;
+        }
       })
     }, (error: HttpErrorResponse) => {
       console.log(error.error, "test")

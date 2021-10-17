@@ -1,21 +1,25 @@
 <div class="content">
   <h2>Capture Order</h2>
-  
-<a mat-mini-fab color="primary" href="http://localhost:8080/ViewOrder.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
-                <mat-icon>help</mat-icon>
-              </a>
 
-    <br>
+  <a mat-mini-fab color="primary" href="http://localhost:8080/ViewOrder.html" target="_blank"
+    aria-label="Example icon button with a menu icon" class="help">
+    <mat-icon>help</mat-icon>
+  </a>
+
+  <br>
 
   <div>
 
     <table mat-table [dataSource]="dataSource" matSort>
+
       <!-- Position Column -->
       <ng-container matColumnDef="checkbox">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Select </th>
         <td mat-cell *matCellDef="let element">
-          <mat-checkbox (click)="AddInvoiceQuantity(element.supplierProducts, element.productItemId)"></mat-checkbox>
-         </td>
+          <mat-checkbox #checkbox
+            (click)="AddInvoiceQuantity(element.supplierProducts, element.productItemId, checkbox.checked)"
+            [(ngModel)]="checkboxes[element.productItemId]"></mat-checkbox>
+        </td>
       </ng-container>
 
       <!-- Product Item -->
@@ -33,70 +37,67 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-      <mat-paginator [pageSizeOptions]="[5, 8, 15, 35]"
-  showFirstLastButtons 
-  aria-label="Select page">
-</mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 8, 15, 35]" showFirstLastButtons aria-label="Select page">
+    </mat-paginator>
 
   </div>
 
-<br>
-<br>
+  <br>
+  <br>
 
-<mat-card>
+  <mat-card>
 
-      <div class="col-md-4">
-        <h4>Items Recieved: {{list.length}} </h4>
+    <div class="col-md-4">
+      <h4>Items Received: {{list.length}} </h4>
 
-        <li *ngFor="let item of list">
-        <b> Name: </b> {{item.name}} <b> Quantity: </b> {{item.quantity}}
-        </li>
+      <li *ngFor="let item of list">
+        <b> Name: </b> {{item.name}} &nbsp; <b> Quantity: </b> {{item.quantity}}
+      </li>
 
-      </div>
-    </mat-card>
+    </div>
+  </mat-card>
 
-<div class="main">
+  <div class="main">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-<div class="mat-row">
-    <div class="mat-col-quarter">
-        <mat-form-field appearance="outline" class="control-m" >
-        <span matPrefix>R &nbsp;</span>
-             <mat-label  >Invoive Total</mat-label> 
-            <input type="number" matInput placeholder="Enter invoice total amount" matInput placeholder="e.g. 25.50" formControlName="invoiceTotal" ngModel required>
-            <mat-hint >Enter invoice total</mat-hint>
-        </mat-form-field>
-    </div>
+      <div class="mat-row">
+        <div class="mat-col-quarter">
+          <mat-form-field appearance="outline" class="control-m">
+            <span matPrefix>R &nbsp;</span>
+            <mat-label>Invoice Total</mat-label>
+            <input type="number" matInput placeholder="Enter invoice total amount" matInput placeholder="e.g. 25.50"
+              formControlName="invoiceTotal" ngModel required>
+            <mat-hint>Enter invoice total</mat-hint>
+          </mat-form-field>
+        </div>
 
-   <div class="mat-col-quarter">
-      <div appearance="outline" [ngClass]="imageError ? 'mat-col-quarter image-error' : 'mat-col-quarter image-border'" class="upload">
-        <label class="image-upload-container btn btn-bwm">
-          <span>Upload Invoice</span>
-          <input #fileInput type="file" accept=".pdf" (change)="upload($event)">
-          <br>
-          <mat-hint>Upload invoice</mat-hint>
-        </label>
+        <div class="mat-row">
+          <div appearance="outline"
+            [ngClass]="imageError ? 'mat-col-quarter image-error' : 'mat-col-quarter image-border'">
+            <label class="image-upload-container btn btn-bwm">
+              <span>Upload Invoice &nbsp; &nbsp;</span>
+              <input #fileInput type="file" accept=".pdf" (change)="upload($event)">
+              <br>
+            </label>
+          </div>
+        </div>
+
+        <div class="hintText">
+          <div [ngClass]="imageError ? 'image-error-message' : ''">
+            Upload invoice
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="mat-col-quarter">
-      <div [ngClass]="imageError ? 'image-error-message' : ''">
-        Please Select an Image
+      <div>
+        <div>
+          <button mat-raised-button color="primary" [disabled]="loading" (click)="finalOrder()">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Save
+          </button>
+          <a (click)="Close()" mat-button>Cancel</a>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div>
-    <div>
-       <button mat-raised-button color ="primary" [disabled]="loading" (click)="finalOrder()">
-          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-          Save
-      </button>
-      <a (click)="Close()" mat-button>Cancel</a>
-    </div>
+    </form>
   </div>
-
-  </form>
-  </div>
-  </div>
-
-  
+</div>

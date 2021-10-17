@@ -182,7 +182,8 @@ export class PlaceSupplierOrderComponent implements OnInit {
       horizontalPosition: 'center',
       duration: 4000
     });
-    this.router.navigateByUrl('receiveSupplierOrder');
+    this.router.navigateByUrl('supplier');
+    
   }
 
   clearOrder() {

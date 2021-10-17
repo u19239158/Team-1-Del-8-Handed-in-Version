@@ -113,7 +113,7 @@ export class ViewSaleComponent implements OnInit {
 
     confirm.afterClosed().subscribe(res => {
       if (res) {
-        this.router.navigateByUrl('onlineSales');
+        
         this.OnlineSalesService.GetSaleByID(this.id).subscribe(data => {
           console.log(data)
           if (data.saleOrderRecieveType == true) {
@@ -134,7 +134,7 @@ export class ViewSaleComponent implements OnInit {
                   });
                 });
               });
-
+              this.router.navigateByUrl('onlineSales');
             }
           }
           else {
@@ -176,6 +176,7 @@ export class ViewSaleComponent implements OnInit {
 
   closeDialog = () => {
     this.dialogRef.close();
+    window.location.reload();
   }
 
   // check_box_type = CheckBoxType;
@@ -209,6 +210,7 @@ export class ViewSaleComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
+    
   }
 
   Close() {

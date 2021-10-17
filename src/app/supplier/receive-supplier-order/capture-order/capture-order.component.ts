@@ -19,15 +19,15 @@ import { MatPaginator } from '@angular/material/paginator';
 export class CaptureOrderComponent implements OnInit {
   displayedColumns: string[] = ['checkbox', 'productItemName', 'quantityOnHand'];
   dataSource = new MatTableDataSource<ReceiveSupplierOrder>();
-  RecieveSupplierOrder: ReceiveSupplierOrder[];
-  recievesupplierorder: ReceiveSupplierOrder;
+  ReceiveSupplierOrder: ReceiveSupplierOrder[];
+  receivesupplierorder: ReceiveSupplierOrder;
   receiveSupplierOrders: ReceiveSupplierOrder[] = [];
   userid: number;
   path: File;
   SupplierOrderId: any;
   imageError: boolean;
   id: number;
-  public list: place[]=[];
+  public list: place[] = [];
   quant: number;
   supplierId: number;
   loading = false;
@@ -35,15 +35,16 @@ export class CaptureOrderComponent implements OnInit {
   form = this.FB.group({
     invoiceTotal: [null, Validators.required],
 
-
-    
   })
+
+  checkboxes = {};
+
   constructor(
     private receiveSupplierService: ReceiveSupplierService,
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private dialog: MatDialog,
-    private storage : AngularFireStorage,
+    private storage: AngularFireStorage,
     private route: ActivatedRoute,
     private router: Router,
     private FB: FormBuilder,
@@ -56,36 +57,45 @@ export class CaptureOrderComponent implements OnInit {
 
     var ids = localStorage.getItem('user')
     const obj = JSON.parse(ids)
-   this.userid = obj.userId
+    this.userid = obj.userId
   }
 
-  readSupplierOrder(SupplierOrderId:any): void {
+  readSupplierOrder(SupplierOrderId: any): void {
     this.receiveSupplierService.getSupplierOrderByID(this.id).subscribe(res => {
       this.supplierId = res[0].supplierID;
       this.SupplierOrderId = res[0].supplierOrderID;
-      console.log(res);
+
       this.dataSource = new MatTableDataSource(res)
       setTimeout(() => this.dataSource.paginator = this.paginator);
     })
   }
 
-  AddInvoiceQuantity(supplierProducts: string, productItemId: number) {
+  AddInvoiceQuantity(supplierProducts: string, productItemId: number, checked: boolean) {
+
+    if (checked) {
+      for (let i = 0; i < this.list.length; i++) {
+        const product = this.list[i];
+        if (product.id === productItemId) {
+          this.list.splice(i, 1)
+          return
+        }
+      }
+    }
+
     const confirm = this.dialog.open(QuantityReceivedComponent, {
       disableClose: true,
     });
-   
-     confirm.afterClosed().subscribe(res => {
 
-      if(res) {
-      // this.QuantityModalComponent.content.event.subscribe(res => {
-      
-      var num = localStorage.getItem('invoiceQuantity');
-      const q = JSON.parse(num);
-      this.quant = q;
-      console.log(this.quant);
-      console.log(res);
-      this.list.push({name: supplierProducts, quantity: this.quant , id:productItemId });
-      console.log(this.list);
+    confirm.afterClosed().subscribe(res => {
+
+      if (res) {
+        // this.QuantityModalComponent.content.event.subscribe(res => {
+
+        var num = localStorage.getItem('invoiceQuantity');
+        const q = JSON.parse(num);
+        this.quant = q;
+
+        this.list.push({ name: supplierProducts, quantity: this.quant, id: productItemId });
       }
       // this.router.navigateByUrl('placeSupplierOrder');
     })
@@ -98,27 +108,29 @@ export class CaptureOrderComponent implements OnInit {
     }
 
     this.loading = true;
-    
+
   }
 
 
-  async upload(event) {    
+  async upload(event) {
     this.path = event.target.files[0]
   }
 
-  async uploadImage(){
+  async uploadImage() {
     const key = `/files${Math.random()}${this.path.name}`;
     console.log(this.path)
-     await this.storage.upload(key, this.path);
-  
+    await this.storage.upload(key, this.path);
+
     const fileref = this.storage.ref(key);
 
     const downloadUrl = fileref.getDownloadURL();
     return downloadUrl;
 
   }
-  
+
   AddQuantity() {
+
+
     const confirm = this.dialog.open(QuantityReceivedComponent, {
       disableClose: true,
     });
@@ -128,7 +140,7 @@ export class CaptureOrderComponent implements OnInit {
     })
   }
 
-  Close(){
+  Close() {
     this.router.navigateByUrl("receiveSupplierOrder");
   }
 
@@ -142,13 +154,13 @@ export class CaptureOrderComponent implements OnInit {
     this.loading = true;
     const img = await this.uploadImage();
 
-    img.subscribe(imgpath =>{
+    img.subscribe(imgpath => {
       const Data = {
-        supplierInvoiceTotal : receiveOrder.invoiceTotal,
-        InvoiceLineList : this.list,
+        supplierInvoiceTotal: receiveOrder.invoiceTotal,
+        InvoiceLineList: this.list,
         supplierId: this.supplierId,
         supplierOrderId: this.SupplierOrderId,
-        usersid : receiveOrder.usersId,
+        usersid: receiveOrder.usersId,
         supplierInvoicePdf: imgpath
       }
       this.receiveSupplierService.ReceiveSupplierOrder(Data).subscribe(res => {
@@ -156,17 +168,17 @@ export class CaptureOrderComponent implements OnInit {
         this.loading = false
         this.router.navigateByUrl('receiveSupplierOrder')
       })
-      this.snack.open('Order Successfuly Captured! ', 'OK', 
-      {
-        verticalPosition: 'top',
-        horizontalPosition: 'center',
-        duration: 4000
-      });
-     })
-    
-  
-   
-  
+      this.snack.open('Order Successfully Captured! ', 'OK',
+        {
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          duration: 4000
+        });
+    })
+
+
+
+
     // const Data = {
     //   supplierInvoiceTotal : receiveOrder.invoiceTotal,
     //   InvoiceLineList : this.list,
@@ -175,9 +187,9 @@ export class CaptureOrderComponent implements OnInit {
     //   usersid : receiveOrder.usersId,
     // }
 
-   
+
   }
 
-  
+
 
 }

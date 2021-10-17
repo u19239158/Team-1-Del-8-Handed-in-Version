@@ -1,12 +1,14 @@
 <div class="content">
 
-  <a *ngIf="isAddMode" mat-mini-fab color="primary" href="http://localhost:8080/AddCategoryType1.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
-                <mat-icon>help</mat-icon>
-              </a>
+  <a *ngIf="isAddMode" mat-mini-fab color="primary" href="http://localhost:8080/AddCategoryType1.html" target="_blank"
+    aria-label="Example icon button with a menu icon" class="help">
+    <mat-icon>help</mat-icon>
+  </a>
 
-              <a *ngIf="!isAddMode" mat-mini-fab color="primary" href="http://localhost:8080/UpdateCategoryType1.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
-                <mat-icon>help</mat-icon>
-              </a>
+  <a *ngIf="!isAddMode" mat-mini-fab color="primary" href="http://localhost:8080/UpdateCategoryType1.html"
+    target="_blank" aria-label="Example icon button with a menu icon" class="help">
+    <mat-icon>help</mat-icon>
+  </a>
 
   <h2 *ngIf="isAddMode">Add Category Types</h2>
   <h2 *ngIf="!isAddMode">Edit Category Types</h2>
@@ -15,16 +17,17 @@
 
     <div class="mat-row">
       <!-- Choose category image -->
-      <div appearance="outline" [ngClass]="imageError ? 'mat-col-quarter image-error' : 'mat-col-quarter image-border'" class="mat-col-quarter">
+      <div appearance="outline" [ngClass]="imageError ? 'mat-col-quarter image-error' : 'mat-col-quarter image-border'"
+        class="mat-col-quarter">
         <label class="image-upload-container btn btn-bwm">
-          <span>Select Image</span>
-          <input #fileInput type="file" accept=".png,.jpg,.jpeg" (change)="upload($event)">
+          <span>Select Image &nbsp; &nbsp;</span>
+          <input #fileInput type="file" accept=".png,.jpg,.jpeg" (change)="upload($event)"> &nbsp;
           <br>
         </label>
       </div>
     </div>
 
-     <div class="mat-row">
+    <div class="mat-row">
       <div [ngClass]="imageError ? 'image-error-message' : ''">
         Please Select an Image
       </div>
@@ -51,7 +54,8 @@
           <mat-label>Category Type Name</mat-label>
           <input type="text" matInput placeholder="Category Type Name" formControlName="categoryTypeDescription">
           <mat-hint>Enter category type name</mat-hint>
-           <mat-error *ngIf="form.controls['categoryTypeDescription'].invalid">Please Enter a Category Type Name</mat-error>
+          <mat-error *ngIf="form.controls['categoryTypeDescription'].invalid">Please Enter a Category Type Name
+          </mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -62,14 +66,15 @@
           <mat-label>Category Type Description</mat-label>
           <input type="text" matInput placeholder="Category Type Name" formControlName="itemDescription">
           <mat-hint>Enter category type description</mat-hint>
-          <mat-error *ngIf="form.controls['itemDescription'].invalid">Please Enter a Category Type Description</mat-error>
+          <mat-error *ngIf="form.controls['itemDescription'].invalid">Please Enter a Category Type Description
+          </mat-error>
         </mat-form-field>
       </div>
     </div>
 
     <div class="mat-row">
       <div class="form-group" class="control-m">
-        <button mat-raised-button color="primary"  [disabled]="loading">
+        <button mat-raised-button color="primary" [disabled]="loading">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Save
         </button>
