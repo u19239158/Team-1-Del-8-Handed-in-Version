@@ -193,36 +193,47 @@ namespace NKAP_API_2.Controllers
         //Create a Model for table
         public IActionResult CaptureSupplierPayment(SupplierPaymentModel model) //reference the model
         {
-            SupplierPayment payment = new SupplierPayment
-            {
-                //attributes in table 
-                SupplierAmount = model.SupplierAmount,
-                SupplierId = model.SupplierId,
-                SupplierPaymentDate = System.DateTime.Now
-                 
-            };
-            _db.SupplierPayments.Add(payment);
-            _db.SaveChanges();
 
             Supplier Suppayment = _db.Suppliers.Find(model.SupplierId);
+            if (Suppayment.SupplierBalance >= model.SupplierAmount)
             {
-                //attributes in table 
-                Suppayment.SupplierBalance = Suppayment.SupplierBalance - model.SupplierAmount;
-            };
-            _db.Suppliers.Attach(Suppayment);
-            _db.SaveChanges();
+                {
+                    //attributes in table 
+                    Suppayment.SupplierBalance = Suppayment.SupplierBalance - model.SupplierAmount;
+                };
 
-            var user = _db.Users.Find(model.UsersID);
-            AuditTrail audit = new AuditTrail();
-            audit.AuditTrailDescription = user.UserUsername + " captured payment to the value of R" + model.SupplierAmount + " to supplier: " + Suppayment.SupplierName;
-            audit.AuditTrailDate = System.DateTime.Now;
-            TimeSpan timeNow = DateTime.Now.TimeOfDay;
-            audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
-            audit.UsersId = user.UsersId;
-            _db.AuditTrails.Add(audit);
-            _db.SaveChanges();
+                SupplierPayment payment = new SupplierPayment
+                {
+                    //attributes in table 
+                    SupplierAmount = model.SupplierAmount,
+                    SupplierId = model.SupplierId,
+                    SupplierPaymentDate = System.DateTime.Now
 
-            return Ok();
+                };
+                _db.SupplierPayments.Add(payment);
+                _db.SaveChanges();
+
+
+                _db.Suppliers.Attach(Suppayment);
+                _db.SaveChanges();
+
+                var user = _db.Users.Find(model.UsersID);
+                AuditTrail audit = new AuditTrail();
+                audit.AuditTrailDescription = user.UserUsername + " captured payment to the value of R" + model.SupplierAmount + " to supplier: " + Suppayment.SupplierName;
+                audit.AuditTrailDate = System.DateTime.Now;
+                TimeSpan timeNow = DateTime.Now.TimeOfDay;
+                audit.AuditTrailTime = new TimeSpan(timeNow.Hours, timeNow.Minutes, timeNow.Seconds);
+                audit.UsersId = user.UsersId;
+                _db.AuditTrails.Add(audit);
+                _db.SaveChanges();
+
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Value entered is greater than the current supplier balance");
+            }
+          
         }
     }
 }
