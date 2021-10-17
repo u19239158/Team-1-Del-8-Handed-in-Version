@@ -4,7 +4,7 @@ import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 
 //import ChartDataLabels from 'chartjs-plugin-datalabels';
 //import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import { Label } from 'ng2-charts';
+import { Color, Label } from 'ng2-charts';
 import { ReportServiceService } from '../services/Reports/report-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -70,9 +70,12 @@ export class DashboardComponent implements OnInit {
   
   //public barChartPlugins = [pluginDataLabels];
 
-  public barChartDat: ChartDataSets[] = [
+  public barChartDat: ChartDataSets[] = [];
 
-  ];
+  public barChartColors: Color[] = [
+    { backgroundColor: 'red' },
+    { backgroundColor: 'green' },
+  ]
 
   //Piechart
   public pieChartOptions: ChartOptions = {

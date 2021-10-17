@@ -2,7 +2,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 // import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import { Label } from 'ng2-charts';
+import { Color, Label } from 'ng2-charts';
 import { ReportParameters, Reports } from 'src/app/interfaces';
 import { ReportServiceService } from 'src/app/services/Reports/report-service.service';
 import html2canvas from 'html2canvas';
@@ -13,7 +13,6 @@ import { DateAdapter } from '@angular/material/core';
 import { MatDateRangeSelectionStrategy, DateRange, MAT_DATE_RANGE_SELECTION_STRATEGY } from '@angular/material/datepicker';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSort } from '@angular/material/sort';
-
 
 @Injectable()
 export class WeekSelectionStrategy<D>
@@ -85,6 +84,11 @@ export class PopularLocationReportComponent implements OnInit {
   public barChartLabels: Label[] = ['Gauteng', 'KZN', 'Limpopo', 'Northern Cape', 'Eastern Cape', 'Western Cape', 'Mpumalanga', 'North West'];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
+  public pieChartColors = [
+    {
+      backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)',  'rgba(0,0,255,0.4)'],
+    },
+  ];
   // public barChartPlugins = [pluginDataLabels];
 
   @ViewChild(MatSort) sort: MatSort;
