@@ -121,6 +121,7 @@
 <div class="text">
   <h2>Total Sales For the Week: R{{total | number:'1.1-2'}} </h2>
   <h2>Average Sale Amount: R{{aveg | number:'1.1-2'}}</h2> 
+   <h2>Total Sales For the Year: R{{yeartot | number:'1.1-2'}}</h2>
 </div>
             <table mat-table [dataSource]="dataSauce" matSort>
                 
@@ -141,7 +142,7 @@
 
                 <ng-container matColumnDef="totalAmountSold">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Amount Sold </th>
-                    <td mat-cell *matCellDef="let element"> {{element.price | number:'1.1-2'}} </td>
+                    <td mat-cell *matCellDef="let element"> R{{element.price | number:'1.1-2'}} </td>
                 </ng-container>
 
                        
