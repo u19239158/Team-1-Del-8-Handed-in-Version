@@ -1,12 +1,14 @@
 <h2 mat-dialog-title>
-    <a mat-mini-fab color="primary" href="http://localhost:8080/QuantityReceived.html" target="_blank" aria-label="Example icon button with a menu icon" class="help">
-                <mat-icon>help</mat-icon>
-              </a>
-     Quantity Received</h2>
+    <a mat-mini-fab color="primary" href="http://localhost:8080/QuantityReceived.html" target="_blank"
+        aria-label="Example icon button with a menu icon" class="help">
+        <mat-icon>help</mat-icon>
+    </a>
+    Quantity Received
+</h2>
 <mat-dialog-content class="mat-typography">
 
     <form [formGroup]="form" class="main">
-        <input type="number" min="1" matInput placeholder="Add Quantity" formControlName="quantity">
+        <input type="number" [max]=quantity [min]="1" matInput placeholder="Add Quantity" formControlName="quantity">
     </form>
 
 </mat-dialog-content>

@@ -11,11 +11,14 @@
   <div>
 
     <table mat-table [dataSource]="dataSource" matSort>
+
       <!-- Position Column -->
       <ng-container matColumnDef="checkbox">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Select </th>
         <td mat-cell *matCellDef="let element">
-          <mat-checkbox (click)="AddInvoiceQuantity(element.supplierProducts, element.productItemId)"></mat-checkbox>
+          <mat-checkbox #checkbox
+            (click)="AddInvoiceQuantity(element.supplierProducts, element.productItemId, checkbox.checked)"
+            [(ngModel)]="checkboxes[element.productItemId]"></mat-checkbox>
         </td>
       </ng-container>
 
@@ -45,10 +48,10 @@
   <mat-card>
 
     <div class="col-md-4">
-      <h4>Items Recieved: {{list.length}} </h4>
+      <h4>Items Received: {{list.length}} </h4>
 
       <li *ngFor="let item of list">
-        <b> Name: </b> {{item.name}} <b> Quantity: </b> {{item.quantity}}
+        <b> Name: </b> {{item.name}} &nbsp; <b> Quantity: </b> {{item.quantity}}
       </li>
 
     </div>
@@ -60,7 +63,7 @@
         <div class="mat-col-quarter">
           <mat-form-field appearance="outline" class="control-m">
             <span matPrefix>R &nbsp;</span>
-            <mat-label>Invoive Total</mat-label>
+            <mat-label>Invoice Total</mat-label>
             <input type="number" matInput placeholder="Enter invoice total amount" matInput placeholder="e.g. 25.50"
               formControlName="invoiceTotal" ngModel required>
             <mat-hint>Enter invoice total</mat-hint>
