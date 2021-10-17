@@ -75,6 +75,7 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
   };
   form: FormGroup
   created = false;
+  yeartot: any;
 
   // ReportParameters: ReportParameters[];
 
@@ -142,8 +143,6 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
       this.dataSource = new MatTableDataSource(data)
       this.dataSource.sort = this.sort;
     
-    
-
     this.serv.SalesReportAvg(this.form.value).subscribe(res => {
       console.log(res)
       this.aveg = res;
