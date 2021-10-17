@@ -21,7 +21,7 @@
                     <mat-select formControlName="titleID">
                         <mat-option *ngFor="let c of collection" [value]="c.titleId">{{c.titleDescription}}</mat-option>
                     </mat-select>
-                    <mat-hint>Select customer title</mat-hint>
+                    <mat-hint>Select your title</mat-hint>
                     <mat-error *ngIf="form.controls['titleID'].invalid">Please Select a Title</mat-error>
                 </mat-form-field>
             </div>
@@ -31,8 +31,8 @@
                 <mat-form-field appearance="outline" class="control-m">
                     <mat-label>Customer Name</mat-label>
                     <input type="text" matInput placeholder="Customer Name" formControlName="customerName">
-                    <mat-hint>Enter customer name</mat-hint>
-                    <mat-error *ngIf="form.controls['customerName'].invalid">Please enter Customer Name</mat-error>
+                    <mat-hint>Enter your name</mat-hint>
+                    <mat-error *ngIf="form.controls['customerName'].invalid">Please enter your Name</mat-error>
                 </mat-form-field>
             </div>
 
@@ -45,8 +45,8 @@
                 <mat-form-field appearance="outline" class="control-m">
                     <mat-label>Customer Surname</mat-label>
                     <input type="text" matInput placeholder="Customer surname" formControlName="customerSurname">
-                    <mat-hint>Enter customer surname</mat-hint>
-                    <mat-error *ngIf="form.controls['customerSurname'].invalid">Please enter Customer Surname
+                    <mat-hint>Enter your surname</mat-hint>
+                    <mat-error *ngIf="form.controls['customerSurname'].invalid">Please enter your Surname
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -57,7 +57,7 @@
                     <mat-label>Customer Business Name </mat-label>
                     <input type="text" matInput placeholder="Customer Business Name "
                         formControlName="customerBusinessName">
-                    <mat-hint>Enter customer business name</mat-hint>
+                    <mat-hint>Enter your business name</mat-hint>
                 </mat-form-field>
             </div>
         </div>
@@ -69,7 +69,7 @@
                     <mat-label>Customer Email Address</mat-label>
                     <input type="text" matInput placeholder="Customer Email Address"
                         formControlName="customerEmailAddress">
-                    <mat-hint>Enter customer email address</mat-hint>
+                    <mat-hint>Enter your email address</mat-hint>
                     <mat-error *ngIf="form.controls['customerEmailAddress'].invalid">Please enter a valid Email
                         Address
                     </mat-error>
@@ -80,7 +80,7 @@
                 <mat-form-field appearance="outline" class="control-m">
                     <mat-label>VAT Registration number</mat-label>
                     <input formControlName="customerVATReg" matInput>
-                    <mat-hint>Enter customer VAT registration number</mat-hint>
+                    <mat-hint>Enter your VAT registration number</mat-hint>
                     <mat-error *ngIf="form.controls['customerVATReg'].invalid">Please enter a valid VAT Registration
                         number
                     </mat-error>
@@ -95,7 +95,7 @@
                     <mat-label>Customer Username</mat-label>
                     <mat-hint>Enter your username</mat-hint>
                     <input type="text" matInput placeholder="Customer Username" formControlName="userUsername">
-                    <mat-error *ngIf="form.controls['userUsername'].invalid">Please enter Customer
+                    <mat-error *ngIf="form.controls['userUsername'].invalid">Please enter your
                         Username</mat-error>
                 </mat-form-field>
             </div>
@@ -106,9 +106,8 @@
                     <mat-label>Customer Number</mat-label>
                     <input type="text" matInput placeholder="Customer Contact Number"
                         formControlName="customerCellphoneNumber">
-                    <mat-hint>Enter customer contact number</mat-hint>
-                    <mat-error *ngIf="form.controls['customerCellphoneNumber'].invalid">Please enter Customer
-                        Contact Number</mat-error>
+                    <mat-hint>Enter your contact number</mat-hint>
+                    <mat-error *ngIf="form.controls['customerCellphoneNumber'].invalid">Please enter a valid contact number</mat-error>
                 </mat-form-field>
             </div>
         </div>
@@ -119,8 +118,8 @@
                 <mat-form-field appearance="outline" class="control-m">
                     <mat-label>Customer Password</mat-label>
                     <input type="password" matInput placeholder="Customer Password" formControlName="userPassword">
-                    <mat-hint>Enter customer password</mat-hint>
-                    <mat-error *ngIf="form.controls['userPassword'].invalid">Password must be
+                    <mat-hint>Enter your password</mat-hint>
+                    <mat-error *ngIf="form.controls['userPassword'].invalid">Password must be 6 characters long
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -131,7 +130,7 @@
                     <mat-label>Confirm Customer Password</mat-label>
                     <input type="password" matInput placeholder="Confirm Customer Password"
                         formControlName="customerConfirmPassword">
-                        <mat-hint>Confirm customer password</mat-hint>
+                        <mat-hint>Confirm your password</mat-hint>
                     <mat-error *ngIf="form.controls['customerConfirmPassword'].invalid">Please confirm your password</mat-error>
                 </mat-form-field>
             </div>
