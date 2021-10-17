@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -48,13 +48,13 @@ export class NewregisterComponent implements OnInit {
       customerBusinessName: ['', [Validators.maxLength(50)]],
       customerVATReg: ['', [Validators.minLength(10), Validators.maxLength(10)]],
       userPassword: ['', [Validators.minLength(6), Validators.required, Validators.nullValidator]],
-      customerConfirmPassword: ['', Validators.required, Validators.nullValidator],
+      customerConfirmPassword: ['', [Validators.required, Validators.nullValidator]],
     }, formOptions);
   }
 
   onSubmit() {
     const customer: User = this.form.value;
-    if (customer.userPassword !== customer.customerConfirmPassword) {
+    if (customer.userPassword != customer.customerConfirmPassword) {
       // alert("Your passwords do not match")
       this.snack.open('Your passwords do not match ', 'OK',
         {
@@ -67,15 +67,34 @@ export class NewregisterComponent implements OnInit {
     this.CustomerService.Register(customer).subscribe(res => {
       console.log(res)
       this.loading = false
-
-      this.router.navigateByUrl('login');
-
-    }), this.snack.open('Succedsfully registered. Please Login ', 'OK',
+      this.router.navigateByUrl('login')
+      , this.snack.open('Successfully registered. Please Login ', 'OK',
       {
         verticalPosition: 'top',
         horizontalPosition: 'center',
         duration: 4000
       });
+    },(error: HttpErrorResponse)=>
+    {
+    if (error.status === 400)
+      {
+        this.snack.open(error.error, 'OK',
+        {
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+            duration: 4000
+        });
+       
+    }
+    if (error.status === 403)
+    {
+      this.snack.open('Username already taken!', 'OK',
+      {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+          duration: 4000
+      });}
+    })
   }
 
   getCollection() {
