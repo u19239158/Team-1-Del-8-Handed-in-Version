@@ -75,6 +75,7 @@ export class WeeklySaleOrdersReportComponent implements OnInit {
   };
   form: FormGroup
   created = false;
+  yeartot: any;
 
   // ReportParameters: ReportParameters[];
 
