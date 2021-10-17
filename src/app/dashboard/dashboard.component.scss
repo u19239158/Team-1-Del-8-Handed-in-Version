@@ -1,5 +1,5 @@
 .split {
-  top: 30%;
+  top: 35%;
   height: 70%;
   width: 50%;
   position: fixed;
@@ -8,7 +8,11 @@
   padding-top: 40px;
 }
 
-
+h2 {
+  text-align: center;
+  font-weight: 40;
+  font-size: 45px;
+}
 
 .help{
   position: absolute;
@@ -16,8 +20,13 @@
   top: 75px;
 }
 
-.left {
+.dropdown{
+  position: absolute;
+  left: 20px;
+  top: 75px;
+}
 
+.left {
   background-color: white;
 }
 

@@ -114,6 +114,36 @@ export class DashboardComponent implements OnInit {
       productCategoryId: ['', [Validators.required]],
     }, formOptions);
     //this.readDeliveryReport()
+    let ProductCategory: any[] =  [];
+    let CategoryType: any[] =  [];
+    let NumberOfSales: number[] =  [];
+    let NumbOfSales: number[] =  [];
+    let pieSales: number[] =  [];
+    const counts: any[] =  [];
+
+    this.serv.DashboardPieSales().subscribe(data => {
+      console.log(data)
+      this.created = false;
+      // Restructure data for chart
+      CategoryType = data.map(x => x.CategoryType);
+      NumbOfSales = data.map(x => x.Price)
+      // Generate Chart
+      this.generatePChart(CategoryType, NumbOfSales)
+      // Call table data method
+     // this.generateTables(data);
+    }, (error: HttpErrorResponse) => {
+      console.log(error.error, "test")
+      if (error.status === 400) {
+        this.snack.open(error.error, 'OK',
+          {
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            duration: 5000
+          });
+        return;
+      }
+  
+    })
   }
   // events
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
@@ -177,29 +207,6 @@ export class DashboardComponent implements OnInit {
 
   })
 
-  this.serv.DashboardPieSales().subscribe(data => {
-    console.log(data)
-    this.created = false;
-    // Restructure data for chart
-    CategoryType = data.map(x => x.CategoryType);
-    NumbOfSales = data.map(x => x.Price)
-    // Generate Chart
-    this.generatePChart(CategoryType, NumbOfSales)
-    // Call table data method
-   // this.generateTables(data);
-  }, (error: HttpErrorResponse) => {
-    console.log(error.error, "test")
-    if (error.status === 400) {
-      this.snack.open(error.error, 'OK',
-        {
-          verticalPosition: 'top',
-          horizontalPosition: 'center',
-          duration: 5000
-        });
-      return;
-    }
-
-  })
 
 ;
 }
